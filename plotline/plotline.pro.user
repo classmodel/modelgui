@@ -61,49 +61,50 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-oI3qrwdBko,guid=34fdb480217e74cc7049d02b4b470586</value>
-    <value type="QString" >DESKTOP_SESSION=default</value>
-    <value type="QString" >DESKTOP_STARTUP_ID=</value>
-    <value type="QString" >DISPLAY=:0.0</value>
-    <value type="QString" >DM_CONTROL=/var/run/xdmctl</value>
-    <value type="QString" >GPG_AGENT_INFO=/tmp/gpg-ZYoQ9H/S.gpg-agent:1606:1</value>
-    <value type="QString" >GS_LIB=/home/bart/.fonts</value>
-    <value type="QString" >GTK2_RC_FILES=/etc/gtk-2.0/gtkrc:/home/bart/.gtkrc-2.0:/home/bart/.gtkrc-2.0-kde4:/home/bart/.kde/share/config/gtkrc-2.0</value>
-    <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/bart/.gtkrc::/home/bart/.kde/share/config/gtkrc</value>
-    <value type="QString" >HOME=/home/bart</value>
-    <value type="QString" >KDE_FULL_SESSION=true</value>
-    <value type="QString" >KDE_MULTIHEAD=false</value>
-    <value type="QString" >KDE_SESSION_UID=1000</value>
-    <value type="QString" >KDE_SESSION_VERSION=4</value>
+    <value type="QString" >Apple_PubSub_Socket_Render=/tmp/launch-KK3FzB/Render</value>
+    <value type="QString" >CC=gcc</value>
+    <value type="QString" >COMMAND_MODE=legacy</value>
+    <value type="QString" >CXX=g++</value>
+    <value type="QString" >DISPLAY=/tmp/launch-fAwO4j/:0</value>
+    <value type="QString" >DYLD_LIBRARY_PATH=:/usr/local/cuda/lib</value>
+    <value type="QString" >F77=gfortran</value>
+    <value type="QString" >F90=gfortran</value>
+    <value type="QString" >FC=gfortran</value>
+    <value type="QString" >GFORTRAN_UNBUFFERED_ALL=yes</value>
+    <value type="QString" >HOME=/Users/chiel</value>
+    <value type="QString" >JASPERINC=/opt/local/include</value>
+    <value type="QString" >JASPERLIB=/opt/local/lib</value>
     <value type="QString" >LANG=en_US.UTF-8</value>
-    <value type="QString" >LD_LIBRARY_PATH=/home/bart/QT/lib/qtcreator:</value>
-    <value type="QString" >LOGNAME=bart</value>
-    <value type="QString" >PATH=/home/bart/QT/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
-    <value type="QString" >PWD=/home/bart/Documents</value>
-    <value type="QString" >QTDIR=/home/bart/QT/qt</value>
-    <value type="QString" >QT_PLUGIN_PATH=/home/bart/.kde/lib/kde4/plugins/:/usr/lib/kde4/plugins/</value>
-    <value type="QString" >SESSION_MANAGER=local/BvSXubu:@/tmp/.ICE-unix/1702,unix/BvSXubu:/tmp/.ICE-unix/1702</value>
+    <value type="QString" >LC_ALL=en_US.UTF-8</value>
+    <value type="QString" >LOGNAME=chiel</value>
+    <value type="QString" >MAKEFLAGS=-j2</value>
+    <value type="QString" >MANPATH=/usr/local/man:/opt/local/share/man:</value>
+    <value type="QString" >NCARG_ROOT=/usr/local</value>
+    <value type="QString" >NETCDF=/opt/arch</value>
+    <value type="QString" >OLDPWD=/Users/chiel/models/mlmodel</value>
+    <value type="QString" >PATH=/Developer/Tools/Qt:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/texbin:/usr/X11/bin:/usr/local/cuda/bin</value>
+    <value type="QString" >PWD=/Users/chiel/models/mlmodel/plotline</value>
+    <value type="QString" >QTDIR=/usr</value>
     <value type="QString" >SHELL=/bin/bash</value>
-    <value type="QString" >SHLVL=0</value>
-    <value type="QString" >SSH_AGENT_PID=1605</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-XydRdQ1561/agent.1561</value>
-    <value type="QString" >USER=bart</value>
-    <value type="QString" >WINDOWPATH=7</value>
-    <value type="QString" >XCURSOR_THEME=oxy-white</value>
-    <value type="QString" >XDG_DATA_DIRS=/usr/share:/usr/share:/usr/local/share</value>
-    <value type="QString" >XDG_SESSION_COOKIE=82d9ce9601b5b1daef616c924af68546-1262945669.677674-1873823859</value>
-    <value type="QString" >XDM_MANAGED=method=classic</value>
+    <value type="QString" >SHLVL=1</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/launch-9gdiCA/Listeners</value>
+    <value type="QString" >TERM=xterm-color</value>
+    <value type="QString" >TERM_PROGRAM=Apple_Terminal</value>
+    <value type="QString" >TERM_PROGRAM_VERSION=272</value>
+    <value type="QString" >TMPDIR=/var/folders/uf/ufL3Vf02FRm2bOJ-XA9F3E+++TI/-Tmp-/</value>
+    <value type="QString" >USER=chiel</value>
+    <value type="QString" >_=/usr/bin/open</value>
+    <value type="QString" >__CF_USER_TEXT_ENCODING=0x1F5:0:0</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
-    <value type="QString" >/home/bart/MAQwur/CloudsClimate/mlmodel/plotline/plotline.pro</value>
+    <value type="QString" >/Volumes/UnixHD/models/mlmodel/plotline/plotline.pro</value>
     <value type="QString" >-spec</value>
-    <value type="QString" >linux-g++</value>
+    <value type="QString" >macx-g++</value>
     <value type="QString" >-r</value>
-    <value type="QString" >CONFIG+=debug</value>
    </valuelist>
-   <value key="abstractProcess.command" type="QString" >/home/bart/QT/qt/bin/qmake</value>
+   <value key="abstractProcess.command" type="QString" >/usr/bin/qmake</value>
    <value key="abstractProcess.enabled" type="bool" >false</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/home/bart/MAQwur/CloudsClimate/mlmodel/plotline</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/Volumes/UnixHD/models/mlmodel/plotline</value>
    <value key="buildConfiguration" type="int" >2</value>
   </valuemap>
  </data>
@@ -112,45 +113,47 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-oI3qrwdBko,guid=34fdb480217e74cc7049d02b4b470586</value>
-    <value type="QString" >DESKTOP_SESSION=default</value>
-    <value type="QString" >DESKTOP_STARTUP_ID=</value>
-    <value type="QString" >DISPLAY=:0.0</value>
-    <value type="QString" >DM_CONTROL=/var/run/xdmctl</value>
-    <value type="QString" >GPG_AGENT_INFO=/tmp/gpg-ZYoQ9H/S.gpg-agent:1606:1</value>
-    <value type="QString" >GS_LIB=/home/bart/.fonts</value>
-    <value type="QString" >GTK2_RC_FILES=/etc/gtk-2.0/gtkrc:/home/bart/.gtkrc-2.0:/home/bart/.gtkrc-2.0-kde4:/home/bart/.kde/share/config/gtkrc-2.0</value>
-    <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/bart/.gtkrc::/home/bart/.kde/share/config/gtkrc</value>
-    <value type="QString" >HOME=/home/bart</value>
-    <value type="QString" >KDE_FULL_SESSION=true</value>
-    <value type="QString" >KDE_MULTIHEAD=false</value>
-    <value type="QString" >KDE_SESSION_UID=1000</value>
-    <value type="QString" >KDE_SESSION_VERSION=4</value>
+    <value type="QString" >Apple_PubSub_Socket_Render=/tmp/launch-KK3FzB/Render</value>
+    <value type="QString" >CC=gcc</value>
+    <value type="QString" >COMMAND_MODE=legacy</value>
+    <value type="QString" >CXX=g++</value>
+    <value type="QString" >DISPLAY=/tmp/launch-fAwO4j/:0</value>
+    <value type="QString" >DYLD_LIBRARY_PATH=:/usr/local/cuda/lib</value>
+    <value type="QString" >F77=gfortran</value>
+    <value type="QString" >F90=gfortran</value>
+    <value type="QString" >FC=gfortran</value>
+    <value type="QString" >GFORTRAN_UNBUFFERED_ALL=yes</value>
+    <value type="QString" >HOME=/Users/chiel</value>
+    <value type="QString" >JASPERINC=/opt/local/include</value>
+    <value type="QString" >JASPERLIB=/opt/local/lib</value>
     <value type="QString" >LANG=en_US.UTF-8</value>
-    <value type="QString" >LD_LIBRARY_PATH=/home/bart/QT/lib/qtcreator:</value>
-    <value type="QString" >LOGNAME=bart</value>
-    <value type="QString" >PATH=/home/bart/QT/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
-    <value type="QString" >PWD=/home/bart/Documents</value>
-    <value type="QString" >QTDIR=/home/bart/QT/qt</value>
-    <value type="QString" >QT_PLUGIN_PATH=/home/bart/.kde/lib/kde4/plugins/:/usr/lib/kde4/plugins/</value>
-    <value type="QString" >SESSION_MANAGER=local/BvSXubu:@/tmp/.ICE-unix/1702,unix/BvSXubu:/tmp/.ICE-unix/1702</value>
+    <value type="QString" >LC_ALL=en_US.UTF-8</value>
+    <value type="QString" >LOGNAME=chiel</value>
+    <value type="QString" >MAKEFLAGS=-j2</value>
+    <value type="QString" >MANPATH=/usr/local/man:/opt/local/share/man:</value>
+    <value type="QString" >NCARG_ROOT=/usr/local</value>
+    <value type="QString" >NETCDF=/opt/arch</value>
+    <value type="QString" >OLDPWD=/Users/chiel/models/mlmodel</value>
+    <value type="QString" >PATH=/Developer/Tools/Qt:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/texbin:/usr/X11/bin:/usr/local/cuda/bin</value>
+    <value type="QString" >PWD=/Users/chiel/models/mlmodel/plotline</value>
+    <value type="QString" >QTDIR=/usr</value>
     <value type="QString" >SHELL=/bin/bash</value>
-    <value type="QString" >SHLVL=0</value>
-    <value type="QString" >SSH_AGENT_PID=1605</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/ssh-XydRdQ1561/agent.1561</value>
-    <value type="QString" >USER=bart</value>
-    <value type="QString" >WINDOWPATH=7</value>
-    <value type="QString" >XCURSOR_THEME=oxy-white</value>
-    <value type="QString" >XDG_DATA_DIRS=/usr/share:/usr/share:/usr/local/share</value>
-    <value type="QString" >XDG_SESSION_COOKIE=82d9ce9601b5b1daef616c924af68546-1262945669.677674-1873823859</value>
-    <value type="QString" >XDM_MANAGED=method=classic</value>
+    <value type="QString" >SHLVL=1</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/launch-9gdiCA/Listeners</value>
+    <value type="QString" >TERM=xterm-color</value>
+    <value type="QString" >TERM_PROGRAM=Apple_Terminal</value>
+    <value type="QString" >TERM_PROGRAM_VERSION=272</value>
+    <value type="QString" >TMPDIR=/var/folders/uf/ufL3Vf02FRm2bOJ-XA9F3E+++TI/-Tmp-/</value>
+    <value type="QString" >USER=chiel</value>
+    <value type="QString" >_=/usr/bin/open</value>
+    <value type="QString" >__CF_USER_TEXT_ENCODING=0x1F5:0:0</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
     <value type="QString" >-w</value>
    </valuelist>
    <value key="abstractProcess.command" type="QString" >/usr/bin/make</value>
    <value key="abstractProcess.enabled" type="bool" >true</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/home/bart/MAQwur/CloudsClimate/mlmodel/plotline</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/Volumes/UnixHD/models/mlmodel/plotline</value>
   </valuemap>
  </data>
  <data>
