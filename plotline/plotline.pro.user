@@ -76,6 +76,7 @@
     <value type="QString" >KDE_SESSION_UID=1000</value>
     <value type="QString" >KDE_SESSION_VERSION=4</value>
     <value type="QString" >LANG=en_US.UTF-8</value>
+    <value type="QString" >LANGUAGE=</value>
     <value type="QString" >LD_LIBRARY_PATH=/home/bart/QT/lib/qtcreator:</value>
     <value type="QString" >LOGNAME=bart</value>
     <value type="QString" >PATH=/home/bart/QT/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
@@ -95,7 +96,7 @@
     <value type="QString" >XDM_MANAGED=method=classic</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
-    <value type="QString" >/home/bart/MAQwur/CloudsClimate/mlmodel/plotline/plotline.pro</value>
+    <value type="QString" >/home/bart/MAQwur/CloudsClimate/gitorious/plotline/plotline.pro</value>
     <value type="QString" >-spec</value>
     <value type="QString" >linux-g++</value>
     <value type="QString" >-r</value>
@@ -103,7 +104,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString" >/home/bart/QT/qt/bin/qmake</value>
    <value key="abstractProcess.enabled" type="bool" >false</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/home/bart/MAQwur/CloudsClimate/mlmodel/plotline</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/home/bart/MAQwur/CloudsClimate/gitorious/plotline</value>
    <value key="buildConfiguration" type="int" >2</value>
   </valuemap>
  </data>
@@ -127,6 +128,7 @@
     <value type="QString" >KDE_SESSION_UID=1000</value>
     <value type="QString" >KDE_SESSION_VERSION=4</value>
     <value type="QString" >LANG=en_US.UTF-8</value>
+    <value type="QString" >LANGUAGE=</value>
     <value type="QString" >LD_LIBRARY_PATH=/home/bart/QT/lib/qtcreator:</value>
     <value type="QString" >LOGNAME=bart</value>
     <value type="QString" >PATH=/home/bart/QT/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
@@ -150,7 +152,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString" >/usr/bin/make</value>
    <value key="abstractProcess.enabled" type="bool" >true</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/home/bart/MAQwur/CloudsClimate/mlmodel/plotline</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/home/bart/MAQwur/CloudsClimate/gitorious/plotline</value>
   </valuemap>
  </data>
  <data>

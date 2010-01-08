@@ -52,9 +52,7 @@ void PlotWindow::paintEvent(QPaintEvent *)
   double yscale = plotheight / (ymax-ymin);  // scaling factor for f(real-coordinate to Widget-coordinate)
   double xscale = plotwidth / (xmax-xmin);   // scaling factor for f(real-coordinate to Widget-coordinate)
 
-  QImage image(500,500,QImage::Format_ARGB32);
   QPainter paint(this);
-
   QPen pen(Qt::black, 1, Qt::SolidLine);
   paint.setPen(pen);
 
