@@ -61,11 +61,11 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >Apple_PubSub_Socket_Render=/tmp/launch-KK3FzB/Render</value>
+    <value type="QString" >Apple_PubSub_Socket_Render=/tmp/launch-OD8PjD/Render</value>
     <value type="QString" >CC=gcc</value>
     <value type="QString" >COMMAND_MODE=legacy</value>
     <value type="QString" >CXX=g++</value>
-    <value type="QString" >DISPLAY=/tmp/launch-fAwO4j/:0</value>
+    <value type="QString" >DISPLAY=/tmp/launch-kRQL2r/:0</value>
     <value type="QString" >DYLD_LIBRARY_PATH=:/usr/local/cuda/lib</value>
     <value type="QString" >F77=gfortran</value>
     <value type="QString" >F90=gfortran</value>
@@ -87,7 +87,7 @@
     <value type="QString" >QTDIR=/usr</value>
     <value type="QString" >SHELL=/bin/bash</value>
     <value type="QString" >SHLVL=1</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/launch-9gdiCA/Listeners</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/launch-QbsMI5/Listeners</value>
     <value type="QString" >TERM=xterm-color</value>
     <value type="QString" >TERM_PROGRAM=Apple_Terminal</value>
     <value type="QString" >TERM_PROGRAM_VERSION=272</value>
@@ -103,7 +103,7 @@
     <value type="QString" >-r</value>
    </valuelist>
    <value key="abstractProcess.command" type="QString" >/usr/bin/qmake</value>
-   <value key="abstractProcess.enabled" type="bool" >false</value>
+   <value key="abstractProcess.enabled" type="bool" >true</value>
    <value key="abstractProcess.workingDirectory" type="QString" >/Volumes/UnixHD/models/mlmodel/plotline</value>
    <value key="buildConfiguration" type="int" >2</value>
   </valuemap>
@@ -113,11 +113,11 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >Apple_PubSub_Socket_Render=/tmp/launch-KK3FzB/Render</value>
+    <value type="QString" >Apple_PubSub_Socket_Render=/tmp/launch-OD8PjD/Render</value>
     <value type="QString" >CC=gcc</value>
     <value type="QString" >COMMAND_MODE=legacy</value>
     <value type="QString" >CXX=g++</value>
-    <value type="QString" >DISPLAY=/tmp/launch-fAwO4j/:0</value>
+    <value type="QString" >DISPLAY=/tmp/launch-kRQL2r/:0</value>
     <value type="QString" >DYLD_LIBRARY_PATH=:/usr/local/cuda/lib</value>
     <value type="QString" >F77=gfortran</value>
     <value type="QString" >F90=gfortran</value>
@@ -139,7 +139,7 @@
     <value type="QString" >QTDIR=/usr</value>
     <value type="QString" >SHELL=/bin/bash</value>
     <value type="QString" >SHLVL=1</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/launch-9gdiCA/Listeners</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/launch-QbsMI5/Listeners</value>
     <value type="QString" >TERM=xterm-color</value>
     <value type="QString" >TERM_PROGRAM=Apple_Terminal</value>
     <value type="QString" >TERM_PROGRAM_VERSION=272</value>
