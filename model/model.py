@@ -9,31 +9,24 @@ class model:
     # initialize the different components of the model
     self.input = copy.deepcopy(modelinput)
 
-    self.initmodel()
-    
-    # initialize time variables
-    self.tsteps = int(numpy.floor(self.input.runtime / self.input.dt))
-    self.dt     = self.input.dt
-
-    # initialize output
-    self.out = modeloutput(self.tsteps)
-
-    # calculate initial diagnostic variables
-    self.runslmodel()
-
-    # store initial values in output
-    self.store(0)
-
   def runmodel(self):
+    # initialize model variables
+    self.initmodel()
+
     # time integrate model 
     for t in range(self.tsteps):
+      
       # time integrate components
       self.run()
       
       # store output for current time step
       self.store(t)
+
+    # delete unnecessary variables from memory
+    self.exitmodel()
     
   def initmodel(self):
+    # assign variables from input data
     self.Lv         =  2.45e6                # heat of vaporization [J kg-1]
     self.cp         =  1005.                 # specific heat of dry air [J kg-1 K-1]
     self.rho        =  1.2                   # density of air [kg m-3]
@@ -85,6 +78,20 @@ class model:
     self.Cs         =  -1.
     self.L          =  -1.
     self.Rib        =  -1.
+
+    # initialize time variables
+    self.tsteps = int(numpy.floor(self.input.runtime / self.input.dt))
+    self.dt     = self.input.dt
+
+    # initialize output
+    self.out = modeloutput(self.tsteps)
+
+    # calculate initial diagnostic variables
+    self.runslmodel()
+
+    # store initial values in output
+    self.store(0)
+
 
   def run(self):
     # run surface layer model
@@ -226,6 +233,7 @@ class model:
     self.out.L[t]          = self.L
     self.out.Rib[t]        = self.Rib
 
+  # delete class variables to facilitate analysis in ipython
   def exitmodel(self):
     del(self.Lv)
     del(self.cp)
@@ -235,6 +243,9 @@ class model:
     del(self.Rd)
     del(self.Rv)
     del(self.bolz)
+
+    del(self.dt)
+    del(self.tsteps)
      
     del(self.h)          
     del(self.Ps)        
