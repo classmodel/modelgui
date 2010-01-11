@@ -102,7 +102,10 @@ class model:
     self.thetav   = self.theta  + 0.61 * self.theta * self.q
     self.wthetav  = self.wtheta + 0.61 * self.theta * self.wq
     self.dthetav  = (self.theta + self.dtheta) * (1. + 0.61 * (self.q + self.dq)) - self.theta * (1. + 0.61 * self.q)
-    
+
+    self.uw = - numpy.sqrt(self.ustar ** 4. / (self.u ** 2. / self.v ** 2. + 1.))
+    self.vw = - numpy.sqrt(self.ustar ** 4. / (self.v ** 2. / self.u ** 2. + 1.))
+
     # compute tendencies
     self.we     = (self.beta * self.wthetav) / self.dthetav
     #we         = (beta * wthetav + 5. * ustar ** 3. * thetav / (g * h)) / dthetav
@@ -110,16 +113,25 @@ class model:
     
     thetatend  = (self.wtheta + self.we * self.dtheta) / self.h + self.advtheta 
     qtend      = (self.wq     + self.we * self.dq)     / self.h + self.advq
+    utend      = (self.uw     + self.we * self.du)     / self.h + self.advu
+    vtend      = (self.vw     + self.we * self.dv)     / self.h + self.advv
     
     dthetatend = self.gammatheta * self.we - thetatend
     dqtend     = self.gammaq     * self.we - qtend
+    dutend     = self.gammau     * self.we - utend
+    dvtend     = self.gammav     * self.we - vtend
     
     # set values previous time step
-    theta0  = self.theta
     h0      = self.h
+    theta0  = self.theta
     dtheta0 = self.dtheta
     q0      = self.q
     dq0     = self.dq
+
+    u0      = self.u
+    du0     = self.du
+    v0      = self.v
+    dv0     = self.dv
     
     # integrate mixed-layer equations
     self.h        = h0      + self.dt * htend
@@ -127,6 +139,11 @@ class model:
     self.dtheta   = dtheta0 + self.dt * dthetatend
     self.q        = q0      + self.dt * qtend
     self.dq       = dq0     + self.dt * dqtend
+    
+    self.u        = u0      + self.dt * utend
+    self.du       = du0     + self.dt * dutend
+    self.v        = v0      + self.dt * vtend
+    self.dv       = dv0     + self.dt * dvtend
 
   def runslmodel(self):
 
