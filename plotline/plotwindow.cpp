@@ -67,7 +67,7 @@ void PlotWindow::paintEvent(QPaintEvent *)
   paint.drawText(5,(plotheight*0.75)+plotmargin,40,13,Qt::AlignRight, QString::number(ymax-((ymax-ymin)*0.75)));
   paint.drawText(5,pwidget_height-55,40,13,Qt::AlignRight, QString::number(ymin));
 
-  // Hereafter; clip data plot
+  // Hereafter; clip data plot .
   paint.setClipping(true);
   paint.setClipRect(plotmargin,plotmargin,plotwidth,plotheight);
 
