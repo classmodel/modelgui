@@ -54,6 +54,7 @@ void PlotWindow::paintEvent(QPaintEvent *)
 
   QPainter paint(this);
   QPen pen(Qt::black, 1, Qt::SolidLine);
+  paint.setRenderHint(QPainter::Antialiasing, true);
   paint.setPen(pen);
 
   paint.drawLine(plotmargin,pwidget_height - plotmargin,pwidget_width-plotmargin,pwidget_height-plotmargin);  // Draw X-axis
