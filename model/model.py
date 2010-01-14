@@ -27,6 +27,7 @@ class model:
     
   def initmodel(self):
     # assign variables from input data
+    # initialize constants
     self.Lv         =  2.45e6                # heat of vaporization [J kg-1]
     self.cp         =  1005.                 # specific heat of dry air [J kg-1 K-1]
     self.rho        =  1.2                   # density of air [kg m-3]
@@ -35,7 +36,9 @@ class model:
     self.Rd         =  287.                  # gas constant for dry air [J kg-1 K-1]
     self.Rv         =  461.5                 # gas constant for moist air [J kg-1 K-1]
     self.bolz       =  5.67e-8               # Bolzman constant [-]
- 
+    self.rhow       =  1000.                 # density of water [kg m-3]
+
+    # initialize mixed-layer
     self.h          =  self.input.h          # initial ABL height [m]
     self.Ps         =  self.input.Ps         # surface pressure [Pa]
     self.ws         =  self.input.ws         # large scale vertical velocity [m s-1]
@@ -71,6 +74,7 @@ class model:
     self.gammav     =  self.input.gammav     # free atmosphere v-wind speed lapse rate [s-1]
     self.advv       =  self.input.advv       # advection of v-wind [m s-2]
 
+    # initialize surface layer
     self.ustar      =  self.input.ustar      # surface friction velocity [m s-1]
     self.z0m        =  self.input.z0m        # roughness length for momentum [m]
     self.z0h        =  self.input.z0h        # roughness length for scalars [m]
@@ -78,6 +82,39 @@ class model:
     self.Cs         =  -1.
     self.L          =  -1.
     self.Rib        =  -1.
+
+    # initialize land surface
+    self.wg         =  self.input.wg         # volumetric water content top soil layer [m3 m-3]
+    self.w2         =  self.input.w2         # volumetric water content deeper soil layer [m3 m-3]
+    self.Tsoil      =  self.input.Tsoil      # temperature top soil layer [K]
+    self.T2         =  self.input.T2         # temperature deeper soil layer [K]
+                       
+    self.a          =  self.input.a          # Clapp and Hornberger retention curve parameter a [-]
+    self.b          =  self.input.b          # Clapp and Hornberger retention curve parameter b [-]
+    self.p          =  self.input.p          # Clapp and Hornberger retention curve parameter p [-]
+    self.CGsat      =  self.input.CGsat      # saturated soil conductivity for heat
+                       
+    self.wsat       =  self.input.wsat       # saturated volumetric water content ECMWF config [-]
+    self.wfc        =  self.input.wfc        # volumetric water content field capacity [-]
+    self.wwilt      =  self.input.wwilt      # volumetric water content wilting point [-]
+                       
+    self.C1sat      =  self.input.C1sat      
+    self.C2ref      =  self.input.C2ref      
+                       
+    self.LAI        =  self.input.LAI        # leaf area index [-]
+    self.rsmin      =  self.input.rsmin      # minimum resistance transpiration [s m-1]
+    self.rssoilmin  =  self.input.rssoilmin  # minimum resistance soil evaporation [s m-1]
+    self.alpha      =  self.input.alpha      # surface albedo [-]
+                       
+    self.Ts         =  self.input.Ts         # initial mixed layer potential temperature [K]
+                       
+    self.cveg       =  self.input.cveg       # vegetation fraction [-]
+    self.Wmax       =  self.input.Wmax       # thickness of water layer on wet vegetation [m]
+    self.Wl         =  self.input.Wl         # equivalent water layer depth for wet vegetation [m]
+    self.cl         =  self.input.cl         # wet fraction [-]
+                       
+    self.Lambda     =  self.input.Lambda     # thermal diffusivity soil [-]
+
 
     # initialize time variables
     self.tsteps = int(numpy.floor(self.input.runtime / self.input.dt))
@@ -96,16 +133,16 @@ class model:
   def run(self):
     # run surface layer model
     self.runslmodel()
+    
+    # run land surface model
+    self.runlsmodel()
 
     # compute mixed-layer tendencies
     # first compute necessary virtual temperature units
     self.thetav   = self.theta  + 0.61 * self.theta * self.q
     self.wthetav  = self.wtheta + 0.61 * self.theta * self.wq
     self.dthetav  = (self.theta + self.dtheta) * (1. + 0.61 * (self.q + self.dq)) - self.theta * (1. + 0.61 * self.q)
-
-    self.uw = - numpy.sqrt(self.ustar ** 4. / (self.u ** 2. / self.v ** 2. + 1.))
-    self.vw = - numpy.sqrt(self.ustar ** 4. / (self.v ** 2. / self.u ** 2. + 1.))
-
+    
     # compute tendencies
     self.we     = (self.beta * self.wthetav) / self.dthetav
     #we         = (beta * wthetav + 5. * ustar ** 3. * thetav / (g * h)) / dthetav
@@ -113,25 +150,16 @@ class model:
     
     thetatend  = (self.wtheta + self.we * self.dtheta) / self.h + self.advtheta 
     qtend      = (self.wq     + self.we * self.dq)     / self.h + self.advq
-    utend      = (self.uw     + self.we * self.du)     / self.h + self.advu
-    vtend      = (self.vw     + self.we * self.dv)     / self.h + self.advv
     
     dthetatend = self.gammatheta * self.we - thetatend
     dqtend     = self.gammaq     * self.we - qtend
-    dutend     = self.gammau     * self.we - utend
-    dvtend     = self.gammav     * self.we - vtend
     
     # set values previous time step
-    h0      = self.h
     theta0  = self.theta
+    h0      = self.h
     dtheta0 = self.dtheta
     q0      = self.q
     dq0     = self.dq
-
-    u0      = self.u
-    du0     = self.du
-    v0      = self.v
-    dv0     = self.dv
     
     # integrate mixed-layer equations
     self.h        = h0      + self.dt * htend
@@ -139,11 +167,6 @@ class model:
     self.dtheta   = dtheta0 + self.dt * dthetatend
     self.q        = q0      + self.dt * qtend
     self.dq       = dq0     + self.dt * dqtend
-    
-    self.u        = u0      + self.dt * utend
-    self.du       = du0     + self.dt * dutend
-    self.v        = v0      + self.dt * vtend
-    self.dv       = dv0     + self.dt * dvtend
 
   def runslmodel(self):
 
@@ -208,9 +231,58 @@ class model:
       psih  = -2./3. * (zeta - 5./0.35) * numpy.exp(-0.35 * zeta) - (1. + (2./3.) * zeta) ** (1.5) - (10./3.) / 0.35 + 1.
     return psih
 
+  def runlsmodel(self):
+    # calculate surface resistances using Jarvis-Stewart model
+    f1          = 1. / ((0.004 * Swin + 0.05) / (0.81 * (0.004 * Swin + 1.)))
+    f2          = (wfc - wwilt) / (w2 - wwilt)
+    f3          = 1.
+    self.rs     = self.rsmin / self.LAI * f1 * f2 * f3
+    self.rssoil = self.rssoilmin * f2 
+
+    self.esat  = 0.611e3 * numpy.exp(17.2694 * (self.theta - 273.16) / (self.theta - 35.86))
+    self.qsat  = 0.622 * self.esat / self.P0
+    desatdT  = self.esat * (17.2694 / (self.theta - 35.86) - 17.2694 * (self.theta - 273.16) / (self.theta - 35.86)**2.)
+    self.dqsatdT  = 0.622 * desatdT / self.P0
+
+    self.Wlmx = self.LAI * self.Wmax
+    self.cliq = min(1., self.Wl / self.Wlmx) 
+   
+    # calculate skin temperature implictly
+    self.Ts   = (self.Q  + self.rho * self.cp / self.ra * self.theta + self.cveg * (1. - self.cliq) * self.rho * self.Lv / (self.ra + self.rs) * (self.dqsatdT * self.theta - self.qsat + self.q) + (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * (self.dqsatdT * self.theta - self.qsat + self.q) + self.cveg * self.cliq * self.rho * self.Lv / self.ra * (self.dqsatdT * self.theta - self.qsat + self.q) + self.Lambda * self.Tsoil) * (self.rho * self.cp / self.ra + self.cveg * (1. - self.cliq) * self.rho * self.Lv / (self.ra + self.rs) * self.dqsatdT + (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * self.dqsatdT + self.cveg * self.cliq * self.rho * self.Lv / self.ra * self.dqsatdT + self.Lambda) ** (-1.)
+
+    esatsurf  = 0.611e3 * numpy.exp(17.2694 * (Ts - 273.16) / (Ts - 35.86))
+    self.qsatsurf  = 0.622 * esatsurf / P0
+    
+    self.LEveg  = (1. - self.cliq) * self.cveg * self.rho * self.Lv / (self.ra + self.rs) * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
+    self.LEliq  = self.cliq * self.cveg * self.rho * self.Lv / self.ra * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
+    self.LEsoil = (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
+
+    self.Wltend = - self.LEliq / (self.rhow * self.Lv)
+
+    self.LE     = self.LEsoil + self.LEveg + self.LEliq
+    self.H      = self.rho * self.cp / self.ra * (self.Ts - self.theta)
+    self.G      = self.Lambda * (self.Ts - self.Tsoil)
+    
+    CG = CGsat * (self.wsat / self.w2) ** (self.b / (2. * numpy.log(10.)))
+
+    CT = CG 
+    
+    self.Tsoiltend = CT * self.G - 2. * numpy.pi / 86400. * (self.Tsoil - self.T2)
+ 
+    d1          = 0.1
+    C1          = self.C1sat * (self.wsat / self.wg) ** (self.b / 2. + 1.)
+    C2          = self.C2ref * (self.w2 / (self.wsat - self.w2) )
+    wgeq        = self.w2 - self.wsat * self.a * ( (self.w2 / self.wsat) ** self.p * (1. - (self.w2 / self.wsat) ** (8. * self.p)) )
+    self.wgtend = - C1 / (self.rhow * d1) * self.LEsoil / self.Lv - C2 / 86400. * (self.wg - wgeq)
+
+    # calculate kinematic heat fluxes
+    self.wtheta   = self.H / (self.rho * self.cp)
+    self.wq       = self.LE / (self.rho * self.Lv)
+ 
+
   # store model output
   def store(self, t):
-    self.out.t[t] = t * self.dt
+    self.out.t[t]          = t * self.dt
 
     self.out.h[t]          = self.h
     self.out.ws[t]         = self.ws
@@ -397,4 +469,43 @@ class modelinput:
     self.Cs         = -1. # drag coefficient for scalars [-]
     self.L          = -1. # Obukhov length [-]
     self.Rib        = -1. # bulk Richardson number [-]
+
+    # radiation parameters
+    self.lat        = -1. # latitude [deg]
+    self.lon        = -1. # longitude [deg]
+    self.doy        = -1. # day of the year [-]
+    self.S0         = -1. # maximum incoming shortwave radiation [W m-2]
+
+    # land surface parameters
+    self.wg         = -1. # volumetric water content top soil layer [m3 m-3]
+    self.w2         = -1. # volumetric water content deeper soil layer [m3 m-3]
+    self.Tsoil      = -1. # temperature top soil layer [K]
+    self.T2         = -1. # temperature deeper soil layer [K]
+    
+    self.a          = -1. # Clapp and Hornberger retention curve parameter a
+    self.b          = -1. # Clapp and Hornberger retention curve parameter b
+    self.p          = -1. # Clapp and Hornberger retention curve parameter p 
+    self.CGsat      = -1. # saturated soil conductivity for heat
+    
+    self.wsat       = -1. # saturated volumetric water content ECMWF config [-]
+    self.wfc        = -1. # volumetric water content field capacity [-]
+    self.wwilt      = -1. # volumetric water content wilting point [-]
+    
+    self.C1sat      = -1. 
+    self.C2ref      = -1.
+    
+    self.LAI        = -1. # leaf area index [-]
+    self.rsmin      = -1. # minimum resistance transpiration [s m-1]
+    self.rssoilmin  = -1. # minimum resistance soil evaporation [s m-1]
+    self.alpha      = -1. # surface albedo [-]
+    
+    self.Ts         = -1. # initial mixed layer potential temperature [K]
+    
+    self.cveg       = -1. # vegetation fraction [-]
+    self.Wmax       = -1. # thickness of water layer on wet vegetation [m]
+    self.Wl         = -1. # equivalent water layer depth for wet vegetation [m]
+    self.cl         = -1. # wet fraction [-]
+    
+    self.Lambda     = -1. # thermal diffusivity soil [-]
+
 
