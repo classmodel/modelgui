@@ -1,6 +1,7 @@
 # test model
 # run mlmodel
 
+from pylab import *
 from model import *
 
 run1input = modelinput()
@@ -31,7 +32,7 @@ run1input.du         = 3.        # initial u-wind jump at h [m s-1]
 run1input.gammau     = 0.003     # free atmosphere u-wind speed lapse rate [s-1]
 run1input.advu       = 0.        # advection of u-wind [m s-2]
 
-run1input.v          = 0.        # initial mixed-layer u-wind speed [m s-1]
+run1input.v          = 1e-3      # initial mixed-layer u-wind speed [m s-1]
 run1input.dv         = 0.        # initial u-wind jump at h [m s-1]
 run1input.gammav     = 0.        # free atmosphere v-wind speed lapse rate [s-1]
 run1input.advv       = 0.        # advection of v-wind [m s-2]
@@ -44,7 +45,8 @@ run1input.z0h        = 0.01      # roughness length for scalars [m]
 # radiation parameters
 run1input.lat        = 43.5       # latitude [deg]
 run1input.lon        = 1.5        # longitude [deg]
-run1input.doy        = 167.       # day of the year [-]
+run1input.doy        = 268.       # day of the year [-]
+run1input.tstart     = 7.         # time of the day [h UTC]
 run1input.S0         = 1300.      # maximum incoming shortwave radiation [W m-2]
 
 # land surface parameters

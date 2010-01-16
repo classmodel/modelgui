@@ -1,4 +1,4 @@
-# mixed-layer model
+j mixed-layer model
 # Chiel van Heerwaarden & Jordi Vila-Guerau de Arellano, 2009
 
 import copy
@@ -14,13 +14,13 @@ class model:
     self.initmodel()
 
     # time integrate model 
-    for t in range(self.tsteps):
+    for self.t in range(self.tsteps):
       
       # time integrate components
       self.run()
       
       # store output for current time step
-      self.store(t)
+      self.store()
 
     # delete unnecessary variables from memory
     self.exitmodel()
@@ -76,12 +76,26 @@ class model:
 
     # initialize surface layer
     self.ustar      =  self.input.ustar      # surface friction velocity [m s-1]
+    self.uw         =  -1.                   # surface momentum flux in u-direction [m2 s-2]
+    self.vw         =  -1.                   # surface momentum flux in v-direction [m2 s-2]
     self.z0m        =  self.input.z0m        # roughness length for momentum [m]
     self.z0h        =  self.input.z0h        # roughness length for scalars [m]
     self.Cm         =  -1.
     self.Cs         =  -1.
     self.L          =  -1.
     self.Rib        =  -1.
+
+    # initialize radiation
+    self.lat        =  self.input.lat        # latitude [deg]
+    self.lon        =  self.input.lon        # longitude [deg]
+    self.doy        =  self.input.doy        # day of the year [-]
+    self.tstart     =  self.input.tstart     # time of the day [-]
+    self.S0         =  self.input.S0         # maximum incoming shortwave radiation [W m-2]
+    self.Swin       =  -1.                   # incoming short wave radiation [W m-2]
+    self.Swout      =  -1.                   # outgoing short wave radiation [W m-2]
+    self.Lwin       =  -1.                   # incoming long wave radiation [W m-2]
+    self.Lwout      =  -1.                   # outgoing long wave radiation [W m-2]
+    self.Q          =  -1.                   # net radiation [W m-2]
 
     # initialize land surface
     self.wg         =  self.input.wg         # volumetric water content top soil layer [m3 m-3]
@@ -119,18 +133,26 @@ class model:
     # initialize time variables
     self.tsteps = int(numpy.floor(self.input.runtime / self.input.dt))
     self.dt     = self.input.dt
+    self.t      = 0
 
     # initialize output
     self.out = modeloutput(self.tsteps)
 
     # calculate initial diagnostic variables
+    self.runradmodel()
+
     self.runslmodel()
 
+    self.runlsmodel()
+
     # store initial values in output
-    self.store(0)
+    self.store()
 
 
   def run(self):
+    # run radiation model
+    self.runradmodel()
+
     # run surface layer model
     self.runslmodel()
     
@@ -142,31 +164,66 @@ class model:
     self.thetav   = self.theta  + 0.61 * self.theta * self.q
     self.wthetav  = self.wtheta + 0.61 * self.theta * self.wq
     self.dthetav  = (self.theta + self.dtheta) * (1. + 0.61 * (self.q + self.dq)) - self.theta * (1. + 0.61 * self.q)
+
+    # decompose ustar along the wind components
+    self.uw       = - (self.ustar ** 4. / (self.u ** 2. / self.v ** 2. + 1.)) ** (0.5)
+    self.vw       = - (self.ustar ** 4. / (self.v ** 2. / self.u ** 2. + 1.)) ** (0.5)
     
     # compute tendencies
     self.we     = (self.beta * self.wthetav) / self.dthetav
     #we         = (beta * wthetav + 5. * ustar ** 3. * thetav / (g * h)) / dthetav
     htend       = self.we + self.ws
     
-    thetatend  = (self.wtheta + self.we * self.dtheta) / self.h + self.advtheta 
-    qtend      = (self.wq     + self.we * self.dq)     / self.h + self.advq
+    thetatend   = (self.wtheta + self.we * self.dtheta) / self.h + self.advtheta 
+    qtend       = (self.wq     + self.we * self.dq)     / self.h + self.advq
+    dthetatend  = self.gammatheta * self.we - thetatend
+    dqtend      = self.gammaq     * self.we - qtend
     
-    dthetatend = self.gammatheta * self.we - thetatend
-    dqtend     = self.gammaq     * self.we - qtend
+    utend       = (self.uw     + self.we * self.du)  / self.h + self.advu
+    vtend       = (self.vw     + self.we * self.dv)  / self.h + self.advv
+
+    dutend      = self.gammau * self.we - utend
+    dvtend      = self.gammav * self.we - vtend
     
     # set values previous time step
-    theta0  = self.theta
     h0      = self.h
+    
+    theta0  = self.theta
     dtheta0 = self.dtheta
     q0      = self.q
     dq0     = self.dq
     
+    u0      = self.u
+    du0     = self.du
+    v0      = self.v
+    dv0     = self.dv
+
     # integrate mixed-layer equations
     self.h        = h0      + self.dt * htend
+
     self.theta    = theta0  + self.dt * thetatend
     self.dtheta   = dtheta0 + self.dt * dthetatend
     self.q        = q0      + self.dt * qtend
     self.dq       = dq0     + self.dt * dqtend
+
+    self.u        = u0      + self.dt * utend
+    self.du       = du0     + self.dt * dutend
+    self.v        = v0      + self.dt * vtend
+    self.dv       = dv0     + self.dt * dvtend
+
+  def runradmodel(self):
+    sda = 0.409 * numpy.cos(2. * numpy.pi * (self.doy - 173.) / 365.)
+    lea = numpy.sin(2. * numpy.pi * self.lat / 360.) * numpy.sin(sda) - numpy.cos(2. * numpy.pi * self.lat / 360.) * numpy.cos(sda) * numpy.cos(2. * numpy.pi * (self.t * self.dt + self.tstart * 3600.) / 86400. - 2. * numpy.pi * self.lon / 360.)
+    lea = max(lea, 0.0001)
+    
+    Ta  = self.theta * ((self.Ps - 0.1 * self.h * self.rho * self.g) / self.Ps ) ** (self.Rd / self.cp)
+    
+    self.Swin  = self.S0 * numpy.sin(lea)
+    self.Swout = self.alpha * self.S0 * numpy.sin(lea)
+    self.Lwin  = 0.8 * self.bolz * Ta ** 4.
+    self.Lwout = self.bolz * self.Ts ** 4.
+      
+    self.Q     = self.Swin - self.Swout + self.Lwin - self.Lwout
 
   def runslmodel(self):
 
@@ -208,6 +265,8 @@ class model:
     
     ueff       = numpy.sqrt(self.u ** 2. + self.v ** 2.)
     self.ustar = numpy.sqrt(self.Cm) * ueff
+
+    self.ra    = (self.Cm * ueff) ** (-1.)
     
     self.thetasurf = self.theta + self.wtheta / (self.Cs * ueff)
 
@@ -233,25 +292,29 @@ class model:
 
   def runlsmodel(self):
     # calculate surface resistances using Jarvis-Stewart model
-    f1          = 1. / ((0.004 * Swin + 0.05) / (0.81 * (0.004 * Swin + 1.)))
-    f2          = (wfc - wwilt) / (w2 - wwilt)
+    f1          = 1. / ((0.004 * self.Swin + 0.05) / (0.81 * (0.004 * self.Swin + 1.)))
+    f2          = (self.wfc - self.wwilt) / (self.w2 - self.wwilt)
     f3          = 1.
     self.rs     = self.rsmin / self.LAI * f1 * f2 * f3
     self.rssoil = self.rssoilmin * f2 
 
     self.esat  = 0.611e3 * numpy.exp(17.2694 * (self.theta - 273.16) / (self.theta - 35.86))
-    self.qsat  = 0.622 * self.esat / self.P0
+    self.qsat  = 0.622 * self.esat / self.Ps
     desatdT  = self.esat * (17.2694 / (self.theta - 35.86) - 17.2694 * (self.theta - 273.16) / (self.theta - 35.86)**2.)
-    self.dqsatdT  = 0.622 * desatdT / self.P0
+    self.dqsatdT  = 0.622 * desatdT / self.Ps
 
     self.Wlmx = self.LAI * self.Wmax
     self.cliq = min(1., self.Wl / self.Wlmx) 
    
     # calculate skin temperature implictly
-    self.Ts   = (self.Q  + self.rho * self.cp / self.ra * self.theta + self.cveg * (1. - self.cliq) * self.rho * self.Lv / (self.ra + self.rs) * (self.dqsatdT * self.theta - self.qsat + self.q) + (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * (self.dqsatdT * self.theta - self.qsat + self.q) + self.cveg * self.cliq * self.rho * self.Lv / self.ra * (self.dqsatdT * self.theta - self.qsat + self.q) + self.Lambda * self.Tsoil) * (self.rho * self.cp / self.ra + self.cveg * (1. - self.cliq) * self.rho * self.Lv / (self.ra + self.rs) * self.dqsatdT + (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * self.dqsatdT + self.cveg * self.cliq * self.rho * self.Lv / self.ra * self.dqsatdT + self.Lambda) ** (-1.)
+    self.Ts   = (self.Q  + self.rho * self.cp / self.ra * self.theta \
+        + self.cveg * (1. - self.cliq) * self.rho * self.Lv / (self.ra + self.rs) * (self.dqsatdT * self.theta - self.qsat + self.q) \
+        + (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * (self.dqsatdT * self.theta - self.qsat + self.q) \
+        + self.cveg * self.cliq * self.rho * self.Lv / self.ra * (self.dqsatdT * self.theta - self.qsat + self.q) + self.Lambda * self.Tsoil) \
+        * (self.rho * self.cp / self.ra + self.cveg * (1. - self.cliq) * self.rho * self.Lv / (self.ra + self.rs) * self.dqsatdT + (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * self.dqsatdT + self.cveg * self.cliq * self.rho * self.Lv / self.ra * self.dqsatdT + self.Lambda) ** (-1.)
 
-    esatsurf  = 0.611e3 * numpy.exp(17.2694 * (Ts - 273.16) / (Ts - 35.86))
-    self.qsatsurf  = 0.622 * esatsurf / P0
+    esatsurf  = 0.611e3 * numpy.exp(17.2694 * (self.Ts - 273.16) / (self.Ts - 35.86))
+    self.qsatsurf  = 0.622 * esatsurf / self.Ps
     
     self.LEveg  = (1. - self.cliq) * self.cveg * self.rho * self.Lv / (self.ra + self.rs) * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
     self.LEliq  = self.cliq * self.cveg * self.rho * self.Lv / self.ra * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
@@ -263,7 +326,7 @@ class model:
     self.H      = self.rho * self.cp / self.ra * (self.Ts - self.theta)
     self.G      = self.Lambda * (self.Ts - self.Tsoil)
     
-    CG = CGsat * (self.wsat / self.w2) ** (self.b / (2. * numpy.log(10.)))
+    CG = self.CGsat * (self.wsat / self.w2) ** (self.b / (2. * numpy.log(10.)))
 
     CT = CG 
     
@@ -281,8 +344,9 @@ class model:
  
 
   # store model output
-  def store(self, t):
-    self.out.t[t]          = t * self.dt
+  def store(self):
+    t                      = self.t
+    self.out.t[t]          = t * self.dt / 3600. + self.tstart
 
     self.out.h[t]          = self.h
     self.out.ws[t]         = self.ws
@@ -321,6 +385,17 @@ class model:
     self.out.Cs[t]         = self.Cs
     self.out.L[t]          = self.L
     self.out.Rib[t]        = self.Rib
+
+    self.out.Swin[t]       = self.Swin
+    self.out.Swout[t]      = self.Swout
+    self.out.Lwin[t]       = self.Lwin
+    self.out.Lwout[t]      = self.Lwout
+    self.out.Q[t]          = self.Q
+
+    self.out.H[t]          = self.H
+    self.out.LE[t]         = self.LE
+    self.out.G[t]          = self.G
+
 
   # delete class variables to facilitate analysis in ipython
   def exitmodel(self):
@@ -384,6 +459,7 @@ class modeloutput:
   def __init__(self, tsteps):
     self.t          = numpy.zeros(tsteps)    # time [s]
 
+    # mixed-layer variables
     self.h          = numpy.zeros(tsteps)    # initial ABL height [m]
     self.Ps         = numpy.zeros(tsteps)    # surface pressure [Pa]
     self.ws         = numpy.zeros(tsteps)    # large scale vertical velocity [m s-1]
@@ -413,7 +489,8 @@ class modeloutput:
     self.dv         = numpy.zeros(tsteps)    # initial u-wind jump at h [m s-1]
     self.gammav     = numpy.zeros(tsteps)    # free atmosphere v-wind speed lapse rate [s-1]
     self.advv       = numpy.zeros(tsteps)    # advection of v-wind [m s-2]
-    
+   
+    # surface-layer variables
     self.thetasurf  = numpy.zeros(tsteps)    # surface potential temperature [K]
     self.thetavsurf = numpy.zeros(tsteps)    # surface virtual potential temperature [K]
     self.qsurf      = numpy.zeros(tsteps)    # surface specific humidity [kg kg-1]
@@ -424,6 +501,18 @@ class modeloutput:
     self.Cs         = numpy.zeros(tsteps)    # drag coefficient for scalars []
     self.L          = numpy.zeros(tsteps)    # Obukhov length [m]
     self.Rib        = numpy.zeros(tsteps)    # bulk Richardson number [-]
+
+    # radiation variables
+    self.Swin       = numpy.zeros(tsteps)    # incoming short wave radiation [W m-2]
+    self.Swout      = numpy.zeros(tsteps)    # outgoing short wave radiation [W m-2]
+    self.Lwin       = numpy.zeros(tsteps)    # incoming long wave radiation [W m-2]
+    self.Lwout      = numpy.zeros(tsteps)    # outgoing long wave radiation [W m-2]
+    self.Q          = numpy.zeros(tsteps)    # net radiation [W m-2]
+
+    # land surface variables
+    self.H          = numpy.zeros(tsteps)    # sensible heat flux [W m-2]
+    self.LE         = numpy.zeros(tsteps)    # latent heat flux [W m-2]
+    self.G          = numpy.zeros(tsteps)    # ground heat flux [W m-2]
 
 
 # class for storing mixed-layer model input data
@@ -475,6 +564,7 @@ class modelinput:
     self.lon        = -1. # longitude [deg]
     self.doy        = -1. # day of the year [-]
     self.S0         = -1. # maximum incoming shortwave radiation [W m-2]
+    self.tstart     = -1  # time of the day [h UTC]
 
     # land surface parameters
     self.wg         = -1. # volumetric water content top soil layer [m3 m-3]
