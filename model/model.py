@@ -1,5 +1,12 @@
-j mixed-layer model
+# Coupled land-atmosphere-cloud-chemistry model
 # Chiel van Heerwaarden & Jordi Vila-Guerau de Arellano, 2009
+"""
+Open issues:
+
+wind speed and coriolis force give highly accelerating wind
+sensible heat flux always peaks too early in the morning
+
+"""
 
 import copy
 import numpy
@@ -42,6 +49,7 @@ class model:
     self.h          =  self.input.h          # initial ABL height [m]
     self.Ps         =  self.input.Ps         # surface pressure [Pa]
     self.ws         =  self.input.ws         # large scale vertical velocity [m s-1]
+    self.fc         =  self.input.fc         # coriolis parameter [s-1]
     self.we         =  -1.                   # entrainment velocity [m s-1]
     
     self.theta      =  self.input.theta      # initial mixed-layer potential temperature [K]
@@ -80,10 +88,11 @@ class model:
     self.vw         =  -1.                   # surface momentum flux in v-direction [m2 s-2]
     self.z0m        =  self.input.z0m        # roughness length for momentum [m]
     self.z0h        =  self.input.z0h        # roughness length for scalars [m]
-    self.Cm         =  -1.
-    self.Cs         =  -1.
-    self.L          =  -1.
-    self.Rib        =  -1.
+    self.Cm         =  -1.                   # drag coefficient for momentum [-]
+    self.Cs         =  -1.                   # drag coefficient for scalars [-]
+    self.L          =  -1.                   # Obukhov length [m]
+    self.Rib        =  -1.                   # bulk Richardson number [-]
+    self.ra         =  -1.                   # aerodynamic resistance [s m-1]
 
     # initialize radiation
     self.lat        =  self.input.lat        # latitude [deg]
@@ -114,20 +123,28 @@ class model:
                        
     self.C1sat      =  self.input.C1sat      
     self.C2ref      =  self.input.C2ref      
-                       
+    
     self.LAI        =  self.input.LAI        # leaf area index [-]
     self.rsmin      =  self.input.rsmin      # minimum resistance transpiration [s m-1]
     self.rssoilmin  =  self.input.rssoilmin  # minimum resistance soil evaporation [s m-1]
     self.alpha      =  self.input.alpha      # surface albedo [-]
                        
-    self.Ts         =  self.input.Ts         # initial mixed layer potential temperature [K]
+    self.Ts         =  self.input.Ts         # surface temperature [K]
                        
     self.cveg       =  self.input.cveg       # vegetation fraction [-]
     self.Wmax       =  self.input.Wmax       # thickness of water layer on wet vegetation [m]
     self.Wl         =  self.input.Wl         # equivalent water layer depth for wet vegetation [m]
     self.cl         =  self.input.cl         # wet fraction [-]
                        
-    self.Lambda     =  self.input.Lambda     # thermal diffusivity soil [-]
+    self.Lambda     =  self.input.Lambda     # thermal diffusivity skin layer [-]
+
+    self.H          =  -1.                   # sensible heat flux [W m-2]
+    self.LE         =  -1.                   # evapotranspiration [W m-2]
+    self.LEliq      =  -1.                   # open water evaporation [W m-2]
+    self.LEveg      =  -1.                   # transpiration [W m-2]
+    self.LEsoil     =  -1.                   # soil evaporation [W m-2]
+    self.LEpot      =  -1.                   # potential evaporation [W m-2]
+    self.G          =  -1.                   # ground heat flux [W m-2]
 
 
     # initialize time variables
@@ -166,8 +183,8 @@ class model:
     self.dthetav  = (self.theta + self.dtheta) * (1. + 0.61 * (self.q + self.dq)) - self.theta * (1. + 0.61 * self.q)
 
     # decompose ustar along the wind components
-    self.uw       = - (self.ustar ** 4. / (self.u ** 2. / self.v ** 2. + 1.)) ** (0.5)
-    self.vw       = - (self.ustar ** 4. / (self.v ** 2. / self.u ** 2. + 1.)) ** (0.5)
+    self.uw       = - (self.ustar ** 4. / (self.v ** 2. / self.u ** 2. + 1.)) ** (0.5)
+    self.vw       = - (self.ustar ** 4. / (self.u ** 2. / self.v ** 2. + 1.)) ** (0.5)
     
     # compute tendencies
     self.we     = (self.beta * self.wthetav) / self.dthetav
@@ -176,11 +193,13 @@ class model:
     
     thetatend   = (self.wtheta + self.we * self.dtheta) / self.h + self.advtheta 
     qtend       = (self.wq     + self.we * self.dq)     / self.h + self.advq
+    
     dthetatend  = self.gammatheta * self.we - thetatend
     dqtend      = self.gammaq     * self.we - qtend
-    
-    utend       = (self.uw     + self.we * self.du)  / self.h + self.advu
-    vtend       = (self.vw     + self.we * self.dv)  / self.h + self.advv
+   
+    # assume u + du = ug, so ug - u = du
+    utend       =  self.fc * self.dv + (self.uw     + self.we * self.du)  / self.h + self.advu
+    vtend       = -self.fc * self.du + (self.vw     + self.we * self.dv)  / self.h + self.advv
 
     dutend      = self.gammau * self.we - utend
     dvtend      = self.gammav * self.we - vtend
@@ -244,13 +263,16 @@ class model:
     else:
       L  = -1.
       L0 = -2.
-     
-    while (abs(L - L0) > 0.0001):
+    
+    count = 0
+    while (abs(L - L0) > 0.001):
+      count = count + 1
       L0      = L
       fx      = self.Rib - zsl / L * (numpy.log(zsl / self.z0h) - self.psih(zsl / L) + self.psih(self.z0h / L)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / L) + self.psim(self.z0m / L)) ** 2.
       Lstart  = L - 0.001*L
       Lend    = L + 0.001*L
-      fxdif   = ( (- zsl / Lstart * (numpy.log(zsl / self.z0h) - self.psih(zsl / Lstart) + self.psih(self.z0h / Lstart)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / Lstart) + self.psim(self.z0m / Lstart)) ** 2.) - (-zsl / Lend * (numpy.log(zsl / self.z0h) - self.psih(zsl / Lend) + self.psih(self.z0h / Lend)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / Lend) + self.psim(self.z0m / Lend)) ** 2.) ) / (Lstart - Lend)
+      fxdif   = ( (- zsl / Lstart * (numpy.log(zsl / self.z0h) - self.psih(zsl / Lstart) + self.psih(self.z0h / Lstart)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / Lstart) + self.psim(self.z0m / Lstart)) ** 2.) \
+          - (-zsl / Lend * (numpy.log(zsl / self.z0h) - self.psih(zsl / Lend) + self.psih(self.z0h / Lend)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / Lend) + self.psim(self.z0m / Lend)) ** 2.) ) / (Lstart - Lend)
       L       = L - fx / fxdif
 
     self.L    = L
@@ -291,17 +313,23 @@ class model:
     return psih
 
   def runlsmodel(self):
-    # calculate surface resistances using Jarvis-Stewart model
-    f1          = 1. / ((0.004 * self.Swin + 0.05) / (0.81 * (0.004 * self.Swin + 1.)))
-    f2          = (self.wfc - self.wwilt) / (self.w2 - self.wwilt)
-    f3          = 1.
-    self.rs     = self.rsmin / self.LAI * f1 * f2 * f3
-    self.rssoil = self.rssoilmin * f2 
-
+    # first calculate essential thermodynamic variables
     self.esat  = 0.611e3 * numpy.exp(17.2694 * (self.theta - 273.16) / (self.theta - 35.86))
     self.qsat  = 0.622 * self.esat / self.Ps
     desatdT  = self.esat * (17.2694 / (self.theta - 35.86) - 17.2694 * (self.theta - 273.16) / (self.theta - 35.86)**2.)
     self.dqsatdT  = 0.622 * desatdT / self.Ps
+    e = self.q * self.Ps / 0.622
+
+    # calculate surface resistances using Jarvis-Stewart model
+    f1          = 1. / ((0.004 * self.Swin + 0.05) / (0.81 * (0.004 * self.Swin + 1.)))
+    if(self.w2 > self.wwilt and self.w2 <= self.wfc):
+      f2          = (self.wfc - self.wwilt) / (self.w2 - self.wwilt)
+    else:
+      f2        = 1.e8
+    f3          = 1.
+    self.rs     = self.rsmin / self.LAI * f1 * f2 * f3
+    self.rssoil = self.rssoilmin * f2 
+
 
     self.Wlmx = self.LAI * self.Wmax
     self.cliq = min(1., self.Wl / self.Wlmx) 
@@ -311,7 +339,7 @@ class model:
         + self.cveg * (1. - self.cliq) * self.rho * self.Lv / (self.ra + self.rs) * (self.dqsatdT * self.theta - self.qsat + self.q) \
         + (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * (self.dqsatdT * self.theta - self.qsat + self.q) \
         + self.cveg * self.cliq * self.rho * self.Lv / self.ra * (self.dqsatdT * self.theta - self.qsat + self.q) + self.Lambda * self.Tsoil) \
-        * (self.rho * self.cp / self.ra + self.cveg * (1. - self.cliq) * self.rho * self.Lv / (self.ra + self.rs) * self.dqsatdT + (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * self.dqsatdT + self.cveg * self.cliq * self.rho * self.Lv / self.ra * self.dqsatdT + self.Lambda) ** (-1.)
+      * (self.rho * self.cp / self.ra + self.cveg * (1. - self.cliq) * self.rho * self.Lv / (self.ra + self.rs) * self.dqsatdT + (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * self.dqsatdT + self.cveg * self.cliq * self.rho * self.Lv / self.ra * self.dqsatdT + self.Lambda) ** (-1.)
 
     esatsurf  = 0.611e3 * numpy.exp(17.2694 * (self.Ts - 273.16) / (self.Ts - 35.86))
     self.qsatsurf  = 0.622 * esatsurf / self.Ps
@@ -319,28 +347,36 @@ class model:
     self.LEveg  = (1. - self.cliq) * self.cveg * self.rho * self.Lv / (self.ra + self.rs) * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
     self.LEliq  = self.cliq * self.cveg * self.rho * self.Lv / self.ra * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
     self.LEsoil = (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
+    self.LEpot  = self.rho * self.Lv / self.ra * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
 
-    self.Wltend = - self.LEliq / (self.rhow * self.Lv)
+    Wltend      = - self.LEliq / (self.rhow * self.Lv)
 
     self.LE     = self.LEsoil + self.LEveg + self.LEliq
     self.H      = self.rho * self.cp / self.ra * (self.Ts - self.theta)
     self.G      = self.Lambda * (self.Ts - self.Tsoil)
     
-    CG = self.CGsat * (self.wsat / self.w2) ** (self.b / (2. * numpy.log(10.)))
+    CG          = self.CGsat * (self.wsat / self.w2) ** (self.b / (2. * numpy.log(10.)))
 
-    CT = CG 
-    
-    self.Tsoiltend = CT * self.G - 2. * numpy.pi / 86400. * (self.Tsoil - self.T2)
+    Tsoiltend   = CG * self.G - 2. * numpy.pi / 86400. * (self.Tsoil - self.T2)
  
     d1          = 0.1
     C1          = self.C1sat * (self.wsat / self.wg) ** (self.b / 2. + 1.)
     C2          = self.C2ref * (self.w2 / (self.wsat - self.w2) )
     wgeq        = self.w2 - self.wsat * self.a * ( (self.w2 / self.wsat) ** self.p * (1. - (self.w2 / self.wsat) ** (8. * self.p)) )
-    self.wgtend = - C1 / (self.rhow * d1) * self.LEsoil / self.Lv - C2 / 86400. * (self.wg - wgeq)
+    wgtend      = - C1 / (self.rhow * d1) * self.LEsoil / self.Lv - C2 / 86400. * (self.wg - wgeq)
 
     # calculate kinematic heat fluxes
     self.wtheta   = self.H / (self.rho * self.cp)
     self.wq       = self.LE / (self.rho * self.Lv)
+
+    # integrate soil equations
+    Tsoil0        = self.Tsoil
+    wg0           = self.wg
+    Wl0           = self.Wl
+
+    self.Tsoil    = Tsoil0  + self.dt * Tsoiltend
+    self.wg       = wg0     + self.dt * wgtend
+    self.Wl       = Wl0     + self.dt * Wltend
  
 
   # store model output
@@ -394,6 +430,10 @@ class model:
 
     self.out.H[t]          = self.H
     self.out.LE[t]         = self.LE
+    self.out.LEliq[t]      = self.LEliq
+    self.out.LEveg[t]      = self.LEveg
+    self.out.LEsoil[t]     = self.LEsoil
+    self.out.LEpot[t]      = self.LEpot
     self.out.G[t]          = self.G
 
 
@@ -408,6 +448,7 @@ class model:
     del(self.Rv)
     del(self.bolz)
 
+    del(self.t)
     del(self.dt)
     del(self.tsteps)
      
@@ -447,12 +488,65 @@ class model:
     del(self.advv)
     
     del(self.ustar)
+    del(self.uw)
+    del(self.vw)
     del(self.z0m)
     del(self.z0h)        
     del(self.Cm)         
     del(self.Cs)
     del(self.L)
     del(self.Rib)
+
+    del(self.lat)
+    del(self.lon)
+    del(self.doy)
+    del(self.tstart)
+    del(self.S0)
+ 
+    del(self.Swin)
+    del(self.Swout)
+    del(self.Lwin)
+    del(self.Lwout)
+
+    del(self.wg)
+    del(self.w2)
+    del(self.cveg)
+    del(self.Tsoil)
+    del(self.T2)
+    del(self.a)
+    del(self.b)
+    del(self.p)
+    del(self.CGsat)
+
+    del(self.wsat)
+    del(self.wfc)
+    del(self.wwilt)
+
+    del(self.C1sat)
+    del(self.C2ref)
+
+    del(self.LAI)
+    del(self.rsmin)
+    del(self.rssoilmin)
+    del(self.alpha)
+
+    del(self.Ts)
+
+    del(self.Wmax)
+    del(self.Wl)
+    del(self.cl)
+
+    del(self.Lambda)
+    
+    del(self.Q)
+    del(self.H)
+    del(self.LE)
+    del(self.LEliq)
+    del(self.LEveg)
+    del(self.LEsoil)
+    del(self.LEpot)
+    del(self.G)
+
 
 # class for storing mixed-layer model output data
 class modeloutput:
@@ -511,7 +605,11 @@ class modeloutput:
 
     # land surface variables
     self.H          = numpy.zeros(tsteps)    # sensible heat flux [W m-2]
-    self.LE         = numpy.zeros(tsteps)    # latent heat flux [W m-2]
+    self.LE         = numpy.zeros(tsteps)    # evapotranspiration [W m-2]
+    self.LEliq      = numpy.zeros(tsteps)    # open water evaporation [W m-2]
+    self.LEveg      = numpy.zeros(tsteps)    # transpiration [W m-2]
+    self.LEsoil     = numpy.zeros(tsteps)    # soil evaporation [W m-2]
+    self.LEpot      = numpy.zeros(tsteps)    # potential evaporation [W m-2]
     self.G          = numpy.zeros(tsteps)    # ground heat flux [W m-2]
 
 
@@ -526,6 +624,7 @@ class modelinput:
     self.h          = -1. # initial ABL height [m]
     self.Ps         = -1. # surface pressure [Pa]
     self.ws         = -1. # large scale vertical velocity [m s-1]
+    self.fc         = -1. # Coriolis parameter [s-1]
     
     self.theta      = -1. # initial mixed-layer potential temperature [K]
     self.dtheta     = -1. # initial temperature jump at h [K]

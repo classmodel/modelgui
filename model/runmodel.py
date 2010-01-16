@@ -6,13 +6,14 @@ from model import *
 
 run1input = modelinput()
 
-run1input.dt         = 90.       # time step [s]
+run1input.dt         = 60.       # time step [s]
 run1input.runtime    = 43200.    # total run time [s]
 
 # mixed-layer input
 run1input.h          = 200.      # initial ABL height [m]
 run1input.Ps         = 101300.   # surface pressure [Pa]
 run1input.ws         = 0.        # large scale vertical velocity [m s-1]
+run1input.fc         = 1.e-4     # Coriolis parameter [m s-1]
 
 run1input.theta      = 288.      # initial mixed-layer potential temperature [K]
 run1input.dtheta     = 5.        # initial temperature jump at h [K]
@@ -27,12 +28,12 @@ run1input.gammaq     = 0.        # free atmosphere specific humidity lapse rate 
 run1input.advq       = 0.        # advection of moisture [kg kg-1 s-1]
 run1input.wq         = 0.000001  # surface kinematic moisture flux [kg kg-1 m s-1]
 
-run1input.u          = 5.        # initial mixed-layer u-wind speed [m s-1]
+run1input.u          = 3.        # initial mixed-layer u-wind speed [m s-1]
 run1input.du         = 3.        # initial u-wind jump at h [m s-1]
-run1input.gammau     = 0.003     # free atmosphere u-wind speed lapse rate [s-1]
+run1input.gammau     = 0.        # free atmosphere u-wind speed lapse rate [s-1]
 run1input.advu       = 0.        # advection of u-wind [m s-2]
 
-run1input.v          = 1e-3      # initial mixed-layer u-wind speed [m s-1]
+run1input.v          = 1e-6      # initial mixed-layer u-wind speed [m s-1]
 run1input.dv         = 0.        # initial u-wind jump at h [m s-1]
 run1input.gammav     = 0.        # free atmosphere v-wind speed lapse rate [s-1]
 run1input.advv       = 0.        # advection of v-wind [m s-2]
@@ -50,7 +51,7 @@ run1input.tstart     = 7.         # time of the day [h UTC]
 run1input.S0         = 1300.      # maximum incoming shortwave radiation [W m-2]
 
 # land surface parameters
-run1input.wg         = 0.30       # volumetric water content top soil layer [m3 m-3]
+run1input.wg         = 0.22       # volumetric water content top soil layer [m3 m-3]
 run1input.w2         = 0.22       # volumetric water content deeper soil layer [m3 m-3]
 run1input.cveg       = 0.8        # vegetation fraction [-]
 run1input.Tsoil      = 285.       # temperature top soil layer [K]
