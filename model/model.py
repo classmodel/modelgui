@@ -3,9 +3,7 @@
 """
 Open issues:
 
-wind speed and coriolis force give highly accelerating wind
 sensible heat flux always peaks too early in the morning
-
 """
 
 import copy
@@ -63,7 +61,7 @@ class model:
     self.thetav     =  -1.                   # initial mixed-layer potential temperature [K]
     self.dthetav    =  -1.                   # initial virtual temperature jump at h [K]
     self.thetavsurf =  -1.                   # surface virtual potential temperature [K]
-    self.qsurf      =  -1.                   # surface specific humidit [g kg-1]
+    self.qsurf      =  -1.                   # surface specific humidity [g kg-1]
     self.wthetav    =  -1.                   # surface kinematic virtual heat flux [K m s-1]
     
     self.q          =  self.input.q          # initial mixed-layer specific humidity [kg kg-1]
@@ -198,8 +196,8 @@ class model:
     dqtend      = self.gammaq     * self.we - qtend
    
     # assume u + du = ug, so ug - u = du
-    utend       =  self.fc * self.dv + (self.uw     + self.we * self.du)  / self.h + self.advu
-    vtend       = -self.fc * self.du + (self.vw     + self.we * self.dv)  / self.h + self.advv
+    utend       = -self.fc * self.dv + (self.uw     + self.we * self.du)  / self.h + self.advu
+    vtend       =  self.fc * self.du + (self.vw     + self.we * self.dv)  / self.h + self.advv
 
     dutend      = self.gammau * self.we - utend
     dvtend      = self.gammav * self.we - vtend
