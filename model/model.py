@@ -81,6 +81,7 @@ class model:
     self.advv       =  self.input.advv       # advection of v-wind [m s-2]
 
     # initialize surface layer
+    self.sw_sl      =  self.input.sw_sl      # surface layer switch
     self.ustar      =  self.input.ustar      # surface friction velocity [m s-1]
     self.uw         =  -1.                   # surface momentum flux in u-direction [m2 s-2]
     self.vw         =  -1.                   # surface momentum flux in v-direction [m2 s-2]
@@ -93,6 +94,7 @@ class model:
     self.ra         =  -1.                   # aerodynamic resistance [s m-1]
 
     # initialize radiation
+    self.sw_rad     =  self.input.sw_rad     # radiation switch
     self.lat        =  self.input.lat        # latitude [deg]
     self.lon        =  self.input.lon        # longitude [deg]
     self.doy        =  self.input.doy        # day of the year [-]
@@ -105,6 +107,7 @@ class model:
     self.Q          =  -1.                   # net radiation [W m-2]
 
     # initialize land surface
+    self.sw_ls      =  self.input.sw_ls      # land surface switch
     self.wg         =  self.input.wg         # volumetric water content top soil layer [m3 m-3]
     self.w2         =  self.input.w2         # volumetric water content deeper soil layer [m3 m-3]
     self.Tsoil      =  self.input.Tsoil      # temperature top soil layer [K]
@@ -154,11 +157,14 @@ class model:
     self.out = modeloutput(self.tsteps)
 
     # calculate initial diagnostic variables
-    self.runradmodel()
+    if(self.sw_rad):
+      self.runradmodel()
 
-    self.runslmodel()
+    if(self.sw_sl):
+      self.runslmodel()
 
-    self.runlsmodel()
+    if(self.sw_ls):
+      self.runlsmodel()
 
     # store initial values in output
     self.store()
@@ -166,13 +172,16 @@ class model:
 
   def run(self):
     # run radiation model
-    self.runradmodel()
+    if(self.sw_rad):
+      self.runradmodel()
 
     # run surface layer model
-    self.runslmodel()
+    if(self.sw_sl):
+      self.runslmodel()
     
     # run land surface model
-    self.runlsmodel()
+    if(self.sw_ls):
+      self.runlsmodel()
 
     # compute mixed-layer tendencies
     # first compute necessary virtual temperature units
@@ -196,8 +205,8 @@ class model:
     dqtend      = self.gammaq     * self.we - qtend
    
     # assume u + du = ug, so ug - u = du
-    utend       = -self.fc * self.dv + (self.uw     + self.we * self.du)  / self.h + self.advu
-    vtend       =  self.fc * self.du + (self.vw     + self.we * self.dv)  / self.h + self.advv
+    utend       = -self.fc * self.dv + (self.uw + self.we * self.du)  / self.h + self.advu
+    vtend       =  self.fc * self.du + (self.vw + self.we * self.dv)  / self.h + self.advv
 
     dutend      = self.gammau * self.we - utend
     dvtend      = self.gammav * self.we - vtend
@@ -648,6 +657,7 @@ class modelinput:
     self.advv       = -1. # advection of v-wind [m s-2]
 
     # surface layer variables
+    self.sw_sl      = False # surface layer switch
     self.ustar      = -1. # surface friction velocity [m s-1]
     self.z0m        = -1. # roughness length for momentum [m]
     self.z0h        = -1. # roughness length for scalars [m]
@@ -657,6 +667,7 @@ class modelinput:
     self.Rib        = -1. # bulk Richardson number [-]
 
     # radiation parameters
+    self.sw_rad     = False # radiation switch
     self.lat        = -1. # latitude [deg]
     self.lon        = -1. # longitude [deg]
     self.doy        = -1. # day of the year [-]
@@ -664,6 +675,7 @@ class modelinput:
     self.tstart     = -1  # time of the day [h UTC]
 
     # land surface parameters
+    self.sw_ls      = False # land surface switch
     self.wg         = -1. # volumetric water content top soil layer [m3 m-3]
     self.w2         = -1. # volumetric water content deeper soil layer [m3 m-3]
     self.Tsoil      = -1. # temperature top soil layer [K]

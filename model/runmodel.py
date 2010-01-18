@@ -39,11 +39,13 @@ run1input.gammav     = 0.        # free atmosphere v-wind speed lapse rate [s-1]
 run1input.advv       = 0.        # advection of v-wind [m s-2]
 
 # surface layer input
+run1input.sw_sl      = False     # surface layer switch
 run1input.ustar      = 0.3       # surface friction velocity [m s-1]
 run1input.z0m        = 0.05      # roughness length for momentum [m]
 run1input.z0h        = 0.01      # roughness length for scalars [m]
 
 # radiation parameters
+run1input.sw_rad     = False     # radiation switch
 run1input.lat        = 43.5      # latitude [deg]
 run1input.lon        = 1.5       # longitude [deg]
 run1input.doy        = 268.      # day of the year [-]
@@ -51,6 +53,7 @@ run1input.tstart     = 7.        # time of the day [h UTC]
 run1input.S0         = 1300.     # maximum incoming shortwave radiation [W m-2]
 
 # land surface parameters
+run1input.sw_ls      = False     # land surface switch
 run1input.wg         = 0.22      # volumetric water content top soil layer [m3 m-3]
 run1input.w2         = 0.22      # volumetric water content deeper soil layer [m3 m-3]
 run1input.cveg       = 0.8       # vegetation fraction [-]
