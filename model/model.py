@@ -336,13 +336,20 @@ class model:
     self.e = self.q * self.Ps / 0.622
 
     # calculate surface resistances using Jarvis-Stewart model
-    f1          = 1. / ((0.004 * self.Swin + 0.05) / (0.81 * (0.004 * self.Swin + 1.)))
+    f1old       = 1. / ((0.004 * self.Swin + 0.05) / (0.81 * (0.004 * self.Swin + 1.)))
+    fpar        = 0.55 * self.Swin / 100. * 2. / self.LAI
+
+    f1          = (1. + fpar) / (fpar + self.rsmin / 10000.)
     if(self.w2 > self.wwilt and self.w2 <= self.wfc):
       f2          = (self.wfc - self.wwilt) / (self.w2 - self.wwilt)
     else:
       f2        = 1.e8
 
     f3          = 1. / numpy.exp(- self.gD * (self.esat - self.e) / 100.)
+
+    f4          = 1./ (1. - 0.0016 * (298.0 - self.theta) ** 2.)
+
+    print(self.t * self.dt, f1, f2, f3, f4)
 
     self.rs     = self.rsmin / self.LAI * f1 * f2 * f3
     self.rssoil = self.rssoilmin * f2 
