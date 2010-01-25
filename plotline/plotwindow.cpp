@@ -52,10 +52,9 @@ void PlotWindow::paintEvent(QPaintEvent *)
   double yscale = plotheight / (ymax-ymin);  // scaling factor for f(real-coordinate to Widget-coordinate)
   double xscale = plotwidth / (xmax-xmin);   // scaling factor for f(real-coordinate to Widget-coordinate)
 
-  QImage image(500,500,QImage::Format_ARGB32);
   QPainter paint(this);
-
   QPen pen(Qt::black, 1, Qt::SolidLine);
+  paint.setRenderHint(QPainter::Antialiasing, true);
   paint.setPen(pen);
 
   paint.drawLine(plotmargin,pwidget_height - plotmargin,pwidget_width-plotmargin,pwidget_height-plotmargin);  // Draw X-axis
@@ -68,7 +67,7 @@ void PlotWindow::paintEvent(QPaintEvent *)
   paint.drawText(5,(plotheight*0.75)+plotmargin,40,13,Qt::AlignRight, QString::number(ymax-((ymax-ymin)*0.75)));
   paint.drawText(5,pwidget_height-55,40,13,Qt::AlignRight, QString::number(ymin));
 
-  // Hereafter; clip data plot
+  // Hereafter; clip data plot .
   paint.setClipping(true);
   paint.setClipRect(plotmargin,plotmargin,plotwidth,plotheight);
 
