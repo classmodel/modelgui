@@ -72,6 +72,7 @@ class model:
     self.advq       =  self.input.advq       # advection of moisture [kg kg-1 s-1]
     self.wq         =  self.input.wq         # surface kinematic moisture flux [kg kg-1 m s-1]
     
+    self.sw_wind    =  self.input.sw_wind    # prognostic wind switch
     self.u          =  self.input.u          # initial mixed-layer u-wind speed [m s-1]
     self.du         =  self.input.du         # initial u-wind jump at h [m s-1]
     self.gammau     =  self.input.gammau     # free atmosphere u-wind speed lapse rate [s-1]
@@ -197,8 +198,8 @@ class model:
     self.vw       = - (self.ustar ** 4. / (self.u ** 2. / self.v ** 2. + 1.)) ** (0.5)
     
     # compute tendencies
-    self.we     = (self.beta * self.wthetav) / self.dthetav
-    #we         = (beta * wthetav + 5. * ustar ** 3. * thetav / (g * h)) / dthetav
+    #self.we    = (self.beta * self.wthetav) / self.dthetav
+    self.we     = (self.beta * self.wthetav + 5. * self.ustar ** 3. * self.thetav / (self.g * self.h)) / self.dthetav
     htend       = self.we + self.ws
     
     thetatend   = (self.wtheta + self.we * self.dtheta) / self.h + self.advtheta 
@@ -208,11 +209,12 @@ class model:
     dqtend      = self.gammaq     * self.we - qtend
    
     # assume u + du = ug, so ug - u = du
-    utend       = -self.fc * self.dv + (self.uw + self.we * self.du)  / self.h + self.advu
-    vtend       =  self.fc * self.du + (self.vw + self.we * self.dv)  / self.h + self.advv
+    if(self.sw_wind):
+      utend       = -self.fc * self.dv + (self.uw + self.we * self.du)  / self.h + self.advu
+      vtend       =  self.fc * self.du + (self.vw + self.we * self.dv)  / self.h + self.advv
 
-    dutend      = self.gammau * self.we - utend
-    dvtend      = self.gammav * self.we - vtend
+      dutend      = self.gammau * self.we - utend
+      dvtend      = self.gammav * self.we - vtend
     
     # set values previous time step
     h0      = self.h
@@ -235,10 +237,11 @@ class model:
     self.q        = q0      + self.dt * qtend
     self.dq       = dq0     + self.dt * dqtend
 
-    self.u        = u0      + self.dt * utend
-    self.du       = du0     + self.dt * dutend
-    self.v        = v0      + self.dt * vtend
-    self.dv       = dv0     + self.dt * dvtend
+    if(self.sw_wind):
+      self.u        = u0      + self.dt * utend
+      self.du       = du0     + self.dt * dutend
+      self.v        = v0      + self.dt * vtend
+      self.dv       = dv0     + self.dt * dvtend
 
   def runradmodel(self):
     sda = 0.409 * numpy.cos(2. * numpy.pi * (self.doy - 173.) / 365.)
@@ -336,10 +339,9 @@ class model:
     self.e = self.q * self.Ps / 0.622
 
     # calculate surface resistances using Jarvis-Stewart model
-    f1old       = 1. / ((0.004 * self.Swin + 0.05) / (0.81 * (0.004 * self.Swin + 1.)))
-    fpar        = 0.55 * self.Swin / 100. * 2. / self.LAI
-
-    f1          = (1. + fpar) / (fpar + self.rsmin / 10000.)
+    f1          = 1. / ((0.004 * self.Swin + 0.05) / (0.81 * (0.004 * self.Swin + 1.)))
+    #fpar        = 0.55 * self.Swin / 100. * 2. / self.LAI
+    #f1new       = (1. + fpar) / (fpar + self.rsmin / 10000.)
     if(self.w2 > self.wwilt and self.w2 <= self.wfc):
       f2          = (self.wfc - self.wwilt) / (self.w2 - self.wwilt)
     else:
@@ -349,7 +351,7 @@ class model:
 
     f4          = 1./ (1. - 0.0016 * (298.0 - self.theta) ** 2.)
 
-    print(self.t * self.dt, f1, f2, f3, f4)
+    #print(self.t * self.dt, f1, f2, f3, f4)
 
     self.rs     = self.rsmin / self.LAI * f1 * f2 * f3
     self.rssoil = self.rssoilmin * f2 
@@ -666,6 +668,7 @@ class modelinput:
     self.advq       = -1. # advection of moisture [kg kg-1 s-1]
     self.wq         = -1. # surface kinematic moisture flux [kg kg-1 m s-1]
     
+    self.sw_wind    = False # prognostic wind switch
     self.u          = -1. # initial mixed-layer u-wind speed [m s-1]
     self.du         = -1. # initial u-wind jump at h [m s-1]
     self.gammau     = -1. # free atmosphere u-wind speed lapse rate [s-1]
