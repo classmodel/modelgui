@@ -28,35 +28,36 @@ run1input.gammaq     = 0.        # free atmosphere specific humidity lapse rate 
 run1input.advq       = 0.        # advection of moisture [kg kg-1 s-1]
 run1input.wq         = 0.000001  # surface kinematic moisture flux [kg kg-1 m s-1]
 
-run1input.u          = 4.        # initial mixed-layer u-wind speed [m s-1]
-run1input.du         = 2.        # initial u-wind jump at h [m s-1]
+run1input.sw_wind    = False     # prognostic wind switch
+run1input.u          = 5.        # initial mixed-layer u-wind speed [m s-1]
+run1input.du         = 0.        # initial u-wind jump at h [m s-1]
 run1input.gammau     = 0.        # free atmosphere u-wind speed lapse rate [s-1]
 run1input.advu       = 0.        # advection of u-wind [m s-2]
 
-run1input.v          = 1.        # initial mixed-layer u-wind speed [m s-1]
+run1input.v          = 0.0001    # initial mixed-layer u-wind speed [m s-1]
 run1input.dv         = 0.        # initial u-wind jump at h [m s-1]
 run1input.gammav     = 0.        # free atmosphere v-wind speed lapse rate [s-1]
 run1input.advv       = 0.        # advection of v-wind [m s-2]
 
 # surface layer input
-run1input.sw_sl      = False     # surface layer switch
+run1input.sw_sl      = True      # surface layer switch
 run1input.ustar      = 0.3       # surface friction velocity [m s-1]
 run1input.z0m        = 0.05      # roughness length for momentum [m]
 run1input.z0h        = 0.01      # roughness length for scalars [m]
 
 # radiation parameters
-run1input.sw_rad     = False     # radiation switch
+run1input.sw_rad     = True      # radiation switch
 run1input.lat        = 43.5      # latitude [deg]
 run1input.lon        = 1.5       # longitude [deg]
 run1input.doy        = 268.      # day of the year [-]
-run1input.tstart     = 7.        # time of the day [h UTC]
-run1input.S0         = 1300.     # maximum incoming shortwave radiation [W m-2]
+run1input.tstart     = 6.9       # time of the day [h UTC]
+run1input.S0         = 1000.     # maximum incoming shortwave radiation [W m-2]
 
 # land surface parameters
-run1input.sw_ls      = False     # land surface switch
-run1input.wg         = 0.22      # volumetric water content top soil layer [m3 m-3]
-run1input.w2         = 0.22      # volumetric water content deeper soil layer [m3 m-3]
-run1input.cveg       = 0.8       # vegetation fraction [-]
+run1input.sw_ls      = True      # land surface switch
+run1input.wg         = 0.21      # volumetric water content top soil layer [m3 m-3]
+run1input.w2         = 0.21      # volumetric water content deeper soil layer [m3 m-3]
+run1input.cveg       = 0.9       # vegetation fraction [-]
 run1input.Tsoil      = 285.      # temperature top soil layer [K]
 run1input.T2         = 286.      # temperature deeper soil layer [K]
 run1input.a          = 0.219     # Clapp and Hornberger retention curve parameter a
@@ -72,17 +73,18 @@ run1input.C1sat      = 0.132
 run1input.C2ref      = 1.8
 
 run1input.LAI        = 2.        # leaf area index [-]
+run1input.gD         = 0.0       # correction factor transpiration for VPD [-]
 run1input.rsmin      = 40.       # minimum resistance transpiration [s m-1]
 run1input.rssoilmin  = 50.       # minimun resistance soil evaporation [s m-1]
 run1input.alpha      = 0.25      # surface albedo [-]
 
-run1input.Ts         = 280.      # initial mixed layer potential temperature [K]
+run1input.Ts         = 280.      # initial surface temperature [K]
 
 run1input.Wmax       = 0.0002    # thickness of water layer on wet vegetation [m]
-run1input.Wl         = 0.0002    # equivalent water layer depth for wet vegetation [m]
+run1input.Wl         = 0.0000    # equivalent water layer depth for wet vegetation [m]
 run1input.cl         = 0.        # wet fraction [-]
 
-run1input.Lambda     = 5.9       # thermal diffusivity soil [-]
+run1input.Lambda     = 5.9       # thermal diffusivity skin layer [-]
 
 run1 = model(run1input)
 run1.runmodel()

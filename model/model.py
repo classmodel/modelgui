@@ -3,7 +3,9 @@
 """
 Open issues:
 
-sensible heat flux always peaks too early in the morning
+sensible heat flux always peaks too early in the morning, maybe other Jarvis functions?
+surface layer routine is very slow
+
 """
 
 import copy
@@ -70,6 +72,7 @@ class model:
     self.advq       =  self.input.advq       # advection of moisture [kg kg-1 s-1]
     self.wq         =  self.input.wq         # surface kinematic moisture flux [kg kg-1 m s-1]
     
+    self.sw_wind    =  self.input.sw_wind    # prognostic wind switch
     self.u          =  self.input.u          # initial mixed-layer u-wind speed [m s-1]
     self.du         =  self.input.du         # initial u-wind jump at h [m s-1]
     self.gammau     =  self.input.gammau     # free atmosphere u-wind speed lapse rate [s-1]
@@ -126,6 +129,7 @@ class model:
     self.C2ref      =  self.input.C2ref      
     
     self.LAI        =  self.input.LAI        # leaf area index [-]
+    self.gD         =  self.input.gD         # correction factor transpiration for VPD [-]
     self.rsmin      =  self.input.rsmin      # minimum resistance transpiration [s m-1]
     self.rssoilmin  =  self.input.rssoilmin  # minimum resistance soil evaporation [s m-1]
     self.alpha      =  self.input.alpha      # surface albedo [-]
@@ -194,8 +198,8 @@ class model:
     self.vw       = - (self.ustar ** 4. / (self.u ** 2. / self.v ** 2. + 1.)) ** (0.5)
     
     # compute tendencies
-    self.we     = (self.beta * self.wthetav) / self.dthetav
-    #we         = (beta * wthetav + 5. * ustar ** 3. * thetav / (g * h)) / dthetav
+    #self.we    = (self.beta * self.wthetav) / self.dthetav
+    self.we     = (self.beta * self.wthetav + 5. * self.ustar ** 3. * self.thetav / (self.g * self.h)) / self.dthetav
     htend       = self.we + self.ws
     
     thetatend   = (self.wtheta + self.we * self.dtheta) / self.h + self.advtheta 
@@ -205,11 +209,12 @@ class model:
     dqtend      = self.gammaq     * self.we - qtend
    
     # assume u + du = ug, so ug - u = du
-    utend       = -self.fc * self.dv + (self.uw + self.we * self.du)  / self.h + self.advu
-    vtend       =  self.fc * self.du + (self.vw + self.we * self.dv)  / self.h + self.advv
+    if(self.sw_wind):
+      utend       = -self.fc * self.dv + (self.uw + self.we * self.du)  / self.h + self.advu
+      vtend       =  self.fc * self.du + (self.vw + self.we * self.dv)  / self.h + self.advv
 
-    dutend      = self.gammau * self.we - utend
-    dvtend      = self.gammav * self.we - vtend
+      dutend      = self.gammau * self.we - utend
+      dvtend      = self.gammav * self.we - vtend
     
     # set values previous time step
     h0      = self.h
@@ -232,10 +237,11 @@ class model:
     self.q        = q0      + self.dt * qtend
     self.dq       = dq0     + self.dt * dqtend
 
-    self.u        = u0      + self.dt * utend
-    self.du       = du0     + self.dt * dutend
-    self.v        = v0      + self.dt * vtend
-    self.dv       = dv0     + self.dt * dvtend
+    if(self.sw_wind):
+      self.u        = u0      + self.dt * utend
+      self.du       = du0     + self.dt * dutend
+      self.v        = v0      + self.dt * vtend
+      self.dv       = dv0     + self.dt * dvtend
 
   def runradmodel(self):
     sda = 0.409 * numpy.cos(2. * numpy.pi * (self.doy - 173.) / 365.)
@@ -271,9 +277,7 @@ class model:
       L  = -1.
       L0 = -2.
     
-    count = 0
     while (abs(L - L0) > 0.001):
-      count = count + 1
       L0      = L
       fx      = self.Rib - zsl / L * (numpy.log(zsl / self.z0h) - self.psih(zsl / L) + self.psih(self.z0h / L)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / L) + self.psim(self.z0m / L)) ** 2.
       Lstart  = L - 0.001*L
@@ -295,7 +299,7 @@ class model:
     ueff       = numpy.sqrt(self.u ** 2. + self.v ** 2.)
     self.ustar = numpy.sqrt(self.Cm) * ueff
 
-    self.ra    = (self.Cm * ueff) ** (-1.)
+    #self.ra    = (self.Cm * ueff) ** (-1.)
     
     self.thetasurf = self.theta + self.wtheta / (self.Cs * ueff)
 
@@ -320,20 +324,35 @@ class model:
     return psih
 
   def runlsmodel(self):
+    # compute ra
+    ueff       = numpy.sqrt(self.u ** 2. + self.v ** 2.)
+    if(self.sw_sl):
+      self.ra    = (self.Cm * ueff) ** (-1.)
+    else:
+      self.ra    = ueff / self.ustar ** 2.
+
     # first calculate essential thermodynamic variables
-    self.esat  = 0.611e3 * numpy.exp(17.2694 * (self.theta - 273.16) / (self.theta - 35.86))
-    self.qsat  = 0.622 * self.esat / self.Ps
-    desatdT  = self.esat * (17.2694 / (self.theta - 35.86) - 17.2694 * (self.theta - 273.16) / (self.theta - 35.86)**2.)
-    self.dqsatdT  = 0.622 * desatdT / self.Ps
-    e = self.q * self.Ps / 0.622
+    self.esat    = 0.611e3 * numpy.exp(17.2694 * (self.theta - 273.16) / (self.theta - 35.86))
+    self.qsat    = 0.622 * self.esat / self.Ps
+    desatdT      = self.esat * (17.2694 / (self.theta - 35.86) - 17.2694 * (self.theta - 273.16) / (self.theta - 35.86)**2.)
+    self.dqsatdT = 0.622 * desatdT / self.Ps
+    self.e = self.q * self.Ps / 0.622
 
     # calculate surface resistances using Jarvis-Stewart model
     f1          = 1. / ((0.004 * self.Swin + 0.05) / (0.81 * (0.004 * self.Swin + 1.)))
+    #fpar        = 0.55 * self.Swin / 100. * 2. / self.LAI
+    #f1new       = (1. + fpar) / (fpar + self.rsmin / 10000.)
     if(self.w2 > self.wwilt and self.w2 <= self.wfc):
       f2          = (self.wfc - self.wwilt) / (self.w2 - self.wwilt)
     else:
       f2        = 1.e8
-    f3          = 1.
+
+    f3          = 1. / numpy.exp(- self.gD * (self.esat - self.e) / 100.)
+
+    f4          = 1./ (1. - 0.0016 * (298.0 - self.theta) ** 2.)
+
+    #print(self.t * self.dt, f1, f2, f3, f4)
+
     self.rs     = self.rsmin / self.LAI * f1 * f2 * f3
     self.rssoil = self.rssoilmin * f2 
 
@@ -384,7 +403,6 @@ class model:
     self.Tsoil    = Tsoil0  + self.dt * Tsoiltend
     self.wg       = wg0     + self.dt * wgtend
     self.Wl       = Wl0     + self.dt * Wltend
- 
 
   # store model output
   def store(self):
@@ -398,7 +416,7 @@ class model:
     self.out.thetav[t]     = self.thetav
     self.out.dtheta[t]     = self.dtheta
     self.out.dthetav[t]    = self.dthetav
-    self.out.gammatheta    = self.gammatheta
+    self.out.gammatheta[t] = self.gammatheta
     self.out.advtheta[t]   = self.advtheta
     self.out.beta[t]       = self.beta
     self.out.wtheta[t]     = self.wtheta
@@ -435,6 +453,8 @@ class model:
     self.out.Lwout[t]      = self.Lwout
     self.out.Q[t]          = self.Q
 
+    self.out.ra[t]         = self.ra
+    self.out.rs[t]         = self.rs
     self.out.H[t]          = self.H
     self.out.LE[t]         = self.LE
     self.out.LEliq[t]      = self.LEliq
@@ -611,6 +631,8 @@ class modeloutput:
     self.Q          = numpy.zeros(tsteps)    # net radiation [W m-2]
 
     # land surface variables
+    self.ra         = numpy.zeros(tsteps)    # aerodynamic resistance [s m-1]
+    self.rs         = numpy.zeros(tsteps)    # surface resistance [s m-1]
     self.H          = numpy.zeros(tsteps)    # sensible heat flux [W m-2]
     self.LE         = numpy.zeros(tsteps)    # evapotranspiration [W m-2]
     self.LEliq      = numpy.zeros(tsteps)    # open water evaporation [W m-2]
@@ -646,6 +668,7 @@ class modelinput:
     self.advq       = -1. # advection of moisture [kg kg-1 s-1]
     self.wq         = -1. # surface kinematic moisture flux [kg kg-1 m s-1]
     
+    self.sw_wind    = False # prognostic wind switch
     self.u          = -1. # initial mixed-layer u-wind speed [m s-1]
     self.du         = -1. # initial u-wind jump at h [m s-1]
     self.gammau     = -1. # free atmosphere u-wind speed lapse rate [s-1]
@@ -694,17 +717,18 @@ class modelinput:
     self.C2ref      = -1.
     
     self.LAI        = -1. # leaf area index [-]
+    self.gD         = -1. # correction factor transpiration for VPD [-]
     self.rsmin      = -1. # minimum resistance transpiration [s m-1]
     self.rssoilmin  = -1. # minimum resistance soil evaporation [s m-1]
     self.alpha      = -1. # surface albedo [-]
     
-    self.Ts         = -1. # initial mixed layer potential temperature [K]
+    self.Ts         = -1. # initial surface temperature [K]
     
     self.cveg       = -1. # vegetation fraction [-]
     self.Wmax       = -1. # thickness of water layer on wet vegetation [m]
     self.Wl         = -1. # equivalent water layer depth for wet vegetation [m]
     self.cl         = -1. # wet fraction [-]
     
-    self.Lambda     = -1. # thermal diffusivity soil [-]
+    self.Lambda     = -1. # thermal diffusivity skin layer [-]
 
 
