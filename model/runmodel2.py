@@ -2,7 +2,7 @@
 # run mlmodel
 
 from pylab import *
-from model import *
+from model2 import *
 
 run1input = modelinput()
 
@@ -86,7 +86,7 @@ run1input.cl         = 0.        # wet fraction [-]
 
 run1input.Lambda     = 5.9       # thermal diffusivity skin layer [-]
 
-run1 = model(run1input)
+run1 = model2(run1input)
 
 for n in range(25):
   print("Model run: ", n)
