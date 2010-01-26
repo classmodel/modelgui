@@ -29,6 +29,8 @@
                     SLOT(showData()));
 
         setWindowTitle(tr("Initiate ML-model"));
+
+        window = new Window;
     }
 
     Widget::~Widget()
@@ -51,6 +53,6 @@
             y[i] = cos(x[i]);
             std::cout << "X: " << x[i] << " Y: " << y[i] << std::endl;
         }
-
+        window->show();
         return;
     }

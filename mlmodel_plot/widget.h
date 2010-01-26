@@ -4,6 +4,7 @@
 #include <QtGui/QWidget>
 #include <QtGui/QPushButton>
 #include <QtGui/QLineEdit>
+#include "window.h"
 
 namespace Ui
 {
@@ -29,6 +30,7 @@ private:
     QLineEdit *xminInput;
     QLineEdit *xmaxInput;
     QLineEdit *xintInput;
+    Window *window;
 };
 
 #endif // WIDGET_H
