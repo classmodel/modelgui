@@ -3,3 +3,6 @@ ribtol.so : ribtol.o
 
 ribtol.o : ribtol.cpp
 	g++ -c -O3 -fPIC ribtol.cpp -I/usr/include/python2.6
+
+clean : 
+	rm -rf ribtol.o ribtol.so
