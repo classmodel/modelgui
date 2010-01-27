@@ -3,6 +3,8 @@
 
 from pylab import *
 from model2 import *
+from multiprocessing import Pool
+import copy
 
 run1input = modelinput()
 
@@ -88,9 +90,11 @@ run1input.Lambda     = 5.9       # thermal diffusivity skin layer [-]
 
 run1 = model2(run1input)
 
-for n in range(25):
-  print("Model run: ", n)
-  run1.input.theta = run1.input.theta + 0.1 * n
-  run1.runmodel()
+po = Pool()
 
+for n in range(250):
+  print("Model run: ", n)
+  runtemp = model2(run1input)
+  po.apply(runtemp.runmodel(), ())
+  del(runtemp)
 

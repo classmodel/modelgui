@@ -10,8 +10,9 @@ surface layer routine is very slow
 
 import copy
 import numpy
+import ribtol
 
-class model:
+class model2:
   def __init__(self, modelinput):
     # initialize the different components of the model
     self.input = copy.deepcopy(modelinput)
@@ -270,6 +271,7 @@ class model:
           
     self.Rib  = self.g / self.thetav * 0.1 * self.h * (self.thetav - self.thetavsurf) / (self.u ** 2. + self.v ** 2.)
 
+    """
     if(self.Rib > 0.):
       L    = 1.
       L0   = 2.
@@ -285,8 +287,10 @@ class model:
       fxdif   = ( (- zsl / Lstart * (numpy.log(zsl / self.z0h) - self.psih(zsl / Lstart) + self.psih(self.z0h / Lstart)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / Lstart) + self.psim(self.z0m / Lstart)) ** 2.) \
           - (-zsl / Lend * (numpy.log(zsl / self.z0h) - self.psih(zsl / Lend) + self.psih(self.z0h / Lend)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / Lend) + self.psim(self.z0m / Lend)) ** 2.) ) / (Lstart - Lend)
       L       = L - fx / fxdif
+    """
 
-    self.L    = L
+    self.L    = ribtol.ribtol(self.Rib, zsl, self.z0m, self.z0h)
+
     self.Cm   = self.k ** 2. / (numpy.log(zsl / self.z0m) - self.psim(zsl / self.L) + self.psim(self.z0m / self.L)) ** 2.
     self.Cs   = self.k ** 2. / (numpy.log(zsl / self.z0m) - self.psim(zsl / self.L) + self.psim(self.z0m / self.L)) / (numpy.log(zsl / self.z0h) - self.psih(zsl / self.L) + self.psih(self.z0h / self.L))
       

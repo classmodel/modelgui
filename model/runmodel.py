@@ -2,7 +2,7 @@
 # run mlmodel
 
 from pylab import *
-from model import *
+from model2 import *
 
 run1input = modelinput()
 
@@ -28,14 +28,14 @@ run1input.gammaq     = 0.        # free atmosphere specific humidity lapse rate 
 run1input.advq       = 0.        # advection of moisture [kg kg-1 s-1]
 run1input.wq         = 0.000001  # surface kinematic moisture flux [kg kg-1 m s-1]
 
-run1input.sw_wind    = False     # prognostic wind switch
-run1input.u          = 5.        # initial mixed-layer u-wind speed [m s-1]
-run1input.du         = 0.        # initial u-wind jump at h [m s-1]
+run1input.sw_wind    = True      # prognostic wind switch
+run1input.u          = 2.        # initial mixed-layer u-wind speed [m s-1]
+run1input.du         = 5.        # initial u-wind jump at h [m s-1]
 run1input.gammau     = 0.        # free atmosphere u-wind speed lapse rate [s-1]
 run1input.advu       = 0.        # advection of u-wind [m s-2]
 
-run1input.v          = 0.0001    # initial mixed-layer u-wind speed [m s-1]
-run1input.dv         = 0.        # initial u-wind jump at h [m s-1]
+run1input.v          = 1.0       # initial mixed-layer u-wind speed [m s-1]
+run1input.dv         = -1.       # initial u-wind jump at h [m s-1]
 run1input.gammav     = 0.        # free atmosphere v-wind speed lapse rate [s-1]
 run1input.advv       = 0.        # advection of v-wind [m s-2]
 
@@ -86,11 +86,7 @@ run1input.cl         = 0.        # wet fraction [-]
 
 run1input.Lambda     = 5.9       # thermal diffusivity skin layer [-]
 
-run1 = model(run1input)
-
-for n in range(25):
-  print("Model run: ", n)
-  run1.input.theta = run1.input.theta + 0.1 * n
-  run1.runmodel()
+run1 = model2(run1input)
+run1.runmodel()
 
 
