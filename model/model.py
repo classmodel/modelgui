@@ -204,8 +204,8 @@ class model:
     self.dthetav  = (self.theta + self.dtheta) * (1. + 0.61 * (self.q + self.dq)) - self.theta * (1. + 0.61 * self.q)
     
     # compute tendencies
-    self.we    = (self.beta * self.wthetav) / self.dthetav
-    #self.we     = (self.beta * self.wthetav + 5. * self.ustar ** 3. * self.thetav / (self.g * self.h)) / self.dthetav
+    #self.we    = (self.beta * self.wthetav) / self.dthetav
+    self.we     = (self.beta * self.wthetav + 5. * self.ustar ** 3. * self.thetav / (self.g * self.h)) / self.dthetav
     htend       = self.we + self.ws
     
     thetatend   = (self.wtheta + self.we * self.dtheta) / self.h + self.advtheta 
@@ -275,6 +275,7 @@ class model:
     zsl  = 0.1 * self.h
           
     self.Rib  = self.g / self.thetav * 0.1 * self.h * (self.thetav - self.thetavsurf) / (self.u ** 2. + self.v ** 2.)
+    self.Rib  = min(self.Rib, 0.2)
 
     """
     if(self.Rib > 0.):

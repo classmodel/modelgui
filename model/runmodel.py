@@ -7,7 +7,7 @@ from model import *
 run1input = modelinput()
 
 run1input.dt         = 60.       # time step [s]
-run1input.runtime    = 43200.    # total run time [s]
+run1input.runtime    = 36000.    # total run time [s]
 
 # mixed-layer input
 run1input.h          = 200.      # initial ABL height [m]
@@ -50,7 +50,7 @@ run1input.sw_rad     = True      # radiation switch
 run1input.lat        = 43.5      # latitude [deg]
 run1input.lon        = 1.5       # longitude [deg]
 run1input.doy        = 268.      # day of the year [-]
-run1input.tstart     = 6.9       # time of the day [h UTC]
+run1input.tstart     = 6.8       # time of the day [h UTC]
 run1input.S0         = 1000.     # maximum incoming shortwave radiation [W m-2]
 
 # land surface parameters
