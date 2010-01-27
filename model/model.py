@@ -12,7 +12,7 @@ import copy
 import numpy
 import ribtol
 
-class model2:
+class model:
   def __init__(self, modelinput):
     # initialize the different components of the model
     self.input = copy.deepcopy(modelinput)
@@ -59,6 +59,11 @@ class model2:
     self.advtheta   =  self.input.advtheta   # advection of heat [K s-1]
     self.beta       =  self.input.beta       # entrainment ratio for virtual heat [-]
     self.wtheta     =  self.input.wtheta     # surface kinematic heat flux [K m s-1]
+
+    self.T2m        =  -1.                   # 2m temperature [K]
+    self.q2m        =  -1.                   # 2m specific humidity [kg kg-1]
+    self.u2m        =  -1.                   # 2m u-wind [m s-1]
+    self.v2m        =  -1.                   # 2m v-wind [m s-1]
 
     self.thetasurf  =  self.input.theta      # surface potential temperature [K]
     self.thetav     =  -1.                   # initial mixed-layer potential temperature [K]
@@ -183,6 +188,10 @@ class model2:
     # run surface layer model
     if(self.sw_sl):
       self.runslmodel()
+    else:
+      # decompose ustar along the wind components
+      self.uw       = - (self.ustar ** 4. / (self.v ** 2. / self.u ** 2. + 1.)) ** (0.5)
+      self.vw       = - (self.ustar ** 4. / (self.u ** 2. / self.v ** 2. + 1.)) ** (0.5)
     
     # run land surface model
     if(self.sw_ls):
@@ -193,14 +202,10 @@ class model2:
     self.thetav   = self.theta  + 0.61 * self.theta * self.q
     self.wthetav  = self.wtheta + 0.61 * self.theta * self.wq
     self.dthetav  = (self.theta + self.dtheta) * (1. + 0.61 * (self.q + self.dq)) - self.theta * (1. + 0.61 * self.q)
-
-    # decompose ustar along the wind components
-    self.uw       = - (self.ustar ** 4. / (self.v ** 2. / self.u ** 2. + 1.)) ** (0.5)
-    self.vw       = - (self.ustar ** 4. / (self.u ** 2. / self.v ** 2. + 1.)) ** (0.5)
     
     # compute tendencies
-    #self.we    = (self.beta * self.wthetav) / self.dthetav
-    self.we     = (self.beta * self.wthetav + 5. * self.ustar ** 3. * self.thetav / (self.g * self.h)) / self.dthetav
+    self.we    = (self.beta * self.wthetav) / self.dthetav
+    #self.we     = (self.beta * self.wthetav + 5. * self.ustar ** 3. * self.thetav / (self.g * self.h)) / self.dthetav
     htend       = self.we + self.ws
     
     thetatend   = (self.wtheta + self.we * self.dtheta) / self.h + self.advtheta 
@@ -293,6 +298,7 @@ class model2:
 
     self.Cm   = self.k ** 2. / (numpy.log(zsl / self.z0m) - self.psim(zsl / self.L) + self.psim(self.z0m / self.L)) ** 2.
     self.Cs   = self.k ** 2. / (numpy.log(zsl / self.z0m) - self.psim(zsl / self.L) + self.psim(self.z0m / self.L)) / (numpy.log(zsl / self.z0h) - self.psih(zsl / self.L) + self.psih(self.z0h / self.L))
+
       
     #if(wthetav > 0.):
     #  wstar     = (g / thetav * h * wthetav) ** (1./3.)
@@ -302,11 +308,19 @@ class model2:
     
     ueff       = numpy.sqrt(self.u ** 2. + self.v ** 2.)
     self.ustar = numpy.sqrt(self.Cm) * ueff
+    self.uw    = - self.Cm * ueff * self.u
+    self.vw    = - self.Cm * ueff * self.v
 
     #self.ra    = (self.Cm * ueff) ** (-1.)
     
     self.thetasurf = self.theta + self.wtheta / (self.Cs * ueff)
-
+    
+    # diagnostic meteorological variables
+    self.T2m = self.thetasurf - self.wtheta / self.ustar / self.k * (numpy.log(2. / self.z0h) - self.psih(2. / self.L) + self.psih(self.z0h / self.L))
+    self.q2m = self.qsurf     - self.wq     / self.ustar / self.k * (numpy.log(2. / self.z0h) - self.psih(2. / self.L) + self.psih(self.z0h / self.L))
+    self.u2m =                - self.uw     / self.ustar / self.k * (numpy.log(2. / self.z0m) - self.psim(2. / self.L) + self.psim(self.z0m / self.L))
+    self.v2m =                - self.vw     / self.ustar / self.k * (numpy.log(2. / self.z0m) - self.psim(2. / self.L) + self.psim(self.z0m / self.L))
+    
   def psim(self, zeta):
     if(zeta <= 0):
       #x     = (1. - 16. * zeta) ** (0.25)
@@ -441,6 +455,11 @@ class model2:
     self.out.dv[t]         = self.dv
     self.out.gammav[t]     = self.gammav
     self.out.advv[t]       = self.advv
+    
+    self.out.T2m[t]        = self.T2m
+    self.out.q2m[t]        = self.q2m
+    self.out.u2m[t]        = self.u2m
+    self.out.v2m[t]        = self.v2m
     
     self.out.thetasurf[t]  = self.thetasurf
     self.out.thetavsurf[t] = self.thetavsurf
@@ -614,7 +633,13 @@ class modeloutput:
     self.dv         = numpy.zeros(tsteps)    # initial u-wind jump at h [m s-1]
     self.gammav     = numpy.zeros(tsteps)    # free atmosphere v-wind speed lapse rate [s-1]
     self.advv       = numpy.zeros(tsteps)    # advection of v-wind [m s-2]
-   
+
+    # diagnostic meteorologica variables
+    self.T2m        = numpy.zeros(tsteps)    # 2m temperature [K]   
+    self.q2m        = numpy.zeros(tsteps)    # 2m specific humidity [kg kg-1]
+    self.u2m        = numpy.zeros(tsteps)    # 2m u-wind [m s-1]    
+    self.v2m        = numpy.zeros(tsteps)    # 2m v-wind [m s-1]    
+
     # surface-layer variables
     self.thetasurf  = numpy.zeros(tsteps)    # surface potential temperature [K]
     self.thetavsurf = numpy.zeros(tsteps)    # surface virtual potential temperature [K]
