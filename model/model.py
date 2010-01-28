@@ -392,13 +392,15 @@ class model:
     self.LEveg  = (1. - self.cliq) * self.cveg * self.rho * self.Lv / (self.ra + self.rs) * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
     self.LEliq  = self.cliq * self.cveg * self.rho * self.Lv / self.ra * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
     self.LEsoil = (1. - self.cveg) * self.rho * self.Lv / (self.ra + self.rssoil) * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
-    self.LEpot  = self.rho * self.Lv / self.ra * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
 
     Wltend      = - self.LEliq / (self.rhow * self.Lv)
 
     self.LE     = self.LEsoil + self.LEveg + self.LEliq
     self.H      = self.rho * self.cp / self.ra * (self.Ts - self.theta)
     self.G      = self.Lambda * (self.Ts - self.Tsoil)
+
+    #self.LEpot  = self.rho * self.Lv / self.ra * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
+    self.LEpot  = (self.dqsatdT * (self.Q - self.G) + self.rho * self.cp / self.ra * (self.qsat - self.q)) / (self.dqsatdT + self.cp / self.Lv)
     
     CG          = self.CGsat * (self.wsat / self.w2) ** (self.b / (2. * numpy.log(10.)))
 
