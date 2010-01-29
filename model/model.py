@@ -398,7 +398,7 @@ class model:
     self.LE     = self.LEsoil + self.LEveg + self.LEliq
     self.H      = self.rho * self.cp / self.ra * (self.Ts - self.theta)
     self.G      = self.Lambda * (self.Ts - self.Tsoil)
-
+    self.LEpot  = (self.dqsatdT * (self.Q - self.G) + self.rho * self.cp / self.ra * (self.qsat - self.q)) / (self.dqsatdT + self.cp / self.Lv)
     #self.LEpot  = self.rho * self.Lv / self.ra * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
     self.LEpot  = (self.dqsatdT * (self.Q - self.G) + self.rho * self.cp / self.ra * (self.qsat - self.q)) / (self.dqsatdT + self.cp / self.Lv)
     
@@ -444,6 +444,9 @@ class model:
     self.out.wthetav[t]    = self.wthetav
     
     self.out.q[t]          = self.q
+    self.out.qsat[t]       = self.qsat
+    self.out.e[t]          = self.e
+    self.out.esat[t]       = self.esat
     self.out.dq[t]         = self.dq
     self.out.gammaq[t]     = self.gammaq
     self.out.advq[t]       = self.advq
@@ -621,7 +624,10 @@ class modeloutput:
     self.wtheta     = numpy.zeros(tsteps)    # surface kinematic heat flux [K m s-1]
     self.wthetav    = numpy.zeros(tsteps)    # surface kinematic virtual heat flux [K m s-1]
     
-    self.q          = numpy.zeros(tsteps)    # initial mixed-layer specific humidity [kg kg-1]
+    self.q          = numpy.zeros(tsteps)    # mixed-layer specific humidity [kg kg-1]
+    self.qsat       = numpy.zeros(tsteps)    # mixed-layer saturated specific humidity [kg kg-1]
+    self.e          = numpy.zeros(tsteps)    # mixed-layer vapor pressure [Pa]
+    self.esat       = numpy.zeros(tsteps)    # mixed-layer saturated vapor pressure [Pa]
     self.dq         = numpy.zeros(tsteps)    # initial specific humidity jump at h [kg kg-1]
     self.gammaq     = numpy.zeros(tsteps)    # free atmosphere specific humidity lapse rate [kg kg-1 m-1]
     self.advq       = numpy.zeros(tsteps)    # advection of moisture [kg kg-1 s-1]
@@ -637,7 +643,7 @@ class modeloutput:
     self.gammav     = numpy.zeros(tsteps)    # free atmosphere v-wind speed lapse rate [s-1]
     self.advv       = numpy.zeros(tsteps)    # advection of v-wind [m s-2]
 
-    # diagnostic meteorologica variables
+    # diagnostic meteorological variables
     self.T2m        = numpy.zeros(tsteps)    # 2m temperature [K]   
     self.q2m        = numpy.zeros(tsteps)    # 2m specific humidity [kg kg-1]
     self.u2m        = numpy.zeros(tsteps)    # 2m u-wind [m s-1]    
