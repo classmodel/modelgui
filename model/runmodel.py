@@ -51,6 +51,7 @@ run1input.lat        = 51.97     # latitude [deg]
 run1input.lon        = -4.93     # longitude [deg]
 run1input.doy        = 268.      # day of the year [-]
 run1input.tstart     = 6.8       # time of the day [h UTC]
+run1input.cc         = 0.0       # cloud cover fraction [-]
 
 # land surface parameters
 run1input.sw_ls      = True      # land surface switch

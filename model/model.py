@@ -63,6 +63,8 @@ class model:
 
     self.T2m        =  -1.                   # 2m temperature [K]
     self.q2m        =  -1.                   # 2m specific humidity [kg kg-1]
+    self.e2m        =  -1.                   # 2m vapor pressure [Pa]
+    self.esat2m     =  -1.                   # 2m saturated vapor pressure [Pa]
     self.u2m        =  -1.                   # 2m u-wind [m s-1]
     self.v2m        =  -1.                   # 2m v-wind [m s-1]
 
@@ -109,6 +111,7 @@ class model:
     self.lon        =  self.input.lon        # longitude [deg]
     self.doy        =  self.input.doy        # day of the year [-]
     self.tstart     =  self.input.tstart     # time of the day [-]
+    self.cc         =  self.input.cc         # cloud cover fraction [-]
     self.Swin       =  -1.                   # incoming short wave radiation [W m-2]
     self.Swout      =  -1.                   # outgoing short wave radiation [W m-2]
     self.Lwin       =  -1.                   # incoming long wave radiation [W m-2]
@@ -256,7 +259,7 @@ class model:
     
     Ta  = self.theta * ((self.Ps - 0.1 * self.h * self.rho * self.g) / self.Ps ) ** (self.Rd / self.cp)
 
-    Tr  = 0.6 + 0.2 * sinlea
+    Tr  = (0.6 + 0.2 * sinlea) * (1. - 0.4 * self.cc)
 
     #self.Swin  = self.S0 * numpy.sin(sinlea)
     #self.Swout = self.alpha * self.S0 * numpy.sin(sinlea)
@@ -282,23 +285,21 @@ class model:
     self.Rib  = self.g / self.thetav * 0.1 * self.h * (self.thetav - self.thetavsurf) / (self.u ** 2. + self.v ** 2.)
     self.Rib  = min(self.Rib, 0.2)
 
-    """
-    if(self.Rib > 0.):
-      L    = 1.
-      L0   = 2.
-    else:
-      L  = -1.
-      L0 = -2.
-    
-    while (abs(L - L0) > 0.001):
-      L0      = L
-      fx      = self.Rib - zsl / L * (numpy.log(zsl / self.z0h) - self.psih(zsl / L) + self.psih(self.z0h / L)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / L) + self.psim(self.z0m / L)) ** 2.
-      Lstart  = L - 0.001*L
-      Lend    = L + 0.001*L
-      fxdif   = ( (- zsl / Lstart * (numpy.log(zsl / self.z0h) - self.psih(zsl / Lstart) + self.psih(self.z0h / Lstart)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / Lstart) + self.psim(self.z0m / Lstart)) ** 2.) \
-          - (-zsl / Lend * (numpy.log(zsl / self.z0h) - self.psih(zsl / Lend) + self.psih(self.z0h / Lend)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / Lend) + self.psim(self.z0m / Lend)) ** 2.) ) / (Lstart - Lend)
-      L       = L - fx / fxdif
-    """
+    #if(self.Rib > 0.):
+    #  L    = 1.
+    #  L0   = 2.
+    #else:
+    #  L  = -1.
+    #  L0 = -2.
+    #
+    #while (abs(L - L0) > 0.001):
+    #  L0      = L
+    #  fx      = self.Rib - zsl / L * (numpy.log(zsl / self.z0h) - self.psih(zsl / L) + self.psih(self.z0h / L)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / L) + self.psim(self.z0m / L)) ** 2.
+    #  Lstart  = L - 0.001*L
+    #  Lend    = L + 0.001*L
+    #  fxdif   = ( (- zsl / Lstart * (numpy.log(zsl / self.z0h) - self.psih(zsl / Lstart) + self.psih(self.z0h / Lstart)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / Lstart) + self.psim(self.z0m / Lstart)) ** 2.) \
+    #      - (-zsl / Lend * (numpy.log(zsl / self.z0h) - self.psih(zsl / Lend) + self.psih(self.z0h / Lend)) / (numpy.log(zsl / self.z0m) - self.psim(zsl / Lend) + self.psim(self.z0m / Lend)) ** 2.) ) / (Lstart - Lend)
+    #  L       = L - fx / fxdif
 
     self.L    = ribtol.ribtol(self.Rib, zsl, self.z0m, self.z0h)
 
@@ -322,10 +323,12 @@ class model:
     self.thetasurf = self.theta + self.wtheta / (self.Cs * ueff)
     
     # diagnostic meteorological variables
-    self.T2m = self.thetasurf - self.wtheta / self.ustar / self.k * (numpy.log(2. / self.z0h) - self.psih(2. / self.L) + self.psih(self.z0h / self.L))
-    self.q2m = self.qsurf     - self.wq     / self.ustar / self.k * (numpy.log(2. / self.z0h) - self.psih(2. / self.L) + self.psih(self.z0h / self.L))
-    self.u2m =                - self.uw     / self.ustar / self.k * (numpy.log(2. / self.z0m) - self.psim(2. / self.L) + self.psim(self.z0m / self.L))
-    self.v2m =                - self.vw     / self.ustar / self.k * (numpy.log(2. / self.z0m) - self.psim(2. / self.L) + self.psim(self.z0m / self.L))
+    self.T2m    = self.thetasurf - self.wtheta / self.ustar / self.k * (numpy.log(2. / self.z0h) - self.psih(2. / self.L) + self.psih(self.z0h / self.L))
+    self.q2m    = self.qsurf     - self.wq     / self.ustar / self.k * (numpy.log(2. / self.z0h) - self.psih(2. / self.L) + self.psih(self.z0h / self.L))
+    self.u2m    =                - self.uw     / self.ustar / self.k * (numpy.log(2. / self.z0m) - self.psim(2. / self.L) + self.psim(self.z0m / self.L))
+    self.v2m    =                - self.vw     / self.ustar / self.k * (numpy.log(2. / self.z0m) - self.psim(2. / self.L) + self.psim(self.z0m / self.L))
+    self.esat2m = 0.611e3 * numpy.exp(17.2694 * (self.T2m - 273.16) / (self.T2m - 35.86))
+    self.e2m    = self.q2m * self.Ps / 0.622
     
   def psim(self, zeta):
     if(zeta <= 0):
@@ -366,14 +369,14 @@ class model:
     f1          = 1. / ((0.004 * self.Swin + 0.05) / (0.81 * (0.004 * self.Swin + 1.)))
     #fpar        = 0.55 * self.Swin / 100. * 2. / self.LAI
     #f1new       = (1. + fpar) / (fpar + self.rsmin / 10000.)
-    if(self.w2 > self.wwilt and self.w2 <= self.wfc):
+    if(self.w2 > self.wwilt):# and self.w2 <= self.wfc):
       f2          = (self.wfc - self.wwilt) / (self.w2 - self.wwilt)
     else:
       f2        = 1.e8
 
-    f3          = 1. / numpy.exp(- self.gD * (self.esat - self.e) / 100.)
+    f3          = 1. / numpy.exp(- self.gD * (self.esat2m - self.e2m) / 100.)
 
-    f4          = 1./ (1. - 0.0016 * (298.0 - self.theta) ** 2.)
+    f4          = 1./ (1. - 0.0016 * (298.0 - self.T2m) ** 2.)
 
     #print(self.t * self.dt, f1, f2, f3, f4)
 
@@ -471,6 +474,8 @@ class model:
     self.out.q2m[t]        = self.q2m
     self.out.u2m[t]        = self.u2m
     self.out.v2m[t]        = self.v2m
+    self.out.e2m[t]        = self.e2m
+    self.out.esat2m[t]     = self.esat2m
     
     self.out.thetasurf[t]  = self.thetasurf
     self.out.thetavsurf[t] = self.thetavsurf
@@ -653,6 +658,8 @@ class modeloutput:
     self.q2m        = numpy.zeros(tsteps)    # 2m specific humidity [kg kg-1]
     self.u2m        = numpy.zeros(tsteps)    # 2m u-wind [m s-1]    
     self.v2m        = numpy.zeros(tsteps)    # 2m v-wind [m s-1]    
+    self.e2m        = numpy.zeros(tsteps)    # 2m vapor pressure [Pa]
+    self.esat2m     = numpy.zeros(tsteps)    # 2m saturated vapor pressure [Pa]
 
     # surface-layer variables
     self.thetasurf  = numpy.zeros(tsteps)    # surface potential temperature [K]
@@ -738,6 +745,7 @@ class modelinput:
     self.lon        = -1. # longitude [deg]
     self.doy        = -1. # day of the year [-]
     self.tstart     = -1  # time of the day [h UTC]
+    self.cc         = -1  # cloud cover fraction [-]
 
     # land surface parameters
     self.sw_ls      = False # land surface switch
