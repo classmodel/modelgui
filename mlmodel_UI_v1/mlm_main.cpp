@@ -1,5 +1,9 @@
 #include "mlm_main.h"
 #include <QtGui>
+#include <list>
+#include <string>
+#include <sstream>
+#include <iostream>    // TIJDELIJK
 
 mlm_main::mlm_main()
 {
@@ -7,9 +11,16 @@ mlm_main::mlm_main()
     dummyFrame = new QFrame;
     dummyFrame->setFrameStyle(QFrame::Raised);
     setCentralWidget(dummyFrame);
-
+    createMenus();
     createDocks();
     setWindowTitle(tr("MLMODEL"));
+
+    numruns = 0;
+}
+
+void mlm_main::createMenus()
+{
+    viewMenu = menuBar()->addMenu(tr("&View"));
 }
 
 void mlm_main::createDocks()
@@ -37,4 +48,22 @@ void mlm_main::createDocks()
 
     rightdock->setWidget(initcontainer);
     addDockWidget(Qt::RightDockWidgetArea, rightdock);
+    viewMenu->addAction(rightdock->toggleViewAction());
+
+    connect(newrunButton, SIGNAL(clicked()), this, SLOT(createRun()));
+}
+
+void mlm_main::createRun()
+{
+    // Rather complicated method to get names "run1", "run2", etc??
+    std::string basename("run");
+    std::stringstream run_name;
+    run_name << basename << numruns;
+    std::cout << run_name.str() << std::endl;  // temporary; output on terminal
+    // Put name in list
+    modelruns.push_back(run_name.str());
+    // Create objects
+    // ???????
+
+    numruns++;
 }
