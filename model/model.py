@@ -45,6 +45,7 @@ class model:
     self.Rv         =  461.5                 # gas constant for moist air [J kg-1 K-1]
     self.bolz       =  5.67e-8               # Bolzman constant [-]
     self.rhow       =  1000.                 # density of water [kg m-3]
+    self.S0         =  1368.                 # solar constant [W m-2]
 
     # initialize mixed-layer
     self.h          =  self.input.h          # initial ABL height [m]
@@ -108,7 +109,6 @@ class model:
     self.lon        =  self.input.lon        # longitude [deg]
     self.doy        =  self.input.doy        # day of the year [-]
     self.tstart     =  self.input.tstart     # time of the day [-]
-    self.S0         =  self.input.S0         # maximum incoming shortwave radiation [W m-2]
     self.Swin       =  -1.                   # incoming short wave radiation [W m-2]
     self.Swout      =  -1.                   # outgoing short wave radiation [W m-2]
     self.Lwin       =  -1.                   # incoming long wave radiation [W m-2]
@@ -250,14 +250,19 @@ class model:
       self.dv       = dv0     + self.dt * dvtend
 
   def runradmodel(self):
-    sda = 0.409 * numpy.cos(2. * numpy.pi * (self.doy - 173.) / 365.)
-    lea = numpy.sin(2. * numpy.pi * self.lat / 360.) * numpy.sin(sda) - numpy.cos(2. * numpy.pi * self.lat / 360.) * numpy.cos(sda) * numpy.cos(2. * numpy.pi * (self.t * self.dt + self.tstart * 3600.) / 86400. - 2. * numpy.pi * self.lon / 360.)
-    lea = max(lea, 0.0001)
+    sda    = 0.409 * numpy.cos(2. * numpy.pi * (self.doy - 173.) / 365.)
+    sinlea = numpy.sin(2. * numpy.pi * self.lat / 360.) * numpy.sin(sda) - numpy.cos(2. * numpy.pi * self.lat / 360.) * numpy.cos(sda) * numpy.cos(2. * numpy.pi * (self.t * self.dt + self.tstart * 3600.) / 86400. - 2. * numpy.pi * self.lon / 360.)
+    sinlea = max(sinlea, 0.0001)
     
     Ta  = self.theta * ((self.Ps - 0.1 * self.h * self.rho * self.g) / self.Ps ) ** (self.Rd / self.cp)
+
+    Tr  = 0.6 + 0.2 * sinlea
+
+    #self.Swin  = self.S0 * numpy.sin(sinlea)
+    #self.Swout = self.alpha * self.S0 * numpy.sin(sinlea)
     
-    self.Swin  = self.S0 * numpy.sin(lea)
-    self.Swout = self.alpha * self.S0 * numpy.sin(lea)
+    self.Swin  = self.S0 * Tr * sinlea
+    self.Swout = self.alpha * self.S0 * Tr * sinlea
     self.Lwin  = 0.8 * self.bolz * Ta ** 4.
     self.Lwout = self.bolz * self.Ts ** 4.
       
@@ -503,6 +508,7 @@ class model:
     del(self.Rd)
     del(self.Rv)
     del(self.bolz)
+    del(self.S0)
 
     del(self.t)
     del(self.dt)
@@ -557,7 +563,6 @@ class model:
     del(self.lon)
     del(self.doy)
     del(self.tstart)
-    del(self.S0)
  
     del(self.Swin)
     del(self.Swout)
@@ -732,7 +737,6 @@ class modelinput:
     self.lat        = -1. # latitude [deg]
     self.lon        = -1. # longitude [deg]
     self.doy        = -1. # day of the year [-]
-    self.S0         = -1. # maximum incoming shortwave radiation [W m-2]
     self.tstart     = -1  # time of the day [h UTC]
 
     # land surface parameters
