@@ -276,8 +276,13 @@ class model:
 
   def runslmodel(self):
 
-    esatsurf  = 0.611e3 * numpy.exp(17.2694 * (self.thetasurf - 273.16) / (self.thetasurf - 35.86))
-    self.qsurf  = 0.622 * esatsurf / self.Ps
+    ueff           = numpy.sqrt(self.u ** 2. + self.v ** 2.)
+    self.thetasurf = self.theta + self.wtheta / (self.Cs * ueff)
+    esatsurf       = 0.611e3 * numpy.exp(17.2694 * (self.thetasurf - 273.16) / (self.thetasurf - 35.86))
+    qsatsurf       = 0.622 * esatsurf / self.Ps
+    cq             = (1. + self.Cs * ueff * self.rs) ** -1.
+    self.qsurf     = (1. - cq) * self.q + cq * qsatsurf
+    print(qsatsurf, self.qsurf)
 
     self.thetavsurf = self.thetasurf * (1. + 0.61 * self.qsurf)
     self.thetav     = self.theta * (1. + 0.61 * self.q)
@@ -316,16 +321,10 @@ class model:
     #  wstar     = 0.0001
     #ueff      = numpy.sqrt(u ** 2. + wstar ** 2.)
     
-    ueff       = numpy.sqrt(self.u ** 2. + self.v ** 2.)
     self.ustar = numpy.sqrt(self.Cm) * ueff
     self.uw    = - self.Cm * ueff * self.u
     self.vw    = - self.Cm * ueff * self.v
 
-    #self.ra    = (self.Cm * ueff) ** (-1.)
-    
-    self.thetasurf = self.theta + self.wtheta / (self.Cs * ueff)
-    self.qsurf     = self.q     + self.wq     / (self.Cs * ueff)
-    
     # diagnostic meteorological variables
     self.T2m    = self.thetasurf - self.wtheta / self.ustar / self.k * (numpy.log(2. / self.z0h) - self.psih(2. / self.L) + self.psih(self.z0h / self.L))
     self.q2m    = self.qsurf     - self.wq     / self.ustar / self.k * (numpy.log(2. / self.z0h) - self.psih(2. / self.L) + self.psih(self.z0h / self.L))
