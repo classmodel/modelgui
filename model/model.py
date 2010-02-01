@@ -142,6 +142,9 @@ class model:
     self.rsmin      =  self.input.rsmin      # minimum resistance transpiration [s m-1]
     self.rssoilmin  =  self.input.rssoilmin  # minimum resistance soil evaporation [s m-1]
     self.alpha      =  self.input.alpha      # surface albedo [-]
+
+    self.rs         =  1.e6                  # resistance transpiration [s m-1]
+    self.rssoil     =  1.e6                  # resistance soil [s m-1]
                        
     self.Ts         =  self.input.Ts         # surface temperature [K]
                        
@@ -321,6 +324,7 @@ class model:
     #self.ra    = (self.Cm * ueff) ** (-1.)
     
     self.thetasurf = self.theta + self.wtheta / (self.Cs * ueff)
+    self.qsurf     = self.q     + self.wq     / (self.Cs * ueff)
     
     # diagnostic meteorological variables
     self.T2m    = self.thetasurf - self.wtheta / self.ustar / self.k * (numpy.log(2. / self.z0h) - self.psih(2. / self.L) + self.psih(self.z0h / self.L))
