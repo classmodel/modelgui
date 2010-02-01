@@ -13,13 +13,23 @@ class QFrame;
 class QVBoxLayout;
 QT_END_NAMESPACE
 
+class rundata
+{
+public:
+    double *t;
+    double *h;
+    std::string name;
+};
+
+
 class mlm_main : public QMainWindow
 {
     Q_OBJECT
 
 public:
     mlm_main();
-    std::list<std::string> modelruns;     // List containing model-run objects
+    //std::list<rundata> modelruns;     // List containing model-run objects
+    rundata *modelruns[20];
 
 public slots:
     void createRun();                     // Function to create new model-run object
@@ -37,11 +47,6 @@ private:
     int numruns;                          // Counter for number of model-runs.
 };
 
-class rundata
-{
-public:
-    double *t;
-    double *h;
-};
+
 
 #endif // MLM_MAIN_H

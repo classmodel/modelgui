@@ -55,15 +55,18 @@ void mlm_main::createDocks()
 
 void mlm_main::createRun()
 {
+    /*
     // Rather complicated method to get names "run1", "run2", etc??
     std::string basename("run");
     std::stringstream run_name;
     run_name << basename << numruns;
     std::cout << run_name.str() << std::endl;  // temporary; output on terminal
     // Put name in list
-    modelruns.push_back(run_name.str());
-    // Create objects
-    // ???????
+    */
+    //modelruns.push_back(run_name.str());
+
+    modelruns[numruns] = new rundata();
+    std::cout << numruns << std::endl;
 
     numruns++;
 }
