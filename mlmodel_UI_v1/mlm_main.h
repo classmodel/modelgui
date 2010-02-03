@@ -2,6 +2,7 @@
 #define MLM_MAIN_H
 
 #include <QtGui/QMainWindow>
+#include "runwidget.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -28,6 +29,7 @@ class mlm_main : public QMainWindow
 
 public:
     mlm_main();
+    ~mlm_main();
     //std::list<rundata> modelruns;     // List containing model-run objects
     rundata *modelruns[20];
 
@@ -45,6 +47,8 @@ private:
     QMenu *viewMenu;
 
     int numruns;                          // Counter for number of model-runs.
+
+    runWidget *runwidget;
 };
 
 

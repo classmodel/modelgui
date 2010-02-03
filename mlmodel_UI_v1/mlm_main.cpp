@@ -17,6 +17,11 @@ mlm_main::mlm_main()
     numruns = 0;
 }
 
+mlm_main::~mlm_main()
+{
+    runwidget->close();
+}
+
 void mlm_main::createMenus()
 {
     viewMenu = menuBar()->addMenu(tr("&View"));
@@ -65,12 +70,15 @@ void mlm_main::createRun()
     modelruns[numruns] = new rundata();
     numruns++;
 
+    runwidget = new runWidget;
+    runwidget->show();
+
     if (numruns > 0)
     {
         showgraphButton->setDisabled(false);
     }
 
-    if (numruns > 10)
+    if (numruns > 9)
     {
         newrunButton->setDisabled(true);
     }
