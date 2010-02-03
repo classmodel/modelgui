@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>    // TIJDELIJK
 
-mlm_main::mlm_main()
+mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
 {
     // Dummy-frame -> now used as central Widget
     dummyFrame = new QFrame;
@@ -20,6 +20,7 @@ mlm_main::mlm_main()
 mlm_main::~mlm_main()
 {
     runwidget->close();
+    std::cout << "CLOSED" << endl;
 }
 
 void mlm_main::createMenus()

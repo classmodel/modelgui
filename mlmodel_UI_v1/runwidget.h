@@ -24,7 +24,5 @@ private:
     QLabel *tmaxLabel;
     QLineEdit *ampInput;
     QLabel *ampLabel;
-
-
  };
 #endif

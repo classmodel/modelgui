@@ -28,7 +28,7 @@ class mlm_main : public QMainWindow
     Q_OBJECT
 
 public:
-    mlm_main();
+    mlm_main(QMainWindow *parent = 0);
     ~mlm_main();
     //std::list<rundata> modelruns;     // List containing model-run objects
     rundata *modelruns[20];

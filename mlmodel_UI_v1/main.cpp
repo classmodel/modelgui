@@ -1,5 +1,6 @@
 #include <QtGui/QApplication>
 #include "mlm_main.h"
+#include "runwidget.h"
 
 int main(int argc, char *argv[])
 {
