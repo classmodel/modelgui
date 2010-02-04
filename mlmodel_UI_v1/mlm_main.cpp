@@ -64,8 +64,10 @@ void mlm_main::createRun()
 
     modelruns[numruns] = new rundata();
 
-    runwidget[numruns] = new runWidget(numruns);
-    runwidget[numruns]->show();
+    //runwidget[numruns] = new runWidget(numruns);
+    //runwidget[numruns]->show();
+
+    modelruns[numruns]->widgetrun();
 
     numruns++;
 
@@ -78,4 +80,10 @@ void mlm_main::createRun()
     {
         newrunButton->setDisabled(true);
     }
+}
+
+void rundata::widgetrun()
+{
+    widget = new runWidget();
+    widget->show();
 }

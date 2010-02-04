@@ -6,9 +6,8 @@
 
 const int IdRole = Qt::UserRole;
 
-runWidget::runWidget(int numruns)
+runWidget::runWidget()
 {
-    widgetnum = numruns; //?
 
     runButton = new QPushButton(tr("run"));
     tminInput = new QLineEdit(tr(""));
@@ -37,7 +36,7 @@ runWidget::runWidget(int numruns)
     setLayout(mainLayout);
 
     setWindowTitle(tr("Initiate model-run"));
-    //setWindowTitle(tr(QString::number(runnumber)));
+
 }
 
 void runWidget::createData()

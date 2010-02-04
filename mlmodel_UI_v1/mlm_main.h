@@ -19,6 +19,10 @@ class rundata
 public:
     double *t;
     double *h;
+    void widgetrun();
+
+private:
+    runWidget *widget;
 };
 
 class mlm_main : public QMainWindow
@@ -28,7 +32,7 @@ class mlm_main : public QMainWindow
 public:
     mlm_main(QMainWindow *parent = 0);
     rundata *modelruns[20];
-    runWidget *runwidget[20];
+    //runWidget *runwidget[20];
     int numruns;                        // Counter for number of model-runs.
 
 public slots:

@@ -14,7 +14,7 @@ class runWidget : public QWidget
     Q_OBJECT
 
 public:
-    runWidget(int numruns);
+    runWidget();
     int widgetnum;
 
 public slots:
