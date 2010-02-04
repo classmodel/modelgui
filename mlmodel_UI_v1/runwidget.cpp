@@ -1,11 +1,15 @@
 #include <QtGui>
+#include <QString>
 #include "runwidget.h"
+#include "mlm_main.h"
 #include <iostream>
 
 const int IdRole = Qt::UserRole;
 
-runWidget::runWidget()
+runWidget::runWidget(int numruns)
 {
+    widgetnum = numruns; //?
+
     runButton = new QPushButton(tr("run"));
     tminInput = new QLineEdit(tr(""));
     tminLabel = new QLabel(tr("t-min:"));
@@ -17,7 +21,7 @@ runWidget::runWidget()
     ampLabel = new QLabel(tr("Amplitude:"));
     ampLabel->setBuddy(ampInput);
 
-    //connect(drawButton, SIGNAL(clicked()), this, SLOT(axisChanged()));
+    connect(runButton, SIGNAL(clicked()), this, SLOT(createData()));
 
     QGridLayout *mainLayout = new QGridLayout;
 
@@ -33,6 +37,16 @@ runWidget::runWidget()
     setLayout(mainLayout);
 
     setWindowTitle(tr("Initiate model-run"));
+    //setWindowTitle(tr(QString::number(runnumber)));
+}
+
+void runWidget::createData()
+{
+    double tmin = tminInput->text().toDouble();
+    double tmax = tmaxInput->text().toDouble();
+    double amp = ampInput->text().toDouble();
+    double tsteps = (tmax-tmin)*60;
+    //modelruns[widgetnum] = new rundata;
 }
 
 

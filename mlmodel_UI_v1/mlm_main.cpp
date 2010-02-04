@@ -7,7 +7,6 @@
 
 mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
 {
-    // Dummy-frame -> now used as central Widget
     dummyFrame = new QFrame;
     dummyFrame->setFrameStyle(QFrame::Raised);
     setCentralWidget(dummyFrame);
@@ -15,12 +14,6 @@ mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
     createDocks();
     setWindowTitle(tr("MLMODEL"));
     numruns = 0;
-}
-
-mlm_main::~mlm_main()
-{
-    runwidget->close();
-    std::cout << "CLOSED" << endl;
 }
 
 void mlm_main::createMenus()
@@ -68,11 +61,13 @@ void mlm_main::createRun()
     std::string basename("run");
     std::stringstream run_name;
     run_name << basename << numruns;
-    modelruns[numruns] = new rundata();
-    numruns++;
 
-    runwidget = new runWidget;
-    runwidget->show();
+    modelruns[numruns] = new rundata();
+
+    runwidget[numruns] = new runWidget(numruns);
+    runwidget[numruns]->show();
+
+    numruns++;
 
     if (numruns > 0)
     {

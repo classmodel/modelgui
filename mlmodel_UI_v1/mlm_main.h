@@ -19,9 +19,7 @@ class rundata
 public:
     double *t;
     double *h;
-    std::string name;
 };
-
 
 class mlm_main : public QMainWindow
 {
@@ -29,12 +27,12 @@ class mlm_main : public QMainWindow
 
 public:
     mlm_main(QMainWindow *parent = 0);
-    ~mlm_main();
-    //std::list<rundata> modelruns;     // List containing model-run objects
     rundata *modelruns[20];
+    runWidget *runwidget[20];
+    int numruns;                        // Counter for number of model-runs.
 
 public slots:
-    void createRun();                     // Function to create new model-run object
+    void createRun();                   // Function to create new model-run object
 
 private:
     void createDocks();
@@ -45,12 +43,6 @@ private:
     QPushButton *newrunButton;
     QPushButton *showgraphButton;
     QMenu *viewMenu;
-
-    int numruns;                          // Counter for number of model-runs.
-
-    runWidget *runwidget;
 };
-
-
 
 #endif // MLM_MAIN_H

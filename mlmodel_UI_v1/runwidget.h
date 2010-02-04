@@ -14,7 +14,11 @@ class runWidget : public QWidget
     Q_OBJECT
 
 public:
-    runWidget();
+    runWidget(int numruns);
+    int widgetnum;
+
+public slots:
+    void createData();
 
 private:
     QPushButton *runButton;
