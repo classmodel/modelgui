@@ -12,6 +12,7 @@ class QTextEdit;
 class QPushButton;
 class QFrame;
 class QVBoxLayout;
+class QCloseEvent;
 QT_END_NAMESPACE
 
 class rundata
@@ -20,8 +21,7 @@ public:
     double *t;
     double *h;
     void widgetrun();
-
-private:
+    void widgetdestroy();
     runWidget *widget;
 };
 
@@ -32,7 +32,6 @@ class mlm_main : public QMainWindow
 public:
     mlm_main(QMainWindow *parent = 0);
     rundata *modelruns[20];
-    //runWidget *runwidget[20];
     int numruns;                        // Counter for number of model-runs.
 
 public slots:
@@ -42,7 +41,7 @@ private:
     void createDocks();
     void createMenus();
     void createToolBars();
-
+    void closeEvent(QCloseEvent *);
     QFrame *dummyFrame;
     QPushButton *newrunButton;
     QPushButton *showgraphButton;
