@@ -31,6 +31,7 @@
         setWindowTitle(tr("Initiate ML-model"));
 
         window = new Window;
+
     }
 
     Widget::~Widget()

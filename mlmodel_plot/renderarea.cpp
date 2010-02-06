@@ -4,8 +4,7 @@
 #include <iostream>
 #include <cmath>
 
-RenderArea::RenderArea(QWidget *parent)
-    : QWidget(parent)
+RenderArea::RenderArea(QWidget *parent) : QWidget(parent)
 {
     setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);

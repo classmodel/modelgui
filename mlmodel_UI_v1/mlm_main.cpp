@@ -5,18 +5,35 @@
 #include <sstream>
 #include <iostream>    // TIJDELIJK
 
-mlm_main::mlm_main()
+void rundata::widgetrun()
 {
-    // Dummy-frame -> now used as central Widget
+    widget = new runWidget();
+    widget->show();
+}
+
+void rundata::widgetdestroy()
+{
+    widget->close();
+}
+
+mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
+{
     dummyFrame = new QFrame;
     dummyFrame->setFrameStyle(QFrame::Raised);
     setCentralWidget(dummyFrame);
     createMenus();
     createDocks();
     setWindowTitle(tr("MLMODEL"));
-
     numruns = 0;
 }
+
+void mlm_main::closeEvent(QCloseEvent *)
+ {
+    for (int i = 0; i < numruns; i++)
+    {
+        modelruns[i]->widgetdestroy();
+    }
+ }
 
 void mlm_main::createMenus()
 {
@@ -29,7 +46,7 @@ void mlm_main::createDocks()
     QDockWidget *rightdock = new QDockWidget(tr("Create new run"), this);
     rightdock->setObjectName(QString::fromUtf8("rightdock"));
     rightdock->setAllowedAreas(Qt::RightDockWidgetArea);
-    rightdock->setFixedWidth(130);
+    rightdock->setFixedSize(130,200);
 
     // Dummy content -> create new run and show graph buttons.
     QWidget *initcontainer = new QWidget();
@@ -46,6 +63,11 @@ void mlm_main::createDocks()
     showgraphButton->setText("Show Graph");
         verticalLayout->addWidget(showgraphButton);
 
+    if (numruns == 0)
+    {
+        showgraphButton->setDisabled(true);
+    }
+
     rightdock->setWidget(initcontainer);
     addDockWidget(Qt::RightDockWidgetArea, rightdock);
     viewMenu->addAction(rightdock->toggleViewAction());
@@ -55,18 +77,24 @@ void mlm_main::createDocks()
 
 void mlm_main::createRun()
 {
-    /*
-    // Rather complicated method to get names "run1", "run2", etc??
     std::string basename("run");
     std::stringstream run_name;
     run_name << basename << numruns;
-    std::cout << run_name.str() << std::endl;  // temporary; output on terminal
-    // Put name in list
-    */
-    //modelruns.push_back(run_name.str());
 
     modelruns[numruns] = new rundata();
-    std::cout << numruns << std::endl;
+    modelruns[numruns]->widgetrun();
 
     numruns++;
+
+    if (numruns > 0)
+    {
+        showgraphButton->setDisabled(false);
+    }
+
+    if (numruns > 9)
+    {
+        newrunButton->setDisabled(true);
+    }
 }
+
+

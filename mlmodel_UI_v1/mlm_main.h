@@ -2,6 +2,7 @@
 #define MLM_MAIN_H
 
 #include <QtGui/QMainWindow>
+#include "runwidget.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -11,6 +12,7 @@ class QTextEdit;
 class QPushButton;
 class QFrame;
 class QVBoxLayout;
+class QCloseEvent;
 QT_END_NAMESPACE
 
 class rundata
@@ -18,35 +20,32 @@ class rundata
 public:
     double *t;
     double *h;
-    std::string name;
+    void widgetrun();
+    void widgetdestroy();
+    runWidget *widget;
 };
-
 
 class mlm_main : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    mlm_main();
-    //std::list<rundata> modelruns;     // List containing model-run objects
+    mlm_main(QMainWindow *parent = 0);
     rundata *modelruns[20];
+    int numruns;                        // Counter for number of model-runs.
 
 public slots:
-    void createRun();                     // Function to create new model-run object
+    void createRun();                   // Function to create new model-run object
 
 private:
     void createDocks();
     void createMenus();
     void createToolBars();
-
+    void closeEvent(QCloseEvent *);
     QFrame *dummyFrame;
     QPushButton *newrunButton;
     QPushButton *showgraphButton;
     QMenu *viewMenu;
-
-    int numruns;                          // Counter for number of model-runs.
 };
-
-
 
 #endif // MLM_MAIN_H
