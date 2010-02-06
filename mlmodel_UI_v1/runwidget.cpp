@@ -8,7 +8,6 @@ const int IdRole = Qt::UserRole;
 
 runWidget::runWidget(rundata *thisrun, QWidget *parent) : QWidget(parent)
 {
-
     runButton = new QPushButton(tr("run"));
     tminInput = new QLineEdit(tr(""));
     tminLabel = new QLabel(tr("t-min:"));
@@ -20,7 +19,7 @@ runWidget::runWidget(rundata *thisrun, QWidget *parent) : QWidget(parent)
     ampLabel = new QLabel(tr("Amplitude:"));
     ampLabel->setBuddy(ampInput);
 
-    connect(runButton, SIGNAL(clicked()), this, SLOT(createData()));
+    connect(runButton, SIGNAL(clicked()), this, SLOT(createData(thisrun)));
 
     QGridLayout *mainLayout = new QGridLayout;
 
@@ -36,16 +35,19 @@ runWidget::runWidget(rundata *thisrun, QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
 
     setWindowTitle(tr("Initiate model-run"));
-
 }
 
-void runWidget::createData()
+void runWidget::createData(rundata *thisrun)
 {
     double tmin = tminInput->text().toDouble();
     double tmax = tmaxInput->text().toDouble();
     double amp = ampInput->text().toDouble();
     double tsteps = (tmax-tmin)*60;
     //modelruns[widgetnum] = new rundata;
+
+    *thisrun->h = 101.;
+
+    std::cout << "Here we can read h: " << thisrun->h << std::endl;
 }
 
 
