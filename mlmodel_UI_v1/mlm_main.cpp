@@ -7,7 +7,8 @@
 
 void mlm_main::widgetrun(rundata *thisrun)
 {
-    widget = new runWidget(thisrun, NULL);
+    widget = new runWidget(thisrun, this);
+    widget->setWindowFlags(Qt::Window);
     widget->show();
 }
 

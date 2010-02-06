@@ -8,7 +8,6 @@ const int IdRole = Qt::UserRole;
 
 runWidget::runWidget(rundata *thisrun, QWidget *parent) : QWidget(parent)
 {
-
     runButton = new QPushButton(tr("run"));
     tminInput = new QLineEdit(tr(""));
     tminLabel = new QLabel(tr("t-min:"));
@@ -36,7 +35,6 @@ runWidget::runWidget(rundata *thisrun, QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
 
     setWindowTitle(tr("Initiate model-run"));
-
 }
 
 void runWidget::createData()
@@ -45,7 +43,7 @@ void runWidget::createData()
     double tmax = tmaxInput->text().toDouble();
     double amp = ampInput->text().toDouble();
     double tsteps = (tmax-tmin)*60;
-    //modelruns[widgetnum] = new rundata;
+    // Object (in array modelruns[i]) nog steeds onbekend?
 }
 
 
