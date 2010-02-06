@@ -15,14 +15,14 @@ class QVBoxLayout;
 class QCloseEvent;
 QT_END_NAMESPACE
 
+// External classes
+class runWidget;
+
 class rundata
 {
 public:
     double *t;
     double *h;
-    void widgetrun();
-    void widgetdestroy();
-    runWidget *widget;
 };
 
 class mlm_main : public QMainWindow
@@ -33,6 +33,8 @@ public:
     mlm_main(QMainWindow *parent = 0);
     rundata *modelruns[20];
     int numruns;                        // Counter for number of model-runs.
+    void widgetrun(rundata *);
+    runWidget *widget;
 
 public slots:
     void createRun();                   // Function to create new model-run object
@@ -41,7 +43,6 @@ private:
     void createDocks();
     void createMenus();
     void createToolBars();
-    void closeEvent(QCloseEvent *);
     QFrame *dummyFrame;
     QPushButton *newrunButton;
     QPushButton *showgraphButton;

@@ -2,6 +2,7 @@
 #define RUNWIDGET_H
 
 #include <QWidget>
+#include "mlm_main.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -9,12 +10,14 @@ class QLineEdit;
 class QPushButton;
 QT_END_NAMESPACE
 
+class rundata;
+
 class runWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    runWidget();
+    runWidget(rundata *, QWidget *);
     int widgetnum;
 
 public slots:

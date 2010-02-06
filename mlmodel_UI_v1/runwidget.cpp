@@ -6,7 +6,7 @@
 
 const int IdRole = Qt::UserRole;
 
-runWidget::runWidget()
+runWidget::runWidget(rundata *thisrun, QWidget *parent) : QWidget(parent)
 {
 
     runButton = new QPushButton(tr("run"));
