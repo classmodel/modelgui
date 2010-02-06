@@ -5,15 +5,10 @@
 #include <sstream>
 #include <iostream>    // TIJDELIJK
 
-void rundata::widgetrun()
+void mlm_main::widgetrun(rundata *thisrun)
 {
-    widget = new runWidget();
+    widget = new runWidget(thisrun, NULL);
     widget->show();
-}
-
-void rundata::widgetdestroy()
-{
-    widget->close();
 }
 
 mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
@@ -26,14 +21,6 @@ mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
     setWindowTitle(tr("MLMODEL"));
     numruns = 0;
 }
-
-void mlm_main::closeEvent(QCloseEvent *)
- {
-    for (int i = 0; i < numruns; i++)
-    {
-        modelruns[i]->widgetdestroy();
-    }
- }
 
 void mlm_main::createMenus()
 {
@@ -82,7 +69,7 @@ void mlm_main::createRun()
     run_name << basename << numruns;
 
     modelruns[numruns] = new rundata();
-    modelruns[numruns]->widgetrun();
+    widgetrun(modelruns[numruns]);
 
     numruns++;
 
