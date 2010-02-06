@@ -29,8 +29,10 @@ mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
 
 void mlm_main::closeEvent(QCloseEvent *)
  {
-    std::cout << "mainwin closed" << std::endl;
-    modelruns[numruns]->widgetdestroy();
+    for (int i = 0; i < numruns; i++)
+    {
+        modelruns[i]->widgetdestroy();
+    }
  }
 
 void mlm_main::createMenus()
