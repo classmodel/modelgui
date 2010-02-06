@@ -47,11 +47,11 @@ run1input.z0h        = 0.01      # roughness length for scalars [m]
 
 # radiation parameters
 run1input.sw_rad     = True      # radiation switch
-run1input.lat        = 43.5      # latitude [deg]
-run1input.lon        = 1.5       # longitude [deg]
+run1input.lat        = 51.97     # latitude [deg]
+run1input.lon        = -4.93     # longitude [deg]
 run1input.doy        = 268.      # day of the year [-]
 run1input.tstart     = 6.8       # time of the day [h UTC]
-run1input.S0         = 1000.     # maximum incoming shortwave radiation [W m-2]
+run1input.cc         = 0.0       # cloud cover fraction [-]
 
 # land surface parameters
 run1input.sw_ls      = True      # land surface switch
@@ -88,5 +88,4 @@ run1input.Lambda     = 5.9       # thermal diffusivity skin layer [-]
 
 run1 = model(run1input)
 run1.runmodel()
-
 
