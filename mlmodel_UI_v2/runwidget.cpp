@@ -6,7 +6,7 @@
 
 const int IdRole = Qt::UserRole;
 
-runWidget::runWidget(rundata *givenrun, QWidget *parent) : QWidget(parent)
+runWidget::runWidget(QMap<QString, rundata> *givenrun, QWidget *parent) : QWidget(parent)
 {
     runButton = new QPushButton(tr("run"));
     tminInput = new QLineEdit(tr(""));
@@ -35,9 +35,7 @@ runWidget::runWidget(rundata *givenrun, QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
 
     setWindowTitle(tr("Initiate model-run"));
-    //givenrun->h = new double [100];
     thisrun = givenrun;
-    std::cout << thisrun->h << std::endl;
 }
 
 void runWidget::createData()
@@ -46,12 +44,11 @@ void runWidget::createData()
     double tmax = tmaxInput->text().toDouble();
     double amp = ampInput->text().toDouble();
     double tsteps = (tmax-tmin)*60;
-    // Object (in array modelruns[i]) nog steeds onbekend?
 
-    thisrun->h = new double [100];
-    thisrun->h[0] = 101.;
 
-    std::cout << "Here we can read h: " << thisrun->h[0] << std::endl;
+    //thisrun->h = new double [100];
+    //thisrun->h[0] = 101.;
+    //std::cout << "Here we can read h: " << thisrun->h[0] << std::endl;
 }
 
 

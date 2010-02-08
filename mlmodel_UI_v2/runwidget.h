@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "mlm_main.h"
+#include <qmap.h>
+#include <qstring.h>
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -17,8 +19,7 @@ class runWidget : public QWidget
     Q_OBJECT
 
 public:
-    runWidget(rundata *, QWidget *);
-    int widgetnum;
+    runWidget(QMap<QString, rundata> *, QWidget *);
 
 public slots:
     void createData();
@@ -32,7 +33,7 @@ private:
     QLineEdit *ampInput;
     QLabel *ampLabel;
 
-    rundata *thisrun;
+    QMap<QString, rundata> *thisrun;
     
  };
 #endif

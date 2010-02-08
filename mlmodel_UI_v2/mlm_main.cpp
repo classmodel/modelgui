@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>    // TIJDELIJK
 
-void mlm_main::widgetrun(rundata *thisrun)
+void mlm_main::widgetrun(QMap<QString, rundata> *thisrun)
 {
     widget = new runWidget(thisrun, this);
     widget->setWindowFlags(Qt::Window);
@@ -21,12 +21,14 @@ mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
     createDocks();
     setWindowTitle(tr("MLMODEL"));
     numruns = 0;
+
+    modelruns = new QMap<QString, rundata>;
 }
 
 mlm_main::~mlm_main()
 {
-    for(int i=0;i<numruns;i++)
-        std::cout << "h[0] for run " << i << " = " << modelruns[i]->h[0] << std::endl;
+    //for(int i=0;i<numruns;i++)
+    //    std::cout << "h[0] for run " << i << " = " << modelruns[i]->h[0] << std::endl;
 }
 
 void mlm_main::createMenus()
@@ -71,21 +73,8 @@ void mlm_main::createDocks()
 
 void mlm_main::createRun()
 {
-    std::string basename("run");
-    std::stringstream run_name;
-    run_name << basename << numruns;
-
-    modelruns[numruns] = new rundata();
-    widgetrun(modelruns[numruns]);
-
+    widgetrun(modelruns);
     numruns++;
-
-    if (numruns > 0)
-        showgraphButton->setDisabled(false);
-
-
-    if (numruns > 9)
-        newrunButton->setDisabled(true);
 }
 
 
