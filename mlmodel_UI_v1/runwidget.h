@@ -31,5 +31,8 @@ private:
     QLabel *tmaxLabel;
     QLineEdit *ampInput;
     QLabel *ampLabel;
+
+    rundata *thisrun;
+    
  };
 #endif
