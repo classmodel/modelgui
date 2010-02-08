@@ -21,7 +21,7 @@ public:
     int widgetnum;
 
 public slots:
-    void createData(rundata *);
+    void createData();
 
 private:
     QPushButton *runButton;
@@ -31,6 +31,8 @@ private:
     QLabel *tmaxLabel;
     QLineEdit *ampInput;
     QLabel *ampLabel;
+
+    rundata *thisrun;
     
  };
 #endif

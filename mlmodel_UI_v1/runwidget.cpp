@@ -6,7 +6,7 @@
 
 const int IdRole = Qt::UserRole;
 
-runWidget::runWidget(rundata *thisrun, QWidget *parent) : QWidget(parent)
+runWidget::runWidget(rundata *givenrun, QWidget *parent) : QWidget(parent)
 {
     runButton = new QPushButton(tr("run"));
     tminInput = new QLineEdit(tr(""));
@@ -19,7 +19,7 @@ runWidget::runWidget(rundata *thisrun, QWidget *parent) : QWidget(parent)
     ampLabel = new QLabel(tr("Amplitude:"));
     ampLabel->setBuddy(ampInput);
 
-    connect(runButton, SIGNAL(clicked()), this, SLOT(createData(thisrun)));
+    connect(runButton, SIGNAL(clicked()), this, SLOT(createData()));
 
     QGridLayout *mainLayout = new QGridLayout;
 
@@ -35,9 +35,13 @@ runWidget::runWidget(rundata *thisrun, QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
 
     setWindowTitle(tr("Initiate model-run"));
+
+    //givenrun->h = new double [100];
+    thisrun = givenrun;
+    std::cout << thisrun->h << std::endl;
 }
 
-void runWidget::createData(rundata *thisrun)
+void runWidget::createData()
 {
     double tmin = tminInput->text().toDouble();
     double tmax = tmaxInput->text().toDouble();
@@ -45,9 +49,10 @@ void runWidget::createData(rundata *thisrun)
     double tsteps = (tmax-tmin)*60;
     //modelruns[widgetnum] = new rundata;
 
-    *thisrun->h = 101.;
+    thisrun->h = new double [100];
+    thisrun->h[0] = 101.;
 
-    std::cout << "Here we can read h: " << thisrun->h << std::endl;
+    std::cout << "Here we can read h: " << thisrun->h[0] << std::endl;
 }
 
 

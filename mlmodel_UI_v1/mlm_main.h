@@ -31,6 +31,7 @@ class mlm_main : public QMainWindow
 
 public:
     mlm_main(QMainWindow *parent = 0);
+    ~mlm_main();
     rundata *modelruns[20];
     int numruns;                        // Counter for number of model-runs.
     void widgetrun(rundata *);

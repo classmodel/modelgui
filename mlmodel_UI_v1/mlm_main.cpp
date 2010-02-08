@@ -23,6 +23,12 @@ mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
     numruns = 0;
 }
 
+mlm_main::~mlm_main()
+{
+    for(int i=0;i<numruns;i++)
+        std::cout << "h[0] for run " << i << " = " << modelruns[i]->h[0] << std::endl;
+}
+
 void mlm_main::createMenus()
 {
     viewMenu = menuBar()->addMenu(tr("&View"));
@@ -75,14 +81,11 @@ void mlm_main::createRun()
     numruns++;
 
     if (numruns > 0)
-    {
         showgraphButton->setDisabled(false);
-    }
+
 
     if (numruns > 9)
-    {
         newrunButton->setDisabled(true);
-    }
 }
 
 
