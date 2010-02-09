@@ -26,6 +26,8 @@ public slots:
 
 private:
     QPushButton *runButton;
+    QLineEdit *nameInput;
+    QLabel *nameLabel;
     QLineEdit *tminInput;
     QLabel *tminLabel;
     QLineEdit *tmaxInput;

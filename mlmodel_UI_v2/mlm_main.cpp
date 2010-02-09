@@ -27,7 +27,7 @@ mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
 
 mlm_main::~mlm_main()
 {
-    std::cout << "number of elements= " << modelruns->count() << std::endl;
+
 }
 
 void mlm_main::createMenus()
