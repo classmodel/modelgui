@@ -3,6 +3,7 @@
 
 #include <QtGui/QMainWindow>
 #include "runwidget.h"
+#include <QString>
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -21,6 +22,7 @@ class runWidget;
 class rundata
 {
 public:
+    QString *name;
     double *t;
     double *h;
 };
@@ -33,10 +35,10 @@ public:
     mlm_main(QMainWindow *parent = 0);
     ~mlm_main();
     int numruns;                        // Counter for number of model-runs.
-    void widgetrun(QMap<QString, rundata> *);
+    void widgetrun(QMap<int, rundata> *);
     runWidget *widget;
 
-    QMap<QString, rundata> *modelruns;
+    QMap<int, rundata> *modelruns;
 
 public slots:
     void createRun();                   // Function to create new model-run object

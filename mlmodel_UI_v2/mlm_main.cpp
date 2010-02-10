@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>    // TIJDELIJK
 
-void mlm_main::widgetrun(QMap<QString, rundata> *thisrun)
+void mlm_main::widgetrun(QMap<int, rundata> *thisrun)
 {
     widget = new runWidget(thisrun, this);
     widget->setWindowFlags(Qt::Window);
@@ -22,12 +22,16 @@ mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
     setWindowTitle(tr("MLMODEL"));
     numruns = 0;
 
-    modelruns = new QMap<QString, rundata>;
+    modelruns = new QMap<int, rundata>;
 }
 
 mlm_main::~mlm_main()
 {
-
+    QMap<int, rundata>::const_iterator i = modelruns->constBegin();
+    while (i != modelruns->constEnd()) {
+       std::cout << i.key() << std::endl;
+       ++i;
+    }
 }
 
 void mlm_main::createMenus()

@@ -8,7 +8,7 @@
 
 const int IdRole = Qt::UserRole;
 
-runWidget::runWidget(QMap<QString, rundata> *givenrun, QWidget *parent) : QWidget(parent)
+runWidget::runWidget(QMap<int, rundata> *givenrun, QWidget *parent) : QWidget(parent)
 {
     runButton = new QPushButton(tr("run"));
     nameInput = new QLineEdit(tr("runX"));
@@ -47,23 +47,33 @@ runWidget::runWidget(QMap<QString, rundata> *givenrun, QWidget *parent) : QWidge
 
 void runWidget::createData()
 {
-    QString name = QString::fromStdString(nameInput->text().toStdString());
+    QString nameIn = QString::fromStdString(nameInput->text().toStdString());
     double tmin = tminInput->text().toDouble();
     double tmax = tmaxInput->text().toDouble();
     double amp = ampInput->text().toDouble();
     int tsteps = (tmax-tmin)*60;
 
-    rundata run1;
-    run1.t = new double [tsteps];
-    run1.h = new double [tsteps];
+    rundata run;
+    run.name = new QString;
+    run.t = new double [tsteps];
+    run.h = new double [tsteps];
+    run.name = &nameIn;
 
     for (int i=0; i<tsteps; i++)
     {
-        run1.t[i] = tmin + (i*tsteps);
-        run1.h[i] = amp*cos(run1.t[i]);
+        run.t[i] = tmin + (i*tsteps);
+        run.h[i] = amp*cos(run.t[i]);
     }
-    
-    thisrun->insert(name,run1);
+
+    QMap<int, rundata>::const_iterator i = thisrun->constBegin();
+    int max=0;
+    while (i != thisrun->constEnd()) {
+       if (i.key() > max)
+           max = i.key();
+       ++i;
+    }
+
+    thisrun->insert((max+1),run);
 }
 
 

@@ -19,7 +19,7 @@ class runWidget : public QWidget
     Q_OBJECT
 
 public:
-    runWidget(QMap<QString, rundata> *, QWidget *);
+    runWidget(QMap<int, rundata> *, QWidget *);
 
 public slots:
     void createData();
@@ -35,7 +35,7 @@ private:
     QLineEdit *ampInput;
     QLabel *ampLabel;
 
-    QMap<QString, rundata> *thisrun;
+    QMap<int, rundata> *thisrun;
     
  };
 #endif
