@@ -54,10 +54,10 @@ void runWidget::createData()
     int tsteps = (tmax-tmin)*60;
 
     rundata run;
-    run.name = new QString;
+    //run.name = new QString;
     run.t = new double [tsteps];
     run.h = new double [tsteps];
-    run.name = &nameIn;
+    run.name = nameIn;
 
     for (int i=0; i<tsteps; i++)
     {

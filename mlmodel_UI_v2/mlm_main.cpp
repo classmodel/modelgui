@@ -29,7 +29,7 @@ mlm_main::~mlm_main()
 {
     QMap<int, rundata>::const_iterator i = modelruns->constBegin();
     while (i != modelruns->constEnd()) {
-       std::cout << i.key() << std::endl;
+       std::cout << "Name run: " << qPrintable(modelruns->value(i.key()).name) << std::endl;
        ++i;
     }
 }

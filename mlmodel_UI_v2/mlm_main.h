@@ -22,7 +22,7 @@ class runWidget;
 class rundata
 {
 public:
-    QString *name;
+    QString name;
     double *t;
     double *h;
 };
