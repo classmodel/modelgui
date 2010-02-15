@@ -1,7 +1,9 @@
 #include "mlm_main.h"
 #include <QtGui>
+#include <QList>
 #include <list>
 #include <string>
+#include <QString>
 #include <sstream>
 #include <iostream>    // TIJDELIJK
 
@@ -115,7 +117,11 @@ void mlm_main::updaterunlist()
 
 void mlm_main::dropRun()
 {
-    //std::cout << qPrintable(*(QString*)runviewList->selectedItems().begin().i) << std::endl;
+    //std::cout << qPrintable(runviewList->selectedItems()[0]->text(0)) << std::endl;
+    QString ident = runviewList->selectedItems()[0]->text(0);
+    int n = ident.toInt(0,10);
+    modelruns->remove(n);
+    updaterunlist();
 }
 
 void mlm_main::createRun()
