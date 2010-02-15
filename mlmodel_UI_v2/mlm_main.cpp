@@ -115,8 +115,7 @@ void mlm_main::updaterunlist()
 
 void mlm_main::dropRun()
 {
-    std::cout << runviewList->selectedItems().value(0) << std::endl;
-    // ???
+    //std::cout << qPrintable(*(QString*)runviewList->selectedItems().begin().i) << std::endl;
 }
 
 void mlm_main::createRun()
