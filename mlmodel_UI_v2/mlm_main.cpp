@@ -89,7 +89,7 @@ void mlm_main::createDocks()
     runviewList->setColumnWidth(0,30);
     runviewList->hideColumn(0);                    // (DIS)/(EN)ABLE FOR HIDING ID COLUMN
     runviewList->setFixedWidth(150);
-    runviewList->setSelectionMode(QAbstractItemView::ContiguousSelection);
+    runviewList->setSelectionMode(QAbstractItemView::ExtendedSelection);
     verticalLayout->addWidget(runviewList);
 
     droprunButton = new QPushButton(initcontainer);
@@ -119,18 +119,16 @@ void mlm_main::updaterunlist()
 
 void mlm_main::dropRun()
 {
-    int n = runviewList->selectedItems().count();
-    if(n > 0)
+    if(runviewList->selectedItems().count() > 0)
     {
-        for (int i=0; i<n; i++)
+        for (int i=0; i<runviewList->selectedItems().count(); i++)
         {
             QString ident = runviewList->selectedItems()[i]->text(0);
             int n = ident.toInt(0,10);
             modelruns->remove(n);
-            updaterunlist();
         }
+    updaterunlist();
     }
-
 }
 
 void mlm_main::createRun()
@@ -138,4 +136,3 @@ void mlm_main::createRun()
     widgetrun(modelruns);
     numruns++;
 }
-
