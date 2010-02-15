@@ -7,7 +7,7 @@
 
 QT_BEGIN_NAMESPACE
 class QAction;
-class QListWidget;
+class QTreeWidget;
 class QMenu;
 class QTextEdit;
 class QPushButton;
@@ -42,15 +42,20 @@ public:
 
 public slots:
     void createRun();                   // Function to create new model-run object
+    void updaterunlist();
 
 private:
     void createDocks();
     void createMenus();
     void createToolBars();
+
+    QDockWidget *rightdock;
+
     QFrame *dummyFrame;
     QPushButton *newrunButton;
     QPushButton *showgraphButton;
     QMenu *viewMenu;
+    QTreeWidget *runviewList;
 };
 
 #endif // MLM_MAIN_H

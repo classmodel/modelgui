@@ -25,6 +25,7 @@ runWidget::runWidget(QMap<int, rundata> *givenrun, QWidget *parent) : QWidget(pa
     ampLabel->setBuddy(ampInput);
 
     connect(runButton, SIGNAL(clicked()), this, SLOT(createData()));
+    connect(runButton, SIGNAL(clicked()), this->parent(), SLOT(updaterunlist()));
 
     QGridLayout *mainLayout = new QGridLayout;
 
@@ -74,6 +75,7 @@ void runWidget::createData()
     }
 
     thisrun->insert((max+1),run);
+
 }
 
 

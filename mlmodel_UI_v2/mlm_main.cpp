@@ -14,14 +14,13 @@ void mlm_main::widgetrun(QMap<int, rundata> *thisrun)
 
 mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
 {
+    numruns = 0;
     dummyFrame = new QFrame;
     dummyFrame->setFrameStyle(QFrame::Raised);
     setCentralWidget(dummyFrame);
     createMenus();
     createDocks();
     setWindowTitle(tr("MLMODEL"));
-    numruns = 0;
-
     modelruns = new QMap<int, rundata>;
 }
 
@@ -41,11 +40,14 @@ void mlm_main::createMenus()
 
 void mlm_main::createDocks()
 {
-    // Create dock at right side of main window.
-    QDockWidget *rightdock = new QDockWidget(tr("Create new run"), this);
+    // ==================================================
+    //   CREATE MODEL RUN
+    // ==================================================
+
+    rightdock = new QDockWidget(tr("Create new run"), this);
     rightdock->setObjectName(QString::fromUtf8("rightdock"));
     rightdock->setAllowedAreas(Qt::RightDockWidgetArea);
-    rightdock->setFixedSize(130,200);
+    rightdock->setFixedSize(200,200);
 
     // Dummy content -> create new run and show graph buttons.
     QWidget *initcontainer = new QWidget();
@@ -62,16 +64,38 @@ void mlm_main::createDocks()
     showgraphButton->setText("Show Graph");
         verticalLayout->addWidget(showgraphButton);
 
-    if (numruns == 0)
-    {
-        showgraphButton->setDisabled(true);
-    }
-
     rightdock->setWidget(initcontainer);
     addDockWidget(Qt::RightDockWidgetArea, rightdock);
     viewMenu->addAction(rightdock->toggleViewAction());
 
     connect(newrunButton, SIGNAL(clicked()), this, SLOT(createRun()));
+
+    // ==================================================
+    //   OVERVIEW MODELRUNS
+    // ==================================================
+
+    runviewList = new QTreeWidget(initcontainer);
+    runviewList->setColumnCount(2);
+    runviewList->setColumnWidth(0,30);
+
+    // Method to add one item... Just for testing..
+    QTreeWidgetItem *point = new QTreeWidgetItem(runviewList);
+    point->setText(0, "1");
+    point->setText(1, "run1");
+
+
+    verticalLayout->addWidget(runviewList);
+
+    // ==================================================
+
+    rightdock->setWidget(initcontainer);
+    addDockWidget(Qt::RightDockWidgetArea, rightdock);
+    viewMenu->addAction(rightdock->toggleViewAction());
+}
+
+void mlm_main::updaterunlist()
+{
+    // Update runlist....
 }
 
 void mlm_main::createRun()
