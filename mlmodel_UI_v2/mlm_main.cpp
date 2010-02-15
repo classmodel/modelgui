@@ -6,6 +6,7 @@
 #include <QString>
 #include <sstream>
 #include <iostream>    // TIJDELIJK
+#include <QAbstractItemView>
 
 void mlm_main::widgetrun(QMap<int, rundata> *thisrun)
 {
@@ -88,6 +89,7 @@ void mlm_main::createDocks()
     runviewList->setColumnWidth(0,30);
     runviewList->hideColumn(0);                    // (DIS)/(EN)ABLE FOR HIDING ID COLUMN
     runviewList->setFixedWidth(150);
+    runviewList->setSelectionMode(QAbstractItemView::ContiguousSelection);
     verticalLayout->addWidget(runviewList);
 
     droprunButton = new QPushButton(initcontainer);
@@ -117,11 +119,18 @@ void mlm_main::updaterunlist()
 
 void mlm_main::dropRun()
 {
-    //std::cout << qPrintable(runviewList->selectedItems()[0]->text(0)) << std::endl;
-    QString ident = runviewList->selectedItems()[0]->text(0);
-    int n = ident.toInt(0,10);
-    modelruns->remove(n);
-    updaterunlist();
+    int n = runviewList->selectedItems().count();
+    if(n > 0)
+    {
+        for (int i=0; i<n; i++)
+        {
+            QString ident = runviewList->selectedItems()[i]->text(0);
+            int n = ident.toInt(0,10);
+            modelruns->remove(n);
+            updaterunlist();
+        }
+    }
+
 }
 
 void mlm_main::createRun()
