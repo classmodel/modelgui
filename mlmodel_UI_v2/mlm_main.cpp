@@ -17,6 +17,7 @@ mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
     numruns = 0;
     dummyFrame = new QFrame;
     dummyFrame->setFrameStyle(QFrame::Raised);
+    dummyFrame->setFixedSize(300,300);
     setCentralWidget(dummyFrame);
     createMenus();
     createDocks();
@@ -26,11 +27,13 @@ mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
 
 mlm_main::~mlm_main()
 {
+    /*
     QMap<int, rundata>::const_iterator i = modelruns->constBegin();
     while (i != modelruns->constEnd()) {
        std::cout << "Name run: " << qPrintable(modelruns->value(i.key()).name) << std::endl;
        ++i;
     }
+    */
 }
 
 void mlm_main::createMenus()
@@ -47,7 +50,7 @@ void mlm_main::createDocks()
     rightdock = new QDockWidget(tr("Create new run"), this);
     rightdock->setObjectName(QString::fromUtf8("rightdock"));
     rightdock->setAllowedAreas(Qt::RightDockWidgetArea);
-    rightdock->setFixedSize(200,200);
+    rightdock->setFixedWidth(160);
 
     // Dummy content -> create new run and show graph buttons.
     QWidget *initcontainer = new QWidget();
@@ -74,17 +77,22 @@ void mlm_main::createDocks()
     //   OVERVIEW MODELRUNS
     // ==================================================
 
+    QStringList heading;
+    heading << "ID" << "Name";
+
     runviewList = new QTreeWidget(initcontainer);
     runviewList->setColumnCount(2);
+    runviewList->setHeaderLabels(heading);
     runviewList->setColumnWidth(0,30);
-
-    // Method to add one item... Just for testing..
-    QTreeWidgetItem *point = new QTreeWidgetItem(runviewList);
-    point->setText(0, "1");
-    point->setText(1, "run1");
-
-
+    runviewList->hideColumn(0);                    // (DIS)/(EN)ABLE FOR HIDING ID COLUMN
+    runviewList->setFixedWidth(150);
     verticalLayout->addWidget(runviewList);
+
+    droprunButton = new QPushButton(initcontainer);
+    droprunButton->setText("Delete selected");
+    verticalLayout->addWidget(droprunButton);
+
+    connect(droprunButton, SIGNAL(clicked()), this, SLOT(dropRun()));
 
     // ==================================================
 
@@ -95,7 +103,20 @@ void mlm_main::createDocks()
 
 void mlm_main::updaterunlist()
 {
-    // Update runlist....
+    runviewList->clear();
+    QMap<int, rundata>::const_iterator i = modelruns->constBegin();
+    while (i != modelruns->constEnd()) {
+        QTreeWidgetItem *point = new QTreeWidgetItem(runviewList);
+        point->setText(0, QString::number(i.key()));
+        point->setText(1, modelruns->value(i.key()).name);
+        ++i;
+    }
+}
+
+void mlm_main::dropRun()
+{
+    std::cout << runviewList->selectedItems().value(0) << std::endl;
+    // ???
 }
 
 void mlm_main::createRun()
@@ -103,5 +124,4 @@ void mlm_main::createRun()
     widgetrun(modelruns);
     numruns++;
 }
-
 

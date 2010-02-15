@@ -19,6 +19,10 @@ QT_END_NAMESPACE
 // External classes
 class runWidget;
 
+
+
+
+
 class rundata
 {
 public:
@@ -43,6 +47,7 @@ public:
 public slots:
     void createRun();                   // Function to create new model-run object
     void updaterunlist();
+    void dropRun();
 
 private:
     void createDocks();
@@ -54,6 +59,7 @@ private:
     QFrame *dummyFrame;
     QPushButton *newrunButton;
     QPushButton *showgraphButton;
+    QPushButton *droprunButton;
     QMenu *viewMenu;
     QTreeWidget *runviewList;
 };
