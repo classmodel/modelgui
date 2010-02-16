@@ -26,6 +26,7 @@ class rundata
 {
 public:
     QString name;
+    int tsteps;
     double *t;
     double *h;
 };

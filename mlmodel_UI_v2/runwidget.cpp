@@ -59,11 +59,13 @@ void runWidget::createData()
     run.t = new double [tsteps];
     run.h = new double [tsteps];
     run.name = nameIn;
+    run.tsteps = tsteps;
 
     for (int i=0; i<tsteps; i++)
     {
-        run.t[i] = tmin + (i*tsteps);
+        run.t[i] = tmin + (((float)i)/60);
         run.h[i] = amp*cos(run.t[i]);
+        //std::cout << "t= " << run.t[i] << "h= " << run.h[i] << std::endl;
     }
 
     QMap<int, rundata>::const_iterator i = thisrun->constBegin();
@@ -73,9 +75,7 @@ void runWidget::createData()
            max = i.key();
        ++i;
     }
-
     thisrun->insert((max+1),run);
-
 }
 
 

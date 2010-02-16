@@ -29,6 +29,7 @@ public:
 
 private slots:
   void axisChanged();
+  void plotData();
   void updaterunlist();
 
 private:
@@ -46,6 +47,7 @@ private:
   QTreeWidget *runlist;
 
   QMap<int, rundata> *runs;
+  QList<int> *selectedruns;
  };
 
 // =======================================
@@ -57,11 +59,7 @@ class RenderArea : public QWidget
   Q_OBJECT
 
 public:
-  enum Shape { Line, Points, Polyline, Polygon, Rect, RoundedRect, Ellipse, Arc,
-                 Chord, Pie, Path, Text, Pixmap };
-
-  RenderArea(QWidget *parent = 0);
-
+  RenderArea(QMap<int, rundata> *, QList<int> *, QWidget *parent = 0);
   QSize minimumSizeHint() const;
   QSize sizeHint() const;
 
@@ -70,17 +68,21 @@ public:
 
 public slots:
   void setAxis(double xmin, double xmax, double ymin, double ymax);
+  void drawGraphs();
 
 protected:
   void paintEvent(QPaintEvent *event);
 
 private:
   QPen pen;
-  QBrush brush;
+  //QBrush brush;
   QPixmap pixmap;
   static const int plotmargin = 50;
   double xmin, xmax, ymin, ymax;
   bool axisset;
+
+  QMap<int, rundata> *runlist;
+  QList<int> *selectedruns;
 };
 
 #endif
