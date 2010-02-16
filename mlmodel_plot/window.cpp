@@ -1,5 +1,4 @@
 #include <QtGui>
-#include "renderarea.h"
 #include "window.h"
 #include "widget.h"
 #include <cmath>
