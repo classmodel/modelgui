@@ -3,6 +3,7 @@
 
 #include <QtGui/QMainWindow>
 #include "runwidget.h"
+#include "plot.h"
 #include <QString>
 
 QT_BEGIN_NAMESPACE
@@ -18,9 +19,7 @@ QT_END_NAMESPACE
 
 // External classes
 class runWidget;
-
-
-
+class Window;
 
 
 class rundata
@@ -40,12 +39,15 @@ public:
     ~mlm_main();
     int numruns;                        // Counter for number of model-runs.
     void widgetrun(QMap<int, rundata> *);
+    void widgetGraph(QMap<int, rundata> *);
     runWidget *widget;
+    Window *plotwindow;
 
     QMap<int, rundata> *modelruns;
 
 public slots:
     void createRun();                   // Function to create new model-run object
+    void createGraph();
     void updaterunlist();
     void dropRun();
 

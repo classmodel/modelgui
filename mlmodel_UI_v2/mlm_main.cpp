@@ -15,6 +15,13 @@ void mlm_main::widgetrun(QMap<int, rundata> *thisrun)
     widget->show();
 }
 
+void mlm_main::widgetGraph(QMap<int, rundata> *thisrun)
+{
+    plotwindow = new Window(thisrun, this);
+    plotwindow->setWindowFlags(Qt::Window);
+    plotwindow->show();
+}
+
 mlm_main::mlm_main(QMainWindow *parent) : QMainWindow(parent)
 {
     numruns = 0;
@@ -75,6 +82,7 @@ void mlm_main::createDocks()
     viewMenu->addAction(rightdock->toggleViewAction());
 
     connect(newrunButton, SIGNAL(clicked()), this, SLOT(createRun()));
+    connect(showgraphButton, SIGNAL(clicked()), this, SLOT(createGraph()));
 
     // ==================================================
     //   OVERVIEW MODELRUNS
@@ -136,3 +144,10 @@ void mlm_main::createRun()
     widgetrun(modelruns);
     numruns++;
 }
+
+void mlm_main::createGraph()
+{
+    widgetGraph(modelruns);
+    numruns++;
+}
+
