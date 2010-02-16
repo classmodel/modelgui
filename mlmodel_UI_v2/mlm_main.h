@@ -57,7 +57,6 @@ private:
     void createToolBars();
 
     QDockWidget *rightdock;
-
     QFrame *dummyFrame;
     QPushButton *newrunButton;
     QPushButton *showgraphButton;

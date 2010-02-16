@@ -1,14 +1,18 @@
 #include <QtGui>
 #include "plot.h"
+#include "mlm_main.h"
 #include <cmath>
 
 const int IdRole = Qt::UserRole;
 
 Window::Window(QMap<int, rundata> *givenrun, QWidget *parent) : QWidget(parent)
 {
-  renderArea = new RenderArea;
+  runs = givenrun;
 
+  // Make widgets
+  renderArea = new RenderArea;
   drawButton = new QPushButton(tr("draw"));
+  updateListButton = new QPushButton(tr("update list"));
   xminInput = new QLineEdit(tr(""));
   xminLabel = new QLabel(tr("X-min:"));
   xminLabel->setBuddy(xminInput);
@@ -22,29 +26,60 @@ Window::Window(QMap<int, rundata> *givenrun, QWidget *parent) : QWidget(parent)
   ymaxLabel = new QLabel(tr("Y-max:"));
   ymaxLabel->setBuddy(ymaxInput);
 
+  // Overview modelruns
+  QStringList heading;
+  heading << "ID" << "Name";
+  runlist = new QTreeWidget();
+  runlist->setColumnCount(2);
+  runlist->setHeaderLabels(heading);
+  //runlist->setColumnWidth(0,30);
+  runlist->hideColumn(0);                    // (DIS)/(EN)ABLE FOR HIDING ID COLUMN
+  runlist->setFixedWidth(155);
+  runlist->setSelectionMode(QAbstractItemView::ExtendedSelection);
+  updaterunlist();
+
+  // Buttons
   connect(drawButton, SIGNAL(clicked()), this, SLOT(axisChanged()));
+  connect(updateListButton, SIGNAL(clicked()), this, SLOT(updaterunlist()));
 
+  // Draw layout
   QGridLayout *mainLayout = new QGridLayout;
-
+  mainLayout->addWidget(runlist, 0,7,1,3);
+  mainLayout->addWidget(updateListButton, 1,9);
   mainLayout->setColumnStretch(0, 1);
   mainLayout->setColumnStretch(6, 1);
-  mainLayout->addWidget(renderArea, 0, 0, 1, 7);
+  mainLayout->addWidget(renderArea, 0, 0, 7, 7);
   mainLayout->setRowMinimumHeight(1, 6);
 
-  mainLayout->addWidget(xminLabel, 1,1, Qt::AlignRight);
-  mainLayout->addWidget(xminInput, 1,2);
-  mainLayout->addWidget(xmaxLabel, 1,3, Qt::AlignRight);
-  mainLayout->addWidget(xmaxInput, 1,4);
+  mainLayout->addWidget(xminLabel, 2,8, Qt::AlignRight);
+  mainLayout->addWidget(xminInput, 2,9);
+  mainLayout->addWidget(xmaxLabel, 3,8, Qt::AlignRight);
+  mainLayout->addWidget(xmaxInput, 3,9);
 
-  mainLayout->addWidget(yminLabel, 2,1, Qt::AlignRight);
-  mainLayout->addWidget(yminInput, 2,2);
-  mainLayout->addWidget(ymaxLabel, 2,3, Qt::AlignRight);
-  mainLayout->addWidget(ymaxInput, 2,4);
+  mainLayout->addWidget(yminLabel, 4,8, Qt::AlignRight);
+  mainLayout->addWidget(yminInput, 4,9);
+  mainLayout->addWidget(ymaxLabel, 5,8, Qt::AlignRight);
+  mainLayout->addWidget(ymaxInput, 5,9);
 
-  mainLayout->addWidget(drawButton, 1,5);
+  mainLayout->addWidget(drawButton, 6,9);
   setLayout(mainLayout);
 
   setWindowTitle(tr("ML-model plot"));
+}
+
+void Window::updaterunlist()
+{\
+  runlist->clear();
+  QMap<int, rundata>::const_iterator i = runs->constBegin();
+  while (i != runs->constEnd()) {
+    QTreeWidgetItem *point = new QTreeWidgetItem(runlist);
+    point->setCheckState(1,Qt::Unchecked);
+    point->setFlags(Qt::ItemIsUserCheckable);
+    point->setDisabled(false);
+    point->setText(0, QString::number(i.key()));
+    point->setText(1, runs->value(i.key()).name);
+    ++i;
+    }
 }
 
 void Window::axisChanged()

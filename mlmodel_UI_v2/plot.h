@@ -11,6 +11,7 @@ QT_BEGIN_NAMESPACE
 class QLabel;
 class QLineEdit;
 class QPushButton;
+class QTreeWidget;
 QT_END_NAMESPACE
 class RenderArea;
 class rundata;
@@ -28,10 +29,12 @@ public:
 
 private slots:
   void axisChanged();
+  void updaterunlist();
 
 private:
   RenderArea *renderArea;
   QPushButton *drawButton;
+  QPushButton *updateListButton;
   QLineEdit *xminInput;
   QLabel *xminLabel;
   QLineEdit *xmaxInput;
@@ -40,6 +43,9 @@ private:
   QLabel *yminLabel;
   QLineEdit *ymaxInput;
   QLabel *ymaxLabel;
+  QTreeWidget *runlist;
+
+  QMap<int, rundata> *runs;
  };
 
 // =======================================
