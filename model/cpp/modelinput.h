@@ -3,8 +3,8 @@ class modelinput
 {
 public:
   // general model variables
-  int runtime;      // duration of model run [s]
-  int dt;           // time step [s]
+  double runtime;   // duration of model run [s]
+  double dt;        // time step [s]
 
   // mixed-layer variables  
   double h;         // initial ABL height [m]
