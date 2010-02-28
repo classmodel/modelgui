@@ -4,7 +4,7 @@
 #import "modeloutput.h"
 #import "model.h"
 
-model::model(modelinput input)
+model::model(modelinput extinput)
 {
   // model constants
   Lv         =  2.5e6;                  // heat of vaporization [J kg-1]
@@ -17,7 +17,46 @@ model::model(modelinput input)
   bolz       =  5.67e-8;                // Bolzman constant [-]
   rhow       =  1000.;                  // density of water [kg m-3]
   S0         =  1368.;                  // solar constant [W m-2]
+
+  // read initial and boundary conditions from input file
+  input.runtime    =  extinput.runtime;          // duration of model run [s]
+  input.dt         =  extinput.dt;               // time step [s]
+
+  // read input for mixed-layer component
+  input.h          =  extinput.h;                // initial ABL height [m]
+  input.Ps         =  extinput.Ps;               // surface pressure [Pa]
+  input.ws         =  extinput.ws;               // large scale vertical velocity [m s-1]
+  input.fc         =  extinput.fc;               // coriolis parameter [s-1]
   
+  input.theta      =  extinput.theta;            // initial mixed-layer potential temperature [K]
+  input.dtheta     =  extinput.dtheta;           // initial temperature jump at h [K]
+  input.gammatheta =  extinput.gammatheta;       // free atmosphere potential temperature lapse rate [K m-1]
+  input.advtheta   =  extinput.advtheta;         // advection of heat [K s-1]
+  input.beta       =  extinput.beta;             // entrainment ratio for virtual heat [-]
+  input.wtheta     =  extinput.wtheta;           // surface kinematic heat flux [K m s-1]
+  
+  input.q          =  extinput.q;                // initial mixed-layer specific humidity [kg kg-1]
+  input.dq         =  extinput.dq;               // initial specific humidity jump at h [kg kg-1]
+  input.gammaq     =  extinput.gammaq;           // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
+  input.advq       =  extinput.advq;             // advection of moisture [kg kg-1 s-1]
+  input.wq         =  extinput.wq;               // surface kinematic moisture flux [kg kg-1 m s-1]
+  
+  input.sw_wind    =  extinput.sw_wind;          // prognostic wind switch
+  input.u          =  extinput.u;                // initial mixed-layer u-wind speed [m s-1]
+  input.du         =  extinput.du;               // initial u-wind jump at h [m s-1]
+  input.gammau     =  extinput.gammau;           // free atmosphere u-wind speed lapse rate [s-1]
+  input.advu       =  extinput.advu;             // advection of u-wind [m s-2]
+  
+  input.v          =  extinput.v;                // initial mixed-layer u-wind speed [m s-1]
+  input.dv         =  extinput.dv;               // initial u-wind jump at h [m s-1]
+  input.gammav     =  extinput.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
+  input.advv       =  extinput.advv;             // advection of v-wind [m s-2]
+
+  return;
+}
+
+void model::initmodel()
+{
   // read initial and boundary conditions from input file
   runtime    =  input.runtime;          // duration of model run [s]
   dt         =  input.dt;               // time step [s]
@@ -59,6 +98,9 @@ model::model(modelinput input)
   //t      = 0;
   // set output array to given value
   output = new modeloutput(tsteps);
+
+  store();
+  return;
 } 
 
 void model::runmodel()
@@ -68,7 +110,9 @@ void model::runmodel()
   double h0, theta0, q0, u0, v0;
   double dtheta0, dq0, du0, dv0;
 
-  for(t = 0; t < tsteps; t++)
+  initmodel();
+
+  for(t = 1; t < tsteps; t++)
   {
     // run radiation model
     // if(sw_rad):
@@ -142,9 +186,51 @@ void model::runmodel()
       dv       = dv0     + dt * dvtend;
     }
 
-    std::cout << t * dt << ", " << h << ", " << theta << ", " << q*1000. << std::endl;
+    std::cout << "(t,h,theta,q) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << std::endl;
+    store();
   }
 
   return;
 }
 
+void model::store()
+{
+  output->t[t]          = t * dt / 3600.; // + tstart;
+
+  output->h[t]          = h;
+  output->Ps[t]         = Ps;
+  output->ws[t]         = ws;
+  
+  output->theta[t]      = theta;
+  output->thetav[t]     = thetav;
+  output->dtheta[t]     = dtheta;
+  output->dthetav[t]    = dthetav;
+  output->gammatheta[t] = gammatheta;
+  output->advtheta[t]   = advtheta;
+  output->beta[t]       = beta;
+  output->wtheta[t]     = wtheta;
+  output->wthetav[t]    = wthetav;
+  
+  output->q[t]          = q;
+  //output.qsat[t]       = qsat;
+  //output.e[t]          = e;
+  //output.esat[t]       = esat;
+  output->dq[t]         = dq;
+  output->gammaq[t]     = gammaq;
+  output->advq[t]       = advq;
+  output->wq[t]         = wq;
+  
+  output->u[t]          = u;
+  output->du[t]         = du;
+  output->gammau[t]     = gammau;
+  output->advu[t]       = advu;
+  
+  output->v[t]          = v;
+  output->dv[t]         = dv;
+  output->gammav[t]     = gammav;
+  output->advv[t]       = advv;
+  
+  output->ustar[t]      = ustar;
+
+  return;
+} 

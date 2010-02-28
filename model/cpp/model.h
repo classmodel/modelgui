@@ -13,6 +13,9 @@ public:
   modeloutput *output;
  
 private:
+  void initmodel();
+  void store();
+
   // model constants
   double Lv;        // heat of vaporization [J kg-1]
   double cp;        // specific heat of dry air [J kg-1 K-1]
