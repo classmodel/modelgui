@@ -186,7 +186,7 @@ void model::runmodel()
       dv       = dv0     + dt * dvtend;
     }
 
-    std::cout << "(t,h,theta,q) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << std::endl;
+    std::cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << std::endl;
     store();
   }
 
@@ -231,6 +231,8 @@ void model::store()
   output->advv[t]       = advv;
   
   output->ustar[t]      = ustar;
+  output->uw[t]         = uw;
+  output->vw[t]         = vw;
 
   return;
 } 
