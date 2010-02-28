@@ -1,11 +1,13 @@
 #import <cmath>
-#import "model.h"
+#import <iostream>
 #import "modelinput.h"
+#import "modeloutput.h"
+#import "model.h"
 
 model::model(modelinput input)
 {
   // model constants
-  Lv         =  2.45e6;                 // heat of vaporization [J kg-1]
+  Lv         =  2.5e6;                  // heat of vaporization [J kg-1]
   cp         =  1005.;                  // specific heat of dry air [J kg-1 K-1]
   rho        =  1.2;                    // density of air [kg m-3]
   k          =  0.4;                    // Von Karman constant [-]
@@ -54,7 +56,9 @@ model::model(modelinput input)
 
   // initialize time variables
   tsteps = int(runtime / dt);
-  t      = 0;
+  //t      = 0;
+  // set output array to given value
+  output = new modeloutput(tsteps);
 } 
 
 void model::runmodel()
@@ -64,7 +68,7 @@ void model::runmodel()
   double h0, theta0, q0, u0, v0;
   double dtheta0, dq0, du0, dv0;
 
-  for(int i=0; i<tsteps; i++)
+  for(t = 0; t < tsteps; t++)
   {
     // run radiation model
     // if(sw_rad):
@@ -137,6 +141,8 @@ void model::runmodel()
       v        = v0      + dt * vtend;
       dv       = dv0     + dt * dvtend;
     }
+
+    std::cout << t * dt << ", " << h << ", " << theta << ", " << q*1000. << std::endl;
   }
 
   return;

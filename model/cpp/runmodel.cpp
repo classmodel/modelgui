@@ -1,14 +1,14 @@
 #import "model.h";
 #import "modelinput.h";
 
-class modelinput;
-class model;
+//class modelinput;
+//class model;
 
 int main()
 {
-  // declare input and model
+  // declare input and model run
   modelinput run1input;
-  model      run1;
+  model      *run1;
 
   // model test
   run1input.dt         = 60.;      // time step [s]
@@ -27,11 +27,11 @@ int main()
   run1input.beta       = 0.2;      // entrainment ratio for virtual heat [-]
   run1input.wtheta     = 0.1;      // surface kinematic heat flux [K m s-1]
   
-  run1input.q          = 0.009;    // initial mixed-layer specific humidity [kg kg-1]
-  run1input.dq         = -0.003;   // initial specific humidity jump at h [kg kg-1]
+  run1input.q          = 0.007;    // initial mixed-layer specific humidity [kg kg-1]
+  run1input.dq         = -0.001;   // initial specific humidity jump at h [kg kg-1]
   run1input.gammaq     = 0.;       // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   run1input.advq       = 0.;       // advection of moisture [kg kg-1 s-1]
-  run1input.wq         = 0.000001; // surface kinematic moisture flux [kg kg-1 m s-1]
+  run1input.wq         = 0.0001;   // surface kinematic moisture flux [kg kg-1 m s-1]
   
   run1input.sw_wind    = true;     // prognostic wind switch
   run1input.u          = 6.;       // initial mixed-layer u-wind speed [m s-1]
@@ -92,8 +92,8 @@ int main()
   //
   //run1input.Lambda     = 5.9       # thermal diffusivity skin layer [-]
   
-  run1 = model(run1input);
-  run1.runmodel();
+  run1 = new model(run1input);
+  run1->runmodel();
 
   return 0;
 }

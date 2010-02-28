@@ -1,6 +1,8 @@
 #import "modelinput.h"
+#import "modeloutput.h"
 
 class modelinput;
+class modeloutput;
 
 class model
 {
@@ -8,6 +10,7 @@ public:
   model(modelinput);
   void runmodel();
   modelinput input;
+  modeloutput *output;
  
 private:
   // model constants
