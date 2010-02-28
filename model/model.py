@@ -4,8 +4,6 @@
 Open issues:
 
 sensible heat flux always peaks too early in the morning, maybe other Jarvis functions?
-surface layer routine is very slow
-
 """
 
 import copy
