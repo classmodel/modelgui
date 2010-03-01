@@ -385,8 +385,8 @@ class model:
     self.rssoil = self.rssoilmin * f2 
 
 
-    self.Wlmx = self.LAI * self.Wmax
-    self.cliq = min(1., self.Wl / self.Wlmx) 
+    Wlmx = self.LAI * self.Wmax
+    self.cliq = min(1., self.Wl / Wlmx) 
    
     # calculate skin temperature implictly
     self.Ts   = (self.Q  + self.rho * self.cp / self.ra * self.theta \
@@ -515,6 +515,7 @@ class model:
     del(self.Rv)
     del(self.bolz)
     del(self.S0)
+    del(self.rhow)
 
     del(self.t)
     del(self.dt)
@@ -522,6 +523,7 @@ class model:
      
     del(self.h)          
     del(self.Ps)        
+    del(self.fc)        
     del(self.ws)
     del(self.we)
     
@@ -531,8 +533,16 @@ class model:
     del(self.advtheta)
     del(self.beta)
     del(self.wtheta)
+  
+    del(self.T2m)
+    del(self.q2m)
+    del(self.e2m)
+    del(self.esat2m)
+    del(self.u2m)
+    del(self.v2m)
     
     del(self.thetasurf)
+    del(self.qsatsurf)
     del(self.thetav)
     del(self.dthetav)
     del(self.thetavsurf)
@@ -540,6 +550,10 @@ class model:
     del(self.wthetav)
     
     del(self.q)
+    del(self.qsat)
+    del(self.dqsatdT)
+    del(self.e)
+    del(self.esat)
     del(self.dq)
     del(self.gammaq)
     del(self.advq)
@@ -564,6 +578,7 @@ class model:
     del(self.Cs)
     del(self.L)
     del(self.Rib)
+    del(self.ra)
 
     del(self.lat)
     del(self.lon)
@@ -574,10 +589,12 @@ class model:
     del(self.Swout)
     del(self.Lwin)
     del(self.Lwout)
+    del(self.cc)
 
     del(self.wg)
     del(self.w2)
     del(self.cveg)
+    del(self.cliq)
     del(self.Tsoil)
     del(self.T2)
     del(self.a)
@@ -593,9 +610,12 @@ class model:
     del(self.C2ref)
 
     del(self.LAI)
+    del(self.rs)
+    del(self.rssoil)
     del(self.rsmin)
     del(self.rssoilmin)
     del(self.alpha)
+    del(self.gD)
 
     del(self.Ts)
 
@@ -613,6 +633,11 @@ class model:
     del(self.LEsoil)
     del(self.LEpot)
     del(self.G)
+
+    del(self.sw_ls)
+    del(self.sw_rad)
+    del(self.sw_sl)
+    del(self.sw_wind)
 
 
 # class for storing mixed-layer model output data
