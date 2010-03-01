@@ -1,8 +1,9 @@
-#import <cmath>
-#import <iostream>
-#import "modelinput.h"
-#import "modeloutput.h"
-#import "model.h"
+#include <cmath>
+#include <iostream>
+#include "modelinput.h"
+#include "modeloutput.h"
+#include "model.h"
+using namespace std;
 
 model::model(modelinput extinput)
 {
@@ -103,6 +104,8 @@ void model::initmodel()
   return;
 } 
 
+inline double sign(double n) { return n > 0 ? 1 : (n < 0 ? -1 : 0);}
+
 void model::runmodel()
 {
   double htend, thetatend, qtend, utend, vtend;
@@ -124,7 +127,10 @@ void model::runmodel()
     //else:
     //  # decompose ustar along the wind components
     uw       = - pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
+    //uw       = - sign(u) * pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
     vw       = - pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
+    //vw       = - sign(v) * pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
+    cout << "Wind: " << u << ", " << uw << ", " << v << ", " << vw << endl;
     
     // run land surface model
     // if(sw_ls):
@@ -186,7 +192,7 @@ void model::runmodel()
       dv       = dv0     + dt * dvtend;
     }
 
-    std::cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << std::endl;
+    cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
     store();
   }
 

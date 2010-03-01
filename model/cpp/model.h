@@ -1,5 +1,5 @@
-#import "modelinput.h"
-#import "modeloutput.h"
+#include "modelinput.h"
+#include "modeloutput.h"
 
 class modelinput;
 class modeloutput;
