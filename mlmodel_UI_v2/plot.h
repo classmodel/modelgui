@@ -12,6 +12,7 @@ class QLabel;
 class QLineEdit;
 class QPushButton;
 class QTreeWidget;
+class QComboBox;
 QT_END_NAMESPACE
 class RenderArea;
 class rundata;
@@ -45,6 +46,9 @@ private:
   QLineEdit *ymaxInput;
   QLabel *ymaxLabel;
   QTreeWidget *runlist;
+
+  QLabel *plotLabel1;
+  QComboBox *plotvariable1;
 
   QMap<int, rundata> *runs;
   QList<int> *selectedruns;
