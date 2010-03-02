@@ -1,7 +1,5 @@
 #include <cmath>
 #include <iostream>
-#include "modelinput.h"
-#include "modeloutput.h"
 #include "model.h"
 using namespace std;
 
