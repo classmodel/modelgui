@@ -30,6 +30,13 @@ Window::Window(QMap<int, rundata> *givenrun, QWidget *parent) : QWidget(parent)
   ymaxLabel = new QLabel(tr("Y-max:"));
   ymaxLabel->setBuddy(ymaxInput);
 
+  plotLabel1 = new QLabel(tr("Plot 1:"));
+  plotvariable1 = new QComboBox;
+  plotLabel1->setBuddy(plotvariable1);
+  plotvariable1->addItem("bl-height [m]");
+  plotvariable1->addItem("theta [K]");
+
+
   yminInput->setDisabled(true);
   ymaxInput->setDisabled(true);
   xminInput->setDisabled(true);
@@ -59,20 +66,23 @@ Window::Window(QMap<int, rundata> *givenrun, QWidget *parent) : QWidget(parent)
   mainLayout->addWidget(updateListButton, 1,9);
   mainLayout->setColumnStretch(0, 1);
   mainLayout->setColumnStretch(6, 1);
-  mainLayout->addWidget(renderArea, 0, 0, 7, 7);
+  mainLayout->addWidget(renderArea, 0, 0, 8, 7);
   mainLayout->setRowMinimumHeight(1, 6);
 
-  mainLayout->addWidget(xminLabel, 2,8, Qt::AlignRight);
-  mainLayout->addWidget(xminInput, 2,9);
-  mainLayout->addWidget(xmaxLabel, 3,8, Qt::AlignRight);
-  mainLayout->addWidget(xmaxInput, 3,9);
+  mainLayout->addWidget(plotLabel1, 2,8, Qt::AlignRight);
+  mainLayout->addWidget(plotvariable1, 2,9);
 
-  mainLayout->addWidget(yminLabel, 4,8, Qt::AlignRight);
-  mainLayout->addWidget(yminInput, 4,9);
-  mainLayout->addWidget(ymaxLabel, 5,8, Qt::AlignRight);
-  mainLayout->addWidget(ymaxInput, 5,9);
+  mainLayout->addWidget(xminLabel, 3,8, Qt::AlignRight);
+  mainLayout->addWidget(xminInput, 3,9);
+  mainLayout->addWidget(xmaxLabel, 4,8, Qt::AlignRight);
+  mainLayout->addWidget(xmaxInput, 4,9);
 
-  mainLayout->addWidget(drawButton, 6,9);
+  mainLayout->addWidget(yminLabel, 5,8, Qt::AlignRight);
+  mainLayout->addWidget(yminInput, 5,9);
+  mainLayout->addWidget(ymaxLabel, 6,8, Qt::AlignRight);
+  mainLayout->addWidget(ymaxInput, 6,9);
+
+  mainLayout->addWidget(drawButton, 7,9);
   setLayout(mainLayout);
 
   setWindowTitle(tr("ML-model plot"));
