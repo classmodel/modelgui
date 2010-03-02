@@ -1,8 +1,8 @@
 #include "modelinput.h"
 #include "modeloutput.h"
 
-class modelinput;
-class modeloutput;
+//class modelinput;
+//class modeloutput;
 
 class model
 {

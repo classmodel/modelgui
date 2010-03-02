@@ -1,8 +1,4 @@
-#include "model.h";
-#include "modelinput.h";
-
-//class modelinput;
-//class model;
+#include "model.h"
 
 int main()
 {
