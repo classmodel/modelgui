@@ -50,6 +50,8 @@ model::model(modelinput extinput)
   input.dv         =  extinput.dv;               // initial u-wind jump at h [m s-1]
   input.gammav     =  extinput.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
   input.advv       =  extinput.advv;             // advection of v-wind [m s-2]
+  
+  input.ustar      =  extinput.ustar;            // surface friction velocity [m s-1]
 
   return;
 }
@@ -91,6 +93,8 @@ void model::initmodel()
   dv         =  input.dv;               // initial u-wind jump at h [m s-1]
   gammav     =  input.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
   advv       =  input.advv;             // advection of v-wind [m s-2]
+  
+  ustar      =  input.ustar;            // surface friction velocity [m s-1]
 
   // initialize time variables
   tsteps = int(runtime / dt);
@@ -124,11 +128,10 @@ void model::runmodel()
     //  runslmodel()
     //else:
     //  # decompose ustar along the wind components
-    uw       = - pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
-    //uw       = - sign(u) * pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
-    vw       = - pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
-    //vw       = - sign(v) * pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
-    cout << "Wind: " << u << ", " << uw << ", " << v << ", " << vw << endl;
+    //uw       = - pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
+    uw       = - sign(u) * pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
+    //vw       = - pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
+    vw       = - sign(v) * pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
     
     // run land surface model
     // if(sw_ls):

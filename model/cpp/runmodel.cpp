@@ -35,8 +35,8 @@ int main()
   run1input.gammau     = 0.;       // free atmosphere u-wind speed lapse rate [s-1]
   run1input.advu       = 0.;       // advection of u-wind [m s-2]
   
-  run1input.v          = 4.0;      // initial mixed-layer u-wind speed [m s-1]
-  run1input.dv         = -4.0;     // initial u-wind jump at h [m s-1]
+  run1input.v          = -4.0;     // initial mixed-layer u-wind speed [m s-1]
+  run1input.dv         = 4.0;      // initial u-wind jump at h [m s-1]
   run1input.gammav     = 0.;       // free atmosphere v-wind speed lapse rate [s-1]
   run1input.advv       = 0.;       // advection of v-wind [m s-2]
   
