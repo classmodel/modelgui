@@ -159,6 +159,7 @@ class model:
     self.LEveg      =  -1.                   # transpiration [W m-2]
     self.LEsoil     =  -1.                   # soil evaporation [W m-2]
     self.LEpot      =  -1.                   # potential evaporation [W m-2]
+    self.LEref      =  -1.                   # reference evaporation using rs = rsmin / LAI [W m-2]
     self.G          =  -1.                   # ground heat flux [W m-2]
 
 
@@ -408,8 +409,7 @@ class model:
     self.H      = self.rho * self.cp / self.ra * (self.Ts - self.theta)
     self.G      = self.Lambda * (self.Ts - self.Tsoil)
     self.LEpot  = (self.dqsatdT * (self.Q - self.G) + self.rho * self.cp / self.ra * (self.qsat - self.q)) / (self.dqsatdT + self.cp / self.Lv)
-    #self.LEpot  = self.rho * self.Lv / self.ra * (self.dqsatdT * (self.Ts - self.theta) + self.qsat - self.q)
-    self.LEpot  = (self.dqsatdT * (self.Q - self.G) + self.rho * self.cp / self.ra * (self.qsat - self.q)) / (self.dqsatdT + self.cp / self.Lv)
+    self.LEref  = (self.dqsatdT * (self.Q - self.G) + self.rho * self.cp / self.ra * (self.qsat - self.q)) / (self.dqsatdT + self.cp / self.Lv * (1. + self.rsmin / self.LAI / self.ra))
     
     CG          = self.CGsat * (self.wsat / self.w2) ** (self.b / (2. * numpy.log(10.)))
 
@@ -501,6 +501,7 @@ class model:
     self.out.LEveg[t]      = self.LEveg
     self.out.LEsoil[t]     = self.LEsoil
     self.out.LEpot[t]      = self.LEpot
+    self.out.LEref[t]      = self.LEref
     self.out.G[t]          = self.G
 
 
@@ -632,6 +633,7 @@ class model:
     del(self.LEveg)
     del(self.LEsoil)
     del(self.LEpot)
+    del(self.LEref)
     del(self.G)
 
     del(self.sw_ls)
@@ -715,6 +717,7 @@ class modeloutput:
     self.LEveg      = numpy.zeros(tsteps)    # transpiration [W m-2]
     self.LEsoil     = numpy.zeros(tsteps)    # soil evaporation [W m-2]
     self.LEpot      = numpy.zeros(tsteps)    # potential evaporation [W m-2]
+    self.LEref      = numpy.zeros(tsteps)    # reference evaporation at rs = rsmin / LAI [W m-2]
     self.G          = numpy.zeros(tsteps)    # ground heat flux [W m-2]
 
 
@@ -806,5 +809,4 @@ class modelinput:
     self.cl         = -1. # wet fraction [-]
     
     self.Lambda     = -1. # thermal diffusivity skin layer [-]
-
 
