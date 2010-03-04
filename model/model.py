@@ -281,7 +281,6 @@ class model:
     qsatsurf       = 0.622 * esatsurf / self.Ps
     cq             = (1. + self.Cs * ueff * self.rs) ** -1.
     self.qsurf     = (1. - cq) * self.q + cq * qsatsurf
-    print(qsatsurf, self.qsurf)
 
     self.thetavsurf = self.thetasurf * (1. + 0.61 * self.qsurf)
     self.thetav     = self.theta * (1. + 0.61 * self.q)
