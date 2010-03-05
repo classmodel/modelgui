@@ -462,7 +462,7 @@ p, li { white-space: pre-wrap; }
              <string/>
             </property>
             <property name="text">
-             <string>&lt;html&gt;kg kg&lt;sup&gt;-1&lt;/sup&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;[kg kg&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -475,7 +475,7 @@ p, li { white-space: pre-wrap; }
              <string/>
             </property>
             <property name="text">
-             <string>&lt;html&gt;kg kg&lt;sup&gt;-1&lt;/sup&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;[kg kg&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -488,7 +488,7 @@ p, li { white-space: pre-wrap; }
              <string/>
             </property>
             <property name="text">
-             <string>&lt;html&gt;kg kg&lt;sup&gt;-1&lt;/sup&gt; m&lt;sup&gt;-1&lt;/sup&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;[kg kg&lt;sup&gt;-1&lt;/sup&gt; m&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -501,7 +501,7 @@ p, li { white-space: pre-wrap; }
              <string/>
             </property>
             <property name="text">
-             <string>&lt;html&gt;kg kg&lt;sup&gt;-1&lt;/sup&gt; s&lt;sup&gt;-1&lt;/sup&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;[kg kg&lt;sup&gt;-1&lt;/sup&gt; s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -514,7 +514,7 @@ p, li { white-space: pre-wrap; }
              <string/>
             </property>
             <property name="text">
-             <string>&lt;html&gt;kg kg&lt;sup&gt;-1&lt;/sup&gt; m s&lt;sup&gt;-1&lt;/sup&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;[kg kg&lt;sup&gt;-1&lt;/sup&gt; m s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
