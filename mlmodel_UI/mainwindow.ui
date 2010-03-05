@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>562</width>
-    <height>453</height>
+    <width>628</width>
+    <height>514</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
        <attribute name="title">
         <string>Basic</string>
        </attribute>
-       <widget class="QGroupBox" name="modelsettings">
+       <widget class="QGroupBox" name="basic_model_group">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -56,7 +56,7 @@
            <enum>QLayout::SetMinimumSize</enum>
           </property>
           <item row="0" column="0">
-           <widget class="QLabel" name="time_Label">
+           <widget class="QLabel" name="label_time">
             <property name="toolTip">
              <string>Total simulation time [s]</string>
             </property>
@@ -69,10 +69,10 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="time_Input"/>
+           <widget class="QLineEdit" name="input_time"/>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="timestep_Label">
+           <widget class="QLabel" name="label_timestep">
             <property name="toolTip">
              <string>Time step [s].</string>
             </property>
@@ -85,10 +85,10 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="timestep_Input"/>
+           <widget class="QLineEdit" name="input_timestep"/>
           </item>
           <item row="2" column="0" colspan="2">
-           <widget class="QLabel" name="name_Label">
+           <widget class="QLabel" name="label_name">
             <property name="toolTip">
              <string>Total simulation time [s]</string>
             </property>
@@ -101,12 +101,12 @@
            </widget>
           </item>
           <item row="3" column="0" colspan="2">
-           <widget class="QLineEdit" name="name_Input"/>
+           <widget class="QLineEdit" name="input_name"/>
           </item>
          </layout>
         </widget>
        </widget>
-       <widget class="QGroupBox" name="heat">
+       <widget class="QGroupBox" name="basic_heat_group">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -129,7 +129,7 @@
          </property>
          <layout class="QGridLayout" name="heat_grid" columnminimumwidth="100,0">
           <item row="0" column="0">
-           <widget class="QLabel" name="theta0_Label">
+           <widget class="QLabel" name="label_theta0">
             <property name="toolTip">
              <string>Initial mixed layer potential temperature [K]</string>
             </property>
@@ -142,12 +142,16 @@
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="d_theta0_Label">
+           <widget class="QLabel" name="label_d_theta0">
             <property name="toolTip">
              <string>Initial potential temperature jump at inversion [K]</string>
             </property>
             <property name="text">
-             <string>&lt;html&gt;Δθ&lt;sub&gt;0&lt;/sub&gt; [K]&lt;/html&gt;</string>
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial, sans-serif'; color:#0000c0;&quot;&gt;Δθ&lt;/span&gt;&lt;span style=&quot; font-family:'Arial, sans-serif'; color:#0000c0; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-family:'Arial, sans-serif'; color:#0000c0;&quot;&gt; [K]&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -155,7 +159,7 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="gamma_theta_Label">
+           <widget class="QLabel" name="label_gamma_theta">
             <property name="toolTip">
              <string>Free atmosphere potential temperature lapse rate [K/m]</string>
             </property>
@@ -172,16 +176,16 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="theta0_Input"/>
+           <widget class="QLineEdit" name="input_theta0"/>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="d_theta0_Input"/>
+           <widget class="QLineEdit" name="input_d_theta0"/>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="gamma_theta_Input"/>
+           <widget class="QLineEdit" name="input_gamma_theta"/>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="wtheta_Label">
+           <widget class="QLabel" name="label_wtheta">
             <property name="toolTip">
              <string>Surface kinematic heat flux [Km/s]</string>
             </property>
@@ -198,10 +202,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="wtheta_Input"/>
+           <widget class="QLineEdit" name="input_wtheta"/>
           </item>
           <item row="4" column="0">
-           <widget class="QLabel" name="beta_Label">
+           <widget class="QLabel" name="label_beta">
             <property name="toolTip">
              <string>Entrainment ratio for heat [-]</string>
             </property>
@@ -218,10 +222,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QLineEdit" name="beta_Input"/>
+           <widget class="QLineEdit" name="input_beta"/>
           </item>
           <item row="5" column="0">
-           <widget class="QLabel" name="adv_theta_Label">
+           <widget class="QLabel" name="label_adv_theta">
             <property name="toolTip">
              <string>Advection of theta [K/s]</string>
             </property>
@@ -238,12 +242,12 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="QLineEdit" name="adv_theta_Input"/>
+           <widget class="QLineEdit" name="input_adv_theta"/>
           </item>
          </layout>
         </widget>
        </widget>
-       <widget class="QGroupBox" name="cbl_settings">
+       <widget class="QGroupBox" name="basic_cbl_group">
         <property name="geometry">
          <rect>
           <x>200</x>
@@ -269,7 +273,7 @@ p, li { white-space: pre-wrap; }
            <enum>QLayout::SetMinimumSize</enum>
           </property>
           <item row="0" column="0">
-           <widget class="QLabel" name="h0_Label">
+           <widget class="QLabel" name="label_h0">
             <property name="toolTip">
              <string>Initial boundary layer height [m] </string>
             </property>
@@ -286,10 +290,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="h0_Input"/>
+           <widget class="QLineEdit" name="input_h0"/>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="ps_Label">
+           <widget class="QLabel" name="label_ps">
             <property name="toolTip">
              <string>Surface pressure [pa] </string>
             </property>
@@ -306,10 +310,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="ps_Input"/>
+           <widget class="QLineEdit" name="input_ps"/>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="ws_Label">
+           <widget class="QLabel" name="label_ws">
             <property name="toolTip">
              <string>Large scale vertical velocity [m/s]</string>
             </property>
@@ -326,10 +330,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="ws_Input"/>
+           <widget class="QLineEdit" name="input_ws"/>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="fc_Label">
+           <widget class="QLabel" name="label_fcl">
             <property name="toolTip">
              <string>Coriolis parameter [s-1]</string>
             </property>
@@ -342,18 +346,18 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="fc_Input"/>
+           <widget class="QLineEdit" name="input_fc"/>
           </item>
          </layout>
         </widget>
        </widget>
-       <widget class="QGroupBox" name="moisture">
+       <widget class="QGroupBox" name="basic_moisture_group">
         <property name="geometry">
          <rect>
           <x>200</x>
           <y>160</y>
-          <width>181</width>
-          <height>171</height>
+          <width>211</width>
+          <height>181</height>
          </rect>
         </property>
         <property name="title">
@@ -364,25 +368,21 @@ p, li { white-space: pre-wrap; }
           <rect>
            <x>10</x>
            <y>30</y>
-           <width>161</width>
+           <width>191</width>
            <height>138</height>
           </rect>
          </property>
-         <layout class="QGridLayout" name="moisture_grid" columnminimumwidth="100,0">
+         <layout class="QGridLayout" name="moisture_grid" columnminimumwidth="50,0,80">
           <property name="sizeConstraint">
            <enum>QLayout::SetMinimumSize</enum>
           </property>
           <item row="0" column="0">
-           <widget class="QLabel" name="q0_Label">
+           <widget class="QLabel" name="label_q0">
             <property name="toolTip">
              <string>Initial specific humidity [kg/kg]</string>
             </property>
             <property name="text">
-             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#0000c0;&quot;&gt;q&lt;/span&gt;&lt;span style=&quot; color:#0000c0; vertical-align:sub;&quot;&gt;0 &lt;/span&gt;&lt;span style=&quot; color:#0000c0;&quot;&gt;[kgkg&lt;/span&gt;&lt;span style=&quot; color:#0000c0; vertical-align:super;&quot;&gt;-1&lt;/span&gt;&lt;span style=&quot; color:#0000c0;&quot;&gt;]&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;q&lt;sub&gt;0&lt;/sub&gt;&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -390,19 +390,15 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="q0_Input"/>
+           <widget class="QLineEdit" name="input_q0"/>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="d_q0_Label">
+           <widget class="QLabel" name="label_dq0">
             <property name="toolTip">
              <string>Initial specific humidity jump at inversion [kgkg-1]</string>
             </property>
             <property name="text">
-             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial, sans-serif'; color:#0000c0;&quot;&gt;Δq&lt;/span&gt;&lt;span style=&quot; font-family:'Arial, sans-serif'; color:#0000c0; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-family:'Arial, sans-serif'; color:#0000c0;&quot;&gt; [kgkg&lt;/span&gt;&lt;span style=&quot; font-family:'Arial, sans-serif'; color:#0000c0; vertical-align:super;&quot;&gt;-1&lt;/span&gt;&lt;span style=&quot; font-family:'Arial, sans-serif'; color:#0000c0;&quot;&gt;]&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;Δq&lt;sub&gt;0&lt;/sub&gt;&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -410,19 +406,15 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="d_q0_Input"/>
+           <widget class="QLineEdit" name="input_dq0"/>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="gamma_q_Label">
+           <widget class="QLabel" name="label_gamma_q">
             <property name="toolTip">
              <string>Free atmosphere specific humidity lapse rate [K/m]</string>
             </property>
             <property name="text">
-             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial, sans-serif'; color:#000000;&quot;&gt;γq&lt;/span&gt;&lt;span style=&quot; color:#000000; vertical-align:sub;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt;[kgkg&lt;/span&gt;&lt;span style=&quot; color:#000000; vertical-align:super;&quot;&gt;-1&lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt;m&lt;/span&gt;&lt;span style=&quot; color:#000000; vertical-align:super;&quot;&gt;-1&lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt;]&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;γq&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -430,19 +422,15 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="gamma_q_Input"/>
+           <widget class="QLineEdit" name="input_gamma_q"/>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="adv_q_Label">
+           <widget class="QLabel" name="label_adv_q">
             <property name="toolTip">
              <string>Advection of moisture [kgkg-1s-1]]</string>
             </property>
             <property name="text">
-             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#000000;&quot;&gt;q&lt;/span&gt;&lt;span style=&quot; color:#000000; vertical-align:sub;&quot;&gt;adv &lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt;[kgkg&lt;/span&gt;&lt;span style=&quot; color:#000000; vertical-align:super;&quot;&gt;-1&lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt;s&lt;/span&gt;&lt;span style=&quot; color:#000000; vertical-align:super;&quot;&gt;-1&lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt;]&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;q&lt;sub&gt;adv&lt;/sub&gt;&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -450,19 +438,15 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="adv_q_Input"/>
+           <widget class="QLineEdit" name="input_advq"/>
           </item>
           <item row="4" column="0">
-           <widget class="QLabel" name="wq_Label">
+           <widget class="QLabel" name="label_wq">
             <property name="toolTip">
              <string>Surface kinematic moisture flux [kgkg-1ms-1]</string>
             </property>
             <property name="text">
-             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#000000;&quot;&gt;(w'q')&lt;/span&gt;&lt;span style=&quot; color:#000000; vertical-align:sub;&quot;&gt;s&lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt; [kgkg&lt;/span&gt;&lt;span style=&quot; color:#000000; vertical-align:super;&quot;&gt;-1&lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt;ms&lt;/span&gt;&lt;span style=&quot; color:#000000; vertical-align:super;&quot;&gt;-1&lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt;]&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;(w'q')&lt;sub&gt;s&lt;/sub&gt;&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -470,7 +454,72 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QLineEdit" name="wq_Input"/>
+           <widget class="QLineEdit" name="input_wq"/>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="unitlabel_q0">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;kg kg&lt;sup&gt;-1&lt;/sup&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="unitlabel_dq0">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;kg kg&lt;sup&gt;-1&lt;/sup&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="unitlabel_gamma_q">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;kg kg&lt;sup&gt;-1&lt;/sup&gt; m&lt;sup&gt;-1&lt;/sup&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLabel" name="unitlabel_adv_q">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;kg kg&lt;sup&gt;-1&lt;/sup&gt; s&lt;sup&gt;-1&lt;/sup&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QLabel" name="unitlabel_adv_q_2">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;kg kg&lt;sup&gt;-1&lt;/sup&gt; m s&lt;sup&gt;-1&lt;/sup&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -494,7 +543,7 @@ p, li { white-space: pre-wrap; }
           <enum>QLayout::SetMinimumSize</enum>
          </property>
          <item row="0" column="0">
-          <widget class="QCheckBox" name="sw_wind">
+          <widget class="QCheckBox" name="switch_wind">
            <property name="text">
             <string>Use wind</string>
            </property>
@@ -502,7 +551,7 @@ p, li { white-space: pre-wrap; }
          </item>
         </layout>
        </widget>
-       <widget class="QGroupBox" name="u_component">
+       <widget class="QGroupBox" name="wind_U_group">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -528,7 +577,7 @@ p, li { white-space: pre-wrap; }
            <enum>QLayout::SetMinimumSize</enum>
           </property>
           <item row="0" column="0">
-           <widget class="QLabel" name="u0_Label">
+           <widget class="QLabel" name="label_u0">
             <property name="toolTip">
              <string>Total simulation time [s]</string>
             </property>
@@ -545,10 +594,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="u0_Input"/>
+           <widget class="QLineEdit" name="input_u0"/>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="d_u0_Label">
+           <widget class="QLabel" name="label_d_u0">
             <property name="toolTip">
              <string>Time step [s].</string>
             </property>
@@ -565,10 +614,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="d_u0_Input"/>
+           <widget class="QLineEdit" name="input_d_u0"/>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="gamma_u_Label">
+           <widget class="QLabel" name="label_gamma_u">
             <property name="toolTip">
              <string>Time step [s].</string>
             </property>
@@ -585,10 +634,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="gamma_u_Input"/>
+           <widget class="QLineEdit" name="input_gamma_u"/>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="adv_u_Label">
+           <widget class="QLabel" name="label_adv_u">
             <property name="toolTip">
              <string>Time step [s].</string>
             </property>
@@ -605,12 +654,12 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="adv_u_Input"/>
+           <widget class="QLineEdit" name="input_adv_u"/>
           </item>
          </layout>
         </widget>
        </widget>
-       <widget class="QGroupBox" name="v_component">
+       <widget class="QGroupBox" name="wind_V_group">
         <property name="geometry">
          <rect>
           <x>200</x>
@@ -636,7 +685,7 @@ p, li { white-space: pre-wrap; }
            <enum>QLayout::SetMinimumSize</enum>
           </property>
           <item row="0" column="0">
-           <widget class="QLabel" name="v0_Label">
+           <widget class="QLabel" name="label_v0">
             <property name="toolTip">
              <string>Total simulation time [s]</string>
             </property>
@@ -653,10 +702,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="v0_Input"/>
+           <widget class="QLineEdit" name="input_v0"/>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="d_v0_Label">
+           <widget class="QLabel" name="label_d_v0">
             <property name="toolTip">
              <string>Time step [s].</string>
             </property>
@@ -673,10 +722,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="d_v0_Input"/>
+           <widget class="QLineEdit" name="input_d_v0"/>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="gamma_v_Label">
+           <widget class="QLabel" name="label_gamma_v">
             <property name="toolTip">
              <string>Time step [s].</string>
             </property>
@@ -693,10 +742,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="gamma_v_Input"/>
+           <widget class="QLineEdit" name="input_gamma_v"/>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="adv_v_Label">
+           <widget class="QLabel" name="label_adv_v">
             <property name="toolTip">
              <string>Time step [s].</string>
             </property>
@@ -713,7 +762,7 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="adv_v_Input"/>
+           <widget class="QLineEdit" name="input_adv_v"/>
           </item>
          </layout>
         </widget>
@@ -796,7 +845,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>562</width>
+     <width>628</width>
      <height>19</height>
     </rect>
    </property>
