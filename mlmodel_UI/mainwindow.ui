@@ -1292,7 +1292,7 @@
     <property name="title">
      <string>Model runs</string>
     </property>
-    <widget class="QTreeWidget" name="modelrunsTree">
+    <widget class="QTreeWidget" name="modelRunsList">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1437,7 +1437,7 @@
   <tabstop>input_gamma_q</tabstop>
   <tabstop>input_wq</tabstop>
   <tabstop>input_advq</tabstop>
-  <tabstop>modelrunsTree</tabstop>
+  <tabstop>modelRunsList</tabstop>
   <tabstop>newRunButton</tabstop>
   <tabstop>cloneRunButton</tabstop>
   <tabstop>cloneRunButton_2</tabstop>
