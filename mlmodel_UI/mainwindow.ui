@@ -27,7 +27,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="generalTab">
        <attribute name="title">
@@ -1263,9 +1263,6 @@
         </item>
        </layout>
       </widget>
-      <zorder>modelrunsTree</zorder>
-      <zorder>layoutWidget</zorder>
-      <zorder>tabWidget</zorder>
      </widget>
     </item>
    </layout>
@@ -1303,6 +1300,42 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>input_name</tabstop>
+  <tabstop>input_time</tabstop>
+  <tabstop>input_timestep</tabstop>
+  <tabstop>input_theta0</tabstop>
+  <tabstop>input_d_theta0</tabstop>
+  <tabstop>input_gamma_theta</tabstop>
+  <tabstop>input_wtheta</tabstop>
+  <tabstop>input_adv_theta</tabstop>
+  <tabstop>input_h0</tabstop>
+  <tabstop>input_ps</tabstop>
+  <tabstop>input_ws</tabstop>
+  <tabstop>input_beta</tabstop>
+  <tabstop>input_q0</tabstop>
+  <tabstop>input_dq0</tabstop>
+  <tabstop>input_gamma_q</tabstop>
+  <tabstop>input_wq</tabstop>
+  <tabstop>input_advq</tabstop>
+  <tabstop>modelrunsTree</tabstop>
+  <tabstop>newRunButton</tabstop>
+  <tabstop>modifyRunButton</tabstop>
+  <tabstop>cloneRunButton</tabstop>
+  <tabstop>cloneRunButton_2</tabstop>
+  <tabstop>switch_wind</tabstop>
+  <tabstop>input_fc</tabstop>
+  <tabstop>input_ustar</tabstop>
+  <tabstop>input_u0</tabstop>
+  <tabstop>input_d_u0</tabstop>
+  <tabstop>input_gamma_u</tabstop>
+  <tabstop>input_adv_u</tabstop>
+  <tabstop>input_v0</tabstop>
+  <tabstop>input_d_v0</tabstop>
+  <tabstop>input_gamma_v</tabstop>
+  <tabstop>input_adv_v</tabstop>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
