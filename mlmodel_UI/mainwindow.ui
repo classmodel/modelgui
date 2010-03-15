@@ -107,7 +107,7 @@
            <string>Total simulation time</string>
           </property>
           <property name="text">
-           <string>36000</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -133,7 +133,7 @@
            <string>Time step</string>
           </property>
           <property name="text">
-           <string>60</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -256,7 +256,7 @@
            <string>Initial mixed layer potential temperature</string>
           </property>
           <property name="text">
-           <string>290</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -269,7 +269,7 @@
            <string>Initial potential temperature jump at inversion</string>
           </property>
           <property name="text">
-           <string>5</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -282,7 +282,7 @@
            <string>Free atmosphere potential temperature lapse rate</string>
           </property>
           <property name="text">
-           <string>0.006</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -308,7 +308,7 @@
            <string>Surface kinematic heat flux</string>
           </property>
           <property name="text">
-           <string>0.1</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -386,7 +386,7 @@
            <string>Advection of theta</string>
           </property>
           <property name="text">
-           <string>0</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -453,7 +453,7 @@
            <string>Initial boundary layer height</string>
           </property>
           <property name="text">
-           <string>200</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -479,7 +479,7 @@
            <string>Surface pressure</string>
           </property>
           <property name="text">
-           <string>1013</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -505,7 +505,7 @@
            <string>Large scale vertical velocity</string>
           </property>
           <property name="text">
-           <string>0</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -570,7 +570,7 @@
            <string>Entrainment ratio for heat</string>
           </property>
           <property name="text">
-           <string>0.2</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -637,7 +637,7 @@
            <string>Initial specific humidity</string>
           </property>
           <property name="text">
-           <string>7</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -663,7 +663,7 @@
            <string>Initial specific humidity jump at inversion</string>
           </property>
           <property name="text">
-           <string>-1</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -689,7 +689,7 @@
            <string>Free atmosphere specific humidity lapse rate</string>
           </property>
           <property name="text">
-           <string>0</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -715,7 +715,7 @@
            <string>Surface kinematic moisture flux</string>
           </property>
           <property name="text">
-           <string>0.1</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -793,7 +793,7 @@
            <string>Advection of moisture</string>
           </property>
           <property name="text">
-           <string>0</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
