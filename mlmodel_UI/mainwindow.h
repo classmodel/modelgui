@@ -18,13 +18,16 @@ public:
   ~MainWindow();
   QMap<int, modelrun> *modelrunlist;           // List containing objects with model output
   void updateRunList();
+  modelinput defaultinput;                       // Store default model input settings
 
 public slots:
   void wind_switch(int);
   void newrun();
+  void setValues();
 
 private:
   Ui::MainWindow *ui;
+  void readdefaultinput();
 };
 
 #endif // MAINWINDOW_H
