@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <string>    // Needed for basename modelrun
+#include <sstream>   // Needed for basename modelrun
 #include <iostream>
+#include <QString>
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -10,6 +13,37 @@ MainWindow::MainWindow(QWidget *parent)
 
   connect(ui->switch_wind, SIGNAL(stateChanged(int)), this, SLOT(wind_switch(int)));
   connect(ui->newRunButton, SIGNAL(clicked()), this, SLOT(newrun()));
+  connect(ui->modelRunTree, SIGNAL(itemSelectionChanged()), this, SLOT(runTreeChanged()));
+
+  // ====== Couple of SIGNAL / SLOTS; update input data when form is changed ===============
+  connect(ui->input_advq,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_adv_theta,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_adv_u,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_adv_v,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_beta,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_dq0,          SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_d_theta0,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_d_u0,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_d_v0,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_fc,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_gamma_q,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_gamma_theta,  SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_gamma_u,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_gamma_v,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_h0,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_ps,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_q0,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_theta0,       SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_time,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_timestep,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_u0,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_ustar,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_v0,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_wq,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_ws,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_wtheta,       SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  // =======================================================================================
 
   ui->wind_U_group->setDisabled(true);
   ui->wind_V_group->setDisabled(true);
@@ -19,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
   modelrunlist = new QMap<int, modelrun>;
 
   modelrun startrun;
-  startrun.runname = "basic";
+  startrun.runname = "run1";
   modelrunlist->insert(1,startrun);
   updateRunList();
 }
@@ -74,6 +108,7 @@ void MainWindow::newrun()
 {
   // 1. Get max(key)
   modelrun run;
+
   QMap<int, modelrun>::const_iterator i = modelrunlist->constBegin();
     int max=0;
     while (i != modelrunlist->constEnd()) {
@@ -81,15 +116,29 @@ void MainWindow::newrun()
            max = i.key();
        ++i;
     }
+
+  QString base = "run";
+  QString num;
+  num.setNum(max+1);
+  base.append(num);
+  run.runname.append(base);
+
   // 2. Insert in QMap
   modelrunlist->insert((max+1),run);
+
   // 3. Update list mainwindow
   updateRunList();
 }
 
-void MainWindow::setValues()
+void MainWindow::runTreeChanged()
 {
-  // Read values from ..., set values in form
+  bool inputfields;
+  if (ui->modelRunTree->selectedItems().size() > 1)
+    inputfields = false;
+  else
+    inputfields = true;
+
+  ui->tabWidget->setEnabled(inputfields);
 }
 
 void MainWindow::updateRunList()
@@ -97,21 +146,32 @@ void MainWindow::updateRunList()
   // 1. Setup QMap
   QStringList heading;
   heading << "ID" << "Name";
-  ui->modelRunsList->setColumnCount(2);
-  ui->modelRunsList->setHeaderLabels(heading);
-  ui->modelRunsList->setColumnWidth(0,35);
-  //ui->modelRunsList->hideColumn(0);
-  ui->modelRunsList->setSelectionMode(QAbstractItemView::ExtendedSelection);
+  ui->modelRunTree->setColumnCount(2);
+  ui->modelRunTree->setHeaderLabels(heading);
+  ui->modelRunTree->setColumnWidth(0,35);
+  ui->modelRunTree->hideColumn(0);
+  ui->modelRunTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
   // 2. Clear QMap, repopulate QMap
-  ui->modelRunsList->clear();
+  ui->modelRunTree->clear();
   QMap<int, modelrun>::const_iterator i = modelrunlist->constBegin();
     while (i != modelrunlist->constEnd()) {
-        QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunsList);
+        QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
         point->setText(0, QString::number(i.key()));
         point->setText(1, modelrunlist->value(i.key()).runname);
         ++i;
   }
+}
+
+void MainWindow::updateInputdata()
+{
+  double h          = ui->input_h0->text().toDouble();
+  double Ps         = ui->input_ps->text().toDouble();
+  double ws         = ui->input_ws->text().toDouble();
+  double fc         = ui->input_fc->text().toDouble();
+
+  modelrunlist->value(1).run->input.h = h;
+  std::cout << modelrunlist->value(1).run->input.h << std::endl;
 }
 
 void MainWindow::wind_switch(int state)

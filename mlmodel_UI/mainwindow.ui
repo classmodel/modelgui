@@ -1165,7 +1165,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="wind_U_group_2">
+     <widget class="QGroupBox" name="wind_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1292,7 +1292,7 @@
     <property name="title">
      <string>Model runs</string>
     </property>
-    <widget class="QTreeWidget" name="modelRunsList">
+    <widget class="QTreeWidget" name="modelRunTree">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1437,7 +1437,7 @@
   <tabstop>input_gamma_q</tabstop>
   <tabstop>input_wq</tabstop>
   <tabstop>input_advq</tabstop>
-  <tabstop>modelRunsList</tabstop>
+  <tabstop>modelRunTree</tabstop>
   <tabstop>newRunButton</tabstop>
   <tabstop>cloneRunButton</tabstop>
   <tabstop>cloneRunButton_2</tabstop>
