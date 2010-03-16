@@ -133,10 +133,10 @@ void MainWindow::newrun()
 void MainWindow::runTreeChanged()
 {
   bool inputfields;
-  if (ui->modelRunTree->selectedItems().size() > 1)
-    inputfields = false;
-  else
+  if (ui->modelRunTree->selectedItems().size() == 1)
     inputfields = true;
+  else
+    inputfields = false;
 
   ui->tabWidget->setEnabled(inputfields);
 }
@@ -165,13 +165,46 @@ void MainWindow::updateRunList()
 
 void MainWindow::updateInputdata()
 {
-  double h          = ui->input_h0->text().toDouble();
-  double Ps         = ui->input_ps->text().toDouble();
-  double ws         = ui->input_ws->text().toDouble();
-  double fc         = ui->input_fc->text().toDouble();
+  double dt         = ui->input_timestep->text().toDouble();      // time step [s]
+  double runtime    = ui->input_time->text().toDouble();          // total run time [s]
 
-  modelrunlist->value(1).run->input.h = h;
-  std::cout << modelrunlist->value(1).run->input.h << std::endl;
+  double h          = ui->input_h0->text().toDouble();            // initial ABL height [m]
+  double Ps         = ui->input_ps->text().toDouble();            // surface pressure [Pa]
+  double ws         = ui->input_ws->text().toDouble();            // large scale vertical velocity [m s-1]
+  double fc         = ui->input_fc->text().toDouble();            // Coriolis parameter [m s-1]
+
+  double theta      = ui->input_theta0->text().toDouble();        // initial mixed-layer potential temperature [K]
+  double dtheta     = ui->input_d_theta0->text().toDouble();      // initial temperature jump at h [K]
+  double gammatheta = ui->input_gamma_theta->text().toDouble();   // free atmosphere potential temperature lapse rate [K m-1]
+  double advtheta   = ui->input_adv_theta->text().toDouble();     // advection of heat [K s-1]
+  double beta       = ui->input_beta->text().toDouble();          // entrainment ratio for virtual heat [-]
+  double wtheta     = ui->input_wtheta->text().toDouble();        // surface kinematic heat flux [K m s-1]
+
+  double q          = ui->input_q0->text().toDouble();            // initial mixed-layer specific humidity [kg kg-1]
+  double dq         = ui->input_dq0->text().toDouble();           // initial specific humidity jump at h [kg kg-1]
+  double gammaq     = ui->input_gamma_q->text().toDouble();       // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
+  double advq       = ui->input_advq->text().toDouble();          // advection of moisture [kg kg-1 s-1]
+  double wq         = ui->input_wq->text().toDouble();            // surface kinematic moisture flux [kg kg-1 m s-1]
+
+  bool sw_wind      = ui->switch_wind;                            // prognostic wind switch
+  double u          = ui->input_u0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
+  double du         = ui->input_d_u0->text().toDouble();          // initial u-wind jump at h [m s-1]
+  double gammau     = ui->input_gamma_u->text().toDouble();       // free atmosphere u-wind speed lapse rate [s-1]
+  double advu       = ui->input_adv_u->text().toDouble();         // advection of u-wind [m s-2]
+
+  double v          = ui->input_v0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
+  double dv         = ui->input_d_v0->text().toDouble();          // initial u-wind jump at h [m s-1]
+  double gammav     = ui->input_gamma_v->text().toDouble();       // free atmosphere v-wind speed lapse rate [s-1]
+  double advv       = ui->input_adv_v->text().toDouble();         // advection of v-wind [m s-2]
+
+  double ustar      = ui->input_ustar->text().toDouble();         // surface friction velocity [m s-1]
+
+  if (ui->modelRunTree->selectedItems().size() == 1)
+  {
+    // Read current index, write data to input, et cetera......
+    //modelrunlist->value(1).run->input.h = h;
+    //std::cout << modelrunlist->value(1).run->input.h << std::endl;
+  }
 }
 
 void MainWindow::wind_switch(int state)
