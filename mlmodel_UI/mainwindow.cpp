@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->switch_wind, SIGNAL(stateChanged(int)), this, SLOT(wind_switch(int)));
   connect(ui->newRunButton, SIGNAL(clicked()), this, SLOT(newrun()));
   connect(ui->modelRunTree, SIGNAL(itemSelectionChanged()), this, SLOT(runTreeChanged()));
+  connect(ui->deleteButton, SIGNAL(clicked()), this, SLOT(deleteRun()));
 
   // ====== Couple of SIGNAL / SLOTS; update input data when form is changed ===============
   connect(ui->input_advq,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
@@ -43,6 +44,9 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->input_wq,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_ws,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_wtheta,       SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+
+  connect(ui->switch_wind,        SIGNAL(clicked()),         this, SLOT(updateInputdata()));
+  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   // =======================================================================================
 
   ui->wind_U_group->setDisabled(true);
@@ -117,14 +121,20 @@ void MainWindow::newrun()
   num.setNum(max+1);
   base.append(num);
   run.runname.append(base);
+  modelrunlist->insert((max+1),run);
 
-  modelrunlist->insert((max+1),run);                          // Insert in QMap
-  readdefaultinput();                                         // Read default values
-  modelrunlist->value(max+1).run->input = defaultinput;       // Write default to input model
-  updateRunList();                                            // Update list mainwindow
+  //if (type == 0)   // NEW RUN
+  //{
+    readdefaultinput();
+    modelrunlist->value(max+1).run->input = defaultinput;
+  //}
+  //if (type == 1)   // CLONE
+  //{
+  //  int n = ui->modelRunTree->currentItem()->text(0).toInt();
+  //  modelrunlist->value(max+1).run->input = modelrunlist->value(n).run->input;
+  //}
+  updateRunList();
   updateForm();
-
-  //modelrunlist->find(max+1).value().runname = "Test2!";     // HOWTO CHANGE NAME
 }
 
 void MainWindow::runTreeChanged()
@@ -151,7 +161,17 @@ void MainWindow::updateRunList()
   ui->modelRunTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
   // 2. Clear QMap, repopulate QMap
-  ui->modelRunTree->clear();
+  //QTreeWidgetItem *current = new QTreeWidgetItem(ui->modelRunTree);    //CRASHES
+  //current = ui->modelRunTree->currentItem();
+  static bool init = true;
+  QString currentkey;
+
+  if(!init)
+  {
+    currentkey = ui->modelRunTree->currentItem()->text(0);
+    ui->modelRunTree->clear();
+  }
+
   QMap<int, modelrun>::const_iterator i = modelrunlist->constBegin();
     while (i != modelrunlist->constEnd()) {
         QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
@@ -160,6 +180,11 @@ void MainWindow::updateRunList()
         ui->modelRunTree->setCurrentItem(point);
         ++i;
   }
+
+  if(!init)
+    ui->modelRunTree->setCurrentItem(ui->modelRunTree->findItems(currentkey,Qt::MatchExactly,0)[0]);
+  else
+    init = false;
 }
 
 void MainWindow::updateInputdata()
@@ -185,7 +210,7 @@ void MainWindow::updateInputdata()
   formvalues.advq       = ui->input_advq->text().toDouble();          // advection of moisture [kg kg-1 s-1]
   formvalues.wq         = ui->input_wq->text().toDouble();            // surface kinematic moisture flux [kg kg-1 m s-1]
 
-  formvalues.sw_wind    = ui->switch_wind;                            // prognostic wind switch
+  formvalues.sw_wind    = ui->switch_wind->checkState();              // prognostic wind switch
   formvalues.u          = ui->input_u0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
   formvalues.du         = ui->input_d_u0->text().toDouble();          // initial u-wind jump at h [m s-1]
   formvalues.gammau     = ui->input_gamma_u->text().toDouble();       // free atmosphere u-wind speed lapse rate [s-1]
@@ -198,11 +223,15 @@ void MainWindow::updateInputdata()
 
   formvalues.ustar      = ui->input_ustar->text().toDouble();         // surface friction velocity [m s-1]
 
+  QString name          = QString::fromStdString(ui->input_name->text().toStdString());
+
   if (ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
   {
     int n = ui->modelRunTree->currentItem()->text(0).toInt();
     modelrunlist->value(n).run->input = formvalues;
+    modelrunlist->find(n).value().runname = name;
     updateForm();
+    updateRunList();
   }
 }
 
@@ -231,14 +260,41 @@ void MainWindow::updateForm()
     ui->input_gamma_q->setText(QString::number(modelrunlist->value(n).run->input.gammaq));
     ui->input_advq->setText(QString::number(modelrunlist->value(n).run->input.advq));
     ui->input_wq->setText(QString::number(modelrunlist->value(n).run->input.wq));
-    // + nog de wind.....
-  }
 
+    if (modelrunlist->value(n).run->input.sw_wind == true)
+      ui->switch_wind->setChecked(true);
+    else
+      ui->switch_wind->setChecked(false);
+
+    ui->input_u0->setText(QString::number(modelrunlist->value(n).run->input.u));
+    ui->input_d_u0->setText(QString::number(modelrunlist->value(n).run->input.du));
+    ui->input_gamma_u->setText(QString::number(modelrunlist->value(n).run->input.gammau));
+    ui->input_adv_u->setText(QString::number(modelrunlist->value(n).run->input.advu));
+
+    ui->input_v0->setText(QString::number(modelrunlist->value(n).run->input.v));
+    ui->input_d_v0->setText(QString::number(modelrunlist->value(n).run->input.dv));
+    ui->input_gamma_v->setText(QString::number(modelrunlist->value(n).run->input.gammav));
+    ui->input_adv_v->setText(QString::number(modelrunlist->value(n).run->input.advv));
+
+    ui->input_ustar->setText(QString::number(modelrunlist->value(n).run->input.ustar));
+
+    ui->input_name->setText(modelrunlist->value(n).runname);
+  }
 }
 
-
-
-
+void MainWindow::deleteRun()
+{
+  if(ui->modelRunTree->selectedItems().count() > 0)
+  {
+    for (int i=0; i<ui->modelRunTree->selectedItems().count(); i++)
+    {
+      QString ident = ui->modelRunTree->selectedItems()[i]->text(0);
+      int n = ident.toInt(0,10);
+      modelrunlist->remove(n);
+    }
+    updateRunList();
+  }
+}
 
 void MainWindow::wind_switch(int state)
 {

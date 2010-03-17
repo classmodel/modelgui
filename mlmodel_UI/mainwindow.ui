@@ -1255,7 +1255,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ms&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1344,7 +1344,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="cloneRunButton_2">
+       <widget class="QPushButton" name="deleteButton">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -1440,7 +1440,7 @@
   <tabstop>modelRunTree</tabstop>
   <tabstop>newRunButton</tabstop>
   <tabstop>cloneRunButton</tabstop>
-  <tabstop>cloneRunButton_2</tabstop>
+  <tabstop>deleteButton</tabstop>
   <tabstop>switch_wind</tabstop>
   <tabstop>input_fc</tabstop>
   <tabstop>input_ustar</tabstop>
