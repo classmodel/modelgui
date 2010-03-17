@@ -48,14 +48,8 @@ MainWindow::MainWindow(QWidget *parent)
   ui->wind_U_group->setDisabled(true);
   ui->wind_V_group->setDisabled(true);
 
-  readdefaultinput();
-
   modelrunlist = new QMap<int, modelrun>;
-
-  modelrun startrun;
-  startrun.runname = "run1";
-  modelrunlist->insert(1,startrun);
-  updateRunList();
+  newrun();
 }
 
 MainWindow::~MainWindow()
@@ -106,28 +100,31 @@ void MainWindow::readdefaultinput()
 
 void MainWindow::newrun()
 {
-  // 1. Get max(key)
+  // Get max(key)
   modelrun run;
 
-  QMap<int, modelrun>::const_iterator i = modelrunlist->constBegin();
+  QMap<int, modelrun>::iterator i = modelrunlist->begin();
     int max=0;
-    while (i != modelrunlist->constEnd()) {
+    while (i != modelrunlist->end()) {
        if (i.key() > max)
            max = i.key();
        ++i;
     }
 
+  // Base name run
   QString base = "run";
   QString num;
   num.setNum(max+1);
   base.append(num);
   run.runname.append(base);
 
-  // 2. Insert in QMap
-  modelrunlist->insert((max+1),run);
+  modelrunlist->insert((max+1),run);                          // Insert in QMap
+  readdefaultinput();                                         // Read default values
+  modelrunlist->value(max+1).run->input = defaultinput;       // Write default to input model
+  updateRunList();                                            // Update list mainwindow
+  updateForm();
 
-  // 3. Update list mainwindow
-  updateRunList();
+  //modelrunlist->find(max+1).value().runname = "Test2!";     // HOWTO CHANGE NAME
 }
 
 void MainWindow::runTreeChanged()
@@ -139,6 +136,7 @@ void MainWindow::runTreeChanged()
     inputfields = false;
 
   ui->tabWidget->setEnabled(inputfields);
+  updateForm();
 }
 
 void MainWindow::updateRunList()
@@ -159,53 +157,88 @@ void MainWindow::updateRunList()
         QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
         point->setText(0, QString::number(i.key()));
         point->setText(1, modelrunlist->value(i.key()).runname);
+        ui->modelRunTree->setCurrentItem(point);
         ++i;
   }
 }
 
 void MainWindow::updateInputdata()
 {
-  double dt         = ui->input_timestep->text().toDouble();      // time step [s]
-  double runtime    = ui->input_time->text().toDouble();          // total run time [s]
+  formvalues.dt         = ui->input_timestep->text().toDouble();      // time step [s]
+  formvalues.runtime    = ui->input_time->text().toDouble();          // total run time [s]
 
-  double h          = ui->input_h0->text().toDouble();            // initial ABL height [m]
-  double Ps         = ui->input_ps->text().toDouble();            // surface pressure [Pa]
-  double ws         = ui->input_ws->text().toDouble();            // large scale vertical velocity [m s-1]
-  double fc         = ui->input_fc->text().toDouble();            // Coriolis parameter [m s-1]
+  formvalues.h          = ui->input_h0->text().toDouble();            // initial ABL height [m]
+  formvalues.Ps         = ui->input_ps->text().toDouble();            // surface pressure [Pa]
+  formvalues.ws         = ui->input_ws->text().toDouble();            // large scale vertical velocity [m s-1]
+  formvalues.fc         = ui->input_fc->text().toDouble();            // Coriolis parameter [m s-1]
 
-  double theta      = ui->input_theta0->text().toDouble();        // initial mixed-layer potential temperature [K]
-  double dtheta     = ui->input_d_theta0->text().toDouble();      // initial temperature jump at h [K]
-  double gammatheta = ui->input_gamma_theta->text().toDouble();   // free atmosphere potential temperature lapse rate [K m-1]
-  double advtheta   = ui->input_adv_theta->text().toDouble();     // advection of heat [K s-1]
-  double beta       = ui->input_beta->text().toDouble();          // entrainment ratio for virtual heat [-]
-  double wtheta     = ui->input_wtheta->text().toDouble();        // surface kinematic heat flux [K m s-1]
+  formvalues.theta      = ui->input_theta0->text().toDouble();        // initial mixed-layer potential temperature [K]
+  formvalues.dtheta     = ui->input_d_theta0->text().toDouble();      // initial temperature jump at h [K]
+  formvalues.gammatheta = ui->input_gamma_theta->text().toDouble();   // free atmosphere potential temperature lapse rate [K m-1]
+  formvalues.advtheta   = ui->input_adv_theta->text().toDouble();     // advection of heat [K s-1]
+  formvalues.beta       = ui->input_beta->text().toDouble();          // entrainment ratio for virtual heat [-]
+  formvalues.wtheta     = ui->input_wtheta->text().toDouble();        // surface kinematic heat flux [K m s-1]
 
-  double q          = ui->input_q0->text().toDouble();            // initial mixed-layer specific humidity [kg kg-1]
-  double dq         = ui->input_dq0->text().toDouble();           // initial specific humidity jump at h [kg kg-1]
-  double gammaq     = ui->input_gamma_q->text().toDouble();       // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
-  double advq       = ui->input_advq->text().toDouble();          // advection of moisture [kg kg-1 s-1]
-  double wq         = ui->input_wq->text().toDouble();            // surface kinematic moisture flux [kg kg-1 m s-1]
+  formvalues.q          = ui->input_q0->text().toDouble();            // initial mixed-layer specific humidity [kg kg-1]
+  formvalues.dq         = ui->input_dq0->text().toDouble();           // initial specific humidity jump at h [kg kg-1]
+  formvalues.gammaq     = ui->input_gamma_q->text().toDouble();       // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
+  formvalues.advq       = ui->input_advq->text().toDouble();          // advection of moisture [kg kg-1 s-1]
+  formvalues.wq         = ui->input_wq->text().toDouble();            // surface kinematic moisture flux [kg kg-1 m s-1]
 
-  bool sw_wind      = ui->switch_wind;                            // prognostic wind switch
-  double u          = ui->input_u0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
-  double du         = ui->input_d_u0->text().toDouble();          // initial u-wind jump at h [m s-1]
-  double gammau     = ui->input_gamma_u->text().toDouble();       // free atmosphere u-wind speed lapse rate [s-1]
-  double advu       = ui->input_adv_u->text().toDouble();         // advection of u-wind [m s-2]
+  formvalues.sw_wind    = ui->switch_wind;                            // prognostic wind switch
+  formvalues.u          = ui->input_u0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
+  formvalues.du         = ui->input_d_u0->text().toDouble();          // initial u-wind jump at h [m s-1]
+  formvalues.gammau     = ui->input_gamma_u->text().toDouble();       // free atmosphere u-wind speed lapse rate [s-1]
+  formvalues.advu       = ui->input_adv_u->text().toDouble();         // advection of u-wind [m s-2]
 
-  double v          = ui->input_v0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
-  double dv         = ui->input_d_v0->text().toDouble();          // initial u-wind jump at h [m s-1]
-  double gammav     = ui->input_gamma_v->text().toDouble();       // free atmosphere v-wind speed lapse rate [s-1]
-  double advv       = ui->input_adv_v->text().toDouble();         // advection of v-wind [m s-2]
+  formvalues.v          = ui->input_v0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
+  formvalues.dv         = ui->input_d_v0->text().toDouble();          // initial u-wind jump at h [m s-1]
+  formvalues.gammav     = ui->input_gamma_v->text().toDouble();       // free atmosphere v-wind speed lapse rate [s-1]
+  formvalues.advv       = ui->input_adv_v->text().toDouble();         // advection of v-wind [m s-2]
 
-  double ustar      = ui->input_ustar->text().toDouble();         // surface friction velocity [m s-1]
+  formvalues.ustar      = ui->input_ustar->text().toDouble();         // surface friction velocity [m s-1]
 
-  if (ui->modelRunTree->selectedItems().size() == 1)
+  if (ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
   {
-    // Read current index, write data to input, et cetera......
-    //modelrunlist->value(1).run->input.h = h;
-    //std::cout << modelrunlist->value(1).run->input.h << std::endl;
+    int n = ui->modelRunTree->currentItem()->text(0).toInt();
+    modelrunlist->value(n).run->input = formvalues;
+    updateForm();
   }
 }
+
+void MainWindow::updateForm()
+{
+  if (ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
+  {
+    int n = ui->modelRunTree->currentItem()->text(0).toInt();
+    ui->input_timestep->setText(QString::number(modelrunlist->value(n).run->input.dt));
+    ui->input_time->setText(QString::number(modelrunlist->value(n).run->input.runtime));
+
+    ui->input_h0->setText(QString::number(modelrunlist->value(n).run->input.h));
+    ui->input_ps->setText(QString::number(modelrunlist->value(n).run->input.Ps));
+    ui->input_ws->setText(QString::number(modelrunlist->value(n).run->input.ws));
+    ui->input_fc->setText(QString::number(modelrunlist->value(n).run->input.fc));
+
+    ui->input_theta0->setText(QString::number(modelrunlist->value(n).run->input.theta));
+    ui->input_d_theta0->setText(QString::number(modelrunlist->value(n).run->input.dtheta));
+    ui->input_gamma_theta->setText(QString::number(modelrunlist->value(n).run->input.gammatheta));
+    ui->input_adv_theta->setText(QString::number(modelrunlist->value(n).run->input.advtheta));
+    ui->input_beta->setText(QString::number(modelrunlist->value(n).run->input.beta));
+    ui->input_wtheta->setText(QString::number(modelrunlist->value(n).run->input.wtheta));
+
+    ui->input_q0->setText(QString::number(modelrunlist->value(n).run->input.q));
+    ui->input_dq0->setText(QString::number(modelrunlist->value(n).run->input.dq));
+    ui->input_gamma_q->setText(QString::number(modelrunlist->value(n).run->input.gammaq));
+    ui->input_advq->setText(QString::number(modelrunlist->value(n).run->input.advq));
+    ui->input_wq->setText(QString::number(modelrunlist->value(n).run->input.wq));
+    // + nog de wind.....
+  }
+
+}
+
+
+
+
 
 void MainWindow::wind_switch(int state)
 {
