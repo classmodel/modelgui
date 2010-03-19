@@ -81,7 +81,7 @@
          <x>10</x>
          <y>30</y>
          <width>191</width>
-         <height>99</height>
+         <height>104</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="modelsettings_grid" columnminimumwidth="50,0,60">
@@ -166,7 +166,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[s]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[h]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -207,7 +207,7 @@
          <x>10</x>
          <y>30</y>
          <width>191</width>
-         <height>141</height>
+         <height>143</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="heat_grid" columnminimumwidth="50,0,60">
@@ -427,7 +427,7 @@
          <x>10</x>
          <y>30</y>
          <width>201</width>
-         <height>110</height>
+         <height>114</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="cbl_settings_grid" columnminimumwidth="50,0,80">
@@ -611,7 +611,7 @@
          <x>10</x>
          <y>30</y>
          <width>201</width>
-         <height>138</height>
+         <height>143</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="moisture_grid" columnminimumwidth="50,0,80">
@@ -839,7 +839,7 @@
          <x>10</x>
          <y>30</y>
          <width>181</width>
-         <height>110</height>
+         <height>114</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="u_comp_grid" columnminimumwidth="50,0,60">
@@ -1011,7 +1011,7 @@
          <x>10</x>
          <y>30</y>
          <width>181</width>
-         <height>110</height>
+         <height>114</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="u_comp_grid_2" columnminimumwidth="50,0,60">
@@ -1183,7 +1183,7 @@
          <x>10</x>
          <y>30</y>
          <width>181</width>
-         <height>81</height>
+         <height>83</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="u_comp_grid_3" columnminimumwidth="50,0,60">
@@ -1392,7 +1392,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

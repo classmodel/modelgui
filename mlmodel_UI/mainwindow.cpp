@@ -227,10 +227,10 @@ void MainWindow::updateRunList()
 void MainWindow::updateInputdata()
 {
   formvalues.dt         = ui->input_timestep->text().toDouble();      // time step [s]
-  formvalues.runtime    = ui->input_time->text().toDouble();          // total run time [s]
+  formvalues.runtime    = ui->input_time->text().toDouble() * 3600;   // total run time [s]
 
   formvalues.h          = ui->input_h0->text().toDouble();            // initial ABL height [m]
-  formvalues.Ps         = ui->input_ps->text().toDouble();            // surface pressure [Pa]
+  formvalues.Ps         = ui->input_ps->text().toDouble() * 100;      // surface pressure [Pa]
   formvalues.ws         = ui->input_ws->text().toDouble();            // large scale vertical velocity [m s-1]
   formvalues.fc         = ui->input_fc->text().toDouble();            // Coriolis parameter [m s-1]
 
@@ -241,11 +241,11 @@ void MainWindow::updateInputdata()
   formvalues.beta       = ui->input_beta->text().toDouble();          // entrainment ratio for virtual heat [-]
   formvalues.wtheta     = ui->input_wtheta->text().toDouble();        // surface kinematic heat flux [K m s-1]
 
-  formvalues.q          = ui->input_q0->text().toDouble();            // initial mixed-layer specific humidity [kg kg-1]
-  formvalues.dq         = ui->input_dq0->text().toDouble();           // initial specific humidity jump at h [kg kg-1]
-  formvalues.gammaq     = ui->input_gamma_q->text().toDouble();       // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
-  formvalues.advq       = ui->input_advq->text().toDouble();          // advection of moisture [kg kg-1 s-1]
-  formvalues.wq         = ui->input_wq->text().toDouble();            // surface kinematic moisture flux [kg kg-1 m s-1]
+  formvalues.q          = ui->input_q0->text().toDouble() / 1000;     // initial mixed-layer specific humidity [kg kg-1]
+  formvalues.dq         = ui->input_dq0->text().toDouble() / 1000;    // initial specific humidity jump at h [kg kg-1]
+  formvalues.gammaq     = ui->input_gamma_q->text().toDouble() / 1000;// free atmosphere specific humidity lapse rate [kg kg-1 m-1]
+  formvalues.advq       = ui->input_advq->text().toDouble() / 1000;   // advection of moisture [kg kg-1 s-1]
+  formvalues.wq         = ui->input_wq->text().toDouble() / 1000;     // surface kinematic moisture flux [kg kg-1 m s-1]
 
   formvalues.sw_wind    = ui->switch_wind->checkState();              // prognostic wind switch
   formvalues.u          = ui->input_u0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
@@ -278,10 +278,10 @@ void MainWindow::updateForm()
   {
     int n = ui->modelRunTree->currentItem()->text(0).toInt();
     ui->input_timestep->setText(QString::number(modelrunlist->value(n).run->input.dt));
-    ui->input_time->setText(QString::number(modelrunlist->value(n).run->input.runtime));
+    ui->input_time->setText(QString::number(modelrunlist->value(n).run->input.runtime / 3600.));
 
     ui->input_h0->setText(QString::number(modelrunlist->value(n).run->input.h));
-    ui->input_ps->setText(QString::number(modelrunlist->value(n).run->input.Ps));
+    ui->input_ps->setText(QString::number(modelrunlist->value(n).run->input.Ps / 100.));
     ui->input_ws->setText(QString::number(modelrunlist->value(n).run->input.ws));
     ui->input_fc->setText(QString::number(modelrunlist->value(n).run->input.fc));
 
@@ -292,11 +292,11 @@ void MainWindow::updateForm()
     ui->input_beta->setText(QString::number(modelrunlist->value(n).run->input.beta));
     ui->input_wtheta->setText(QString::number(modelrunlist->value(n).run->input.wtheta));
 
-    ui->input_q0->setText(QString::number(modelrunlist->value(n).run->input.q));
-    ui->input_dq0->setText(QString::number(modelrunlist->value(n).run->input.dq));
-    ui->input_gamma_q->setText(QString::number(modelrunlist->value(n).run->input.gammaq));
-    ui->input_advq->setText(QString::number(modelrunlist->value(n).run->input.advq));
-    ui->input_wq->setText(QString::number(modelrunlist->value(n).run->input.wq));
+    ui->input_q0->setText(QString::number(modelrunlist->value(n).run->input.q * 1000.));
+    ui->input_dq0->setText(QString::number(modelrunlist->value(n).run->input.dq * 1000.));
+    ui->input_gamma_q->setText(QString::number(modelrunlist->value(n).run->input.gammaq * 1000.));
+    ui->input_advq->setText(QString::number(modelrunlist->value(n).run->input.advq * 1000.));
+    ui->input_wq->setText(QString::number(modelrunlist->value(n).run->input.wq * 1000.));
 
     if (modelrunlist->value(n).run->input.sw_wind == true)
       ui->switch_wind->setChecked(true);
