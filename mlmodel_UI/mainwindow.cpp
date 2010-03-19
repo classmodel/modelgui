@@ -53,6 +53,15 @@ MainWindow::MainWindow(QWidget *parent)
   ui->wind_U_group->setDisabled(true);
   ui->wind_V_group->setDisabled(true);
 
+  // Setup QTreeWidget
+  QStringList heading;
+  heading << "ID" << "Name";
+  ui->modelRunTree->setColumnCount(2);
+  ui->modelRunTree->setHeaderLabels(heading);
+  ui->modelRunTree->setColumnWidth(0,35);
+  ui->modelRunTree->hideColumn(0);
+  ui->modelRunTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
   modelrunlist = new QMap<int, modelrun>;
   newrun();
 }
@@ -126,7 +135,10 @@ void MainWindow::newrun()
   readdefaultinput();
   modelrunlist->value(max+1).run->input = defaultinput;
 
-  updateRunList();
+  QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
+  point->setText(0, QString::number(max+1));
+  point->setText(1, base);
+
   updateForm();
 }
 
@@ -152,7 +164,10 @@ void MainWindow::clonerun()
 
   modelrunlist->value(max+1).run->input = modelrunlist->value(id).run->input;
 
-  updateRunList();
+  QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
+  point->setText(0, QString::number(max+1));
+  point->setText(1, base);
+
   updateForm();
 }
 
@@ -253,7 +268,7 @@ void MainWindow::updateInputdata()
     modelrunlist->value(id).run->input = formvalues;
     modelrunlist->find(id).value().runname = name;
     updateForm();
-    updateRunList();
+    //updateRunList();
   }
 }
 
@@ -313,8 +328,8 @@ void MainWindow::deleteRun()
       QString ident = ui->modelRunTree->selectedItems()[i]->text(0);
       int n = ident.toInt(0,10);
       modelrunlist->remove(n);
-      qDeleteAll(ui->modelRunTree->selectedItems());
     }
+    qDeleteAll(ui->modelRunTree->selectedItems());
   }
 }
 
