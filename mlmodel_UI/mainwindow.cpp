@@ -175,7 +175,7 @@ void MainWindow::clonerun()
   point->setText(0, QString::number(max+1));
   point->setText(1, base);
 
-  ui->modelRunTree->setCurrentItem(point);
+  //ui->modelRunTree->setCurrentItem(point);
 
   updateForm();
 }
