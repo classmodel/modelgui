@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   connect(ui->switch_wind, SIGNAL(stateChanged(int)), this, SLOT(wind_switch(int)));
   connect(ui->newRunButton, SIGNAL(clicked()), this, SLOT(newrun()));
+  connect(ui->cloneRunButton, SIGNAL(clicked()), this, SLOT(clonerun()));
   connect(ui->modelRunTree, SIGNAL(itemSelectionChanged()), this, SLOT(runTreeChanged()));
   connect(ui->deleteButton, SIGNAL(clicked()), this, SLOT(deleteRun()));
 
@@ -104,18 +105,17 @@ void MainWindow::readdefaultinput()
 
 void MainWindow::newrun()
 {
-  // Get max(key)
   modelrun run;
 
   QMap<int, modelrun>::iterator i = modelrunlist->begin();
-    int max=0;
-    while (i != modelrunlist->end()) {
-       if (i.key() > max)
-           max = i.key();
-       ++i;
-    }
+  int max=0;
+  while (i != modelrunlist->end())
+  {
+    if (i.key() > max)
+      max = i.key();
+    ++i;
+  }
 
-  // Base name run
   QString base = "run";
   QString num;
   num.setNum(max+1);
@@ -123,16 +123,35 @@ void MainWindow::newrun()
   run.runname.append(base);
   modelrunlist->insert((max+1),run);
 
-  //if (type == 0)   // NEW RUN
-  //{
-    readdefaultinput();
-    modelrunlist->value(max+1).run->input = defaultinput;
-  //}
-  //if (type == 1)   // CLONE
-  //{
-  //  int n = ui->modelRunTree->currentItem()->text(0).toInt();
-  //  modelrunlist->value(max+1).run->input = modelrunlist->value(n).run->input;
-  //}
+  readdefaultinput();
+  modelrunlist->value(max+1).run->input = defaultinput;
+
+  updateRunList();
+  updateForm();
+}
+
+void MainWindow::clonerun()
+{
+  modelrun run;
+
+  QMap<int, modelrun>::iterator i = modelrunlist->begin();
+  int max=0;
+  while (i != modelrunlist->end())
+  {
+    if (i.key() > max)
+      max = i.key();
+    ++i;
+  }
+
+  int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  QString base = modelrunlist->value(id).runname;
+  QString append = " (clone)";
+  base.append(append);
+  run.runname.append(base);
+  modelrunlist->insert((max+1),run);
+
+  modelrunlist->value(max+1).run->input = modelrunlist->value(id).run->input;
+
   updateRunList();
   updateForm();
 }
@@ -163,6 +182,7 @@ void MainWindow::updateRunList()
   // 2. Clear QMap, repopulate QMap
   //QTreeWidgetItem *current = new QTreeWidgetItem(ui->modelRunTree);    //CRASHES
   //current = ui->modelRunTree->currentItem();
+
   static bool init = true;
   QString currentkey;
 
@@ -172,14 +192,16 @@ void MainWindow::updateRunList()
     ui->modelRunTree->clear();
   }
 
+  ui->modelRunTree->clear();
   QMap<int, modelrun>::const_iterator i = modelrunlist->constBegin();
-    while (i != modelrunlist->constEnd()) {
-        QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
-        point->setText(0, QString::number(i.key()));
-        point->setText(1, modelrunlist->value(i.key()).runname);
-        ui->modelRunTree->setCurrentItem(point);
-        ++i;
-  }
+    while (i != modelrunlist->constEnd())
+    {
+      QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
+      point->setText(0, QString::number(i.key()));
+      point->setText(1, modelrunlist->value(i.key()).runname);
+      ui->modelRunTree->setCurrentItem(point);
+      ++i;
+    }
 
   if(!init)
     ui->modelRunTree->setCurrentItem(ui->modelRunTree->findItems(currentkey,Qt::MatchExactly,0)[0]);
@@ -227,9 +249,9 @@ void MainWindow::updateInputdata()
 
   if (ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
   {
-    int n = ui->modelRunTree->currentItem()->text(0).toInt();
-    modelrunlist->value(n).run->input = formvalues;
-    modelrunlist->find(n).value().runname = name;
+    int id = ui->modelRunTree->currentItem()->text(0).toInt();
+    modelrunlist->value(id).run->input = formvalues;
+    modelrunlist->find(id).value().runname = name;
     updateForm();
     updateRunList();
   }
@@ -291,8 +313,8 @@ void MainWindow::deleteRun()
       QString ident = ui->modelRunTree->selectedItems()[i]->text(0);
       int n = ident.toInt(0,10);
       modelrunlist->remove(n);
+      qDeleteAll(ui->modelRunTree->selectedItems());
     }
-    updateRunList();
   }
 }
 

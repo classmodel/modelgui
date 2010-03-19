@@ -19,15 +19,18 @@ public:
   QMap<int, modelrun> *modelrunlist;           // List containing objects with model output
   void updateRunList();
   void updateForm();
+  void createrun();
   modelinput defaultinput;                     // Store default model input settings
   modelinput formvalues;
 
 public slots:
   void wind_switch(int);
   void newrun();
+  void clonerun();
+  void deleteRun();
   void runTreeChanged();                       // Disable input field when selection runs > 1
   void updateInputdata();
-  void deleteRun();
+
 
 private:
   Ui::MainWindow *ui;
