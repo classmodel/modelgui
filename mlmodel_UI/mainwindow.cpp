@@ -298,6 +298,7 @@ void MainWindow::deleteRun()
       modelrunlist->remove(n);
     }
     qDeleteAll(ui->modelRunTree->selectedItems());
+    ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
   }
 }
 
