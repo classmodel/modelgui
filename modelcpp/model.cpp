@@ -98,7 +98,8 @@ void model::initmodel()
 
   // initialize time variables
   tsteps = int(runtime / dt);
-  //t      = 0;
+  t      = 0;
+  
   // set output array to given value
   output = new modeloutput(tsteps);
 
