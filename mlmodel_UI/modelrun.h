@@ -4,7 +4,7 @@
 class modelrun
 {
 public:
-  modelinput ref_input;
+  modelinput previnput;
   QString runname;
   model *run;
   modelrun();

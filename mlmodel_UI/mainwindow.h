@@ -31,6 +31,8 @@ public slots:
   void runTreeChanged();                       // Disable input field when selection runs > 1
   void updateInputdata();
   void updateRunName();
+  void startrun();
+  void canceledit();
 
 private:
   Ui::MainWindow *ui;

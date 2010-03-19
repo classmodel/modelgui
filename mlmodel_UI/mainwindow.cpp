@@ -11,6 +11,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
   ui->setupUi(this);
 
+  connect(ui->startButton, SIGNAL(clicked()), this, SLOT(startrun()));
+  connect(ui->cancelButton, SIGNAL(clicked()), this, SLOT(canceledit()));
+
   connect(ui->switch_wind, SIGNAL(stateChanged(int)), this, SLOT(wind_switch(int)));
   connect(ui->newRunButton, SIGNAL(clicked()), this, SLOT(newrun()));
   connect(ui->cloneRunButton, SIGNAL(clicked()), this, SLOT(clonerun()));
@@ -134,7 +137,8 @@ void MainWindow::newrun()
   modelrunlist->insert((max+1),run);
 
   readdefaultinput();
-  modelrunlist->value(max+1).run->input = defaultinput;
+  modelrunlist->value(max+1).run->input       = defaultinput;
+  modelrunlist->find(max+1).value().previnput = defaultinput;
 
   QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
   point->setText(0, QString::number(max+1));
@@ -349,4 +353,23 @@ void MainWindow::wind_switch(int state)
     ui->wind_U_group->setDisabled(true);
     ui->wind_V_group->setDisabled(true);
   }
+}
+
+void MainWindow::startrun()
+{
+  int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
+  double test1 = modelrunlist->find(id).value().previnput.h;
+  double test2 = modelrunlist->find(id).value().run->input.h;
+  double test3 = defaultinput.h;
+  std::cout << "test: " << test1 << ", " << test2 << ", " << test3 << std::endl;
+  defaultinput.h = 1000;
+  test3 = defaultinput.h;
+  std::cout << "test: " << test1 << ", " << test2 << ", " << test3 << std::endl;
+}
+
+void MainWindow::canceledit()
+{
+  int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  modelrunlist->find(id).value().run->input = modelrunlist->find(id).value().previnput;
 }
