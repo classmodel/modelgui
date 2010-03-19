@@ -326,7 +326,8 @@ void MainWindow::startrun()
 {
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
   modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
-  }
+  modelrunlist->find(id).value().run->runmodel();
+}
 
 void MainWindow::canceledit()
 {
