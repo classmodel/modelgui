@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   connect(ui->switch_wind,        SIGNAL(clicked()),         this, SLOT(updateInputdata()));
   connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateRunName()));
   // =======================================================================================
 
   ui->wind_U_group->setDisabled(true);
@@ -180,49 +181,50 @@ void MainWindow::runTreeChanged()
     inputfields = false;
 
   ui->tabWidget->setEnabled(inputfields);
+  ui->cloneRunButton->setEnabled(inputfields);
   updateForm();
 }
 
-void MainWindow::updateRunList()
-{
-  // 1. Setup QMap
-  QStringList heading;
-  heading << "ID" << "Name";
-  ui->modelRunTree->setColumnCount(2);
-  ui->modelRunTree->setHeaderLabels(heading);
-  ui->modelRunTree->setColumnWidth(0,35);
-  ui->modelRunTree->hideColumn(0);
-  ui->modelRunTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-
-  // 2. Clear QMap, repopulate QMap
-  //QTreeWidgetItem *current = new QTreeWidgetItem(ui->modelRunTree);    //CRASHES
-  //current = ui->modelRunTree->currentItem();
-
-  static bool init = true;
-  QString currentkey;
-
-  if(!init)
-  {
-    currentkey = ui->modelRunTree->currentItem()->text(0);
-    ui->modelRunTree->clear();
-  }
-
-  ui->modelRunTree->clear();
-  QMap<int, modelrun>::const_iterator i = modelrunlist->constBegin();
-    while (i != modelrunlist->constEnd())
-    {
-      QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
-      point->setText(0, QString::number(i.key()));
-      point->setText(1, modelrunlist->value(i.key()).runname);
-      ui->modelRunTree->setCurrentItem(point);
-      ++i;
-    }
-
-  if(!init)
-    ui->modelRunTree->setCurrentItem(ui->modelRunTree->findItems(currentkey,Qt::MatchExactly,0)[0]);
-  else
-    init = false;
-}
+//void MainWindow::updateRunList()
+//{
+//  // 1. Setup QMap
+//  QStringList heading;
+//  heading << "ID" << "Name";
+//  ui->modelRunTree->setColumnCount(2);
+//  ui->modelRunTree->setHeaderLabels(heading);
+//  ui->modelRunTree->setColumnWidth(0,35);
+//  ui->modelRunTree->hideColumn(0);
+//  ui->modelRunTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+//
+//  // 2. Clear QMap, repopulate QMap
+//  //QTreeWidgetItem *current = new QTreeWidgetItem(ui->modelRunTree);    //CRASHES
+//  //current = ui->modelRunTree->currentItem();
+//
+//  static bool init = true;
+//  QString currentkey;
+//
+//  if(!init)
+//  {
+//    currentkey = ui->modelRunTree->currentItem()->text(0);
+//    ui->modelRunTree->clear();
+//  }
+//
+//  ui->modelRunTree->clear();
+//  QMap<int, modelrun>::const_iterator i = modelrunlist->constBegin();
+//    while (i != modelrunlist->constEnd())
+//    {
+//      QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
+//      point->setText(0, QString::number(i.key()));
+//      point->setText(1, modelrunlist->value(i.key()).runname);
+//      ui->modelRunTree->setCurrentItem(point);
+//      ++i;
+//    }
+//
+//  if(!init)
+//    ui->modelRunTree->setCurrentItem(ui->modelRunTree->findItems(currentkey,Qt::MatchExactly,0)[0]);
+//  else
+//    init = false;
+//}
 
 void MainWindow::updateInputdata()
 {
@@ -268,7 +270,6 @@ void MainWindow::updateInputdata()
     modelrunlist->value(id).run->input = formvalues;
     modelrunlist->find(id).value().runname = name;
     updateForm();
-    //updateRunList();
   }
 }
 
@@ -331,6 +332,12 @@ void MainWindow::deleteRun()
     }
     qDeleteAll(ui->modelRunTree->selectedItems());
   }
+}
+
+void MainWindow::updateRunName()
+{
+  if(ui->modelRunTree->selectedItems().count() > 0)
+    ui->modelRunTree->currentItem()->setText(1,ui->input_name->text());
 }
 
 void MainWindow::wind_switch(int state)
