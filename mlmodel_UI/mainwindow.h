@@ -17,7 +17,7 @@ public:
   MainWindow(QWidget *parent = 0);
   ~MainWindow();
   QMap<int, modelrun> *modelrunlist;           // List containing objects with model output
-  void updateRunList();
+  //void updateRunList();
   void updateForm();
   void createrun();
   modelinput defaultinput;                     // Store default model input settings
@@ -30,7 +30,7 @@ public slots:
   void deleteRun();
   void runTreeChanged();                       // Disable input field when selection runs > 1
   void updateInputdata();
-
+  void updateRunName();
 
 private:
   Ui::MainWindow *ui;
