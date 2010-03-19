@@ -68,6 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   modelrunlist = new QMap<int, modelrun>;
   newrun();
+  ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
 }
 
 MainWindow::~MainWindow()
@@ -186,6 +187,8 @@ void MainWindow::runTreeChanged()
 
   ui->tabWidget->setEnabled(inputfields);
   ui->cloneRunButton->setEnabled(inputfields);
+  ui->startSimButton->setEnabled(inputfields);
+  ui->cancelButton->setEnabled(inputfields);
   updateForm();
 }
 
