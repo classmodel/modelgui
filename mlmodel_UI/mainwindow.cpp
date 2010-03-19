@@ -322,10 +322,6 @@ void MainWindow::wind_switch(int state)
 void MainWindow::startrun()
 {
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
-  double test1 = modelrunlist->find(id).value().previnput.h;
-  double test2 = modelrunlist->find(id).value().run->input.h;
-  double test3 = defaultinput.h;
-  std::cout << "test: " << test1 << ", " << test2 << ", " << test3 << std::endl;
   modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
   }
 
