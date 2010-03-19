@@ -144,6 +144,7 @@ void MainWindow::newrun()
   QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
   point->setText(0, QString::number(max+1));
   point->setText(1, base);
+  ui->modelRunTree->setCurrentItem(point);
 
   updateForm();
 }
@@ -174,6 +175,8 @@ void MainWindow::clonerun()
   QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
   point->setText(0, QString::number(max+1));
   point->setText(1, base);
+
+  ui->modelRunTree->setCurrentItem(point);
 
   updateForm();
 }
