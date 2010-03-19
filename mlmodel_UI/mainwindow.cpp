@@ -169,6 +169,7 @@ void MainWindow::clonerun()
   modelrunlist->insert((max+1),run);
 
   modelrunlist->value(max+1).run->input = modelrunlist->value(id).run->input;
+  modelrunlist->find(max+1).value().previnput = modelrunlist->value(id).previnput;
 
   QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
   point->setText(0, QString::number(max+1));
@@ -187,51 +188,10 @@ void MainWindow::runTreeChanged()
 
   ui->tabWidget->setEnabled(inputfields);
   ui->cloneRunButton->setEnabled(inputfields);
-  ui->startSimButton->setEnabled(inputfields);
+  ui->startButton->setEnabled(inputfields);
   ui->cancelButton->setEnabled(inputfields);
   updateForm();
 }
-
-//void MainWindow::updateRunList()
-//{
-//  // 1. Setup QMap
-//  QStringList heading;
-//  heading << "ID" << "Name";
-//  ui->modelRunTree->setColumnCount(2);
-//  ui->modelRunTree->setHeaderLabels(heading);
-//  ui->modelRunTree->setColumnWidth(0,35);
-//  ui->modelRunTree->hideColumn(0);
-//  ui->modelRunTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-//
-//  // 2. Clear QMap, repopulate QMap
-//  //QTreeWidgetItem *current = new QTreeWidgetItem(ui->modelRunTree);    //CRASHES
-//  //current = ui->modelRunTree->currentItem();
-//
-//  static bool init = true;
-//  QString currentkey;
-//
-//  if(!init)
-//  {
-//    currentkey = ui->modelRunTree->currentItem()->text(0);
-//    ui->modelRunTree->clear();
-//  }
-//
-//  ui->modelRunTree->clear();
-//  QMap<int, modelrun>::const_iterator i = modelrunlist->constBegin();
-//    while (i != modelrunlist->constEnd())
-//    {
-//      QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
-//      point->setText(0, QString::number(i.key()));
-//      point->setText(1, modelrunlist->value(i.key()).runname);
-//      ui->modelRunTree->setCurrentItem(point);
-//      ++i;
-//    }
-//
-//  if(!init)
-//    ui->modelRunTree->setCurrentItem(ui->modelRunTree->findItems(currentkey,Qt::MatchExactly,0)[0]);
-//  else
-//    init = false;
-//}
 
 void MainWindow::updateInputdata()
 {
@@ -361,18 +321,16 @@ void MainWindow::wind_switch(int state)
 void MainWindow::startrun()
 {
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
-  modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
   double test1 = modelrunlist->find(id).value().previnput.h;
   double test2 = modelrunlist->find(id).value().run->input.h;
   double test3 = defaultinput.h;
   std::cout << "test: " << test1 << ", " << test2 << ", " << test3 << std::endl;
-  defaultinput.h = 1000;
-  test3 = defaultinput.h;
-  std::cout << "test: " << test1 << ", " << test2 << ", " << test3 << std::endl;
-}
+  modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
+  }
 
 void MainWindow::canceledit()
 {
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
   modelrunlist->find(id).value().run->input = modelrunlist->find(id).value().previnput;
+  updateForm();
 }
