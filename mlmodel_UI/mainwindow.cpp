@@ -187,7 +187,7 @@ void MainWindow::runTreeChanged()
 
   ui->tabWidget->setEnabled(inputfields);
   ui->cloneRunButton->setEnabled(inputfields);
-  ui->startSimButton->setEnabled(inputfields);
+  ui->startButton->setEnabled(inputfields);
   ui->cancelButton->setEnabled(inputfields);
   updateForm();
 }
@@ -338,6 +338,7 @@ void MainWindow::deleteRun()
       modelrunlist->remove(n);
     }
     qDeleteAll(ui->modelRunTree->selectedItems());
+    ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
   }
 }
 
