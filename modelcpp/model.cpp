@@ -97,8 +97,9 @@ void model::initmodel()
   ustar      =  input.ustar;            // surface friction velocity [m s-1]
 
   // initialize time variables
-  tsteps = int(runtime / dt);
-  //t      = 0;
+  tsteps = int(runtime / dt) + 1;
+  t      = 0;
+  
   // set output array to given value
   output = new modeloutput(tsteps);
 
@@ -193,7 +194,7 @@ void model::runmodel()
       dv       = dv0     + dt * dvtend;
     }
 
-    cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
+    //cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
     store();
   }
 
@@ -202,6 +203,7 @@ void model::runmodel()
 
 void model::store()
 {
+  cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
   output->t[t]          = t * dt / 3600.; // + tstart;
 
   output->h[t]          = h;
