@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->deleteButton, SIGNAL(clicked()), this, SLOT(deleteRun()));
 
   // ====== Couple of SIGNAL / SLOTS; update input data when form is changed ===============
+  /*
   connect(ui->input_advq,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_adv_theta,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_adv_u,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
@@ -53,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateRunName()));
   // =======================================================================================
+  */
 
   ui->wind_U_group->setDisabled(true);
   ui->wind_V_group->setDisabled(true);
@@ -119,6 +121,7 @@ void MainWindow::readdefaultinput()
 
 void MainWindow::newrun()
 {
+  updateInputdata();
   modelrun run;
 
   QMap<int, modelrun>::iterator i = modelrunlist->begin();
@@ -151,6 +154,7 @@ void MainWindow::newrun()
 
 void MainWindow::clonerun()
 {
+  updateInputdata();
   modelrun run;
 
   QMap<int, modelrun>::iterator i = modelrunlist->begin();
@@ -324,6 +328,7 @@ void MainWindow::wind_switch(int state)
 
 void MainWindow::startrun()
 {
+  updateInputdata();
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
   modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
   modelrunlist->find(id).value().run->runmodel();
