@@ -187,14 +187,27 @@ void MainWindow::clonerun()
 
 void MainWindow::runTreeChanged()
 {
-  bool inputfields;
-  if (ui->modelRunTree->selectedItems().size() == 1)
-    inputfields = true;
-  else
+  bool inputfields, deleteitems;
+
+  if (ui->modelRunTree->selectedItems().size() == 0)
+  {
     inputfields = false;
+    deleteitems = false;
+  }
+  else if(ui->modelRunTree->selectedItems().size() == 1)
+  {
+    inputfields = true;
+    deleteitems = true;
+  }
+  else
+  {
+    inputfields = false;
+    deleteitems = true;
+  }
 
   ui->tabWidget->setEnabled(inputfields);
   ui->cloneRunButton->setEnabled(inputfields);
+  ui->deleteButton->setEnabled(deleteitems);
   ui->startButton->setEnabled(inputfields);
   ui->cancelButton->setEnabled(inputfields);
   updateForm();
