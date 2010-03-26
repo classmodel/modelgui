@@ -11,4 +11,5 @@ HEADERS += mainwindow.h \
     model.h \
     modelrun.h \
     plotwindow.h
-FORMS += mainwindow.ui
+FORMS += mainwindow.ui \
+    plotwindow.ui
