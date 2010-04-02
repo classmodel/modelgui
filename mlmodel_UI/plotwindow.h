@@ -3,6 +3,9 @@
 
 #include <QtGui/QWidget>
 #include <QtGui/QTabWidget>
+#include "mainwindow.h"
+
+class modelrun;
 
 namespace Ui
 {
@@ -14,7 +17,7 @@ class plotwindow : public QTabWidget
     Q_OBJECT
 
 public:
-    plotwindow(QTabWidget *parent = 0);
+    plotwindow(QMap<int,modelrun> *, QMainWindow *);
     ~plotwindow();
 
 private:

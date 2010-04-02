@@ -1,8 +1,7 @@
 #include "plotwindow.h"
 #include "ui_plotwindow.h"
 
-plotwindow::plotwindow(QTabWidget *parent)
-    : QTabWidget(parent), ui(new Ui::plotwindow)
+plotwindow::plotwindow(QMap<int, modelrun> *givenrun, QMainWindow *parent) : QTabWidget(parent), ui(new Ui::plotwindow)
 {
     ui->setupUi(this);
 }

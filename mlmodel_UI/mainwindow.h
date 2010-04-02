@@ -3,7 +3,9 @@
 
 #include <QtGui/QMainWindow>
 #include "modelrun.h"
-#include "plotwindow.h"
+//#include "plotwindow.h"
+
+class plotwindow;
 
 namespace Ui
 {

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "plotwindow.h"
 
 #include <string>    // Needed for basename modelrun
 #include <sstream>   // Needed for basename modelrun
@@ -362,7 +363,7 @@ void MainWindow::startGraph()
 
 void MainWindow::showGraph(QMap<int, modelrun> *thisrun)
 {
-    graph = new plotwindow();
+    graph = new plotwindow(thisrun, this);
     graph->setWindowFlags(Qt::Window);
     graph->show();
 }
