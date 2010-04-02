@@ -1,5 +1,6 @@
 #include "plotwindow.h"
 #include "ui_plotwindow.h"
+#include <iostream>
 
 plotwindow::plotwindow(QMap<int, modelrun> *runlist, QMainWindow *parent) : QTabWidget(parent), ui(new Ui::plotwindow)
 {
@@ -30,3 +31,13 @@ plotwindow::~plotwindow()
 {
   delete ui;
 }
+
+void plotwindow::paintEvent(QPaintEvent *)
+ {
+     QPainter painter(this);
+     painter.setPen(Qt::blue);
+     painter.setFont(QFont("Arial", 30));
+     painter.drawText(rect(), Qt::AlignCenter, "Qt");
+
+     std::cout << "PAINTEVENT" << std::endl;
+ }

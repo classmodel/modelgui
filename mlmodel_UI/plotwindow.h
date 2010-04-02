@@ -4,6 +4,8 @@
 #include <QtGui/QWidget>
 #include <QtGui/QTabWidget>
 #include "mainwindow.h"
+#include "QPaintEvent"
+#include "QPainter"
 
 class modelrun;
 
@@ -19,6 +21,9 @@ class plotwindow : public QTabWidget
 public:
   plotwindow(QMap<int,modelrun> *, QMainWindow *);
   ~plotwindow();
+
+protected:
+  void paintEvent(QPaintEvent *event);
 
 private:
   Ui::plotwindow *ui;
