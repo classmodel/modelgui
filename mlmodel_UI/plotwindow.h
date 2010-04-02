@@ -9,19 +9,19 @@ class modelrun;
 
 namespace Ui
 {
-    class plotwindow;
+  class plotwindow;
 }
 
 class plotwindow : public QTabWidget
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    plotwindow(QMap<int,modelrun> *, QMainWindow *);
-    ~plotwindow();
+  plotwindow(QMap<int,modelrun> *, QMainWindow *);
+  ~plotwindow();
 
 private:
-    Ui::plotwindow *ui;
+  Ui::plotwindow *ui;
 };
 
 #endif // PLOTWINDOW_H

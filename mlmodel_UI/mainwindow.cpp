@@ -361,9 +361,9 @@ void MainWindow::startGraph()
     showGraph(modelrunlist);
 }
 
-void MainWindow::showGraph(QMap<int, modelrun> *thisrun)
+void MainWindow::showGraph(QMap<int, modelrun> *main)
 {
-    graph = new plotwindow(thisrun, this);
+    graph = new plotwindow(main, this);
     graph->setWindowFlags(Qt::Window);
     graph->show();
 }
