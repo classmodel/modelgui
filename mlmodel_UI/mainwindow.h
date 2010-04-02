@@ -3,6 +3,7 @@
 
 #include <QtGui/QMainWindow>
 #include "modelrun.h"
+#include "plotwindow.h"
 
 namespace Ui
 {
@@ -20,6 +21,8 @@ public:
   //void updateRunList();
   void updateForm();
   void createrun();
+  void showGraph(QMap<int, modelrun> *);
+  plotwindow *graph;
   modelinput defaultinput;                     // Store default model input settings
   modelinput formvalues;
 
@@ -33,6 +36,7 @@ public slots:
   void updateRunName();
   void startrun();
   void canceledit();
+  void startGraph();
 
 private:
   Ui::MainWindow *ui;

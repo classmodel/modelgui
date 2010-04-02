@@ -2,18 +2,19 @@
 #define PLOTWINDOW_H
 
 #include <QtGui/QWidget>
+#include <QtGui/QTabWidget>
 
 namespace Ui
 {
     class plotwindow;
 }
 
-class plotwindow : public QWidget
+class plotwindow : public QTabWidget
 {
     Q_OBJECT
 
 public:
-    plotwindow(QWidget *parent = 0);
+    plotwindow(QTabWidget *parent = 0);
     ~plotwindow();
 
 private:

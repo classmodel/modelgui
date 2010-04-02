@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->cloneRunButton, SIGNAL(clicked()), this, SLOT(clonerun()));
   connect(ui->modelRunTree, SIGNAL(itemSelectionChanged()), this, SLOT(runTreeChanged()));
   connect(ui->deleteButton, SIGNAL(clicked()), this, SLOT(deleteRun()));
+  connect(ui->graphButton, SIGNAL(clicked()), this, SLOT(startGraph()));
 
   // ====== Couple of SIGNAL / SLOTS; update input data when form is changed ===============
   /*
@@ -352,4 +353,16 @@ void MainWindow::canceledit()
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
   modelrunlist->find(id).value().run->input = modelrunlist->find(id).value().previnput;
   updateForm();
+}
+
+void MainWindow::startGraph()
+{
+    showGraph(modelrunlist);
+}
+
+void MainWindow::showGraph(QMap<int, modelrun> *thisrun)
+{
+    graph = new plotwindow();
+    graph->setWindowFlags(Qt::Window);
+    graph->show();
 }
