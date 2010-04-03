@@ -4,12 +4,14 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     model.cpp \
     modelrun.cpp \
-    plotwindow.cpp
+    plotwindow.cpp \
+    plotarea.cpp
 HEADERS += mainwindow.h \
     modeloutput.h \
     modelinput.h \
     model.h \
     modelrun.h \
-    plotwindow.h
+    plotwindow.h \
+    plotarea.h
 FORMS += mainwindow.ui \
     plotwindow.ui

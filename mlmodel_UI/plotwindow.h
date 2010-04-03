@@ -23,7 +23,6 @@ public:
   ~plotwindow();
 
 protected:
-  void paintEvent(QPaintEvent *event);
 
 private:
   Ui::plotwindow *ui;
