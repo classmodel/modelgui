@@ -7,6 +7,7 @@
 #include "QPaintEvent"
 #include "QPainter"
 #include <iostream>
+#include <cmath>
 
 class modelrun;
 
@@ -17,6 +18,8 @@ class plotarea : public QWidget
 public:
   plotarea(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
   QString plotvar;
+  double transfx(double xreal, double xscale, double xmin);    // Function real-coordinate to Widget-coordinate
+  double transfy(double yreal, double yscale, double ymin);    // Function real-coordinate to Widget-coordinate
 
 public slots:
 
@@ -26,7 +29,7 @@ protected:
   QMap<int, modelrun> *runlist;
 
 private:
-
+  static const int plotmargin = 50;
 };
 
 #endif // PLOTAREA_H
