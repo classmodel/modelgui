@@ -4,6 +4,7 @@
 #include <QtGui/QWidget>
 #include <QtGui/QTabWidget>
 #include "mainwindow.h"
+#include "plotarea.h"
 #include "QPaintEvent"
 #include "QPainter"
 
@@ -26,6 +27,9 @@ protected:
 
 private:
   Ui::plotwindow *ui;
+  plotarea *plot;
+  QList<int> *selectedruns;
+
 };
 
 #endif // PLOTWINDOW_H

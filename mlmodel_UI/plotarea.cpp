@@ -11,6 +11,5 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
   QPainter paint(this);
   QPen pen(Qt::black, 1, Qt::SolidLine);
   paint.setPen(pen);
-  paint.drawLine(0,0,150,150);
-  std::cout << "PAINTEVENT" << std::endl;
+  paint.drawLine(0,0,1000,1000);
 }

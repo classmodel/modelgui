@@ -1,10 +1,24 @@
 #include "plotwindow.h"
+#include "plotarea.h"
 #include "ui_plotwindow.h"
 #include <iostream>
 
 plotwindow::plotwindow(QMap<int, modelrun> *runlist, QMainWindow *parent) : QTabWidget(parent), ui(new Ui::plotwindow)
 {
   ui->setupUi(this);
+
+  selectedruns = new QList<int>;
+
+  // Remove dummy-plot-widget, add and setup new plot widget
+  ui->verticalLayout->removeWidget(ui->plotarea);
+  plot = new plotarea(runlist, selectedruns, this);
+  QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  sizePolicy.setHorizontalStretch(0);
+  sizePolicy.setVerticalStretch(0);
+  sizePolicy.setHeightForWidth(plot->sizePolicy().hasHeightForWidth());
+  plot->setSizePolicy(sizePolicy);
+  plot->setMinimumSize(QSize(400, 400));
+  ui->verticalLayout->addWidget(plot);
 
   // Setup QTreeWidget
   QStringList heading;
