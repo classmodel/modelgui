@@ -1,6 +1,8 @@
 #ifndef PLOTAREA_H
 #define PLOTAREA_H
 
+#include "mainwindow.h"
+
 #include <QWidget>
 #include "QPaintEvent"
 #include "QPainter"

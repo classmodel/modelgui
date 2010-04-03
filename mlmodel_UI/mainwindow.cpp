@@ -126,6 +126,8 @@ void MainWindow::newrun()
   updateInputdata();
   modelrun run;
 
+  run.hasrun = false;
+
   QMap<int, modelrun>::iterator i = modelrunlist->begin();
   int max=0;
   while (i != modelrunlist->end())
@@ -159,6 +161,8 @@ void MainWindow::clonerun()
   updateInputdata();
   modelrun run;
 
+  run.hasrun = false;
+
   QMap<int, modelrun>::iterator i = modelrunlist->begin();
   int max=0;
   while (i != modelrunlist->end())
@@ -181,8 +185,6 @@ void MainWindow::clonerun()
   QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
   point->setText(0, QString::number(max+1));
   point->setText(1, base);
-
-  //ui->modelRunTree->setCurrentItem(point);
 
   updateForm();
 }
@@ -347,6 +349,8 @@ void MainWindow::startrun()
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
   modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
   modelrunlist->find(id).value().run->runmodel();
+
+  modelrunlist->find(id).value().hasrun = true;
 }
 
 void MainWindow::canceledit()
