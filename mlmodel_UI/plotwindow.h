@@ -23,13 +23,17 @@ public:
   plotwindow(QMap<int,modelrun> *, QMainWindow *);
   ~plotwindow();
 
+public slots:
+  void updateselectedruns();
+  void changeplotvar();
+
 protected:
 
 private:
   Ui::plotwindow *ui;
   plotarea *plot;
   QList<int> *selectedruns;
-
+  QStringList outputnames;
 };
 
 #endif // PLOTWINDOW_H

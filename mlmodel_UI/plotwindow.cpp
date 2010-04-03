@@ -6,8 +6,10 @@
 plotwindow::plotwindow(QMap<int, modelrun> *runlist, QMainWindow *parent) : QTabWidget(parent), ui(new Ui::plotwindow)
 {
   ui->setupUi(this);
-
   selectedruns = new QList<int>;
+
+  connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
+  connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
 
   // Remove dummy-plot-widget, add and setup new plot widget
   ui->verticalLayout->removeWidget(ui->plotarea);
@@ -39,11 +41,42 @@ plotwindow::plotwindow(QMap<int, modelrun> *runlist, QMainWindow *parent) : QTab
     point->setText(1, runlist->value(i.key()).runname);
     ++i;
     }
+
+  // Dropdown with plot variables
+  QStringList varnames;
+  varnames << "CBL-height" << "Potential temperature" << "Potential temperature jump" << "Sensible heat flux"
+          << "Specific humidity" << "Specific humidity jump" << "Latent heat flux";
+  outputnames << "h" << "theta" << "dtheta" << "wtheta" << "q" << "dq" << "wq";
+  ui->plotvar->addItems(varnames);
 }
 
 plotwindow::~plotwindow()
 {
   delete ui;
+}
+
+void plotwindow::updateselectedruns()               // create QList containing ID's of selected runs
+{
+  selectedruns->clear();
+  int i=0;
+  while(QTreeWidgetItem *item = ui->modelruntree->topLevelItem(i))
+  {
+    if (item->checkState(1) == 2)
+    {
+      QString ident = item->text(0);
+      int n = ident.toInt(0,10);
+      selectedruns->insert(0,n);
+    }
+    i++;
+  }
+  plot->update();
+}
+
+void plotwindow::changeplotvar()
+{
+  plot->plotvar = outputnames[ui->plotvar->currentIndex()];
+  //plot->plotvar = ui->plotvar->currentIndex();
+  plot->update();
 }
 
 

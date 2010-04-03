@@ -14,11 +14,14 @@ class plotarea : public QWidget
 
 public:
   plotarea(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
+  QString plotvar;
 
 public slots:
 
 protected:
   void paintEvent(QPaintEvent *event);
+  QList<int> *selectedruns;
+  QMap<int, modelrun> *runlist;
 
 private:
 
