@@ -136,12 +136,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
 
         paint.setPen( colors.value(i) );
-        for(int m=0; m<tsteps-1; m++)
+        for(int m=0; m<tsteps-1; m=m+5)
          {
            paint.drawLine(transfx((runlist->value(selectedruns->value(i)).run->output->t[m]),xscale,xmin),
                           transfy((tempplotvar[m]),yscale,ymin),
-                          transfx((runlist->value(selectedruns->value(i)).run->output->t[m+1]),xscale,xmin),
-                          transfy((tempplotvar[m+1]),yscale,ymin));
+                          transfx((runlist->value(selectedruns->value(i)).run->output->t[m+5]),xscale,xmin),
+                          transfy((tempplotvar[m+5]),yscale,ymin));
          }
       }
     }
