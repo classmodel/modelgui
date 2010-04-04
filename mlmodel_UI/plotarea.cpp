@@ -72,7 +72,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     std::cout << "ymin= " << ymin << " ymax= " << ymax << std::endl;
 
     // Size of widget (pixels)
-    int plotwidget_width = geometry().height();
+    int plotwidget_width = geometry().width();
     int plotwidget_height = geometry().height();
     // Size of plotable area within widget (pixels)
     double plotwidth = plotwidget_width - 2 * plotmargin;
