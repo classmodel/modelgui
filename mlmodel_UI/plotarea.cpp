@@ -2,7 +2,7 @@
 
 plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent)
 {
-  selectedruns = selected;       // Needed?
+  selectedruns = selected;
   runlist = runs;
   plotvar = "h";
   setBackgroundRole(QPalette::Base);

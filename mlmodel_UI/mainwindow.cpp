@@ -12,15 +12,16 @@ MainWindow::MainWindow(QWidget *parent)
 {
   ui->setupUi(this);
 
-  connect(ui->startButton, SIGNAL(clicked()), this, SLOT(startrun()));
-  connect(ui->cancelButton, SIGNAL(clicked()), this, SLOT(canceledit()));
+  connect(ui->startButton,    SIGNAL(clicked()),                this, SLOT(startrun()));
+  connect(ui->cancelButton,   SIGNAL(clicked()),                this, SLOT(canceledit()));
 
-  connect(ui->switch_wind, SIGNAL(stateChanged(int)), this, SLOT(wind_switch(int)));
-  connect(ui->newRunButton, SIGNAL(clicked()), this, SLOT(newrun()));
-  connect(ui->cloneRunButton, SIGNAL(clicked()), this, SLOT(clonerun()));
-  connect(ui->modelRunTree, SIGNAL(itemSelectionChanged()), this, SLOT(runTreeChanged()));
-  connect(ui->deleteButton, SIGNAL(clicked()), this, SLOT(deleteRun()));
-  connect(ui->graphButton, SIGNAL(clicked()), this, SLOT(startGraph()));
+  connect(ui->switch_wind,    SIGNAL(stateChanged(int)),        this, SLOT(wind_switch(int)));
+  connect(ui->newRunButton,   SIGNAL(clicked()),                this, SLOT(newrun()));
+  connect(ui->cloneRunButton, SIGNAL(clicked()),                this, SLOT(clonerun()));
+  connect(ui->modelRunTree,   SIGNAL(itemSelectionChanged()),   this, SLOT(runTreeChanged()));
+  connect(ui->deleteButton,   SIGNAL(clicked()),                this, SLOT(deleteRun()));
+  connect(ui->graphButton,    SIGNAL(clicked()),                this, SLOT(startGraph()));
+  connect(ui->input_name,      SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
 
   // ====== Couple of SIGNAL / SLOTS; update input data when form is changed ===============
   /*
@@ -54,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   connect(ui->switch_wind,        SIGNAL(clicked()),         this, SLOT(updateInputdata()));
   connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateRunName()));
+
   // =======================================================================================
   */
 
