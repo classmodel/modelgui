@@ -22,6 +22,9 @@ class plotwindow : public QTabWidget
 public:
   plotwindow(QMap<int,modelrun> *, QMainWindow *);
   ~plotwindow();
+  QList<int> *selectedruns;
+  QMap<int, modelrun> *runlist;
+  void updaterunlist();
 
 public slots:
   void updateselectedruns();
@@ -32,7 +35,6 @@ protected:
 private:
   Ui::plotwindow *ui;
   plotarea *plot;
-  QList<int> *selectedruns;
   QStringList outputnames;
 };
 

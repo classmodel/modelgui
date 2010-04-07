@@ -3,10 +3,11 @@
 #include "ui_plotwindow.h"
 #include <iostream>
 
-plotwindow::plotwindow(QMap<int, modelrun> *runlist, QMainWindow *parent) : QTabWidget(parent), ui(new Ui::plotwindow)
+plotwindow::plotwindow(QMap<int, modelrun> *runs, QMainWindow *parent) : QTabWidget(parent), ui(new Ui::plotwindow)
 {
   ui->setupUi(this);
   selectedruns = new QList<int>;
+  runlist = runs;
 
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
   connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
@@ -33,14 +34,16 @@ plotwindow::plotwindow(QMap<int, modelrun> *runlist, QMainWindow *parent) : QTab
 
   QMap<int, modelrun>::const_iterator i = runlist->constBegin();
   while (i != runlist->constEnd()) {
-    QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelruntree);
-    point->setCheckState(1,Qt::Unchecked);
-    point->setFlags(Qt::ItemIsUserCheckable);
-    point->setDisabled(false);
-    point->setText(0, QString::number(i.key()));
-    point->setText(1, runlist->value(i.key()).runname);
-    ++i;
+    if (runlist->value(i.key()).hasrun)
+    {
+      QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelruntree);
+      point->setCheckState(1,Qt::Unchecked);
+      point->setDisabled(false);
+      point->setText(0, QString::number(i.key()));
+      point->setText(1, runlist->value(i.key()).runname);
     }
+  ++i;
+  }
 
   // Dropdown with plot variables
   QStringList varnames;
@@ -75,8 +78,6 @@ void plotwindow::updateselectedruns()               // create QList containing I
 void plotwindow::changeplotvar()
 {
   plot->plotvar = outputnames[ui->plotvar->currentIndex()];
-  //plot->plotvar = ui->plotvar->currentIndex();
   plot->update();
 }
-
 
