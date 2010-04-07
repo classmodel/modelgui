@@ -83,6 +83,8 @@ void plotwindow::changeplotvar()
 
 void plotwindow::deleterun(int num)
 {
-  std::cout << "delete: " << num << std::endl;
+  QString id = QString::number(num,10);
+  QTreeWidgetItem *del = ui->modelruntree->findItems(id,Qt::MatchExactly,0).value(0);
+  delete del;
 }
 
