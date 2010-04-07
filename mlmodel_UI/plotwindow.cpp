@@ -81,3 +81,8 @@ void plotwindow::changeplotvar()
   plot->update();
 }
 
+void plotwindow::deleterun(int num)
+{
+  std::cout << "delete: " << num << std::endl;
+}
+

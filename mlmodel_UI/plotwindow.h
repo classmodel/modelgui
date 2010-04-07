@@ -24,9 +24,9 @@ public:
   ~plotwindow();
   QList<int> *selectedruns;
   QMap<int, modelrun> *runlist;
-  void updaterunlist();
 
 public slots:
+  void deleterun(int num);
   void updateselectedruns();
   void changeplotvar();
 

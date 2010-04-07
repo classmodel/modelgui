@@ -40,6 +40,9 @@ public slots:
   void canceledit();
   void startGraph();
 
+signals:
+  void rundeleted(int);
+
 private:
   Ui::MainWindow *ui;
   void readdefaultinput();

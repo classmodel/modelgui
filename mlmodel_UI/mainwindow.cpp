@@ -320,6 +320,7 @@ void MainWindow::deleteRun()
       QString ident = ui->modelRunTree->selectedItems()[i]->text(0);
       int n = ident.toInt(0,10);
       modelrunlist->remove(n);
+      emit rundeleted(n);
     }
     qDeleteAll(ui->modelRunTree->selectedItems());
     ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
@@ -369,4 +370,5 @@ void MainWindow::showGraph(QMap<int, modelrun> *main)
     graph = new plotwindow(main, this);
     graph->setWindowFlags(Qt::Window);
     graph->show();
+    connect(this, SIGNAL(rundeleted(int)), graph, SLOT(deleterun(int)));
 }
