@@ -30,6 +30,7 @@ protected:
 
 private:
   static const int plotmargin = 50;
+  double nicenumber(double, bool);
 };
 
 #endif // PLOTAREA_H
