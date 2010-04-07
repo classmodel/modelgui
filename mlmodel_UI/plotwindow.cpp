@@ -89,3 +89,16 @@ void plotwindow::deleterun(int num)
   updateselectedruns();
 }
 
+void plotwindow::addrun(int num)
+{
+  QString id = QString::number(num,10);
+  if (ui->modelruntree->findItems(id,Qt::MatchExactly,0).count() == 0)
+  {
+    QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelruntree);
+    point->setCheckState(1,Qt::Unchecked);
+    point->setDisabled(false);
+    point->setText(0, QString::number(num));
+    point->setText(1, runlist->value(num).runname);
+  }
+  plot->update();
+}

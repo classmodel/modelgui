@@ -26,6 +26,7 @@ public:
   QMap<int, modelrun> *runlist;
 
 public slots:
+  void addrun(int num);
   void deleterun(int num);
   void updateselectedruns();
   void changeplotvar();

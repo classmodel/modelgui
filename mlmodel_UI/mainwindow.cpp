@@ -351,6 +351,7 @@ void MainWindow::startrun()
   modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
   modelrunlist->find(id).value().run->runmodel();
   modelrunlist->find(id).value().hasrun = true;
+  emit runadded(id);
 }
 
 void MainWindow::canceledit()
@@ -362,13 +363,14 @@ void MainWindow::canceledit()
 
 void MainWindow::startGraph()
 {
-    showGraph(modelrunlist);
+  showGraph(modelrunlist);
 }
 
 void MainWindow::showGraph(QMap<int, modelrun> *main)
 {
-    graph = new plotwindow(main, this);
-    graph->setWindowFlags(Qt::Window);
-    graph->show();
-    connect(this, SIGNAL(rundeleted(int)), graph, SLOT(deleterun(int)));
+  graph = new plotwindow(main, this);
+  graph->setWindowFlags(Qt::Window);
+  graph->show();
+  connect(this, SIGNAL(rundeleted(int)), graph, SLOT(deleterun(int)));
+  connect(this, SIGNAL(runadded(int)), graph, SLOT(addrun(int)));
 }

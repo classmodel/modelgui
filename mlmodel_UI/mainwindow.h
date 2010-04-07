@@ -42,6 +42,7 @@ public slots:
 
 signals:
   void rundeleted(int);
+  void runadded(int);
 
 private:
   Ui::MainWindow *ui;
