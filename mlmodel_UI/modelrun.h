@@ -8,5 +8,4 @@ public:
   QString runname;
   model *run;
   modelrun();
-  bool hasrun;
 };

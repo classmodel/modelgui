@@ -203,7 +203,7 @@ void model::runmodel()
 
 void model::store()
 {
-  cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
+  //cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
   output->t[t]          = t * dt / 3600.; // + tstart;
 
   output->h[t]          = h;

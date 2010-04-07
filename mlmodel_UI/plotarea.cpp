@@ -29,7 +29,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     double xmin = 1e5, xmax = -1e3, ymin = 1e5, ymax = 0;
     for(int i=0; i<selectedruns->count(); i++)
     {
-      if (runlist->value(selectedruns->value(i)).hasrun)
+      if (runlist->value(selectedruns->value(i)).run->output)
       {
         double *tempplotvar = new double;
         if (plotvar == "h")
@@ -67,9 +67,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     xmax = std::ceil(xmax);
     ymin = std::floor(ymin);
     ymax = std::ceil(ymax);
-
-    std::cout << "xmin= " << xmin << " xmax= " << xmax << std::endl;
-    std::cout << "ymin= " << ymin << " ymax= " << ymax << std::endl;
 
     // Size of widget (pixels)
     int plotwidget_width = geometry().width();
@@ -116,7 +113,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(int i=0; i<selectedruns->count(); i++)
     {
-      if (runlist->value(selectedruns->value(i)).hasrun)
+      if (runlist->value(selectedruns->value(i)).run->output)
       {
         double *tempplotvar = new double;
         if (plotvar == "h")
