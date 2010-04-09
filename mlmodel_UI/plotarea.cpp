@@ -9,10 +9,10 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   setAutoFillBackground(true);
 
   plotvar         = "h";
-  topmargin       = 20;
+  topmargin       = 30;
   bottommargin    = 50;
   leftmargin      = 70;
-  rightmargin     = 20;
+  rightmargin     = 30;
 }
 
 double plotarea::transfx(double xreal, double xscale, double xmin)
@@ -155,7 +155,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     // Hereafter; clip data plot .
     paint.setClipping(true);
-    paint.setClipRect(leftmargin,topmargin,plotwidth,plotheight);
+    paint.setClipRect(leftmargin+1,topmargin+1,plotwidth-2,plotheight-2);
 
     QList<QColor> colors;
     colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black);
