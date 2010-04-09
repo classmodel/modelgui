@@ -29,7 +29,12 @@ protected:
   QMap<int, modelrun> *runlist;
 
 private:
-  static const int plotmargin = 50;
+  int plotmargin;
+
+  int topmargin;
+  int bottommargin;
+  int leftmargin;
+  int rightmargin;
   double nicenumber(double, bool);
 };
 

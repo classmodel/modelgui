@@ -68,7 +68,7 @@ void plotwindow::updateselectedruns()               // create QList containing I
     {
       QString ident = item->text(0);
       int n = ident.toInt(0,10);
-      selectedruns->insert(0,n);
+      selectedruns->append(n);
     }
     i++;
   }

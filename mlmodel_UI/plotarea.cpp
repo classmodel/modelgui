@@ -3,23 +3,28 @@
 
 plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent)
 {
-  selectedruns = selected;
-  runlist = runs;
-  plotvar = "h";
+  selectedruns    = selected;
+  runlist         = runs;
   setBackgroundRole(QPalette::Base);
   setAutoFillBackground(true);
+
+  plotvar         = "h";
+  topmargin       = 40;
+  bottommargin    = 60;
+  leftmargin      = 60;
+  rightmargin     = 30;
 }
 
 double plotarea::transfx(double xreal, double xscale, double xmin)
 {
-  double xwidget = ((xreal-xmin)*xscale) + plotmargin;
+  double xwidget = ((xreal-xmin)*xscale) + leftmargin;
   return (xwidget);
 }
 
 double plotarea::transfy(double yreal, double yscale, double ymin)
 {
   int pwidget_height = geometry().height();
-  double ywidget = pwidget_height -plotmargin - ((yreal-ymin)*yscale);
+  double ywidget = pwidget_height - bottommargin - ((yreal-ymin)*yscale);
   return (ywidget);
 }
 
@@ -94,28 +99,25 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         xmax = runlist->value(selectedruns->value(i)).run->output->t[tsteps-1];
     }
 
-    // xmin = std::floor(xmin);
-    // xmax = std::ceil(xmax);
-    // ymin = std::floor(ymin);
-    // ymax = std::ceil(ymax);
-
     // Size of widget (pixels)
     int plotwidget_width = geometry().width();
     int plotwidget_height = geometry().height();
+
     // Size of plotable area within widget (pixels)
-    double plotwidth = plotwidget_width - 2 * plotmargin;
-    double plotheight = plotwidget_height - 2 * plotmargin;
+    double plotwidth = plotwidget_width - leftmargin - rightmargin;
+    double plotheight = plotwidget_height - topmargin - bottommargin;
 
-
-
+    // ------------------------------------
+    // Start drawing
+    // ------------------------------------
     QPainter paint(this);
     QPen pen(Qt::black, 1, Qt::SolidLine);
     paint.setPen(pen);
 
     // Draw X and Y axis
     paint.setPen(Qt::SolidLine);
-    paint.drawLine(plotmargin,plotwidget_height - plotmargin,plotwidget_width-plotmargin,plotwidget_height-plotmargin);
-    paint.drawLine(plotmargin,plotwidget_height - plotmargin,plotmargin,plotmargin);
+    paint.drawLine(leftmargin,plotwidget_height - bottommargin,plotwidget_width-rightmargin,plotwidget_height-bottommargin);
+    paint.drawLine(leftmargin,plotwidget_height - bottommargin,leftmargin,topmargin);
 
     double graphminx, graphmaxx;
     double graphminy, graphmaxy;
@@ -139,14 +141,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     nfrac     = std::max(-1 * (int)std::floor(std::log10(d)), 0);
 
     for(y = graphminy; y <= graphmaxy + .5 * d; y = y + d)
-      paint.drawText(5,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+plotmargin-5,40,13,Qt::AlignRight, QString::number(y,'f',nfrac));
-
-
-    //paint.drawText(5,plotmargin-5,40,13,Qt::AlignRight, QString::number(ymax));
-    //paint.drawText(5,(plotheight*0.25)+plotmargin-5,40,13,Qt::AlignRight, QString::number(ymax-((ymax-ymin)*0.25)));
-    //paint.drawText(5,(plotheight*0.5)+plotmargin-5,40,13,Qt::AlignRight, QString::number(ymax-((ymax-ymin)*0.50)));
-    //paint.drawText(5,(plotheight*0.75)+plotmargin-5,40,13,Qt::AlignRight, QString::number(ymax-((ymax-ymin)*0.75)));
-    //paint.drawText(5,plotwidget_height-60,40,13,Qt::AlignRight, QString::number(ymin));
+      paint.drawText((leftmargin-50),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-5,40,13,Qt::AlignRight, QString::number(y,'f',nfrac));
 
     // Draw labels X-axis
     range     = nicenumber(xmax - xmin, false);
@@ -156,22 +151,17 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     nfrac     = std::max(-1 * (int)std::floor(std::log10(d)), 0);
 
     for(x = graphminx; x <= graphmaxx + .5 * d; x = x + d)
-      paint.drawText((plotwidth * x/(graphmaxx - graphminx))+plotmargin-20,plotwidget_height-45,40,13,Qt::AlignCenter, QString::number(x,'f',nfrac));
-
-    //paint.drawText(30,plotwidget_height-45,40,13,Qt::AlignCenter, QString::number(xmin));
-    //paint.drawText((plotwidth*0.75)+plotmargin-20,plotwidget_height-45,40,13,Qt::AlignCenter, QString::number((xmax-((xmax-xmin)*0.25))));
-    //paint.drawText((plotwidth*0.5)+plotmargin-20,plotwidget_height-45,40,13,Qt::AlignCenter, QString::number((xmax-((xmax-xmin)*0.5))));
-    //paint.drawText((plotwidth*0.25)+plotmargin-20,plotwidget_height-45,40,13,Qt::AlignCenter, QString::number((xmax-((xmax-xmin)*0.75))));
-    //paint.drawText(plotwidget_width-70,plotwidget_height-45,40,13,Qt::AlignCenter, QString::number(xmax));
+      paint.drawText((plotwidth * x/(graphmaxx - graphminx))+leftmargin-20,plotwidget_height-bottommargin+8,40,13,Qt::AlignCenter, QString::number(x,'f',nfrac));
 
     // Draw title
-    paint.drawText((plotwidget_width/2)-100,(plotmargin/2)-10,200,13,Qt::AlignCenter, "Something..");
+    paint.drawText((plotwidget_width/2)-100,(topmargin/2)-10,200,13,Qt::AlignCenter, "Something..");
 
     // Hereafter; clip data plot .
     paint.setClipping(true);
-    paint.setClipRect(plotmargin,plotmargin,plotwidth,plotheight);
+    paint.setClipRect(leftmargin,topmargin,plotwidth,plotheight);
 
-      QList<QColor> colors;
+
+    QList<QColor> colors;
     colors << QColor(Qt::red) << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::black) << QColor(Qt::magenta) << QColor(Qt::darkRed);
 
     for(int i=0; i<selectedruns->count(); i++)
