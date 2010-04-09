@@ -60,6 +60,16 @@ plotwindow::~plotwindow()
 
 void plotwindow::updateselectedruns()               // create QList containing ID's of selected runs
 {
+  int id = ui->modelruntree->currentItem()->text(0).toInt();
+  if (ui->modelruntree->currentItem()->checkState(1) == 2)
+    selectedruns->append(id);
+  else if(ui->modelruntree->currentItem()->checkState(1) == 0)
+    selectedruns->removeAt(selectedruns->indexOf(id));
+
+  plot->update();
+
+
+/*
   selectedruns->clear();
   int i=0;
   while(QTreeWidgetItem *item = ui->modelruntree->topLevelItem(i))
@@ -73,6 +83,7 @@ void plotwindow::updateselectedruns()               // create QList containing I
     i++;
   }
   plot->update();
+*/
 }
 
 void plotwindow::changeplotvar()
@@ -86,7 +97,8 @@ void plotwindow::deleterun(int num)
   QString id = QString::number(num,10);
   QTreeWidgetItem *del = ui->modelruntree->findItems(id,Qt::MatchExactly,0).value(0);
   delete del;
-  updateselectedruns();
+  selectedruns->removeAt(selectedruns->indexOf(num));
+  plot->update();
 }
 
 void plotwindow::addrun(int num)
