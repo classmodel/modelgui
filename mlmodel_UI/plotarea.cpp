@@ -9,10 +9,10 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   setAutoFillBackground(true);
 
   plotvar         = "h";
-  topmargin       = 40;
-  bottommargin    = 60;
-  leftmargin      = 60;
-  rightmargin     = 30;
+  topmargin       = 20;
+  bottommargin    = 50;
+  leftmargin      = 70;
+  rightmargin     = 20;
 }
 
 double plotarea::transfx(double xreal, double xscale, double xmin)
@@ -153,16 +153,14 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     for(x = graphminx; x <= graphmaxx + .5 * d; x = x + d)
       paint.drawText((plotwidth * x/(graphmaxx - graphminx))+leftmargin-20,plotwidget_height-bottommargin+8,40,13,Qt::AlignCenter, QString::number(x,'f',nfrac));
 
-    // Draw title
-    paint.drawText((plotwidget_width/2)-100,(topmargin/2)-10,200,13,Qt::AlignCenter, "Something..");
-
     // Hereafter; clip data plot .
     paint.setClipping(true);
     paint.setClipRect(leftmargin,topmargin,plotwidth,plotheight);
 
-
     QList<QColor> colors;
-    colors << QColor(Qt::red) << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::black) << QColor(Qt::magenta) << QColor(Qt::darkRed);
+    colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black);
+
+    int legendy = topmargin;
 
     for(int i=0; i<selectedruns->count(); i++)
     {
@@ -194,6 +192,10 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
                        transfx((runlist->value(selectedruns->value(i)).run->output->t[m+5]),xscale,graphminx),
                        transfy((tempplotvar[m+5]),yscale,graphminy));
       }
+
+      paint.drawLine(leftmargin+5,legendy+8,leftmargin+20,legendy+8);
+      paint.drawText(leftmargin+25,legendy,200,13,Qt::AlignLeft, runlist->value(selectedruns->value(i)).runname);
+      legendy = legendy+15;
     }
   }
 }
