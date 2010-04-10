@@ -62,7 +62,10 @@ void plotwindow::updateselectedruns()               // create QList containing I
 {
   int id = ui->modelruntree->currentItem()->text(0).toInt();
   if (ui->modelruntree->currentItem()->checkState(1) == 2)
-    selectedruns->append(id);
+  {
+    if (!selectedruns->contains(id))
+      selectedruns->append(id);
+  }
   else if(ui->modelruntree->currentItem()->checkState(1) == 0)
     selectedruns->removeAt(selectedruns->indexOf(id));
 
