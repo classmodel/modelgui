@@ -13,15 +13,15 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QMainWindow *parent) : QTabWid
   connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
 
   // Remove dummy-plot-widget, add and setup new plot widget
-  ui->verticalLayout->removeWidget(ui->plotarea);
+  ui->plotLayout->removeWidget(ui->plotarea);
   plot = new plotarea(runlist, selectedruns, this);
   QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   sizePolicy.setHorizontalStretch(0);
   sizePolicy.setVerticalStretch(0);
   sizePolicy.setHeightForWidth(plot->sizePolicy().hasHeightForWidth());
   plot->setSizePolicy(sizePolicy);
-  plot->setMinimumSize(QSize(400, 400));
-  ui->verticalLayout->addWidget(plot);
+  plot->setMinimumSize(QSize(300 , 300));
+  ui->plotLayout->addWidget(plot);
 
   // Setup QTreeWidget
   QStringList heading;
