@@ -16,7 +16,7 @@ class plotarea : public QWidget
   Q_OBJECT
 
 public:
-  plotarea(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
+  plotarea(QMap<int, modelrun> *, QList<int> *, QTabWidget *parent = 0);
   QString plotvar;
   double transfx(double xreal, double xscale, double xmin);    // Function real-coordinate to Widget-coordinate
   double transfy(double yreal, double yscale, double ymin);    // Function real-coordinate to Widget-coordinate
@@ -30,7 +30,6 @@ protected:
 
 private:
   int plotmargin;
-
   int topmargin;
   int bottommargin;
   int leftmargin;

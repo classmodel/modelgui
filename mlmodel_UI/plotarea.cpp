@@ -1,7 +1,7 @@
 #include <cmath>
 #include "plotarea.h"
 
-plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent)
+plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QTabWidget *parent) : QWidget(parent)
 {
   selectedruns    = selected;
   runlist         = runs;
