@@ -1,5 +1,6 @@
 #include "plotwindow.h"
 #include "plotarea.h"
+#include "ui_plotarea.h"
 #include "ui_plotwindow.h"
 #include <iostream>
 
@@ -9,19 +10,11 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QMainWindow *parent) : QTabWid
   selectedruns = new QList<int>;
   runlist = runs;
 
-  connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
-  connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
-
-  // Remove dummy-plot-widget, add and setup new plot widget
-  ui->plotLayout->removeWidget(ui->plotarea);
   plot = new plotarea(runlist, selectedruns, this);
-  QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  sizePolicy.setHorizontalStretch(0);
-  sizePolicy.setVerticalStretch(0);
-  sizePolicy.setHeightForWidth(plot->sizePolicy().hasHeightForWidth());
-  plot->setSizePolicy(sizePolicy);
-  plot->setMinimumSize(QSize(300 , 300));
-  ui->plotLayout->addWidget(plot);
+  ui->horizontalLayout->addWidget(plot);
+
+  connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
+  connect(plot->ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
 
   // Setup QTreeWidget
   QStringList heading;
@@ -50,7 +43,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QMainWindow *parent) : QTabWid
   varnames << "CBL-height" << "Potential temperature" << "Potential temperature jump" << "Sensible heat flux"
           << "Specific humidity" << "Specific humidity jump" << "Latent heat flux";
   outputnames << "h" << "theta" << "dtheta" << "wtheta" << "q" << "dq" << "wq";
-  ui->plotvar->addItems(varnames);
+  plot->ui->plotvar->addItems(varnames);
 }
 
 plotwindow::~plotwindow()
@@ -70,28 +63,11 @@ void plotwindow::updateselectedruns()               // create QList containing I
     selectedruns->removeAt(selectedruns->indexOf(id));
 
   plot->update();
-
-
-/*
-  selectedruns->clear();
-  int i=0;
-  while(QTreeWidgetItem *item = ui->modelruntree->topLevelItem(i))
-  {
-    if (item->checkState(1) == 2)
-    {
-      QString ident = item->text(0);
-      int n = ident.toInt(0,10);
-      selectedruns->append(n);
-    }
-    i++;
-  }
-  plot->update();
-*/
 }
 
 void plotwindow::changeplotvar()
 {
-  plot->plotvar = outputnames[ui->plotvar->currentIndex()];
+  plot->plotvar = outputnames[plot->ui->plotvar->currentIndex()];
   plot->update();
 }
 

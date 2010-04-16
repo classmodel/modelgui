@@ -1,17 +1,19 @@
 #include <cmath>
 #include "plotarea.h"
+#include "ui_plotarea.h"
 
-plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QTabWidget *parent) : QWidget(parent)
+plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent), ui(new Ui::plotarea)
 {
+  ui->setupUi(this);
   selectedruns    = selected;
   runlist         = runs;
   setBackgroundRole(QPalette::Base);
   setAutoFillBackground(true);
 
   plotvar         = "h";
-  topmargin       = 30;
+  topmargin       = 120;
   bottommargin    = 50;
-  leftmargin      = 70;
+  leftmargin      = 50;
   rightmargin     = 30;
 }
 
