@@ -62,13 +62,14 @@ void plotwindow::updateselectedruns()               // create QList containing I
   else if(ui->modelruntree->currentItem()->checkState(1) == 0)
     selectedruns->removeAt(selectedruns->indexOf(id));
 
-  plot->update();
+  plot->plotar->update();
 }
 
 void plotwindow::changeplotvar()
 {
-  plot->plotvar = outputnames[plot->ui->plotvar->currentIndex()];
-  plot->update();
+  plot->plotar->plotvar = outputnames[plot->ui->plotvar->currentIndex()];
+  plot->ui->autoscaleaxis->setChecked(true);
+  plot->plotar->update();
 }
 
 void plotwindow::deleterun(int num)
@@ -77,7 +78,7 @@ void plotwindow::deleterun(int num)
   QTreeWidgetItem *del = ui->modelruntree->findItems(id,Qt::MatchExactly,0).value(0);
   delete del;
   selectedruns->removeAt(selectedruns->indexOf(num));
-  plot->update();
+  plot->plotar->update();
 }
 
 void plotwindow::addrun(int num)
@@ -91,5 +92,5 @@ void plotwindow::addrun(int num)
     point->setText(0, QString::number(num));
     point->setText(1, runlist->value(num).runname);
   }
-  plot->update();
+  plot->plotar->update();
 }

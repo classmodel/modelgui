@@ -9,7 +9,35 @@
 #include <iostream>
 #include <cmath>
 
-//class modelrun;
+// ++++++++++++++++++++++++++
+// Actual plot area
+// ++++++++++++++++++++++++++
+
+class plotarea : public QWidget
+{
+  Q_OBJECT
+
+public:
+  plotarea(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
+  double transfx(double xreal, double xscale, double xmin);    // Function real-coordinate to Widget-coordinate
+  double transfy(double yreal, double yscale, double ymin);    // Function real-coordinate to Widget-coordinate
+  QString plotvar;
+  float xmin, xmax, ymin, ymax;
+
+signals:
+  void axischanged();
+
+protected:
+  void paintEvent(QPaintEvent *event);
+  QList<int> *selectedruns;
+  QMap<int, modelrun> *runlist;
+
+private:
+  int plotmargin, topmargin, bottommargin, leftmargin, rightmargin;
+  double nicenumber(double, bool);
+};
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 namespace Ui
 {
@@ -22,25 +50,18 @@ class subplot : public QWidget
 
 public:
   Ui::subplot *ui;
+  plotarea *plotar;
   subplot(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
   QString plotvar;
-  double transfx(double xreal, double xscale, double xmin);    // Function real-coordinate to Widget-coordinate
-  double transfy(double yreal, double yscale, double ymin);    // Function real-coordinate to Widget-coordinate
 
 public slots:
+  void changeaxis();
 
 protected:
-  void paintEvent(QPaintEvent *event);
   QList<int> *selectedruns;
   QMap<int, modelrun> *runlist;
 
 private:
-  int plotmargin;
-  int topmargin;
-  int bottommargin;
-  int leftmargin;
-  int rightmargin;
-  double nicenumber(double, bool);
 };
 
 #endif // SUBPLOT_H
