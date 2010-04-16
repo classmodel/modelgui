@@ -6,6 +6,7 @@
 #include <sstream>   // Needed for basename modelrun
 #include <iostream>
 #include <QString>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -21,7 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->modelRunTree,   SIGNAL(itemSelectionChanged()),   this, SLOT(runTreeChanged()));
   connect(ui->deleteButton,   SIGNAL(clicked()),                this, SLOT(deleteRun()));
   connect(ui->graphButton,    SIGNAL(clicked()),                this, SLOT(startGraph()));
-  connect(ui->input_name,      SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
+  connect(ui->input_name,     SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
+  connect(ui->exportButton,   SIGNAL(clicked()),                this, SLOT(exportRuns()));
 
   // ====== Couple of SIGNAL / SLOTS; update input data when form is changed ===============
   /*
@@ -373,4 +375,22 @@ void MainWindow::showGraph(QMap<int, modelrun> *main)
   graph->show();
   connect(this, SIGNAL(rundeleted(int)), graph, SLOT(deleterun(int)));
   connect(this, SIGNAL(runadded(int)), graph, SLOT(addrun(int)));
+}
+
+void MainWindow::exportRuns()
+{
+  if(ui->modelRunTree->selectedItems().count() > 0)
+  {
+    QString dirname = QFileDialog::getExistingDirectory(this, "Select directory for saving runs", "~");
+    for (int i=0; i<ui->modelRunTree->selectedItems().count(); i++)
+    {
+      QString runname  = ui->modelRunTree->selectedItems()[i]->text(1);
+      QString filename = dirname + "/" + runname + ".csv";
+
+      std::cout << filename.toStdString() << std::endl;
+
+      //int n = ident.toInt(0,10);
+      //modelrunlist->remove(n);
+    }
+  }
 }

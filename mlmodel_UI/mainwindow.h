@@ -39,6 +39,7 @@ public slots:
   void startrun();
   void canceledit();
   void startGraph();
+  void exportRuns();
 
 signals:
   void rundeleted(int);
