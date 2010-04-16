@@ -1,5 +1,5 @@
-#ifndef PLOTAREA_H
-#define PLOTAREA_H
+#ifndef SUBPLOT_H
+#define SUBPLOT_H
 
 #include <QtGui/QWidget>
 #include "mainwindow.h"
@@ -13,16 +13,16 @@
 
 namespace Ui
 {
-    class plotarea;
+    class subplot;
 }
 
-class plotarea : public QWidget
+class subplot : public QWidget
 {
   Q_OBJECT
 
 public:
-  Ui::plotarea *ui;
-  plotarea(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
+  Ui::subplot *ui;
+  subplot(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
   QString plotvar;
   double transfx(double xreal, double xscale, double xmin);    // Function real-coordinate to Widget-coordinate
   double transfy(double yreal, double yscale, double ymin);    // Function real-coordinate to Widget-coordinate
@@ -43,4 +43,4 @@ private:
   double nicenumber(double, bool);
 };
 
-#endif // PLOTAREA_H
+#endif // SUBPLOT_H

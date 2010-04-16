@@ -1,6 +1,6 @@
 #include "plotwindow.h"
-#include "plotarea.h"
-#include "ui_plotarea.h"
+#include "subplot.h"
+#include "ui_subplot.h"
 #include "ui_plotwindow.h"
 #include <iostream>
 
@@ -10,7 +10,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QMainWindow *parent) : QTabWid
   selectedruns = new QList<int>;
   runlist = runs;
 
-  plot = new plotarea(runlist, selectedruns, this);
+  plot = new subplot(runlist, selectedruns, this);
   ui->horizontalLayout->addWidget(plot);
 
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));

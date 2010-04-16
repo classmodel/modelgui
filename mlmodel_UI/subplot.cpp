@@ -1,8 +1,8 @@
 #include <cmath>
-#include "plotarea.h"
-#include "ui_plotarea.h"
+#include "subplot.h"
+#include "ui_subplot.h"
 
-plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent), ui(new Ui::plotarea)
+subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent), ui(new Ui::subplot)
 {
   ui->setupUi(this);
   selectedruns    = selected;
@@ -17,20 +17,20 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   rightmargin     = 30;
 }
 
-double plotarea::transfx(double xreal, double xscale, double xmin)
+double subplot::transfx(double xreal, double xscale, double xmin)
 {
   double xwidget = ((xreal-xmin)*xscale) + leftmargin;
   return (xwidget);
 }
 
-double plotarea::transfy(double yreal, double yscale, double ymin)
+double subplot::transfy(double yreal, double yscale, double ymin)
 {
   int pwidget_height = geometry().height();
   double ywidget = pwidget_height - bottommargin - ((yreal-ymin)*yscale);
   return (ywidget);
 }
 
-double plotarea::nicenumber(double x, bool round)
+double subplot::nicenumber(double x, bool round)
 {
   int exp;
   double f, nf;
@@ -63,7 +63,7 @@ double plotarea::nicenumber(double x, bool round)
   return nf * std::pow(10., exp);
 }
 
-void plotarea::paintEvent(QPaintEvent * /* event */)
+void subplot::paintEvent(QPaintEvent * /* event */)
 {
   if (selectedruns->count() > 0)
   {

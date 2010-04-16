@@ -4,7 +4,7 @@
 #include <QtGui/QWidget>
 #include <QtGui/QTabWidget>
 #include "mainwindow.h"
-#include "plotarea.h"
+#include "subplot.h"
 #include "QPaintEvent"
 #include "QPainter"
 
@@ -35,7 +35,7 @@ protected:
 
 private:
   Ui::plotwindow *ui;
-  plotarea *plot;
+  subplot *plot;
   QStringList outputnames;
 };
 

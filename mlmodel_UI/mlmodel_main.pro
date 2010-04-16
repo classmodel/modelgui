@@ -5,14 +5,14 @@ SOURCES += main.cpp \
     model.cpp \
     modelrun.cpp \
     plotwindow.cpp \
-    plotarea.cpp
+    subplot.cpp
 HEADERS += mainwindow.h \
     modeloutput.h \
     modelinput.h \
     model.h \
     modelrun.h \
     plotwindow.h \
-    plotarea.h
+    subplot.h
 FORMS += mainwindow.ui \
     plotwindow.ui \
-    plotarea.ui
+    subplot.ui
