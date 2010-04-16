@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <fstream>
 #include "model.h"
 using namespace std;
 
@@ -245,3 +246,30 @@ void model::store()
 
   return;
 } 
+
+void model::run2file(std::string filedir, std::string filename)
+{
+  std::ofstream runsave;
+
+  std::string fullpath = filedir + "/" + filename + ".csv";
+
+  runsave.open(fullpath.c_str());
+
+  std::cout << fullpath.c_str() << std::endl;
+
+  // Write header first
+  runsave << output->t.name << " [" << output->t.unit << "], ";
+  runsave << output->h.name << " [" << output->h.unit << "], ";
+  runsave << std::endl;
+
+  for(int nt=0; nt < tsteps; nt++)
+  {
+    runsave << output->t.data[nt] << ", ";
+    runsave << output->h.data[nt] << ", ";
+    runsave << std::endl;
+  }
+
+  runsave.close();
+
+  return;
+}

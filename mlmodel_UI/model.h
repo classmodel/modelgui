@@ -1,9 +1,6 @@
 #include "modelinput.h"
 #include "modeloutput.h"
 
-//class modelinput;
-//class modeloutput;
-
 class model
 {
 public:
@@ -11,6 +8,7 @@ public:
   void runmodel();
   modelinput input;
   modeloutput *output;
+  void run2file(std::string, std::string);
  
 private:
   void initmodel();

@@ -384,13 +384,24 @@ void MainWindow::exportRuns()
     QString dirname = QFileDialog::getExistingDirectory(this, "Select directory for saving runs", "~");
     for (int i=0; i<ui->modelRunTree->selectedItems().count(); i++)
     {
-      QString runname  = ui->modelRunTree->selectedItems()[i]->text(1);
-      QString filename = dirname + "/" + runname + ".csv";
+      QString ident    = ui->modelRunTree->selectedItems()[i]->text(0);
+      QString runname0 = ui->modelRunTree->selectedItems()[i]->text(1);
 
-      std::cout << filename.toStdString() << std::endl;
+      QString runname  = runname0;
 
-      //int n = ident.toInt(0,10);
-      //modelrunlist->remove(n);
+      QString testfile = dirname + "/" + runname + ".csv";
+
+      QString istr;
+      int i = 0;
+      while (QFile::exists(testfile))
+      {
+        runname  = runname0 + "_" + istr.setNum(i);
+        testfile = dirname + "/" + runname + ".csv";
+        i++;
+      }
+
+      int n = ident.toInt(0,10);
+      modelrunlist->find(n).value().run->run2file(dirname.toStdString(),runname.toStdString());
     }
   }
 }
