@@ -14,4 +14,5 @@ HEADERS += mainwindow.h \
     plotwindow.h \
     plotarea.h
 FORMS += mainwindow.ui \
-    plotwindow.ui
+    plotwindow.ui \
+    plotarea.ui
