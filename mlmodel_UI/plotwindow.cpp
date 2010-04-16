@@ -69,6 +69,7 @@ void plotwindow::changeplotvar()
 {
   plot->plotar->plotvar = outputnames[plot->ui->plotvar->currentIndex()];
   plot->ui->autoscaleaxis->setChecked(true);
+  plot->plotar->autoaxis = true;
   plot->plotar->update();
 }
 

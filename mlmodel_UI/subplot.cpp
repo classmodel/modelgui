@@ -11,6 +11,10 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
   plotar = new plotarea(runlist,selectedruns,this);
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
+  connect(ui->xminInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
+  connect(ui->xmaxInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
+  connect(ui->yminInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
+  connect(ui->ymaxInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
 
   QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   sizePolicy.setHorizontalStretch(0);
@@ -26,25 +30,28 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
 
 void subplot::changeaxis()
 {
-  std::cout << "change AXIS called" << std::endl;
-  bool checked;
   if (ui->autoscaleaxis->checkState() == Qt::Checked)
   {
-    checked = true;
-    ui->xminInput->setText(QString::number(plotar->xmin));
-    ui->xmaxInput->setText(QString::number(plotar->xmax));
-    ui->yminInput->setText(QString::number(plotar->ymin));
-    ui->ymaxInput->setText(QString::number(plotar->ymax));
+    plotar->autoaxis = true;
+    ui->xminInput->setText(QString::number(plotar->graphminx));
+    ui->xmaxInput->setText(QString::number(plotar->graphmaxx));
+    ui->yminInput->setText(QString::number(plotar->graphminy));
+    ui->ymaxInput->setText(QString::number(plotar->graphmaxy));
   }
   else
   {
-    checked = false;
+    plotar->autoaxis = false;
+    plotar->xmin = ui->xminInput->text().toDouble();
+    plotar->xmax = ui->xmaxInput->text().toDouble();
+    plotar->ymin = ui->yminInput->text().toDouble();
+    plotar->ymax = ui->ymaxInput->text().toDouble();
+    plotar->update();
   }
 
-  ui->xminInput->setDisabled(checked);
-  ui->xmaxInput->setDisabled(checked);
-  ui->yminInput->setDisabled(checked);
-  ui->ymaxInput->setDisabled(checked);
+  ui->xminInput->setDisabled(plotar->autoaxis);
+  ui->xmaxInput->setDisabled(plotar->autoaxis);
+  ui->yminInput->setDisabled(plotar->autoaxis);
+  ui->ymaxInput->setDisabled(plotar->autoaxis);
 }
 
 // ++++++++++++++++++++++++++++++
@@ -63,6 +70,7 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   bottommargin    = 50;
   leftmargin      = 50;
   rightmargin     = 30;
+  autoaxis        = false;
 }
 
 double plotarea::transfx(double xreal, double xscale, double xmin)
@@ -115,42 +123,45 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 {
   if (selectedruns->count() > 0)
   {
-    xmin = 1e5;
-    xmax = -1e3;
-    ymin = 1e5;
-    ymax = 0;
-
-    for(int i=0; i<selectedruns->count(); i++)
+    if (autoaxis)
     {
-      double *tempplotvar = new double;
-      if (plotvar == "h")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->h.data;
-      else if (plotvar == "theta")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->theta.data;
-      else if (plotvar == "dtheta")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->dtheta.data;
-      else if (plotvar == "wtheta")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->wtheta.data;
-      else if (plotvar == "q")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->q.data;
-      else if (plotvar == "dq")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->dq.data;
-      else if (plotvar == "wq")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->wq.data;
+      xmin = 1e5;
+      xmax = -1e3;
+      ymin = 1e5;
+      ymax = 0;
 
-      int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
-
-      for(int m=0; m<tsteps; m++)
+      for(int i=0; i<selectedruns->count(); i++)
       {
-        if (tempplotvar[m] > ymax)
-          ymax = tempplotvar[m];
-        if (tempplotvar[m] < ymin)
-          ymin = tempplotvar[m];
+        double *tempplotvar = new double;
+        if (plotvar == "h")
+          tempplotvar = runlist->value(selectedruns->value(i)).run->output->h.data;
+        else if (plotvar == "theta")
+          tempplotvar = runlist->value(selectedruns->value(i)).run->output->theta.data;
+        else if (plotvar == "dtheta")
+          tempplotvar = runlist->value(selectedruns->value(i)).run->output->dtheta.data;
+        else if (plotvar == "wtheta")
+          tempplotvar = runlist->value(selectedruns->value(i)).run->output->wtheta.data;
+        else if (plotvar == "q")
+          tempplotvar = runlist->value(selectedruns->value(i)).run->output->q.data;
+        else if (plotvar == "dq")
+          tempplotvar = runlist->value(selectedruns->value(i)).run->output->dq.data;
+        else if (plotvar == "wq")
+          tempplotvar = runlist->value(selectedruns->value(i)).run->output->wq.data;
+
+        int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
+
+        for(int m=0; m<tsteps; m++)
+        {
+          if (tempplotvar[m] > ymax)
+            ymax = tempplotvar[m];
+          if (tempplotvar[m] < ymin)
+            ymin = tempplotvar[m];
+        }
+        if (runlist->value(selectedruns->value(i)).run->output->t.data[0] < xmin)
+          xmin = runlist->value(selectedruns->value(i)).run->output->t.data[0];
+        if (runlist->value(selectedruns->value(i)).run->output->t.data[tsteps-1] > xmax)
+          xmax = runlist->value(selectedruns->value(i)).run->output->t.data[tsteps-1];
       }
-      if (runlist->value(selectedruns->value(i)).run->output->t.data[0] < xmin)
-        xmin = runlist->value(selectedruns->value(i)).run->output->t.data[0];
-      if (runlist->value(selectedruns->value(i)).run->output->t.data[tsteps-1] > xmax)
-        xmax = runlist->value(selectedruns->value(i)).run->output->t.data[tsteps-1];
     }
 
     // Size of widget (pixels)
@@ -173,8 +184,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     paint.drawLine(leftmargin,plotwidget_height - bottommargin,plotwidget_width-rightmargin,plotwidget_height-bottommargin);
     paint.drawLine(leftmargin,plotwidget_height - bottommargin,leftmargin,topmargin);
 
-    double graphminx, graphmaxx;
-    double graphminy, graphmaxy;
     int nticks = 8;
     int nfrac;
     double d;
