@@ -19,7 +19,6 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
   //plotar->setAutoFillBackground(true);
 
     ui->plotLayout->addWidget(plotar);
-    ui->plotLayout->removeWidget(ui->plotarea);
 
   plotvar         = "h";
 }

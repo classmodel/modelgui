@@ -66,7 +66,7 @@ void plotwindow::updateselectedruns()               // create QList containing I
 
 void plotwindow::changeplotvar()
 {
-  plot->plotvar = outputnames[plot->ui->plotvar->currentIndex()];
+  plot->plotar->plotvar = outputnames[plot->ui->plotvar->currentIndex()];
   plot->plotar->update();
 }
 
