@@ -61,12 +61,14 @@ void plotwindow::updateselectedruns()               // create QList containing I
   }
   else if(ui->modelruntree->currentItem()->checkState(1) == 0)
     selectedruns->removeAt(selectedruns->indexOf(id));
-    plot->plotar->update();
+
+  plot->plotar->update();
 }
 
 void plotwindow::changeplotvar()
 {
   plot->plotar->plotvar = outputnames[plot->ui->plotvar->currentIndex()];
+  plot->ui->autoscaleaxis->setChecked(true);
   plot->plotar->update();
 }
 

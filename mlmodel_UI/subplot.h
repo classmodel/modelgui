@@ -22,8 +22,10 @@ public:
   double transfx(double xreal, double xscale, double xmin);    // Function real-coordinate to Widget-coordinate
   double transfy(double yreal, double yscale, double ymin);    // Function real-coordinate to Widget-coordinate
   QString plotvar;
+  float xmin, xmax, ymin, ymax;
 
-public slots:
+signals:
+  void axischanged();
 
 protected:
   void paintEvent(QPaintEvent *event);
@@ -31,11 +33,7 @@ protected:
   QMap<int, modelrun> *runlist;
 
 private:
-  int plotmargin;
-  int topmargin;
-  int bottommargin;
-  int leftmargin;
-  int rightmargin;
+  int plotmargin, topmargin, bottommargin, leftmargin, rightmargin;
   double nicenumber(double, bool);
 };
 
@@ -57,6 +55,7 @@ public:
   QString plotvar;
 
 public slots:
+  void changeaxis();
 
 protected:
   QList<int> *selectedruns;

@@ -9,6 +9,7 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
   runlist         = runs;
 
   plotar = new plotarea(runlist,selectedruns,this);
+  connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
 
   QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   sizePolicy.setHorizontalStretch(0);
@@ -16,11 +17,33 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
   sizePolicy.setHeightForWidth(plotar->sizePolicy().hasHeightForWidth());
   plotar->setSizePolicy(sizePolicy);
   plotar->setMinimumSize(QSize(300, 300));
-  //plotar->setAutoFillBackground(true);
-
-    ui->plotLayout->addWidget(plotar);
-
+  ui->plotLayout->addWidget(plotar);
   plotvar         = "h";
+
+  ui->autoscaleaxis->setChecked(true);
+}
+
+void subplot::changeaxis()
+{
+  std::cout << "change AXIS called" << std::endl;
+  bool checked;
+  if (ui->autoscaleaxis->checkState() == Qt::Checked)
+  {
+    checked = true;
+    ui->xminInput->setText(QString::number(plotar->xmin));
+    ui->xmaxInput->setText(QString::number(plotar->xmax));
+    ui->yminInput->setText(QString::number(plotar->ymin));
+    ui->ymaxInput->setText(QString::number(plotar->ymax));
+  }
+  else
+  {
+    checked = false;
+  }
+
+  ui->xminInput->setDisabled(checked);
+  ui->xmaxInput->setDisabled(checked);
+  ui->yminInput->setDisabled(checked);
+  ui->ymaxInput->setDisabled(checked);
 }
 
 // ++++++++++++++++++++++++++++++
@@ -91,7 +114,11 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 {
   if (selectedruns->count() > 0)
   {
-    double xmin = 1e5, xmax = -1e3, ymin = 1e5, ymax = 0;
+    xmin = 1e5;
+    xmax = -1e3;
+    ymin = 1e5;
+    ymax = 0;
+
     for(int i=0; i<selectedruns->count(); i++)
     {
       double *tempplotvar = new double;
@@ -224,6 +251,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       legendy = legendy+15;
     }
   }
+
+  emit axischanged();
 }
 
 
