@@ -10,6 +10,7 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
 
   plotar = new plotarea(runlist,selectedruns,this);
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
+  connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
 
   QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   sizePolicy.setHorizontalStretch(0);
