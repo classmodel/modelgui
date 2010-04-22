@@ -216,7 +216,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     nfrac     = std::max(-1 * (int)std::floor(std::log10(d)), 0);
 
     for(x = graphminx; x <= graphmaxx + .5 * d; x = x + d)
-      paint.drawText((plotwidth * x/(graphmaxx - graphminx))+leftmargin-20,plotwidget_height-bottommargin+8,40,13,Qt::AlignCenter, QString::number(x,'f',nfrac));
+    {
+      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-20,plotwidget_height-bottommargin+8,40,13,Qt::AlignCenter, QString::number(x,'f',nfrac));
+    } 
 
     // Hereafter; clip data plot .
     paint.setClipping(true);
