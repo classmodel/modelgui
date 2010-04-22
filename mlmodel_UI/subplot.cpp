@@ -11,6 +11,8 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
   plotar = new plotarea(runlist,selectedruns,this);
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
+  connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
+  
   connect(ui->xminInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
   connect(ui->xmaxInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
   connect(ui->yminInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
@@ -262,7 +264,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     }
   }
 
-  emit axischanged();
+  if (autoaxis)
+    emit axischanged();
 }
 
 
