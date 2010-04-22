@@ -25,7 +25,6 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
   plotar->setSizePolicy(sizePolicy);
   plotar->setMinimumSize(QSize(300, 300));
   ui->plotLayout->addWidget(plotar);
-  plotvar         = "h";
 
   ui->autoscaleaxis->setChecked(true);
 }
@@ -70,7 +69,7 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   plotvar         = "h";
   topmargin       = 30;
   bottommargin    = 50;
-  leftmargin      = 50;
+  leftmargin      = 70;
   rightmargin     = 30;
   autoaxis        = false;
 }
@@ -125,6 +124,11 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 {
   if (selectedruns->count() > 0)
   {
+    xlabel = runlist->value(selectedruns->value(0)).run->output->t.description;
+    xlabel.append(" [");
+    xlabel.append(runlist->value(selectedruns->value(0)).run->output->t.unit);
+    xlabel.append("]");
+
     if (autoaxis)
     {
       xmin = 1e5;
@@ -136,7 +140,13 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       {
         double *tempplotvar = new double;
         if (plotvar == "h")
+        {
           tempplotvar = runlist->value(selectedruns->value(i)).run->output->h.data;
+          ylabel = runlist->value(selectedruns->value(i)).run->output->h.description;
+          ylabel.append(" [");
+          ylabel.append(runlist->value(selectedruns->value(i)).run->output->h.unit);
+          ylabel.append("]");          
+        }
         else if (plotvar == "theta")
           tempplotvar = runlist->value(selectedruns->value(i)).run->output->theta.data;
         else if (plotvar == "dtheta")
@@ -220,6 +230,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-20,plotwidget_height-bottommargin+8,40,13,Qt::AlignCenter, QString::number(x,'f',nfrac));
     } 
 
+    // Axis labels
+    paint.drawText((plotwidth/2)+leftmargin-150,plotwidget_height-bottommargin+28,300,20,Qt::AlignHCenter, QString::fromStdString(xlabel));
+    paint.rotate(270);
+    paint.drawText(-350,5,300,20,Qt::AlignCenter, QString::fromStdString(ylabel));
+    paint.rotate(90);
+
     // Hereafter; clip data plot .
     paint.setClipping(true);
     paint.setClipRect(leftmargin+1,topmargin+1,plotwidth-2,plotheight-2);
@@ -232,6 +248,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     for(int i=0; i<selectedruns->count(); i++)
     {
       double *tempplotvar = new double;
+
       if (plotvar == "h")
         tempplotvar = runlist->value(selectedruns->value(i)).run->output->h.data;
       else if (plotvar == "theta")

@@ -22,6 +22,7 @@ public:
   double transfx(double xreal, double xscale, double xmin);    // Function real-coordinate to Widget-coordinate
   double transfy(double yreal, double yscale, double ymin);    // Function real-coordinate to Widget-coordinate
   QString plotvar;
+  std::string xlabel, ylabel;
   double graphminx, graphmaxx, graphminy, graphmaxy;
   double xmin, xmax, ymin, ymax;
   bool autoaxis;
