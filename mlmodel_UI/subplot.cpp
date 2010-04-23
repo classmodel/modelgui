@@ -239,7 +239,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     // Hereafter; clip data plot .
     paint.setClipping(true);
-    paint.setClipRect(leftmargin+1,topmargin,plotwidth-1,plotheight-1);
+    paint.setClipRect(leftmargin+1,topmargin,plotwidth,plotheight);
 
     QList<QColor> colors;
     colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black);
