@@ -6,6 +6,7 @@
 #include <QWidget>
 #include "QPaintEvent"
 #include "QPainter"
+#include "QGraphicsScene"
 #include <iostream>
 #include <cmath>
 

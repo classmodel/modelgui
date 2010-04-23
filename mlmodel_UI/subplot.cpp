@@ -187,7 +187,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     // ------------------------------------
     // Start drawing
     // ------------------------------------
+
+    //QImage image(plotwidget_width, plotwidget_height , QImage::Format_ARGB32);
+    //QPainter paint(&image);
+
     QPainter paint(this);
+
     QPen pen(Qt::black, 1, Qt::SolidLine);
     paint.setPen(pen);
 
@@ -281,8 +286,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       paint.drawText(leftmargin+25,legendy,200,13,Qt::AlignLeft, runlist->value(selectedruns->value(i)).runname);
       legendy = legendy+15;
     }
+    //image.save("test.png");
   }
-
   if (autoaxis)
     emit axischanged();
 }
