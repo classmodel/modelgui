@@ -16,7 +16,7 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
   connect(ui->xminInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
   connect(ui->xmaxInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
   connect(ui->yminInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
-  connect(ui->ymaxInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
+  connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
 
   QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   sizePolicy.setHorizontalStretch(0);
@@ -239,7 +239,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     // Hereafter; clip data plot .
     paint.setClipping(true);
-    paint.setClipRect(leftmargin+1,topmargin+1,plotwidth-2,plotheight-2);
+    paint.setClipRect(leftmargin+1,topmargin,plotwidth-1,plotheight-1);
 
     QList<QColor> colors;
     colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black);
