@@ -183,14 +183,31 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     // ------------------------------------
 
     /*
+    // Save as PNG
     QImage image(plotwidget_width, plotwidget_height , QImage::Format_ARGB32);
     image.fill(QColor(Qt::white).rgb());
     QPainter paint(&image);
     */
 
+    /*
+    // Save as PS
+    QString fileName = "testpdf";
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setResolution(100);
+    printer.setFullPage(true);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    if (!fileName.endsWith(".pdf"))
+      fileName = fileName+".pdf";
+    printer.setOutputFileName(fileName);
+    QPainter paint(&printer);
+    */
+
     QPainter paint(this);
     QPen pen(Qt::black, 1, Qt::SolidLine);
+    pen.setWidth(50);
     paint.setPen(pen);
+
+
 
     // Draw X and Y axis
     paint.setPen(Qt::SolidLine);
