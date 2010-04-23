@@ -124,10 +124,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 {
   if (selectedruns->count() > 0)
   {
-    xlabel = runlist->value(selectedruns->value(0)).run->output->t.description;
-    xlabel.append(" [");
-    xlabel.append(runlist->value(selectedruns->value(0)).run->output->t.unit);
-    xlabel.append("]");
+    xlabel = runlist->value(selectedruns->value(0)).run->output->t.description + " [" + runlist->value(selectedruns->value(0)).run->output->t.unit + "]";
 
     if (autoaxis)
     {
@@ -142,10 +139,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         if (plotvar == "h")
         {
           tempplotvar = runlist->value(selectedruns->value(i)).run->output->h.data;
-          ylabel = runlist->value(selectedruns->value(i)).run->output->h.description;
-          ylabel.append(" [");
-          ylabel.append(runlist->value(selectedruns->value(i)).run->output->h.unit);
-          ylabel.append("]");          
+          ylabel = runlist->value(selectedruns->value(i)).run->output->h.description + " [" + runlist->value(selectedruns->value(i)).run->output->h.unit + "]";
         }
         else if (plotvar == "theta")
           tempplotvar = runlist->value(selectedruns->value(i)).run->output->theta.data;
@@ -188,11 +182,13 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     // Start drawing
     // ------------------------------------
 
-    //QImage image(plotwidget_width, plotwidget_height , QImage::Format_ARGB32);
-    //QPainter paint(&image);
+    /*
+    QImage image(plotwidget_width, plotwidget_height , QImage::Format_ARGB32);
+    image.fill(QColor(Qt::white).rgb());
+    QPainter paint(&image);
+    */
 
     QPainter paint(this);
-
     QPen pen(Qt::black, 1, Qt::SolidLine);
     paint.setPen(pen);
 
