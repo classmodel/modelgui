@@ -7,6 +7,7 @@
 #include <iostream>
 #include <QString>
 #include <QFileDialog>
+#include <QFont>
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -117,6 +118,13 @@ void MainWindow::newrun()
   QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
   point->setText(0, QString::number(max+1));
   point->setText(1, base);
+
+  QFont font;
+  font = point->font(1);
+  font.setItalic(true);
+  point->setFont(1,font);
+  point->setTextColor(1,Qt::gray);
+
   ui->modelRunTree->setCurrentItem(point);
 
   updateForm();
@@ -317,6 +325,13 @@ void MainWindow::startrun()
   modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
   modelrunlist->find(id).value().run->runmodel();
   modelrunlist->find(id).value().hasrun = true;
+
+  QFont font;
+  font = ui->modelRunTree->currentItem()->font(1);
+  font.setItalic(false);
+  ui->modelRunTree->currentItem()->setFont(1,font);
+  ui->modelRunTree->currentItem()->setTextColor(1,Qt::black);
+
   emit runadded(id);
 }
 
