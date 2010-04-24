@@ -188,6 +188,7 @@ void MainWindow::runTreeChanged()
   ui->deleteButton->setEnabled(deleteitems);
   ui->startButton->setEnabled(inputfields);
   ui->cancelButton->setEnabled(inputfields);
+  ui->exportButton->setEnabled(inputfields);
   updateForm();
 }
 

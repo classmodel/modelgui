@@ -81,7 +81,7 @@
          <x>10</x>
          <y>30</y>
          <width>191</width>
-         <height>108</height>
+         <height>114</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="modelsettings_grid" columnminimumwidth="50,0,60">
@@ -207,7 +207,7 @@
          <x>10</x>
          <y>30</y>
          <width>191</width>
-         <height>148</height>
+         <height>156</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="heat_grid" columnminimumwidth="50,0,60">
@@ -427,7 +427,7 @@
          <x>10</x>
          <y>30</y>
          <width>201</width>
-         <height>118</height>
+         <height>124</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="cbl_settings_grid" columnminimumwidth="50,0,80">
@@ -611,7 +611,7 @@
          <x>10</x>
          <y>30</y>
          <width>201</width>
-         <height>148</height>
+         <height>156</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="moisture_grid" columnminimumwidth="50,0,80">
@@ -839,7 +839,7 @@
          <x>10</x>
          <y>30</y>
          <width>181</width>
-         <height>118</height>
+         <height>124</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="u_comp_grid" columnminimumwidth="50,0,60">
@@ -1011,7 +1011,7 @@
          <x>10</x>
          <y>30</y>
          <width>181</width>
-         <height>118</height>
+         <height>124</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="u_comp_grid_2" columnminimumwidth="50,0,60">
@@ -1183,7 +1183,7 @@
          <x>10</x>
          <y>30</y>
          <width>181</width>
-         <height>85</height>
+         <height>88</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="u_comp_grid_3" columnminimumwidth="50,0,60">
@@ -1280,7 +1280,7 @@
       <x>480</x>
       <y>4</y>
       <width>150</width>
-      <height>441</height>
+      <height>451</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -1298,7 +1298,7 @@
        <x>10</x>
        <y>30</y>
        <width>131</width>
-       <height>241</height>
+       <height>221</height>
       </rect>
      </property>
      <column>
@@ -1311,9 +1311,9 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>280</y>
+       <y>260</y>
        <width>111</width>
-       <height>143</height>
+       <height>167</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -1365,8 +1365,23 @@
       </item>
       <item>
        <widget class="QPushButton" name="graphButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Graph</string>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -1406,7 +1421,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

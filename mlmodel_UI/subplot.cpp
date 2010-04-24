@@ -154,17 +154,35 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
           ylabel = runlist->value(selectedruns->value(i)).run->output->h.description + " [" + runlist->value(selectedruns->value(i)).run->output->h.unit + "]";
         }
         else if (plotvar == "theta")
+        {
           tempplotvar = runlist->value(selectedruns->value(i)).run->output->theta.data;
+          ylabel = runlist->value(selectedruns->value(i)).run->output->theta.description + " [" + runlist->value(selectedruns->value(i)).run->output->theta.unit + "]";
+        }
         else if (plotvar == "dtheta")
+        {
           tempplotvar = runlist->value(selectedruns->value(i)).run->output->dtheta.data;
+          ylabel = runlist->value(selectedruns->value(i)).run->output->dtheta.description + " [" + runlist->value(selectedruns->value(i)).run->output->dtheta.unit + "]";
+        }
         else if (plotvar == "wtheta")
+        {
           tempplotvar = runlist->value(selectedruns->value(i)).run->output->wtheta.data;
+          ylabel = runlist->value(selectedruns->value(i)).run->output->wtheta.description + " [" + runlist->value(selectedruns->value(i)).run->output->wtheta.unit + "]";
+        }
         else if (plotvar == "q")
+        {
           tempplotvar = runlist->value(selectedruns->value(i)).run->output->q.data;
+          ylabel = runlist->value(selectedruns->value(i)).run->output->q.description + " [" + runlist->value(selectedruns->value(i)).run->output->q.unit + "]";
+        }
         else if (plotvar == "dq")
+        {
           tempplotvar = runlist->value(selectedruns->value(i)).run->output->dq.data;
+          ylabel = runlist->value(selectedruns->value(i)).run->output->dq.description + " [" + runlist->value(selectedruns->value(i)).run->output->dq.unit + "]";
+        }
         else if (plotvar == "wq")
+        {
           tempplotvar = runlist->value(selectedruns->value(i)).run->output->wq.data;
+          ylabel = runlist->value(selectedruns->value(i)).run->output->wq.description + " [" + runlist->value(selectedruns->value(i)).run->output->wq.unit + "]";
+        }
 
         int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
 
