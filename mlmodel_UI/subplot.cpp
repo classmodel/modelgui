@@ -12,7 +12,8 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
-  
+  connect(ui->saveButton, SIGNAL(clicked()), plotar, SLOT(saveImage()));
+
   connect(ui->xminInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
   connect(ui->xmaxInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
   connect(ui->yminInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
@@ -72,6 +73,7 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   leftmargin      = 70;
   rightmargin     = 30;
   autoaxis        = false;
+  saveImageMode   = 0;
 }
 
 double plotarea::transfx(double xreal, double xscale, double xmin)
@@ -118,6 +120,16 @@ double plotarea::nicenumber(double x, bool round)
       nf = 10.;
   }
   return nf * std::pow(10., exp);
+}
+
+void plotarea::saveImage()
+{
+  QString fileName = QFileDialog::getSaveFileName(this, tr("Save image"), "/VOLUMES/", tr("Portable Network Graphics (*.png)"));
+  if (!fileName.endsWith(".png"))
+      saveImageName = fileName+".png";
+
+  saveImageMode = 1;
+  update();
 }
 
 void plotarea::paintEvent(QPaintEvent * /* event */)
@@ -182,12 +194,22 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     // Start drawing
     // ------------------------------------
 
-    /*
-    // Save as PNG
+    QPainter paint;
     QImage image(plotwidget_width, plotwidget_height , QImage::Format_ARGB32);
     image.fill(QColor(Qt::white).rgb());
-    QPainter paint(&image);
-    */
+
+    if (saveImageMode == 1)   // Save as PNG
+    {
+      paint.begin(&image);
+    }
+
+    else                      // Plot on screen
+    {
+      paint.begin(this);
+    }
+
+    QPen pen(Qt::black, 1, Qt::SolidLine);
+    paint.setPen(pen);
 
     /*
     // Save as PS
@@ -201,13 +223,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     printer.setOutputFileName(fileName);
     QPainter paint(&printer);
     */
-
-    QPainter paint(this);
-    QPen pen(Qt::black, 1, Qt::SolidLine);
-    pen.setWidth(50);
-    paint.setPen(pen);
-
-
 
     // Draw X and Y axis
     paint.setPen(Qt::SolidLine);
@@ -299,7 +314,15 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       paint.drawText(leftmargin+25,legendy,200,13,Qt::AlignLeft, runlist->value(selectedruns->value(i)).runname);
       legendy = legendy+15;
     }
-    //image.save("test.png");
+
+    if (saveImageMode == 1)
+    {
+      image.save(saveImageName);
+      paint.end();
+      saveImageMode = 0;
+      update();
+    }
+
   }
   if (autoaxis)
     emit axischanged();

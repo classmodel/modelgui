@@ -10,6 +10,8 @@
 #include "QGraphicsScene"
 #include <iostream>
 #include <cmath>
+#include <QFileDialog>
+#include <QPaintDevice>
 
 // ++++++++++++++++++++++++++
 // Actual plot area
@@ -29,8 +31,14 @@ public:
   double xmin, xmax, ymin, ymax;
   bool autoaxis;
 
+  int saveImageMode;
+  QString saveImageName;
+
 signals:
   void axischanged();
+
+public slots:
+  void saveImage();
 
 protected:
   void paintEvent(QPaintEvent *event);
