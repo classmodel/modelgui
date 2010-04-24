@@ -14,9 +14,9 @@ subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *paren
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
   connect(ui->saveButton, SIGNAL(clicked()), plotar, SLOT(saveImage()));
 
-  connect(ui->xminInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
-  connect(ui->xmaxInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
-  connect(ui->yminInput, SIGNAL(textEdited(QString)), this, SLOT(changeaxis()));
+  connect(ui->xminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
+  connect(ui->xmaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
+  connect(ui->yminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
 
   QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

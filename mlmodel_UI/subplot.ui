@@ -214,6 +214,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>xminInput</tabstop>
+  <tabstop>xmaxInput</tabstop>
+  <tabstop>yminInput</tabstop>
+  <tabstop>ymaxInput</tabstop>
+  <tabstop>saveButton</tabstop>
+  <tabstop>autoscaleaxis</tabstop>
+  <tabstop>plotvar</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
