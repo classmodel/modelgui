@@ -249,7 +249,10 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     nfrac     = std::max(-1 * (int)std::floor(std::log10(d)), 0);
 
     for(y = graphminy; y <= graphmaxy + .5 * d; y = y + d)
+    {
       paint.drawText((leftmargin-50),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-5,40,13,Qt::AlignRight, QString::number(y,'f',nfrac));
+      paint.drawLine(leftmargin,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin,leftmargin+3,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin);
+    }
 
     // Draw labels X-axis
     range     = nicenumber(xmax - xmin, false);
@@ -261,6 +264,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     for(x = graphminx; x <= graphmaxx + .5 * d; x = x + d)
     {
       paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-20,plotwidget_height-bottommargin+8,40,13,Qt::AlignCenter, QString::number(x,'f',nfrac));
+      paint.drawLine(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin,((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin-3);
     } 
 
     // Axis labels
