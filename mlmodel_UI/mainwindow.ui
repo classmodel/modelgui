@@ -1358,6 +1358,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="exportButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="text">
          <string>Export</string>
         </property>
@@ -1421,7 +1427,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
