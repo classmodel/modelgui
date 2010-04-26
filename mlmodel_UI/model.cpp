@@ -221,14 +221,14 @@ void model::store()
   output->wtheta.data[t]     = wtheta;
   output->wthetav.data[t]    = wthetav;
   
-  output->q.data[t]          = q;
+  output->q.data[t]          = q * 1000.;
   //output.qsat[t]       = qsat;
   //output.e[t]          = e;
   //output.esat[t]       = esat;
-  output->dq.data[t]         = dq;
-  output->gammaq.data[t]     = gammaq;
-  output->advq.data[t]       = advq;
-  output->wq.data[t]         = wq;
+  output->dq.data[t]         = dq * 1000.;
+  output->gammaq.data[t]     = gammaq * 1000.;
+  output->advq.data[t]       = advq * 1000.;
+  output->wq.data[t]         = wq * 1000.;
   
   output->u.data[t]          = u;
   output->du.data[t]         = du;
