@@ -124,7 +124,7 @@ double plotarea::nicenumber(double x, bool round)
 
 void plotarea::saveImage()
 {
-  saveImageName = QFileDialog::getSaveFileName(this, "Save image as", "~");
+  saveImageName = QFileDialog::getSaveFileName(this, "Save image as", "~", tr("Images (*.png)"));
   if (!saveImageName.endsWith(".png"))
       saveImageName = saveImageName+".png";
 
