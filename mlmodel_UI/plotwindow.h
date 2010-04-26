@@ -20,7 +20,7 @@ class plotwindow : public QTabWidget
   Q_OBJECT
 
 public:
-  plotwindow(QMap<int,modelrun> *, QMainWindow *);
+  plotwindow(QMap<int,modelrun> *, QList<int> *, QMainWindow *);
   ~plotwindow();
   QList<int> *selectedruns;
   QMap<int, modelrun> *runlist;

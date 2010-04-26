@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent)
   ui->modelRunTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
   modelrunlist = new QMap<int, modelrun>;
+  selectedruns = new QList<int>;
+
   newrun();
   ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
 }
@@ -189,6 +191,15 @@ void MainWindow::runTreeChanged()
   ui->startButton->setEnabled(inputfields);
   ui->cancelButton->setEnabled(inputfields);
   ui->exportButton->setEnabled(inputfields);
+
+  selectedruns->clear();
+  for (int i = 0; i < ui->modelRunTree->topLevelItemCount(); i++)
+  {
+    QTreeWidgetItem *item =  ui->modelRunTree->topLevelItem ( i );
+      if (item->isSelected())
+        selectedruns->append(item->text(0).toInt());
+  }
+
   updateForm();
 }
 
@@ -345,12 +356,12 @@ void MainWindow::canceledit()
 
 void MainWindow::startGraph()
 {
-  showGraph(modelrunlist);
+  showGraph(modelrunlist,selectedruns);
 }
 
-void MainWindow::showGraph(QMap<int, modelrun> *main)
+void MainWindow::showGraph(QMap<int, modelrun> *main, QList<int> *selected)
 {
-  graph = new plotwindow(main, this);
+  graph = new plotwindow(main, selected, this);
   graph->setWindowFlags(Qt::Window);
   graph->show();
   connect(this, SIGNAL(rundeleted(int)), graph, SLOT(deleterun(int)));

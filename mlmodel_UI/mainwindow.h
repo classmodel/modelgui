@@ -20,10 +20,11 @@ public:
   MainWindow(QWidget *parent = 0);
   ~MainWindow();
   QMap<int, modelrun> *modelrunlist;           // List containing objects with model output
+  QList<int> *selectedruns;
   //void updateRunList();
   void updateForm();
   void createrun();
-  void showGraph(QMap<int, modelrun> *);
+  void showGraph(QMap<int, modelrun> *, QList<int> *);
   plotwindow *graph;
   modelinput defaultinput;                     // Store default model input settings
   modelinput formvalues;
