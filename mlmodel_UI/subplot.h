@@ -12,6 +12,7 @@
 #include <cmath>
 #include <QFileDialog>
 #include <QPaintDevice>
+#include <QFont>
 
 // ++++++++++++++++++++++++++
 // Actual plot area
@@ -48,6 +49,7 @@ protected:
 private:
   int plotmargin, topmargin, bottommargin, leftmargin, rightmargin;
   double nicenumber(double, bool);
+  int plotwidget_width, plotwidget_height;
 };
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

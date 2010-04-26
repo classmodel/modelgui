@@ -200,9 +200,17 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       }
     }
 
-    // Size of widget (pixels)
-    int plotwidget_width = geometry().width();
-    int plotwidget_height = geometry().height();
+
+    if (saveImageMode == 1)
+    {
+      plotwidget_width = 1000;
+      plotwidget_height = 1000;
+    }
+    else
+    {
+      plotwidget_width = geometry().width();
+      plotwidget_height = geometry().height();
+    }
 
     // Size of plotable area within widget (pixels)
     double plotwidth = plotwidget_width - leftmargin - rightmargin;
@@ -214,11 +222,13 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     QPainter paint;
     QImage image(plotwidget_width, plotwidget_height , QImage::Format_ARGB32);
-    image.fill(QColor(Qt::white).rgb());
 
     if (saveImageMode == 1)   // Save as PNG
     {
-      paint.begin(&image);
+      image.fill(QColor(Qt::white).rgb());
+      paint.begin(&image);      
+      //QFont large("Arial", 15, QFont::Bold);
+      //paint.setFont(large);
     }
 
     else                      // Plot on screen
