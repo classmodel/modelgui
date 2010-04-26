@@ -2,6 +2,7 @@
 #include "subplot.h"
 #include "ui_subplot.h"
 #include "ui_plotwindow.h"
+//#include "modeloutput.h"
 #include <iostream>
 
 plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *selected, QMainWindow *parent) : QTabWidget(parent), ui(new Ui::plotwindow)
@@ -43,8 +44,10 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *selected, QMainWin
 
   // Dropdown with plot variables
   QStringList varnames;
-  varnames << "CBL-height" << "Potential temperature" << "Potential temperature jump" << "Sensible heat flux"
-          << "Specific humidity" << "Specific humidity jump" << "Latent heat flux";
+  modeloutput modelout(0);
+
+  varnames << QString::fromStdString(modelout.h.description) << QString::fromStdString(modelout.theta.description) << QString::fromStdString(modelout.dtheta.description) << QString::fromStdString(modelout.wtheta.description)
+          << QString::fromStdString(modelout.q.description) << QString::fromStdString(modelout.dq.description) << QString::fromStdString(modelout.wq.description);
   outputnames << "h" << "theta" << "dtheta" << "wtheta" << "q" << "dq" << "wq";
   plot->ui->plotvar->addItems(varnames);
 }

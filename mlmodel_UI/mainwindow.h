@@ -49,6 +49,7 @@ signals:
 private:
   Ui::MainWindow *ui;
   void readdefaultinput();
+  void updateSelectedRuns();
 };
 
 #endif // MAINWINDOW_H

@@ -191,17 +191,21 @@ void MainWindow::runTreeChanged()
   ui->startButton->setEnabled(inputfields);
   ui->cancelButton->setEnabled(inputfields);
   ui->exportButton->setEnabled(inputfields);
+  updateSelectedRuns();
+  updateForm();
+}
 
+void MainWindow::updateSelectedRuns()
+{
   selectedruns->clear();
   for (int i = 0; i < ui->modelRunTree->topLevelItemCount(); i++)
   {
-    QTreeWidgetItem *item =  ui->modelRunTree->topLevelItem ( i );
-      if (item->isSelected())
+    QTreeWidgetItem *item =  ui->modelRunTree->topLevelItem (i);
+      if (item->isSelected() && modelrunlist->value(item->text(0).toInt()).hasrun)
         selectedruns->append(item->text(0).toInt());
   }
-
-  updateForm();
 }
+
 
 void MainWindow::updateInputdata()
 {
@@ -311,6 +315,7 @@ void MainWindow::deleteRun()
     qDeleteAll(ui->modelRunTree->selectedItems());
     ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
   }
+  updateSelectedRuns();
 }
 
 void MainWindow::updateRunName()
@@ -343,7 +348,7 @@ void MainWindow::startrun()
   font.setItalic(false);
   ui->modelRunTree->currentItem()->setFont(1,font);
   ui->modelRunTree->currentItem()->setTextColor(1,Qt::black);
-
+  updateSelectedRuns();
   emit runadded(id);
 }
 
