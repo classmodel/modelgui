@@ -162,6 +162,12 @@ void MainWindow::clonerun()
   point->setText(0, QString::number(max+1));
   point->setText(1, base);
 
+  QFont font;
+  font = point->font(1);
+  font.setItalic(true);
+  point->setFont(1,font);
+  point->setTextColor(1,Qt::gray);
+
   updateForm();
 }
 
