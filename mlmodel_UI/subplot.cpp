@@ -136,7 +136,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 {
   if (selectedruns->count() > 0)
   {
-    xlabel = runlist->value(selectedruns->value(0)).run->output->t.description + " [" + runlist->value(selectedruns->value(0)).run->output->t.unit + "]";
+    //xlabel = runlist->value(selectedruns->value(0)).run->output->t.description + " [" + runlist->value(selectedruns->value(0)).run->output->t.unit + "]";
+    xlabel = "Test [ \u00B2 ]";
 
     if (autoaxis)
     {
