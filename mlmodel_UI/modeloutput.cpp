@@ -20,21 +20,21 @@ modeloutput::modeloutput(int tsteps)
 
   ws.data                   = new double[tsteps];   // large scale vertical velocity [m s-1]
   ws.name                   = "ws";
-  ws.unit                   = "m s-1";
+  ws.unit                   = "m s\u207B\u00B9";
   ws.description            = "Large scale vertical velocity";
 
   theta.data                = new double[tsteps];   // initial mixed-layer potential temperature [K]
-  theta.name                = "theta";
+  theta.name                = "\u03B8";
   theta.unit                = "K";
   theta.description         = "Mixed-layer potential temperature";
 
   thetav.data               = new double[tsteps];   // initial mixed-layer virtual potential temperature [K]
-  thetav.name               = "thetav";
+  thetav.name               = "\u03B8\u1D65";
   thetav.unit               = "K";
   thetav.description        = "Mixed-layer virtual potential temperature";
 
   dtheta.data               = new double[tsteps];   // initial potential temperature jump at h [K]
-  dtheta.name               = "dtheta";
+  dtheta.name               = "\u0394\u03B8";
   dtheta.unit               = "K";
   dtheta.description        = "Potential temperature jump at boundary layer top";
 
@@ -44,15 +44,15 @@ modeloutput::modeloutput(int tsteps)
   beta.data                 = new double[tsteps];   // entrainment ratio for virtual heat [-]
 
   wtheta.data               = new double[tsteps];   // surface kinematic heat flux [K m s-1]
-  wtheta.name               = "wtheta";
-  wtheta.unit               = "K m s-1";
+  wtheta.name               = "w'\u03B8'";
+  wtheta.unit               = "K m s\u207B\u00B9";
   wtheta.description        = "Surface kinematic heat flux";
 
   wthetav.data              = new double[tsteps];   // surface kinematic virtual heat flux [K m s-1]
 
   q.data                    = new double[tsteps];   // mixed-layer specific humidity [kg kg-1]
   q.name                    = "q";
-  q.unit                    = "g kg-1";
+  q.unit                    = "g kg\u207B\u00B9";
   q.description             = "Mixed-layer specific humidity";
 
   //qsat                    = new double[tsteps];   // mixed-layer saturated specific humidity [kg kg-1]
@@ -60,16 +60,16 @@ modeloutput::modeloutput(int tsteps)
   //esat                    = new double[tsteps];   // mixed-layer saturated vapor pressure [Pa]
 
   dq.data                   = new double[tsteps];   // specific humidity jump at h [kg kg-1]
-  dq.name                   = "dq";
-  dq.unit                   = "g kg-1";
+  dq.name                   = "\u0394q";
+  dq.unit                   = "g kg\u207B\u00B9";
   dq.description            = "Specific humidity jump at boundary layer top";
 
   gammaq.data               = new double[tsteps];   // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   advq.data                 = new double[tsteps];   // advection of moisture [kg kg-1 s-1]
 
   wq.data                   = new double[tsteps];   // surface kinematic moisture flux [kg kg-1 m s-1]
-  wq.name                   = "wq";
-  wq.unit                   = "g kg-1 m s-1";
+  wq.name                   = "w'q'";
+  wq.unit                   = "g kg\u207B\u00B9 m s\u207B\u00B9";
   wq.description            = "Surface kinematic moisture flux";
 
   u.data                    = new double[tsteps];   // initial mixed-layer u-wind speed [m s-1]

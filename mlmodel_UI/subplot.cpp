@@ -288,7 +288,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     // Axis labels
     paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + 28,300,20,Qt::AlignHCenter, QString::fromUtf8(xlabel.c_str()));
     paint.rotate(270);
-    paint.drawText(-((plotheight / 2) + topmargin + 150),5,300,20,Qt::AlignCenter, QString::fromStdString(ylabel));
+    paint.drawText(-((plotheight / 2) + topmargin + 150),5,300,20,Qt::AlignCenter, QString::fromUtf8(ylabel.c_str()));
     paint.rotate(90);
 
     // Hereafter; clip data plot .
