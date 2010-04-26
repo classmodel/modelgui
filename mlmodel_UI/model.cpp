@@ -255,11 +255,11 @@ void model::run2file(std::string filedir, std::string filename)
 
   runsave.open(fullpath.c_str());
 
-  std::cout << fullpath.c_str() << std::endl;
+  std::cout << "Saving file " << fullpath.c_str() << std::endl;
 
   // Write header first
   runsave << output->t.name << " [" << output->t.unit << "], ";
-  runsave << output->h.name << " [" << output->h.unit << "], ";
+  runsave << output->h.name << " [" << output->h.unit << "]  ";
   runsave << std::endl;
 
   for(int nt=0; nt < tsteps; nt++)

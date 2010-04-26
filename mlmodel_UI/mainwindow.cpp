@@ -190,7 +190,7 @@ void MainWindow::runTreeChanged()
   ui->deleteButton->setEnabled(deleteitems);
   ui->startButton->setEnabled(inputfields);
   ui->cancelButton->setEnabled(inputfields);
-  ui->exportButton->setEnabled(inputfields);
+  ui->exportButton->setEnabled(deleteitems);
   updateSelectedRuns();
   updateForm();
 }
@@ -397,7 +397,8 @@ void MainWindow::exportRuns()
       }
 
       int n = ident.toInt(0,10);
-      modelrunlist->find(n).value().run->run2file(dirname.toStdString(),runname.toStdString());
+      if (modelrunlist->find(n).value().hasrun)
+        modelrunlist->find(n).value().run->run2file(dirname.toStdString(),runname.toStdString());
     }
   }
 }
