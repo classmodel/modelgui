@@ -136,8 +136,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 {
   if (selectedruns->count() > 0)
   {
-    //xlabel = runlist->value(selectedruns->value(0)).run->output->t.n + " [" + runlist->value(selectedruns->value(0)).run->output->t.unit + "]";
-    xlabel = "Test [ \u00B2 ]";
+    xlabel = runlist->value(selectedruns->value(0)).run->output->t.name + " [" + runlist->value(selectedruns->value(0)).run->output->t.unit + "]";
 
     if (autoaxis)
     {
@@ -287,7 +286,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     } 
 
     // Axis labels
-    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + 28,300,20,Qt::AlignHCenter, QString::fromStdString(xlabel));
+    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + 28,300,20,Qt::AlignHCenter, QString::fromUtf8(xlabel.c_str()));
     paint.rotate(270);
     paint.drawText(-((plotheight / 2) + topmargin + 150),5,300,20,Qt::AlignCenter, QString::fromStdString(ylabel));
     paint.rotate(90);
