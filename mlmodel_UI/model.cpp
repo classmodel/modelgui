@@ -258,14 +258,14 @@ void model::run2file(std::string filedir, std::string filename)
   std::cout << "Saving file " << fullpath.c_str() << std::endl;
 
   // Write header first
-  runsave << output->t.name << " [" << output->t.unit << "], ";
-  runsave << output->h.name << " [" << output->h.unit << "]  ";
+  runsave << output->t.name << " [" << output->t.unit << "],";
+  runsave << output->h.name << " [" << output->h.unit << "]";
   runsave << std::endl;
 
   for(int nt=0; nt < tsteps; nt++)
   {
-    runsave << output->t.data[nt] << ", ";
-    runsave << output->h.data[nt] << ", ";
+    runsave << output->t.data[nt] << ",";
+    runsave << output->h.data[nt];
     runsave << std::endl;
   }
 
