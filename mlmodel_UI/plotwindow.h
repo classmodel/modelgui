@@ -23,6 +23,7 @@ public:
   plotwindow(QMap<int,modelrun> *, QList<int> *, QMainWindow *);
   ~plotwindow();
   QList<int> *selectedruns;
+  QList<int> *initialselected;
   QMap<int, modelrun> *runlist;
 
 public slots:

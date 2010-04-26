@@ -5,10 +5,10 @@
 //#include "modeloutput.h"
 #include <iostream>
 
-plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *selected, QMainWindow *parent) : QTabWidget(parent), ui(new Ui::plotwindow)
+plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, QMainWindow *parent) : QTabWidget(parent), ui(new Ui::plotwindow)
 {
   ui->setupUi(this);
-  selectedruns = selected;
+  selectedruns = new QList<int>;
   runlist = runs;
 
   plot = new subplot(runlist, selectedruns, this);
@@ -31,8 +31,12 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *selected, QMainWin
     if (runlist->value(i.key()).hasrun)
     {
       QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelruntree);
-      if (selectedruns->contains(i.key()))
+      if (initialselected->contains(i.key()))
+      {
         point->setCheckState(1,Qt::Checked);
+        selectedruns->append(i.key());
+      }
+
       else
         point->setCheckState(1,Qt::Unchecked);
       point->setDisabled(false);
