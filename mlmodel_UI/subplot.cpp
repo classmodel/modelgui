@@ -204,7 +204,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       plotwidget_width = 1000;
       plotwidget_height = 1000;
-      PNGscale = 2;
+      PNGscale = 1.6;
     }
     else
     {
@@ -244,7 +244,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       paint.setFont(font);
     }
 
-    QPen pen(Qt::black, PNGscale, Qt::SolidLine);
+    QPen pen(Qt::black, std::ceil(PNGscale), Qt::SolidLine);
     paint.setPen(pen);
 
     /*
