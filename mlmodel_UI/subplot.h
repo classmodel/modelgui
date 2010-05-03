@@ -14,6 +14,7 @@
 #include <QPaintDevice>
 #include <QFont>
 #include <QPen>
+#include <QPointF>
 
 // ++++++++++++++++++++++++++
 // Actual plot area

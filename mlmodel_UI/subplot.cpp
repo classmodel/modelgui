@@ -204,7 +204,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       plotwidget_width = 1000;
       plotwidget_height = 1000;
-      PNGscale = 1.7;
+      PNGscale = 2;
     }
     else
     {
@@ -233,7 +233,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       image.fill(QColor(Qt::white).rgb());
       paint.begin(&image);\
-      paint.setRenderHint(QPainter::Antialiasing, true);
+      //paint.setRenderHint(QPainter::Antialiasing, true);
       QFont font("Arial", 18, QFont::Normal);
       paint.setFont(font);
     }
@@ -241,7 +241,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     else                      // Plot on screen
     {
       paint.begin(this);
-      paint.setRenderHint(QPainter::Antialiasing, false);
+      //paint.setRenderHint(QPainter::Antialiasing, true);
       QFont font("Arial", 9, QFont::Normal);
       paint.setFont(font);
     }
@@ -344,13 +344,17 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
       pen.setColor(colors.value(i));
       paint.setPen(pen);
-      for(int m=0; m<tsteps-1; m=m+10)
+
+      QPointF points[tsteps-1];
+      for (int m=0; m<tsteps-1; m++)
       {
-        paint.drawLine(transfx((runlist->value(selectedruns->value(i)).run->output->t.data[m]),xscale,graphminx),
-                       transfy((tempplotvar[m]),yscale,graphminy),
-                       transfx((runlist->value(selectedruns->value(i)).run->output->t.data[m+10]),xscale,graphminx),
-                       transfy((tempplotvar[m+10]),yscale,graphminy));
+        points[m] = QPointF(transfx((runlist->value(selectedruns->value(i)).run->output->t.data[m]),xscale,graphminx), transfy((tempplotvar[m]),yscale,graphminy));
+        std::cout << points[m].x() << "," << points[m].y() << std::endl;
       }
+
+      paint.setRenderHint(QPainter::Antialiasing, true);
+      paint.drawPolyline(points, tsteps-1);
+      paint.setRenderHint(QPainter::Antialiasing, false);
 
       paint.drawLine(leftmargin+(5*PNGscale),legendy+8,leftmargin+(20*PNGscale),legendy+8);
       paint.drawText(leftmargin+(25*PNGscale),legendy-4,400,25, 0x0081, runlist->value(selectedruns->value(i)).runname);
