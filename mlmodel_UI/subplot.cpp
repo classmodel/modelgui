@@ -68,12 +68,12 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   setAutoFillBackground(true);
 
   plotvar           = "h";
-  defaulttopmargin       = 30;
-  defaultbottommargin    = 50;
-  defaultleftmargin      = 70;
-  defaultrightmargin     = 30;
-  autoaxis        = false;
-  saveImageMode   = 0;
+  defaulttopmargin  = 30;
+  defaultbottommargin = 50;
+  defaultleftmargin   = 70;
+  defaultrightmargin  = 30;
+  autoaxis          = false;
+  saveImageMode     = 0;
 }
 
 double plotarea::transfx(double xreal, double xscale, double xmin)
@@ -203,8 +203,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     if (saveImageMode == 1)
     {
       plotwidget_width = 1000;
-      plotwidget_height = 1000;
-      PNGscale = 1.6;
+      plotwidget_height = 800;
+      PNGscale = 2;
     }
     else
     {
@@ -233,7 +233,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       image.fill(QColor(Qt::white).rgb());
       paint.begin(&image);\
-      QFont font("sans-serif", 18, QFont::Normal);
+      QFont font("sans-serif", 26, QFont::Normal);
       paint.setFont(font);
     }
 
@@ -285,7 +285,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(y = graphminy; y <= graphmaxy + .5 * d; y = y + d)
     {
-      paint.drawText((leftmargin-70),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-12,60,25,0x0082, QString::number(y,'f',nfrac));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
+      paint.drawText((leftmargin-100),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-13,90,30,0x0082, QString::number(y,'f',nfrac));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
       paint.drawLine(leftmargin,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin,leftmargin+(3 * PNGscale),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin);
     }
 
@@ -298,12 +298,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(x = graphminx; x <= graphmaxx + .5 * d; x = x + d)
     {
-      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-30,plotwidget_height-bottommargin+8,60,25, 0x0024, QString::number(x,'f',nfrac));
+      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-30,plotwidget_height-bottommargin+8,60,30, 0x0024, QString::number(x,'f',nfrac));
       paint.drawLine(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin,((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin-(3 * PNGscale));
     } 
 
     // Axis labels
-    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + (28 * PNGscale),300,25,Qt::AlignHCenter, QString::fromUtf8(xlabel.c_str()));
+    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + (28 * PNGscale),300,30,Qt::AlignHCenter, QString::fromUtf8(xlabel.c_str()));
     paint.rotate(270);
     paint.drawText(-((plotheight / 2) + topmargin + 150),(5 * PNGscale),300,25,Qt::AlignCenter, QString::fromUtf8(ylabel.c_str()));
     paint.rotate(90);
@@ -315,7 +315,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     QList<QColor> colors;
     colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black);
 
-    int legendy = topmargin;
+    int legendy = topmargin+5;
 
     for(int i=0; i<selectedruns->count(); i++)
     {
@@ -353,8 +353,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       paint.drawPolyline(points, tsteps-1);
       paint.setRenderHint(QPainter::Antialiasing, false);
 
-      paint.drawLine(leftmargin+(5*PNGscale),legendy+8,leftmargin+(20*PNGscale),legendy+8);
-      paint.drawText(leftmargin+(25*PNGscale),legendy-4,400,25, 0x0081, runlist->value(selectedruns->value(i)).runname);
+      paint.drawLine(leftmargin+(10*PNGscale),legendy+8,leftmargin+(25*PNGscale),legendy+8);
+      paint.drawText(leftmargin+(30*PNGscale),legendy-7,400,30, 0x0081, runlist->value(selectedruns->value(i)).runname);
       legendy = legendy+(15 * PNGscale);
     }
 
