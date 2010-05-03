@@ -13,6 +13,7 @@
 #include <QFileDialog>
 #include <QPaintDevice>
 #include <QFont>
+#include <QPen>
 
 // ++++++++++++++++++++++++++
 // Actual plot area
@@ -45,9 +46,11 @@ protected:
   void paintEvent(QPaintEvent *event);
   QList<int> *selectedruns;
   QMap<int, modelrun> *runlist;
+  double PNGscale;
 
 private:
-  int plotmargin, topmargin, bottommargin, leftmargin, rightmargin;
+  int defaulttopmargin, defaultbottommargin, defaultleftmargin, defaultrightmargin;
+  int topmargin, bottommargin, leftmargin, rightmargin;
   double nicenumber(double, bool);
   int plotwidget_width, plotwidget_height;
 };

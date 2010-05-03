@@ -67,11 +67,11 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   setBackgroundRole(QPalette::Base);
   setAutoFillBackground(true);
 
-  plotvar         = "h";
-  topmargin       = 30;
-  bottommargin    = 50;
-  leftmargin      = 70;
-  rightmargin     = 30;
+  plotvar           = "h";
+  defaulttopmargin       = 30;
+  defaultbottommargin    = 50;
+  defaultleftmargin      = 70;
+  defaultrightmargin     = 30;
   autoaxis        = false;
   saveImageMode   = 0;
 }
@@ -84,8 +84,7 @@ double plotarea::transfx(double xreal, double xscale, double xmin)
 
 double plotarea::transfy(double yreal, double yscale, double ymin)
 {
-  int pwidget_height = geometry().height();
-  double ywidget = pwidget_height - bottommargin - ((yreal-ymin)*yscale);
+  double ywidget = plotwidget_height - bottommargin - ((yreal-ymin)*yscale);
   return (ywidget);
 }
 
@@ -205,12 +204,19 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       plotwidget_width = 1000;
       plotwidget_height = 1000;
+      PNGscale = 1.7;
     }
     else
     {
       plotwidget_width = geometry().width();
       plotwidget_height = geometry().height();
+      PNGscale = 1;
     }
+
+    topmargin     = defaulttopmargin * PNGscale;
+    bottommargin  = defaultbottommargin * PNGscale;
+    leftmargin    = defaultleftmargin  * PNGscale;
+    rightmargin   = defaultrightmargin * PNGscale;
 
     // Size of plotable area within widget (pixels)
     double plotwidth = plotwidget_width - leftmargin - rightmargin;
@@ -226,17 +232,21 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     if (saveImageMode == 1)   // Save as PNG
     {
       image.fill(QColor(Qt::white).rgb());
-      paint.begin(&image);      
-      //QFont large("Arial", 15, QFont::Bold);
-      //paint.setFont(large);
+      paint.begin(&image);\
+      paint.setRenderHint(QPainter::Antialiasing, true);
+      QFont font("Arial", 18, QFont::Normal);
+      paint.setFont(font);
     }
 
     else                      // Plot on screen
     {
       paint.begin(this);
+      paint.setRenderHint(QPainter::Antialiasing, false);
+      QFont font("Arial", 9, QFont::Normal);
+      paint.setFont(font);
     }
 
-    QPen pen(Qt::black, 1, Qt::SolidLine);
+    QPen pen(Qt::black, PNGscale, Qt::SolidLine);
     paint.setPen(pen);
 
     /*
@@ -253,7 +263,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     */
 
     // Draw X and Y axis
-    paint.setPen(Qt::SolidLine);
     paint.drawLine(leftmargin,plotwidget_height - bottommargin,plotwidget_width-rightmargin,plotwidget_height-bottommargin);
     paint.drawLine(leftmargin,plotwidget_height - bottommargin,leftmargin,topmargin);
 
@@ -278,8 +287,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(y = graphminy; y <= graphmaxy + .5 * d; y = y + d)
     {
-      paint.drawText((leftmargin-50),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-5,40,13,Qt::AlignRight, QString::number(y,'f',nfrac));
-      paint.drawLine(leftmargin,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin,leftmargin+3,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin);
+      paint.drawText((leftmargin-70),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-10,60,25,0x0082, QString::number(y,'f',nfrac));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
+      paint.drawLine(leftmargin,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin,leftmargin+(3 * PNGscale),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin);
     }
 
     // Draw labels X-axis
@@ -291,14 +300,14 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(x = graphminx; x <= graphmaxx + .5 * d; x = x + d)
     {
-      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-20,plotwidget_height-bottommargin+8,40,13,Qt::AlignCenter, QString::number(x,'f',nfrac));
-      paint.drawLine(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin,((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin-3);
+      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-29,plotwidget_height-bottommargin+8,60,25, 0x0024, QString::number(x,'f',nfrac));
+      paint.drawLine(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin,((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin-(3 * PNGscale));
     } 
 
     // Axis labels
-    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + 28,300,20,Qt::AlignHCenter, QString::fromUtf8(xlabel.c_str()));
+    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + (28 * PNGscale),300,25,Qt::AlignHCenter, QString::fromUtf8(xlabel.c_str()));
     paint.rotate(270);
-    paint.drawText(-((plotheight / 2) + topmargin + 150),5,300,20,Qt::AlignCenter, QString::fromUtf8(ylabel.c_str()));
+    paint.drawText(-((plotheight / 2) + topmargin + 150),(5 * PNGscale),300,25,Qt::AlignCenter, QString::fromUtf8(ylabel.c_str()));
     paint.rotate(90);
 
     // Hereafter; clip data plot .
@@ -333,18 +342,19 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       double yscale = plotheight / (graphmaxy-graphminy);   // scaling factor for f(real-coordinate to Widget-coordinate)
       double xscale = plotwidth  / (graphmaxx-graphminx);   // scaling factor for f(real-coordinate to Widget-coordinate)
 
-      paint.setPen( colors.value(i) );
-      for(int m=0; m<tsteps-1; m=m+5)
+      pen.setColor(colors.value(i));
+      paint.setPen(pen);
+      for(int m=0; m<tsteps-1; m=m+10)
       {
         paint.drawLine(transfx((runlist->value(selectedruns->value(i)).run->output->t.data[m]),xscale,graphminx),
                        transfy((tempplotvar[m]),yscale,graphminy),
-                       transfx((runlist->value(selectedruns->value(i)).run->output->t.data[m+5]),xscale,graphminx),
-                       transfy((tempplotvar[m+5]),yscale,graphminy));
+                       transfx((runlist->value(selectedruns->value(i)).run->output->t.data[m+10]),xscale,graphminx),
+                       transfy((tempplotvar[m+10]),yscale,graphminy));
       }
 
-      paint.drawLine(leftmargin+5,legendy+8,leftmargin+20,legendy+8);
-      paint.drawText(leftmargin+25,legendy,200,13,Qt::AlignLeft, runlist->value(selectedruns->value(i)).runname);
-      legendy = legendy+15;
+      paint.drawLine(leftmargin+(5*PNGscale),legendy+8,leftmargin+(20*PNGscale),legendy+8);
+      paint.drawText(leftmargin+(25*PNGscale),legendy-4,400,25, 0x0081, runlist->value(selectedruns->value(i)).runname);
+      legendy = legendy+(15 * PNGscale);
     }
 
     if (saveImageMode == 1)
