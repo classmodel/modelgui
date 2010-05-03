@@ -233,7 +233,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       image.fill(QColor(Qt::white).rgb());
       paint.begin(&image);\
-      //paint.setRenderHint(QPainter::Antialiasing, true);
       QFont font("Arial", 18, QFont::Normal);
       paint.setFont(font);
     }
@@ -241,7 +240,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     else                      // Plot on screen
     {
       paint.begin(this);
-      //paint.setRenderHint(QPainter::Antialiasing, true);
       QFont font("Arial", 9, QFont::Normal);
       paint.setFont(font);
     }
@@ -250,7 +248,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     paint.setPen(pen);
 
     /*
-    // Save as PS
+    // Save as PDF
     QString fileName = "testpdf";
     QPrinter printer(QPrinter::HighResolution);
     printer.setResolution(100);
