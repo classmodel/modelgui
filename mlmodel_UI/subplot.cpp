@@ -347,7 +347,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       for (int m=0; m<tsteps-1; m++)
       {
         points[m] = QPointF(transfx((runlist->value(selectedruns->value(i)).run->output->t.data[m]),xscale,graphminx), transfy((tempplotvar[m]),yscale,graphminy));
-        std::cout << points[m].x() << "," << points[m].y() << std::endl;
       }
 
       paint.setRenderHint(QPainter::Antialiasing, true);
