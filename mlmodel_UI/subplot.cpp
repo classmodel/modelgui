@@ -233,14 +233,14 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       image.fill(QColor(Qt::white).rgb());
       paint.begin(&image);\
-      QFont font("Arial", 18, QFont::Normal);
+      QFont font("sans-serif", 18, QFont::Normal);
       paint.setFont(font);
     }
 
     else                      // Plot on screen
     {
       paint.begin(this);
-      QFont font("Arial", 9, QFont::Normal);
+      QFont font("sans-serif", 9, QFont::Normal);
       paint.setFont(font);
     }
 
@@ -285,7 +285,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(y = graphminy; y <= graphmaxy + .5 * d; y = y + d)
     {
-      paint.drawText((leftmargin-70),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-10,60,25,0x0082, QString::number(y,'f',nfrac));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
+      paint.drawText((leftmargin-70),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-12,60,25,0x0082, QString::number(y,'f',nfrac));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
       paint.drawLine(leftmargin,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin,leftmargin+(3 * PNGscale),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin);
     }
 
@@ -298,7 +298,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(x = graphminx; x <= graphmaxx + .5 * d; x = x + d)
     {
-      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-29,plotwidget_height-bottommargin+8,60,25, 0x0024, QString::number(x,'f',nfrac));
+      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-30,plotwidget_height-bottommargin+8,60,25, 0x0024, QString::number(x,'f',nfrac));
       paint.drawLine(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin,((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin-(3 * PNGscale));
     } 
 
