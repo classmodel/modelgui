@@ -34,6 +34,9 @@ public:
   double xmin, xmax, ymin, ymax;
   bool autoaxis;
 
+  QList<QColor> colors;
+  QList<int> asignedcolors;
+
   int saveImageMode;
   QString saveImageName;
 

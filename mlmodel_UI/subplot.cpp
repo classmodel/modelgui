@@ -74,6 +74,10 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   defaultrightmargin  = 30;
   autoaxis          = false;
   saveImageMode     = 0;
+
+  // Define 8 colors for plotting, set them unasigned.
+  colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black) << QColor(Qt::gray);
+  asignedcolors << -1 << -1 << -1 << -1 << -1 << -1 << -1 << -1;
 }
 
 double plotarea::transfx(double xreal, double xscale, double xmin)
@@ -312,9 +316,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     paint.setClipping(true);
     paint.setClipRect(leftmargin+1,topmargin,plotwidth,plotheight);
 
-    QList<QColor> colors;
-    colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black);
-
     int legendy = topmargin+5;
 
     for(int i=0; i<selectedruns->count(); i++)
@@ -340,8 +341,25 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       double yscale = plotheight / (graphmaxy-graphminy);   // scaling factor for f(real-coordinate to Widget-coordinate)
       double xscale = plotwidth  / (graphmaxx-graphminx);   // scaling factor for f(real-coordinate to Widget-coordinate)
 
-      pen.setColor(colors.value(i));
-      paint.setPen(pen);
+      // Find first free color in colorlist
+      if (asignedcolors.contains(i))
+      {
+        pen.setColor(colors.value(asignedcolors.indexOf(i)));
+        paint.setPen(pen);
+      }
+      else
+      {
+        for (int n=0; n<colors.size(); n++)
+        {
+         if (asignedcolors.value(n) == -1)
+         {
+           asignedcolors.replace(n,i);
+           pen.setColor(colors.value(n));
+           paint.setPen(pen);
+           break;
+         }
+        }
+      }
 
       QPointF points[tsteps-1];
       for (int m=0; m<tsteps-1; m++)
