@@ -5,44 +5,43 @@
 //#include "modeloutput.h"
 #include <iostream>
 
-plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, QMainWindow *parent) : QMainWindow(parent), ui(new Ui::plotwindow)
+plotwindow::plotwindow(QMap<int, modelrun> *runlist, QList<int> *initialselected, QMainWindow *parent) : QMainWindow(parent), ui(new Ui::plotwindow)
 {
   ui->setupUi(this);
   selectedruns = new QList<int>;
-  runlist = runs;
+  //runlist = runs;
 
+  // Place left dockwidget in corner
   this->setCorner(Qt::TopLeftCorner,Qt::LeftDockWidgetArea);
 
-  // From old subplot
+  // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
+
+  // Signal/slots -------------------------------------------------------------------------------------
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
   connect(ui->saveButton, SIGNAL(clicked()), plotar, SLOT(saveImage()));
-
   connect(ui->xminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->xmaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->yminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
+  connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
+  connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
 
+  // Set "auto scale axis" by default to true
+  ui->autoscaleaxis->setChecked(true);
+
+  // Layout and placement plotarea
   QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   sizePolicy.setHorizontalStretch(0);
   sizePolicy.setVerticalStretch(0);
   sizePolicy.setHeightForWidth(plotar->sizePolicy().hasHeightForWidth());
   plotar->setSizePolicy(sizePolicy);
-  plotar->setMinimumSize(QSize(300, 300));
-
+  plotar->setMinimumSize(QSize(400, 400));
   ui->centralLayout->addWidget(plotar);
 
-  ui->autoscaleaxis->setChecked(true);
-  // end from old subplot
-
-  //ui->horizontalLayout->addWidget(plot);
-
-  connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
-  connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
-
-  // Setup QTreeWidget
+  // Setup QTreeWidget (List with modelruns / checkboxes)
   QStringList heading;
   heading << "ID" << "Name";
   ui->modelruntree->setColumnCount(2);
@@ -51,6 +50,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   ui->modelruntree->hideColumn(0);
   ui->modelruntree->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
+  // Iterate through QMap with modelruns; create entry in QtreeWidget when run.hasrun==true
   QMap<int, modelrun>::const_iterator i = runlist->constBegin();
   while (i != runlist->constEnd()) {
     if (runlist->value(i.key()).hasrun)
@@ -61,7 +61,6 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
         point->setCheckState(1,Qt::Checked);
         selectedruns->append(i.key());
       }
-
       else
         point->setCheckState(1,Qt::Unchecked);
       point->setDisabled(false);
@@ -71,7 +70,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   ++i;
   }
 
-  // Dropdown with plot variables
+  // Create dropdown menu with plotvariables for basic plotting
   QStringList varnames;
   modeloutput modelout(0);
 
@@ -86,7 +85,7 @@ plotwindow::~plotwindow()
   delete ui;
 }
 
-void plotwindow::updateselectedruns()               // create QList containing ID's of selected runs
+void plotwindow::updateselectedruns()  // create QList containing ID's of selected runs
 {
   int id = ui->modelruntree->currentItem()->text(0).toInt();
   if (ui->modelruntree->currentItem()->checkState(1) == 2)

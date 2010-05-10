@@ -23,12 +23,11 @@ class plotwindow : public QMainWindow
 public:
   plotwindow(QMap<int,modelrun> *, QList<int> *, QMainWindow *);
   ~plotwindow();
+  plotarea *plotar;
+
   QList<int> *selectedruns;
   QList<int> *initialselected;
   QMap<int, modelrun> *runlist;
-
-  plotarea *plotar;
-  //subplot(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
   QString plotvar;
 
 public slots:
@@ -42,7 +41,6 @@ protected:
 
 private:
   Ui::plotwindow *ui;
-  subplot *plot;
   QStringList outputnames;
 };
 

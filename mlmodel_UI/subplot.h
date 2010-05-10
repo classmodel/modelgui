@@ -22,19 +22,19 @@ class plotarea : public QWidget
 
 public:
   plotarea(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
-  double transfx(double xreal, double xscale, double xmin);    // Function real-coordinate to Widget-coordinate
-  double transfy(double yreal, double yscale, double ymin);    // Function real-coordinate to Widget-coordinate
   QString plotvar;
+  QList<QColor> colors;
+  QList<int> assignedcolors;
+  int saveImageMode;
+  QString saveImageName;
   std::string xlabel, ylabel;
   double graphminx, graphmaxx, graphminy, graphmaxy;
   double xmin, xmax, ymin, ymax;
   bool autoaxis;
 
-  QList<QColor> colors;
-  QList<int> assignedcolors;
-
-  int saveImageMode;
-  QString saveImageName;
+  // Function to translate real coordinates (x,y) to widget coordinates
+  double transfx(double xreal, double xscale, double xmin);
+  double transfy(double yreal, double yscale, double ymin);
 
 signals:
   void axischanged();

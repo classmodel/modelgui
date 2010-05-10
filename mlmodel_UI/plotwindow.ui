@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>569</width>
+    <width>595</width>
     <height>646</height>
    </rect>
   </property>
@@ -31,7 +31,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>569</width>
+     <width>595</width>
      <height>22</height>
     </rect>
    </property>
@@ -73,7 +73,7 @@
   <widget class="QDockWidget" name="AdvancedDock">
    <property name="minimumSize">
     <size>
-     <width>80</width>
+     <width>102</width>
      <height>133</height>
     </size>
    </property>
@@ -137,6 +137,12 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidget_2">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
@@ -144,7 +150,7 @@
     <set>Qt::TopDockWidgetArea</set>
    </property>
    <attribute name="dockWidgetArea">
-    <number>2</number>
+    <number>4</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QHBoxLayout" name="horizontalLayout_3">

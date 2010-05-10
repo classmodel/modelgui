@@ -4,18 +4,24 @@
 
 plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent)
 {
-  selectedruns    = selected;
-  runlist         = runs;
+  selectedruns          = selected;     // QList with selected runs in plotwindow
+  runlist               = runs;         // QMap with modelruns
+
+  // Set background of plotarea to white
   setBackgroundRole(QPalette::Base);
   setAutoFillBackground(true);
 
-  plotvar           = "h";
-  defaulttopmargin  = 30;
-  defaultbottommargin = 50;
-  defaultleftmargin   = 70;
-  defaultrightmargin  = 30;
-  autoaxis          = false;
-  saveImageMode     = 0;
+  // Default margins for plot, can be changed by for instance the save-PNG function
+  defaulttopmargin      = 30;
+  defaultbottommargin   = 50;
+  defaultleftmargin     = 70;
+  defaultrightmargin    = 30;
+
+  // Set autoaxis as default to false
+  autoaxis              = false;
+
+  // Support variable used when saving as PNG
+  saveImageMode         = 0;
 
   // Define 8 colors for plotting, set them unassigned.
   colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black) << QColor(Qt::gray);
