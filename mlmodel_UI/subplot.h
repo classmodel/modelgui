@@ -35,7 +35,7 @@ public:
   bool autoaxis;
 
   QList<QColor> colors;
-  QList<int> asignedcolors;
+  QList<int> assignedcolors;
 
   int saveImageMode;
   QString saveImageName;

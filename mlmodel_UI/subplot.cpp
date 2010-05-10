@@ -75,9 +75,9 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   autoaxis          = false;
   saveImageMode     = 0;
 
-  // Define 8 colors for plotting, set them unasigned.
+  // Define 8 colors for plotting, set them unassigned.
   colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black) << QColor(Qt::gray);
-  asignedcolors << -1 << -1 << -1 << -1 << -1 << -1 << -1 << -1;
+  assignedcolors << -1 << -1 << -1 << -1 << -1 << -1 << -1 << -1;
 }
 
 double plotarea::transfx(double xreal, double xscale, double xmin)
@@ -342,18 +342,20 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       double xscale = plotwidth  / (graphmaxx-graphminx);   // scaling factor for f(real-coordinate to Widget-coordinate)
 
       // Find first free color in colorlist
-      if (asignedcolors.contains(i))
+      int j = selectedruns->value(i);
+
+      if (assignedcolors.contains(j))
       {
-        pen.setColor(colors.value(asignedcolors.indexOf(i)));
+        pen.setColor(colors.value(assignedcolors.indexOf(j)));
         paint.setPen(pen);
       }
       else
       {
         for (int n=0; n<colors.size(); n++)
         {
-         if (asignedcolors.value(n) == -1)
+         if (assignedcolors.value(n) == -1)
          {
-           asignedcolors.replace(n,i);
+           assignedcolors.replace(n,j);
            pen.setColor(colors.value(n));
            paint.setPen(pen);
            break;
@@ -385,6 +387,11 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     }
 
   }
+
+  for(int i=0; i < assignedcolors.count(); i++)
+    if(!selectedruns->contains(assignedcolors.value(i)))
+      assignedcolors.replace(i,-1);
+
   if (autoaxis)
     emit axischanged();
 }
