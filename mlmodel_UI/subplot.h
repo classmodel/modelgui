@@ -16,10 +16,6 @@
 #include <QPen>
 #include <QPointF>
 
-// ++++++++++++++++++++++++++
-// Actual plot area
-// ++++++++++++++++++++++++++
-
 class plotarea : public QWidget
 {
   Q_OBJECT
@@ -58,32 +54,4 @@ private:
   double nicenumber(double, bool);
   int plotwidget_width, plotwidget_height;
 };
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-namespace Ui
-{
-    class subplot;
-}
-
-class subplot : public QWidget
-{
-  Q_OBJECT
-
-public:
-  Ui::subplot *ui;
-  plotarea *plotar;
-  subplot(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
-  QString plotvar;
-
-public slots:
-  void changeaxis();
-
-protected:
-  QList<int> *selectedruns;
-  QMap<int, modelrun> *runlist;
-
-private:
-};
-
 #endif // SUBPLOT_H

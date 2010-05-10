@@ -2,64 +2,6 @@
 #include "subplot.h"
 #include "ui_subplot.h"
 
-subplot::subplot(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent), ui(new Ui::subplot)
-{
-  ui->setupUi(this);
-  selectedruns    = selected;
-  runlist         = runs;
-
-  plotar = new plotarea(runlist,selectedruns,this);
-  connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
-  connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
-  connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
-  connect(ui->saveButton, SIGNAL(clicked()), plotar, SLOT(saveImage()));
-
-  connect(ui->xminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
-  connect(ui->xmaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
-  connect(ui->yminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
-  connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
-
-  QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  sizePolicy.setHorizontalStretch(0);
-  sizePolicy.setVerticalStretch(0);
-  sizePolicy.setHeightForWidth(plotar->sizePolicy().hasHeightForWidth());
-  plotar->setSizePolicy(sizePolicy);
-  plotar->setMinimumSize(QSize(300, 300));
-  ui->plotLayout->addWidget(plotar);
-
-  ui->autoscaleaxis->setChecked(true);
-}
-
-void subplot::changeaxis()
-{
-  if (ui->autoscaleaxis->checkState() == Qt::Checked)
-  {
-    plotar->autoaxis = true;
-    ui->xminInput->setText(QString::number(plotar->graphminx));
-    ui->xmaxInput->setText(QString::number(plotar->graphmaxx));
-    ui->yminInput->setText(QString::number(plotar->graphminy));
-    ui->ymaxInput->setText(QString::number(plotar->graphmaxy));
-  }
-  else
-  {
-    plotar->autoaxis = false;
-    plotar->xmin = ui->xminInput->text().toDouble();
-    plotar->xmax = ui->xmaxInput->text().toDouble();
-    plotar->ymin = ui->yminInput->text().toDouble();
-    plotar->ymax = ui->ymaxInput->text().toDouble();
-    plotar->update();
-  }
-
-  ui->xminInput->setDisabled(plotar->autoaxis);
-  ui->xmaxInput->setDisabled(plotar->autoaxis);
-  ui->yminInput->setDisabled(plotar->autoaxis);
-  ui->ymaxInput->setDisabled(plotar->autoaxis);
-}
-
-// ++++++++++++++++++++++++++++++
-//
-// ++++++++++++++++++++++++++++++
-
 plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent)
 {
   selectedruns    = selected;

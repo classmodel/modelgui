@@ -5,17 +5,42 @@
 //#include "modeloutput.h"
 #include <iostream>
 
-plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, QMainWindow *parent) : QTabWidget(parent), ui(new Ui::plotwindow)
+plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, QMainWindow *parent) : QMainWindow(parent), ui(new Ui::plotwindow)
 {
   ui->setupUi(this);
   selectedruns = new QList<int>;
   runlist = runs;
 
-  plot = new subplot(runlist, selectedruns, this);
-  ui->horizontalLayout->addWidget(plot);
+  this->setCorner(Qt::TopLeftCorner,Qt::LeftDockWidgetArea);
+
+  // From old subplot
+  plotar = new plotarea(runlist,selectedruns,this);
+  connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
+  connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
+  connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
+  connect(ui->saveButton, SIGNAL(clicked()), plotar, SLOT(saveImage()));
+
+  connect(ui->xminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
+  connect(ui->xmaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
+  connect(ui->yminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
+  connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
+
+  QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  sizePolicy.setHorizontalStretch(0);
+  sizePolicy.setVerticalStretch(0);
+  sizePolicy.setHeightForWidth(plotar->sizePolicy().hasHeightForWidth());
+  plotar->setSizePolicy(sizePolicy);
+  plotar->setMinimumSize(QSize(300, 300));
+
+  ui->centralLayout->addWidget(plotar);
+
+  ui->autoscaleaxis->setChecked(true);
+  // end from old subplot
+
+  //ui->horizontalLayout->addWidget(plot);
 
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
-  connect(plot->ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
+  connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
 
   // Setup QTreeWidget
   QStringList heading;
@@ -53,7 +78,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   varnames << QString::fromStdString(modelout.h.description) << QString::fromStdString(modelout.theta.description) << QString::fromStdString(modelout.dtheta.description) << QString::fromStdString(modelout.wtheta.description)
           << QString::fromStdString(modelout.q.description) << QString::fromStdString(modelout.dq.description) << QString::fromStdString(modelout.wq.description);
   outputnames << "h" << "theta" << "dtheta" << "wtheta" << "q" << "dq" << "wq";
-  plot->ui->plotvar->addItems(varnames);
+  ui->plotvar->addItems(varnames);
 }
 
 plotwindow::~plotwindow()
@@ -72,15 +97,15 @@ void plotwindow::updateselectedruns()               // create QList containing I
   else if(ui->modelruntree->currentItem()->checkState(1) == 0)
     selectedruns->removeAt(selectedruns->indexOf(id));
 
-  plot->plotar->update();
+  plotar->update();
 }
 
 void plotwindow::changeplotvar()
 {
-  plot->plotar->plotvar = outputnames[plot->ui->plotvar->currentIndex()];
-  plot->ui->autoscaleaxis->setChecked(true);
-  plot->plotar->autoaxis = true;
-  plot->plotar->update();
+  plotar->plotvar = outputnames[ui->plotvar->currentIndex()];
+  ui->autoscaleaxis->setChecked(true);
+  plotar->autoaxis = true;
+  plotar->update();
 }
 
 void plotwindow::deleterun(int num)
@@ -89,7 +114,7 @@ void plotwindow::deleterun(int num)
   QTreeWidgetItem *del = ui->modelruntree->findItems(id,Qt::MatchExactly,0).value(0);
   delete del;
   selectedruns->removeAt(selectedruns->indexOf(num));
-  plot->plotar->update();
+  plotar->update();
 }
 
 void plotwindow::addrun(int num)
@@ -103,5 +128,31 @@ void plotwindow::addrun(int num)
     point->setText(0, QString::number(num));
     point->setText(1, runlist->value(num).runname);
   }
-  plot->plotar->update();
+  plotar->update();
+}
+
+void plotwindow::changeaxis()
+{
+  if (ui->autoscaleaxis->checkState() == Qt::Checked)
+  {
+    plotar->autoaxis = true;
+    ui->xminInput->setText(QString::number(plotar->graphminx));
+    ui->xmaxInput->setText(QString::number(plotar->graphmaxx));
+    ui->yminInput->setText(QString::number(plotar->graphminy));
+    ui->ymaxInput->setText(QString::number(plotar->graphmaxy));
+  }
+  else
+  {
+    plotar->autoaxis = false;
+    plotar->xmin = ui->xminInput->text().toDouble();
+    plotar->xmax = ui->xmaxInput->text().toDouble();
+    plotar->ymin = ui->yminInput->text().toDouble();
+    plotar->ymax = ui->ymaxInput->text().toDouble();
+    plotar->update();
+  }
+
+  ui->xminInput->setDisabled(plotar->autoaxis);
+  ui->xmaxInput->setDisabled(plotar->autoaxis);
+  ui->yminInput->setDisabled(plotar->autoaxis);
+  ui->ymaxInput->setDisabled(plotar->autoaxis);
 }

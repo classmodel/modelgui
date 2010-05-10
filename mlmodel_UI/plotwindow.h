@@ -9,13 +9,14 @@
 #include "QPainter"
 
 class modelrun;
+class subplot;
 
 namespace Ui
 {
   class plotwindow;
 }
 
-class plotwindow : public QTabWidget
+class plotwindow : public QMainWindow
 {
   Q_OBJECT
 
@@ -26,11 +27,16 @@ public:
   QList<int> *initialselected;
   QMap<int, modelrun> *runlist;
 
+  plotarea *plotar;
+  //subplot(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
+  QString plotvar;
+
 public slots:
   void addrun(int num);
   void deleterun(int num);
   void updateselectedruns();
   void changeplotvar();
+  void changeaxis();
 
 protected:
 
