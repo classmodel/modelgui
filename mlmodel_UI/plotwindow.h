@@ -36,6 +36,8 @@ public slots:
   void updateselectedruns();
   void changeplotvar();
   void changeaxis();
+  void switchtobasicplotting();
+  void switchtoadvancedplotting();
 
 protected:
 

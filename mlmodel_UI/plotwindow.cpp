@@ -13,6 +13,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runlist, QList<int> *initialselected
 
   // Place left dockwidget in corner
   this->setCorner(Qt::TopLeftCorner,Qt::LeftDockWidgetArea);
+  ui->AdvancedDock->setShown(false);
 
   // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
@@ -28,6 +29,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runlist, QList<int> *initialselected
   connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
   connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
+  // Menu interface:
+  connect(ui->menu_basicplotting, SIGNAL(triggered()), this, SLOT(switchtobasicplotting()));
+  connect(ui->menu_advancedplotting, SIGNAL(triggered()), this, SLOT(switchtoadvancedplotting()));
 
   // Set "auto scale axis" by default to true
   ui->autoscaleaxis->setChecked(true);
@@ -155,3 +159,17 @@ void plotwindow::changeaxis()
   ui->yminInput->setDisabled(plotar->autoaxis);
   ui->ymaxInput->setDisabled(plotar->autoaxis);
 }
+
+void plotwindow::switchtobasicplotting()
+{
+  ui->AdvancedDock->setShown(false);
+  ui->PlotvarDock->setShown(true);
+}
+
+void plotwindow::switchtoadvancedplotting()
+{
+  ui->AdvancedDock->setShown(true);
+  ui->PlotvarDock->setShown(false);
+}
+
+

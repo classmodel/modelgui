@@ -32,22 +32,36 @@
      <x>0</x>
      <y>0</y>
      <width>595</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
+   <widget class="QMenu" name="modeMenu">
+    <property name="title">
+     <string>Mode</string>
+    </property>
+    <addaction name="menu_basicplotting"/>
+    <addaction name="menu_advancedplotting"/>
+   </widget>
    <widget class="QMenu" name="viewMenu">
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="actionHello"/>
-    <addaction name="separator"/>
+    <addaction name="menu_modelruns"/>
+    <addaction name="menu_axis"/>
    </widget>
    <addaction name="viewMenu"/>
+   <addaction name="modeMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="PlotvarDock">
+   <property name="maximumSize">
+    <size>
+     <width>524287</width>
+     <height>60</height>
+    </size>
+   </property>
    <property name="features">
-    <set>QDockWidget::DockWidgetFeatureMask</set>
+    <set>QDockWidget::AllDockWidgetFeatures</set>
    </property>
    <property name="allowedAreas">
     <set>Qt::TopDockWidgetArea</set>
@@ -73,9 +87,12 @@
   <widget class="QDockWidget" name="AdvancedDock">
    <property name="minimumSize">
     <size>
-     <width>102</width>
-     <height>133</height>
+     <width>103</width>
+     <height>136</height>
     </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
    <property name="allowedAreas">
     <set>Qt::BottomDockWidgetArea</set>
@@ -139,8 +156,14 @@
   <widget class="QDockWidget" name="dockWidget_2">
    <property name="minimumSize">
     <size>
-     <width>0</width>
-     <height>0</height>
+     <width>402</width>
+     <height>80</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>524287</width>
+     <height>80</height>
     </size>
    </property>
    <property name="features">
@@ -341,9 +364,30 @@
     </layout>
    </widget>
   </widget>
-  <action name="actionHello">
+  <action name="menu_modelruns">
    <property name="text">
-    <string>I'm a menu :)</string>
+    <string>Modelruns</string>
+   </property>
+  </action>
+  <action name="menu_basicplotting">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Basic plotting</string>
+   </property>
+  </action>
+  <action name="menu_advancedplotting">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Advanced plotting</string>
+   </property>
+  </action>
+  <action name="menu_axis">
+   <property name="text">
+    <string>Axis settings</string>
    </property>
   </action>
  </widget>
