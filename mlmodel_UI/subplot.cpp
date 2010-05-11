@@ -86,11 +86,31 @@ void plotarea::saveImage()
   update();
 }
 
+void plotarea::getdata(outputvar *xdata, outputvar *ydata, int i)
+{
+  *xdata = runlist->value(selectedruns->value(i)).run->output->t;
+
+  if (plotvar == "h")
+    *ydata = runlist->value(selectedruns->value(i)).run->output->h;
+  else if (plotvar == "theta")
+    *ydata = runlist->value(selectedruns->value(i)).run->output->theta;
+  else if (plotvar == "dtheta")
+    *ydata = runlist->value(selectedruns->value(i)).run->output->dtheta;
+  else if (plotvar == "wtheta")
+    *ydata = runlist->value(selectedruns->value(i)).run->output->wtheta;
+  else if (plotvar == "q")
+    *ydata = runlist->value(selectedruns->value(i)).run->output->q;
+  else if (plotvar == "dq")
+    *ydata = runlist->value(selectedruns->value(i)).run->output->dq;
+  else if (plotvar == "wq")
+    *ydata = runlist->value(selectedruns->value(i)).run->output->wq;
+}
+
 void plotarea::paintEvent(QPaintEvent * /* event */)
 {
   if (selectedruns->count() > 0)
   {
-    xlabel = runlist->value(selectedruns->value(0)).run->output->t.name + " [" + runlist->value(selectedruns->value(0)).run->output->t.unit + "]";
+    outputvar xdata, ydata;
 
     if (autoaxis)
     {
@@ -101,59 +121,27 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
       for(int i=0; i<selectedruns->count(); i++)
       {
-        double *tempplotvar = new double;
-        if (plotvar == "h")
-        {
-          tempplotvar = runlist->value(selectedruns->value(i)).run->output->h.data;
-          ylabel = runlist->value(selectedruns->value(i)).run->output->h.name + " [" + runlist->value(selectedruns->value(i)).run->output->h.unit + "]";
-        }
-        else if (plotvar == "theta")
-        {
-          tempplotvar = runlist->value(selectedruns->value(i)).run->output->theta.data;
-          ylabel = runlist->value(selectedruns->value(i)).run->output->theta.name + " [" + runlist->value(selectedruns->value(i)).run->output->theta.unit + "]";
-        }
-        else if (plotvar == "dtheta")
-        {
-          tempplotvar = runlist->value(selectedruns->value(i)).run->output->dtheta.data;
-          ylabel = runlist->value(selectedruns->value(i)).run->output->dtheta.name + " [" + runlist->value(selectedruns->value(i)).run->output->dtheta.unit + "]";
-        }
-        else if (plotvar == "wtheta")
-        {
-          tempplotvar = runlist->value(selectedruns->value(i)).run->output->wtheta.data;
-          ylabel = runlist->value(selectedruns->value(i)).run->output->wtheta.name + " [" + runlist->value(selectedruns->value(i)).run->output->wtheta.unit + "]";
-        }
-        else if (plotvar == "q")
-        {
-          tempplotvar = runlist->value(selectedruns->value(i)).run->output->q.data;
-          ylabel = runlist->value(selectedruns->value(i)).run->output->q.name + " [" + runlist->value(selectedruns->value(i)).run->output->q.unit + "]";
-        }
-        else if (plotvar == "dq")
-        {
-          tempplotvar = runlist->value(selectedruns->value(i)).run->output->dq.data;
-          ylabel = runlist->value(selectedruns->value(i)).run->output->dq.name + " [" + runlist->value(selectedruns->value(i)).run->output->dq.unit + "]";
-        }
-        else if (plotvar == "wq")
-        {
-          tempplotvar = runlist->value(selectedruns->value(i)).run->output->wq.data;
-          ylabel = runlist->value(selectedruns->value(i)).run->output->wq.name + " [" + runlist->value(selectedruns->value(i)).run->output->wq.unit + "]";
-        }
+        getdata(&xdata, &ydata, i);
 
         int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
 
         for(int m=0; m<tsteps; m++)
         {
-          if (tempplotvar[m] > ymax)
-            ymax = tempplotvar[m];
-          if (tempplotvar[m] < ymin)
-            ymin = tempplotvar[m];
+          if (ydata.data[m] > ymax)
+            ymax = ydata.data[m];
+          if (ydata.data[m] < ymin)
+            ymin = ydata.data[m];
         }
-        if (runlist->value(selectedruns->value(i)).run->output->t.data[0] < xmin)
+        if (xdata.data[0] < xmin)
           xmin = runlist->value(selectedruns->value(i)).run->output->t.data[0];
-        if (runlist->value(selectedruns->value(i)).run->output->t.data[tsteps-1] > xmax)
+        if (xdata.data[tsteps-1] > xmax)
           xmax = runlist->value(selectedruns->value(i)).run->output->t.data[tsteps-1];
       }
     }
 
+    // this value uses data that is assigned inside of a loop... here it goes oke, but it is risky generally...
+    xlabel = xdata.name + " [" + xdata.unit + "]";
+    ylabel = ydata.name + " [" + ydata.unit + "]";
 
     if (saveImageMode == 1)
     {
@@ -271,22 +259,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(int i=0; i<selectedruns->count(); i++)
     {
-      double *tempplotvar = new double;
-
-      if (plotvar == "h")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->h.data;
-      else if (plotvar == "theta")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->theta.data;
-      else if (plotvar == "dtheta")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->dtheta.data;
-      else if (plotvar == "wtheta")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->wtheta.data;
-      else if (plotvar == "q")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->q.data;
-      else if (plotvar == "dq")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->dq.data;
-      else if (plotvar == "wq")
-        tempplotvar = runlist->value(selectedruns->value(i)).run->output->wq.data;
+      getdata(&xdata, &ydata, i);
+      
       int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
 
       double yscale = plotheight / (graphmaxy-graphminy);   // scaling factor for f(real-coordinate to Widget-coordinate)
@@ -320,7 +294,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       for (int m=0; m < numpoints; m++)
       {
         int n = m * plotinterval;
-        points[m] = QPointF(transfx((runlist->value(selectedruns->value(i)).run->output->t.data[n]),xscale,graphminx), transfy((tempplotvar[n]),yscale,graphminy));
+        points[m] = QPointF(transfx(xdata.data[n],xscale,graphminx), transfy(ydata.data[n],yscale,graphminy));
       }
 
       paint.setRenderHint(QPainter::Antialiasing, true);

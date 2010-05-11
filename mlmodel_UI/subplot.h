@@ -32,6 +32,7 @@ public:
   double graphminx, graphmaxx, graphminy, graphmaxy;
   double xmin, xmax, ymin, ymax;
   bool autoaxis;
+  void getdata(outputvar*, outputvar*, int);
 
   // Function to translate real coordinates (x,y) to widget coordinates
   double transfx(double xreal, double xscale, double xmin);
