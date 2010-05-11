@@ -23,6 +23,9 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   // Support variable used when saving as PNG
   saveImageMode         = 0;
 
+  // Default plot interval
+  plotinterval          = 1;
+
   // Define 8 colors for plotting, set them unassigned.
   colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black) << QColor(Qt::gray);
   assignedcolors << -1 << -1 << -1 << -1 << -1 << -1 << -1 << -1;
@@ -311,14 +314,21 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         }
       }
 
-      QPointF points[tsteps-1];
-      for (int m=0; m<tsteps-1; m++)
+      int numpoints = (tsteps/plotinterval);
+
+      QPointF points[numpoints];
+      for (int m=0; m < numpoints; m++)
       {
-        points[m] = QPointF(transfx((runlist->value(selectedruns->value(i)).run->output->t.data[m]),xscale,graphminx), transfy((tempplotvar[m]),yscale,graphminy));
+        int n = m * plotinterval;
+        points[m] = QPointF(transfx((runlist->value(selectedruns->value(i)).run->output->t.data[n]),xscale,graphminx), transfy((tempplotvar[n]),yscale,graphminy));
       }
 
       paint.setRenderHint(QPainter::Antialiasing, true);
-      paint.drawPolyline(points, tsteps-1);
+      paint.drawPolyline(points, numpoints);
+      // Draw points instead of line:
+      //pen.setWidth(3);
+      //paint.setPen(pen);
+      //paint.drawPoints(points,numpoints);
       paint.setRenderHint(QPainter::Antialiasing, false);
 
       paint.drawLine(leftmargin+(10*PNGscale),legendy+8,leftmargin+(25*PNGscale),legendy+8);

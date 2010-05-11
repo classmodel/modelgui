@@ -30,6 +30,7 @@ public:
   QMap<int, modelrun> *runlist;
   QString plotvar;
 
+
 public slots:
   void addrun(int num);
   void deleterun(int num);
@@ -38,6 +39,7 @@ public slots:
   void changeaxis();
   void switchtobasicplotting();
   void switchtoadvancedplotting();
+  void changeplotinterval();
 
 protected:
 

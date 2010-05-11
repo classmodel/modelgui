@@ -10,7 +10,6 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   ui->setupUi(this);
   selectedruns = new QList<int>;
   runlist = runs;
-  //runlist = runs;
 
   // Place left dockwidget in corner
   this->setCorner(Qt::TopLeftCorner,Qt::LeftDockWidgetArea);
@@ -18,6 +17,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
+
+  // Default plotinterval from subplot.cpp
+  ui->plotintervalInput->setText(QString::number(plotar->plotinterval));
 
   // Signal/slots -------------------------------------------------------------------------------------
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
@@ -30,6 +32,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
   connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
+  connect(ui->plotintervalInput, SIGNAL(editingFinished()), this, SLOT(changeplotinterval()));
   // Menu interface:
   connect(ui->menu_basicplot, SIGNAL(triggered()), this, SLOT(switchtobasicplotting()));
   connect(ui->menu_advancedplot, SIGNAL(triggered()), this, SLOT(switchtoadvancedplotting()));
@@ -167,6 +170,12 @@ void plotwindow::changeaxis()
   ui->xmaxInput->setDisabled(plotar->autoaxis);
   ui->yminInput->setDisabled(plotar->autoaxis);
   ui->ymaxInput->setDisabled(plotar->autoaxis);
+}
+
+void plotwindow::changeplotinterval()
+{
+  plotar->plotinterval = ui->plotintervalInput->text().toInt();
+  plotar->update();
 }
 
 void plotwindow::switchtobasicplotting()

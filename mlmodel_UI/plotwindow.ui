@@ -396,7 +396,7 @@
           <enum>QLayout::SetFixedSize</enum>
          </property>
          <item>
-          <widget class="QLabel" name="yminLabel_2">
+          <widget class="QLabel" name="plotintervalLabel">
            <property name="minimumSize">
             <size>
              <width>45</width>
@@ -404,7 +404,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Interval:</string>
+            <string>Step:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -412,7 +412,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="yminInput_2">
+          <widget class="QLineEdit" name="plotintervalInput">
            <property name="minimumSize">
             <size>
              <width>60</width>
