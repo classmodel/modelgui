@@ -5,10 +5,11 @@
 //#include "modeloutput.h"
 #include <iostream>
 
-plotwindow::plotwindow(QMap<int, modelrun> *runlist, QList<int> *initialselected, QMainWindow *parent) : QMainWindow(parent), ui(new Ui::plotwindow)
+plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, QMainWindow *parent) : QMainWindow(parent), ui(new Ui::plotwindow)
 {
   ui->setupUi(this);
   selectedruns = new QList<int>;
+  runlist = runs;
   //runlist = runs;
 
   // Place left dockwidget in corner
@@ -22,7 +23,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runlist, QList<int> *initialselected
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
-  connect(ui->saveButton, SIGNAL(clicked()), plotar, SLOT(saveImage()));
+  connect(ui->menu_saveimage, SIGNAL(triggered()), plotar, SLOT(saveImage()));
   connect(ui->xminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->xmaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->yminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
