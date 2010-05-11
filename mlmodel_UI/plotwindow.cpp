@@ -23,7 +23,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
-  connect(ui->menu_saveimage, SIGNAL(triggered()), plotar, SLOT(saveImage()));
+  connect(ui->menu_savepng, SIGNAL(triggered()), plotar, SLOT(saveImage()));
   connect(ui->xminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->xmaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->yminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
@@ -31,8 +31,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
   connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
   // Menu interface:
-  connect(ui->menu_basicplotting, SIGNAL(triggered()), this, SLOT(switchtobasicplotting()));
-  connect(ui->menu_advancedplotting, SIGNAL(triggered()), this, SLOT(switchtoadvancedplotting()));
+  connect(ui->menu_basicplot, SIGNAL(triggered()), this, SLOT(switchtobasicplotting()));
+  connect(ui->menu_advancedplot, SIGNAL(triggered()), this, SLOT(switchtoadvancedplotting()));
 
   // Set "auto scale axis" by default to true
   ui->autoscaleaxis->setChecked(true);
@@ -83,6 +83,14 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
           << QString::fromStdString(modelout.q.description) << QString::fromStdString(modelout.dq.description) << QString::fromStdString(modelout.wq.description);
   outputnames << "h" << "theta" << "dtheta" << "wtheta" << "q" << "dq" << "wq";
   ui->plotvar->addItems(varnames);
+
+
+  // Create the advanced plot QTreeWidget
+
+  ui->advancedplottree->setColumnCount(4);
+  QTreeWidgetItem *time = new QTreeWidgetItem(ui->advancedplottree); time->setText(0, QString::fromStdString(modelout.t.name + "[" + modelout.t.unit + "]")); time->setText(1, tr("X")); time->setText(2, tr("Y")); time->setText(3, QString::fromStdString(modelout.t.description));
+
+
 }
 
 plotwindow::~plotwindow()

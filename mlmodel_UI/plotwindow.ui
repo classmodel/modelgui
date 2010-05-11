@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>689</width>
-    <height>762</height>
+    <width>535</width>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Plot window | Mixed-Layer Model</string>
   </property>
   <property name="dockNestingEnabled">
    <bool>true</bool>
@@ -26,37 +26,28 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>689</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="modeMenu">
-    <property name="title">
-     <string>Mode</string>
-    </property>
-    <addaction name="menu_basicplotting"/>
-    <addaction name="menu_advancedplotting"/>
-   </widget>
-   <addaction name="modeMenu"/>
-  </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="PlotvarDock">
+   <property name="minimumSize">
+    <size>
+     <width>106</width>
+     <height>40</height>
+    </size>
+   </property>
    <property name="maximumSize">
     <size>
      <width>524287</width>
-     <height>60</height>
+     <height>40</height>
     </size>
    </property>
    <property name="features">
-    <set>QDockWidget::AllDockWidgetFeatures</set>
+    <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
    <property name="allowedAreas">
     <set>Qt::TopDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Basic plot settings</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>4</number>
@@ -89,13 +80,16 @@
    <property name="allowedAreas">
     <set>Qt::BottomDockWidgetArea</set>
    </property>
+   <property name="windowTitle">
+    <string>Advanced plot settings</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
    <widget class="QWidget" name="AdvancedDockContent">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QTreeWidget" name="treeWidget">
+      <widget class="QTreeWidget" name="advancedplottree">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -140,6 +134,9 @@
    <property name="allowedAreas">
     <set>Qt::LeftDockWidgetArea</set>
    </property>
+   <property name="windowTitle">
+    <string>Model runs</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
@@ -159,6 +156,18 @@
          <height>0</height>
         </size>
        </property>
+       <property name="frameShape">
+        <enum>QFrame::VLine</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>0</number>
+       </property>
+       <property name="headerHidden">
+        <bool>true</bool>
+       </property>
        <column>
         <property name="text">
          <string notr="true">1</string>
@@ -173,13 +182,13 @@
    <property name="minimumSize">
     <size>
      <width>170</width>
-     <height>181</height>
+     <height>200</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
      <width>170</width>
-     <height>150</height>
+     <height>200</height>
     </size>
    </property>
    <property name="features">
@@ -188,14 +197,20 @@
    <property name="allowedAreas">
     <set>Qt::LeftDockWidgetArea</set>
    </property>
+   <property name="windowTitle">
+    <string>Plot settings</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <layout class="QGridLayout" name="plotLayoutGrid">
-       <item row="0" column="0">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="1" column="0">
         <layout class="QHBoxLayout" name="layout_xmin">
          <item>
           <widget class="QLabel" name="xminLabel">
@@ -231,7 +246,7 @@
          </item>
         </layout>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <layout class="QHBoxLayout" name="layout_xmax">
          <item>
           <widget class="QLabel" name="xmaxLabel">
@@ -267,7 +282,7 @@
          </item>
         </layout>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <layout class="QHBoxLayout" name="layout_ymin">
          <property name="sizeConstraint">
           <enum>QLayout::SetFixedSize</enum>
@@ -306,7 +321,7 @@
          </item>
         </layout>
        </item>
-       <item row="3" column="0">
+       <item row="4" column="0">
         <layout class="QHBoxLayout" name="layout_ymax">
          <item>
           <widget class="QLabel" name="ymaxLabel">
@@ -342,7 +357,7 @@
          </item>
         </layout>
        </item>
-       <item row="4" column="0">
+       <item row="0" column="0">
         <widget class="QCheckBox" name="autoscaleaxis">
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
@@ -353,12 +368,101 @@
          <property name="text">
           <string>Auto scale axis</string>
          </property>
+         <property name="iconSize">
+          <size>
+           <width>10</width>
+           <height>10</height>
+          </size>
+         </property>
         </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QComboBox" name="comboBox">
+         <item>
+          <property name="text">
+           <string>Line plot</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Scatter plot</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <layout class="QHBoxLayout" name="layout_ymin_2">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetFixedSize</enum>
+         </property>
+         <item>
+          <widget class="QLabel" name="yminLabel_2">
+           <property name="minimumSize">
+            <size>
+             <width>45</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Interval:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="yminInput_2">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>1000</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>535</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="menu_savepng"/>
+    <addaction name="separator"/>
+    <addaction name="menu_exit"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="menu_modelrun"/>
+    <addaction name="menu_plotsettings"/>
+    <addaction name="separator"/>
+    <addaction name="menu_basicplot"/>
+    <addaction name="menu_advancedplot"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
   </widget>
   <action name="menu_modelruns">
    <property name="text">
@@ -391,7 +495,48 @@
     <string>Save image</string>
    </property>
   </action>
+  <action name="menu_savepng">
+   <property name="text">
+    <string>Save image</string>
+   </property>
+  </action>
+  <action name="menu_exit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="menu_modelrun">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Model runs</string>
+   </property>
+  </action>
+  <action name="menu_plotsettings">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Plot settings</string>
+   </property>
+  </action>
+  <action name="menu_basicplot">
+   <property name="text">
+    <string>Basic plotting</string>
+   </property>
+  </action>
+  <action name="menu_advancedplot">
+   <property name="text">
+    <string>Advanced plotting</string>
+   </property>
+  </action>
  </widget>
+ <tabstops>
+  <tabstop>plotvar</tabstop>
+  <tabstop>modelruntree</tabstop>
+  <tabstop>advancedplottree</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
