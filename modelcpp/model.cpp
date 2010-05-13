@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <fstream>
 #include "model.h"
 using namespace std;
 
@@ -145,8 +146,12 @@ void model::runmodel()
     dthetav  = (theta + dtheta) * (1. + 0.61 * (q + dq)) - theta * (1. + 0.61 * q);
     
     // compute tendencies
-    // we    = (beta * wthetav) / dthetav
-    we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
+    if(beta == 0 && dthetav == 0)
+      we    = 1 / gammatheta * wthetav / h;
+    else
+      we    = (beta * wthetav) / dthetav;
+
+    // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
     htend       = we + ws;
     
     thetatend   = (wtheta + we * dtheta) / h + advtheta;
@@ -204,44 +209,71 @@ void model::runmodel()
 void model::store()
 {
   cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
-  output->t[t]          = t * dt / 3600.; // + tstart;
+  output->t.data[t]          = t * dt / 3600.; // + tstart;
 
-  output->h[t]          = h;
-  output->Ps[t]         = Ps;
-  output->ws[t]         = ws;
+  output->h.data[t]          = h;
+  output->Ps.data[t]         = Ps;
+  output->ws.data[t]         = ws;
   
-  output->theta[t]      = theta;
-  output->thetav[t]     = thetav;
-  output->dtheta[t]     = dtheta;
-  output->dthetav[t]    = dthetav;
-  output->gammatheta[t] = gammatheta;
-  output->advtheta[t]   = advtheta;
-  output->beta[t]       = beta;
-  output->wtheta[t]     = wtheta;
-  output->wthetav[t]    = wthetav;
+  output->theta.data[t]      = theta;
+  output->thetav.data[t]     = thetav;
+  output->dtheta.data[t]     = dtheta;
+  output->dthetav.data[t]    = dthetav;
+  output->gammatheta.data[t] = gammatheta;
+  output->advtheta.data[t]   = advtheta;
+  output->beta.data[t]       = beta;
+  output->wtheta.data[t]     = wtheta;
+  output->wthetav.data[t]    = wthetav;
   
-  output->q[t]          = q;
+  output->q.data[t]          = q * 1000.;
   //output.qsat[t]       = qsat;
   //output.e[t]          = e;
   //output.esat[t]       = esat;
-  output->dq[t]         = dq;
-  output->gammaq[t]     = gammaq;
-  output->advq[t]       = advq;
-  output->wq[t]         = wq;
+  output->dq.data[t]         = dq * 1000.;
+  output->gammaq.data[t]     = gammaq * 1000.;
+  output->advq.data[t]       = advq * 1000.;
+  output->wq.data[t]         = wq * 1000.;
   
-  output->u[t]          = u;
-  output->du[t]         = du;
-  output->gammau[t]     = gammau;
-  output->advu[t]       = advu;
+  output->u.data[t]          = u;
+  output->du.data[t]         = du;
+  output->gammau.data[t]     = gammau;
+  output->advu.data[t]       = advu;
   
-  output->v[t]          = v;
-  output->dv[t]         = dv;
-  output->gammav[t]     = gammav;
-  output->advv[t]       = advv;
+  output->v.data[t]          = v;
+  output->dv.data[t]         = dv;
+  output->gammav.data[t]     = gammav;
+  output->advv.data[t]       = advv;
   
-  output->ustar[t]      = ustar;
-  output->uw[t]         = uw;
-  output->vw[t]         = vw;
+  output->ustar.data[t]      = ustar;
+  output->uw.data[t]         = uw;
+  output->vw.data[t]         = vw;
 
   return;
 } 
+
+void model::run2file(std::string filedir, std::string filename)
+{
+  std::ofstream runsave;
+
+  std::string fullpath = filedir + "/" + filename + ".csv";
+
+  runsave.open(fullpath.c_str());
+
+  std::cout << "Saving file " << fullpath.c_str() << std::endl;
+
+  // Write header first
+  runsave << output->t.name << " [" << output->t.unit << "],";
+  runsave << output->h.name << " [" << output->h.unit << "]";
+  runsave << std::endl;
+
+  for(int nt=0; nt < tsteps; nt++)
+  {
+    runsave << output->t.data[nt] << ",";
+    runsave << output->h.data[nt];
+    runsave << std::endl;
+  }
+
+  runsave.close();
+
+  return;
+}
