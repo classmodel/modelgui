@@ -139,6 +139,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       }
     }
 
+    if (!autoaxis)
+      getdata(&xdata, &ydata, 0);
+
     // this value uses data that is assigned inside of a loop... here it goes oke, but it is risky generally...
     xlabel = xdata.name + " [" + xdata.unit + "]";
     ylabel = ydata.name + " [" + ydata.unit + "]";
