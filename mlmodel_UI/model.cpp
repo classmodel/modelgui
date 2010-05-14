@@ -146,8 +146,12 @@ void model::runmodel()
     dthetav  = (theta + dtheta) * (1. + 0.61 * (q + dq)) - theta * (1. + 0.61 * q);
     
     // compute tendencies
-    // we    = (beta * wthetav) / dthetav
-    we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
+    if(beta == 0 && dthetav == 0)
+      we    = 1 / gammatheta * wthetav / h;
+    else
+      we    = (beta * wthetav) / dthetav;
+
+    // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
     htend       = we + ws;
     
     thetatend   = (wtheta + we * dtheta) / h + advtheta;
