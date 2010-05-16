@@ -89,11 +89,26 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
 
   // Create the advanced plot QTreeWidget
-
+  QStringList advancedtreeheader;
+  advancedtreeheader << "Variabele" << "X" << "Y" << "Description";
+  ui->advancedplottree->setHeaderLabels(advancedtreeheader);
   ui->advancedplottree->setColumnCount(4);
-  QTreeWidgetItem *time = new QTreeWidgetItem(ui->advancedplottree); time->setText(0, QString::fromStdString(modelout.t.name + "[" + modelout.t.unit + "]")); time->setText(1, tr("X")); time->setText(2, tr("Y")); time->setText(3, QString::fromStdString(modelout.t.description));
+  ui->advancedplottree->setColumnWidth(0,150);
+  ui->advancedplottree->setColumnWidth(1,30);
+  ui->advancedplottree->setColumnWidth(2,30);
 
+  QList<outputvar> variables;
+  variables << modelout.t << modelout.dtheta << modelout.theta;
 
+  for (int i=0; i<variables.size(); i++)
+  {
+    QTreeWidgetItem *treeitem = new QTreeWidgetItem(ui->advancedplottree);
+    outputvar item = variables.value(i);
+    treeitem->setCheckState(1,Qt::Unchecked);
+    treeitem->setCheckState(2,Qt::Unchecked);
+    treeitem->setText(0, QString::fromStdString(item.name + "[" + item.unit + "]"));
+    treeitem->setText(3, QString::fromStdString(item.description));
+  }
 }
 
 plotwindow::~plotwindow()
