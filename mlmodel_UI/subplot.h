@@ -22,17 +22,19 @@ class plotarea : public QWidget
 
 public:
   plotarea(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
-  QString plotvar;
+  // QString plotvar;
+  int lines;
+  QMap<int, outputvar> xdatalist, ydatalist;
   QList<QColor> colors;
   QList<int> assignedcolors;
   int saveImageMode;
   QString saveImageName;
-  std::string xlabel, ylabel;
+  QString xlabel, ylabel;
   int plotinterval;
   double graphminx, graphmaxx, graphminy, graphmaxy;
   double xmin, xmax, ymin, ymax;
   bool autoaxis;
-  void getdata(outputvar*, outputvar*, int);
+  //void getdata(outputvar*, outputvar*, int);
 
   // Function to translate real coordinates (x,y) to widget coordinates
   double transfx(double xreal, double xscale, double xmin);

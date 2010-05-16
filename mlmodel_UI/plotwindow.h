@@ -7,6 +7,7 @@
 #include "subplot.h"
 #include "QPaintEvent"
 #include "QPainter"
+#include "QTreeWidget"
 
 class modelrun;
 class subplot;
@@ -40,12 +41,15 @@ public slots:
   void switchtobasicplotting();
   void switchtoadvancedplotting();
   void changeplotinterval();
+  void selectadvanceddata(QTreeWidgetItem*,int);
 
 protected:
 
 private:
   Ui::plotwindow *ui;
   QStringList outputnames;
+  void updateplotdata();
+  void getdata(outputvar*, outputvar*, modelrun);
 };
 
 #endif // PLOTWINDOW_H
