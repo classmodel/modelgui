@@ -106,8 +106,10 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
     outputvar item = variables.value(i);
     treeitem->setCheckState(1,Qt::Unchecked);
     treeitem->setCheckState(2,Qt::Unchecked);
-    treeitem->setText(0, QString::fromStdString(item.name + "[" + item.unit + "]"));
-    treeitem->setText(3, QString::fromStdString(item.description));
+    QString variable = QString::fromUtf8(item.name.c_str()) + " [" + QString::fromUtf8(item.unit.c_str()) + "]";
+    QString description = QString::fromUtf8(item.description.c_str());
+    treeitem->setText(0, variable);
+    treeitem->setText(3, description);
   }
 }
 

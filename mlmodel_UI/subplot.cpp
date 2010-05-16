@@ -143,8 +143,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       getdata(&xdata, &ydata, 0);
 
     // this value uses data that is assigned inside of a loop... here it goes oke, but it is risky generally...
-    xlabel = xdata.name + " [" + xdata.unit + "]";
-    ylabel = ydata.name + " [" + ydata.unit + "]";
+    xlabel = QString::fromUtf8(xdata.name.c_str()) + " [" + QString::fromUtf8(xdata.unit.c_str()) + "]";
+    ylabel = QString::fromUtf8(ydata.name.c_str()) + " [" + QString::fromUtf8(ydata.unit.c_str()) + "]";
 
     if (saveImageMode == 1)
     {
@@ -249,9 +249,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     } 
 
     // Axis labels
-    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + (28 * PNGscale),300,30,Qt::AlignHCenter, QString::fromUtf8(xlabel.c_str()));
+    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + (28 * PNGscale),300,30,Qt::AlignHCenter, xlabel);
     paint.rotate(270);
-    paint.drawText(-((plotheight / 2) + topmargin + 150),(5 * PNGscale),300,25,Qt::AlignCenter, QString::fromUtf8(ylabel.c_str()));
+    paint.drawText(-((plotheight / 2) + topmargin + 150),(5 * PNGscale),300,25,Qt::AlignCenter, ylabel);
     paint.rotate(90);
 
     // Hereafter; clip data plot .

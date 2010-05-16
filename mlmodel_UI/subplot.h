@@ -27,7 +27,7 @@ public:
   QList<int> assignedcolors;
   int saveImageMode;
   QString saveImageName;
-  std::string xlabel, ylabel;
+  QString xlabel, ylabel;
   int plotinterval;
   double graphminx, graphmaxx, graphminy, graphmaxy;
   double xmin, xmax, ymin, ymax;
