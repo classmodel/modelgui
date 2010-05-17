@@ -28,6 +28,7 @@ public:
   plotwindow *graph;
   modelinput defaultinput;                     // Store default model input settings
   modelinput formvalues;
+  void loadfieldslots();
 
 public slots:
   void wind_switch(int);
