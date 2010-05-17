@@ -198,6 +198,9 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
 
 void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
 {
+  if(!n.hasrun)
+    return;
+
   if (plotvar == "t")
     *data = n.run->output->t;
   else if (plotvar == "h")

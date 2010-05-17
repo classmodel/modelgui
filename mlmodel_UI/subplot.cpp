@@ -126,8 +126,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       }
     }
 
-    //if (!autoaxis)
-      //getdata(&xdata, &ydata, 0);
+    // Get data for axis-labels
+    if (!autoaxis)
+    {
+      xdata = xdatalist.value(selectedruns->value(0));
+      ydata = ydatalist.value(selectedruns->value(0));
+    }
 
     // this value uses data that is assigned inside of a loop... here it goes ok, but it is risky generally...
     xlabel = QString::fromUtf8(xdata.name.c_str()) + " [" + QString::fromUtf8(xdata.unit.c_str()) + "]";
