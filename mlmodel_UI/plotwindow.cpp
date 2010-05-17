@@ -94,25 +94,43 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   QStringList advancedtreeheader;
   advancedtreeheader << "Variabele" << "X" << "Y" << "Description";
   ui->advancedplottree->setHeaderLabels(advancedtreeheader);
-  ui->advancedplottree->setColumnCount(4);
+  ui->advancedplottree->setColumnCount(5);
   ui->advancedplottree->setColumnWidth(0,150);
   ui->advancedplottree->setColumnWidth(1,30);
   ui->advancedplottree->setColumnWidth(2,30);
+  ui->advancedplottree->hideColumn(4);
 
-  QList<outputvar> variables;
-  variables << modelout.t << modelout.h << modelout.dtheta << modelout.theta;
+  QList<outputvar> basicvariables;
+  QList<QString> advancedtreegroups;
+  advancedtreegroups << "Basic" << "Advanced" << "Land surface" << "Chemistry";
+  basicvariables << modelout.t << modelout.h << modelout.dtheta << modelout.theta;
 
-  for (int i=0; i<variables.size(); i++)
+
+  QString id = "bla";
+
+  for (int i=0; i<advancedtreegroups.size(); i++)
   {
-    QTreeWidgetItem *treeitem = new QTreeWidgetItem(ui->advancedplottree);
-    outputvar item = variables.value(i);
-    treeitem->setCheckState(1,Qt::Unchecked);
-    treeitem->setCheckState(2,Qt::Unchecked);
-    QString variable = QString::fromUtf8(item.name.c_str()) + " [" + QString::fromUtf8(item.unit.c_str()) + "]";
-    QString description = QString::fromUtf8(item.description.c_str());
-    treeitem->setText(0, variable);
-    treeitem->setText(3, description);
+    QTreeWidgetItem *treegroup = new QTreeWidgetItem(ui->advancedplottree);
+    treegroup->setText(0,advancedtreegroups.value(i));
+    ui->advancedplottree->addTopLevelItem(treegroup);
+    treegroup->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+
+
+    for (int i=0; i<basicvariables.size(); i++)
+    {
+      QTreeWidgetItem *treeitem = new QTreeWidgetItem(ui->advancedplottree);
+      outputvar item = basicvariables.value(i);
+      treeitem->setCheckState(1,Qt::Unchecked);
+      treeitem->setCheckState(2,Qt::Unchecked);
+      QString variable = QString::fromUtf8(item.name.c_str()) + " [" + QString::fromUtf8(item.unit.c_str()) + "]";
+      QString description = QString::fromUtf8(item.description.c_str());
+      treeitem->setText(0, variable);
+      treeitem->setText(3, description);
+      treeitem->setText(4, id);
+      treegroup->addChild(treeitem);
+    }
   }
+
 }
 
 plotwindow::~plotwindow()
