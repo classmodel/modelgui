@@ -168,6 +168,8 @@ void MainWindow::clonerun()
   point->setFont(1,font);
   point->setTextColor(1,Qt::gray);
 
+  ui->modelRunTree->setCurrentItem(point);
+
   updateForm();
 }
 
