@@ -86,26 +86,6 @@ void plotarea::saveImage()
   update();
 }
 
-//void plotarea::getdata(outputvar *xdata, outputvar *ydata, int i)
-//{
-//  *xdata = runlist->value(selectedruns->value(i)).run->output->t;
-//
-//  if (plotvar == "h")
-//    *ydata = runlist->value(selectedruns->value(i)).run->output->h;
-//  else if (plotvar == "theta")
-//    *ydata = runlist->value(selectedruns->value(i)).run->output->theta;
-//  else if (plotvar == "dtheta")
-//    *ydata = runlist->value(selectedruns->value(i)).run->output->dtheta;
-//  else if (plotvar == "wtheta")
-//    *ydata = runlist->value(selectedruns->value(i)).run->output->wtheta;
-//  else if (plotvar == "q")
-//    *ydata = runlist->value(selectedruns->value(i)).run->output->q;
-//  else if (plotvar == "dq")
-//    *ydata = runlist->value(selectedruns->value(i)).run->output->dq;
-//  else if (plotvar == "wq")
-//    *ydata = runlist->value(selectedruns->value(i)).run->output->wq;
-//}
-
 void plotarea::paintEvent(QPaintEvent * /* event */)
 {
   if (selectedruns->count() > 0)

@@ -87,7 +87,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   varnames << QString::fromStdString(modelout.h.description) << QString::fromStdString(modelout.theta.description) << QString::fromStdString(modelout.dtheta.description) << QString::fromStdString(modelout.wtheta.description)
           << QString::fromStdString(modelout.q.description) << QString::fromStdString(modelout.dq.description) << QString::fromStdString(modelout.wq.description);
   outputnames << "h" << "theta" << "dtheta" << "wtheta" << "q" << "dq" << "wq";
-  ui->plotvar->addItems(varnames);
+
+  //ui->plotvar->addItems(varnames);
 
 
   // Create the advanced plot QTreeWidget
@@ -132,6 +133,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       treegroup->addChild(treeitem);
     }
   }
+
+  ui->plotvar->addItems(varnames);
 }
 
 plotwindow::~plotwindow()
@@ -171,16 +174,20 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
   {
     if(column == 1)
     {
-      if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0) != olditem)
+      if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
+        if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0) != olditem)
         ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Unchecked);
 
       setplotvar(olditem->text(4), &plotvarx);
     }
     else if(column == 2)
-      if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0) != olditem)
-        ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Unchecked);
+    {
+      if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).count() > 0)
+        if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0) != olditem)
+          ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Unchecked);
 
       setplotvar(olditem->text(4), &plotvary);
+    }
 
     updateplotdata();
     plotar->update();
@@ -228,9 +235,28 @@ void plotwindow::updateplotdata()
 
 void plotwindow::changeplotvar()
 {
+  // Uncheck items in advanced mode
+  if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
+  {
+    if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
+      ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
+    if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).count() > 0)
+      ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Unchecked);
+  }
+
   plotar->lines = runlist->count();
   plotvarx = "t";
   plotvary = outputnames[ui->plotvar->currentIndex()];
+
+  // Check items in advanced mode
+  if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
+  {
+    if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
+      ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Checked);
+    if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).count() > 0)
+      ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Checked);
+  }
+
 
   updateplotdata();
 

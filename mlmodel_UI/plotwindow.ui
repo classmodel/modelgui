@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>535</width>
-    <height>525</height>
+    <height>529</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -78,7 +78,7 @@
     <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
    <property name="allowedAreas">
-    <set>Qt::BottomDockWidgetArea</set>
+    <set>Qt::BottomDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
     <string>Advanced plot settings</string>
@@ -440,7 +440,7 @@
      <x>0</x>
      <y>0</y>
      <width>535</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
