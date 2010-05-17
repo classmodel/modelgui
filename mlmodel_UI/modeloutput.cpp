@@ -73,11 +73,18 @@ modeloutput::modeloutput(int tsteps)
   wq.description            = "Surface kinematic moisture flux";
 
   u.data                    = new double[tsteps];   // initial mixed-layer u-wind speed [m s-1]
+  u.name                    = "u";
+  u.unit                    = "m s\u207B\u00B9";
+  u.description             = "u-component wind";
+
   du.data                   = new double[tsteps];   // initial u-wind jump at h [m s-1]
   gammau.data               = new double[tsteps];   // free atmosphere u-wind speed lapse rate [s-1]
   advu.data                 = new double[tsteps];   // advection of u-wind [m s-2]
 
   v.data                    = new double[tsteps];   // initial mixed-layer u-wind speed [m s-1]
+  v.name                    = "v";
+  v.unit                    = "m s\u207B\u00B9";
+  v.description             = "v-component wind";
   dv.data                   = new double[tsteps];   // initial u-wind jump at h [m s-1]
   gammav.data               = new double[tsteps];   // free atmosphere v-wind speed lapse rate [s-1]
   advv.data                 = new double[tsteps];   // advection of v-wind [m s-2]
