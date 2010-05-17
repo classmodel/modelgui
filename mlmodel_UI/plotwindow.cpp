@@ -156,17 +156,7 @@ void plotwindow::updateselectedruns()  // create QList containing ID's of select
   plotar->update();
 }
 
-void plotwindow::setplotvar(const QString label, QString *plotvar)
-{
-  if     (label == "t")
-    *plotvar = "t";
-  else if(label == "h")
-    *plotvar = "h";
-  else if(label == "theta")
-    *plotvar = "theta";
-  else if(label == "dtheta")
-    *plotvar = "dtheta";
-}
+
 
 void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
 {
@@ -196,28 +186,7 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
 
 }
 
-void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
-{
-  if(!n.hasrun)
-    return;
 
-  if (plotvar == "t")
-    *data = n.run->output->t;
-  else if (plotvar == "h")
-    *data = n.run->output->h;
-  else if (plotvar == "theta")
-    *data = n.run->output->theta;
-  else if (plotvar == "dtheta")
-    *data = n.run->output->dtheta;
-  else if (plotvar == "wtheta")
-    *data = n.run->output->wtheta;
-  else if (plotvar == "q")
-    *data = n.run->output->q;
-  else if (plotvar == "dq")
-    *data = n.run->output->dq;
-  else if (plotvar == "wq")
-    *data = n.run->output->wq;
-}
 
 void plotwindow::updateplotdata()
 {

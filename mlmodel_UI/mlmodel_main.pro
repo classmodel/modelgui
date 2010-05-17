@@ -6,7 +6,8 @@ SOURCES += main.cpp \
     modelrun.cpp \
     plotwindow.cpp \
     subplot.cpp \
-    modeloutput.cpp
+    modeloutput.cpp \
+    switches.cpp
 HEADERS += mainwindow.h \
     modeloutput.h \
     modelinput.h \

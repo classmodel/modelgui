@@ -49,42 +49,6 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-void MainWindow::loadfieldslots()
-{
-  connect(ui->input_advq,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_adv_theta,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_adv_u,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_adv_v,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_beta,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_dq0,          SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_d_theta0,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_d_u0,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_d_v0,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_fc,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_gamma_q,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_gamma_theta,  SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_gamma_u,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_gamma_v,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_h0,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_ps,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_q0,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_theta0,       SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_time,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_timestep,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_u0,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_ustar,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_v0,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_wq,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_ws,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_wtheta,       SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  connect(ui->switch_wind,        SIGNAL(clicked()),         this, SLOT(updateInputdata()));
-  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateRunName()));
-
-}
-
 void MainWindow::readdefaultinput()
 {
   // temporary function to fill run form with default values

@@ -199,7 +199,7 @@
        </rect>
       </property>
       <property name="title">
-       <string>Heat</string>
+       <string>Temperature</string>
       </property>
       <widget class="QWidget" name="gridLayoutWidget_2">
        <property name="geometry">
@@ -419,7 +419,7 @@
        </rect>
       </property>
       <property name="title">
-       <string>Mixed layer settings</string>
+       <string>Mixed-layer</string>
       </property>
       <widget class="QWidget" name="gridLayoutWidget_3">
        <property name="geometry">
@@ -1427,7 +1427,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
