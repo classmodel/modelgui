@@ -168,6 +168,8 @@ void MainWindow::clonerun()
   point->setFont(1,font);
   point->setTextColor(1,Qt::gray);
 
+  ui->modelRunTree->setCurrentItem(point);
+
   updateForm();
 }
 
@@ -194,7 +196,7 @@ void MainWindow::runTreeChanged()
   ui->tabWidget->setEnabled(inputfields);
   ui->cloneRunButton->setEnabled(inputfields);
   ui->deleteButton->setEnabled(deleteitems);
-  ui->startButton->setEnabled(inputfields);
+  ui->startButton->setEnabled(deleteitems);
   ui->cancelButton->setEnabled(inputfields);
   ui->exportButton->setEnabled(deleteitems);
   updateSelectedRuns();
@@ -343,20 +345,28 @@ void MainWindow::wind_switch(int state)
 
 void MainWindow::startrun()
 {
-  updateInputdata();
-  int id = ui->modelRunTree->currentItem()->text(0).toInt();
-  modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
-  modelrunlist->find(id).value().run->runmodel();
-  modelrunlist->find(id).value().hasrun = true;
+  if(ui->modelRunTree->selectedItems().count() > 0)
+  {
+    for (int i=0; i<ui->modelRunTree->selectedItems().count(); i++)
+    {
+      updateInputdata();
+      int id = ui->modelRunTree->selectedItems()[i]->text(0).toInt();
+      modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
+      modelrunlist->find(id).value().run->runmodel();
+      modelrunlist->find(id).value().hasrun = true;
 
-  QFont font;
-  font = ui->modelRunTree->currentItem()->font(1);
-  font.setItalic(false);
-  ui->modelRunTree->currentItem()->setFont(1,font);
-  ui->modelRunTree->currentItem()->setTextColor(1,Qt::black);
-  updateSelectedRuns();
-  emit runadded(id);
+      QFont font;
+      font = ui->modelRunTree->currentItem()->font(1);
+      font.setItalic(false);
+      ui->modelRunTree->currentItem()->setFont(1,font);
+      ui->modelRunTree->currentItem()->setTextColor(1,Qt::black);
+      updateSelectedRuns();
+      emit runadded(id);
+    }
+  }
+//updateSelectedRuns();
 }
+
 
 void MainWindow::canceledit()
 {

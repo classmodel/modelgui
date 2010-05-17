@@ -100,24 +100,26 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   ui->advancedplottree->setColumnWidth(2,30);
   ui->advancedplottree->hideColumn(4);
 
+  QMap<int,QList<outputvar> > allvariables;       // QMap to store the different QLists..
   QList<outputvar> basicvariables;
+  QList<outputvar> advancedvariables;
   QList<QString> advancedtreegroups;
   advancedtreegroups << "Basic" << "Advanced" << "Land surface" << "Chemistry";
-  basicvariables << modelout.t << modelout.h << modelout.dtheta << modelout.theta;
+  basicvariables << modelout.t << modelout.h << modelout.theta << modelout.dtheta;
+    allvariables.insert(0,basicvariables);
+  advancedvariables << modelout.u << modelout.v;
+    allvariables.insert(1,advancedvariables);
 
-
-  for (int i=0; i<advancedtreegroups.size(); i++)
+  for (int n=0; n<advancedtreegroups.size(); n++)
   {
-    QTreeWidgetItem *treegroup = new QTreeWidgetItem(ui->advancedplottree);
-    treegroup->setText(0,advancedtreegroups.value(i));
+    QTreeWidgetItem *treegroup = new QTreeWidgetItem;
+    treegroup->setText(0,advancedtreegroups.value(n));
     ui->advancedplottree->addTopLevelItem(treegroup);
-    treegroup->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
-
-    for (int i=0; i<basicvariables.size(); i++)
+    for (int i=0; i<allvariables.value(n).size(); i++)
     {
-      QTreeWidgetItem *treeitem = new QTreeWidgetItem(ui->advancedplottree);
-      outputvar item = basicvariables.value(i);
+      QTreeWidgetItem *treeitem = new QTreeWidgetItem;
+      outputvar item = allvariables.value(n).value(i);
       treeitem->setCheckState(1,Qt::Unchecked);
       treeitem->setCheckState(2,Qt::Unchecked);
       QString variable = QString::fromUtf8(item.name.c_str()) + " [" + QString::fromUtf8(item.unit.c_str()) + "]";
@@ -130,7 +132,6 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       treegroup->addChild(treeitem);
     }
   }
-
 }
 
 plotwindow::~plotwindow()
