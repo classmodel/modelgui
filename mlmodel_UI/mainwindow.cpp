@@ -135,40 +135,42 @@ void MainWindow::newrun()
 void MainWindow::clonerun()
 {
   updateInputdata();
-  modelrun run;
 
-  run.hasrun = false;
-
-  QMap<int, modelrun>::iterator i = modelrunlist->begin();
-  int max=0;
-  while (i != modelrunlist->end())
+  for (int n=0; n<ui->modelRunTree->selectedItems().count(); n++)
   {
-    if (i.key() > max)
-      max = i.key();
-    ++i;
+    modelrun run;
+    run.hasrun = false;
+
+    QMap<int, modelrun>::iterator i = modelrunlist->begin();
+    int max=0;
+    while (i != modelrunlist->end())
+    {
+      if (i.key() > max)
+        max = i.key();
+      ++i;
+    }
+
+    int id = ui->modelRunTree->selectedItems()[n]->text(0).toInt();
+    QString base = modelrunlist->value(id).runname;
+    QString append = " (clone)";
+    base.append(append);
+    run.runname.append(base);
+    modelrunlist->insert((max+1),run);
+
+    modelrunlist->value(max+1).run->input = modelrunlist->value(id).run->input;
+    modelrunlist->find(max+1).value().previnput = modelrunlist->value(id).previnput;
+
+    QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
+    point->setText(0, QString::number(max+1));
+    point->setText(1, base);
+
+    QFont font;
+    font = point->font(1);
+    font.setItalic(true);
+    point->setFont(1,font);
+    point->setTextColor(1,Qt::gray);
+    //ui->modelRunTree->setCurrentItem(point);
   }
-
-  int id = ui->modelRunTree->currentItem()->text(0).toInt();
-  QString base = modelrunlist->value(id).runname;
-  QString append = " (clone)";
-  base.append(append);
-  run.runname.append(base);
-  modelrunlist->insert((max+1),run);
-
-  modelrunlist->value(max+1).run->input = modelrunlist->value(id).run->input;
-  modelrunlist->find(max+1).value().previnput = modelrunlist->value(id).previnput;
-
-  QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
-  point->setText(0, QString::number(max+1));
-  point->setText(1, base);
-
-  QFont font;
-  font = point->font(1);
-  font.setItalic(true);
-  point->setFont(1,font);
-  point->setTextColor(1,Qt::gray);
-
-  ui->modelRunTree->setCurrentItem(point);
 
   updateForm();
 }
@@ -194,7 +196,7 @@ void MainWindow::runTreeChanged()
   }
 
   ui->tabWidget->setEnabled(inputfields);
-  ui->cloneRunButton->setEnabled(inputfields);
+  ui->cloneRunButton->setEnabled(deleteitems);
   ui->deleteButton->setEnabled(deleteitems);
   ui->startButton->setEnabled(deleteitems);
   ui->cancelButton->setEnabled(inputfields);
@@ -356,15 +358,14 @@ void MainWindow::startrun()
       modelrunlist->find(id).value().hasrun = true;
 
       QFont font;
-      font = ui->modelRunTree->currentItem()->font(1);
+      font = ui->modelRunTree->selectedItems()[i]->font(1);
       font.setItalic(false);
-      ui->modelRunTree->currentItem()->setFont(1,font);
-      ui->modelRunTree->currentItem()->setTextColor(1,Qt::black);
+      ui->modelRunTree->selectedItems()[i]->setFont(1,font);
+      ui->modelRunTree->selectedItems()[i]->setTextColor(1,Qt::black);
       updateSelectedRuns();
       emit runadded(id);
     }
   }
-//updateSelectedRuns();
 }
 
 
