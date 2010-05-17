@@ -102,14 +102,24 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   ui->advancedplottree->hideColumn(4);
 
   QMap<int,QList<outputvar> > allvariables;       // QMap to store the different QLists..
-  QList<outputvar> basicvariables;
-  QList<outputvar> advancedvariables;
+  QList<outputvar> mixedlayervars;
+  QList<outputvar> temperaturevars;
+  QList<outputvar> moisturevars;
+  QList<outputvar> windvars;
+  QList<outputvar> surfacelayervars;
+
   QList<QString> advancedtreegroups;
-  advancedtreegroups << "Basic" << "Advanced" << "Land surface" << "Chemistry";
-  basicvariables << modelout.t << modelout.h << modelout.theta << modelout.dtheta;
-    allvariables.insert(0,basicvariables);
-  advancedvariables << modelout.u << modelout.v;
-    allvariables.insert(1,advancedvariables);
+  advancedtreegroups << "Mixed-layer" << "Temperature" << "Moisture" << "Wind" << "Surface-layer";
+  mixedlayervars << modelout.t << modelout.h << modelout.Ps << modelout.beta << modelout.ws;
+    allvariables.insert(0,mixedlayervars);
+  temperaturevars << modelout.theta << modelout.thetav << modelout.dtheta << modelout.dthetav << modelout.gammatheta << modelout.advtheta << modelout.wtheta << modelout.wthetav;
+    allvariables.insert(1,temperaturevars);
+  moisturevars << modelout.q << modelout.dq << modelout.gammaq << modelout.advq << modelout.wq;
+    allvariables.insert(2,moisturevars);
+  windvars << modelout.u << modelout.du << modelout.gammau << modelout.advu << modelout.v << modelout.dv << modelout.gammav << modelout.advv;
+    allvariables.insert(3,windvars);
+  surfacelayervars << modelout.ustar << modelout.uw << modelout.vw;
+    allvariables.insert(4,surfacelayervars);
 
   for (int n=0; n<advancedtreegroups.size(); n++)
   {
