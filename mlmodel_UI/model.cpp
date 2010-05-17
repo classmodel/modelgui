@@ -100,6 +100,11 @@ void model::initmodel()
   // initialize time variables
   tsteps = int(runtime / dt) + 1;
   t      = 0;
+
+  // compute initial values for output
+  thetav   = theta  + 0.61 * theta * q;
+  wthetav  = wtheta + 0.61 * theta * wq;
+  dthetav  = (theta + dtheta) * (1. + 0.61 * (q + dq)) - theta * (1. + 0.61 * q);
   
   // set output array to given value
   output = new modeloutput(tsteps);
@@ -150,6 +155,10 @@ void model::runmodel()
       we    = 1 / gammatheta * wthetav / h;
     else
       we    = (beta * wthetav) / dthetav;
+
+    // compute entrainment fluxes
+    wthetae = we * dtheta;
+    wqe     = we * dq;
 
     // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
     htend       = we + ws;
@@ -214,6 +223,7 @@ void model::store()
   output->h.data[t]          = h;
   output->Ps.data[t]         = Ps;
   output->ws.data[t]         = ws;
+  output->beta.data[t]       = beta;
   
   output->theta.data[t]      = theta;
   output->thetav.data[t]     = thetav;
@@ -221,8 +231,8 @@ void model::store()
   output->dthetav.data[t]    = dthetav;
   output->gammatheta.data[t] = gammatheta;
   output->advtheta.data[t]   = advtheta;
-  output->beta.data[t]       = beta;
   output->wtheta.data[t]     = wtheta;
+  output->wthetae.data[t]    = wthetae;
   output->wthetav.data[t]    = wthetav;
   
   output->q.data[t]          = q * 1000.;
@@ -233,6 +243,8 @@ void model::store()
   output->gammaq.data[t]     = gammaq * 1000.;
   output->advq.data[t]       = advq * 1000.;
   output->wq.data[t]         = wq * 1000.;
+  output->wqe.data[t]        = wqe * 1000.;
+
   
   output->u.data[t]          = u;
   output->du.data[t]         = du;

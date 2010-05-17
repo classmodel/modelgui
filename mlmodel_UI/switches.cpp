@@ -71,6 +71,8 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->advtheta;
   else if (plotvar == "wtheta")
     *data = n.run->output->wtheta;
+  else if (plotvar == "wthetae")
+    *data = n.run->output->wthetae;
   else if (plotvar == "wthetav")
     *data = n.run->output->wthetav;
 
@@ -85,6 +87,8 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->advq;
   else if (plotvar == "wq")
     *data = n.run->output->wq;
+  else if (plotvar == "wqe")
+    *data = n.run->output->wqe;
 
   // wind
   else if (plotvar == "u")
@@ -106,11 +110,11 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
 
   // surface-layer
   else if (plotvar == "ustar")
-    *data = n.run->output->dv;
+    *data = n.run->output->ustar;
   else if (plotvar == "uw")
-    *data = n.run->output->gammaq;
+    *data = n.run->output->uw;
   else if (plotvar == "vw")
-    *data = n.run->output->advq;
+    *data = n.run->output->vw;
 
 }
 
@@ -144,6 +148,8 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
     *plotvar = label;
   else if (label == "wtheta")
     *plotvar = label;
+  else if (label == "wthetae")
+    *plotvar = label;
   else if (label == "wthetav")
     *plotvar = label;
 
@@ -157,6 +163,8 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
   else if (label == "advq")
     *plotvar = label;
   else if (label == "wq")
+    *plotvar = label;
+  else if (label == "wqe")
     *plotvar = label;
 
   // wind

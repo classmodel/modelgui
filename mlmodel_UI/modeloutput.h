@@ -29,6 +29,7 @@ public:
   outputvar gammatheta;// free atmosphere potential temperature lapse rate [K m-1]
   outputvar advtheta;  // advection of heat [K s-1]
   outputvar wtheta;    // surface kinematic heat flux [K m s-1]
+  outputvar wthetae;   // entrainment kinematic heat flux [K m s-1]
   outputvar wthetav;   // surface kinematic virtual heat flux [K m s-1]
   
   // moisture
@@ -40,7 +41,8 @@ public:
   outputvar gammaq;    // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   outputvar advq;      // advection of moisture [kg kg-1 s-1]
   outputvar wq;        // surface kinematic moisture flux [kg kg-1 m s-1]
-  
+  outputvar wqe;       // surface kinematic moisture flux [kg kg-1 m s-1]
+
   // wind
   outputvar u;         // initial mixed-layer u-wind speed [m s-1]
   outputvar du;        // initial u-wind jump at h [m s-1]

@@ -45,6 +45,7 @@ private:
   double advtheta;  // advection of heat [K s-1]
   double beta;      // entrainment ratio for virtual heat [-]
   double wtheta;    // surface kinematic heat flux [K m s-1]
+  double wthetae;   // entrainment kinematic heat flux [K m s-1]
 
   double T2m;       // 2m temperature [K]
   double q2m;       // 2m specific humidity [kg kg-1]
@@ -65,7 +66,8 @@ private:
   double gammaq;    // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   double advq;      // advection of moisture [kg kg-1 s-1]
   double wq;        // surface kinematic moisture flux [kg kg-1 m s-1]
-  
+  double wqe;       // entrainment kinematic moisture flux [kg kg-1 m s-1]
+
   bool   sw_wind;   // prognostic wind switch
   double u;         // initial mixed-layer u-wind speed [m s-1]
   double du;        // initial u-wind jump at h [m s-1]
