@@ -94,25 +94,43 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   QStringList advancedtreeheader;
   advancedtreeheader << "Variabele" << "X" << "Y" << "Description";
   ui->advancedplottree->setHeaderLabels(advancedtreeheader);
-  ui->advancedplottree->setColumnCount(4);
+  ui->advancedplottree->setColumnCount(5);
   ui->advancedplottree->setColumnWidth(0,150);
   ui->advancedplottree->setColumnWidth(1,30);
   ui->advancedplottree->setColumnWidth(2,30);
+  ui->advancedplottree->hideColumn(4);
 
-  QList<outputvar> variables;
-  variables << modelout.t << modelout.h << modelout.dtheta << modelout.theta;
+  QList<outputvar> basicvariables;
+  QList<QString> advancedtreegroups;
+  advancedtreegroups << "Basic" << "Advanced" << "Land surface" << "Chemistry";
+  basicvariables << modelout.t << modelout.h << modelout.dtheta << modelout.theta;
 
-  for (int i=0; i<variables.size(); i++)
+
+  for (int i=0; i<advancedtreegroups.size(); i++)
   {
-    QTreeWidgetItem *treeitem = new QTreeWidgetItem(ui->advancedplottree);
-    outputvar item = variables.value(i);
-    treeitem->setCheckState(1,Qt::Unchecked);
-    treeitem->setCheckState(2,Qt::Unchecked);
-    QString variable = QString::fromUtf8(item.name.c_str()) + " [" + QString::fromUtf8(item.unit.c_str()) + "]";
-    QString description = QString::fromUtf8(item.description.c_str());
-    treeitem->setText(0, variable);
-    treeitem->setText(3, description);
+    QTreeWidgetItem *treegroup = new QTreeWidgetItem(ui->advancedplottree);
+    treegroup->setText(0,advancedtreegroups.value(i));
+    ui->advancedplottree->addTopLevelItem(treegroup);
+    treegroup->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+
+
+    for (int i=0; i<basicvariables.size(); i++)
+    {
+      QTreeWidgetItem *treeitem = new QTreeWidgetItem(ui->advancedplottree);
+      outputvar item = basicvariables.value(i);
+      treeitem->setCheckState(1,Qt::Unchecked);
+      treeitem->setCheckState(2,Qt::Unchecked);
+      QString variable = QString::fromUtf8(item.name.c_str()) + " [" + QString::fromUtf8(item.unit.c_str()) + "]";
+      QString description = QString::fromUtf8(item.description.c_str());
+      QString id = QString::fromUtf8(item.id.c_str());
+
+      treeitem->setText(0, variable);
+      treeitem->setText(3, description);
+      treeitem->setText(4, id);
+      treegroup->addChild(treeitem);
+    }
   }
+
 }
 
 plotwindow::~plotwindow()
@@ -134,44 +152,50 @@ void plotwindow::updateselectedruns()  // create QList containing ID's of select
   plotar->update();
 }
 
+void plotwindow::setplotvar(const QString label, QString *plotvar)
+{
+  if     (label == "t")
+    *plotvar = "t";
+  else if(label == "h")
+    *plotvar = "h";
+  else if(label == "theta")
+    *plotvar = "theta";
+  else if(label == "dtheta")
+    *plotvar = "dtheta";
+}
+
 void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
 {
-  // even een dirty test
   if(olditem->checkState(column) == Qt::Checked)
   {
-    std::cout << olditem->text(0).toStdString().c_str();
-    if(olditem->text(0) == ("t [h]"))
-      plotvar = "t";
-    else if(olditem->text(0) == ("h [m]"))
-      plotvar = "h";
-    else if(olditem->text(0) == (QString::fromUtf8("\u03B8 [K]")))
-      plotvar = "theta";
-    else if(olditem->text(0) == (QString::fromUtf8("\u0394\u03B8 [K]")))
-      plotvar = "dtheta";
+    if(column == 1)
+      setplotvar(olditem->text(4), &plotvarx);
+    else if(column == 2)
+      setplotvar(olditem->text(4), &plotvary);
 
     updateplotdata();
     plotar->update();
   }
 }
 
-void plotwindow::getdata(outputvar *xdata, outputvar *ydata, modelrun n)
+void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
 {
-  *xdata = n.run->output->t;
-
-  if (plotvar == "h")
-    *ydata = n.run->output->h;
+  if (plotvar == "t")
+    *data = n.run->output->t;
+  else if (plotvar == "h")
+    *data = n.run->output->h;
   else if (plotvar == "theta")
-    *ydata = n.run->output->theta;
+    *data = n.run->output->theta;
   else if (plotvar == "dtheta")
-    *ydata = n.run->output->dtheta;
+    *data = n.run->output->dtheta;
   else if (plotvar == "wtheta")
-    *ydata = n.run->output->wtheta;
+    *data = n.run->output->wtheta;
   else if (plotvar == "q")
-    *ydata = n.run->output->q;
+    *data = n.run->output->q;
   else if (plotvar == "dq")
-    *ydata = n.run->output->dq;
+    *data = n.run->output->dq;
   else if (plotvar == "wq")
-    *ydata = n.run->output->wq;
+    *data = n.run->output->wq;
 }
 
 void plotwindow::updateplotdata()
@@ -181,7 +205,8 @@ void plotwindow::updateplotdata()
   QMap<int, modelrun>::const_iterator i = runlist->constBegin();
   while (i != runlist->constEnd())
   {
-    getdata(&xdata, &ydata, runlist->value(i.key()));
+    getdata(&xdata, runlist->value(i.key()), plotvarx);
+    getdata(&ydata, runlist->value(i.key()), plotvary);
 
     int key = i.key();
     plotar->xdatalist.insert(key, xdata);
@@ -193,7 +218,8 @@ void plotwindow::updateplotdata()
 void plotwindow::changeplotvar()
 {
   plotar->lines = runlist->count();
-  plotvar = outputnames[ui->plotvar->currentIndex()];
+  plotvarx = "t";
+  plotvary = outputnames[ui->plotvar->currentIndex()];
 
   updateplotdata();
 

@@ -129,15 +129,20 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
         for(int m=0; m<tsteps; m++)
         {
+          if (xdata.data[m] > xmax)
+            xmax = xdata.data[m];
+          if (xdata.data[m] < xmin)
+            xmin = xdata.data[m];
+
           if (ydata.data[m] > ymax)
             ymax = ydata.data[m];
           if (ydata.data[m] < ymin)
             ymin = ydata.data[m];
         }
-        if (xdata.data[0] < xmin)
-          xmin = runlist->value(selectedruns->value(i)).run->output->t.data[0];
-        if (xdata.data[tsteps-1] > xmax)
-          xmax = runlist->value(selectedruns->value(i)).run->output->t.data[tsteps-1];
+        //if (xdata.data[0] < xmin)
+        // xmin = runlist->value(selectedruns->value(i)).run->output->t.data[0];
+        //if (xdata.data[tsteps-1] > xmax)
+        //  xmax = runlist->value(selectedruns->value(i)).run->output->t.data[tsteps-1];
       }
     }
 

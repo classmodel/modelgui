@@ -29,7 +29,7 @@ public:
   QList<int> *selectedruns;
   QList<int> *initialselected;
   QMap<int, modelrun> *runlist;
-  QString plotvar;
+  QString plotvarx, plotvary;
 
 
 public slots:
@@ -49,7 +49,8 @@ private:
   Ui::plotwindow *ui;
   QStringList outputnames;
   void updateplotdata();
-  void getdata(outputvar*, outputvar*, modelrun);
+  void getdata(outputvar*, modelrun, QString);
+  void setplotvar(const QString, QString*);
 };
 
 #endif // PLOTWINDOW_H
