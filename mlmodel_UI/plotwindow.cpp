@@ -2,8 +2,9 @@
 #include "subplot.h"
 #include "ui_subplot.h"
 #include "ui_plotwindow.h"
-//#include "modeloutput.h"
 #include <iostream>
+
+#include "QMessageBox"
 
 plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, QMainWindow *parent) : QMainWindow(parent), ui(new Ui::plotwindow)
 {
@@ -36,6 +37,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   // Menu interface:
   connect(ui->menu_basicplot, SIGNAL(triggered()), this, SLOT(switchtobasicplotting()));
   connect(ui->menu_advancedplot, SIGNAL(triggered()), this, SLOT(switchtoadvancedplotting()));
+  connect(ui->advancedplottree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), SLOT(selectadvanceddata(QTreeWidgetItem*, int)));
 
   // Set "auto scale axis" by default to true
   ui->autoscaleaxis->setChecked(true);
@@ -98,7 +100,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   ui->advancedplottree->setColumnWidth(2,30);
 
   QList<outputvar> variables;
-  variables << modelout.t << modelout.dtheta << modelout.theta;
+  variables << modelout.t << modelout.h << modelout.dtheta << modelout.theta;
 
   for (int i=0; i<variables.size(); i++)
   {
@@ -132,9 +134,69 @@ void plotwindow::updateselectedruns()  // create QList containing ID's of select
   plotar->update();
 }
 
+void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
+{
+  // even een dirty test
+  if(olditem->checkState(column) == Qt::Checked)
+  {
+    std::cout << olditem->text(0).toStdString().c_str();
+    if(olditem->text(0) == ("t [h]"))
+      plotvar = "t";
+    else if(olditem->text(0) == ("h [m]"))
+      plotvar = "h";
+    else if(olditem->text(0) == (QString::fromUtf8("\u03B8 [K]")))
+      plotvar = "theta";
+    else if(olditem->text(0) == (QString::fromUtf8("\u0394\u03B8 [K]")))
+      plotvar = "dtheta";
+
+    updateplotdata();
+    plotar->update();
+  }
+}
+
+void plotwindow::getdata(outputvar *xdata, outputvar *ydata, modelrun n)
+{
+  *xdata = n.run->output->t;
+
+  if (plotvar == "h")
+    *ydata = n.run->output->h;
+  else if (plotvar == "theta")
+    *ydata = n.run->output->theta;
+  else if (plotvar == "dtheta")
+    *ydata = n.run->output->dtheta;
+  else if (plotvar == "wtheta")
+    *ydata = n.run->output->wtheta;
+  else if (plotvar == "q")
+    *ydata = n.run->output->q;
+  else if (plotvar == "dq")
+    *ydata = n.run->output->dq;
+  else if (plotvar == "wq")
+    *ydata = n.run->output->wq;
+}
+
+void plotwindow::updateplotdata()
+{
+  outputvar xdata, ydata;
+
+  QMap<int, modelrun>::const_iterator i = runlist->constBegin();
+  while (i != runlist->constEnd())
+  {
+    getdata(&xdata, &ydata, runlist->value(i.key()));
+
+    int key = i.key();
+    plotar->xdatalist.insert(key, xdata);
+    plotar->ydatalist.insert(key, ydata);
+    ++i;
+  }
+}
+
 void plotwindow::changeplotvar()
 {
-  plotar->plotvar = outputnames[ui->plotvar->currentIndex()];
+  plotar->lines = runlist->count();
+  plotvar = outputnames[ui->plotvar->currentIndex()];
+
+  updateplotdata();
+
   ui->autoscaleaxis->setChecked(true);
   plotar->autoaxis = true;
   plotar->update();
@@ -160,6 +222,8 @@ void plotwindow::addrun(int num)
     point->setText(0, QString::number(num));
     point->setText(1, runlist->value(num).runname);
   }
+
+  updateplotdata();
   plotar->update();
 }
 

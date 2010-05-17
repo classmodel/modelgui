@@ -86,25 +86,25 @@ void plotarea::saveImage()
   update();
 }
 
-void plotarea::getdata(outputvar *xdata, outputvar *ydata, int i)
-{
-  *xdata = runlist->value(selectedruns->value(i)).run->output->t;
-
-  if (plotvar == "h")
-    *ydata = runlist->value(selectedruns->value(i)).run->output->h;
-  else if (plotvar == "theta")
-    *ydata = runlist->value(selectedruns->value(i)).run->output->theta;
-  else if (plotvar == "dtheta")
-    *ydata = runlist->value(selectedruns->value(i)).run->output->dtheta;
-  else if (plotvar == "wtheta")
-    *ydata = runlist->value(selectedruns->value(i)).run->output->wtheta;
-  else if (plotvar == "q")
-    *ydata = runlist->value(selectedruns->value(i)).run->output->q;
-  else if (plotvar == "dq")
-    *ydata = runlist->value(selectedruns->value(i)).run->output->dq;
-  else if (plotvar == "wq")
-    *ydata = runlist->value(selectedruns->value(i)).run->output->wq;
-}
+//void plotarea::getdata(outputvar *xdata, outputvar *ydata, int i)
+//{
+//  *xdata = runlist->value(selectedruns->value(i)).run->output->t;
+//
+//  if (plotvar == "h")
+//    *ydata = runlist->value(selectedruns->value(i)).run->output->h;
+//  else if (plotvar == "theta")
+//    *ydata = runlist->value(selectedruns->value(i)).run->output->theta;
+//  else if (plotvar == "dtheta")
+//    *ydata = runlist->value(selectedruns->value(i)).run->output->dtheta;
+//  else if (plotvar == "wtheta")
+//    *ydata = runlist->value(selectedruns->value(i)).run->output->wtheta;
+//  else if (plotvar == "q")
+//    *ydata = runlist->value(selectedruns->value(i)).run->output->q;
+//  else if (plotvar == "dq")
+//    *ydata = runlist->value(selectedruns->value(i)).run->output->dq;
+//  else if (plotvar == "wq")
+//    *ydata = runlist->value(selectedruns->value(i)).run->output->wq;
+//}
 
 void plotarea::paintEvent(QPaintEvent * /* event */)
 {
@@ -121,7 +121,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
       for(int i=0; i<selectedruns->count(); i++)
       {
-        getdata(&xdata, &ydata, i);
+        //getdata(&xdata, &ydata, i);
+        xdata = xdatalist.value(selectedruns->value(i));
+        ydata = ydatalist.value(selectedruns->value(i));
 
         int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
 
@@ -139,10 +141,10 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       }
     }
 
-    if (!autoaxis)
-      getdata(&xdata, &ydata, 0);
+    //if (!autoaxis)
+      //getdata(&xdata, &ydata, 0);
 
-    // this value uses data that is assigned inside of a loop... here it goes oke, but it is risky generally...
+    // this value uses data that is assigned inside of a loop... here it goes ok, but it is risky generally...
     xlabel = QString::fromUtf8(xdata.name.c_str()) + " [" + QString::fromUtf8(xdata.unit.c_str()) + "]";
     ylabel = QString::fromUtf8(ydata.name.c_str()) + " [" + QString::fromUtf8(ydata.unit.c_str()) + "]";
 
@@ -262,7 +264,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(int i=0; i<selectedruns->count(); i++)
     {
-      getdata(&xdata, &ydata, i);
+      //getdata(&xdata, &ydata, i);
+      xdata = xdatalist.value(selectedruns->value(i));
+      ydata = ydatalist.value(selectedruns->value(i));
       
       int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
 
