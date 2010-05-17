@@ -105,20 +105,17 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   advancedtreegroups << "Basic" << "Advanced" << "Land surface" << "Chemistry";
   basicvariables << modelout.t << modelout.h << modelout.dtheta << modelout.theta;
 
-
   QString id = "bla";
 
   for (int i=0; i<advancedtreegroups.size(); i++)
   {
-    QTreeWidgetItem *treegroup = new QTreeWidgetItem(ui->advancedplottree);
+    QTreeWidgetItem *treegroup = new QTreeWidgetItem;
     treegroup->setText(0,advancedtreegroups.value(i));
     ui->advancedplottree->addTopLevelItem(treegroup);
-    treegroup->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
-
 
     for (int i=0; i<basicvariables.size(); i++)
     {
-      QTreeWidgetItem *treeitem = new QTreeWidgetItem(ui->advancedplottree);
+      QTreeWidgetItem *treeitem = new QTreeWidgetItem;
       outputvar item = basicvariables.value(i);
       treeitem->setCheckState(1,Qt::Unchecked);
       treeitem->setCheckState(2,Qt::Unchecked);
@@ -130,7 +127,6 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       treegroup->addChild(treeitem);
     }
   }
-
 }
 
 plotwindow::~plotwindow()
