@@ -110,6 +110,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   advancedvariables << modelout.u << modelout.v;
     allvariables.insert(1,advancedvariables);
 
+  for (int i=0; i<advancedtreegroups.size(); i++)
   for (int n=0; n<advancedtreegroups.size(); n++)
   {
     QTreeWidgetItem *treegroup = new QTreeWidgetItem;
