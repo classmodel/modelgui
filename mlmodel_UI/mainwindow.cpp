@@ -358,8 +358,8 @@ void MainWindow::startrun()
       QFont font;
       font = ui->modelRunTree->currentItem()->font(1);
       font.setItalic(false);
-      ui->modelRunTree->currentItem()->setFont(1,font);
-      ui->modelRunTree->currentItem()->setTextColor(1,Qt::black);
+      ui->modelRunTree->selectedItems()[i]->setFont(1,font);
+      ui->modelRunTree->selectedItems()[i]->setTextColor(1,Qt::black);
       updateSelectedRuns();
       emit runadded(id);
     }
