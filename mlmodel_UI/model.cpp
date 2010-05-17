@@ -105,7 +105,18 @@ void model::initmodel()
   thetav   = theta  + 0.61 * theta * q;
   wthetav  = wtheta + 0.61 * theta * wq;
   dthetav  = (theta + dtheta) * (1. + 0.61 * (q + dq)) - theta * (1. + 0.61 * q);
-  
+
+  // compute tendencies
+  if(beta == 0 && dthetav == 0)
+    we    = 1 / gammatheta * wthetav / h;
+  else
+    we    = (beta * wthetav) / dthetav;
+
+  // compute entrainment fluxes
+  wthetae = we * dtheta;
+  wqe     = we * dq;
+
+
   // set output array to given value
   output = new modeloutput(tsteps);
 
