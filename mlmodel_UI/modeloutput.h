@@ -7,6 +7,7 @@ public:
   std::string name;
   std::string unit;
   std::string description;
+  std::string id;
 };
 
 class modeloutput
