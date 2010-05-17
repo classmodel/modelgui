@@ -110,13 +110,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   advancedvariables << modelout.u << modelout.v;
     allvariables.insert(1,advancedvariables);
 
-<<<<<<< HEAD
   for (int i=0; i<advancedtreegroups.size(); i++)
-=======
-  QString id = "bla";
-
   for (int n=0; n<advancedtreegroups.size(); n++)
->>>>>>> origin/bart
   {
     QTreeWidgetItem *treegroup = new QTreeWidgetItem;
     treegroup->setText(0,advancedtreegroups.value(n));
@@ -176,13 +171,23 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
   if(olditem->checkState(column) == Qt::Checked)
   {
     if(column == 1)
+    {
+      if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0) != olditem)
+        ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Unchecked);
+
       setplotvar(olditem->text(4), &plotvarx);
+    }
     else if(column == 2)
+      if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0) != olditem)
+        ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Unchecked);
+
       setplotvar(olditem->text(4), &plotvary);
 
     updateplotdata();
     plotar->update();
   }
+
+
 }
 
 void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
