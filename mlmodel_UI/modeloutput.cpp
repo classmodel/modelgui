@@ -46,7 +46,7 @@ modeloutput::modeloutput(int tsteps)
   dtheta.id                 = "dtheta";
 
   dthetav.data              = new double[tsteps];   // virtual potential temperature jump at h [K]
-  dthetav.name              = "\u0394\u03B8v";
+  dthetav.name              = "\u0394\u03B8\u1D65";
   dthetav.unit              = "K";
   dthetav.description       = "Virtual potential temperature jump at boundary layer top";
   dthetav.id                = "dthetav";
@@ -71,19 +71,19 @@ modeloutput::modeloutput(int tsteps)
 
 
   wtheta.data               = new double[tsteps];   // surface kinematic heat flux [K m s-1]
-  wtheta.name               = "w'\u03B8'";
+  wtheta.name               = "w'\u03B8'(s)";
   wtheta.unit               = "K m s\u207B\u00B9";
   wtheta.description        = "Surface kinematic heat flux";
   wtheta.id                 = "wtheta";
 
   wthetae.data              = new double[tsteps];   // surface kinematic heat flux [K m s-1]
-  wthetae.name              = "w'\u03B8'e";
+  wthetae.name              = "w'\u03B8'(e)";
   wthetae.unit              = "K m s\u207B\u00B9";
   wthetae.description       = "Entrainment kinematic heat flux";
   wthetae.id                = "wthetae";
 
   wthetav.data              = new double[tsteps];   // surface kinematic virtual heat flux [K m s-1]
-  wthetav.name              = "w'\u03B8v'";
+  wthetav.name              = "w'\u03B8\u1D65'(s)";
   wthetav.unit              = "K m s\u207B\u00B9";
   wthetav.description       = "Surface virtual temperature flux";
   wthetav.id                = "wthetav";
@@ -117,13 +117,13 @@ modeloutput::modeloutput(int tsteps)
   advq.id                   = "advq";
 
   wq.data                   = new double[tsteps];   // surface kinematic moisture flux [kg kg-1 m s-1]
-  wq.name                   = "w'q'";
+  wq.name                   = "w'q'(s)";
   wq.unit                   = "g kg\u207B\u00B9 m s\u207B\u00B9";
   wq.description            = "Surface kinematic moisture flux";
   wq.id                     = "wq";
 
   wqe.data                  = new double[tsteps];   // surface kinematic moisture flux [kg kg-1 m s-1]
-  wqe.name                  = "w'q'e";
+  wqe.name                  = "w'q'(e)";
   wqe.unit                  = "g kg\u207B\u00B9 m s\u207B\u00B9";
   wqe.description           = "Entrainment kinematic moisture flux";
   wqe.id                    = "wqe";
@@ -184,14 +184,14 @@ modeloutput::modeloutput(int tsteps)
   ustar.id                  = "ustar";
 
   uw.data                   = new double[tsteps];   // u-momentum flux [m2 s-2]
-  uw.name                   = "u'w'";
-  uw.unit                   = "m2 s-2";
+  uw.name                   = "u'w'(s)";
+  uw.unit                   = "m\u00B2 s\u207B\u00B2";
   uw.description            = "u-wind momentum flux";
   uw.id                     = "uw";
 
   vw.data                   = new double[tsteps];   // v-momentum flux [m2 s-2]
-  vw.name                   = "v'w'";
-  vw.unit                   = "m2 s-2";
+  vw.name                   = "v'w'(s)";
+  vw.unit                   = "m\u00B2 s\u207B\u00B2";
   vw.description            = "v-wind momentum flux";
   vw.id                     = "vw";
 
