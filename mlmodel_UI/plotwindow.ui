@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>535</width>
-    <height>529</height>
+    <width>623</width>
+    <height>623</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
   <widget class="QDockWidget" name="PlotvarDock">
    <property name="minimumSize">
     <size>
-     <width>106</width>
+     <width>113</width>
      <height>40</height>
     </size>
    </property>
@@ -439,8 +439,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>535</width>
-     <height>21</height>
+     <width>623</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -455,11 +455,13 @@
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="menu_modelrun"/>
-    <addaction name="menu_plotsettings"/>
+    <addaction name="view_basicmode"/>
+    <addaction name="view_advancedmode"/>
     <addaction name="separator"/>
-    <addaction name="menu_basicplot"/>
-    <addaction name="menu_advancedplot"/>
+    <addaction name="view_basicplotsettings"/>
+    <addaction name="view_advancedplotsettings"/>
+    <addaction name="view_axissettings"/>
+    <addaction name="view_modelruns"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -529,6 +531,46 @@
   <action name="menu_advancedplot">
    <property name="text">
     <string>Advanced plotting</string>
+   </property>
+  </action>
+  <action name="actionAdvanced_plot_settings">
+   <property name="text">
+    <string>Advanced-plot settings</string>
+   </property>
+  </action>
+  <action name="actionAdvanced_plot_settings_2">
+   <property name="text">
+    <string>Advanced-plot settings</string>
+   </property>
+  </action>
+  <action name="view_basicmode">
+   <property name="text">
+    <string>Basic mode</string>
+   </property>
+  </action>
+  <action name="view_advancedmode">
+   <property name="text">
+    <string>Advanced mode</string>
+   </property>
+  </action>
+  <action name="view_basicplotsettings">
+   <property name="text">
+    <string>Basic-plot settings</string>
+   </property>
+  </action>
+  <action name="view_advancedplotsettings">
+   <property name="text">
+    <string>Advanced-plot settings</string>
+   </property>
+  </action>
+  <action name="view_axissettings">
+   <property name="text">
+    <string>Axis settings</string>
+   </property>
+  </action>
+  <action name="view_modelruns">
+   <property name="text">
+    <string>Model runs</string>
    </property>
   </action>
  </widget>
