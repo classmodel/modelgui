@@ -373,6 +373,8 @@ void plotwindow::addrun(int num)
     point->setText(0, QString::number(num));
     point->setText(1, runlist->value(num).runname);
   }
+  if (ui->modelruntree->findItems(id,Qt::MatchExactly,0).count() == 1)
+    ui->modelruntree->findItems(id,Qt::MatchExactly,0).value(0)->setText(1,runlist->value(num).runname);
 
   updateplotdata();
   plotar->update();
