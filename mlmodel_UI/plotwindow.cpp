@@ -14,7 +14,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Place left dockwidget in corner
   this->setCorner(Qt::TopLeftCorner,Qt::LeftDockWidgetArea);
-  //ui->AdvancedDock->setShown(false);
+  ui->AdvancedDock->setShown(false);
+  this->setFixedHeight(550);
 
   // Disable some option for demo @ 20 May
   ui->plotintervalInput->setEnabled(false);
@@ -170,6 +171,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
     QTreeWidgetItem *treegroup = new QTreeWidgetItem;
     treegroup->setText(0,advancedtreegroups.value(n));
     ui->advancedplottree->addTopLevelItem(treegroup);
+    if (n == 0)
+      ui->advancedplottree->expandItem(treegroup);
 
     for (int i=0; i<allvariables.value(n).size(); i++)
     {
@@ -210,12 +213,15 @@ void plotwindow::switchtobasicplotting()
 {
   ui->AdvancedDock->setShown(false);
   ui->PlotvarDock->setShown(true);
+  this->setFixedHeight(550);
 }
 
 void plotwindow::switchtoadvancedplotting()
 {
   ui->AdvancedDock->setShown(true);
   ui->PlotvarDock->setShown(false);
+  this->setFixedHeight(720);
+  ui->AdvancedDock->setFixedHeight(200);
 }
 
 void plotwindow::togglebasicsettings(bool checkstate)
