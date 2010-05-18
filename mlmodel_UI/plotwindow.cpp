@@ -212,15 +212,22 @@ void plotwindow::switchtobasicplotting()
 {
   ui->AdvancedDock->setShown(false);
   ui->PlotvarDock->setShown(true);
-  //this->setFixedHeight(550);
+    ui->PlotvarDock->setFloating(false);
+  ui->PlotsettingsDock->setShown(true);
+    ui->PlotsettingsDock->setFloating(false);
+  ui->ModelruntreeDock->setShown(true);
+    ui->ModelruntreeDock->setFloating(false);
 }
 
 void plotwindow::switchtoadvancedplotting()
 {
   ui->AdvancedDock->setShown(true);
+    ui->AdvancedDock->setFloating(false);
   ui->PlotvarDock->setShown(false);
-  //this->setFixedHeight(720);
-  //ui->AdvancedDock->setFixedHeight(200);
+  ui->PlotsettingsDock->setShown(true);
+    ui->PlotsettingsDock->setFloating(false);
+  ui->ModelruntreeDock->setShown(true);
+    ui->ModelruntreeDock->setFloating(false);
 }
 
 void plotwindow::togglebasicsettings(bool checkstate)
