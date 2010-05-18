@@ -14,7 +14,11 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Place left dockwidget in corner
   this->setCorner(Qt::TopLeftCorner,Qt::LeftDockWidgetArea);
-  ui->AdvancedDock->setShown(false);
+  //ui->AdvancedDock->setShown(false);
+
+  // Disable some option for demo @ 20 May
+  ui->plotintervalInput->setEnabled(false);
+  ui->plottype->setEnabled(false);
 
   // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
@@ -37,6 +41,11 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   // Menu interface:
   connect(ui->view_basicmode, SIGNAL(triggered()), this, SLOT(switchtobasicplotting()));
   connect(ui->view_advancedmode, SIGNAL(triggered()), this, SLOT(switchtoadvancedplotting()));
+  connect(ui->view_menu, SIGNAL(aboutToShow()), this, SLOT(viewmenutriggered()));
+  connect(ui->view_basicplotsettings, SIGNAL(toggled(bool)), this, SLOT(togglebasicsettings(bool)));
+  connect(ui->view_advancedplotsettings, SIGNAL(toggled(bool)), this, SLOT(toggleadvancedsettings(bool)));
+  connect(ui->view_axissettings, SIGNAL(toggled(bool)), this, SLOT(toggleaxissettings(bool)));
+  connect(ui->view_modelruns, SIGNAL(toggled(bool)), this, SLOT(togglemodelruns(bool)));
   connect(ui->advancedplottree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), SLOT(selectadvanceddata(QTreeWidgetItem*, int)));
 
   // Set "auto scale axis" by default to true
@@ -187,6 +196,50 @@ plotwindow::~plotwindow()
   delete ui;
 }
 
+// Add functionality to view-menu
+// ++++++++++++++++++++++++++++++++++++++++++++++++++
+void plotwindow::viewmenutriggered()
+{
+  ui->view_basicplotsettings->setChecked(ui->PlotvarDock->isVisible());
+  ui->view_advancedplotsettings->setChecked(ui->AdvancedDock->isVisible());
+  ui->view_axissettings->setChecked(ui->PlotsettingsDock->isVisible());
+  ui->view_modelruns->setChecked(ui->ModelruntreeDock->isVisible());
+}
+
+void plotwindow::switchtobasicplotting()
+{
+  ui->AdvancedDock->setShown(false);
+  ui->PlotvarDock->setShown(true);
+}
+
+void plotwindow::switchtoadvancedplotting()
+{
+  ui->AdvancedDock->setShown(true);
+  ui->PlotvarDock->setShown(false);
+}
+
+void plotwindow::togglebasicsettings(bool checkstate)
+{
+  ui->PlotvarDock->setVisible(checkstate);
+}
+
+void plotwindow::toggleadvancedsettings(bool checkstate)
+{
+  ui->AdvancedDock->setVisible(checkstate);
+}
+
+void plotwindow::toggleaxissettings(bool checkstate)
+{
+  ui->PlotsettingsDock->setVisible(checkstate);
+}
+
+void plotwindow::togglemodelruns(bool checkstate)
+{
+  ui->ModelruntreeDock->setVisible(checkstate);
+}
+// ++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 void plotwindow::updateselectedruns()  // create QList containing ID's of selected runs
 {
   int id = ui->modelruntree->currentItem()->text(0).toInt();
@@ -227,11 +280,7 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
     updateplotdata();
     plotar->update();
   }
-
-
 }
-
-
 
 void plotwindow::updateplotdata()
 {
@@ -339,16 +388,6 @@ void plotwindow::changeplotinterval()
   plotar->update();
 }
 
-void plotwindow::switchtobasicplotting()
-{
-  ui->AdvancedDock->setShown(false);
-  ui->PlotvarDock->setShown(true);
-}
 
-void plotwindow::switchtoadvancedplotting()
-{
-  ui->AdvancedDock->setShown(true);
-  ui->PlotvarDock->setShown(false);
-}
 
 

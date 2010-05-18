@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>623</width>
-    <height>623</height>
+    <width>621</width>
+    <height>733</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -178,7 +178,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_2">
+  <widget class="QDockWidget" name="PlotsettingsDock">
    <property name="minimumSize">
     <size>
      <width>170</width>
@@ -377,7 +377,7 @@
         </widget>
        </item>
        <item row="6" column="0">
-        <widget class="QComboBox" name="comboBox">
+        <widget class="QComboBox" name="plottype">
          <item>
           <property name="text">
            <string>Line plot</string>
@@ -439,11 +439,11 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>623</width>
-     <height>22</height>
+     <width>621</width>
+     <height>19</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="file_menu">
     <property name="title">
      <string>File</string>
     </property>
@@ -451,7 +451,7 @@
     <addaction name="separator"/>
     <addaction name="menu_exit"/>
    </widget>
-   <widget class="QMenu" name="menuView">
+   <widget class="QMenu" name="view_menu">
     <property name="title">
      <string>View</string>
     </property>
@@ -463,8 +463,8 @@
     <addaction name="view_axissettings"/>
     <addaction name="view_modelruns"/>
    </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuView"/>
+   <addaction name="file_menu"/>
+   <addaction name="view_menu"/>
   </widget>
   <action name="menu_modelruns">
    <property name="text">
@@ -554,21 +554,33 @@
    </property>
   </action>
   <action name="view_basicplotsettings">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Basic-plot settings</string>
    </property>
   </action>
   <action name="view_advancedplotsettings">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Advanced-plot settings</string>
    </property>
   </action>
   <action name="view_axissettings">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Axis settings</string>
    </property>
   </action>
   <action name="view_modelruns">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Model runs</string>
    </property>

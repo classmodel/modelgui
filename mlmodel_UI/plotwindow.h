@@ -41,6 +41,11 @@ public slots:
   void switchtobasicplotting();
   void switchtoadvancedplotting();
   void changeplotinterval();
+  void viewmenutriggered();
+  void togglebasicsettings(bool);
+  void toggleadvancedsettings(bool);
+  void toggleaxissettings(bool);
+  void togglemodelruns(bool);
   void selectadvanceddata(QTreeWidgetItem*,int);
 
 protected:
