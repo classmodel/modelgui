@@ -4,6 +4,9 @@
 #include "model.h"
 using namespace std;
 
+
+inline double sign(double n) { return n > 0 ? 1 : (n < 0 ? -1 : 0);}
+
 model::model(modelinput extinput)
 {
   // model constants
@@ -116,6 +119,9 @@ void model::initmodel()
   wthetae = we * dtheta;
   wqe     = we * dq;
 
+  uw       = - sign(u) * pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
+  vw       = - sign(v) * pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
+  // end calculations
 
   // set output array to given value
   output = new modeloutput(tsteps);
@@ -124,7 +130,6 @@ void model::initmodel()
   return;
 } 
 
-inline double sign(double n) { return n > 0 ? 1 : (n < 0 ? -1 : 0);}
 
 void model::runmodel()
 {
