@@ -284,7 +284,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         }
       }
 
+      plotinterval  = tsteps / 1000 + 1;
       int numpoints = (tsteps/plotinterval);
+
 
       QPointF points[numpoints];
       for (int m=0; m < numpoints; m++)
