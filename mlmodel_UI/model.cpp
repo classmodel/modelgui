@@ -4,7 +4,6 @@
 #include "model.h"
 using namespace std;
 
-
 inline double sign(double n) { return n > 0 ? 1 : (n < 0 ? -1 : 0);}
 
 model::model(modelinput extinput)
@@ -26,6 +25,7 @@ model::model(modelinput extinput)
   input.dt         =  extinput.dt;               // time step [s]
 
   // read input for mixed-layer component
+  input.sw_ml      =  extinput.sw_ml;
   input.h          =  extinput.h;                // initial ABL height [m]
   input.Ps         =  extinput.Ps;               // surface pressure [Pa]
   input.ws         =  extinput.ws;               // large scale vertical velocity [m s-1]
@@ -55,7 +55,55 @@ model::model(modelinput extinput)
   input.gammav     =  extinput.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
   input.advv       =  extinput.advv;             // advection of v-wind [m s-2]
   
-  input.ustar      =  extinput.ustar;            // surface friction velocity [m s-1]
+  // surface layer variables
+  input.sw_sl      =  extinput.sw_sl;      // surface layer switch
+  input.ustar      =  extinput.ustar;      // surface friction velocity [m s-1]
+  input.z0m        =  extinput.z0m;        // roughness length for momentum [m]
+  input.z0h        =  extinput.z0h;        // roughness length for scalars [m]
+  input.Cm         =  extinput.Cm;         // drag coefficient for momentum [-]
+  input.Cs         =  extinput.Cs;         // drag coefficient for scalars [-]
+  input.L          =  extinput.L;          // Obukhov length [-]
+  input.Rib        =  extinput.Rib;        // bulk Richardson number [-]
+  
+  input.sw_rad     =  extinput.sw_rad;     // radiation switch
+  input.lat        =  extinput.lat;        // latitude [deg]
+  input.lon        =  extinput.lon;        // longitude [deg]
+  input.doy        =  extinput.doy;        // day of the year [-]
+  input.tstart     =  extinput.tstart;     // time of the day [h UTC]
+  input.cc         =  extinput.cc;         // cloud cover fraction [-]
+  
+  input.sw_ls      =  extinput.sw_ls;      // land surface switch
+  input.wg         =  extinput.wg;         // volumetric water content top soil layer [m3 m-3]
+  input.w2         =  extinput.w2;         // volumetric water content deeper soil layer [m3 m-3]
+  input.Tsoil      =  extinput.Tsoil;      // temperature top soil layer [K]
+  input.T2         =  extinput.T2;         // temperature deeper soil layer [K]
+  
+  input.a          =  extinput.a;          // Clapp and Hornberger retention curve parameter a
+  input.b          =  extinput.b;          // Clapp and Hornberger retention curve parameter b
+  input.p          =  extinput.p;          // Clapp and Hornberger retention curve parameter p
+  input.CGsat      =  extinput.CGsat;      // saturated soil conductivity for heat
+  
+  input.wsat       =  extinput.wsat;       // saturated volumetric water content ECMWF config [-]
+  input.wfc        =  extinput.wfc;        // volumetric water content field capacity [-]
+  input.wwilt      =  extinput.wwilt;      // volumetric water content wilting point [-]
+  
+  input.C1sat      =  extinput.C1sat;
+  input.C2ref      =  extinput.C2ref;
+  
+  input.LAI        =  extinput.LAI;        // leaf area index [-]
+  input.gD         =  extinput.gD;         // correction factor transpiration for VPD [-]
+  input.rsmin      =  extinput.rsmin;      // minimum resistance transpiration [s m-1]
+  input.rssoilmin  =  extinput.rssoilmin;  // minimum resistance soil evaporation [s m-1]
+  input.alpha      =  extinput.alpha;      // surface albedo [-]
+  
+  input.Ts         =  extinput.Ts;         // initial surface temperature [K]
+  
+  input.cveg       =  extinput.cveg;       // vegetation fraction [-]
+  input.Wmax       =  extinput.Wmax;       // thickness of water layer on wet vegetation [m]
+  input.Wl         =  extinput.Wl;         // equivalent water layer depth for wet vegetation [m]
+  input.cliq       =  extinput.cliq;       // wet fraction [-]
+  
+  input.Lambda     =  extinput.Lambda;     // thermal diffusivity skin layer [-]
 
   return;
 }
@@ -67,6 +115,7 @@ void model::initmodel()
   dt         =  input.dt;               // time step [s]
 
   // read input for mixed-layer component
+  sw_ml      =  input.sw_ml;
   h          =  input.h;                // initial ABL height [m]
   Ps         =  input.Ps;               // surface pressure [Pa]
   ws         =  input.ws;               // large scale vertical velocity [m s-1]
@@ -98,13 +147,103 @@ void model::initmodel()
   gammav     =  input.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
   advv       =  input.advv;             // advection of v-wind [m s-2]
   
+  sw_sl      =  input.sw_sl;            // surface layer switch
   ustar      =  input.ustar;            // surface friction velocity [m s-1]
+  z0m        =  input.z0m;              // roughness length for momentum [m]
+  z0h        =  input.z0h;              // roughness length for scalars [m]
+  Cm         =  input.Cm;               // drag coefficient for momentum [-]
+  Cs         =  input.Cs;               // drag coefficient for scalars [-]
+  L          =  input.L;                // Obukhov length [-]
+  Rib        =  input.Rib;              // bulk Richardson number [-]
+  
+  sw_rad     =  input.sw_rad;           // radiation switch
+  lat        =  input.lat;              // latitude [deg]
+  lon        =  input.lon;              // longitude [deg]
+  doy        =  input.doy;              // day of the year [-]
+  tstart     =  input.tstart;           // time of the day [h UTC]
+  cc         =  input.cc;               // cloud cover fraction [-]
+  
+  sw_ls      =  input.sw_ls;            // land surface switch
+  wg         =  input.wg;               // volumetric water content top soil layer [m3 m-3]
+  w2         =  input.w2;               // volumetric water content deeper soil layer [m3 m-3]
+  Tsoil      =  input.Tsoil;            // temperature top soil layer [K]
+  T2         =  input.T2;               // temperature deeper soil layer [K]
+  
+  a          =  input.a;                // Clapp and Hornberger retention curve parameter a
+  b          =  input.b;                // Clapp and Hornberger retention curve parameter b
+  p          =  input.p;                // Clapp and Hornberger retention curve parameter p
+  CGsat      =  input.CGsat;            // saturated soil conductivity for heat
+  
+  wsat       =  input.wsat;             // saturated volumetric water content ECMWF config [-]
+  wfc        =  input.wfc;              // volumetric water content field capacity [-]
+  wwilt      =  input.wwilt;            // volumetric water content wilting point [-]
+  
+  C1sat      =  input.C1sat;
+  C2ref      =  input.C2ref;
+  
+  LAI        =  input.LAI;              // leaf area index [-]
+  gD         =  input.gD;               // correction factor transpiration for VPD [-]
+  rsmin      =  input.rsmin;            // minimum resistance transpiration [s m-1]
+  rssoilmin  =  input.rssoilmin;        // minimum resistance soil evaporation [s m-1]
+  alpha      =  input.alpha;            // surface albedo [-]
+  
+  Ts         =  input.Ts;               // initial surface temperature [K]
+  
+  cveg       =  input.cveg;             // vegetation fraction [-]
+  Wmax       =  input.Wmax;             // thickness of water layer on wet vegetation [m]
+  Wl         =  input.Wl;               // equivalent water layer depth for wet vegetation [m]
+  cliq       =  input.cliq;             // wet fraction [-]
+  
+  Lambda     =  input.Lambda;           // thermal diffusivity skin layer [-]
+
 
   // initialize time variables
   tsteps = int(runtime / dt) + 1;
   t      = 0;
 
-  // compute initial values for output
+  if(sw_ml)
+    runmlmodel();
+  //if(sw_sl)
+  //  runslmodel();
+
+  // set output array to given value
+  output = new modeloutput(tsteps);
+
+  store();
+  return;
+} 
+
+
+void model::runmodel()
+{
+  initmodel();
+
+  for(t = 1; t < tsteps; t++)
+  {
+    // run radiation model
+    // if(sw_rad):
+    //   runradmodel()
+    runmlmodel();
+    intmlmodel();
+
+    store();
+  }
+
+  return;
+}
+
+void model::runmlmodel()
+{
+  if(!sw_sl)
+  {
+    //uw       = - pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
+    uw       = - sign(u) * pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
+    //vw       = - pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
+    vw       = - sign(v) * pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
+  }
+
+  // compute mixed-layer tendencies
+  // first compute necessary virtual temperature units
   thetav   = theta  + 0.61 * theta * q;
   wthetav  = wtheta + 0.61 * theta * wq;
   dthetav  = (theta + dtheta) * (1. + 0.61 * (q + dq)) - theta * (1. + 0.61 * q);
@@ -119,116 +258,60 @@ void model::initmodel()
   wthetae = we * dtheta;
   wqe     = we * dq;
 
-  uw       = - sign(u) * pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
-  vw       = - sign(v) * pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
-  // end calculations
+  // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
+  htend       = we + ws;
 
-  // set output array to given value
-  output = new modeloutput(tsteps);
+  thetatend   = (wtheta + we * dtheta) / h + advtheta;
+  qtend       = (wq     + we * dq)     / h + advq;
 
-  store();
-  return;
-} 
+  dthetatend  = gammatheta * we - thetatend;
+  dqtend      = gammaq     * we - qtend;
 
-
-void model::runmodel()
-{
-  double htend, thetatend, qtend, utend, vtend;
-  double dthetatend, dqtend, dutend, dvtend;
-  double h0, theta0, q0, u0, v0;
-  double dtheta0, dq0, du0, dv0;
-
-  initmodel();
-
-  for(t = 1; t < tsteps; t++)
+  // assume u + du = ug, so ug - u = du
+  if(sw_wind)
   {
-    // run radiation model
-    // if(sw_rad):
-    //   runradmodel()
+    utend       = -fc * dv + (uw + we * du)  / h + advu;
+    vtend       =  fc * du + (vw + we * dv)  / h + advv;
 
-    // run surface layer model
-    //if(sw_sl):
-    //  runslmodel()
-    //else:
-    //  # decompose ustar along the wind components
-    //uw       = - pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
-    uw       = - sign(u) * pow((pow(ustar, 4.) / (pow(v, 2.) / pow(u, 2.) + 1.)), 0.5);
-    //vw       = - pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
-    vw       = - sign(v) * pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
-    
-    // run land surface model
-    // if(sw_ls):
-    //   runlsmodel()
-
-    // compute mixed-layer tendencies
-    // first compute necessary virtual temperature units
-    thetav   = theta  + 0.61 * theta * q;
-    wthetav  = wtheta + 0.61 * theta * wq;
-    dthetav  = (theta + dtheta) * (1. + 0.61 * (q + dq)) - theta * (1. + 0.61 * q);
-    
-    // compute tendencies
-    if(beta == 0 && dthetav == 0)
-      we    = 1 / gammatheta * wthetav / h;
-    else
-      we    = (beta * wthetav) / dthetav;
-
-    // compute entrainment fluxes
-    wthetae = we * dtheta;
-    wqe     = we * dq;
-
-    // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
-    htend       = we + ws;
-    
-    thetatend   = (wtheta + we * dtheta) / h + advtheta;
-    qtend       = (wq     + we * dq)     / h + advq;
-    
-    dthetatend  = gammatheta * we - thetatend;
-    dqtend      = gammaq     * we - qtend;
-   
-    // assume u + du = ug, so ug - u = du
-    if(sw_wind)
-    {
-      utend       = -fc * dv + (uw + we * du)  / h + advu;
-      vtend       =  fc * du + (vw + we * dv)  / h + advv;
-
-      dutend      = gammau * we - utend;
-      dvtend      = gammav * we - vtend;
-    }
-    
-    // set values previous time step
-    h0      = h;
-    
-    theta0  = theta;
-    dtheta0 = dtheta;
-    q0      = q;
-    dq0     = dq;
-    
-    u0      = u;
-    du0     = du;
-    v0      = v;
-    dv0     = dv;
-
-    // integrate mixed-layer equations
-    h        = h0      + dt * htend;
-
-    theta    = theta0  + dt * thetatend;
-    dtheta   = dtheta0 + dt * dthetatend;
-    q        = q0      + dt * qtend;
-    dq       = dq0     + dt * dqtend;
-
-    if(sw_wind)
-    {
-      u        = u0      + dt * utend;
-      du       = du0     + dt * dutend;
-      v        = v0      + dt * vtend;
-      dv       = dv0     + dt * dvtend;
-    }
-
-    //cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
-    store();
+    dutend      = gammau * we - utend;
+    dvtend      = gammav * we - vtend;
   }
+}
 
-  return;
+void model::intmlmodel()
+{
+  double h0;
+  double theta0, dtheta0, q0, dq0;
+  double u0, du0, v0, dv0;
+
+  // set values previous time step
+  h0      = h;
+
+  theta0  = theta;
+  dtheta0 = dtheta;
+  q0      = q;
+  dq0     = dq;
+
+  u0      = u;
+  du0     = du;
+  v0      = v;
+  dv0     = dv;
+
+  // integrate mixed-layer equations
+  h        = h0      + dt * htend;
+
+  theta    = theta0  + dt * thetatend;
+  dtheta   = dtheta0 + dt * dthetatend;
+  q        = q0      + dt * qtend;
+  dq       = dq0     + dt * dqtend;
+
+  if(sw_wind)
+  {
+    u        = u0      + dt * utend;
+    du       = du0     + dt * dutend;
+    v        = v0      + dt * vtend;
+    dv       = dv0     + dt * dvtend;
+  }
 }
 
 void model::store()

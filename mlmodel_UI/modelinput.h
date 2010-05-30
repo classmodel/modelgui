@@ -7,6 +7,7 @@ public:
   double dt;        // time step [s]
 
   // mixed-layer variables  
+  bool   sw_ml;     // mixed-layer model switch;
   double h;         // initial ABL height [m]
   double Ps;        // surface pressure [Pa]
   double ws;        // large scale vertical velocity [m s-1]
@@ -36,44 +37,145 @@ public:
   double gammav;    // free atmosphere v-wind speed lapse rate [s-1]
   double advv;      // advection of v-wind [m s-2]
 
+  // surface layer variables
+  bool   sw_sl;     // surface layer switch
   double ustar;     // surface friction velocity [m s-1]
- 
+  double z0m;       // roughness length for momentum [m]
+  double z0h;       // roughness length for scalars [m]
+  double Cm;        // drag coefficient for momentum [-]
+  double Cs;        // drag coefficient for scalars [-]
+  double L;         // Obukhov length [-]
+  double Rib;       // bulk Richardson number [-]
+
+  // radiation parameters
+  bool   sw_rad;    // radiation switch
+  double lat;       // latitude [deg]
+  double lon;       // longitude [deg]
+  double doy;       // day of the year [-]
+  double tstart;    // time of the day [h UTC]
+  double cc;        // cloud cover fraction [-]
+
+  // land surface parameters
+  bool   sw_ls;     // land surface switch
+  double wg;        // volumetric water content top soil layer [m3 m-3]
+  double w2;        // volumetric water content deeper soil layer [m3 m-3]
+  double Tsoil;     // temperature top soil layer [K]
+  double T2;        // temperature deeper soil layer [K]
+  
+  double a;         // Clapp and Hornberger retention curve parameter a
+  double b;         // Clapp and Hornberger retention curve parameter b
+  double p;         // Clapp and Hornberger retention curve parameter p 
+  double CGsat;     // saturated soil conductivity for heat
+  
+  double wsat;      // saturated volumetric water content ECMWF config [-]
+  double wfc;       // volumetric water content field capacity [-]
+  double wwilt;     // volumetric water content wilting point [-]
+  
+  double C1sat;     
+  double C2ref;     
+    
+  double LAI;       // leaf area index [-]
+  double gD;        // correction factor transpiration for VPD [-]
+  double rsmin;     // minimum resistance transpiration [s m-1]
+  double rssoilmin; // minimum resistance soil evaporation [s m-1]
+  double alpha;     // surface albedo [-]
+    
+  double Ts;        // initial surface temperature [K]
+    
+  double cveg;      // vegetation fraction [-]
+  double Wmax;      // thickness of water layer on wet vegetation [m]
+  double Wl;        // equivalent water layer depth for wet vegetation [m]
+  double cliq;      // wet fraction [-]
+  
+  double Lambda;    // thermal diffusivity skin layer [-]
+
   modelinput()
   {
-    runtime    = -1.;  // duration of model run [s]
-    dt         = -1.;  // time step [s]
+    runtime    = -1.;
+    dt         = -1.;
 
-    // mixed-layer variables  
-    h          = -1.;  // initial ABL height [m]
-    Ps         = -1.;  // surface pressure [Pa]
-    ws         = -1.;  // large scale vertical velocity [m s-1]
-    fc         = -1.;  // Coriolis parameter [s-1]
+    // mixed-layer variables
+    sw_ml      = true;
+    h          = -1.;
+    Ps         = -1.;
+    ws         = -1.;
+    fc         = -1.;
     
-    theta      = -1.;  // initial mixed-layer potential temperature [K]
-    dtheta     = -1.;  // initial temperature jump at h [K]
-    gammatheta = -1.;  // free atmosphere potential temperature lapse rate [K m-1]
-    advtheta   = -1.;  // advection of heat [K s-1]
-    beta       = -1.;  // entrainment ratio for virtual heat [-]
-    wtheta     = -1.;  // surface kinematic heat flux [K m s-1]
+    theta      = -1.;
+    dtheta     = -1.;
+    gammatheta = -1.;
+    advtheta   = -1.;
+    beta       = -1.;
+    wtheta     = -1.;
     
-    q          = -1.;  // initial mixed-layer specific humidity [kg kg-1]
-    dq         = -1.;  // initial specific humidity jump at h [kg kg-1]
-    gammaq     = -1.;  // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
-    advq       = -1.;  // advection of moisture [kg kg-1 s-1]
-    wq         = -1.;  // surface kinematic moisture flux [kg kg-1 m s-1]
+    q          = -1.;
+    dq         = -1.;
+    gammaq     = -1.;
+    advq       = -1.;
+    wq         = -1.;
     
-    sw_wind    = false;// prognostic wind switch
-    u          = -1.;  // initial mixed-layer u-wind speed [m s-1]
-    du         = -1.;  // initial u-wind jump at h [m s-1]
-    gammau     = -1.;  // free atmosphere u-wind speed lapse rate [s-1]
-    advu       = -1.;  // advection of u-wind [m s-2]
+    sw_wind    = false;
+    u          = -1.;
+    du         = -1.;
+    gammau     = -1.;
+    advu       = -1.;
     
-    v          = -1.;  // initial mixed-layer u-wind speed [m s-1]
-    dv         = -1.;  // initial u-wind jump at h [m s-1]
-    gammav     = -1.;  // free atmosphere v-wind speed lapse rate [s-1]
-    advv       = -1.;  // advection of v-wind [m s-2]
+    v          = -1.;
+    dv         = -1.;
+    gammav     = -1.;
+    advv       = -1.;
 
-    ustar      = -1.;  // surface friction velocity [m s-1]
+    // surface layer variables
+    sw_sl      = false;
+    ustar      = -1.;
+    z0m        = -1.;
+    z0h        = -1.;
+    Cm         = -1.;
+    Cs         = -1.;
+    L          = -1.;
+    Rib        = -1.;
+
+    // radiation parameters
+    sw_rad     = false;
+    lat        = -1.;
+    lon        = -1.;
+    doy        = -1.;
+    tstart     = -1.;
+    cc         = -1.; 
+
+    // land surface parameters
+    sw_ls      = false;
+    wg         = -1.;
+    w2         = -1.;
+    Tsoil      = -1.;
+    T2         = -1.;
+    
+    a          = -1.;
+    b          = -1.;
+    p          = -1.;
+    CGsat      = -1.;
+    
+    wsat       = -1.;
+    wfc        = -1.;
+    wwilt      = -1.;
+    
+    C1sat      = -1.;
+    C2ref      = -1.;
+      
+    LAI        = -1.;
+    gD         = -1.;
+    rsmin      = -1.;
+    rssoilmin  = -1.;
+    alpha      = -1.;
+    
+    Ts         = -1.;
+    
+    cveg       = -1.;
+    Wmax       = -1.;
+    Wl         = -1.;
+    cliq       = -1.;
+    
+    Lambda     = -1.;
   }
 };
 

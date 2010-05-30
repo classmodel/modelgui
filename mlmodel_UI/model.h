@@ -12,6 +12,8 @@ public:
  
 private:
   void initmodel();
+  void runmlmodel();
+  void intmlmodel();
   void store();
 
   // model constants
@@ -33,6 +35,7 @@ private:
   int t;            // current time step [-]
 
   // mixed-layer
+  bool   sw_ml;     // mixed-layer model switch;
   double h;         // initial ABL height [m]
   double Ps;        // surface pressure [Pa]
   double ws;        // large scale vertical velocity [m s-1]
@@ -79,7 +82,64 @@ private:
   double gammav;    // free atmosphere v-wind speed lapse rate [s-1]
   double advv;      // advection of v-wind [m s-2]
   
-  double ustar;     // surface friction velocity [m s-1]
   double uw;        // surface momentum flux in u-direction [m2 s-2]
   double vw;        // surface momentum flux in v-direction [m2 s-2]
+
+  // surface layer variables
+  bool   sw_sl;     // surface layer switch
+  double ustar;     // surface friction velocity [m s-1]
+
+  double z0m;       // roughness length for momentum [m]
+  double z0h;       // roughness length for scalars [m]
+  double Cm;        // drag coefficient for momentum [-]
+  double Cs;        // drag coefficient for scalars [-]
+  double L;         // Obukhov length [-]
+  double Rib;       // bulk Richardson number [-]
+
+  // radiation parameters
+  bool   sw_rad;    // radiation switch
+  double lat;       // latitude [deg]
+  double lon;       // longitude [deg]
+  double doy;       // day of the year [-]
+  double tstart;    // time of the day [h UTC]
+  double cc;        // cloud cover fraction [-]
+
+  // land surface parameters
+  bool   sw_ls;     // land surface switch
+  double wg;        // volumetric water content top soil layer [m3 m-3]
+  double w2;        // volumetric water content deeper soil layer [m3 m-3]
+  double Tsoil;     // temperature top soil layer [K]
+  double T2;        // temperature deeper soil layer [K]
+
+  double a;         // Clapp and Hornberger retention curve parameter a
+  double b;         // Clapp and Hornberger retention curve parameter b
+  double p;         // Clapp and Hornberger retention curve parameter p
+  double CGsat;     // saturated soil conductivity for heat
+
+  double wsat;      // saturated volumetric water content ECMWF config [-]
+  double wfc;       // volumetric water content field capacity [-]
+  double wwilt;     // volumetric water content wilting point [-]
+
+  double C1sat;
+  double C2ref;
+
+  double LAI;       // leaf area index [-]
+  double gD;        // correction factor transpiration for VPD [-]
+  double rsmin;     // minimum resistance transpiration [s m-1]
+  double rssoilmin; // minimum resistance soil evaporation [s m-1]
+  double alpha;     // surface albedo [-]
+
+  double Ts;        // initial surface temperature [K]
+
+  double cveg;      // vegetation fraction [-]
+  double Wmax;      // thickness of water layer on wet vegetation [m]
+  double Wl;        // equivalent water layer depth for wet vegetation [m]
+  double cliq;      // wet fraction [-]
+
+  double Lambda;    // thermal diffusivity skin layer [-]
+
+  // new variables ... place them at right position
+  double htend;
+  double thetatend, qtend, utend, vtend;
+  double dthetatend, dqtend, dutend, dvtend;
 };
