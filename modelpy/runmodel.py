@@ -84,7 +84,6 @@ run1input.Ts         = 280.      # initial surface temperature [K]
 
 run1input.Wmax       = 0.0002    # thickness of water layer on wet vegetation [m]
 run1input.Wl         = 0.0000    # equivalent water layer depth for wet vegetation [m]
-run1input.cl         = 0.        # wet fraction [-]
 
 run1input.Lambda     = 5.9       # thermal diffusivity skin layer [-]
 

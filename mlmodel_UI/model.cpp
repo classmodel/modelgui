@@ -44,7 +44,7 @@ model::model(modelinput extinput)
   input.gammaq     =  extinput.gammaq;           // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   input.advq       =  extinput.advq;             // advection of moisture [kg kg-1 s-1]
   input.wq         =  extinput.wq;               // surface kinematic moisture flux [kg kg-1 m s-1]
-  
+
   input.sw_wind    =  extinput.sw_wind;          // prognostic wind switch
   input.u          =  extinput.u;                // initial mixed-layer u-wind speed [m s-1]
   input.du         =  extinput.du;               // initial u-wind jump at h [m s-1]
@@ -61,10 +61,6 @@ model::model(modelinput extinput)
   input.ustar      =  extinput.ustar;      // surface friction velocity [m s-1]
   input.z0m        =  extinput.z0m;        // roughness length for momentum [m]
   input.z0h        =  extinput.z0h;        // roughness length for scalars [m]
-  input.Cm         =  extinput.Cm;         // drag coefficient for momentum [-]
-  input.Cs         =  extinput.Cs;         // drag coefficient for scalars [-]
-  input.L          =  extinput.L;          // Obukhov length [-]
-  input.Rib        =  extinput.Rib;        // bulk Richardson number [-]
   
   // radiation
   input.sw_rad     =  extinput.sw_rad;     // radiation switch
@@ -105,7 +101,6 @@ model::model(modelinput extinput)
   input.cveg       =  extinput.cveg;       // vegetation fraction [-]
   input.Wmax       =  extinput.Wmax;       // thickness of water layer on wet vegetation [m]
   input.Wl         =  extinput.Wl;         // equivalent water layer depth for wet vegetation [m]
-  input.cliq       =  extinput.cliq;       // wet fraction [-]
   
   input.Lambda     =  extinput.Lambda;     // thermal diffusivity skin layer [-]
 
@@ -140,6 +135,12 @@ void model::initmodel()
   advq       =  input.advq;             // advection of moisture [kg kg-1 s-1]
   wq         =  input.wq;               // surface kinematic moisture flux [kg kg-1 m s-1]
   
+  qsat       =  -1.;                    // mixed-layer saturated specific humidity [kg kg-1]
+  esat       =  -1.;                    // mixed-layer saturated vapor pressure [Pa]
+  e          =  -1.;                    // mixed-layer vapor pressure [Pa]
+  qsatsurf   =  -1.;                    // surface saturated specific humidity [g kg-1]
+  dqsatdT    =  -1.;                    // slope saturated specific humidity curve [g kg-1 K-1]
+  
   sw_wind    =  input.sw_wind;          // prognostic wind switch
   u          =  input.u;                // initial mixed-layer u-wind speed [m s-1]
   du         =  input.du;               // initial u-wind jump at h [m s-1]
@@ -156,10 +157,11 @@ void model::initmodel()
   ustar      =  input.ustar;            // surface friction velocity [m s-1]
   z0m        =  input.z0m;              // roughness length for momentum [m]
   z0h        =  input.z0h;              // roughness length for scalars [m]
-  Cm         =  input.Cm;               // drag coefficient for momentum [-]
-  Cs         =  input.Cs;               // drag coefficient for scalars [-]
-  L          =  input.L;                // Obukhov length [-]
-  Rib        =  input.Rib;              // bulk Richardson number [-]
+  Cm         =  -1;                     // drag coefficient for momentum [-]
+  Cs         =  -1;                     // drag coefficient for scalars [-]
+  L          =  -1;                     // Obukhov length [-]
+  Rib        =  -1;                     // bulk Richardson number [-]
+  ra         =  -1;                     // aerodynamic resistance [s m-1]
   
   // radiation
   sw_rad     =  input.sw_rad;           // radiation switch
@@ -168,6 +170,10 @@ void model::initmodel()
   doy        =  input.doy;              // day of the year [-]
   tstart     =  input.tstart;           // time of the day [h UTC]
   cc         =  input.cc;               // cloud cover fraction [-]
+  Swin       =  -1;
+  Swout      =  -1;
+  Lwin       =  -1;
+  Lwout      =  -1;
   Q          =  input.Q;                // net radiation [W m-2]
   
   // land surface
@@ -203,10 +209,22 @@ void model::initmodel()
   cveg       =  input.cveg;             // vegetation fraction [-]
   Wmax       =  input.Wmax;             // thickness of water layer on wet vegetation [m]
   Wl         =  input.Wl;               // equivalent water layer depth for wet vegetation [m]
-  cliq       =  input.cliq;             // wet fraction [-]
+  cliq       =  -1;                     // wet fraction [-]
   
   Lambda     =  input.Lambda;           // thermal diffusivity skin layer [-]
 
+  Tsoiltend  =  -1.;                    // soil temperature tendency [K s-1]
+  wgtend     =  -1.;                    // soil moisture tendency [m3 m-3 s-1]
+  Wltend     =  -1.;                    // equivalent liquid water tendency [m s-1]
+
+  H          =  -1.;                    // sensible heat flux [W m-2]
+  LE         =  -1.;                    // evapotranspiration [W m-2]
+  LEliq      =  -1.;                    // open water evaporation [W m-2]
+  LEveg      =  -1.;                    // transpiration [W m-2]
+  LEsoil     =  -1.;                    // soil evaporation [W m-2]
+  LEpot      =  -1.;                    // potential evaporation [W m-2]
+  LEref      =  -1.;                    // reference evaporation using rs = rsmin / LAI [W m-2]
+  G          =  -1.;                    // ground heat flux [W m-2]
 
   // initialize time variables
   tsteps = int(runtime / dt) + 1;
@@ -219,6 +237,9 @@ void model::initmodel()
     // spin up surface layer, both Cs and L are unknown, iterate towards consistent solution
     for(int i = 0; i < 10; i++)
       runslmodel();
+
+  if(sw_ls)
+    runlsmodel();
 
   if(sw_ml)
     runmlmodel();
@@ -242,6 +263,9 @@ void model::runmodel()
 
     if(sw_sl)
       runslmodel();
+
+    if(sw_ls)
+      runlsmodel();
 
     if(sw_ml)
       runmlmodel();
@@ -474,6 +498,110 @@ void model::runradmodel()
   Lwout = bolz * pow(Ts, 4.);
 
   Q     = Swin - Swout + Lwin - Lwout;
+}
+
+void model::runlsmodel()
+{
+  double U;                 // total wind speed [m s-1]
+  double desatdT;           // slope vapor pressure curve [Pa K-1]
+  double esatsurf;          // surface vapor pressure [Pa]
+  double f1, f2, f3, f4;    // Jarvis-Stewart correction functions [-]
+  double Wlmx;              // Maximum layer of water stored on vegetation [m]
+  double wgeq;              // equilibrium soil moisture content [m3 m-3]
+
+  double CG,d1,C1,C2;       // force-restore parameters
+
+  // compute ra
+  U       = sqrt(pow(u,2.) + pow(v,2.));
+
+  if(sw_sl)
+    ra    = 1. / (Cm * U);
+  else
+    ra    = U / pow(ustar,2.);
+
+  // first calculate essential thermodynamic variables
+  esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
+  qsat    = 0.622 * esat / Ps;
+  desatdT = esat * (17.2694 / (theta - 35.86) - 17.2694 * (theta - 273.16) / pow(theta - 35.86,2.));
+  dqsatdT = 0.622 * desatdT / Ps;
+  e       = q * Ps / 0.622;
+
+  // calculate surface resistances using Jarvis-Stewart model
+  if(sw_rad)
+    f1   = 1. / ((0.004 * Swin + 0.05) / (0.81 * (0.004 * Swin + 1.)));
+  else
+    f1   = 1.;
+
+  if(w2 > wwilt)
+    f2   = (wfc - wwilt) / (w2 - wwilt);
+  else
+    f2   = 1.e8;
+
+  f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
+  f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
+
+  rs     = rsmin / LAI * f1 * f2 * f3;
+
+  // recompute f2 using wg instead of w2
+  if(wg > wwilt)
+    f2   = (wfc - wwilt) / (wg - wwilt);
+  else
+    f2   = 1.e8;
+
+  rssoil = rssoilmin * f2;
+
+  Wlmx   = LAI * Wmax;
+  cliq   = min(1., Wl / Wlmx);
+
+  // calculate skin temperature implictly
+  Ts   = (Q  + rho * cp / ra * theta \
+      + cveg * (1. - cliq) * rho * Lv / (ra + rs) * (dqsatdT * theta - qsat + q)       // transpiration
+      + (1. - cveg) * rho * Lv / (ra + rssoil) * (dqsatdT * theta - qsat + q)          // bare soil evaporation
+      + cveg * cliq * rho * Lv / ra * (dqsatdT * theta - qsat + q) + Lambda * Tsoil)   // liquid water evaporation
+    / (rho * cp / ra + cveg * (1. - cliq) * rho * Lv / (ra + rs) * dqsatdT + (1. - cveg) * rho * Lv / (ra + rssoil) * dqsatdT + cveg * cliq * rho * Lv / ra * dqsatdT + Lambda);
+
+  esatsurf  = 0.611e3 * exp(17.2694 * (Ts - 273.16) / (Ts - 35.86));
+  qsatsurf  = 0.622 * esatsurf / Ps;
+
+  LEveg  = (1. - cliq) * cveg * rho * Lv / (ra + rs) * (dqsatdT * (Ts - theta) + qsat - q);
+  LEliq  = cliq * cveg * rho * Lv / ra * (dqsatdT * (Ts - theta) + qsat - q);
+  LEsoil = (1. - cveg) * rho * Lv / (ra + rssoil) * (dqsatdT * (Ts - theta) + qsat - q);
+
+  Wltend = - LEliq / (rhow * Lv);
+
+  LE     = LEsoil + LEveg + LEliq;
+  H      = rho * cp / ra * (Ts - theta);
+  G      = Lambda * (Ts - Tsoil);
+  LEpot  = (dqsatdT * (Q - G) + rho * cp / ra * (qsat - q)) / (dqsatdT + cp / Lv);
+  LEref  = (dqsatdT * (Q - G) + rho * cp / ra * (qsat - q)) / (dqsatdT + cp / Lv * (1. + rsmin / LAI / ra));
+
+  CG         = pow(CGsat * (wsat / w2), b / (2. * log(10.)));
+
+  Tsoiltend  = CG * G - 2. * pi / 86400. * (Tsoil - T2);
+
+  d1         = 0.1;
+  C1         = pow(C1sat * (wsat / wg), b / 2. + 1.);
+  C2         = C2ref * (w2 / (wsat - w2));
+  wgeq       = w2 - wsat * a * ( pow(w2 / wsat, p) * (1. - pow(w2 / wsat,8.*p)) );
+  wgtend     = - C1 / (rhow * d1) * LEsoil / Lv - C2 / 86400. * (wg - wgeq);
+
+  // calculate kinematic heat fluxes
+  wtheta     = H  / (rho * cp);
+  wq         = LE / (rho * Lv);
+}
+
+void model::intlsmodel()
+{
+  double Tsoil0, wg0, Wl0;
+
+  // integrate soil equations
+  Tsoil0   = Tsoil;
+  wg0      = wg;
+  Wl0      = Wl;
+
+  Tsoil    = Tsoil0  + dt * Tsoiltend;
+  wg       = wg0     + dt * wgtend;
+  Wl       = Wl0     + dt * Wltend;
 }
 
 void model::store()

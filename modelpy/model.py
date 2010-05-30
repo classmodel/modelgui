@@ -868,7 +868,6 @@ class modelinput:
     self.cveg       = -1. # vegetation fraction [-]
     self.Wmax       = -1. # thickness of water layer on wet vegetation [m]
     self.Wl         = -1. # equivalent water layer depth for wet vegetation [m]
-    self.cliq       = -1. # wet fraction [-]
     
     self.Lambda     = -1. # thermal diffusivity skin layer [-]
 

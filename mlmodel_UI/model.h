@@ -12,10 +12,17 @@ public:
  
 private:
   void initmodel();
+
   void runmlmodel();
   void intmlmodel();
+
   void runslmodel();
+
   void runradmodel();
+
+  void runlsmodel();
+  void intlsmodel();
+
   void store();
 
   double ribtol(double, double, double, double);
@@ -78,6 +85,12 @@ private:
   double wq;        // surface kinematic moisture flux [kg kg-1 m s-1]
   double wqe;       // entrainment kinematic moisture flux [kg kg-1 m s-1]
 
+  double qsat;      // mixed-layer saturated specific humidity [kg kg-1]
+  double esat;      // mixed-layer saturated vapor pressure [Pa]
+  double e;         // mixed-layer vapor pressure [Pa]
+  double qsatsurf;  // surface saturated specific humidity [g kg-1]
+  double dqsatdT;   // slope saturated specific humidity curve [g kg-1 K-1]
+
   bool   sw_wind;   // prognostic wind switch
   double u;         // initial mixed-layer u-wind speed [m s-1]
   double du;        // initial u-wind jump at h [m s-1]
@@ -88,13 +101,16 @@ private:
   double dv;        // initial u-wind jump at h [m s-1]
   double gammav;    // free atmosphere v-wind speed lapse rate [s-1]
   double advv;      // advection of v-wind [m s-2]
-  
-  double uw;        // surface momentum flux in u-direction [m2 s-2]
-  double vw;        // surface momentum flux in v-direction [m2 s-2]
+
+  double htend;
+  double thetatend, qtend, utend, vtend;
+  double dthetatend, dqtend, dutend, dvtend;
 
   // surface layer variables
   bool   sw_sl;     // surface layer switch
   double ustar;     // surface friction velocity [m s-1]
+  double uw;        // surface momentum flux in u-direction [m2 s-2]
+  double vw;        // surface momentum flux in v-direction [m2 s-2]
 
   double z0m;       // roughness length for momentum [m]
   double z0h;       // roughness length for scalars [m]
@@ -102,6 +118,7 @@ private:
   double Cs;        // drag coefficient for scalars [-]
   double L;         // Obukhov length [-]
   double Rib;       // bulk Richardson number [-]
+  double ra;        // aerodynamic resistance [s m-1]
 
   // radiation parameters
   bool   sw_rad;    // radiation switch
@@ -154,10 +171,15 @@ private:
 
   double Lambda;    // thermal diffusivity skin layer [-]
 
-  // tendencies ... place them at right position
-  double htend;
-  double thetatend, qtend, utend, vtend;
-  double dthetatend, dqtend, dutend, dvtend;
+  double H;         // sensible heat flux [W m-2]
+  double LE;        // evapotranspiration [W m-2]
+  double LEliq;     // open water evaporation [W m-2]
+  double LEveg;     // transpiration [W m-2]
+  double LEsoil;    // soil evaporation [W m-2]
+  double LEpot;     // potential evaporation [W m-2]
+  double LEref;     // reference evaporation using rs = rsmin / LAI [W m-2]
+  double G;         // ground heat flux [W m-2]
 
   double Tsoiltend, wgtend, Wltend;
+
 };

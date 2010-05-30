@@ -42,10 +42,10 @@ public:
   double ustar;     // surface friction velocity [m s-1]
   double z0m;       // roughness length for momentum [m]
   double z0h;       // roughness length for scalars [m]
-  double Cm;        // drag coefficient for momentum [-]
-  double Cs;        // drag coefficient for scalars [-]
-  double L;         // Obukhov length [-]
-  double Rib;       // bulk Richardson number [-]
+  //double Cm;        // drag coefficient for momentum [-]
+  //double Cs;        // drag coefficient for scalars [-]
+  //double L;         // Obukhov length [-]
+  //double Rib;       // bulk Richardson number [-]
 
   // radiation parameters
   bool   sw_rad;    // radiation switch
@@ -87,7 +87,6 @@ public:
   double cveg;      // vegetation fraction [-]
   double Wmax;      // thickness of water layer on wet vegetation [m]
   double Wl;        // equivalent water layer depth for wet vegetation [m]
-  double cliq;      // wet fraction [-]
   
   double Lambda;    // thermal diffusivity skin layer [-]
 
@@ -132,10 +131,10 @@ public:
     ustar      = -1.;
     z0m        = -1.;
     z0h        = -1.;
-    Cm         = -1.;
-    Cs         = -1.;
-    L          = -1.;
-    Rib        = -1.;
+    //Cm         = -1.;
+    //Cs         = -1.;
+    //L          = -1.;
+    //Rib        = -1.;
 
     // radiation parameters
     sw_rad     = false;
@@ -144,6 +143,7 @@ public:
     doy        = -1.;
     tstart     = -1.;
     cc         = -1.; 
+    Q          = -1.;
 
     // land surface parameters
     sw_ls      = false;
@@ -175,7 +175,6 @@ public:
     cveg       = -1.;
     Wmax       = -1.;
     Wl         = -1.;
-    cliq       = -1.;
     
     Lambda     = -1.;
   }
