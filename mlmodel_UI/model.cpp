@@ -24,7 +24,7 @@ model::model(modelinput extinput)
   input.runtime    =  extinput.runtime;          // duration of model run [s]
   input.dt         =  extinput.dt;               // time step [s]
 
-  // read input for mixed-layer component
+  // mixed-layer
   input.sw_ml      =  extinput.sw_ml;
   input.h          =  extinput.h;                // initial ABL height [m]
   input.Ps         =  extinput.Ps;               // surface pressure [Pa]
@@ -55,7 +55,7 @@ model::model(modelinput extinput)
   input.gammav     =  extinput.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
   input.advv       =  extinput.advv;             // advection of v-wind [m s-2]
   
-  // surface layer variables
+  // surface-layer
   input.sw_sl      =  extinput.sw_sl;      // surface layer switch
   input.ustar      =  extinput.ustar;      // surface friction velocity [m s-1]
   input.z0m        =  extinput.z0m;        // roughness length for momentum [m]
@@ -65,6 +65,7 @@ model::model(modelinput extinput)
   input.L          =  extinput.L;          // Obukhov length [-]
   input.Rib        =  extinput.Rib;        // bulk Richardson number [-]
   
+  // radiation
   input.sw_rad     =  extinput.sw_rad;     // radiation switch
   input.lat        =  extinput.lat;        // latitude [deg]
   input.lon        =  extinput.lon;        // longitude [deg]
@@ -72,6 +73,7 @@ model::model(modelinput extinput)
   input.tstart     =  extinput.tstart;     // time of the day [h UTC]
   input.cc         =  extinput.cc;         // cloud cover fraction [-]
   
+  // land surface
   input.sw_ls      =  extinput.sw_ls;      // land surface switch
   input.wg         =  extinput.wg;         // volumetric water content top soil layer [m3 m-3]
   input.w2         =  extinput.w2;         // volumetric water content deeper soil layer [m3 m-3]
@@ -114,7 +116,7 @@ void model::initmodel()
   runtime    =  input.runtime;          // duration of model run [s]
   dt         =  input.dt;               // time step [s]
 
-  // read input for mixed-layer component
+  // mixed-layer
   sw_ml      =  input.sw_ml;
   h          =  input.h;                // initial ABL height [m]
   Ps         =  input.Ps;               // surface pressure [Pa]
@@ -147,6 +149,7 @@ void model::initmodel()
   gammav     =  input.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
   advv       =  input.advv;             // advection of v-wind [m s-2]
   
+  // surface-layer
   sw_sl      =  input.sw_sl;            // surface layer switch
   ustar      =  input.ustar;            // surface friction velocity [m s-1]
   z0m        =  input.z0m;              // roughness length for momentum [m]
@@ -156,6 +159,7 @@ void model::initmodel()
   L          =  input.L;                // Obukhov length [-]
   Rib        =  input.Rib;              // bulk Richardson number [-]
   
+  // radiation
   sw_rad     =  input.sw_rad;           // radiation switch
   lat        =  input.lat;              // latitude [deg]
   lon        =  input.lon;              // longitude [deg]
@@ -163,6 +167,7 @@ void model::initmodel()
   tstart     =  input.tstart;           // time of the day [h UTC]
   cc         =  input.cc;               // cloud cover fraction [-]
   
+  // land surface
   sw_ls      =  input.sw_ls;            // land surface switch
   wg         =  input.wg;               // volumetric water content top soil layer [m3 m-3]
   w2         =  input.w2;               // volumetric water content deeper soil layer [m3 m-3]
@@ -186,6 +191,9 @@ void model::initmodel()
   rsmin      =  input.rsmin;            // minimum resistance transpiration [s m-1]
   rssoilmin  =  input.rssoilmin;        // minimum resistance soil evaporation [s m-1]
   alpha      =  input.alpha;            // surface albedo [-]
+
+  rs         =  1e6;
+  rssoil     =  1e6;
   
   Ts         =  input.Ts;               // initial surface temperature [K]
   
@@ -203,8 +211,11 @@ void model::initmodel()
 
   if(sw_ml)
     runmlmodel();
-  //if(sw_sl)
-  //  runslmodel();
+
+  if(sw_sl)
+    // spin up surface layer, both Cs and L are unknown, iterate towards consistent solution
+    for(int i = 0; i < 10; i++)
+      runslmodel();
 
   // set output array to given value
   output = new modeloutput(tsteps);
@@ -220,11 +231,14 @@ void model::runmodel()
 
   for(t = 1; t < tsteps; t++)
   {
-    // run radiation model
-    // if(sw_rad):
-    //   runradmodel()
-    runmlmodel();
-    intmlmodel();
+    if(sw_sl)
+      runslmodel();
+
+    if(sw_ml)
+      runmlmodel();
+
+    if(sw_ml)
+      intmlmodel();
 
     store();
   }
@@ -313,6 +327,124 @@ void model::intmlmodel()
     dv       = dv0     + dt * dvtend;
   }
 }
+
+void model::runslmodel()
+{
+  double    zsl;      // height of surface layer [m]
+  double    U;     // total wind speed [m s-1]
+  double    esatsurf; // saturated vapor pressure inside vegetation [Pa]
+  double    qsatsurf; // saturated specific humidity inside vegetation [kg kg-1]
+  double    cq;       // fraction of surface that is wet
+
+  U         = sqrt(pow(u,2.) + pow(v,2.));
+  thetasurf = theta + wtheta / (Cs * U);
+  esatsurf  = 0.611e3 * exp(17.2694 * (thetasurf - 273.16) / (thetasurf - 35.86));
+  qsatsurf  = 0.622 * esatsurf / Ps;
+  cq        = 1. / (1. + Cs * U * rs);
+  qsurf     = (1. - cq) * q + cq * qsatsurf;
+
+  thetavsurf = thetasurf * (1. + 0.61 * qsurf);
+  thetav     = theta * (1. + 0.61 * q);
+  wthetav    = wtheta + 0.61 * theta * wq;
+
+  zsl  = 0.1 * h;
+
+  Rib  = g / thetav * zsl * (thetav - thetavsurf) / (pow(u,2.) + pow(v,2.));
+  Rib  = min(Rib, 0.2);
+
+  L    = ribtol(Rib, zsl, z0m, z0h);
+
+  Cm   = pow(k,2.) / pow((log(zsl / z0m) - psim(zsl / L) + psim(z0m / L)),2.);
+  Cs   = pow(k,2.) / (log(zsl / z0m) - psim(zsl / L) + psim(z0m / L)) / (log(zsl / z0h) - psih(zsl / L) + psih(z0h / L));
+
+
+  //if(wthetav > 0.):
+  //  wstar     = (g / thetav * h * wthetav) ** (1./3.)
+  //else:
+  //  wstar     = 0.0001
+  //ueff      = numpy.sqrt(u ** 2. + wstar ** 2.)
+
+  ustar = sqrt(Cm) * U;
+  uw    = - Cm * U * u;
+  vw    = - Cm * U * v;
+
+  // diagnostic meteorological variables
+  T2m    = thetasurf - wtheta / ustar / k * (log(2. / z0h) - psih(2. / L) + psih(z0h / L));
+  q2m    = qsurf     - wq     / ustar / k * (log(2. / z0h) - psih(2. / L) + psih(z0h / L));
+  u2m    =           - uw     / ustar / k * (log(2. / z0m) - psim(2. / L) + psim(z0m / L));
+  v2m    =           - vw     / ustar / k * (log(2. / z0m) - psim(2. / L) + psim(z0m / L));
+  esat2m = 0.611e3 * exp(17.2694 * (T2m - 273.16) / (T2m - 35.86));
+  e2m    = q2m * Ps / 0.622;
+}
+
+inline double model::psim(double zeta)
+{
+  double psim;
+  double x;
+  if(zeta <= 0.)
+  {
+    //x     = (1. - 16. * zeta) ** (0.25)
+    //psim  = 3.14159265 / 2. - 2. * arctan(x) + log( (1.+x) ** 2. * (1. + x ** 2.) / 8.)
+    x    = pow(1. + pow(3.6 * abs(zeta),2./3.), -0.5);
+    psim = 3. * log( (1. + 1. / x) / 2.);
+  }
+  else
+  {
+    psim  = -2./3. * (zeta - 5./0.35) * exp(-0.35 * zeta) - zeta - (10./3.) / 0.35;
+  }
+  return psim;
+}
+
+inline double model::psih(double zeta)
+{
+  double psih;
+  double x;
+  if(zeta <= 0.)
+  {
+    // x     = (1. - 16. * zeta) ** (0.25)
+    // psih  = 2. * log( (1. + x ** 2.) / 2. )
+    x     = pow(1. + pow(7.9 * abs(zeta), (2./3.)), -0.5);
+    psih  = 3. * log( (1. + 1. / x) / 2.);
+  }
+  else
+  {
+    psih  = -2./3. * (zeta - 5./0.35) * exp(-0.35 * zeta) - pow(1. + (2./3.) * zeta, 1.5) - (10./3.) / 0.35 + 1.;
+  }
+  return psih;
+}
+
+
+double model::ribtol(double Rib, double zsl, double z0m, double z0h)
+{
+  double L, L0;
+  double Lstart, Lend;
+  double fx, fxdif;
+
+  if(Rib > 0.)
+  {
+    L    = 1.;
+    L0   = 2.;
+  }
+  else
+  {
+    L  = -1.;
+    L0 = -2.;
+  }
+
+  while (abs(L - L0) > 0.001)
+  {
+    L0      = L;
+    fx      = Rib - zsl / L * (log(zsl / z0h) - psih(zsl / L) + psih(z0h / L)) / pow(log(zsl / z0m) - psim(zsl / L) + psim(z0m / L), 2.);
+    Lstart  = L - 0.001 * L;
+    Lend    = L + 0.001 * L;
+    fxdif   = ( (- zsl / Lstart * (log(zsl / z0h) - psih(zsl / Lstart) + psih(z0h / Lstart)) / pow(log(zsl / z0m) - psim(zsl / Lstart) + psim(z0m / Lstart), 2.)) - (-zsl / Lend * (log(zsl / z0h) - psih(zsl / Lend) + psih(z0h / Lend)) / pow(log(zsl / z0m) - psim(zsl / Lend) + psim(z0m / Lend), 2.)) ) / (Lstart - Lend);
+    L       = L - fx / fxdif;
+  }
+
+  return L;
+
+}
+
 
 void model::store()
 {

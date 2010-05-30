@@ -14,7 +14,12 @@ private:
   void initmodel();
   void runmlmodel();
   void intmlmodel();
+  void runslmodel();
   void store();
+
+  double ribtol(double, double, double, double);
+  inline double psim(double);
+  inline double psih(double);
 
   // model constants
   double Lv;        // heat of vaporization [J kg-1]
@@ -129,6 +134,9 @@ private:
   double rssoilmin; // minimum resistance soil evaporation [s m-1]
   double alpha;     // surface albedo [-]
 
+  double rs;        // surface resistance [s m-1]
+  double rssoil;    // soil resistance [s m-1]
+
   double Ts;        // initial surface temperature [K]
 
   double cveg;      // vegetation fraction [-]
@@ -138,8 +146,10 @@ private:
 
   double Lambda;    // thermal diffusivity skin layer [-]
 
-  // new variables ... place them at right position
+  // tendencies ... place them at right position
   double htend;
   double thetatend, qtend, utend, vtend;
   double dthetatend, dqtend, dutend, dvtend;
+
+  double Tsoiltend, wgtend, Wltend;
 };
