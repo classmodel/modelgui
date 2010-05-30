@@ -205,12 +205,14 @@ void MainWindow::updateInputdata()
 
   formvalues.sw_wind    = ui->switch_wind->checkState();              // prognostic wind switch
   formvalues.u          = ui->input_u0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
-  formvalues.du         = ui->input_d_u0->text().toDouble();          // initial u-wind jump at h [m s-1]
+  formvalues.du         = ui->input_ug->text().toDouble()
+                          - ui->input_u0->text().toDouble();          // initial u-wind jump at h [m s-1]
   formvalues.gammau     = ui->input_gamma_u->text().toDouble();       // free atmosphere u-wind speed lapse rate [s-1]
   formvalues.advu       = ui->input_adv_u->text().toDouble();         // advection of u-wind [m s-2]
 
-  formvalues.v          = ui->input_v0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
-  formvalues.dv         = ui->input_d_v0->text().toDouble();          // initial u-wind jump at h [m s-1]
+  formvalues.v          = ui->input_v0->text().toDouble();            // initial mixed-layer v-wind speed [m s-1]
+  formvalues.dv         = ui->input_vg->text().toDouble()
+                          - ui->input_v0->text().toDouble();          // initial u-wind jump at h [m s-1]
   formvalues.gammav     = ui->input_gamma_v->text().toDouble();       // free atmosphere v-wind speed lapse rate [s-1]
   formvalues.advv       = ui->input_adv_v->text().toDouble();         // advection of v-wind [m s-2]
 
@@ -259,12 +261,12 @@ void MainWindow::updateForm()
       ui->switch_wind->setChecked(false);
 
     ui->input_u0->setText(QString::number(modelrunlist->value(n).run->input.u));
-    ui->input_d_u0->setText(QString::number(modelrunlist->value(n).run->input.du));
+    ui->input_ug->setText(QString::number(modelrunlist->value(n).run->input.u + modelrunlist->value(n).run->input.du));
     ui->input_gamma_u->setText(QString::number(modelrunlist->value(n).run->input.gammau));
     ui->input_adv_u->setText(QString::number(modelrunlist->value(n).run->input.advu));
 
     ui->input_v0->setText(QString::number(modelrunlist->value(n).run->input.v));
-    ui->input_d_v0->setText(QString::number(modelrunlist->value(n).run->input.dv));
+    ui->input_vg->setText(QString::number(modelrunlist->value(n).run->input.v + modelrunlist->value(n).run->input.dv));
     ui->input_gamma_v->setText(QString::number(modelrunlist->value(n).run->input.gammav));
     ui->input_adv_v->setText(QString::number(modelrunlist->value(n).run->input.advv));
 

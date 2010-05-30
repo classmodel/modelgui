@@ -11,8 +11,8 @@ void MainWindow::loadfieldslots()
   connect(ui->input_beta,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_dq0,          SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_d_theta0,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_d_u0,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_d_v0,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_ug,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_vg,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_fc,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_gamma_q,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_gamma_theta,  SIGNAL(editingFinished()), this, SLOT(updateInputdata()));

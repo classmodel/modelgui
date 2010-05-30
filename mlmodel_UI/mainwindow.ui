@@ -875,7 +875,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;Δu&lt;sub&gt;0&lt;/sub&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;u&lt;sub&gt;g&lt;/sub&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -883,7 +883,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_d_u0">
+         <widget class="QLineEdit" name="input_ug">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -1047,7 +1047,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;Δv&lt;sub&gt;0&lt;/sub&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;v&lt;sub&gt;g&lt;/sub&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1055,7 +1055,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_d_v0">
+         <widget class="QLineEdit" name="input_vg">
           <property name="toolTip">
            <string>initial v-wind jump at h</string>
           </property>
@@ -1427,7 +1427,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1480,11 +1480,11 @@
   <tabstop>input_fc</tabstop>
   <tabstop>input_ustar</tabstop>
   <tabstop>input_u0</tabstop>
-  <tabstop>input_d_u0</tabstop>
+  <tabstop>input_ug</tabstop>
   <tabstop>input_gamma_u</tabstop>
   <tabstop>input_adv_u</tabstop>
   <tabstop>input_v0</tabstop>
-  <tabstop>input_d_v0</tabstop>
+  <tabstop>input_vg</tabstop>
   <tabstop>input_gamma_v</tabstop>
   <tabstop>input_adv_v</tabstop>
   <tabstop>tabWidget</tabstop>
