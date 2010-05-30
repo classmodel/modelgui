@@ -42,6 +42,9 @@ MainWindow::MainWindow(QWidget *parent)
 
   newrun();
   ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
+
+  // if all fields are properly assigned, the next line can be removed
+  formvalues            = defaultinput;
 }
 
 MainWindow::~MainWindow()
