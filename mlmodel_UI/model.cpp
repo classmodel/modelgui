@@ -19,6 +19,7 @@ model::model(modelinput extinput)
   bolz       =  5.67e-8;                // Bolzman constant [-]
   rhow       =  1000.;                  // density of water [kg m-3]
   S0         =  1368.;                  // solar constant [W m-2]
+  pi         =  3.14159265359;          // Pi
 
   // read initial and boundary conditions from input file
   input.runtime    =  extinput.runtime;          // duration of model run [s]
@@ -72,6 +73,7 @@ model::model(modelinput extinput)
   input.doy        =  extinput.doy;        // day of the year [-]
   input.tstart     =  extinput.tstart;     // time of the day [h UTC]
   input.cc         =  extinput.cc;         // cloud cover fraction [-]
+  input.Q          =  extinput.Q;          // net radiation [-]
   
   // land surface
   input.sw_ls      =  extinput.sw_ls;      // land surface switch
@@ -166,6 +168,7 @@ void model::initmodel()
   doy        =  input.doy;              // day of the year [-]
   tstart     =  input.tstart;           // time of the day [h UTC]
   cc         =  input.cc;               // cloud cover fraction [-]
+  Q          =  input.Q;                // net radiation [W m-2]
   
   // land surface
   sw_ls      =  input.sw_ls;            // land surface switch
@@ -209,13 +212,16 @@ void model::initmodel()
   tsteps = int(runtime / dt) + 1;
   t      = 0;
 
-  if(sw_ml)
-    runmlmodel();
+  if(sw_rad)
+    runradmodel();
 
   if(sw_sl)
     // spin up surface layer, both Cs and L are unknown, iterate towards consistent solution
     for(int i = 0; i < 10; i++)
       runslmodel();
+
+  if(sw_ml)
+    runmlmodel();
 
   // set output array to given value
   output = new modeloutput(tsteps);
@@ -231,6 +237,9 @@ void model::runmodel()
 
   for(t = 1; t < tsteps; t++)
   {
+    if(sw_rad)
+      runradmodel();
+
     if(sw_sl)
       runslmodel();
 
@@ -445,6 +454,27 @@ double model::ribtol(double Rib, double zsl, double z0m, double z0h)
 
 }
 
+void model::runradmodel()
+{
+  double  sda;      // solar declination angle [rad]
+  double  sinlea;   // sinus of local declination angle [-]
+  double  Ta;       // absolute temperature at top of surface layer [K]
+  double  Tr;       // atmospheric transmissivity [-]
+
+  sda    = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
+  sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
+  sinlea = max(sinlea, 0.0001);
+
+  Ta  = theta * pow(((Ps - 0.1 * h * rho * g) / Ps ), Rd / cp);
+  Tr  = (0.6 + 0.2 * sinlea) * (1. - 0.4 * cc);
+
+  Swin  = S0 * Tr * sinlea;
+  Swout = alpha * S0 * Tr * sinlea;
+  Lwin  = 0.8 * bolz * pow(Ta, 4.);
+  Lwout = bolz * pow(Ts, 4.);
+
+  Q     = Swin - Swout + Lwin - Lwout;
+}
 
 void model::store()
 {

@@ -15,6 +15,7 @@ private:
   void runmlmodel();
   void intmlmodel();
   void runslmodel();
+  void runradmodel();
   void store();
 
   double ribtol(double, double, double, double);
@@ -32,6 +33,7 @@ private:
   double bolz;      // Bolzman constant [-]
   double rhow;      // density of water [kg m-3]
   double S0;        // solar constant [W m-2]
+  double pi;
   
   // time variables
   double runtime;   // duration of model run [s]
@@ -108,6 +110,12 @@ private:
   double doy;       // day of the year [-]
   double tstart;    // time of the day [h UTC]
   double cc;        // cloud cover fraction [-]
+
+  double Swin;      // incoming short wave radiation [W m-2]
+  double Swout;     // outgoing short wave radiation [W m-2]
+  double Lwin;      // incoming long wave radiation [W m-2]
+  double Lwout;     // outgoing long wave radiation [W m-2]
+  double Q;         // net radiation [W m-2]
 
   // land surface parameters
   bool   sw_ls;     // land surface switch

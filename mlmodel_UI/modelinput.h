@@ -54,6 +54,8 @@ public:
   double doy;       // day of the year [-]
   double tstart;    // time of the day [h UTC]
   double cc;        // cloud cover fraction [-]
+  double Q;         // net radiation [W m-2]
+
 
   // land surface parameters
   bool   sw_ls;     // land surface switch
