@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->startButton,    SIGNAL(clicked()),                this, SLOT(startrun()));
   connect(ui->cancelButton,   SIGNAL(clicked()),                this, SLOT(canceledit()));
 
-  connect(ui->switch_wind,    SIGNAL(stateChanged(int)),        this, SLOT(wind_switch(int)));
+  //connect(ui->switch_wind,    SIGNAL(stateChanged(int)),        this, SLOT(wind_switch(int)));
   connect(ui->newRunButton,   SIGNAL(clicked()),                this, SLOT(newrun()));
   connect(ui->cloneRunButton, SIGNAL(clicked()),                this, SLOT(clonerun()));
   connect(ui->modelRunTree,   SIGNAL(itemSelectionChanged()),   this, SLOT(runTreeChanged()));
@@ -203,7 +203,7 @@ void MainWindow::updateInputdata()
   formvalues.advq       = ui->input_advq->text().toDouble() / 1000;   // advection of moisture [kg kg-1 s-1]
   formvalues.wq         = ui->input_wq->text().toDouble() / 1000;     // surface kinematic moisture flux [kg kg-1 m s-1]
 
-  formvalues.sw_wind    = ui->switch_wind->checkState();              // prognostic wind switch
+  //formvalues.sw_wind    = ui->switch_wind->checkState();              // prognostic wind switch
   formvalues.u          = ui->input_u0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
   formvalues.du         = ui->input_ug->text().toDouble()
                           - ui->input_u0->text().toDouble();          // initial u-wind jump at h [m s-1]
@@ -255,10 +255,10 @@ void MainWindow::updateForm()
     ui->input_advq->setText(QString::number(modelrunlist->value(n).run->input.advq * 1000.));
     ui->input_wq->setText(QString::number(modelrunlist->value(n).run->input.wq * 1000.));
 
-    if (modelrunlist->value(n).run->input.sw_wind == true)
-      ui->switch_wind->setChecked(true);
-    else
-      ui->switch_wind->setChecked(false);
+    //if (modelrunlist->value(n).run->input.sw_wind == true)
+      //ui->switch_wind->setChecked(true);
+    //else
+      //ui->switch_wind->setChecked(false);
 
     ui->input_u0->setText(QString::number(modelrunlist->value(n).run->input.u));
     ui->input_ug->setText(QString::number(modelrunlist->value(n).run->input.u + modelrunlist->value(n).run->input.du));

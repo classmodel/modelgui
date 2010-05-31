@@ -14,17 +14,18 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Place left dockwidget in corner
   this->setCorner(Qt::TopLeftCorner,Qt::LeftDockWidgetArea);
-  ui->AdvancedDock->setShown(false);
+  ui->AdvancedDock->setShown(true);
+  ui->PlotvarDock->setShown(false);
 
   // Disable some option for demo @ 20 May
-  ui->plotintervalInput->setEnabled(false);
-  ui->plottype->setEnabled(false);
+  //ui->plotintervalInput->setEnabled(false);
+  //ui->plottype->setEnabled(false);
 
   // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
 
   // Default plotinterval from subplot.cpp
-  ui->plotintervalInput->setText(QString::number(plotar->plotinterval));
+  //ui->plotintervalInput->setText(QString::number(plotar->plotinterval));
 
   // Signal/slots -------------------------------------------------------------------------------------
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));

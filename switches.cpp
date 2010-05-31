@@ -32,7 +32,7 @@ void MainWindow::loadfieldslots()
   connect(ui->input_ws,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_wtheta,       SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
 
-  connect(ui->switch_wind,        SIGNAL(clicked()),         this, SLOT(updateInputdata()));
+  //connect(ui->switch_wind,        SIGNAL(clicked()),         this, SLOT(updateInputdata()));
   connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateRunName()));
 

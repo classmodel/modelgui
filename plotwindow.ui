@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>621</width>
-    <height>733</height>
+    <width>597</width>
+    <height>634</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,6 +28,9 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="PlotvarDock">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="minimumSize">
     <size>
      <width>113</width>
@@ -439,7 +442,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>621</width>
+     <width>597</width>
      <height>19</height>
     </rect>
    </property>
