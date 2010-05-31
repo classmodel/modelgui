@@ -1,8 +1,0 @@
-ribtol.so : ribtol.o
-	g++ -O3 -shared -Wl -z -def -o ribtol.so -L/opt/local/lib -lpython2.6 -lboost_python-mt ribtol.o
-
-ribtol.o : ribtol.cpp
-	g++ -c -O3 -fPIC ribtol.cpp -I/opt/local/Library/Frameworks/Python.framework/Versions/2.6/include/python2.6/ -I/opt/local/include
-
-clean : 
-	rm -rf ribtol.o ribtol.so
