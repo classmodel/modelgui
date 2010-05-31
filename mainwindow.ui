@@ -63,7 +63,7 @@
      <attribute name="title">
       <string>Basic ML</string>
      </attribute>
-     <widget class="QGroupBox" name="basic_model_group">
+     <widget class="QGroupBox" name="modelsettings_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -189,7 +189,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="basic_heat_group">
+     <widget class="QGroupBox" name="heat_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -199,7 +199,7 @@
        </rect>
       </property>
       <property name="title">
-       <string>Temperature</string>
+       <string>Heat</string>
       </property>
       <widget class="QWidget" name="gridLayoutWidget_2">
        <property name="geometry">
@@ -212,7 +212,7 @@
        </property>
        <layout class="QGridLayout" name="heat_grid" columnminimumwidth="50,0,60">
         <item row="0" column="0">
-         <widget class="QLabel" name="label_theta0">
+         <widget class="QLabel" name="label_heat_theta">
           <property name="toolTip">
            <string/>
           </property>
@@ -225,7 +225,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_d_theta0">
+         <widget class="QLabel" name="label_heat_dtheta">
           <property name="toolTip">
            <string/>
           </property>
@@ -238,7 +238,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_gamma_theta">
+         <widget class="QLabel" name="label_heat_gammatheta">
           <property name="toolTip">
            <string/>
           </property>
@@ -251,7 +251,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_theta0">
+         <widget class="QLineEdit" name="input_heat_theta">
           <property name="toolTip">
            <string>Initial mixed layer potential temperature</string>
           </property>
@@ -264,7 +264,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_d_theta0">
+         <widget class="QLineEdit" name="input_heat_dtheta">
           <property name="toolTip">
            <string>Initial potential temperature jump at inversion</string>
           </property>
@@ -277,7 +277,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="input_gamma_theta">
+         <widget class="QLineEdit" name="input_heat_gammatheta">
           <property name="toolTip">
            <string>Free atmosphere potential temperature lapse rate</string>
           </property>
@@ -290,7 +290,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_wtheta">
+         <widget class="QLabel" name="label_heat_wtheta">
           <property name="toolTip">
            <string/>
           </property>
@@ -303,7 +303,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_wtheta">
+         <widget class="QLineEdit" name="input_heat_wtheta">
           <property name="toolTip">
            <string>Surface kinematic heat flux</string>
           </property>
@@ -316,7 +316,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_theta0">
+         <widget class="QLabel" name="unitlabel_heat_theta">
           <property name="toolTip">
            <string/>
           </property>
@@ -329,7 +329,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_dtheta0">
+         <widget class="QLabel" name="unitlabel_heat_dtheta">
           <property name="toolTip">
            <string/>
           </property>
@@ -342,7 +342,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_gamma_theta">
+         <widget class="QLabel" name="unitlabel_heat_gammatheta">
           <property name="toolTip">
            <string/>
           </property>
@@ -355,7 +355,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_wtheta">
+         <widget class="QLabel" name="unitlabel_heat_wtheta">
           <property name="toolTip">
            <string/>
           </property>
@@ -368,7 +368,7 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QLabel" name="label_adv_theta">
+         <widget class="QLabel" name="label_heat_advtheta">
           <property name="toolTip">
            <string/>
           </property>
@@ -381,7 +381,7 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QLineEdit" name="input_adv_theta">
+         <widget class="QLineEdit" name="input_heat_advtheta">
           <property name="toolTip">
            <string>Advection of theta</string>
           </property>
@@ -394,7 +394,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QLabel" name="unitlabel_adv_theta">
+         <widget class="QLabel" name="unitlabel_heat_advtheta">
           <property name="toolTip">
            <string/>
           </property>
@@ -409,7 +409,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="basic_cbl_group">
+     <widget class="QGroupBox" name="ml_group">
       <property name="geometry">
        <rect>
         <x>230</x>
@@ -430,12 +430,12 @@
          <height>124</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="cbl_settings_grid" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="ml_grid" columnminimumwidth="50,0,80">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_h0">
+         <widget class="QLabel" name="label_ml_h">
           <property name="toolTip">
            <string/>
           </property>
@@ -448,7 +448,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_h0">
+         <widget class="QLineEdit" name="input_ml_h">
           <property name="toolTip">
            <string>Initial boundary layer height</string>
           </property>
@@ -461,7 +461,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_ps">
+         <widget class="QLabel" name="label_ml_ps">
           <property name="toolTip">
            <string/>
           </property>
@@ -474,7 +474,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_ps">
+         <widget class="QLineEdit" name="input_ml_ps">
           <property name="toolTip">
            <string>Surface pressure</string>
           </property>
@@ -487,7 +487,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_ws">
+         <widget class="QLabel" name="label_ml_ws">
           <property name="toolTip">
            <string/>
           </property>
@@ -500,7 +500,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="input_ws">
+         <widget class="QLineEdit" name="input_ml_ws">
           <property name="toolTip">
            <string>Large scale vertical velocity</string>
           </property>
@@ -513,7 +513,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_h0">
+         <widget class="QLabel" name="unitlabel_ml_h">
           <property name="toolTip">
            <string/>
           </property>
@@ -526,7 +526,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_ps">
+         <widget class="QLabel" name="unitlabel_ml_ps">
           <property name="toolTip">
            <string/>
           </property>
@@ -539,7 +539,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_ws">
+         <widget class="QLabel" name="unitlabel_ml_ws">
           <property name="toolTip">
            <string/>
           </property>
@@ -552,7 +552,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_beta">
+         <widget class="QLabel" name="label_ml_beta">
           <property name="toolTip">
            <string/>
           </property>
@@ -565,7 +565,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_beta">
+         <widget class="QLineEdit" name="input_ml_beta">
           <property name="toolTip">
            <string>Entrainment ratio for heat</string>
           </property>
@@ -578,7 +578,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_beta">
+         <widget class="QLabel" name="unitlabel_ml_beta">
           <property name="toolTip">
            <string/>
           </property>
@@ -593,7 +593,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="basic_moisture_group">
+     <widget class="QGroupBox" name="moisture_group">
       <property name="geometry">
        <rect>
         <x>230</x>
@@ -619,7 +619,7 @@
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_q0">
+         <widget class="QLabel" name="label_moisture_q">
           <property name="toolTip">
            <string/>
           </property>
@@ -632,7 +632,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_q0">
+         <widget class="QLineEdit" name="input_moisture_q">
           <property name="toolTip">
            <string>Initial specific humidity</string>
           </property>
@@ -645,7 +645,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_dq0">
+         <widget class="QLabel" name="label_moisture_dq">
           <property name="toolTip">
            <string/>
           </property>
@@ -658,7 +658,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_dq0">
+         <widget class="QLineEdit" name="input_moisture_dq">
           <property name="toolTip">
            <string>Initial specific humidity jump at inversion</string>
           </property>
@@ -671,7 +671,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_gamma_q">
+         <widget class="QLabel" name="label_moisture_gammaq">
           <property name="toolTip">
            <string/>
           </property>
@@ -684,7 +684,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="input_gamma_q">
+         <widget class="QLineEdit" name="input_moisture_gammaq">
           <property name="toolTip">
            <string>Free atmosphere specific humidity lapse rate</string>
           </property>
@@ -697,7 +697,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_wq">
+         <widget class="QLabel" name="label_moisture_wq">
           <property name="toolTip">
            <string/>
           </property>
@@ -710,7 +710,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_wq">
+         <widget class="QLineEdit" name="input_moisture_wq">
           <property name="toolTip">
            <string>Surface kinematic moisture flux</string>
           </property>
@@ -723,7 +723,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_q0">
+         <widget class="QLabel" name="unitlabel_moisture_q">
           <property name="toolTip">
            <string/>
           </property>
@@ -736,7 +736,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_dq0">
+         <widget class="QLabel" name="unitlabel_moisture_dq">
           <property name="toolTip">
            <string/>
           </property>
@@ -749,7 +749,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_gamma_q">
+         <widget class="QLabel" name="unitlabel_moisture_gammaq">
           <property name="toolTip">
            <string/>
           </property>
@@ -762,7 +762,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_adv_q_2">
+         <widget class="QLabel" name="unitlabel_moisture_wq">
           <property name="toolTip">
            <string/>
           </property>
@@ -775,7 +775,7 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QLabel" name="label_adv_q">
+         <widget class="QLabel" name="label_moisture_advq">
           <property name="toolTip">
            <string/>
           </property>
@@ -788,7 +788,7 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QLineEdit" name="input_advq">
+         <widget class="QLineEdit" name="input_moisture_advq">
           <property name="toolTip">
            <string>Advection of moisture</string>
           </property>
@@ -801,7 +801,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QLabel" name="unitlabel_adv_q">
+         <widget class="QLabel" name="unitlabel_moisture_advq">
           <property name="toolTip">
            <string/>
           </property>
@@ -842,12 +842,12 @@
          <height>124</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="wind_U_grid" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_u0">
+         <widget class="QLabel" name="label_wind_u">
           <property name="toolTip">
            <string/>
           </property>
@@ -860,7 +860,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_u0">
+         <widget class="QLineEdit" name="input_wind_u">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -870,7 +870,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_d_u0">
+         <widget class="QLabel" name="label_wind_ug">
           <property name="toolTip">
            <string/>
           </property>
@@ -883,7 +883,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_ug">
+         <widget class="QLineEdit" name="input_wind_ug">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -893,7 +893,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_gamma_u">
+         <widget class="QLabel" name="label_wind_gammau">
           <property name="toolTip">
            <string/>
           </property>
@@ -906,7 +906,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="input_gamma_u">
+         <widget class="QLineEdit" name="input_wind_gammau">
           <property name="toolTip">
            <string>free atmosphere u-wind speed lapse rate</string>
           </property>
@@ -916,7 +916,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_adv_u">
+         <widget class="QLabel" name="label_wind_advu">
           <property name="toolTip">
            <string/>
           </property>
@@ -929,7 +929,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_adv_u">
+         <widget class="QLineEdit" name="input_wind_advu">
           <property name="toolTip">
            <string>advection of u-wind</string>
           </property>
@@ -939,7 +939,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_u0">
+         <widget class="QLabel" name="unitlabel_wind_u">
           <property name="toolTip">
            <string/>
           </property>
@@ -952,7 +952,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_d_u0">
+         <widget class="QLabel" name="unitlabel_wind_ug">
           <property name="toolTip">
            <string/>
           </property>
@@ -965,7 +965,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_gamma_u">
+         <widget class="QLabel" name="unitlabel_wind_gammau">
           <property name="toolTip">
            <string/>
           </property>
@@ -978,7 +978,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_adv_u">
+         <widget class="QLabel" name="unitlabel_wind_advu">
           <property name="toolTip">
            <string/>
           </property>
@@ -1019,7 +1019,7 @@
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_v0">
+         <widget class="QLabel" name="label_wind_v">
           <property name="toolTip">
            <string/>
           </property>
@@ -1032,7 +1032,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_v0">
+         <widget class="QLineEdit" name="input_wind_v">
           <property name="toolTip">
            <string>initial mixed-layer v-wind speed</string>
           </property>
@@ -1042,7 +1042,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_d_v0">
+         <widget class="QLabel" name="label_wind_vg">
           <property name="toolTip">
            <string/>
           </property>
@@ -1055,7 +1055,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_vg">
+         <widget class="QLineEdit" name="input_wind_vg">
           <property name="toolTip">
            <string>initial v-wind jump at h</string>
           </property>
@@ -1065,7 +1065,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_gamma_v">
+         <widget class="QLabel" name="label_wind_gammav">
           <property name="toolTip">
            <string/>
           </property>
@@ -1078,7 +1078,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="input_gamma_v">
+         <widget class="QLineEdit" name="input_wind_gammav">
           <property name="toolTip">
            <string>free atmosphere v-wind speed lapse rate</string>
           </property>
@@ -1088,7 +1088,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_adv_v">
+         <widget class="QLabel" name="label_wind_advv">
           <property name="toolTip">
            <string/>
           </property>
@@ -1101,7 +1101,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_adv_v">
+         <widget class="QLineEdit" name="input_wind_advv">
           <property name="toolTip">
            <string>advection of v-wind</string>
           </property>
@@ -1111,7 +1111,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_v0">
+         <widget class="QLabel" name="unitlabel_wind_v">
           <property name="toolTip">
            <string/>
           </property>
@@ -1124,7 +1124,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_d_v">
+         <widget class="QLabel" name="unitlabel_wind_vg">
           <property name="toolTip">
            <string/>
           </property>
@@ -1137,7 +1137,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_gamma_v">
+         <widget class="QLabel" name="unitlabel_wind_gammav">
           <property name="toolTip">
            <string/>
           </property>
@@ -1150,7 +1150,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_adv_v">
+         <widget class="QLabel" name="unitlabel_wind_advv">
           <property name="toolTip">
            <string/>
           </property>
@@ -1165,7 +1165,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="wind_group">
+     <widget class="QGroupBox" name="wind_general_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1186,12 +1186,12 @@
          <height>61</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_3" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="wind_general_grid" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_fc">
+         <widget class="QLabel" name="label_wind_fc">
           <property name="toolTip">
            <string/>
           </property>
@@ -1204,7 +1204,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_fc">
+         <widget class="QLineEdit" name="input_wind_fc">
           <property name="toolTip">
            <string>Coriolis parameter</string>
           </property>
@@ -1214,7 +1214,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_fc">
+         <widget class="QLabel" name="unitlabel_wind_fc">
           <property name="toolTip">
            <string/>
           </property>
@@ -1227,7 +1227,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_ustar">
+         <widget class="QLineEdit" name="input_wind_ustar">
           <property name="toolTip">
            <string>Coriolis parameter</string>
           </property>
@@ -1237,7 +1237,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_ustar">
+         <widget class="QLabel" name="label_wind_ustar">
           <property name="toolTip">
            <string/>
           </property>
@@ -1250,7 +1250,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_ustar">
+         <widget class="QLabel" name="unitlabel_wind_ustar">
           <property name="toolTip">
            <string/>
           </property>
@@ -1291,7 +1291,7 @@
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_z0M">
+         <widget class="QLabel" name="label_surfacelayer_z0m">
           <property name="toolTip">
            <string/>
           </property>
@@ -1304,7 +1304,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_z0M">
+         <widget class="QLineEdit" name="input_surfacelayer_z0m">
           <property name="toolTip">
            <string>Coriolis parameter</string>
           </property>
@@ -1314,7 +1314,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_z0M">
+         <widget class="QLabel" name="unitlabel_surfacelayer_z0m">
           <property name="toolTip">
            <string/>
           </property>
@@ -1327,7 +1327,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_z0h">
+         <widget class="QLineEdit" name="input_surfacelayer_z0h">
           <property name="toolTip">
            <string>Coriolis parameter</string>
           </property>
@@ -1337,7 +1337,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_z0h">
+         <widget class="QLabel" name="label_surfacelayer_z0h">
           <property name="toolTip">
            <string/>
           </property>
@@ -1350,7 +1350,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_z0h">
+         <widget class="QLabel" name="unitlabel_surfacelayer_z0h">
           <property name="toolTip">
            <string/>
           </property>
@@ -1370,7 +1370,7 @@
      <attribute name="title">
       <string>Soil</string>
      </attribute>
-     <widget class="QGroupBox" name="soilvariablesgroup">
+     <widget class="QGroupBox" name="soil_heat_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1391,12 +1391,12 @@
          <height>61</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_5" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="soil_heat_grid" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_Tsoil">
+         <widget class="QLabel" name="label_soil_Tsoil">
           <property name="toolTip">
            <string/>
           </property>
@@ -1409,7 +1409,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_Tsoil">
+         <widget class="QLineEdit" name="input_soil_Tsoil">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -1419,7 +1419,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_T2">
+         <widget class="QLabel" name="label_soil_T2">
           <property name="toolTip">
            <string/>
           </property>
@@ -1432,7 +1432,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_T2">
+         <widget class="QLineEdit" name="input_soil_T2">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -1442,7 +1442,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_Tsoil">
+         <widget class="QLabel" name="unitlabel_soil_Tsoil">
           <property name="toolTip">
            <string/>
           </property>
@@ -1455,7 +1455,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_T2">
+         <widget class="QLabel" name="unitlabel_soil_T2">
           <property name="toolTip">
            <string/>
           </property>
@@ -1470,7 +1470,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="soilparametersgroup">
+     <widget class="QGroupBox" name="soil_parameters_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1482,7 +1482,7 @@
       <property name="title">
        <string>Soil parameters</string>
       </property>
-      <widget class="QComboBox" name="soiltypes">
+      <widget class="QComboBox" name="input_soil_soiltypes">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1497,7 +1497,7 @@
         </property>
        </item>
       </widget>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QCheckBox" name="input_soil_definemanual">
        <property name="geometry">
         <rect>
          <x>200</x>
@@ -1519,12 +1519,12 @@
          <height>151</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_7" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="soil_parameters_grid1" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_wsat">
+         <widget class="QLabel" name="label_soil_wsat">
           <property name="toolTip">
            <string/>
           </property>
@@ -1537,7 +1537,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_wsat">
+         <widget class="QLineEdit" name="input_soil_wsat">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -1547,7 +1547,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_wfc">
+         <widget class="QLabel" name="label_soil_wfc">
           <property name="toolTip">
            <string/>
           </property>
@@ -1560,7 +1560,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_wfc">
+         <widget class="QLineEdit" name="input_soil_wfc">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -1570,7 +1570,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="input_wwilt">
+         <widget class="QLineEdit" name="input_soil_wwilt">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -1580,7 +1580,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_c1sat">
+         <widget class="QLineEdit" name="input_soil_c1sat">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -1590,7 +1590,7 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QLineEdit" name="input_c2ref">
+         <widget class="QLineEdit" name="input_soil_c2ref">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -1600,7 +1600,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_wwilt">
+         <widget class="QLabel" name="label_soil_wwilt">
           <property name="toolTip">
            <string/>
           </property>
@@ -1613,7 +1613,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_c1sat">
+         <widget class="QLabel" name="label_soil_c1sat">
           <property name="toolTip">
            <string/>
           </property>
@@ -1626,7 +1626,7 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QLabel" name="label_c2ref">
+         <widget class="QLabel" name="label_soil_c2ref">
           <property name="toolTip">
            <string/>
           </property>
@@ -1639,7 +1639,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_c1sat">
+         <widget class="QLabel" name="unitlabel_soil_c1sat">
           <property name="toolTip">
            <string/>
           </property>
@@ -1665,7 +1665,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_wsat">
+         <widget class="QLabel" name="unitlabel_soil_wsat">
           <property name="toolTip">
            <string/>
           </property>
@@ -1678,7 +1678,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_wfc">
+         <widget class="QLabel" name="unitlabel_soil_wfc">
           <property name="toolTip">
            <string/>
           </property>
@@ -1691,7 +1691,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_wwilt">
+         <widget class="QLabel" name="unitlabel_soil_wwilt">
           <property name="toolTip">
            <string/>
           </property>
@@ -1714,12 +1714,12 @@
          <height>121</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_8" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="soil_parameters_grid2" columnminimumwidth="50,0,80">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_a">
+         <widget class="QLabel" name="label_soil_a">
           <property name="toolTip">
            <string/>
           </property>
@@ -1732,7 +1732,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_a">
+         <widget class="QLineEdit" name="input_soil_a">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -1742,7 +1742,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_b">
+         <widget class="QLabel" name="label_soil_b">
           <property name="toolTip">
            <string/>
           </property>
@@ -1755,7 +1755,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_b">
+         <widget class="QLineEdit" name="input_soil_b">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -1765,7 +1765,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_a">
+         <widget class="QLabel" name="unitlabel_soil_a">
           <property name="toolTip">
            <string/>
           </property>
@@ -1778,7 +1778,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_b">
+         <widget class="QLabel" name="unitlabel_soil_b">
           <property name="toolTip">
            <string/>
           </property>
@@ -1791,7 +1791,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="input_p">
+         <widget class="QLineEdit" name="input_soil_p">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -1801,7 +1801,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_CGsat">
+         <widget class="QLineEdit" name="input_soil_CGsat">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -1811,7 +1811,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_p">
+         <widget class="QLabel" name="label_soil_p">
           <property name="toolTip">
            <string/>
           </property>
@@ -1824,7 +1824,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_CGsat">
+         <widget class="QLabel" name="label_soil_CGsat">
           <property name="toolTip">
            <string/>
           </property>
@@ -1837,7 +1837,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_p">
+         <widget class="QLabel" name="unitlabel_soil_p">
           <property name="toolTip">
            <string/>
           </property>
@@ -1850,7 +1850,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_CGsat">
+         <widget class="QLabel" name="unitlabel_soil_CGsat">
           <property name="toolTip">
            <string/>
           </property>
@@ -1865,7 +1865,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="soilvariablesgroup_2">
+     <widget class="QGroupBox" name="soil_moisture_group">
       <property name="geometry">
        <rect>
         <x>230</x>
@@ -1886,12 +1886,12 @@
          <height>61</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_6" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="soil_moisture_grid" columnminimumwidth="50,0,80">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_Wg">
+         <widget class="QLabel" name="label_soil_Wg">
           <property name="toolTip">
            <string/>
           </property>
@@ -1904,7 +1904,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_Wg">
+         <widget class="QLineEdit" name="input_soil_Wg">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -1914,7 +1914,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_W2">
+         <widget class="QLabel" name="label_soil_W2">
           <property name="toolTip">
            <string/>
           </property>
@@ -1927,7 +1927,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_W2">
+         <widget class="QLineEdit" name="input_soil_W2">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -1937,7 +1937,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_Wg">
+         <widget class="QLabel" name="unitlabel_soil_Wg">
           <property name="toolTip">
            <string/>
           </property>
@@ -1950,7 +1950,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_W2">
+         <widget class="QLabel" name="unitlabel_soil_W2">
           <property name="toolTip">
            <string/>
           </property>
@@ -1970,7 +1970,7 @@
      <attribute name="title">
       <string>Surface</string>
      </attribute>
-     <widget class="QGroupBox" name="surfacevariablesgroup">
+     <widget class="QGroupBox" name="surface_heat_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1991,12 +1991,12 @@
          <height>31</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_9" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="surface_heat_grid" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_Ts">
+         <widget class="QLabel" name="label_surface_Ts">
           <property name="toolTip">
            <string/>
           </property>
@@ -2009,7 +2009,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_Ts">
+         <widget class="QLineEdit" name="input_surface_Ts">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -2019,7 +2019,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_Ts">
+         <widget class="QLabel" name="unitlabel_surface_Ts">
           <property name="toolTip">
            <string/>
           </property>
@@ -2034,7 +2034,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="surfaceparametersgroup">
+     <widget class="QGroupBox" name="surface_parameters_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -2046,7 +2046,7 @@
       <property name="title">
        <string>Surface parameters</string>
       </property>
-      <widget class="QComboBox" name="Vegetationtypes">
+      <widget class="QComboBox" name="input_surface_vegetationtypes">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -2061,7 +2061,7 @@
         </property>
        </item>
       </widget>
-      <widget class="QCheckBox" name="checkBox_2">
+      <widget class="QCheckBox" name="input_surface_definemanual">
        <property name="geometry">
         <rect>
          <x>200</x>
@@ -2083,12 +2083,12 @@
          <height>151</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_11" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="surface_parameters_grid1" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_LAI">
+         <widget class="QLabel" name="label_surface_LAI">
           <property name="toolTip">
            <string/>
           </property>
@@ -2101,7 +2101,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_LAI">
+         <widget class="QLineEdit" name="input_surface_LAI">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -2111,7 +2111,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_gD">
+         <widget class="QLabel" name="label_surface_gD">
           <property name="toolTip">
            <string/>
           </property>
@@ -2124,7 +2124,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_gD">
+         <widget class="QLineEdit" name="input_surface_gD">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -2134,7 +2134,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_LAI">
+         <widget class="QLabel" name="unitlabel_surface_LAI">
           <property name="toolTip">
            <string/>
           </property>
@@ -2147,7 +2147,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_gD">
+         <widget class="QLabel" name="unitlabel_surface_gD">
           <property name="toolTip">
            <string/>
           </property>
@@ -2160,7 +2160,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="input_rsmin">
+         <widget class="QLineEdit" name="input_surface_rsmin">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -2170,7 +2170,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_alpha">
+         <widget class="QLineEdit" name="input_surface_alpha">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -2180,7 +2180,7 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QLineEdit" name="input_cveg">
+         <widget class="QLineEdit" name="input_surface_cveg">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -2190,7 +2190,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_rsmin">
+         <widget class="QLabel" name="label_surface_rsmin">
           <property name="toolTip">
            <string/>
           </property>
@@ -2203,7 +2203,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_alpha">
+         <widget class="QLabel" name="label_surface_alpha">
           <property name="toolTip">
            <string/>
           </property>
@@ -2216,7 +2216,7 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QLabel" name="label_cveg">
+         <widget class="QLabel" name="label_surface_cveg">
           <property name="toolTip">
            <string/>
           </property>
@@ -2229,7 +2229,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_rsmin">
+         <widget class="QLabel" name="unitlabel_surface_rsmin">
           <property name="toolTip">
            <string/>
           </property>
@@ -2242,7 +2242,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_alpha">
+         <widget class="QLabel" name="unitlabel_surface_alpha">
           <property name="toolTip">
            <string/>
           </property>
@@ -2255,7 +2255,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QLabel" name="unitlabel_cveg">
+         <widget class="QLabel" name="unitlabel_surface_cveg">
           <property name="toolTip">
            <string/>
           </property>
@@ -2278,12 +2278,12 @@
          <height>121</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_12" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="surface_parameters_grid2" columnminimumwidth="50,0,80">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_Wlmax">
+         <widget class="QLabel" name="label_surface_Wlmax">
           <property name="toolTip">
            <string/>
           </property>
@@ -2296,7 +2296,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_Wlmax">
+         <widget class="QLineEdit" name="input_surface_Wlmax">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -2306,7 +2306,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_Lambda">
+         <widget class="QLabel" name="label_surfaceLambda">
           <property name="toolTip">
            <string/>
           </property>
@@ -2319,7 +2319,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_Lambda">
+         <widget class="QLineEdit" name="input_surface_Lambda">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -2329,7 +2329,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_wlmax">
+         <widget class="QLabel" name="unitlabel_surface_Wlmax">
           <property name="toolTip">
            <string/>
           </property>
@@ -2342,7 +2342,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_Lambda">
+         <widget class="QLabel" name="unitlabel_surface_Lambda">
           <property name="toolTip">
            <string/>
           </property>
@@ -2355,7 +2355,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="input_z0m">
+         <widget class="QLineEdit" name="input_surface_z0m">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -2365,7 +2365,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_z0h_2">
+         <widget class="QLineEdit" name="input_surface_z0h">
           <property name="toolTip">
            <string>initial u-wind jump at h</string>
           </property>
@@ -2375,7 +2375,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_z0m">
+         <widget class="QLabel" name="label_surface_z0m">
           <property name="toolTip">
            <string/>
           </property>
@@ -2388,7 +2388,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_z0h_2">
+         <widget class="QLabel" name="label_surface_z0h">
           <property name="toolTip">
            <string/>
           </property>
@@ -2401,7 +2401,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_z0m">
+         <widget class="QLabel" name="unitlabel_surface_z0m">
           <property name="toolTip">
            <string/>
           </property>
@@ -2414,7 +2414,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_z0h_2">
+         <widget class="QLabel" name="unitlabel_surface_z0h">
           <property name="toolTip">
            <string/>
           </property>
@@ -2429,7 +2429,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="surfacevariablesgroup_2">
+     <widget class="QGroupBox" name="surface_moisture_group">
       <property name="geometry">
        <rect>
         <x>230</x>
@@ -2450,12 +2450,12 @@
          <height>31</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_10" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="surface_moisture_grid" columnminimumwidth="50,0,80">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_Wl">
+         <widget class="QLabel" name="label_surface_Wl">
           <property name="toolTip">
            <string/>
           </property>
@@ -2468,7 +2468,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_Wl">
+         <widget class="QLineEdit" name="input_surface_Wl">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -2478,7 +2478,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_Wl">
+         <widget class="QLabel" name="unitlabel_surface_Wl">
           <property name="toolTip">
            <string/>
           </property>
@@ -2498,7 +2498,7 @@
      <attribute name="title">
       <string>Radiation</string>
      </attribute>
-     <widget class="QGroupBox" name="radiationgroup">
+     <widget class="QGroupBox" name="rad_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -2519,12 +2519,12 @@
          <height>121</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_13" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="rad_grid1" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_lat">
+         <widget class="QLabel" name="label_rad_lat">
           <property name="toolTip">
            <string/>
           </property>
@@ -2537,7 +2537,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_lat">
+         <widget class="QLineEdit" name="input_rad_lat">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -2547,7 +2547,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_lat">
+         <widget class="QLabel" name="unitlabel_rad_lat">
           <property name="toolTip">
            <string/>
           </property>
@@ -2560,7 +2560,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_lon">
+         <widget class="QLineEdit" name="input_rad_lon">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -2570,7 +2570,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_lon">
+         <widget class="QLabel" name="label_rad_lon">
           <property name="toolTip">
            <string/>
           </property>
@@ -2583,7 +2583,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_lon">
+         <widget class="QLabel" name="unitlabel_rad_lon">
           <property name="toolTip">
            <string/>
           </property>
@@ -2596,7 +2596,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="input_DOY">
+         <widget class="QLineEdit" name="input_rad_DOY">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -2606,7 +2606,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_time_2">
+         <widget class="QLineEdit" name="input_rad_time">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -2616,7 +2616,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_DOY">
+         <widget class="QLabel" name="label_rad_DOY">
           <property name="toolTip">
            <string/>
           </property>
@@ -2629,7 +2629,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_time_2">
+         <widget class="QLabel" name="label_rad_time">
           <property name="toolTip">
            <string/>
           </property>
@@ -2642,7 +2642,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_DOY">
+         <widget class="QLabel" name="unitlabel_rad_DOY">
           <property name="toolTip">
            <string/>
           </property>
@@ -2655,7 +2655,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_time_2">
+         <widget class="QLabel" name="unitlabel_rad_time">
           <property name="toolTip">
            <string/>
           </property>
@@ -2670,7 +2670,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="radiationgroup_2">
+     <widget class="QGroupBox" name="rad_group2">
       <property name="geometry">
        <rect>
         <x>230</x>
@@ -2691,12 +2691,12 @@
          <height>61</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_14" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="rad_grid2" columnminimumwidth="50,0,80">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_lat_2">
+         <widget class="QLabel" name="label_rad_Qnet">
           <property name="toolTip">
            <string/>
           </property>
@@ -2709,7 +2709,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="input_lat_2">
+         <widget class="QLineEdit" name="input_rad_Qnet">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -2719,7 +2719,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_lat_2">
+         <widget class="QLabel" name="unitlabel_rad_Qnet">
           <property name="toolTip">
            <string/>
           </property>
@@ -2732,7 +2732,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="input_lon_2">
+         <widget class="QLineEdit" name="input_rad_clouds">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -2742,7 +2742,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_lon_2">
+         <widget class="QLabel" name="label_rad_clouds">
           <property name="toolTip">
            <string/>
           </property>
@@ -2755,7 +2755,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_lon_2">
+         <widget class="QLabel" name="unitlabel_rad_clouds">
           <property name="toolTip">
            <string/>
           </property>
@@ -3009,7 +3009,7 @@
      <x>0</x>
      <y>0</y>
      <width>790</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -3051,34 +3051,34 @@
   <tabstop>input_name</tabstop>
   <tabstop>input_time</tabstop>
   <tabstop>input_timestep</tabstop>
-  <tabstop>input_theta0</tabstop>
-  <tabstop>input_d_theta0</tabstop>
-  <tabstop>input_gamma_theta</tabstop>
-  <tabstop>input_wtheta</tabstop>
-  <tabstop>input_adv_theta</tabstop>
-  <tabstop>input_h0</tabstop>
-  <tabstop>input_ps</tabstop>
-  <tabstop>input_ws</tabstop>
-  <tabstop>input_beta</tabstop>
-  <tabstop>input_q0</tabstop>
-  <tabstop>input_dq0</tabstop>
-  <tabstop>input_gamma_q</tabstop>
-  <tabstop>input_wq</tabstop>
-  <tabstop>input_advq</tabstop>
+  <tabstop>input_heat_theta</tabstop>
+  <tabstop>input_heat_dtheta</tabstop>
+  <tabstop>input_heat_gammatheta</tabstop>
+  <tabstop>input_heat_wtheta</tabstop>
+  <tabstop>input_heat_advtheta</tabstop>
+  <tabstop>input_ml_h</tabstop>
+  <tabstop>input_ml_ps</tabstop>
+  <tabstop>input_ml_ws</tabstop>
+  <tabstop>input_ml_beta</tabstop>
+  <tabstop>input_moisture_q</tabstop>
+  <tabstop>input_moisture_dq</tabstop>
+  <tabstop>input_moisture_gammaq</tabstop>
+  <tabstop>input_moisture_wq</tabstop>
+  <tabstop>input_moisture_advq</tabstop>
   <tabstop>modelRunTree</tabstop>
   <tabstop>newRunButton</tabstop>
   <tabstop>cloneRunButton</tabstop>
   <tabstop>deleteButton</tabstop>
-  <tabstop>input_fc</tabstop>
-  <tabstop>input_ustar</tabstop>
-  <tabstop>input_u0</tabstop>
-  <tabstop>input_ug</tabstop>
-  <tabstop>input_gamma_u</tabstop>
-  <tabstop>input_adv_u</tabstop>
-  <tabstop>input_v0</tabstop>
-  <tabstop>input_vg</tabstop>
-  <tabstop>input_gamma_v</tabstop>
-  <tabstop>input_adv_v</tabstop>
+  <tabstop>input_wind_fc</tabstop>
+  <tabstop>input_wind_ustar</tabstop>
+  <tabstop>input_wind_u</tabstop>
+  <tabstop>input_wind_ug</tabstop>
+  <tabstop>input_wind_gammau</tabstop>
+  <tabstop>input_wind_advu</tabstop>
+  <tabstop>input_wind_v</tabstop>
+  <tabstop>input_wind_vg</tabstop>
+  <tabstop>input_wind_gammav</tabstop>
+  <tabstop>input_wind_advv</tabstop>
   <tabstop>tabWidget</tabstop>
  </tabstops>
  <resources/>

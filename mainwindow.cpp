@@ -182,42 +182,86 @@ void MainWindow::updateSelectedRuns()
 
 void MainWindow::updateInputdata()
 {
-  formvalues.dt         = ui->input_timestep->text().toDouble();      // time step [s]
-  formvalues.runtime    = ui->input_time->text().toDouble() * 3600;   // total run time [s]
+  formvalues.dt         = ui->input_timestep->text().toDouble();        // time step [s]
+  formvalues.runtime    = ui->input_time->text().toDouble() * 3600;     // total run time [s]
 
-  formvalues.h          = ui->input_h0->text().toDouble();            // initial ABL height [m]
-  formvalues.Ps         = ui->input_ps->text().toDouble() * 100;      // surface pressure [Pa]
-  formvalues.ws         = ui->input_ws->text().toDouble();            // large scale vertical velocity [m s-1]
-  formvalues.fc         = ui->input_fc->text().toDouble();            // Coriolis parameter [m s-1]
+  // MIXED-LAYER
+  formvalues.h          = ui->input_ml_h->text().toDouble();             // initial ABL height [m]
+  formvalues.Ps         = ui->input_ml_ps->text().toDouble() * 100;      // surface pressure [Pa]
+  formvalues.ws         = ui->input_ml_ws->text().toDouble();            // large scale vertical velocity [m s-1]
+  formvalues.beta       = ui->input_ml_beta->text().toDouble();             // entrainment ratio for virtual heat [-]
 
-  formvalues.theta      = ui->input_theta0->text().toDouble();        // initial mixed-layer potential temperature [K]
-  formvalues.dtheta     = ui->input_d_theta0->text().toDouble();      // initial temperature jump at h [K]
-  formvalues.gammatheta = ui->input_gamma_theta->text().toDouble();   // free atmosphere potential temperature lapse rate [K m-1]
-  formvalues.advtheta   = ui->input_adv_theta->text().toDouble();     // advection of heat [K s-1]
-  formvalues.beta       = ui->input_beta->text().toDouble();          // entrainment ratio for virtual heat [-]
-  formvalues.wtheta     = ui->input_wtheta->text().toDouble();        // surface kinematic heat flux [K m s-1]
+  // HEAT
+  formvalues.theta      = ui->input_heat_theta->text().toDouble();       // initial mixed-layer potential temperature [K]
+  formvalues.dtheta     = ui->input_heat_dtheta->text().toDouble();      // initial temperature jump at h [K]
+  formvalues.gammatheta = ui->input_heat_gammatheta->text().toDouble();  // free atmosphere potential temperature lapse rate [K m-1]
+  formvalues.advtheta   = ui->input_heat_advtheta->text().toDouble();    // advection of heat [K s-1]
+  formvalues.wtheta     = ui->input_heat_wtheta->text().toDouble();        // surface kinematic heat flux [K m s-1]
 
-  formvalues.q          = ui->input_q0->text().toDouble() / 1000;     // initial mixed-layer specific humidity [kg kg-1]
-  formvalues.dq         = ui->input_dq0->text().toDouble() / 1000;    // initial specific humidity jump at h [kg kg-1]
-  formvalues.gammaq     = ui->input_gamma_q->text().toDouble() / 1000;// free atmosphere specific humidity lapse rate [kg kg-1 m-1]
-  formvalues.advq       = ui->input_advq->text().toDouble() / 1000;   // advection of moisture [kg kg-1 s-1]
-  formvalues.wq         = ui->input_wq->text().toDouble() / 1000;     // surface kinematic moisture flux [kg kg-1 m s-1]
+  // MOISTURE
+  formvalues.q          = ui->input_moisture_q->text().toDouble() / 1000;     // initial mixed-layer specific humidity [kg kg-1]
+  formvalues.dq         = ui->input_moisture_dq->text().toDouble() / 1000;    // initial specific humidity jump at h [kg kg-1]
+  formvalues.gammaq     = ui->input_moisture_gammaq->text().toDouble() / 1000;// free atmosphere specific humidity lapse rate [kg kg-1 m-1]
+  formvalues.advq       = ui->input_moisture_advq->text().toDouble() / 1000;   // advection of moisture [kg kg-1 s-1]
+  formvalues.wq         = ui->input_moisture_wq->text().toDouble() / 1000;     // surface kinematic moisture flux [kg kg-1 m s-1]
 
+  // WIND
   //formvalues.sw_wind    = ui->switch_wind->checkState();              // prognostic wind switch
-  formvalues.u          = ui->input_u0->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
-  formvalues.du         = ui->input_ug->text().toDouble()
-                          - ui->input_u0->text().toDouble();          // initial u-wind jump at h [m s-1]
-  formvalues.gammau     = ui->input_gamma_u->text().toDouble();       // free atmosphere u-wind speed lapse rate [s-1]
-  formvalues.advu       = ui->input_adv_u->text().toDouble();         // advection of u-wind [m s-2]
+  formvalues.u          = ui->input_wind_u->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
+  formvalues.du         = ui->input_wind_ug->text().toDouble()
+                          - ui->input_wind_u->text().toDouble();          // initial u-wind jump at h [m s-1]
+  formvalues.gammau     = ui->input_wind_gammau->text().toDouble();       // free atmosphere u-wind speed lapse rate [s-1]
+  formvalues.advu       = ui->input_wind_advu->text().toDouble();         // advection of u-wind [m s-2]
+  formvalues.v          = ui->input_wind_v->text().toDouble();            // initial mixed-layer v-wind speed [m s-1]
+  formvalues.dv         = ui->input_wind_vg->text().toDouble()
+                          - ui->input_wind_v->text().toDouble();          // initial u-wind jump at h [m s-1]
+  formvalues.gammav     = ui->input_wind_gammav->text().toDouble();       // free atmosphere v-wind speed lapse rate [s-1]
+  formvalues.advv       = ui->input_wind_advv->text().toDouble();         // advection of v-wind [m s-2]
+  formvalues.ustar      = ui->input_wind_ustar->text().toDouble();         // surface friction velocity [m s-1]
+  formvalues.fc         = ui->input_wind_fc->text().toDouble();            // Coriolis parameter [m s-1]
 
-  formvalues.v          = ui->input_v0->text().toDouble();            // initial mixed-layer v-wind speed [m s-1]
-  formvalues.dv         = ui->input_vg->text().toDouble()
-                          - ui->input_v0->text().toDouble();          // initial u-wind jump at h [m s-1]
-  formvalues.gammav     = ui->input_gamma_v->text().toDouble();       // free atmosphere v-wind speed lapse rate [s-1]
-  formvalues.advv       = ui->input_adv_v->text().toDouble();         // advection of v-wind [m s-2]
+  formvalues.z0h        = ui->input_surfacelayer_z0h->text().toDouble();
+  formvalues.z0m        = ui->input_surfacelayer_z0m->text().toDouble();
 
-  formvalues.ustar      = ui->input_ustar->text().toDouble();         // surface friction velocity [m s-1]
+  // SOIL
+  formvalues.T2         = ui->input_soil_T2->text().toDouble();
+  formvalues.Tsoil      = ui->input_soil_Tsoil->text().toDouble();
+  formvalues.w2         = ui->input_soil_W2->text().toDouble();
+  formvalues.wg         = ui->input_soil_Wg->text().toDouble();
+  formvalues.wsat       = ui->input_soil_wsat->text().toDouble();
+  formvalues.wfc        = ui->input_soil_wfc->text().toDouble();
+  formvalues.wwilt      = ui->input_soil_wwilt->text().toDouble();
+  formvalues.T2         = ui->input_soil_T2->text().toDouble();
+  formvalues.C1sat      = ui->input_soil_c1sat->text().toDouble();
+  formvalues.C2ref      = ui->input_soil_c2ref->text().toDouble();
+  formvalues.a          = ui->input_soil_a->text().toDouble();
+  formvalues.b          = ui->input_soil_b->text().toDouble();
+  formvalues.p          = ui->input_soil_p->text().toDouble();
+  formvalues.CGsat      = ui->input_soil_CGsat->text().toDouble();
 
+  // SURFACE
+  formvalues.Ts         = ui->input_surface_Ts->text().toDouble();
+  formvalues.Wl         = ui->input_surface_Wl->text().toDouble();
+  formvalues.LAI        = ui->input_surface_LAI->text().toDouble();
+  formvalues.gD         = ui->input_surface_gD->text().toDouble();
+  formvalues.rsmin      = ui->input_surface_rsmin->text().toDouble();
+  formvalues.alpha      = ui->input_surface_alpha->text().toDouble();
+  formvalues.cveg       = ui->input_surface_cveg->text().toDouble();
+  formvalues.Lambda     = ui->input_surface_Lambda->text().toDouble();
+  formvalues.Wmax       = ui->input_surface_Wlmax->text().toDouble();
+  formvalues.z0m        = ui->input_surface_z0m->text().toDouble();
+  formvalues.z0h        = ui->input_surface_z0h->text().toDouble();
+
+  // RADIATION
+  formvalues.doy        = ui->input_rad_DOY->text().toDouble();
+  formvalues.lat        = ui->input_rad_lat->text().toDouble();
+  formvalues.lon        = ui->input_rad_lon->text().toDouble();
+  formvalues.tstart     = ui->input_rad_time->text().toDouble();
+
+  formvalues.Q          = ui->input_rad_Qnet->text().toDouble();
+  formvalues.cc         = ui->input_rad_clouds->text().toDouble();
+
+  // OTHER
   QString name          = QString::fromStdString(ui->input_name->text().toStdString());
 
   if (ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
@@ -237,41 +281,91 @@ void MainWindow::updateForm()
     ui->input_timestep->setText(QString::number(modelrunlist->value(n).run->input.dt));
     ui->input_time->setText(QString::number(modelrunlist->value(n).run->input.runtime / 3600.));
 
-    ui->input_h0->setText(QString::number(modelrunlist->value(n).run->input.h));
-    ui->input_ps->setText(QString::number(modelrunlist->value(n).run->input.Ps / 100.));
-    ui->input_ws->setText(QString::number(modelrunlist->value(n).run->input.ws));
-    ui->input_fc->setText(QString::number(modelrunlist->value(n).run->input.fc));
+    // MIXED-LAYER
+    ui->input_ml_h->setText(QString::number(modelrunlist->value(n).run->input.h));
+    ui->input_ml_ps->setText(QString::number(modelrunlist->value(n).run->input.Ps / 100.));
+    ui->input_ml_ws->setText(QString::number(modelrunlist->value(n).run->input.ws));
+    ui->input_ml_beta->setText(QString::number(modelrunlist->value(n).run->input.beta));
 
-    ui->input_theta0->setText(QString::number(modelrunlist->value(n).run->input.theta));
-    ui->input_d_theta0->setText(QString::number(modelrunlist->value(n).run->input.dtheta));
-    ui->input_gamma_theta->setText(QString::number(modelrunlist->value(n).run->input.gammatheta));
-    ui->input_adv_theta->setText(QString::number(modelrunlist->value(n).run->input.advtheta));
-    ui->input_beta->setText(QString::number(modelrunlist->value(n).run->input.beta));
-    ui->input_wtheta->setText(QString::number(modelrunlist->value(n).run->input.wtheta));
+    // HEAT
+    ui->input_heat_theta->setText(QString::number(modelrunlist->value(n).run->input.theta));
+    ui->input_heat_dtheta->setText(QString::number(modelrunlist->value(n).run->input.dtheta));
+    ui->input_heat_gammatheta->setText(QString::number(modelrunlist->value(n).run->input.gammatheta));
+    ui->input_heat_advtheta->setText(QString::number(modelrunlist->value(n).run->input.advtheta));
+    ui->input_heat_wtheta->setText(QString::number(modelrunlist->value(n).run->input.wtheta));
 
-    ui->input_q0->setText(QString::number(modelrunlist->value(n).run->input.q * 1000.));
-    ui->input_dq0->setText(QString::number(modelrunlist->value(n).run->input.dq * 1000.));
-    ui->input_gamma_q->setText(QString::number(modelrunlist->value(n).run->input.gammaq * 1000.));
-    ui->input_advq->setText(QString::number(modelrunlist->value(n).run->input.advq * 1000.));
-    ui->input_wq->setText(QString::number(modelrunlist->value(n).run->input.wq * 1000.));
+    // MOISTURE
+    ui->input_moisture_q->setText(QString::number(modelrunlist->value(n).run->input.q * 1000.));
+    ui->input_moisture_dq->setText(QString::number(modelrunlist->value(n).run->input.dq * 1000.));
+    ui->input_moisture_gammaq->setText(QString::number(modelrunlist->value(n).run->input.gammaq * 1000.));
+    ui->input_moisture_advq->setText(QString::number(modelrunlist->value(n).run->input.advq * 1000.));
+    ui->input_moisture_wq->setText(QString::number(modelrunlist->value(n).run->input.wq * 1000.));
+
+    // WIND
+    ui->input_wind_u->setText(QString::number(modelrunlist->value(n).run->input.u));
+    ui->input_wind_ug->setText(QString::number(modelrunlist->value(n).run->input.u + modelrunlist->value(n).run->input.du));
+    ui->input_wind_gammau->setText(QString::number(modelrunlist->value(n).run->input.gammau));
+    ui->input_wind_advu->setText(QString::number(modelrunlist->value(n).run->input.advu));
+
+    ui->input_wind_v->setText(QString::number(modelrunlist->value(n).run->input.v));
+    ui->input_wind_vg->setText(QString::number(modelrunlist->value(n).run->input.v + modelrunlist->value(n).run->input.dv));
+    ui->input_wind_gammav->setText(QString::number(modelrunlist->value(n).run->input.gammav));
+    ui->input_wind_advv->setText(QString::number(modelrunlist->value(n).run->input.advv));
+
+    ui->input_wind_fc->setText(QString::number(modelrunlist->value(n).run->input.fc));
+    ui->input_wind_ustar->setText(QString::number(modelrunlist->value(n).run->input.ustar));
+
+    ui->input_surfacelayer_z0h->setText(QString::number(modelrunlist->value(n).run->input.z0h));
+    ui->input_surfacelayer_z0m->setText(QString::number(modelrunlist->value(n).run->input.z0m));
 
     //if (modelrunlist->value(n).run->input.sw_wind == true)
       //ui->switch_wind->setChecked(true);
     //else
       //ui->switch_wind->setChecked(false);
 
-    ui->input_u0->setText(QString::number(modelrunlist->value(n).run->input.u));
-    ui->input_ug->setText(QString::number(modelrunlist->value(n).run->input.u + modelrunlist->value(n).run->input.du));
-    ui->input_gamma_u->setText(QString::number(modelrunlist->value(n).run->input.gammau));
-    ui->input_adv_u->setText(QString::number(modelrunlist->value(n).run->input.advu));
+    // SOIL
+    ui->input_soil_T2->setText(QString::number(modelrunlist->value(n).run->input.T2));
+    ui->input_soil_Tsoil->setText(QString::number(modelrunlist->value(n).run->input.Tsoil));
+    ui->input_soil_W2->setText(QString::number(modelrunlist->value(n).run->input.w2));
+    ui->input_soil_Wg->setText(QString::number(modelrunlist->value(n).run->input.wg));
 
-    ui->input_v0->setText(QString::number(modelrunlist->value(n).run->input.v));
-    ui->input_vg->setText(QString::number(modelrunlist->value(n).run->input.v + modelrunlist->value(n).run->input.dv));
-    ui->input_gamma_v->setText(QString::number(modelrunlist->value(n).run->input.gammav));
-    ui->input_adv_v->setText(QString::number(modelrunlist->value(n).run->input.advv));
+    ui->input_soil_wsat->setText(QString::number(modelrunlist->value(n).run->input.wsat));
+    ui->input_soil_wfc->setText(QString::number(modelrunlist->value(n).run->input.wfc));
+    ui->input_soil_wwilt->setText(QString::number(modelrunlist->value(n).run->input.wwilt));
 
-    ui->input_ustar->setText(QString::number(modelrunlist->value(n).run->input.ustar));
+    ui->input_soil_c1sat->setText(QString::number(modelrunlist->value(n).run->input.C1sat));
+    ui->input_soil_c2ref->setText(QString::number(modelrunlist->value(n).run->input.C2ref));
 
+    ui->input_soil_a->setText(QString::number(modelrunlist->value(n).run->input.a));
+    ui->input_soil_b->setText(QString::number(modelrunlist->value(n).run->input.b));
+    ui->input_soil_p->setText(QString::number(modelrunlist->value(n).run->input.p));
+    ui->input_soil_CGsat->setText(QString::number(modelrunlist->value(n).run->input.CGsat));
+
+    // SURFACE
+    ui->input_surface_Ts->setText(QString::number(modelrunlist->value(n).run->input.Ts));
+    ui->input_surface_Wl->setText(QString::number(modelrunlist->value(n).run->input.Ts));
+
+    ui->input_surface_LAI->setText(QString::number(modelrunlist->value(n).run->input.LAI));
+    ui->input_surface_gD->setText(QString::number(modelrunlist->value(n).run->input.gD));
+    ui->input_surface_rsmin->setText(QString::number(modelrunlist->value(n).run->input.rsmin));
+    ui->input_surface_alpha->setText(QString::number(modelrunlist->value(n).run->input.alpha));
+    ui->input_surface_cveg->setText(QString::number(modelrunlist->value(n).run->input.cveg));
+
+    ui->input_surface_Lambda->setText(QString::number(modelrunlist->value(n).run->input.Lambda));
+    ui->input_surface_Wlmax->setText(QString::number(modelrunlist->value(n).run->input.Wmax));
+    ui->input_surface_z0m->setText(QString::number(modelrunlist->value(n).run->input.z0m));
+    ui->input_surface_z0h->setText(QString::number(modelrunlist->value(n).run->input.z0h));
+
+    // RADIATION
+    ui->input_rad_DOY->setText(QString::number(modelrunlist->value(n).run->input.doy));
+    ui->input_rad_lat->setText(QString::number(modelrunlist->value(n).run->input.lat));
+    ui->input_rad_lon->setText(QString::number(modelrunlist->value(n).run->input.lon));
+    ui->input_rad_time->setText(QString::number(modelrunlist->value(n).run->input.tstart));
+
+    ui->input_rad_Qnet->setText(QString::number(modelrunlist->value(n).run->input.Q));
+    ui->input_rad_clouds->setText(QString::number(modelrunlist->value(n).run->input.cc));
+
+    // OTHER
     ui->input_name->setText(modelrunlist->value(n).runname);
   }
 }
