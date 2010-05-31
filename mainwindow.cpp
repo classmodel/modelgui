@@ -25,11 +25,15 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->graphButton,    SIGNAL(clicked()),                this, SLOT(startGraph()));
   connect(ui->input_name,     SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
   connect(ui->exportButton,   SIGNAL(clicked()),                this, SLOT(exportRuns()));
+  connect(ui->switches_treewidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(switches_changed()));
 
   loadfieldslots();
 
-  // Setup QTreeWidget
-  QStringList heading;
+  // Setup QTreeWidget with switches
+  ui->switches_treewidget->hideColumn(1);
+
+  // Setup QTreeWidget with model runs
+    QStringList heading;
   heading << "ID" << "Name";
   ui->modelRunTree->setColumnCount(2);
   ui->modelRunTree->setHeaderLabels(heading);
@@ -477,4 +481,42 @@ void MainWindow::exportRuns()
         modelrunlist->find(n).value().run->run2file(dirname.toStdString(),runname.toStdString());
     }
   }
+}
+
+void MainWindow::switches_changed()
+{
+  QTreeWidgetItem *mixedlayer = new QTreeWidgetItem;
+  mixedlayer = ui->switches_treewidget->findItems("1", Qt::MatchExactly, 1)[0];
+  if (mixedlayer->checkState(0) == 0)
+    formvalues.sw_ml = false;
+  else if (mixedlayer->checkState(0) == 2)
+    formvalues.sw_ml = true;
+
+//  QTreeWidgetItem *wind = new QTreeWidgetItem;
+//  wind = ui->switches_treewidget->findItems("4", Qt::MatchExactly, 1)[0];
+//  if (wind->checkState(0) == 0)
+//    formvalues.sw_wind = false;
+//  else if (wind->checkState(0) == 2)
+//    formvalues.sw_wind = true;
+
+  QTreeWidgetItem *surfacelayer = new QTreeWidgetItem;
+  surfacelayer = ui->switches_treewidget->findItems("5", Qt::MatchExactly, 1)[0];
+  if (surfacelayer->checkState(0) == 0)
+    formvalues.sw_sl = false;
+  else if (surfacelayer->checkState(0) == 2)
+    formvalues.sw_sl = true;
+
+  QTreeWidgetItem *landsurface = new QTreeWidgetItem;
+  landsurface = ui->switches_treewidget->findItems("6", Qt::MatchExactly, 1)[0];
+  if (landsurface->checkState(0) == 0)
+    formvalues.sw_ls = false;
+  else if (landsurface->checkState(0) == 2)
+    formvalues.sw_ls = true;
+
+  QTreeWidgetItem *radiation = new QTreeWidgetItem;
+  radiation = ui->switches_treewidget->findItems("7", Qt::MatchExactly, 1)[0];
+  if (radiation->checkState(0) == 0)
+    formvalues.sw_rad = false;
+  else if (radiation->checkState(0) == 2)
+    formvalues.sw_rad = true;
 }
