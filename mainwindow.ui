@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
+    <width>790</width>
     <height>500</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>640</width>
+    <width>790</width>
     <height>500</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>640</width>
+    <width>790</width>
     <height>500</height>
    </size>
   </property>
@@ -41,8 +41,8 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>4</x>
-      <y>4</y>
+      <x>170</x>
+      <y>0</y>
       <width>470</width>
       <height>410</height>
      </rect>
@@ -1277,10 +1277,10 @@
    <widget class="QGroupBox" name="modelrunsGroup">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>4</y>
+      <x>640</x>
+      <y>20</y>
       <width>150</width>
-      <height>451</height>
+      <height>431</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -1290,20 +1290,20 @@
      </size>
     </property>
     <property name="title">
-     <string>Model runs</string>
+     <string/>
     </property>
     <widget class="QTreeWidget" name="modelRunTree">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>30</y>
+       <y>10</y>
        <width>131</width>
        <height>221</height>
       </rect>
      </property>
      <column>
       <property name="text">
-       <string notr="true">1</string>
+       <string notr="true">Model runs</string>
       </property>
      </column>
     </widget>
@@ -1311,7 +1311,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>260</y>
+       <y>240</y>
        <width>111</width>
        <height>167</height>
       </rect>
@@ -1397,11 +1397,17 @@
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>180</x>
       <y>420</y>
       <width>141</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="text">
      <string>Start simulation</string>
@@ -1410,15 +1416,93 @@
    <widget class="QPushButton" name="cancelButton">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>330</x>
       <y>420</y>
       <width>81</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="text">
      <string>Cancel</string>
     </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>171</width>
+      <height>461</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QTreeWidget" name="treeWidget">
+       <column>
+        <property name="text">
+         <string>Switches</string>
+        </property>
+       </column>
+       <item>
+        <property name="text">
+         <string>Mixed-layer</string>
+        </property>
+        <property name="checkState">
+         <enum>Checked</enum>
+        </property>
+        <item>
+         <property name="text">
+          <string>Heat</string>
+         </property>
+         <property name="checkState">
+          <enum>Unchecked</enum>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Moisture</string>
+         </property>
+         <property name="checkState">
+          <enum>Unchecked</enum>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Wind</string>
+         </property>
+         <property name="checkState">
+          <enum>Unchecked</enum>
+         </property>
+        </item>
+       </item>
+       <item>
+        <property name="text">
+         <string>Surface-layer</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+        <item>
+         <property name="text">
+          <string>bla</string>
+         </property>
+         <property name="checkState">
+          <enum>Unchecked</enum>
+         </property>
+        </item>
+       </item>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -1426,8 +1510,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>640</width>
-     <height>22</height>
+     <width>790</width>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
