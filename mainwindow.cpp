@@ -347,7 +347,7 @@ void MainWindow::updateForm()
 
     // SURFACE
     ui->input_surface_Ts->setText(QString::number(modelrunlist->value(n).run->input.Ts));
-    ui->input_surface_Wl->setText(QString::number(modelrunlist->value(n).run->input.Ts));
+    ui->input_surface_Wl->setText(QString::number(modelrunlist->value(n).run->input.Wl));
 
     ui->input_surface_LAI->setText(QString::number(modelrunlist->value(n).run->input.LAI));
     ui->input_surface_gD->setText(QString::number(modelrunlist->value(n).run->input.gD));
@@ -492,12 +492,16 @@ void MainWindow::switches_changed()
   else if (mixedlayer->checkState(0) == 2)
     formvalues.sw_ml = true;
 
-//  QTreeWidgetItem *wind = new QTreeWidgetItem;
-//  wind = ui->switches_treewidget->findItems("4", Qt::MatchExactly, 1)[0];
-//  if (wind->checkState(0) == 0)
-//    formvalues.sw_wind = false;
-//  else if (wind->checkState(0) == 2)
-//    formvalues.sw_wind = true;
+  QTreeWidgetItem *wind = new QTreeWidgetItem;
+  wind = ui->switches_treewidget->findItems("4", Qt::MatchRecursive, 1)[0];
+  if (wind->checkState(0) == 0)
+    formvalues.sw_wind = false;
+  else if (wind->checkState(0) == 2)
+    formvalues.sw_wind = true;
+  ui->wind_U_group->setEnabled(formvalues.sw_wind);
+  ui->wind_V_group->setEnabled(formvalues.sw_wind);
+  ui->wind_general_group->setEnabled(formvalues.sw_wind);
+
 
   QTreeWidgetItem *surfacelayer = new QTreeWidgetItem;
   surfacelayer = ui->switches_treewidget->findItems("5", Qt::MatchExactly, 1)[0];
@@ -505,6 +509,8 @@ void MainWindow::switches_changed()
     formvalues.sw_sl = false;
   else if (surfacelayer->checkState(0) == 2)
     formvalues.sw_sl = true;
+  ui->surfacelayer_group->setEnabled(formvalues.sw_sl);
+
 
   QTreeWidgetItem *landsurface = new QTreeWidgetItem;
   landsurface = ui->switches_treewidget->findItems("6", Qt::MatchExactly, 1)[0];
@@ -512,6 +518,9 @@ void MainWindow::switches_changed()
     formvalues.sw_ls = false;
   else if (landsurface->checkState(0) == 2)
     formvalues.sw_ls = true;
+  ui->soil_heat_group->setEnabled(formvalues.sw_ls);
+  ui->soil_moisture_group->setEnabled(formvalues.sw_ls);
+  ui->soil_parameters_group->setEnabled(formvalues.sw_ls);
 
   QTreeWidgetItem *radiation = new QTreeWidgetItem;
   radiation = ui->switches_treewidget->findItems("7", Qt::MatchExactly, 1)[0];
@@ -519,4 +528,6 @@ void MainWindow::switches_changed()
     formvalues.sw_rad = false;
   else if (radiation->checkState(0) == 2)
     formvalues.sw_rad = true;
+  ui->rad_group->setEnabled(formvalues.sw_rad);
+  ui->rad_group2->setEnabled(formvalues.sw_rad);
 }
