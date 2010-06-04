@@ -38,7 +38,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
   connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
-  connect(ui->plotintervalInput, SIGNAL(editingFinished()), this, SLOT(changeplotinterval()));
+  //connect(ui->plotintervalInput, SIGNAL(editingFinished()), this, SLOT(changeplotinterval()));
   // Menu interface:
   connect(ui->view_basicmode, SIGNAL(triggered()), this, SLOT(switchtobasicplotting()));
   connect(ui->view_advancedmode, SIGNAL(triggered()), this, SLOT(switchtoadvancedplotting()));
@@ -405,12 +405,6 @@ void plotwindow::changeaxis()
   ui->xmaxInput->setDisabled(plotar->autoaxis);
   ui->yminInput->setDisabled(plotar->autoaxis);
   ui->ymaxInput->setDisabled(plotar->autoaxis);
-}
-
-void plotwindow::changeplotinterval()
-{
-  plotar->plotinterval = ui->plotintervalInput->text().toInt();
-  plotar->update();
 }
 
 

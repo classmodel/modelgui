@@ -40,7 +40,6 @@ public slots:
   void changeaxis();
   void switchtobasicplotting();
   void switchtoadvancedplotting();
-  void changeplotinterval();
   void viewmenutriggered();
   void togglebasicsettings(bool);
   void toggleadvancedsettings(bool);

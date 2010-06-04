@@ -379,7 +379,7 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="5" column="0">
         <widget class="QComboBox" name="plottype">
          <item>
           <property name="text">
@@ -392,45 +392,6 @@
           </property>
          </item>
         </widget>
-       </item>
-       <item row="5" column="0">
-        <layout class="QHBoxLayout" name="layout_ymin_2">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetFixedSize</enum>
-         </property>
-         <item>
-          <widget class="QLabel" name="plotintervalLabel">
-           <property name="minimumSize">
-            <size>
-             <width>45</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Step:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="plotintervalInput">
-           <property name="minimumSize">
-            <size>
-             <width>60</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>100</width>
-             <height>1000</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </item>
       </layout>
      </item>

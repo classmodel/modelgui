@@ -69,7 +69,7 @@
         <x>10</x>
         <y>10</y>
         <width>211</width>
-        <height>161</height>
+        <height>171</height>
        </rect>
       </property>
       <property name="title">
@@ -81,7 +81,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>137</height>
+         <height>141</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="modelsettings_grid" columnminimumwidth="50,0,60">
@@ -191,6 +191,12 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
             <height>25</height>
            </size>
           </property>
@@ -456,7 +462,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>147</height>
+         <height>141</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="ml_grid" columnminimumwidth="50,0,80">
@@ -624,6 +630,12 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
             <height>25</height>
            </size>
           </property>
@@ -891,7 +903,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>147</height>
+         <height>141</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="wind_U_grid" columnminimumwidth="50,0,60">
@@ -1050,6 +1062,12 @@
             <height>25</height>
            </size>
           </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
           <property name="text">
            <string>U-component</string>
           </property>
@@ -1079,7 +1097,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>147</height>
+         <height>141</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="u_comp_grid_2" columnminimumwidth="50,0,80">
@@ -1235,6 +1253,12 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
             <height>25</height>
            </size>
           </property>
@@ -1498,7 +1522,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>87</height>
+         <height>81</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_heat_grid" columnminimumwidth="50,0,60">
@@ -1582,6 +1606,12 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
             <height>25</height>
            </size>
           </property>
@@ -2009,7 +2039,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>87</height>
+         <height>81</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_moisture_grid" columnminimumwidth="50,0,80">
@@ -2096,6 +2126,12 @@
             <height>25</height>
            </size>
           </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
           <property name="text">
            <string>Moisture</string>
           </property>
@@ -2106,19 +2142,6 @@
         </item>
        </layout>
       </widget>
-     </widget>
-     <widget class="QCheckBox" name="sw_ls">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>360</y>
-        <width>251</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Land-surface -&gt; where...</string>
-      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="surfaceTab">
@@ -2135,55 +2158,46 @@
        </rect>
       </property>
       <property name="title">
-       <string>Heat</string>
+       <string/>
       </property>
       <widget class="QWidget" name="gridLayoutWidget_15">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
+         <y>10</y>
          <width>191</width>
-         <height>31</height>
+         <height>61</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_heat_grid" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_surface_Ts">
-          <property name="toolTip">
-           <string/>
+        <item row="0" column="1" colspan="2">
+         <widget class="QCheckBox" name="sw_ls">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
           </property>
           <property name="text">
-           <string>&lt;html&gt;T(s)&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <string>Surface scheme</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="input_surface_Ts">
-          <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_surface_Ts">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[K]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="comboBox">
+          <item>
+           <property name="text">
+            <string>Land</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Sea</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>
@@ -2193,7 +2207,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>100</y>
+        <y>130</y>
         <width>441</width>
         <height>231</height>
        </rect>
@@ -2590,26 +2604,26 @@
         <x>230</x>
         <y>10</y>
         <width>221</width>
-        <height>81</height>
+        <height>111</height>
        </rect>
       </property>
       <property name="title">
-       <string>Moisture</string>
+       <string/>
       </property>
       <widget class="QWidget" name="gridLayoutWidget_16">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
+         <y>10</y>
          <width>201</width>
-         <height>31</height>
+         <height>91</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_moisture_grid" columnminimumwidth="50,0,80">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
-        <item row="0" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="label_surface_Wl">
           <property name="toolTip">
            <string/>
@@ -2622,7 +2636,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="2" column="1">
          <widget class="QLineEdit" name="input_surface_Wl">
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
@@ -2632,7 +2646,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="2" column="2">
          <widget class="QLabel" name="unitlabel_surface_Wl">
           <property name="toolTip">
            <string/>
@@ -2642,6 +2656,64 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="input_surface_Ts">
+          <property name="toolTip">
+           <string>initial mixed-layer u-wind speed</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_surface_Ts">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;T(s)&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="unitlabel_surface_Ts">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[K]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QLabel" name="label_surface_variables">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Surface variables</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -2659,7 +2731,7 @@
         <x>10</x>
         <y>10</y>
         <width>211</width>
-        <height>161</height>
+        <height>201</height>
        </rect>
       </property>
       <property name="title">
@@ -2671,7 +2743,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>147</height>
+         <height>171</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="rad_grid1" columnminimumwidth="50,0,60">
@@ -2831,7 +2903,43 @@
            </size>
           </property>
           <property name="text">
-           <string>Short wave</string>
+           <string>Radiation</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_rad_clouds">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>Clouds</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="input_rad_clouds">
+          <property name="toolTip">
+           <string>initial mixed-layer u-wind speed</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QLabel" name="unitlabel_rad_clouds">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -2844,7 +2952,7 @@
         <x>230</x>
         <y>10</y>
         <width>221</width>
-        <height>161</height>
+        <height>81</height>
        </rect>
       </property>
       <property name="title">
@@ -2856,7 +2964,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>87</height>
+         <height>51</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="rad_grid2" columnminimumwidth="50,0,80">
@@ -2899,47 +3007,17 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="input_rad_clouds">
-          <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_rad_clouds">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>Clouds</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_rad_clouds">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0" colspan="3">
-         <widget class="QLabel" name="label_soil_heat_2">
+         <widget class="QLabel" name="label_rad_qnet">
           <property name="minimumSize">
            <size>
             <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
             <height>25</height>
            </size>
           </property>
@@ -3121,7 +3199,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
