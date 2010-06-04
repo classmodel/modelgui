@@ -73,8 +73,8 @@ public:
   double wfc;       // volumetric water content field capacity [-]
   double wwilt;     // volumetric water content wilting point [-]
   
-  double C1sat;     
-  double C2ref;     
+  double C1sat;     // Coefficient force term moisture [-]
+  double C2ref;     // Coefficient restore term moisture [-]
     
   double LAI;       // leaf area index [-]
   double gD;        // correction factor transpiration for VPD [-]
