@@ -191,6 +191,7 @@ void MainWindow::updateInputdata()
   formvalues.runtime    = ui->input_time->text().toDouble() * 3600;     // total run time [s]
 
   // MIXED-LAYER
+  formvalues.sw_ml      = CheckState2bool(ui->sw_ml->checkState());
   formvalues.h          = ui->input_ml_h->text().toDouble();             // initial ABL height [m]
   formvalues.Ps         = ui->input_ml_ps->text().toDouble() * 100;      // surface pressure [Pa]
   formvalues.ws         = ui->input_ml_ws->text().toDouble();            // large scale vertical velocity [m s-1]
@@ -211,7 +212,7 @@ void MainWindow::updateInputdata()
   formvalues.wq         = ui->input_moisture_wq->text().toDouble() / 1000;     // surface kinematic moisture flux [kg kg-1 m s-1]
 
   // WIND
-  //formvalues.sw_wind    = ui->switch_wind->checkState();              // prognostic wind switch
+  formvalues.sw_wind    = CheckState2bool(ui->sw_wind->checkState());
   formvalues.u          = ui->input_wind_u->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
   formvalues.du         = ui->input_wind_ug->text().toDouble()
                           - ui->input_wind_u->text().toDouble();          // initial u-wind jump at h [m s-1]
@@ -229,6 +230,7 @@ void MainWindow::updateInputdata()
   formvalues.z0m        = ui->input_surfacelayer_z0m->text().toDouble();
 
   // SOIL
+  formvalues.sw_ls      = CheckState2bool(ui->sw_ls->checkState());
   formvalues.T2         = ui->input_soil_T2->text().toDouble();
   formvalues.Tsoil      = ui->input_soil_Tsoil->text().toDouble();
   formvalues.w2         = ui->input_soil_W2->text().toDouble();
@@ -258,6 +260,7 @@ void MainWindow::updateInputdata()
   formvalues.z0h        = ui->input_surface_z0h->text().toDouble();
 
   // RADIATION
+  formvalues.sw_rad     = CheckState2bool(ui->sw_rad->checkState());
   formvalues.doy        = ui->input_rad_DOY->text().toDouble();
   formvalues.lat        = ui->input_rad_lat->text().toDouble();
   formvalues.lon        = ui->input_rad_lon->text().toDouble();
@@ -283,128 +286,160 @@ void MainWindow::updateForm()
   if (ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
   {
     int n = ui->modelRunTree->currentItem()->text(0).toInt();
-    ui->input_timestep->setText(QString::number(modelrunlist->value(n).run->input.dt));
-    ui->input_time->setText(QString::number(modelrunlist->value(n).run->input.runtime / 3600.));
+
+    modelinput *tempinput;
+    tempinput = &modelrunlist->value(n).run->input;
+
+    ui->input_timestep->setText(QString::number(tempinput->dt));
+    ui->input_time->setText(QString::number(tempinput->runtime / 3600.));
 
     // SWITCHES
     Qt::CheckState check;
-    if (modelrunlist->value(n).run->input.sw_wind == true)
+    if (tempinput->sw_wind == true)
       check = Qt::Checked;
     else
       check = Qt::Unchecked;
     ui->sw_wind->setCheckState(check);
 
-    if (modelrunlist->value(n).run->input.sw_ml == true)
+    if (tempinput->sw_ml == true)
       check = Qt::Checked;
     else
       check = Qt::Unchecked;
     ui->sw_ml->setCheckState(check);
 
-    if (modelrunlist->value(n).run->input.sw_rad == true)
+    if (tempinput->sw_rad == true)
       check = Qt::Checked;
     else
       check = Qt::Unchecked;
     ui->sw_rad->setCheckState(check);
 
-    if (modelrunlist->value(n).run->input.sw_sl == true)
+    if (tempinput->sw_sl == true)
       check = Qt::Checked;
     else
       check = Qt::Unchecked;
     ui->sw_sl->setCheckState(check);
 
-    if (modelrunlist->value(n).run->input.sw_ls == true)
+    if (tempinput->sw_ls == true)
       check = Qt::Checked;
     else
       check = Qt::Unchecked;
     ui->sw_ls->setCheckState(check);
 
     // MIXED-LAYER
-    ui->input_ml_h->setText(QString::number(modelrunlist->value(n).run->input.h));
-    ui->input_ml_ps->setText(QString::number(modelrunlist->value(n).run->input.Ps / 100.));
-    ui->input_ml_ws->setText(QString::number(modelrunlist->value(n).run->input.ws));
-    ui->input_ml_beta->setText(QString::number(modelrunlist->value(n).run->input.beta));
+    ui->input_ml_h->setText(QString::number(tempinput->h));
+    ui->input_ml_ps->setText(QString::number(tempinput->Ps / 100.));
+    ui->input_ml_ws->setText(QString::number(tempinput->ws));
+    ui->input_ml_beta->setText(QString::number(tempinput->beta));
 
     // HEAT
-    ui->input_heat_theta->setText(QString::number(modelrunlist->value(n).run->input.theta));
-    ui->input_heat_dtheta->setText(QString::number(modelrunlist->value(n).run->input.dtheta));
-    ui->input_heat_gammatheta->setText(QString::number(modelrunlist->value(n).run->input.gammatheta));
-    ui->input_heat_advtheta->setText(QString::number(modelrunlist->value(n).run->input.advtheta));
-    ui->input_heat_wtheta->setText(QString::number(modelrunlist->value(n).run->input.wtheta));
+    ui->input_heat_theta->setText(QString::number(tempinput->theta));
+    ui->input_heat_dtheta->setText(QString::number(tempinput->dtheta));
+    ui->input_heat_gammatheta->setText(QString::number(tempinput->gammatheta));
+    ui->input_heat_advtheta->setText(QString::number(tempinput->advtheta));
+    ui->input_heat_wtheta->setText(QString::number(tempinput->wtheta));
 
     // MOISTURE
-    ui->input_moisture_q->setText(QString::number(modelrunlist->value(n).run->input.q * 1000.));
-    ui->input_moisture_dq->setText(QString::number(modelrunlist->value(n).run->input.dq * 1000.));
-    ui->input_moisture_gammaq->setText(QString::number(modelrunlist->value(n).run->input.gammaq * 1000.));
-    ui->input_moisture_advq->setText(QString::number(modelrunlist->value(n).run->input.advq * 1000.));
-    ui->input_moisture_wq->setText(QString::number(modelrunlist->value(n).run->input.wq * 1000.));
+    ui->input_moisture_q->setText(QString::number(tempinput->q * 1000.));
+    ui->input_moisture_dq->setText(QString::number(tempinput->dq * 1000.));
+    ui->input_moisture_gammaq->setText(QString::number(tempinput->gammaq * 1000.));
+    ui->input_moisture_advq->setText(QString::number(tempinput->advq * 1000.));
+    ui->input_moisture_wq->setText(QString::number(tempinput->wq * 1000.));
 
     // WIND
-    ui->input_wind_u->setText(QString::number(modelrunlist->value(n).run->input.u));
-    ui->input_wind_ug->setText(QString::number(modelrunlist->value(n).run->input.u + modelrunlist->value(n).run->input.du));
-    ui->input_wind_gammau->setText(QString::number(modelrunlist->value(n).run->input.gammau));
-    ui->input_wind_advu->setText(QString::number(modelrunlist->value(n).run->input.advu));
+    ui->input_wind_u->setText(QString::number(tempinput->u));
+    ui->input_wind_ug->setText(QString::number(tempinput->u + tempinput->du));
+    ui->input_wind_gammau->setText(QString::number(tempinput->gammau));
+    ui->input_wind_advu->setText(QString::number(tempinput->advu));
 
-    ui->input_wind_v->setText(QString::number(modelrunlist->value(n).run->input.v));
-    ui->input_wind_vg->setText(QString::number(modelrunlist->value(n).run->input.v + modelrunlist->value(n).run->input.dv));
-    ui->input_wind_gammav->setText(QString::number(modelrunlist->value(n).run->input.gammav));
-    ui->input_wind_advv->setText(QString::number(modelrunlist->value(n).run->input.advv));
+    ui->input_wind_v->setText(QString::number(tempinput->v));
+    ui->input_wind_vg->setText(QString::number(tempinput->v + tempinput->dv));
+    ui->input_wind_gammav->setText(QString::number(tempinput->gammav));
+    ui->input_wind_advv->setText(QString::number(tempinput->advv));
 
-    ui->input_wind_fc->setText(QString::number(modelrunlist->value(n).run->input.fc));
-    ui->input_wind_ustar->setText(QString::number(modelrunlist->value(n).run->input.ustar));
+    ui->input_wind_fc->setText(QString::number(tempinput->fc));
+    ui->input_wind_ustar->setText(QString::number(tempinput->ustar));
 
-    ui->input_surfacelayer_z0h->setText(QString::number(modelrunlist->value(n).run->input.z0h));
-    ui->input_surfacelayer_z0m->setText(QString::number(modelrunlist->value(n).run->input.z0m));
+    ui->input_surfacelayer_z0h->setText(QString::number(tempinput->z0h));
+    ui->input_surfacelayer_z0m->setText(QString::number(tempinput->z0m));
 
-    //if (modelrunlist->value(n).run->input.sw_wind == true)
+    //if (tempinput->sw_wind == true)
       //ui->switch_wind->setChecked(true);
     //else
       //ui->switch_wind->setChecked(false);
 
     // SOIL
-    ui->input_soil_T2->setText(QString::number(modelrunlist->value(n).run->input.T2));
-    ui->input_soil_Tsoil->setText(QString::number(modelrunlist->value(n).run->input.Tsoil));
-    ui->input_soil_W2->setText(QString::number(modelrunlist->value(n).run->input.w2));
-    ui->input_soil_Wg->setText(QString::number(modelrunlist->value(n).run->input.wg));
+    ui->input_soil_T2->setText(QString::number(tempinput->T2));
+    ui->input_soil_Tsoil->setText(QString::number(tempinput->Tsoil));
+    ui->input_soil_W2->setText(QString::number(tempinput->w2));
+    ui->input_soil_Wg->setText(QString::number(tempinput->wg));
 
-    ui->input_soil_wsat->setText(QString::number(modelrunlist->value(n).run->input.wsat));
-    ui->input_soil_wfc->setText(QString::number(modelrunlist->value(n).run->input.wfc));
-    ui->input_soil_wwilt->setText(QString::number(modelrunlist->value(n).run->input.wwilt));
+    ui->input_soil_wsat->setText(QString::number(tempinput->wsat));
+    ui->input_soil_wfc->setText(QString::number(tempinput->wfc));
+    ui->input_soil_wwilt->setText(QString::number(tempinput->wwilt));
 
-    ui->input_soil_c1sat->setText(QString::number(modelrunlist->value(n).run->input.C1sat));
-    ui->input_soil_c2ref->setText(QString::number(modelrunlist->value(n).run->input.C2ref));
+    ui->input_soil_c1sat->setText(QString::number(tempinput->C1sat));
+    ui->input_soil_c2ref->setText(QString::number(tempinput->C2ref));
 
-    ui->input_soil_a->setText(QString::number(modelrunlist->value(n).run->input.a));
-    ui->input_soil_b->setText(QString::number(modelrunlist->value(n).run->input.b));
-    ui->input_soil_p->setText(QString::number(modelrunlist->value(n).run->input.p));
-    ui->input_soil_CGsat->setText(QString::number(modelrunlist->value(n).run->input.CGsat));
+    ui->input_soil_a->setText(QString::number(tempinput->a));
+    ui->input_soil_b->setText(QString::number(tempinput->b));
+    ui->input_soil_p->setText(QString::number(tempinput->p));
+    ui->input_soil_CGsat->setText(QString::number(tempinput->CGsat));
 
     // SURFACE
-    ui->input_surface_Ts->setText(QString::number(modelrunlist->value(n).run->input.Ts));
-    ui->input_surface_Wl->setText(QString::number(modelrunlist->value(n).run->input.Wl));
+    ui->input_surface_Ts->setText(QString::number(tempinput->Ts));
+    ui->input_surface_Wl->setText(QString::number(tempinput->Wl));
 
-    ui->input_surface_LAI->setText(QString::number(modelrunlist->value(n).run->input.LAI));
-    ui->input_surface_gD->setText(QString::number(modelrunlist->value(n).run->input.gD));
-    ui->input_surface_rsmin->setText(QString::number(modelrunlist->value(n).run->input.rsmin));
-    ui->input_surface_alpha->setText(QString::number(modelrunlist->value(n).run->input.alpha));
-    ui->input_surface_cveg->setText(QString::number(modelrunlist->value(n).run->input.cveg));
+    ui->input_surface_LAI->setText(QString::number(tempinput->LAI));
+    ui->input_surface_gD->setText(QString::number(tempinput->gD));
+    ui->input_surface_rsmin->setText(QString::number(tempinput->rsmin));
+    ui->input_surface_alpha->setText(QString::number(tempinput->alpha));
+    ui->input_surface_cveg->setText(QString::number(tempinput->cveg));
 
-    ui->input_surface_Lambda->setText(QString::number(modelrunlist->value(n).run->input.Lambda));
-    ui->input_surface_Wlmax->setText(QString::number(modelrunlist->value(n).run->input.Wmax));
-    ui->input_surface_z0m->setText(QString::number(modelrunlist->value(n).run->input.z0m));
-    ui->input_surface_z0h->setText(QString::number(modelrunlist->value(n).run->input.z0h));
+    ui->input_surface_Lambda->setText(QString::number(tempinput->Lambda));
+    ui->input_surface_Wlmax->setText(QString::number(tempinput->Wmax));
+    ui->input_surface_z0m->setText(QString::number(tempinput->z0m));
+    ui->input_surface_z0h->setText(QString::number(tempinput->z0h));
 
     // RADIATION
-    ui->input_rad_DOY->setText(QString::number(modelrunlist->value(n).run->input.doy));
-    ui->input_rad_lat->setText(QString::number(modelrunlist->value(n).run->input.lat));
-    ui->input_rad_lon->setText(QString::number(modelrunlist->value(n).run->input.lon));
-    ui->input_rad_time->setText(QString::number(modelrunlist->value(n).run->input.tstart));
+    ui->input_rad_DOY->setText(QString::number(tempinput->doy));
+    ui->input_rad_lat->setText(QString::number(tempinput->lat));
+    ui->input_rad_lon->setText(QString::number(tempinput->lon));
+    ui->input_rad_time->setText(QString::number(tempinput->tstart));
 
-    ui->input_rad_Qnet->setText(QString::number(modelrunlist->value(n).run->input.Q));
-    ui->input_rad_clouds->setText(QString::number(modelrunlist->value(n).run->input.cc));
+    ui->input_rad_Qnet->setText(QString::number(tempinput->Q));
+    ui->input_rad_clouds->setText(QString::number(tempinput->cc));
 
     // OTHER
     ui->input_name->setText(modelrunlist->value(n).runname);
+
+    updateStatusBar();
   }
+}
+
+void MainWindow::updateStatusBar()
+{
+  QString statusmessage = "mixed-layer " + bool2string(formvalues.sw_ml) + " | " +
+    "wind " + bool2string(formvalues.sw_wind) + " | " +
+    "surface-layer " + bool2string(formvalues.sw_sl) + " | " +
+    "surface " + bool2string(formvalues.sw_ls) + " | " +
+    "radiation " + bool2string(formvalues.sw_rad);
+  ui->statusbar->showMessage(statusmessage);
+}
+
+QString MainWindow::bool2string(const bool in)
+{
+  if(in)
+    return "ON";
+  else
+    return "OFF";
+}
+
+bool MainWindow::CheckState2bool(Qt::CheckState state)
+{
+  if(state == Qt::Unchecked)
+    return false;
+  else
+    return true;
 }
 
 void MainWindow::deleteRun()
@@ -520,6 +555,7 @@ void MainWindow::switch_wind(int state)
   ui->wind_U_group->setEnabled(checkstate);
   ui->wind_V_group->setEnabled(checkstate);
   //ui->wind_general_group->setEnabled(checkstate);
+  updateStatusBar();
 }
 
 void MainWindow::switch_ls(int state)
@@ -531,6 +567,7 @@ void MainWindow::switch_ls(int state)
     checkstate = false;
 
   formvalues.sw_ls = checkstate;
+  updateStatusBar();
 }
 
 void MainWindow::switch_sl(int state)
@@ -542,6 +579,7 @@ void MainWindow::switch_sl(int state)
     checkstate = false;
 
   formvalues.sw_sl = checkstate;
+  updateStatusBar();
 }
 
 void MainWindow::switch_rad(int state)
@@ -553,6 +591,7 @@ void MainWindow::switch_rad(int state)
     checkstate = false;
 
   formvalues.sw_rad = checkstate;
+  updateStatusBar();
 }
 
 void MainWindow::switch_ml(int state)
@@ -564,4 +603,5 @@ void MainWindow::switch_ml(int state)
     checkstate = false;
 
   formvalues.sw_ml = checkstate;
+  updateStatusBar();
 }

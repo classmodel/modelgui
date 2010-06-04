@@ -48,6 +48,8 @@ public slots:
   void switch_rad(int);
   void switch_ml(int);
 
+
+
   //void switches_changed();
 
 signals:
@@ -58,6 +60,9 @@ private:
   Ui::MainWindow *ui;
   void readdefaultinput();
   void updateSelectedRuns();
+  QString bool2string(const bool);
+  void updateStatusBar();
+  bool CheckState2bool(Qt::CheckState);
 };
 
 #endif // MAINWINDOW_H
