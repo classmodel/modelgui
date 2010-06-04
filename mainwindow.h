@@ -31,7 +31,6 @@ public:
   void loadfieldslots();
 
 public slots:
-  void wind_switch(int);
   void newrun();
   void clonerun();
   void deleteRun();
@@ -42,6 +41,13 @@ public slots:
   void canceledit();
   void startGraph();
   void exportRuns();
+  // Switches
+  void switch_wind(int);
+  void switch_sl(int);
+  void switch_ls(int);
+  void switch_rad(int);
+  void switch_ml(int);
+
   //void switches_changed();
 
 signals:

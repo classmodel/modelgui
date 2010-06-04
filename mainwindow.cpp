@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
 
   connect(ui->startButton,    SIGNAL(clicked()),                this, SLOT(startrun()));
   connect(ui->cancelButton,   SIGNAL(clicked()),                this, SLOT(canceledit()));
-
   connect(ui->newRunButton,   SIGNAL(clicked()),                this, SLOT(newrun()));
   connect(ui->cloneRunButton, SIGNAL(clicked()),                this, SLOT(clonerun()));
   connect(ui->modelRunTree,   SIGNAL(itemSelectionChanged()),   this, SLOT(runTreeChanged()));
@@ -26,7 +25,11 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->exportButton,   SIGNAL(clicked()),                this, SLOT(exportRuns()));
 
   // Switches
-  connect(ui->sw_wind,        SIGNAL(stateChanged(int)),        this, SLOT(wind_switch(int)));
+  connect(ui->sw_wind,        SIGNAL(stateChanged(int)),        this, SLOT(switch_wind(int)));
+  connect(ui->sw_sl,          SIGNAL(stateChanged(int)),        this, SLOT(switch_sl(int)));
+  connect(ui->sw_ls,          SIGNAL(stateChanged(int)),        this, SLOT(switch_ls(int)));
+  connect(ui->sw_rad,         SIGNAL(stateChanged(int)),        this, SLOT(switch_rad(int)));
+  connect(ui->sw_ml,          SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
 
   loadfieldslots();
 
@@ -427,19 +430,6 @@ void MainWindow::updateRunName()
     ui->modelRunTree->currentItem()->setText(1,ui->input_name->text());
 }
 
-void MainWindow::wind_switch(int state)
-{
-  bool checkstate;
-  if (state == Qt::Checked)
-    checkstate = true;
-  else
-    checkstate = false;
-
-  formvalues.sw_wind = checkstate;
-  ui->wind_U_group->setEnabled(checkstate);
-  ui->wind_V_group->setEnabled(checkstate);
-}
-
 void MainWindow::startrun()
 {
   if(ui->modelRunTree->selectedItems().count() > 0)
@@ -515,51 +505,63 @@ void MainWindow::exportRuns()
   }
 }
 
-//void MainWindow::switches_changed()
-//{
-//  QTreeWidgetItem *mixedlayer = new QTreeWidgetItem;
-//  mixedlayer = ui->switches_treewidget->findItems("1", Qt::MatchExactly, 1)[0];
-//  if (mixedlayer->checkState(0) == 0)
-//    formvalues.sw_ml = false;
-//  else if (mixedlayer->checkState(0) == 2)
-//    formvalues.sw_ml = true;
-//
-//  QTreeWidgetItem *wind = new QTreeWidgetItem;
-//  wind = ui->switches_treewidget->findItems("4", Qt::MatchRecursive, 1)[0];
-//  if (wind->checkState(0) == 0)
-//    formvalues.sw_wind = false;
-//  else if (wind->checkState(0) == 2)
-//    formvalues.sw_wind = true;
-//  ui->wind_U_group->setEnabled(formvalues.sw_wind);
-//  ui->wind_V_group->setEnabled(formvalues.sw_wind);
-//  ui->wind_general_group->setEnabled(formvalues.sw_wind);
-//
-//
-//  QTreeWidgetItem *surfacelayer = new QTreeWidgetItem;
-//  surfacelayer = ui->switches_treewidget->findItems("5", Qt::MatchExactly, 1)[0];
-//  if (surfacelayer->checkState(0) == 0)
-//    formvalues.sw_sl = false;
-//  else if (surfacelayer->checkState(0) == 2)
-//    formvalues.sw_sl = true;
-//  ui->surfacelayer_group->setEnabled(formvalues.sw_sl);
-//
-//
-//  QTreeWidgetItem *landsurface = new QTreeWidgetItem;
-//  landsurface = ui->switches_treewidget->findItems("6", Qt::MatchExactly, 1)[0];
-//  if (landsurface->checkState(0) == 0)
-//    formvalues.sw_ls = false;
-//  else if (landsurface->checkState(0) == 2)
-//    formvalues.sw_ls = true;
-//  ui->soil_heat_group->setEnabled(formvalues.sw_ls);
-//  ui->soil_moisture_group->setEnabled(formvalues.sw_ls);
-//  ui->soil_parameters_group->setEnabled(formvalues.sw_ls);
-//
-//  QTreeWidgetItem *radiation = new QTreeWidgetItem;
-//  radiation = ui->switches_treewidget->findItems("7", Qt::MatchExactly, 1)[0];
-//  if (radiation->checkState(0) == 0)
-//    formvalues.sw_rad = false;
-//  else if (radiation->checkState(0) == 2)
-//    formvalues.sw_rad = true;
-//  ui->rad_group->setEnabled(formvalues.sw_rad);
-//  ui->rad_group2->setEnabled(formvalues.sw_rad);
-//}
+// ----------------------------------
+// Switches
+
+void MainWindow::switch_wind(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  formvalues.sw_wind = checkstate;
+  ui->wind_U_group->setEnabled(checkstate);
+  ui->wind_V_group->setEnabled(checkstate);
+  //ui->wind_general_group->setEnabled(checkstate);
+}
+
+void MainWindow::switch_ls(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  formvalues.sw_ls = checkstate;
+}
+
+void MainWindow::switch_sl(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  formvalues.sw_sl = checkstate;
+}
+
+void MainWindow::switch_rad(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  formvalues.sw_rad = checkstate;
+}
+
+void MainWindow::switch_ml(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  formvalues.sw_ml = checkstate;
+}
