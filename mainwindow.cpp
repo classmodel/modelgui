@@ -17,7 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->startButton,    SIGNAL(clicked()),                this, SLOT(startrun()));
   connect(ui->cancelButton,   SIGNAL(clicked()),                this, SLOT(canceledit()));
 
-  //connect(ui->switch_wind,    SIGNAL(stateChanged(int)),        this, SLOT(wind_switch(int)));
   connect(ui->newRunButton,   SIGNAL(clicked()),                this, SLOT(newrun()));
   connect(ui->cloneRunButton, SIGNAL(clicked()),                this, SLOT(clonerun()));
   connect(ui->modelRunTree,   SIGNAL(itemSelectionChanged()),   this, SLOT(runTreeChanged()));
@@ -25,12 +24,11 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->graphButton,    SIGNAL(clicked()),                this, SLOT(startGraph()));
   connect(ui->input_name,     SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
   connect(ui->exportButton,   SIGNAL(clicked()),                this, SLOT(exportRuns()));
-  connect(ui->switches_treewidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(switches_changed()));
+
+  // Switches
+  connect(ui->sw_wind,        SIGNAL(stateChanged(int)),        this, SLOT(wind_switch(int)));
 
   loadfieldslots();
-
-  // Setup QTreeWidget with switches
-  ui->switches_treewidget->hideColumn(1);
 
   // Setup QTreeWidget with model runs
     QStringList heading;
@@ -285,6 +283,38 @@ void MainWindow::updateForm()
     ui->input_timestep->setText(QString::number(modelrunlist->value(n).run->input.dt));
     ui->input_time->setText(QString::number(modelrunlist->value(n).run->input.runtime / 3600.));
 
+    // SWITCHES
+    Qt::CheckState check;
+    if (modelrunlist->value(n).run->input.sw_wind == true)
+      check = Qt::Checked;
+    else
+      check = Qt::Unchecked;
+    ui->sw_wind->setCheckState(check);
+
+    if (modelrunlist->value(n).run->input.sw_ml == true)
+      check = Qt::Checked;
+    else
+      check = Qt::Unchecked;
+    ui->sw_ml->setCheckState(check);
+
+    if (modelrunlist->value(n).run->input.sw_rad == true)
+      check = Qt::Checked;
+    else
+      check = Qt::Unchecked;
+    ui->sw_rad->setCheckState(check);
+
+    if (modelrunlist->value(n).run->input.sw_sl == true)
+      check = Qt::Checked;
+    else
+      check = Qt::Unchecked;
+    ui->sw_sl->setCheckState(check);
+
+    if (modelrunlist->value(n).run->input.sw_ls == true)
+      check = Qt::Checked;
+    else
+      check = Qt::Unchecked;
+    ui->sw_ls->setCheckState(check);
+
     // MIXED-LAYER
     ui->input_ml_h->setText(QString::number(modelrunlist->value(n).run->input.h));
     ui->input_ml_ps->setText(QString::number(modelrunlist->value(n).run->input.Ps / 100.));
@@ -399,13 +429,15 @@ void MainWindow::updateRunName()
 
 void MainWindow::wind_switch(int state)
 {
-  if (state == Qt::Checked) {
-    ui->wind_U_group->setDisabled(false);
-    ui->wind_V_group->setDisabled(false);
-  } else {
-    ui->wind_U_group->setDisabled(true);
-    ui->wind_V_group->setDisabled(true);
-  }
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  formvalues.sw_wind = checkstate;
+  ui->wind_U_group->setEnabled(checkstate);
+  ui->wind_V_group->setEnabled(checkstate);
 }
 
 void MainWindow::startrun()
@@ -483,51 +515,51 @@ void MainWindow::exportRuns()
   }
 }
 
-void MainWindow::switches_changed()
-{
-  QTreeWidgetItem *mixedlayer = new QTreeWidgetItem;
-  mixedlayer = ui->switches_treewidget->findItems("1", Qt::MatchExactly, 1)[0];
-  if (mixedlayer->checkState(0) == 0)
-    formvalues.sw_ml = false;
-  else if (mixedlayer->checkState(0) == 2)
-    formvalues.sw_ml = true;
-
-  QTreeWidgetItem *wind = new QTreeWidgetItem;
-  wind = ui->switches_treewidget->findItems("4", Qt::MatchRecursive, 1)[0];
-  if (wind->checkState(0) == 0)
-    formvalues.sw_wind = false;
-  else if (wind->checkState(0) == 2)
-    formvalues.sw_wind = true;
-  ui->wind_U_group->setEnabled(formvalues.sw_wind);
-  ui->wind_V_group->setEnabled(formvalues.sw_wind);
-  ui->wind_general_group->setEnabled(formvalues.sw_wind);
-
-
-  QTreeWidgetItem *surfacelayer = new QTreeWidgetItem;
-  surfacelayer = ui->switches_treewidget->findItems("5", Qt::MatchExactly, 1)[0];
-  if (surfacelayer->checkState(0) == 0)
-    formvalues.sw_sl = false;
-  else if (surfacelayer->checkState(0) == 2)
-    formvalues.sw_sl = true;
-  ui->surfacelayer_group->setEnabled(formvalues.sw_sl);
-
-
-  QTreeWidgetItem *landsurface = new QTreeWidgetItem;
-  landsurface = ui->switches_treewidget->findItems("6", Qt::MatchExactly, 1)[0];
-  if (landsurface->checkState(0) == 0)
-    formvalues.sw_ls = false;
-  else if (landsurface->checkState(0) == 2)
-    formvalues.sw_ls = true;
-  ui->soil_heat_group->setEnabled(formvalues.sw_ls);
-  ui->soil_moisture_group->setEnabled(formvalues.sw_ls);
-  ui->soil_parameters_group->setEnabled(formvalues.sw_ls);
-
-  QTreeWidgetItem *radiation = new QTreeWidgetItem;
-  radiation = ui->switches_treewidget->findItems("7", Qt::MatchExactly, 1)[0];
-  if (radiation->checkState(0) == 0)
-    formvalues.sw_rad = false;
-  else if (radiation->checkState(0) == 2)
-    formvalues.sw_rad = true;
-  ui->rad_group->setEnabled(formvalues.sw_rad);
-  ui->rad_group2->setEnabled(formvalues.sw_rad);
-}
+//void MainWindow::switches_changed()
+//{
+//  QTreeWidgetItem *mixedlayer = new QTreeWidgetItem;
+//  mixedlayer = ui->switches_treewidget->findItems("1", Qt::MatchExactly, 1)[0];
+//  if (mixedlayer->checkState(0) == 0)
+//    formvalues.sw_ml = false;
+//  else if (mixedlayer->checkState(0) == 2)
+//    formvalues.sw_ml = true;
+//
+//  QTreeWidgetItem *wind = new QTreeWidgetItem;
+//  wind = ui->switches_treewidget->findItems("4", Qt::MatchRecursive, 1)[0];
+//  if (wind->checkState(0) == 0)
+//    formvalues.sw_wind = false;
+//  else if (wind->checkState(0) == 2)
+//    formvalues.sw_wind = true;
+//  ui->wind_U_group->setEnabled(formvalues.sw_wind);
+//  ui->wind_V_group->setEnabled(formvalues.sw_wind);
+//  ui->wind_general_group->setEnabled(formvalues.sw_wind);
+//
+//
+//  QTreeWidgetItem *surfacelayer = new QTreeWidgetItem;
+//  surfacelayer = ui->switches_treewidget->findItems("5", Qt::MatchExactly, 1)[0];
+//  if (surfacelayer->checkState(0) == 0)
+//    formvalues.sw_sl = false;
+//  else if (surfacelayer->checkState(0) == 2)
+//    formvalues.sw_sl = true;
+//  ui->surfacelayer_group->setEnabled(formvalues.sw_sl);
+//
+//
+//  QTreeWidgetItem *landsurface = new QTreeWidgetItem;
+//  landsurface = ui->switches_treewidget->findItems("6", Qt::MatchExactly, 1)[0];
+//  if (landsurface->checkState(0) == 0)
+//    formvalues.sw_ls = false;
+//  else if (landsurface->checkState(0) == 2)
+//    formvalues.sw_ls = true;
+//  ui->soil_heat_group->setEnabled(formvalues.sw_ls);
+//  ui->soil_moisture_group->setEnabled(formvalues.sw_ls);
+//  ui->soil_parameters_group->setEnabled(formvalues.sw_ls);
+//
+//  QTreeWidgetItem *radiation = new QTreeWidgetItem;
+//  radiation = ui->switches_treewidget->findItems("7", Qt::MatchExactly, 1)[0];
+//  if (radiation->checkState(0) == 0)
+//    formvalues.sw_rad = false;
+//  else if (radiation->checkState(0) == 2)
+//    formvalues.sw_rad = true;
+//  ui->rad_group->setEnabled(formvalues.sw_rad);
+//  ui->rad_group2->setEnabled(formvalues.sw_rad);
+//}

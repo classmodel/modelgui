@@ -42,7 +42,7 @@ public slots:
   void canceledit();
   void startGraph();
   void exportRuns();
-  void switches_changed();
+  //void switches_changed();
 
 signals:
   void rundeleted(int);
