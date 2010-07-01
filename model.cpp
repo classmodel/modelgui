@@ -270,6 +270,9 @@ void model::runmodel()
     if(sw_ml)
       runmlmodel();
 
+    if(sw_ls)
+      intlsmodel();
+
     if(sw_ml)
       intmlmodel();
 
