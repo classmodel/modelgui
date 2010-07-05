@@ -311,8 +311,8 @@ void model::runmlmodel()
   // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
   htend       = we + ws;
 
-  thetatend   = (wtheta + we * dtheta) / h + advtheta;
-  qtend       = (wq     + we * dq)     / h + advq;
+  thetatend   = (wtheta + wthetae) / h + advtheta;
+  qtend       = (wq     + wqe)     / h + advq;
 
   dthetatend  = gammatheta * we - thetatend;
   dqtend      = gammaq     * we - qtend;
@@ -320,8 +320,10 @@ void model::runmlmodel()
   // assume u + du = ug, so ug - u = du
   if(sw_wind)
   {
-    utend       = -fc * dv + (uw + we * du)  / h + advu;
-    vtend       =  fc * du + (vw + we * dv)  / h + advv;
+    uwe         = we * du;
+    vwe         = we * dv;
+    utend       = -fc * dv + (uw + uwe)  / h + advu;
+    vtend       =  fc * du + (vw + vwe)  / h + advv;
 
     dutend      = gammau * we - utend;
     dvtend      = gammav * we - vtend;
@@ -616,7 +618,8 @@ void model::store()
   output->Ps.data[t]         = Ps;
   output->ws.data[t]         = ws;
   output->beta.data[t]       = beta;
-  
+
+  // mixed-layer
   output->theta.data[t]      = theta;
   output->thetav.data[t]     = thetav;
   output->dtheta.data[t]     = dtheta;
@@ -637,20 +640,45 @@ void model::store()
   output->wq.data[t]         = wq * 1000.;
   output->wqe.data[t]        = wqe * 1000.;
 
-  
   output->u.data[t]          = u;
   output->du.data[t]         = du;
   output->gammau.data[t]     = gammau;
   output->advu.data[t]       = advu;
+  output->uw.data[t]         = uw;
+  output->uwe.data[t]        = uwe;
   
   output->v.data[t]          = v;
   output->dv.data[t]         = dv;
   output->gammav.data[t]     = gammav;
   output->advv.data[t]       = advv;
-  
-  output->ustar.data[t]      = ustar;
-  output->uw.data[t]         = uw;
   output->vw.data[t]         = vw;
+  output->vwe.data[t]        = vwe;
+
+  // surface layer
+  output->ustar.data[t]      = ustar;
+  output->L.data[t]          = L;
+  output->Rib.data[t]        = Rib;
+  output->ra.data[t]         = ra;
+  output->Cm.data[t]         = Cm;
+  output->Cs.data[t]         = Cs;
+
+  // radiation
+  output->Swin.data[t]       = Swin;
+  output->Swout.data[t]      = Swout;
+  output->Lwin.data[t]       = Lwin;
+  output->Lwout.data[t]      = Lwout;
+  output->Q.data[t]          = Q;
+
+  // land and soil
+  output->wg.data[t]         = wg;
+  output->Tsoil.data[t]      = Tsoil;
+  output->Ts.data[t]         = Ts;
+  output->Wl.data[t]         = Wl;
+  output->rs.data[t]         = rs;
+
+  output->H.data[t]          = H;
+  output->LE.data[t]         = LE;
+  output->G.data[t]          = G;
 
   return;
 } 

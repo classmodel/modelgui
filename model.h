@@ -96,11 +96,15 @@ private:
   double du;        // initial u-wind jump at h [m s-1]
   double gammau;    // free atmosphere u-wind speed lapse rate [s-1]
   double advu;      // advection of u-wind [m s-2]
+  double uw;        // surface momentum flux in u-direction [m2 s-2]
+  double uwe;       // Entrainment momentum flux in u-direction [m2 s-2]
   
   double v;         // initial mixed-layer u-wind speed [m s-1]
   double dv;        // initial u-wind jump at h [m s-1]
   double gammav;    // free atmosphere v-wind speed lapse rate [s-1]
   double advv;      // advection of v-wind [m s-2]
+  double vw;        // surface momentum flux in v-direction [m2 s-2]
+  double vwe;       // Entrainment momentum flux in v-direction [m2 s-2]
 
   double htend;
   double thetatend, qtend, utend, vtend;
@@ -109,8 +113,6 @@ private:
   // surface layer variables
   bool   sw_sl;     // surface layer switch
   double ustar;     // surface friction velocity [m s-1]
-  double uw;        // surface momentum flux in u-direction [m2 s-2]
-  double vw;        // surface momentum flux in v-direction [m2 s-2]
 
   double z0m;       // roughness length for momentum [m]
   double z0h;       // roughness length for scalars [m]

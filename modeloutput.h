@@ -41,23 +41,48 @@ public:
   outputvar gammaq;    // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   outputvar advq;      // advection of moisture [kg kg-1 s-1]
   outputvar wq;        // surface kinematic moisture flux [kg kg-1 m s-1]
-  outputvar wqe;       // surface kinematic moisture flux [kg kg-1 m s-1]
+  outputvar wqe;       // entrainment kinematic moisture flux [kg kg-1 m s-1]
 
   // wind
   outputvar u;         // initial mixed-layer u-wind speed [m s-1]
   outputvar du;        // initial u-wind jump at h [m s-1]
   outputvar gammau;    // free atmosphere u-wind speed lapse rate [s-1]
   outputvar advu;      // advection of u-wind [m s-2]
-  
+  outputvar uw;        // surface u-momentum flux [m2 s-2]
+  outputvar uwe;       // entrainment u-momentum flux [m2 s-2]
+
   outputvar v;         // initial mixed-layer u-wind speed [m s-1]
   outputvar dv;        // initial u-wind jump at h [m s-1]
   outputvar gammav;    // free atmosphere v-wind speed lapse rate [s-1]
   outputvar advv;      // advection of v-wind [m s-2]
+  outputvar vw;        // surface v-momentum flux [m2 s-2]
+  outputvar vwe;       // entrainment v-momentum flux [m2 s-2]
   
   // surface-layer
   outputvar ustar;     // friction velocity [m s-1]
-  outputvar uw;        // u-momentum flux [m2 s-2]
-  outputvar vw;        // v-momentum flux [m2 s-2]
+  outputvar L;         // Obukhov length [m]
+  outputvar Rib;       // Bulk Richardson number [-]
+  outputvar ra;        // aerodynamic resistance [m s-1]
+  outputvar Cm;        // drag coefficient for momentum [-]
+  outputvar Cs;        // drag coefficient for scalars [-]
+
+  // radiation
+  outputvar Swin;      // Incoming short wave radiation [W m-2]
+  outputvar Swout;     // Outgoing short wave radiation [W m-2]
+  outputvar Lwin;      // Incoming long wave radiation [W m-2]
+  outputvar Lwout;     // Outgoing long wave radiation [W m-2]
+  outputvar Q;         // Net radiation [W m-2]
+
+  // land and soil
+  outputvar wg;        // soil moisture [m3 m-3]
+  outputvar Tsoil;     // soil temperature [K]
+  outputvar Ts;        // surface temperature [K]
+  outputvar Wl;        // liquid water on vegetation [m]
+  outputvar rs;        // surface resistance [s m-1]
+
+  outputvar H;         // sensible heat flux [W m-2]
+  outputvar LE;        // latent heat flux [W m-2]
+  outputvar G;         // ground heat flux [W m-2]
 
   modeloutput(int);
 };
