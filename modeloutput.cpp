@@ -27,7 +27,7 @@ modeloutput::modeloutput(int tsteps)
   ws.description            = "Large scale vertical velocity";
   ws.id                     = "ws";
 
-  lcl.data                  = new double[tsteps];
+  lcl.data                  = new double[tsteps];   // Lifted Condensation level [m]
   lcl.name                  = "LCL";
   lcl.unit                  = "m";
   lcl.description           = "Lifted Condensation Level";

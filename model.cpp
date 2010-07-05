@@ -325,9 +325,10 @@ void model::runmlmodel()
   }
 
   // calculate LCL (Bolton (2008), The Computation of Equivalent Potential Temperature)
-  double Td = 1./((1./273.15) - (Rv/Lv)*log(e/611.));
-  double Tlcl = 1./( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
-  lcl = 0. - (cp * (Tlcl - theta)/9.81);
+  double e       = q * Ps / 0.622;
+  double Td      = 1./((1./273.15) - (Rv/Lv)*log(e/611.));
+  double Tlcl    = 1./( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
+  lcl            = 0. - (cp * (Tlcl - theta)/g);
 }
 
 void model::intmlmodel()
@@ -369,7 +370,7 @@ void model::intmlmodel()
 void model::runslmodel()
 {
   double    zsl;      // height of surface layer [m]
-  double    U;     // total wind speed [m s-1]
+  double    U;        // total wind speed [m s-1]
   double    esatsurf; // saturated vapor pressure inside vegetation [Pa]
   double    qsatsurf; // saturated specific humidity inside vegetation [kg kg-1]
   double    cq;       // fraction of surface that is wet
@@ -611,7 +612,7 @@ void model::intlsmodel()
 
 void model::store()
 {
-  cout << "(t,h,theta,q,u,v) " << t * dt << ", " << h << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
+  cout << "(t,h,LCL,theta,q,u,v) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
   output->t.data[t]          = t * dt / 3600.; // + tstart;
 
   output->h.data[t]          = h;
