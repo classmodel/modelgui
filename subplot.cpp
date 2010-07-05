@@ -247,7 +247,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     // Hereafter; clip data plot .
     paint.setClipping(true);
-    paint.setClipRect(leftmargin+1,topmargin,plotwidth,plotheight);
+    paint.setClipRect(leftmargin,topmargin,plotwidth,plotheight);
 
     int legendy = topmargin+5;
 

@@ -10,16 +10,6 @@ public:
   std::string id;
 };
 
-class outputprof
-{
-public:
-  double *xdata[4];
-  double *ydata[4];
-  std::string unit;
-  std::string description;
-  std::string id;
-};
-
 class modeloutput
 {
 public:
@@ -95,7 +85,8 @@ public:
   outputvar G;         // ground heat flux [W m-2]
 
   // vertical profiles
-  outputprof thetaprof;
+  outputvar zprof;
+  outputvar thetaprof;
 
   modeloutput(int);
 };

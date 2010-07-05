@@ -1,5 +1,4 @@
 #include "modeloutput.h"
-
 modeloutput::modeloutput(int tsteps)
 {
   t.data                    = new double[tsteps];   // time [h]
@@ -320,11 +319,18 @@ modeloutput::modeloutput(int tsteps)
   G.id                      = "G";
 
   // vertical profiles
-  for(int i = 0; i < 5; i++)
-  {
-    thetaprof.xdata[i]      = new double[tsteps];
-    thetaprof.ydata[i]      = new double[tsteps];
-  }
+  thetaprof.data            = new double[tsteps*4];
+  thetaprof.name            = "\u03B8";
+  thetaprof.unit            = "K";
+  thetaprof.description     = "Mixed-layer potential temperature";
+  thetaprof.id              = "thetaprof";
+
+  // vertical profiles
+  zprof.data                = new double[tsteps*4];
+  zprof.name                = "z";
+  zprof.unit                = "m";
+  zprof.description         = "Height";
+  zprof.id                  = "zprof";
 
   return;
 }

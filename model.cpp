@@ -687,19 +687,49 @@ void model::store()
 
 void model::storeprof()
 {
-  for(int i=0; i < tsteps; i++)
+  int nhours = (int)(runtime / 3600);
+  
+  for(int i=0; i < nhours; i++)
   {
-    output->thetaprof.xdata[0][i] = output->theta.data[i];
-    output->thetaprof.ydata[0][i] = 0;
+    int starti = i * 4;
+    int fetchi = (int)(3600 / dt * i);
 
-    output->thetaprof.xdata[1][i] = output->theta.data[i];
-    output->thetaprof.ydata[1][i] = output->h.data[i];
+    // even numbers
+    if(i % 2 == 0)
+    {
+      output->thetaprof.data[starti + 0] = output->theta.data[fetchi];
+      output->zprof.data[starti + 0] = 0;
 
-    output->thetaprof.xdata[2][i] = output->theta.data[i] + output->dtheta.data[i];
-    output->thetaprof.ydata[2][i] = output->h.data[i];
+      output->thetaprof.data[starti + 1] = output->theta.data[fetchi];
+      output->zprof.data[starti + 1] = output->h.data[fetchi];
 
-    output->thetaprof.xdata[3][i] = output->theta.data[i] + output->dtheta.data[i] + output->gammatheta.data[i] * 1000.;
-    output->thetaprof.ydata[3][i] = output->h.data[i] + 1000.;
+      output->thetaprof.data[starti + 2] = output->theta.data[fetchi] + output->dtheta.data[fetchi];
+      output->zprof.data[starti + 2] = output->h.data[fetchi];
+
+      output->thetaprof.data[starti + 3] = output->theta.data[fetchi] + output->dtheta.data[fetchi] + output->gammatheta.data[fetchi] * 1000.;
+      output->zprof.data[starti + 3] = output->h.data[fetchi] + 1000.;
+    }
+    else
+    {
+      // odd numbers
+      output->thetaprof.data[starti + 3] = output->theta.data[fetchi];
+      output->zprof.data[starti + 3] = 0;
+
+      output->thetaprof.data[starti + 2] = output->theta.data[fetchi];
+      output->zprof.data[starti + 2] = output->h.data[fetchi];
+
+      output->thetaprof.data[starti + 1] = output->theta.data[fetchi] + output->dtheta.data[fetchi];
+      output->zprof.data[starti + 1] = output->h.data[fetchi];
+
+      output->thetaprof.data[starti + 0] = output->theta.data[fetchi] + output->dtheta.data[fetchi] + output->gammatheta.data[fetchi] * 1000.;
+      output->zprof.data[starti + 0] = output->h.data[fetchi] + 1000.;
+    }
+  }
+
+  for(int i = nhours*4; i < tsteps*4; i++)
+  {
+    output->thetaprof.data[i]  = output->thetaprof.data[i-1];
+    output->zprof.data[i]      = output->zprof.data[i-1];
   }
 }
 

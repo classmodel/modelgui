@@ -211,6 +211,12 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   else if (plotvar == "G")
     *data = n.run->output->G;
 
+  // vertical profiles
+  else if (plotvar == "zprof")
+    *data = n.run->output->zprof;
+  else if (plotvar == "thetaprof")
+    *data = n.run->output->thetaprof;
+
 }
 
 
@@ -331,5 +337,11 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
   else if (label == "LE")
     *plotvar = label;
   else if (label == "G")
+    *plotvar = label;
+
+  // vertical profiles
+  else if (label == "zprof")
+    *plotvar = label;
+  else if (label == "thetaprof")
     *plotvar = label;
 }
