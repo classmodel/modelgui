@@ -1,5 +1,4 @@
 #include "modeloutput.h"
-
 modeloutput::modeloutput(int tsteps)
 {
   t.data                    = new double[tsteps];   // time [h]
@@ -183,23 +182,161 @@ modeloutput::modeloutput(int tsteps)
   advv.description          = "Large-scale v-wind advection";
   advv.id                   = "advv";
 
+
+  uw.data                   = new double[tsteps];   // u-momentum flux [m2 s-2]
+  uw.name                   = "u'w'(s)";
+  uw.unit                   = "m\u00B2 s\u207B\u00B2";
+  uw.description            = "Surface u-wind momentum flux";
+  uw.id                     = "uw";
+
+  vw.data                   = new double[tsteps];   // v-momentum flux [m2 s-2]
+  vw.name                   = "v'w'(s)";
+  vw.unit                   = "m\u00B2 s\u207B\u00B2";
+  vw.description            = "Surface v-wind momentum flux";
+  vw.id                     = "vw";
+
+  uwe.data                   = new double[tsteps];   // u-momentum flux [m2 s-2]
+  uwe.name                   = "u'w'(e)";
+  uwe.unit                   = "m\u00B2 s\u207B\u00B2";
+  uwe.description            = "Entrainment u-wind momentum flux";
+  uwe.id                     = "uwe";
+
+  vwe.data                   = new double[tsteps];   // v-momentum flux [m2 s-2]
+  vwe.name                   = "v'w'(e)";
+  vwe.unit                   = "m\u00B2 s\u207B\u00B2";
+  vwe.description            = "Entrainment v-wind momentum flux";
+  vwe.id                     = "vwe";
+
+  // surface layer
   ustar.data                = new double[tsteps];   // friction velocity [m s-1]
   ustar.name                = "u*";
   ustar.unit                = "m s\u207B\u00B9";
   ustar.description         = "Friction velocity";
   ustar.id                  = "ustar";
 
-  uw.data                   = new double[tsteps];   // u-momentum flux [m2 s-2]
-  uw.name                   = "u'w'(s)";
-  uw.unit                   = "m\u00B2 s\u207B\u00B2";
-  uw.description            = "u-wind momentum flux";
-  uw.id                     = "uw";
+  L.data                    = new double[tsteps];   // Obukhov length [m]
+  L.name                    = "L";
+  L.unit                    = "m";
+  L.description             = "Obukhov length";
+  L.id                      = "L";
 
-  vw.data                   = new double[tsteps];   // v-momentum flux [m2 s-2]
-  vw.name                   = "v'w'(s)";
-  vw.unit                   = "m\u00B2 s\u207B\u00B2";
-  vw.description            = "v-wind momentum flux";
-  vw.id                     = "vw";
+  Rib.data                  = new double[tsteps];   // Bulk Richardson number [-]
+  Rib.name                  = "Rib";
+  Rib.unit                  = "-";
+  Rib.description           = "Bulk Richardson number";
+  Rib.id                    = "Rib";
+
+  ra.data                   = new double[tsteps];   // aerodynamic resistance [s m-1]
+  ra.name                   = "ra";
+  ra.unit                   = "s m\u207B\u00B9";
+  ra.description            = "Aerodynamic resistance";
+  ra.id                     = "ra";
+
+  Cm.data                   = new double[tsteps];   // drag coefficient for momentum [-]
+  Cm.name                   = "Cm";
+  Cm.unit                   = "-";
+  Cm.description            = "Drag coefficient for momentum";
+  Cm.id                     = "Cm";
+
+  Cs.data                   = new double[tsteps];   // drag coefficient for scalars [-]
+  Cs.name                   = "Cs";
+  Cs.unit                   = "-";
+  Cs.description            = "Drag coefficient for scalars";
+  Cs.id                     = "Cs";
+
+  // radiation
+  Swin.data                 = new double[tsteps];   // Incoming short wave radiation [W m-2]
+  Swin.name                 = "Swin";
+  Swin.unit                 = "W m\u207B\u00B2";
+  Swin.description          = "Incoming short wave radiation";
+  Swin.id                   = "Swin";
+
+  Swout.data                = new double[tsteps];   // Outgoing short wave radiation [W m-2]
+  Swout.name                = "Swout";
+  Swout.unit                = "W m\u207B\u00B2";
+  Swout.description         = "Outgoing short wave radiation";
+  Swout.id                  = "Swout";
+
+  Lwin.data                 = new double[tsteps];   // Incoming long wave radiation [W m-2]
+  Lwin.name                 = "Lwin";
+  Lwin.unit                 = "W m\u207B\u00B2";
+  Lwin.description          = "Incoming long wave radiation";
+  Lwin.id                   = "Lwin";
+
+  Lwout.data                = new double[tsteps];   // Outgoing long wave radiation [W m-2]
+  Lwout.name                = "Lwin";
+  Lwout.unit                = "W m\u207B\u00B2";
+  Lwout.description         = "Outgoing long wave radiation";
+  Lwout.id                  = "Lwout";
+
+  Q.data                    = new double[tsteps];   // Net radiation [W m-2]
+  Q.name                    = "Q";
+  Q.unit                    = "W m\u207B\u00B2";
+  Q.description             = "Net radiation";
+  Q.id                      = "Q";
+
+  // land and soil
+  wg.data                   = new double[tsteps];   // Soil moisture top layer [m3 m-3]
+  wg.name                   = "wg";
+  wg.unit                   = "m3 m3";
+  wg.description            = "Volumetric water content top soil layer";
+  wg.id                     = "wg";
+
+  Tsoil.data                = new double[tsteps];   //  Soil temperature [K]
+  Tsoil.name                = "Tsoil";
+  Tsoil.unit                = "K";
+  Tsoil.description         = "Temperature top soil layer";
+  Tsoil.id                  = "Tsoil";
+
+  Ts.data                   = new double[tsteps];   //  Skin temperature [K]
+  Ts.name                   = "Ts";
+  Ts.unit                   = "K";
+  Ts.description            = "Skin temperature";
+  Ts.id                     = "Ts";
+
+  Wl.data                   = new double[tsteps];   // Liquid water on vegetation [m]
+  Wl.name                   = "Wl";
+  Wl.unit                   = "m3 m3";
+  Wl.description            = "Liquid water on vegetation";
+  Wl.id                     = "Wl";
+
+  rs.data                   = new double[tsteps];   // surface resistance [s m-1]
+  rs.name                   = "rs";
+  rs.unit                   = "s m\u207B\u00B9";
+  rs.description            = "Surface resistance";
+  rs.id                     = "rs";
+
+  H.data                    = new double[tsteps];   // Net radiation [W m-2]
+  H.name                    = "H";
+  H.unit                    = "W m\u207B\u00B2";
+  H.description             = "Sensible heat flux";
+  H.id                      = "H";
+
+  LE.data                   = new double[tsteps];   // Net radiation [W m-2]
+  LE.name                   = "LE";
+  LE.unit                   = "W m\u207B\u00B2";
+  LE.description            = "Latent heat flux";
+  LE.id                     = "LE";
+
+  G.data                    = new double[tsteps];   // Net radiation [W m-2]
+  G.name                    = "G";
+  G.unit                    = "W m\u207B\u00B2";
+  G.description             = "Ground heat flux";
+  G.id                      = "G";
+
+  // vertical profiles
+  thetaprof.data            = new double[tsteps*4];
+  thetaprof.name            = "\u03B8";
+  thetaprof.unit            = "K";
+  thetaprof.description     = "Mixed-layer potential temperature";
+  thetaprof.id              = "thetaprof";
+
+  // vertical profiles
+  zprof.data                = new double[tsteps*4];
+  zprof.name                = "z";
+  zprof.unit                = "m";
+  zprof.description         = "Height";
+  zprof.id                  = "zprof";
 
   return;
 }

@@ -149,25 +149,75 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   else if (plotvar == "du")
     *data = n.run->output->du;
   else if (plotvar == "gammau")
-    *data = n.run->output->gammaq;
+    *data = n.run->output->gammau;
   else if (plotvar == "advu")
-    *data = n.run->output->advq;
+    *data = n.run->output->advu;
+  else if (plotvar == "uw")
+    *data = n.run->output->uw;
+  else if (plotvar == "uwe")
+    *data = n.run->output->uwe;
   else if (plotvar == "v")
     *data = n.run->output->v;
   else if (plotvar == "dv")
     *data = n.run->output->dv;
   else if (plotvar == "gammav")
-    *data = n.run->output->gammaq;
+    *data = n.run->output->gammav;
   else if (plotvar == "advv")
-    *data = n.run->output->advq;
+    *data = n.run->output->advv;
+  else if (plotvar == "vw")
+    *data = n.run->output->vw;
+  else if (plotvar == "vwe")
+    *data = n.run->output->vwe;
 
   // surface-layer
   else if (plotvar == "ustar")
     *data = n.run->output->ustar;
-  else if (plotvar == "uw")
-    *data = n.run->output->uw;
-  else if (plotvar == "vw")
-    *data = n.run->output->vw;
+  else if (plotvar == "L")
+    *data = n.run->output->L;
+  else if (plotvar == "Rib")
+    *data = n.run->output->Rib;
+  else if (plotvar == "ra")
+    *data = n.run->output->ra;
+  else if (plotvar == "Cm")
+    *data = n.run->output->Cm;
+  else if (plotvar == "Cs")
+    *data = n.run->output->Cs;
+
+  // radiation
+  else if (plotvar == "Swin")
+    *data = n.run->output->Swin;
+  else if (plotvar == "Swout")
+    *data = n.run->output->Swout;
+  else if (plotvar == "Lwin")
+    *data = n.run->output->Lwin;
+  else if (plotvar == "Lwout")
+    *data = n.run->output->Lwout;
+  else if (plotvar == "Q")
+    *data = n.run->output->Q;
+
+  // land and soil
+  else if (plotvar == "wg")
+    *data = n.run->output->wg;
+  else if (plotvar == "Tsoil")
+    *data = n.run->output->Tsoil;
+  else if (plotvar == "Ts")
+    *data = n.run->output->Ts;
+  else if (plotvar == "Wl")
+    *data = n.run->output->Wl;
+  else if (plotvar == "rs")
+    *data = n.run->output->rs;
+  else if (plotvar == "H")
+    *data = n.run->output->H;
+  else if (plotvar == "LE")
+    *data = n.run->output->LE;
+  else if (plotvar == "G")
+    *data = n.run->output->G;
+
+  // vertical profiles
+  else if (plotvar == "zprof")
+    *data = n.run->output->zprof;
+  else if (plotvar == "thetaprof")
+    *data = n.run->output->thetaprof;
 
 }
 
@@ -231,6 +281,10 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
     *plotvar = label;
   else if (label == "advu")
     *plotvar = label;
+  else if (label == "uw")
+    *plotvar = label;
+  else if (label == "uwe")
+    *plotvar = label;
   else if (label == "v")
     *plotvar = label;
   else if (label == "dv")
@@ -239,12 +293,59 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
     *plotvar = label;
   else if (label == "advv")
     *plotvar = label;
+  else if (label == "vw")
+    *plotvar = label;
+  else if (label == "vwe")
+    *plotvar = label;
 
   // surface-layer
   else if (label == "ustar")
     *plotvar = label;
-  else if (label == "uw")
+  else if (label == "L")
     *plotvar = label;
-  else if (label == "vw")
+  else if (label == "Rib")
+    *plotvar = label;
+  else if (label == "ra")
+    *plotvar = label;
+  else if (label == "Cm")
+    *plotvar = label;
+  else if (label == "Cs")
+    *plotvar = label;
+
+
+  // radiation
+  else if (label == "Swin")
+    *plotvar = label;
+  else if (label == "Swout")
+    *plotvar = label;
+  else if (label == "Lwin")
+    *plotvar = label;
+  else if (label == "Lwout")
+    *plotvar = label;
+  else if (label == "Q")
+    *plotvar = label;
+
+  //land and soil
+  else if (label == "wg")
+    *plotvar = label;
+  else if (label == "Tsoil")
+    *plotvar = label;
+  else if (label == "Ts")
+    *plotvar = label;
+  else if (label == "Wl")
+    *plotvar = label;
+  else if (label == "rs")
+    *plotvar = label;
+  else if (label == "H")
+    *plotvar = label;
+  else if (label == "LE")
+    *plotvar = label;
+  else if (label == "G")
+    *plotvar = label;
+
+  // vertical profiles
+  else if (label == "zprof")
+    *plotvar = label;
+  else if (label == "thetaprof")
     *plotvar = label;
 }

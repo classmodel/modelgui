@@ -270,11 +270,16 @@ void model::runmodel()
     if(sw_ml)
       runmlmodel();
 
+    if(sw_ls)
+      intlsmodel();
+
     if(sw_ml)
       intmlmodel();
 
     store();
   }
+
+  storeprof();
 
   return;
 }
@@ -308,8 +313,8 @@ void model::runmlmodel()
   // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
   htend       = we + ws;
 
-  thetatend   = (wtheta + we * dtheta) / h + advtheta;
-  qtend       = (wq     + we * dq)     / h + advq;
+  thetatend   = (wtheta + wthetae) / h + advtheta;
+  qtend       = (wq     + wqe)     / h + advq;
 
   dthetatend  = gammatheta * we - thetatend;
   dqtend      = gammaq     * we - qtend;
@@ -317,8 +322,10 @@ void model::runmlmodel()
   // assume u + du = ug, so ug - u = du
   if(sw_wind)
   {
-    utend       = -fc * dv + (uw + we * du)  / h + advu;
-    vtend       =  fc * du + (vw + we * dv)  / h + advv;
+    uwe         = we * du;
+    vwe         = we * dv;
+    utend       = -fc * dv + (uw + uwe)  / h + advu;
+    vtend       =  fc * du + (vw + vwe)  / h + advv;
 
     dutend      = gammau * we - utend;
     dvtend      = gammav * we - vtend;
@@ -620,7 +627,8 @@ void model::store()
   output->ws.data[t]         = ws;
   output->beta.data[t]       = beta;
   output->lcl.data[t]        = lcl;
-  
+
+  // mixed-layer
   output->theta.data[t]      = theta;
   output->thetav.data[t]     = thetav;
   output->dtheta.data[t]     = dtheta;
@@ -641,23 +649,96 @@ void model::store()
   output->wq.data[t]         = wq * 1000.;
   output->wqe.data[t]        = wqe * 1000.;
 
-  
   output->u.data[t]          = u;
   output->du.data[t]         = du;
   output->gammau.data[t]     = gammau;
   output->advu.data[t]       = advu;
+  output->uw.data[t]         = uw;
+  output->uwe.data[t]        = uwe;
   
   output->v.data[t]          = v;
   output->dv.data[t]         = dv;
   output->gammav.data[t]     = gammav;
   output->advv.data[t]       = advv;
-  
-  output->ustar.data[t]      = ustar;
-  output->uw.data[t]         = uw;
   output->vw.data[t]         = vw;
+  output->vwe.data[t]        = vwe;
+
+  // surface layer
+  output->ustar.data[t]      = ustar;
+  output->L.data[t]          = L;
+  output->Rib.data[t]        = Rib;
+  output->ra.data[t]         = ra;
+  output->Cm.data[t]         = Cm;
+  output->Cs.data[t]         = Cs;
+
+  // radiation
+  output->Swin.data[t]       = Swin;
+  output->Swout.data[t]      = Swout;
+  output->Lwin.data[t]       = Lwin;
+  output->Lwout.data[t]      = Lwout;
+  output->Q.data[t]          = Q;
+
+  // land and soil
+  output->wg.data[t]         = wg;
+  output->Tsoil.data[t]      = Tsoil;
+  output->Ts.data[t]         = Ts;
+  output->Wl.data[t]         = Wl;
+  output->rs.data[t]         = rs;
+
+  output->H.data[t]          = H;
+  output->LE.data[t]         = LE;
+  output->G.data[t]          = G;
 
   return;
 } 
+
+void model::storeprof()
+{
+  int nhours = (int)(runtime / 3600);
+  
+  for(int i=0; i < nhours; i++)
+  {
+    int starti = i * 4;
+    int fetchi = (int)(3600 / dt * i);
+
+    // even numbers
+    if(i % 2 == 0)
+    {
+      output->thetaprof.data[starti + 0] = output->theta.data[fetchi];
+      output->zprof.data[starti + 0] = 0;
+
+      output->thetaprof.data[starti + 1] = output->theta.data[fetchi];
+      output->zprof.data[starti + 1] = output->h.data[fetchi];
+
+      output->thetaprof.data[starti + 2] = output->theta.data[fetchi] + output->dtheta.data[fetchi];
+      output->zprof.data[starti + 2] = output->h.data[fetchi];
+
+      output->thetaprof.data[starti + 3] = output->theta.data[fetchi] + output->dtheta.data[fetchi] + output->gammatheta.data[fetchi] * 1000.;
+      output->zprof.data[starti + 3] = output->h.data[fetchi] + 1000.;
+    }
+    else
+    {
+      // odd numbers
+      output->thetaprof.data[starti + 3] = output->theta.data[fetchi];
+      output->zprof.data[starti + 3] = 0;
+
+      output->thetaprof.data[starti + 2] = output->theta.data[fetchi];
+      output->zprof.data[starti + 2] = output->h.data[fetchi];
+
+      output->thetaprof.data[starti + 1] = output->theta.data[fetchi] + output->dtheta.data[fetchi];
+      output->zprof.data[starti + 1] = output->h.data[fetchi];
+
+      output->thetaprof.data[starti + 0] = output->theta.data[fetchi] + output->dtheta.data[fetchi] + output->gammatheta.data[fetchi] * 1000.;
+      output->zprof.data[starti + 0] = output->h.data[fetchi] + 1000.;
+    }
+  }
+
+  for(int i = nhours*4; i < tsteps*4; i++)
+  {
+    output->thetaprof.data[i]  = output->thetaprof.data[i-1];
+    output->zprof.data[i]      = output->zprof.data[i-1];
+  }
+}
 
 void model::run2file(std::string filedir, std::string filename)
 {

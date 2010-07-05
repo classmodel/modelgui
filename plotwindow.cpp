@@ -112,6 +112,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   QList<outputvar> moisturevars;
   QList<outputvar> windvars;
   QList<outputvar> surfacelayervars;
+  QList<outputvar> radiationvars;
+  QList<outputvar> surfacevars;
+  QList<outputvar> vertprof;
 
   QList<QString> advancedtreegroups;
   advancedtreegroups
@@ -119,15 +122,16 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << "Temperature"
       << "Moisture"
       << "Wind"
-      << "Surface-layer";
+      << "Surface-layer"
+      << "Radiation"
+      << "Surface"
+      << "Vertical profiles";
 
-  //mixedlayervars << modelout.t << modelout.h << modelout.Ps << modelout.beta << modelout.ws;
   mixedlayervars
       << modelout.t
       << modelout.h
       << modelout.lcl;
 
-  //temperaturevars << modelout.theta << modelout.thetav << modelout.dtheta << modelout.dthetav << modelout.gammatheta << modelout.advtheta << modelout.wtheta << modelout.wthetav;
   temperaturevars
       << modelout.theta
       << modelout.thetav
@@ -137,30 +141,59 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.wthetae
       << modelout.wthetav;
 
-  //moisturevars << modelout.q << modelout.dq << modelout.gammaq << modelout.advq << modelout.wq;
   moisturevars
       << modelout.q
       << modelout.dq
       << modelout.wq
       << modelout.wqe;
 
-  //windvars << modelout.u << modelout.du << modelout.gammau << modelout.advu << modelout.v << modelout.dv << modelout.gammav << modelout.advv;
   windvars
       << modelout.u
       << modelout.du
+      << modelout.uw
+      << modelout.uwe
       << modelout.v
-      << modelout.dv;
+      << modelout.dv
+      << modelout.vw
+      << modelout.vwe;
 
   surfacelayervars
       << modelout.ustar
-      << modelout.uw
-      << modelout.vw;
+      << modelout.L
+      << modelout.Rib
+      << modelout.ra
+      << modelout.Cm
+      << modelout.Cs;
+
+  radiationvars
+      << modelout.Swin
+      << modelout.Swout
+      << modelout.Lwin
+      << modelout.Lwout
+      << modelout.Q;
+
+  surfacevars
+      << modelout.wg
+      << modelout.Tsoil
+      << modelout.Ts
+      << modelout.Wl
+      << modelout.rs
+      << modelout.H
+      << modelout.LE
+      << modelout.G;
+
+  vertprof
+      << modelout.zprof
+      << modelout.thetaprof;
 
   allvariables.insert(0,mixedlayervars);
   allvariables.insert(1,temperaturevars);
   allvariables.insert(2,moisturevars);
   allvariables.insert(3,windvars);
   allvariables.insert(4,surfacelayervars);
+  allvariables.insert(5,radiationvars);
+  allvariables.insert(6,surfacevars);
+  allvariables.insert(7,vertprof);
 
   for (int n=0; n<advancedtreegroups.size(); n++)
   {
