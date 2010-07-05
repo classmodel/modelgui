@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
   ui->setupUi(this);
 
+  connect(ui->actionExit,     SIGNAL(triggered()),              this, SLOT(close()));
+
   connect(ui->startButton,    SIGNAL(clicked()),                this, SLOT(startrun()));
   connect(ui->cancelButton,   SIGNAL(clicked()),                this, SLOT(canceledit()));
   connect(ui->newRunButton,   SIGNAL(clicked()),                this, SLOT(newrun()));

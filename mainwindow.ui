@@ -104,7 +104,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_time">
           <property name="toolTip">
-           <string>Total simulation time</string>
+           <string>total simulation time</string>
           </property>
           <property name="text">
            <string/>
@@ -130,7 +130,7 @@
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_timestep">
           <property name="toolTip">
-           <string>Time step</string>
+           <string>time step</string>
           </property>
           <property name="text">
            <string/>
@@ -143,7 +143,7 @@
         <item row="2" column="0" colspan="3">
          <widget class="QLineEdit" name="input_name">
           <property name="toolTip">
-           <string>Name of the model run</string>
+           <string>name of the model run</string>
           </property>
          </widget>
         </item>
@@ -275,7 +275,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_heat_theta">
           <property name="toolTip">
-           <string>Initial mixed layer potential temperature</string>
+           <string>initial mixed-layer potential temperature</string>
           </property>
           <property name="text">
            <string/>
@@ -288,7 +288,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_heat_dtheta">
           <property name="toolTip">
-           <string>Initial potential temperature jump at inversion</string>
+           <string>initial temperature jump at h</string>
           </property>
           <property name="text">
            <string/>
@@ -301,7 +301,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_heat_gammatheta">
           <property name="toolTip">
-           <string>Free atmosphere potential temperature lapse rate</string>
+           <string>free atmosphere potential temperature lapse rate</string>
           </property>
           <property name="text">
            <string/>
@@ -327,7 +327,7 @@
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_heat_wtheta">
           <property name="toolTip">
-           <string>Surface kinematic heat flux</string>
+           <string>surface kinematic heat flux</string>
           </property>
           <property name="text">
            <string/>
@@ -405,7 +405,7 @@
         <item row="5" column="1">
          <widget class="QLineEdit" name="input_heat_advtheta">
           <property name="toolTip">
-           <string>Advection of theta</string>
+           <string>advection of heat</string>
           </property>
           <property name="text">
            <string/>
@@ -435,6 +435,9 @@
             <width>0</width>
             <height>25</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string/>
           </property>
           <property name="text">
            <string>Heat</string>
@@ -485,7 +488,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_ml_h">
           <property name="toolTip">
-           <string>Initial boundary layer height</string>
+           <string>initial ABL height</string>
           </property>
           <property name="text">
            <string/>
@@ -511,7 +514,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_ml_ps">
           <property name="toolTip">
-           <string>Surface pressure</string>
+           <string>surface pressure</string>
           </property>
           <property name="text">
            <string/>
@@ -537,7 +540,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_ml_ws">
           <property name="toolTip">
-           <string>Large scale vertical velocity</string>
+           <string>large scale vertical velocity</string>
           </property>
           <property name="text">
            <string/>
@@ -602,7 +605,7 @@
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_ml_beta">
           <property name="toolTip">
-           <string>Entrainment ratio for heat</string>
+           <string>entrainment ratio for virtual heat</string>
           </property>
           <property name="text">
            <string/>
@@ -638,6 +641,9 @@
             <width>16777215</width>
             <height>25</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>mixed-layer model switch</string>
           </property>
           <property name="layoutDirection">
            <enum>Qt::LeftToRight</enum>
@@ -691,7 +697,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_moisture_q">
           <property name="toolTip">
-           <string>Initial specific humidity</string>
+           <string>initial mixed-layer specific humidity</string>
           </property>
           <property name="text">
            <string/>
@@ -717,7 +723,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_moisture_dq">
           <property name="toolTip">
-           <string>Initial specific humidity jump at inversion</string>
+           <string>initial specific humidity jump at h</string>
           </property>
           <property name="text">
            <string/>
@@ -743,7 +749,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_moisture_gammaq">
           <property name="toolTip">
-           <string>Free atmosphere specific humidity lapse rate</string>
+           <string>free atmosphere specific humidity lapse rate</string>
           </property>
           <property name="text">
            <string/>
@@ -769,7 +775,7 @@
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_moisture_wq">
           <property name="toolTip">
-           <string>Surface kinematic moisture flux</string>
+           <string>surface kinematic moisture flux</string>
           </property>
           <property name="text">
            <string/>
@@ -847,7 +853,7 @@
         <item row="5" column="1">
          <widget class="QLineEdit" name="input_moisture_advq">
           <property name="toolTip">
-           <string>Advection of moisture</string>
+           <string>advection of moisture</string>
           </property>
           <property name="text">
            <string/>
@@ -949,7 +955,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_wind_ug">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>geostrophic  u-wind speed</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1143,7 +1149,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_wind_vg">
           <property name="toolTip">
-           <string>initial v-wind jump at h</string>
+           <string>geostrophic  v-wind speed</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1314,7 +1320,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_wind_fc">
           <property name="toolTip">
-           <string>Coriolis parameter</string>
+           <string>coriolis parameter</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1337,7 +1343,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_wind_ustar">
           <property name="toolTip">
-           <string>Coriolis parameter</string>
+           <string>surface friction velocity</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1377,6 +1383,9 @@
             <width>0</width>
             <height>25</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>prognostic wind switch</string>
           </property>
           <property name="text">
            <string>Wind</string>
@@ -1427,7 +1436,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_surfacelayer_z0m">
           <property name="toolTip">
-           <string>Coriolis parameter</string>
+           <string>roughness length for momentum</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1450,7 +1459,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_surfacelayer_z0h">
           <property name="toolTip">
-           <string>Coriolis parameter</string>
+           <string>roughness length for scalars</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1490,6 +1499,9 @@
             <width>0</width>
             <height>25</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>surface-layer switch</string>
           </property>
           <property name="text">
            <string>Surface-layer</string>
@@ -1536,6 +1548,9 @@
             <width>0</width>
             <height>25</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>land surface switch</string>
           </property>
           <property name="text">
            <string>Surface scheme</string>
@@ -1628,7 +1643,7 @@
         <item row="0" column="1">
          <widget class="QLineEdit" name="input_surface_LAI">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>leaf area index</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1651,7 +1666,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_surface_gD">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>correction factor transpiration for VPD</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1687,7 +1702,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_surface_rsmin">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>minimum resistance transpiration</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1697,7 +1712,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_surface_alpha">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>surface albedo</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1707,7 +1722,7 @@
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_surface_cveg">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>vegetation fraction</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1823,7 +1838,7 @@
         <item row="0" column="1">
          <widget class="QLineEdit" name="input_surface_Wlmax">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>thickness of water layer on wet vegetation</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1846,7 +1861,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_surface_Lambda">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>thermal diffusivity skin layer</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1882,7 +1897,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_surface_z0m">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>roughness length for momentum</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1892,7 +1907,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_surface_z0h">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>roughness length for scalars</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1995,7 +2010,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_surface_Wl">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>equivalent water layer depth for wet vegetation</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2018,7 +2033,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_surface_Ts">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>initial surface temperature</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2122,7 +2137,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_soil_Tsoil">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>temperature top soil layer</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2145,7 +2160,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_soil_T2">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>temperature deeper soil layer</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2272,7 +2287,7 @@
         <item row="0" column="1">
          <widget class="QLineEdit" name="input_soil_wsat">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>saturated volumetric water content ECMWF config</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2295,7 +2310,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_soil_wfc">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>volumetric water content field capacity</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2305,7 +2320,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_soil_wwilt">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>volumetric water content wilting point</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2315,7 +2330,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_soil_c1sat">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>coefficient force term moisture</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2325,7 +2340,7 @@
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_soil_c2ref">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>coefficient restore term moisture</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2467,7 +2482,7 @@
         <item row="0" column="1">
          <widget class="QLineEdit" name="input_soil_a">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>Clapp and Hornberger retention curve parameter a</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2490,7 +2505,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_soil_b">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>Clapp and Hornberger retention curve parameter b</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2526,7 +2541,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_soil_p">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>Clapp and Hornberger retention curve parameter p </string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2536,7 +2551,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_soil_CGsat">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>saturated soil conductivity for heat</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2639,7 +2654,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_soil_Wg">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>volumetric water content top soil layer</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2662,7 +2677,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_soil_W2">
           <property name="toolTip">
-           <string>initial u-wind jump at h</string>
+           <string>volumetric water content deeper soil layer</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2766,7 +2781,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_rad_lat">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>latitude</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2789,7 +2804,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_rad_lon">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>longitude</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2825,7 +2840,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_rad_DOY">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>day of the year</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2835,7 +2850,7 @@
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_rad_time">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>time of the day</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2923,7 +2938,7 @@
         <item row="5" column="1">
          <widget class="QLineEdit" name="input_rad_clouds">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>cloud cover fraction</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2987,7 +3002,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_rad_Qnet">
           <property name="toolTip">
-           <string>initial mixed-layer u-wind speed</string>
+           <string>net radiation</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3085,6 +3100,9 @@
           <height>25</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Create a new run</string>
+        </property>
         <property name="text">
          <string>New</string>
         </property>
@@ -3097,6 +3115,9 @@
           <width>0</width>
           <height>25</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Clone the selected run</string>
         </property>
         <property name="text">
          <string>Clone</string>
@@ -3111,6 +3132,9 @@
           <height>25</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Delete the selected run(s)</string>
+        </property>
         <property name="text">
          <string>Delete</string>
         </property>
@@ -3123,6 +3147,9 @@
           <width>0</width>
           <height>25</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Export the selected run(s)</string>
         </property>
         <property name="text">
          <string>Export</string>
@@ -3142,6 +3169,9 @@
           <weight>75</weight>
           <bold>true</bold>
          </font>
+        </property>
+        <property name="toolTip">
+         <string>Show a graph of the selected run(s)</string>
         </property>
         <property name="text">
          <string>Graph</string>
@@ -3169,6 +3199,9 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="toolTip">
+     <string>Start simulating the selected run(s)</string>
+    </property>
     <property name="text">
      <string>Start simulation</string>
     </property>
@@ -3188,6 +3221,9 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="toolTip">
+     <string>Discard changes</string>
+    </property>
     <property name="text">
      <string>Cancel</string>
     </property>
@@ -3199,7 +3235,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
