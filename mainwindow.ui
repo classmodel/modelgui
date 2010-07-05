@@ -44,7 +44,7 @@
       <x>10</x>
       <y>0</y>
       <width>470</width>
-      <height>431</height>
+      <height>441</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -69,7 +69,7 @@
         <x>10</x>
         <y>10</y>
         <width>211</width>
-        <height>171</height>
+        <height>191</height>
        </rect>
       </property>
       <property name="title">
@@ -81,98 +81,13 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>141</height>
+         <height>166</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="modelsettings_grid" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_time">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;t&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="input_time">
-          <property name="toolTip">
-           <string>total simulation time</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_timestep">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;Δt&lt;sub&gt;&lt;/sub&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLineEdit" name="input_timestep">
-          <property name="toolTip">
-           <string>time step</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="3">
-         <widget class="QLineEdit" name="input_name">
-          <property name="toolTip">
-           <string>name of the model run</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QLabel" name="unitlabel_timestep">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[s]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_time">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[h]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_name">
           <property name="toolTip">
@@ -208,6 +123,137 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="1" colspan="2">
+         <widget class="QLineEdit" name="input_name">
+          <property name="toolTip">
+           <string>name of the model run</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_time">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;t&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_time">
+          <property name="toolTip">
+           <string>total simulation time</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="unitlabel_time">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[h]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_timestep">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;Δt&lt;sub&gt;&lt;/sub&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="input_timestep">
+          <property name="toolTip">
+           <string>time step</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="unitlabel_timestep">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[s]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1" colspan="2">
+         <widget class="QCheckBox" name="sw_diurnal">
+          <property name="text">
+           <string>Diurnal cycle</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="input_period">
+          <property name="toolTip">
+           <string>period of diurnal cycle</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_period">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;T&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QLabel" name="unitlabel_period">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[h]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -215,9 +261,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>190</y>
+        <y>210</y>
         <width>211</width>
-        <height>201</height>
+        <height>191</height>
        </rect>
       </property>
       <property name="title">
@@ -229,7 +275,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>177</height>
+         <height>171</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="heat_grid" columnminimumwidth="50,0,60">
@@ -239,7 +285,9 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;θ&lt;sub&gt;0&lt;/sub&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;
+θ&lt;span style=&quot; font-size:11pt; vertical-align:sub;&quot;&gt;0 &lt;/span&gt;
+&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -317,7 +365,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;(w'θ')&lt;sub&gt;s&lt;/sub&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;(w'θ')&lt;span style=&quot; font-size:12pt; vertical-align:sub;&quot;&gt;s &lt;/span&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -465,7 +513,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>143</height>
+         <height>141</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="ml_grid" columnminimumwidth="50,0,80">
@@ -660,9 +708,9 @@
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>190</y>
+        <y>210</y>
         <width>221</width>
-        <height>201</height>
+        <height>191</height>
        </rect>
       </property>
       <property name="title">
@@ -674,7 +722,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>175</height>
+         <height>171</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="moisture_grid" columnminimumwidth="50,0,80">
@@ -3226,7 +3274,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>440</y>
+      <y>445</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -3248,7 +3296,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>440</y>
+      <y>445</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -3312,9 +3360,6 @@
   </action>
  </widget>
  <tabstops>
-  <tabstop>input_name</tabstop>
-  <tabstop>input_time</tabstop>
-  <tabstop>input_timestep</tabstop>
   <tabstop>input_heat_theta</tabstop>
   <tabstop>input_heat_dtheta</tabstop>
   <tabstop>input_heat_gammatheta</tabstop>
