@@ -42,7 +42,7 @@ double plotarea::transfx(double xreal, double xscale, double xmin)
 
 double plotarea::transfy(double yreal, double yscale, double ymin)
 {
-  double ywidget = plotwidget_height - bottommargin - ((yreal-ymin)*yscale);
+  double ywidget = plotwidget_height - bottommargin + 1 - ((yreal-ymin)*yscale);
   return (ywidget);
 }
 
@@ -313,6 +313,10 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       }
 
       paint.setRenderHint(QPainter::Antialiasing, false);
+
+      // Test for coordinates x-axis vs y=0...
+      //std::cout << transfy(0,yscale,0) << std::endl;
+      //std::cout << plotwidget_height - bottommargin << std::endl;
 
       paint.drawLine(leftmargin+(10*PNGscale),legendy+8,leftmargin+(25*PNGscale),legendy+8);
       paint.drawText(leftmargin+(30*PNGscale),legendy-7,400,30, 0x0081, runlist->value(selectedruns->value(i)).runname);
