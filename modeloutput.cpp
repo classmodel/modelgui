@@ -27,6 +27,12 @@ modeloutput::modeloutput(int tsteps)
   ws.description            = "Large scale vertical velocity";
   ws.id                     = "ws";
 
+  lcl.data                  = new double[tsteps];
+  lcl.name                  = "LCL";
+  lcl.unit                  = "m";
+  lcl.description           = "Lifted Condensation Level";
+  lcl.id                    = "LCL";
+
   theta.data                = new double[tsteps];   //  mixed-layer potential temperature [K]
   theta.name                = "\u03B8";
   theta.unit                = "K";

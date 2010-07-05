@@ -55,6 +55,7 @@ private:
   double ws;        // large scale vertical velocity [m s-1]
   double fc;        // coriolis parameter [s-1]
   double we;        // entrainment velocity [m s-1]
+  double lcl;       // lifted condensation level [m]
   
   double theta;     // initial mixed-layer potential temperature [K]
   double dtheta;    // initial temperature jump at h [K]

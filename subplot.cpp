@@ -288,7 +288,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       if (!scatterplot)
         plotinterval  = tsteps / 1000 + 1;
       else
-        plotinterval  = (tsteps / 50 + 1) * (xmax - xmin) / (xmax_auto - xmin_auto);
+        plotinterval  = (tsteps * (xmax - xmin)) / (50 * (xmax_auto - xmin_auto));
 
       int numpoints = (tsteps/plotinterval);
 

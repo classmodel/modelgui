@@ -323,6 +323,11 @@ void model::runmlmodel()
     dutend      = gammau * we - utend;
     dvtend      = gammav * we - vtend;
   }
+
+  // calculate LCL (Bolton (2008), The Computation of Equivalent Potential Temperature)
+  double Td = 1./((1./273.15) - (Rv/Lv)*log(e/611.));
+  double Tlcl = 1./( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
+  lcl = 0. - (cp * (Tlcl - theta)/9.81);
 }
 
 void model::intmlmodel()
@@ -613,6 +618,7 @@ void model::store()
   output->Ps.data[t]         = Ps;
   output->ws.data[t]         = ws;
   output->beta.data[t]       = beta;
+  output->lcl.data[t]        = lcl;
   
   output->theta.data[t]      = theta;
   output->thetav.data[t]     = thetav;
