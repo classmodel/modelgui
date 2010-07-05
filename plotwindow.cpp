@@ -119,6 +119,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   QList<outputvar> surfacelayervars;
   QList<outputvar> radiationvars;
   QList<outputvar> surfacevars;
+  QList<outputprof> vertprof;
 
   QList<QString> advancedtreegroups;
   advancedtreegroups
@@ -128,7 +129,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << "Wind"
       << "Surface-layer"
       << "Radiation"
-      << "Surface";
+      << "Surface"
+      << "Vertical profiles";
 
   mixedlayervars
       << modelout.t
@@ -183,6 +185,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.H
       << modelout.LE
       << modelout.G;
+
+  vertprof
+      << modelout.thetaprof;
 
   allvariables.insert(0,mixedlayervars);
   allvariables.insert(1,temperaturevars);

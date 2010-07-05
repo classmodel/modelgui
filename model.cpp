@@ -279,6 +279,8 @@ void model::runmodel()
     store();
   }
 
+  storeprof();
+
   return;
 }
 
@@ -682,6 +684,24 @@ void model::store()
 
   return;
 } 
+
+void model::storeprof()
+{
+  for(int i=0; i < tsteps; i++)
+  {
+    output->thetaprof.xdata[0][i] = output->theta.data[i];
+    output->thetaprof.ydata[0][i] = 0;
+
+    output->thetaprof.xdata[1][i] = output->theta.data[i];
+    output->thetaprof.ydata[1][i] = output->h.data[i];
+
+    output->thetaprof.xdata[2][i] = output->theta.data[i] + output->dtheta.data[i];
+    output->thetaprof.ydata[2][i] = output->h.data[i];
+
+    output->thetaprof.xdata[3][i] = output->theta.data[i] + output->dtheta.data[i] + output->gammatheta.data[i] * 1000.;
+    output->thetaprof.ydata[3][i] = output->h.data[i] + 1000.;
+  }
+}
 
 void model::run2file(std::string filedir, std::string filename)
 {

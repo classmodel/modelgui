@@ -319,5 +319,12 @@ modeloutput::modeloutput(int tsteps)
   G.description             = "Ground heat flux";
   G.id                      = "G";
 
+  // vertical profiles
+  for(int i = 0; i < 5; i++)
+  {
+    thetaprof.xdata[i]      = new double[tsteps];
+    thetaprof.ydata[i]      = new double[tsteps];
+  }
+
   return;
 }
