@@ -31,7 +31,6 @@ public:
   QMap<int, modelrun> *runlist;
   QString plotvarx, plotvary;
 
-
 public slots:
   void addrun(int num);
   void deleterun(int num);
@@ -46,6 +45,7 @@ public slots:
   void toggleaxissettings(bool);
   void togglemodelruns(bool);
   void selectadvanceddata(QTreeWidgetItem*,int);
+  void changeplottype();
 
 protected:
 

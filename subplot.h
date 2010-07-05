@@ -33,7 +33,10 @@ public:
   int plotinterval;
   double graphminx, graphmaxx, graphminy, graphmaxy;
   double xmin, xmax, ymin, ymax;
+  double xmin_auto, xmax_auto;
+
   bool autoaxis;
+  bool scatterplot;
   //void getdata(outputvar*, outputvar*, int);
 
   // Function to translate real coordinates (x,y) to widget coordinates

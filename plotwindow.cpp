@@ -3,7 +3,6 @@
 #include "ui_subplot.h"
 #include "ui_plotwindow.h"
 #include <iostream>
-
 #include "QMessageBox"
 
 plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, QMainWindow *parent) : QMainWindow(parent), ui(new Ui::plotwindow)
@@ -17,20 +16,16 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   ui->AdvancedDock->setShown(true);
   ui->PlotvarDock->setShown(false);
 
-  // Disable some option for demo @ 20 May
-  //ui->plotintervalInput->setEnabled(false);
-  //ui->plottype->setEnabled(false);
-
   // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
-
-  // Default plotinterval from subplot.cpp
-  //ui->plotintervalInput->setText(QString::number(plotar->plotinterval));
 
   // Signal/slots -------------------------------------------------------------------------------------
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
+  connect(ui->sw_scatterplot, SIGNAL(clicked(bool)), this, SLOT(changeplottype()));
+  connect(ui->sw_scatterplot, SIGNAL(clicked(bool)), plotar, SLOT(update()));
+
   connect(ui->menu_savepng, SIGNAL(triggered()), plotar, SLOT(saveImage()));
   connect(ui->xminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->xmaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
@@ -405,6 +400,14 @@ void plotwindow::changeaxis()
   ui->xmaxInput->setDisabled(plotar->autoaxis);
   ui->yminInput->setDisabled(plotar->autoaxis);
   ui->ymaxInput->setDisabled(plotar->autoaxis);
+}
+
+void plotwindow::changeplottype()
+{
+  if (ui->sw_scatterplot->checkState() == Qt::Checked)
+    plotar->scatterplot = true;
+  else
+    plotar->scatterplot = false;
 }
 
 

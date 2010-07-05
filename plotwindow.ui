@@ -380,17 +380,10 @@
         </widget>
        </item>
        <item row="5" column="0">
-        <widget class="QComboBox" name="plottype">
-         <item>
-          <property name="text">
-           <string>Line plot</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Scatter plot</string>
-          </property>
-         </item>
+        <widget class="QCheckBox" name="sw_scatterplot">
+         <property name="text">
+          <string>Scatter plot</string>
+         </property>
         </widget>
        </item>
       </layout>

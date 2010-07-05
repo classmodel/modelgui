@@ -20,6 +20,9 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   // Set autoaxis as default to false
   autoaxis              = false;
 
+  // Line plot by default
+  scatterplot           = false;
+
   // Support variable used when saving as PNG
   saveImageMode         = 0;
 
@@ -119,10 +122,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
           if (ydata.data[m] < ymin)
             ymin = ydata.data[m];
         }
-        //if (xdata.data[0] < xmin)
-        // xmin = runlist->value(selectedruns->value(i)).run->output->t.data[0];
-        //if (xdata.data[tsteps-1] > xmax)
-        //  xmax = runlist->value(selectedruns->value(i)).run->output->t.data[tsteps-1];
+        xmin_auto = xmin;
+        xmax_auto = xmax;
       }
     }
 
@@ -284,9 +285,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         }
       }
 
-      plotinterval  = tsteps / 1000 + 1;
-      int numpoints = (tsteps/plotinterval);
+      if (!scatterplot)
+        plotinterval  = tsteps / 1000 + 1;
+      else
+        plotinterval  = (tsteps / 50 + 1) * (xmax - xmin) / (xmax_auto - xmin_auto);
 
+      int numpoints = (tsteps/plotinterval);
 
       QPointF points[numpoints];
       for (int m=0; m < numpoints; m++)
@@ -296,11 +300,18 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       }
 
       paint.setRenderHint(QPainter::Antialiasing, true);
-      paint.drawPolyline(points, numpoints);
-      // Draw points instead of line:
-      //pen.setWidth(3);
-      //paint.setPen(pen);
-      //paint.drawPoints(points,numpoints);
+
+      if (!scatterplot)
+      {
+        paint.drawPolyline(points, numpoints);
+      }
+      else
+      {
+        pen.setWidth(2);
+        paint.setPen(pen);
+        paint.drawPoints(points,numpoints);
+      }
+
       paint.setRenderHint(QPainter::Antialiasing, false);
 
       paint.drawLine(leftmargin+(10*PNGscale),legendy+8,leftmargin+(25*PNGscale),legendy+8);
