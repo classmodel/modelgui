@@ -228,8 +228,11 @@ void MainWindow::updateInputdata()
   formvalues.ustar      = ui->input_wind_ustar->text().toDouble();         // surface friction velocity [m s-1]
   formvalues.fc         = ui->input_wind_fc->text().toDouble();            // Coriolis parameter [m s-1]
 
-  formvalues.z0h        = ui->input_surfacelayer_z0h->text().toDouble();
-  formvalues.z0m        = ui->input_surfacelayer_z0m->text().toDouble();
+  if (ui->windTab->isVisible())
+  {
+    formvalues.z0h        = ui->input_surfacelayer_z0h->text().toDouble();
+    formvalues.z0m        = ui->input_surfacelayer_z0m->text().toDouble();
+  }
 
   // SOIL
   formvalues.sw_ls      = CheckState2bool(ui->sw_ls->checkState());
@@ -258,8 +261,12 @@ void MainWindow::updateInputdata()
   formvalues.cveg       = ui->input_surface_cveg->text().toDouble();
   formvalues.Lambda     = ui->input_surface_Lambda->text().toDouble();
   formvalues.Wmax       = ui->input_surface_Wlmax->text().toDouble();
-  formvalues.z0m        = ui->input_surface_z0m->text().toDouble();
-  formvalues.z0h        = ui->input_surface_z0h->text().toDouble();
+
+  if (ui->surfaceTab->isVisible())
+  {
+    formvalues.z0m        = ui->input_surface_z0m->text().toDouble();
+    formvalues.z0h        = ui->input_surface_z0h->text().toDouble();
+  }
 
   // RADIATION
   formvalues.sw_rad     = CheckState2bool(ui->sw_rad->checkState());
