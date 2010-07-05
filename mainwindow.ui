@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -3047,6 +3047,44 @@
        </layout>
       </widget>
      </widget>
+    </widget>
+    <widget class="QWidget" name="speciesTab">
+     <attribute name="title">
+      <string>Species</string>
+     </attribute>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>171</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QTreeWidget" name="treeWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>151</width>
+         <height>341</height>
+        </rect>
+       </property>
+       <column>
+        <property name="text">
+         <string>Species</string>
+        </property>
+       </column>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="reactionsTab">
+     <attribute name="title">
+      <string>Reactions</string>
+     </attribute>
     </widget>
    </widget>
    <widget class="QGroupBox" name="modelrunsGroup">
