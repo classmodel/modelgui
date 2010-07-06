@@ -108,25 +108,42 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         xdata = xdatalist.value(selectedruns->value(i));
         ydata = ydatalist.value(selectedruns->value(i));
 
-        //if (xdata.id == "thetaprof")
-        //{
-        //  xdata = runlist->value(selectedruns->value(i)).run->output->theta;
-        //  ydata = runlist->value(selectedruns->value(i)).run->output->h;
-        //}
-
         int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
 
         for(int m=0; m<tsteps; m++)
         {
-          if (xdata.data[m] > xmax)
-            xmax = xdata.data[m];
-          if (xdata.data[m] < xmin)
-            xmin = xdata.data[m];
-
-          if (ydata.data[m] > ymax)
-            ymax = ydata.data[m];
-          if (ydata.data[m] < ymin)
-            ymin = ydata.data[m];
+          if (xdata.id == "thetaprof")
+          {
+            int n = 0;
+            if (n == 2 || n == 3)
+            {
+              if (xdata.data[m] > xmax)
+                xmax = xdata.data[m];
+              if (xdata.data[m] < xmin)
+                xmin = xdata.data[m];
+            }
+            if (n == 3)
+            {
+              if (ydata.data[m] > ymax)
+                ymax = ydata.data[m];
+              if (ydata.data[m] < ymin)
+                ymin = ydata.data[m];
+            }
+            n++;
+            if (n == 4)
+              n = 0;
+          }
+          else
+          {
+            if (xdata.data[m] > xmax)
+              xmax = xdata.data[m];
+            if (xdata.data[m] < xmin)
+              xmin = xdata.data[m];
+            if (ydata.data[m] > ymax)
+              ymax = ydata.data[m];
+            if (ydata.data[m] < ymin)
+              ymin = ydata.data[m];
+          }
         }
         xmin_auto = xmin;
         xmax_auto = xmax;
