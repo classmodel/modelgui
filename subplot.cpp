@@ -42,7 +42,7 @@ double plotarea::transfx(double xreal, double xscale, double xmin)
 
 double plotarea::transfy(double yreal, double yscale, double ymin)
 {
-  double ywidget = plotwidget_height - bottommargin + 1 - ((yreal-ymin)*yscale);
+  double ywidget = plotwidget_height - bottommargin  - ((yreal-ymin)*yscale);
   return (ywidget);
 }
 
@@ -112,27 +112,30 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
         for(int m=0; m<tsteps; m++)
         {
-          int n = m % 4;
+          int m2 = m*4;
           if (xdata.id == "thetaprof")
-          {            
-            if (n == 1)
+          {
+            for(int n=0;n<4;n++)
             {
-              if (xdata.data[m] > xmax)
-                xmax = xdata.data[m];
-              if (xdata.data[m] < xmin)
-                xmin = xdata.data[m];
+              if (n == 1)
+              {
+                if (xdata.data[m2+n] > xmax)
+                  xmax = xdata.data[m2+n];
+                if (xdata.data[m2+n] < xmin)
+                  xmin = xdata.data[m2+n];
+              }
+              if (n == 2)
+              {
+                double value = xdata.data[m2+n] + (xdata.data[m2+n+1] - xdata.data[m2+n]) * (100. / 1.e6);
+                if (value > xmax)
+                  xmax = value;
+                if (value < xmin)
+                  xmin = value;
+                if (ydata.data[m2+n] + 100. > ymax)
+                  ymax = ydata.data[m2+n] + 100.;
+              }
+              ymin = 0.;
             }
-            if (n == 2)
-            {
-              double value = xdata.data[m] + (xdata.data[m+1] - xdata.data[m]) * (100. / 1.e6);
-              if (value > xmax)
-                xmax = value;
-              if (value < xmin)
-                xmin = value;
-              if (ydata.data[m] + 100. > ymax)
-                ymax = ydata.data[m] + 100.;
-            }
-            ymin = 0.;
           }
           else
           {
@@ -149,8 +152,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
         if(xdata.id == "thetaprof")
         {
-          xmin = xmin - 0.05 * (xmax - xmin);
-          xmax = xmax + 0.05 * (xmax - xmin);
+          xmin = xmin - 0.01 * (xmax - xmin);
+          xmax = xmax + 0.01 * (xmax - xmin);
         }
 
         xmin_auto = xmin;
@@ -337,15 +340,32 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
       paint.setRenderHint(QPainter::Antialiasing, true);
 
-      if (!scatterplot)
+      if (xdata.id != "thetaprof")
       {
-        paint.drawPolyline(points, numpoints);
+        if (!scatterplot)
+        {
+          paint.drawPolyline(points, numpoints);
+        }
+        else
+        {
+          pen.setWidth(2);
+          paint.setPen(pen);
+          paint.drawPoints(points,numpoints);
+        }
       }
       else
       {
-        pen.setWidth(2);
-        paint.setPen(pen);
-        paint.drawPoints(points,numpoints);
+        int interval = 60;
+        for (int m=0; m < 3; m++)
+        {
+          paint.drawLine(transfx(xdata.data[m],xscale,graphminx),transfy(ydata.data[m],yscale,graphminy),transfx(xdata.data[m+1],xscale,graphminx),transfy(ydata.data[m+1],yscale,graphminy));
+          std::cout << xdata.data[m] << ", " << ydata.data[m] << std:: endl;
+        }
+        for (int m=(4*interval); m < tsteps * 4; m = m+(interval*4))
+        {
+          paint.drawLine(transfx(xdata.data[m],xscale,graphminx),transfy(ydata.data[m],yscale,graphminy),transfx(xdata.data[m+1],xscale,graphminx),transfy(ydata.data[m+1],yscale,graphminy));
+          paint.drawLine(transfx(xdata.data[m+1],xscale,graphminx),transfy(ydata.data[m+1],yscale,graphminy),transfx(xdata.data[m+2],xscale,graphminx),transfy(ydata.data[m+2],yscale,graphminy));
+        }
       }
 
       paint.setRenderHint(QPainter::Antialiasing, false);
