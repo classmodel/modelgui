@@ -284,8 +284,6 @@ void model::runmodel()
     store();
   }
 
-  storeprof();
-
   return;
 }
 
@@ -701,56 +699,22 @@ void model::store()
   output->LE.data[t]         = LE;
   output->G.data[t]          = G;
 
+  // vertical profiles
+  int startt = t * 4;
+  output->thetaprof.data[startt + 0] = output->theta.data[t];
+  output->zprof.data[startt + 0] = 0;
+
+  output->thetaprof.data[startt + 1] = output->theta.data[t];
+  output->zprof.data[startt + 1] = output->h.data[t];
+
+  output->thetaprof.data[startt + 2] = output->theta.data[t] + output->dtheta.data[t];
+  output->zprof.data[startt + 2] = output->h.data[t];
+
+  output->thetaprof.data[startt + 3] = output->theta.data[t] + output->dtheta.data[t] + output->gammatheta.data[t] * 1.e6;
+  output->zprof.data[startt + 3] = output->h.data[t] + 1.e6;
+
   return;
 } 
-
-void model::storeprof()
-{
-  int nhours = (int)(runtime / 3600);
-  
-  for(int i=0; i < nhours; i++)
-  {
-    int starti = i * 4;
-    int fetchi = (int)(3600 / dt * i);
-
-    // even numbers
-    if(i % 2 == 0)
-    {
-      output->thetaprof.data[starti + 0] = output->theta.data[fetchi];
-      output->zprof.data[starti + 0] = 0;
-
-      output->thetaprof.data[starti + 1] = output->theta.data[fetchi];
-      output->zprof.data[starti + 1] = output->h.data[fetchi];
-
-      output->thetaprof.data[starti + 2] = output->theta.data[fetchi] + output->dtheta.data[fetchi];
-      output->zprof.data[starti + 2] = output->h.data[fetchi];
-
-      output->thetaprof.data[starti + 3] = output->theta.data[fetchi] + output->dtheta.data[fetchi] + output->gammatheta.data[fetchi] * 1.e6;
-      output->zprof.data[starti + 3] = output->h.data[fetchi] + 1.e6;
-    }
-    else
-    {
-      // odd numbers
-      output->thetaprof.data[starti + 3] = output->theta.data[fetchi];
-      output->zprof.data[starti + 3] = 0;
-
-      output->thetaprof.data[starti + 2] = output->theta.data[fetchi];
-      output->zprof.data[starti + 2] = output->h.data[fetchi];
-
-      output->thetaprof.data[starti + 1] = output->theta.data[fetchi] + output->dtheta.data[fetchi];
-      output->zprof.data[starti + 1] = output->h.data[fetchi];
-
-      output->thetaprof.data[starti + 0] = output->theta.data[fetchi] + output->dtheta.data[fetchi] + output->gammatheta.data[fetchi] * 1.e6;
-      output->zprof.data[starti + 0] = output->h.data[fetchi] + 1.e6;
-    }
-  }
-
-  for(int i = nhours*4; i < tsteps*4; i++)
-  {
-    output->thetaprof.data[i]  = output->thetaprof.data[i-1];
-    output->zprof.data[i]      = output->zprof.data[i-1];
-  }
-}
 
 void model::run2file(std::string filedir, std::string filename)
 {

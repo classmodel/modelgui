@@ -24,7 +24,6 @@ private:
   void intlsmodel();
 
   void store();
-  void storeprof();
 
   double ribtol(double, double, double, double);
   inline double psim(double);
