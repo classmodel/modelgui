@@ -108,6 +108,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         xdata = xdatalist.value(selectedruns->value(i));
         ydata = ydatalist.value(selectedruns->value(i));
 
+        //if (xdata.id == "thetaprof")
+        //{
+        //  xdata = runlist->value(selectedruns->value(i)).run->output->theta;
+        //  ydata = runlist->value(selectedruns->value(i)).run->output->h;
+        //}
+
         int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
 
         for(int m=0; m<tsteps; m++)
@@ -285,10 +291,15 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         }
       }
 
-      if (!scatterplot)
-        plotinterval  = tsteps / 1000 + 1;
-      else
+      if (scatterplot)
         plotinterval  = (tsteps * (xmax - xmin)) / (50 * (xmax_auto - xmin_auto));
+      else
+      {
+        if (xdata.id == "thetaprof")
+          plotinterval = 1.;
+        else
+          plotinterval  = tsteps / 1000 + 1;
+      }
 
       int numpoints = (tsteps/plotinterval);
 
@@ -313,10 +324,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       }
 
       paint.setRenderHint(QPainter::Antialiasing, false);
-
-      // Test for coordinates x-axis vs y=0...
-      //std::cout << transfy(0,yscale,0) << std::endl;
-      //std::cout << plotwidget_height - bottommargin << std::endl;
 
       paint.drawLine(leftmargin+(10*PNGscale),legendy+8,leftmargin+(25*PNGscale),legendy+8);
       paint.drawText(leftmargin+(30*PNGscale),legendy-7,400,30, 0x0081, runlist->value(selectedruns->value(i)).runname);

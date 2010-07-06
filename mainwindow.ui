@@ -69,7 +69,7 @@
         <x>10</x>
         <y>10</y>
         <width>211</width>
-        <height>191</height>
+        <height>161</height>
        </rect>
       </property>
       <property name="title">
@@ -81,7 +81,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>166</height>
+         <height>141</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="modelsettings_grid" columnminimumwidth="50,0,60">
@@ -208,20 +208,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1" colspan="2">
-         <widget class="QCheckBox" name="sw_diurnal">
-          <property name="acceptDrops">
-           <bool>true</bool>
-          </property>
-          <property name="toolTip">
-           <string>Use a diurnal cycle with period T for the surface fluxes</string>
-          </property>
-          <property name="text">
-           <string>Diurnal cycle</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
+        <item row="4" column="1">
          <widget class="QLineEdit" name="input_period">
           <property name="toolTip">
            <string>period of diurnal cycle</string>
@@ -234,7 +221,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
+        <item row="4" column="0">
          <widget class="QLabel" name="label_period">
           <property name="toolTip">
            <string/>
@@ -247,7 +234,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
+        <item row="4" column="2">
          <widget class="QLabel" name="unitlabel_period">
           <property name="toolTip">
            <string/>
@@ -267,9 +254,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>210</y>
+        <y>180</y>
         <width>211</width>
-        <height>191</height>
+        <height>221</height>
        </rect>
       </property>
       <property name="title">
@@ -281,7 +268,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>171</height>
+         <height>191</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="heat_grid" columnminimumwidth="50,0,60">
@@ -441,7 +428,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
+        <item row="6" column="0">
          <widget class="QLabel" name="label_heat_advtheta">
           <property name="toolTip">
            <string/>
@@ -455,7 +442,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
+        <item row="6" column="1">
          <widget class="QLineEdit" name="input_heat_advtheta">
           <property name="toolTip">
            <string>advection of heat</string>
@@ -468,7 +455,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
+        <item row="6" column="2">
          <widget class="QLabel" name="unitlabel_heat_advtheta">
           <property name="toolTip">
            <string/>
@@ -494,6 +481,19 @@
           </property>
           <property name="text">
            <string>Heat</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1" colspan="2">
+         <widget class="QCheckBox" name="sw_diurnal">
+          <property name="acceptDrops">
+           <bool>true</bool>
+          </property>
+          <property name="toolTip">
+           <string>Use a diurnal cycle with period T for the surface fluxes</string>
+          </property>
+          <property name="text">
+           <string>Diurnal cycle</string>
           </property>
          </widget>
         </item>
@@ -713,9 +713,9 @@
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>210</y>
+        <y>180</y>
         <width>221</width>
-        <height>191</height>
+        <height>221</height>
        </rect>
       </property>
       <property name="title">
@@ -727,7 +727,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>171</height>
+         <height>191</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="moisture_grid" columnminimumwidth="50,0,80">
@@ -890,7 +890,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
+        <item row="6" column="0">
          <widget class="QLabel" name="label_moisture_advq">
           <property name="toolTip">
            <string/>
@@ -903,7 +903,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
+        <item row="6" column="1">
          <widget class="QLineEdit" name="input_moisture_advq">
           <property name="toolTip">
            <string>advection of moisture</string>
@@ -916,7 +916,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
+        <item row="6" column="2">
          <widget class="QLabel" name="unitlabel_moisture_advq">
           <property name="toolTip">
            <string/>
@@ -933,6 +933,19 @@
          <widget class="QCheckBox" name="sw_moisture">
           <property name="text">
            <string>Moisture</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1" colspan="2">
+         <widget class="QCheckBox" name="sw_diurnal_2">
+          <property name="acceptDrops">
+           <bool>true</bool>
+          </property>
+          <property name="toolTip">
+           <string>Use a diurnal cycle with period T for the surface fluxes</string>
+          </property>
+          <property name="text">
+           <string>Diurnal cycle</string>
           </property>
          </widget>
         </item>
