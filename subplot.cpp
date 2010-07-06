@@ -112,9 +112,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
         for(int m=0; m<tsteps; m++)
         {
+          int n = 0;
           if (xdata.id == "thetaprof")
           {
-            int n = 0;
             if (n == 2 || n == 3)
             {
               if (xdata.data[m] > xmax)
