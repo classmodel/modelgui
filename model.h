@@ -46,6 +46,7 @@ private:
   // time variables
   double runtime;   // duration of model run [s]
   double dt;        // time step [s]
+  double sinperiod; // period for sinusoidal fluxes [s]
   int tsteps;       // total time steps [-]
   int t;            // current time step [-]
 
@@ -64,7 +65,9 @@ private:
   double advtheta;  // advection of heat [K s-1]
   double beta;      // entrainment ratio for virtual heat [-]
   double wtheta;    // surface kinematic heat flux [K m s-1]
+  double wtheta0;   // maximum surface kinematic heat flux [K m s-1]
   double wthetae;   // entrainment kinematic heat flux [K m s-1]
+  bool   sw_wtheta; // switch for sinusoidal temperature flux
 
   double T2m;       // 2m temperature [K]
   double q2m;       // 2m specific humidity [kg kg-1]
@@ -85,7 +88,9 @@ private:
   double gammaq;    // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   double advq;      // advection of moisture [kg kg-1 s-1]
   double wq;        // surface kinematic moisture flux [kg kg-1 m s-1]
+  double wq0;       // maximum surface kinematic moisture flux [kg kg-1 m s-1]
   double wqe;       // entrainment kinematic moisture flux [kg kg-1 m s-1]
+  bool   sw_wq;     // switch for sinusoidal moisture flux
 
   double qsat;      // mixed-layer saturated specific humidity [kg kg-1]
   double esat;      // mixed-layer saturated vapor pressure [Pa]
@@ -184,6 +189,8 @@ private:
   double LEref;     // reference evaporation using rs = rsmin / LAI [W m-2]
   double G;         // ground heat flux [W m-2]
 
-  double Tsoiltend, wgtend, Wltend;
+  double Tsoiltend;
+  double wgtend;
+  double Wltend;
 
 };

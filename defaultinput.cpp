@@ -7,6 +7,7 @@ void MainWindow::readdefaultinput()
   // model test
   defaultinput.dt         = 60.;      // time step [s]
   defaultinput.runtime    = 36000.;   // total run time [s]
+  defaultinput.sinperiod  = 43200.;   // period for sinusoidal heat fluxes [s]
 
   // mixed-layer input
   defaultinput.sw_ml      = true;     // mixed-layer model switch
@@ -21,12 +22,14 @@ void MainWindow::readdefaultinput()
   defaultinput.advtheta   = 0.;       // advection of heat [K s-1]
   defaultinput.beta       = 0.2;      // entrainment ratio for virtual heat [-]
   defaultinput.wtheta     = 0.1;      // surface kinematic heat flux [K m s-1]
+  defaultinput.sw_wtheta  = false;    // switch for sinusoidal wtheta
 
   defaultinput.q          = 0.007;    // initial mixed-layer specific humidity [kg kg-1]
   defaultinput.dq         = -0.001;   // initial specific humidity jump at h [kg kg-1]
   defaultinput.gammaq     = 0.;       // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   defaultinput.advq       = 0.;       // advection of moisture [kg kg-1 s-1]
   defaultinput.wq         = 0.0001;   // surface kinematic moisture flux [kg kg-1 m s-1]
+  defaultinput.sw_wq      = false;    // switch for sinusoidal wq
 
   defaultinput.sw_wind    = true;     // prognostic wind switch
   defaultinput.u          = 6.;       // initial mixed-layer u-wind speed [m s-1]

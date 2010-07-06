@@ -5,6 +5,7 @@ public:
   // general model variables
   double runtime;   // duration of model run [s]
   double dt;        // time step [s]
+  double sinperiod; // period for sinusoidal flux [s]
 
   // mixed-layer variables  
   bool   sw_ml;     // mixed-layer model switch;
@@ -19,13 +20,15 @@ public:
   double advtheta;  // advection of heat [K s-1]
   double beta;      // entrainment ratio for virtual heat [-]
   double wtheta;    // surface kinematic heat flux [K m s-1]
+  bool   sw_wtheta; // switch for sinusoidal wtheta
   
   double q;         // initial mixed-layer specific humidity [kg kg-1]
   double dq;        // initial specific humidity jump at h [kg kg-1]
   double gammaq;    // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   double advq;      // advection of moisture [kg kg-1 s-1]
   double wq;        // surface kinematic moisture flux [kg kg-1 m s-1]
-  
+  bool   sw_wq;     // switch for sinusoidal wq
+
   bool   sw_wind;   // prognostic wind switch
   double u;         // initial mixed-layer u-wind speed [m s-1]
   double du;        // initial u-wind jump at h [m s-1]
@@ -42,10 +45,6 @@ public:
   double ustar;     // surface friction velocity [m s-1]
   double z0m;       // roughness length for momentum [m]
   double z0h;       // roughness length for scalars [m]
-  //double Cm;        // drag coefficient for momentum [-]
-  //double Cs;        // drag coefficient for scalars [-]
-  //double L;         // Obukhov length [-]
-  //double Rib;       // bulk Richardson number [-]
 
   // radiation parameters
   bool   sw_rad;    // radiation switch
@@ -108,12 +107,14 @@ public:
     advtheta   = -1.;
     beta       = -1.;
     wtheta     = -1.;
+    sw_wtheta  = false;
     
     q          = -1.;
     dq         = -1.;
     gammaq     = -1.;
     advq       = -1.;
     wq         = -1.;
+    sw_wq      = false;
     
     sw_wind    = false;
     u          = -1.;
@@ -131,10 +132,6 @@ public:
     ustar      = -1.;
     z0m        = -1.;
     z0h        = -1.;
-    //Cm         = -1.;
-    //Cs         = -1.;
-    //L          = -1.;
-    //Rib        = -1.;
 
     // radiation parameters
     sw_rad     = false;

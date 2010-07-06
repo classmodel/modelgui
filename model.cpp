@@ -112,6 +112,7 @@ void model::initmodel()
   // read initial and boundary conditions from input file
   runtime    =  input.runtime;          // duration of model run [s]
   dt         =  input.dt;               // time step [s]
+  sinperiod  =  input.sinperiod;        // period for sinusoidal heat fluxes [s]
 
   // mixed-layer
   sw_ml      =  input.sw_ml;
@@ -126,6 +127,7 @@ void model::initmodel()
   advtheta   =  input.advtheta;         // advection of heat [K s-1]
   beta       =  input.beta;             // entrainment ratio for virtual heat [-]
   wtheta     =  input.wtheta;           // surface kinematic heat flux [K m s-1]
+  wtheta0    =  input.wtheta;           // maximum surface kinematic heat flux [K m s-1]
   
   thetasurf  =  input.theta;            // surface potential temperature [K]
   
@@ -134,6 +136,7 @@ void model::initmodel()
   gammaq     =  input.gammaq;           // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   advq       =  input.advq;             // advection of moisture [kg kg-1 s-1]
   wq         =  input.wq;               // surface kinematic moisture flux [kg kg-1 m s-1]
+  wq0        =  input.wq;               // maximum surface kinematic moisture flux [kg kg-1 m s-1]
   
   qsat       =  -1.;                    // mixed-layer saturated specific humidity [kg kg-1]
   esat       =  -1.;                    // mixed-layer saturated vapor pressure [Pa]
@@ -294,6 +297,13 @@ void model::runmlmodel()
     vw       = - sign(v) * pow((pow(ustar, 4.) / (pow(u, 2.) / pow(v, 2.) + 1.)), 0.5);
   }
 
+  if(sw_wtheta && (!sw_ls))
+    wtheta = wtheta0 * std::sin(pi / sinperiod * t * dt);
+
+  if(sw_wq && (!sw_ls))
+    wq     = wq0 * std::sin(pi / sinperiod * t * dt);
+
+
   // compute mixed-layer tendencies
   // first compute necessary virtual temperature units
   thetav   = theta  + 0.61 * theta * q;
@@ -333,9 +343,9 @@ void model::runmlmodel()
 
   // calculate LCL (Bolton (2008), The Computation of Equivalent Potential Temperature)
   double e       = q * Ps / 0.622;
-  double Td      = 1./((1./273.15) - (Rv/Lv)*log(e/611.));
-  double Tlcl    = 1./( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
-  lcl            = 0. - (cp * (Tlcl - theta)/g);
+  double Td      = 1. / ((1./273.15) - (Rv/Lv)*log(e/611.));
+  double Tlcl    = 1. / ( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
+  lcl            = 0. - (cp * (Tlcl - theta) / g);
 }
 
 void model::intmlmodel()
