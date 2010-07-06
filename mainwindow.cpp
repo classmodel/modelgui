@@ -27,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->exportButton,   SIGNAL(clicked()),                this, SLOT(exportRuns()));
 
   // Switches
+  connect(ui->sw_wtheta,      SIGNAL(stateChanged(int)),        this, SLOT(switch_wtheta(int)));
+  connect(ui->sw_wq,          SIGNAL(stateChanged(int)),        this, SLOT(switch_wq(int)));
   connect(ui->sw_wind,        SIGNAL(stateChanged(int)),        this, SLOT(switch_wind(int)));
   connect(ui->sw_sl,          SIGNAL(stateChanged(int)),        this, SLOT(switch_sl(int)));
   connect(ui->sw_ls,          SIGNAL(stateChanged(int)),        this, SLOT(switch_ls(int)));
@@ -191,6 +193,7 @@ void MainWindow::updateInputdata()
 {
   formvalues.dt         = ui->input_timestep->text().toDouble();        // time step [s]
   formvalues.runtime    = ui->input_time->text().toDouble() * 3600;     // total run time [s]
+  formvalues.sinperiod  = ui->input_sinperiod->text().toDouble() * 3600;// period for sinusoidal fluxes
 
   // MIXED-LAYER
   formvalues.sw_ml      = CheckState2bool(ui->sw_ml->checkState());
@@ -205,13 +208,15 @@ void MainWindow::updateInputdata()
   formvalues.gammatheta = ui->input_heat_gammatheta->text().toDouble();  // free atmosphere potential temperature lapse rate [K m-1]
   formvalues.advtheta   = ui->input_heat_advtheta->text().toDouble();    // advection of heat [K s-1]
   formvalues.wtheta     = ui->input_heat_wtheta->text().toDouble();        // surface kinematic heat flux [K m s-1]
+  formvalues.sw_wtheta  = CheckState2bool(ui->sw_wtheta->checkState());
 
   // MOISTURE
   formvalues.q          = ui->input_moisture_q->text().toDouble() / 1000;     // initial mixed-layer specific humidity [kg kg-1]
   formvalues.dq         = ui->input_moisture_dq->text().toDouble() / 1000;    // initial specific humidity jump at h [kg kg-1]
   formvalues.gammaq     = ui->input_moisture_gammaq->text().toDouble() / 1000;// free atmosphere specific humidity lapse rate [kg kg-1 m-1]
-  formvalues.advq       = ui->input_moisture_advq->text().toDouble() / 1000;   // advection of moisture [kg kg-1 s-1]
-  formvalues.wq         = ui->input_moisture_wq->text().toDouble() / 1000;     // surface kinematic moisture flux [kg kg-1 m s-1]
+  formvalues.advq       = ui->input_moisture_advq->text().toDouble() / 1000;  // advection of moisture [kg kg-1 s-1]
+  formvalues.wq         = ui->input_moisture_wq->text().toDouble() / 1000;    // surface kinematic moisture flux [kg kg-1 m s-1]
+  formvalues.sw_wq      = CheckState2bool(ui->sw_wq->checkState());
 
   // WIND
   formvalues.sw_wind    = CheckState2bool(ui->sw_wind->checkState());
@@ -225,8 +230,8 @@ void MainWindow::updateInputdata()
                           - ui->input_wind_v->text().toDouble();          // initial u-wind jump at h [m s-1]
   formvalues.gammav     = ui->input_wind_gammav->text().toDouble();       // free atmosphere v-wind speed lapse rate [s-1]
   formvalues.advv       = ui->input_wind_advv->text().toDouble();         // advection of v-wind [m s-2]
-  formvalues.ustar      = ui->input_wind_ustar->text().toDouble();         // surface friction velocity [m s-1]
-  formvalues.fc         = ui->input_wind_fc->text().toDouble();            // Coriolis parameter [m s-1]
+  formvalues.ustar      = ui->input_wind_ustar->text().toDouble();        // surface friction velocity [m s-1]
+  formvalues.fc         = ui->input_wind_fc->text().toDouble();           // Coriolis parameter [m s-1]
 
   if (ui->windTab->isVisible())
   {
@@ -301,6 +306,7 @@ void MainWindow::updateForm()
 
     ui->input_timestep->setText(QString::number(tempinput->dt));
     ui->input_time->setText(QString::number(tempinput->runtime / 3600.));
+    ui->input_sinperiod->setText(QString::number(tempinput->sinperiod / 3600.));
 
     // SWITCHES
     Qt::CheckState check;
@@ -333,6 +339,18 @@ void MainWindow::updateForm()
     else
       check = Qt::Unchecked;
     ui->sw_ls->setCheckState(check);
+
+    if (tempinput->sw_wtheta == true)
+      check = Qt::Checked;
+    else
+      check = Qt::Unchecked;
+    ui->sw_wtheta->setCheckState(check);
+
+    if (tempinput->sw_wq == true)
+      check = Qt::Checked;
+    else
+      check = Qt::Unchecked;
+    ui->sw_wq->setCheckState(check);
 
     // MIXED-LAYER
     ui->input_ml_h->setText(QString::number(tempinput->h));
@@ -613,4 +631,26 @@ void MainWindow::switch_ml(int state)
 
   formvalues.sw_ml = checkstate;
   updateStatusBar();
+}
+
+void MainWindow::switch_wtheta(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  formvalues.sw_wtheta = checkstate;
+}
+
+void MainWindow::switch_wq(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  formvalues.sw_wq = checkstate;
 }

@@ -128,6 +128,7 @@ void model::initmodel()
   beta       =  input.beta;             // entrainment ratio for virtual heat [-]
   wtheta     =  input.wtheta;           // surface kinematic heat flux [K m s-1]
   wtheta0    =  input.wtheta;           // maximum surface kinematic heat flux [K m s-1]
+  sw_wtheta  =  input.sw_wtheta;
   
   thetasurf  =  input.theta;            // surface potential temperature [K]
   
@@ -137,7 +138,8 @@ void model::initmodel()
   advq       =  input.advq;             // advection of moisture [kg kg-1 s-1]
   wq         =  input.wq;               // surface kinematic moisture flux [kg kg-1 m s-1]
   wq0        =  input.wq;               // maximum surface kinematic moisture flux [kg kg-1 m s-1]
-  
+  sw_wq      =  input.sw_wq;
+
   qsat       =  -1.;                    // mixed-layer saturated specific humidity [kg kg-1]
   esat       =  -1.;                    // mixed-layer saturated vapor pressure [Pa]
   e          =  -1.;                    // mixed-layer vapor pressure [Pa]
@@ -723,8 +725,8 @@ void model::storeprof()
       output->thetaprof.data[starti + 2] = output->theta.data[fetchi] + output->dtheta.data[fetchi];
       output->zprof.data[starti + 2] = output->h.data[fetchi];
 
-      output->thetaprof.data[starti + 3] = output->theta.data[fetchi] + output->dtheta.data[fetchi] + output->gammatheta.data[fetchi] * 1000.;
-      output->zprof.data[starti + 3] = output->h.data[fetchi] + 1000.;
+      output->thetaprof.data[starti + 3] = output->theta.data[fetchi] + output->dtheta.data[fetchi] + output->gammatheta.data[fetchi] * 1.e6;
+      output->zprof.data[starti + 3] = output->h.data[fetchi] + 1.e6;
     }
     else
     {
@@ -738,8 +740,8 @@ void model::storeprof()
       output->thetaprof.data[starti + 1] = output->theta.data[fetchi] + output->dtheta.data[fetchi];
       output->zprof.data[starti + 1] = output->h.data[fetchi];
 
-      output->thetaprof.data[starti + 0] = output->theta.data[fetchi] + output->dtheta.data[fetchi] + output->gammatheta.data[fetchi] * 1000.;
-      output->zprof.data[starti + 0] = output->h.data[fetchi] + 1000.;
+      output->thetaprof.data[starti + 0] = output->theta.data[fetchi] + output->dtheta.data[fetchi] + output->gammatheta.data[fetchi] * 1.e6;
+      output->zprof.data[starti + 0] = output->h.data[fetchi] + 1.e6;
     }
   }
 

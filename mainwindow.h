@@ -47,7 +47,8 @@ public slots:
   void switch_ls(int);
   void switch_rad(int);
   void switch_ml(int);
-
+  void switch_wtheta(int);
+  void switch_wq(int);
 
 
   //void switches_changed();

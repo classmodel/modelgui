@@ -112,26 +112,27 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
         for(int m=0; m<tsteps; m++)
         {
-          int n = 0;
+          int n = m % 4;
           if (xdata.id == "thetaprof")
-          {
-            if (n == 2 || n == 3)
+          {            
+            if (n == 1)
             {
               if (xdata.data[m] > xmax)
                 xmax = xdata.data[m];
               if (xdata.data[m] < xmin)
                 xmin = xdata.data[m];
             }
-            if (n == 3)
+            if (n == 2)
             {
-              if (ydata.data[m] > ymax)
-                ymax = ydata.data[m];
-              if (ydata.data[m] < ymin)
-                ymin = ydata.data[m];
+              double value = xdata.data[m] + (xdata.data[m+1] - xdata.data[m]) * (100. / 1.e6);
+              if (value > xmax)
+                xmax = value;
+              if (value < xmin)
+                xmin = value;
+              if (ydata.data[m] + 100. > ymax)
+                ymax = ydata.data[m] + 100.;
             }
-            n++;
-            if (n == 4)
-              n = 0;
+            ymin = 0.;
           }
           else
           {
@@ -145,6 +146,13 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
               ymin = ydata.data[m];
           }
         }
+
+        if(xdata.id == "thetaprof")
+        {
+          xmin = xmin - 0.05 * (xmax - xmin);
+          xmax = xmax + 0.05 * (xmax - xmin);
+        }
+
         xmin_auto = xmin;
         xmax_auto = xmax;
       }
