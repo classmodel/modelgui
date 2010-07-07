@@ -256,7 +256,7 @@
         <x>10</x>
         <y>180</y>
         <width>211</width>
-        <height>221</height>
+        <height>191</height>
        </rect>
       </property>
       <property name="title">
@@ -268,11 +268,11 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>199</height>
+         <height>171</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="heat_grid" columnminimumwidth="50,0,60">
-        <item row="1" column="0">
+       <layout class="QGridLayout" name="heat_grid">
+        <item row="0" column="0">
          <widget class="QLabel" name="label_heat_theta">
           <property name="toolTip">
            <string/>
@@ -285,7 +285,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="1" column="0">
          <widget class="QLabel" name="label_heat_dtheta">
           <property name="toolTip">
            <string/>
@@ -298,7 +298,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="label_heat_gammatheta">
           <property name="toolTip">
            <string/>
@@ -311,7 +311,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="0" column="1">
          <widget class="QLineEdit" name="input_heat_theta">
           <property name="toolTip">
            <string>initial mixed-layer potential temperature</string>
@@ -324,7 +324,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="1" column="1">
          <widget class="QLineEdit" name="input_heat_dtheta">
           <property name="toolTip">
            <string>initial temperature jump at h</string>
@@ -337,7 +337,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="2" column="1">
          <widget class="QLineEdit" name="input_heat_gammatheta">
           <property name="toolTip">
            <string>free atmosphere potential temperature lapse rate</string>
@@ -350,7 +350,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="3" column="0">
          <widget class="QLabel" name="label_heat_wtheta">
           <property name="toolTip">
            <string/>
@@ -363,7 +363,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="3" column="1">
          <widget class="QLineEdit" name="input_heat_wtheta">
           <property name="toolTip">
            <string>surface kinematic heat flux</string>
@@ -376,7 +376,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
+        <item row="0" column="2">
          <widget class="QLabel" name="unitlabel_heat_theta">
           <property name="toolTip">
            <string/>
@@ -389,7 +389,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
+        <item row="1" column="2">
          <widget class="QLabel" name="unitlabel_heat_dtheta">
           <property name="toolTip">
            <string/>
@@ -402,7 +402,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
+        <item row="2" column="2">
          <widget class="QLabel" name="unitlabel_heat_gammatheta">
           <property name="toolTip">
            <string/>
@@ -415,7 +415,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
+        <item row="3" column="2">
          <widget class="QLabel" name="unitlabel_heat_wtheta">
           <property name="toolTip">
            <string/>
@@ -428,7 +428,7 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
+        <item row="5" column="0">
          <widget class="QLabel" name="label_heat_advtheta">
           <property name="toolTip">
            <string/>
@@ -442,7 +442,7 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
+        <item row="5" column="1">
          <widget class="QLineEdit" name="input_heat_advtheta">
           <property name="toolTip">
            <string>advection of heat</string>
@@ -455,7 +455,7 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="2">
+        <item row="5" column="2">
          <widget class="QLabel" name="unitlabel_heat_advtheta">
           <property name="toolTip">
            <string/>
@@ -468,23 +468,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="QCheckBox" name="sw_heat">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>Heat</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1" colspan="2">
+        <item row="4" column="1" colspan="2">
          <widget class="QCheckBox" name="sw_wtheta">
           <property name="acceptDrops">
            <bool>true</bool>
@@ -715,7 +699,7 @@
         <x>230</x>
         <y>180</y>
         <width>221</width>
-        <height>221</height>
+        <height>191</height>
        </rect>
       </property>
       <property name="title">
@@ -727,14 +711,14 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>197</height>
+         <height>171</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="moisture_grid" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="moisture_grid">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
-        <item row="1" column="0">
+        <item row="0" column="0">
          <widget class="QLabel" name="label_moisture_q">
           <property name="toolTip">
            <string/>
@@ -747,7 +731,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="0" column="1">
          <widget class="QLineEdit" name="input_moisture_q">
           <property name="toolTip">
            <string>initial mixed-layer specific humidity</string>
@@ -760,7 +744,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="1" column="0">
          <widget class="QLabel" name="label_moisture_dq">
           <property name="toolTip">
            <string/>
@@ -773,7 +757,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="1" column="1">
          <widget class="QLineEdit" name="input_moisture_dq">
           <property name="toolTip">
            <string>initial specific humidity jump at h</string>
@@ -786,7 +770,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="label_moisture_gammaq">
           <property name="toolTip">
            <string/>
@@ -799,7 +783,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="2" column="1">
          <widget class="QLineEdit" name="input_moisture_gammaq">
           <property name="toolTip">
            <string>free atmosphere specific humidity lapse rate</string>
@@ -812,7 +796,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="3" column="0">
          <widget class="QLabel" name="label_moisture_wq">
           <property name="toolTip">
            <string/>
@@ -825,7 +809,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="3" column="1">
          <widget class="QLineEdit" name="input_moisture_wq">
           <property name="toolTip">
            <string>surface kinematic moisture flux</string>
@@ -838,7 +822,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
+        <item row="0" column="2">
          <widget class="QLabel" name="unitlabel_moisture_q">
           <property name="toolTip">
            <string/>
@@ -851,7 +835,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
+        <item row="1" column="2">
          <widget class="QLabel" name="unitlabel_moisture_dq">
           <property name="toolTip">
            <string/>
@@ -864,7 +848,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
+        <item row="2" column="2">
          <widget class="QLabel" name="unitlabel_moisture_gammaq">
           <property name="toolTip">
            <string/>
@@ -877,7 +861,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
+        <item row="3" column="2">
          <widget class="QLabel" name="unitlabel_moisture_wq">
           <property name="toolTip">
            <string/>
@@ -890,7 +874,7 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
+        <item row="5" column="0">
          <widget class="QLabel" name="label_moisture_advq">
           <property name="toolTip">
            <string/>
@@ -903,7 +887,7 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
+        <item row="5" column="1">
          <widget class="QLineEdit" name="input_moisture_advq">
           <property name="toolTip">
            <string>advection of moisture</string>
@@ -916,7 +900,7 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="2">
+        <item row="5" column="2">
          <widget class="QLabel" name="unitlabel_moisture_advq">
           <property name="toolTip">
            <string/>
@@ -929,14 +913,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="QCheckBox" name="sw_moisture">
-          <property name="text">
-           <string>Moisture</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1" colspan="2">
+        <item row="4" column="1" colspan="2">
          <widget class="QCheckBox" name="sw_wq">
           <property name="acceptDrops">
            <bool>true</bool>

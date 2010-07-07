@@ -48,6 +48,8 @@ public:
   double transfx(double x, double xscale, double xmin, int mode);
   double transfy(double y, double yscale, double ymin, int mode);
 
+  QList<int> *selectedruns;
+
 signals:
   void axischanged();
   void zoombymouse();
@@ -58,7 +60,6 @@ public slots:
 
 protected:
   void paintEvent(QPaintEvent *event);
-  QList<int> *selectedruns;
   QMap<int, modelrun> *runlist;
   double PNGscale;
 
