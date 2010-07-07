@@ -218,6 +218,8 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->zprof;
   else if (plotvar == "thetaprof")
     *data = n.run->output->thetaprof;
+  else if (plotvar == "qprof")
+    *data = n.run->output->qprof;
 
 }
 
@@ -345,6 +347,8 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
 
   // vertical profiles
   else if (label == "zprof")
+    *plotvar = label;
+  else if (label == "qprof")
     *plotvar = label;
   else if (label == "thetaprof")
     *plotvar = label;

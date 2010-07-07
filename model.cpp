@@ -702,15 +702,19 @@ void model::store()
   // vertical profiles
   int startt = t * 4;
   output->thetaprof.data[startt + 0] = output->theta.data[t];
+  output->qprof.data[startt + 0] = output->q.data[t];
   output->zprof.data[startt + 0] = 0;
 
   output->thetaprof.data[startt + 1] = output->theta.data[t];
+  output->qprof.data[startt + 1] = output->q.data[t];
   output->zprof.data[startt + 1] = output->h.data[t];
 
   output->thetaprof.data[startt + 2] = output->theta.data[t] + output->dtheta.data[t];
+  output->qprof.data[startt + 2] = output->q.data[t] + output->dq.data[t];
   output->zprof.data[startt + 2] = output->h.data[t];
 
   output->thetaprof.data[startt + 3] = output->theta.data[t] + output->dtheta.data[t] + output->gammatheta.data[t] * 1.e6;
+  output->qprof.data[startt + 3] = output->q.data[t] + output->dq.data[t] + output->gammaq.data[t] * 1.e6;
   output->zprof.data[startt + 3] = output->h.data[t] + 1.e6;
 
   return;

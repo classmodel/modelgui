@@ -183,7 +183,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.G;
 
   vertprof
-      << modelout.thetaprof;
+      << modelout.thetaprof
+      << modelout.qprof;
+
 
   allvariables.insert(0,mixedlayervars);
   allvariables.insert(1,temperaturevars);
@@ -307,7 +309,7 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
       if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
         if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0) != olditem)
         {
-          if (plotvarx == "thetaprof")
+          if (plotvarx == "thetaprof" || plotvarx == "qprof")
           {
             setplotvar("h", &plotvary);
             ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Checked);
@@ -317,7 +319,7 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
 
       setplotvar(olditem->text(4), &plotvarx);
 
-      if (plotvarx == "thetaprof")
+      if (plotvarx == "thetaprof" || plotvarx == "qprof")
       {
         ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Unchecked);
         setplotvar("zprof", &plotvary);
