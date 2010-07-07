@@ -485,7 +485,7 @@ void plotwindow::zoomebymouse()
 
 void plotwindow::cursormoved()
 {
-  QString statusmessage = "X= " + QString::number(plotar->x_current) + " Y= " + QString::number(plotar->y_current);
+  QString statusmessage = "X= " + QString::number(plotar->x_current,'f',4) + " Y= " + QString::number(plotar->y_current,'f',4);
   ui->statusbar->showMessage(statusmessage);
 }
 

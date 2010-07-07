@@ -36,7 +36,8 @@ public:
   double xmin, xmax, ymin, ymax;
   double xmin_auto, xmax_auto;
   double yscale, xscale;
-  int x_press, x_release, y_press, y_release, x_current, y_current;
+  int x_press, x_release, y_press, y_release;
+  double x_current, y_current;
   bool mousepressed, mousereleased;
 
   bool autoaxis;
