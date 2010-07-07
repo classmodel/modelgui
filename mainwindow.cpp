@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->input_name,     SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
   connect(ui->exportButton,   SIGNAL(clicked()),                this, SLOT(exportRuns()));
   connect(ui->input_surface_surfacetypes, SIGNAL(currentIndexChanged(int)), this, SLOT(updateSurfacetype(int)));
+  connect(ui->input_soil_soiltypes,       SIGNAL(currentIndexChanged(int)), this, SLOT(updateSoiltype(int)));
 
   // Switches
   connect(ui->sw_wtheta,      SIGNAL(stateChanged(int)),        this, SLOT(switch_wtheta(int)));
@@ -35,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->sw_ls,          SIGNAL(stateChanged(int)),        this, SLOT(switch_ls(int)));
   connect(ui->sw_rad,         SIGNAL(stateChanged(int)),        this, SLOT(switch_rad(int)));
   connect(ui->sw_ml,          SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
+  connect(ui->sw_surface_advanced, SIGNAL(stateChanged(int)),   this, SLOT(switch_surface_advanced(int)));
+  connect(ui->sw_soil_advanced,    SIGNAL(stateChanged(int)),   this, SLOT(switch_soil_advanced(int)));
 
   loadfieldslots();
 
@@ -130,8 +133,12 @@ void MainWindow::clonerun()
     run.runname.append(base);
     modelrunlist->insert((max+1),run);
 
-    modelrunlist->value(max+1).run->input = modelrunlist->value(id).run->input;
-    modelrunlist->find(max+1).value().previnput = modelrunlist->value(id).previnput;
+    //modelrunlist->value(max+1).run->input       = modelrunlist->value(id).run->input;
+    modelrunlist->find(max+1).value().run->input = modelrunlist->value(id).run->input;
+    modelrunlist->find(max+1).value().previnput  = modelrunlist->value(id).previnput;
+
+    modelrunlist->find(max+1).value().surfacestatus = modelrunlist->value(id).surfacestatus;
+    modelrunlist->find(max+1).value().soilstatus    = modelrunlist->value(id).soilstatus;
 
     QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
     point->setText(0, QString::number(max+1));
@@ -293,6 +300,11 @@ void MainWindow::updateInputdata()
     int id = ui->modelRunTree->currentItem()->text(0).toInt();
     modelrunlist->value(id).run->input = formvalues;
     modelrunlist->find(id).value().runname = name;
+
+    // save surface and soil status
+    modelrunlist->find(id).value().surfacestatus = ui->input_surface_surfacetypes->currentIndex();
+    modelrunlist->find(id).value().soilstatus    = ui->input_soil_soiltypes->currentIndex();
+
     updateForm();
   }
 }
@@ -305,6 +317,10 @@ void MainWindow::updateForm()
 
     modelinput *tempinput;
     tempinput = &modelrunlist->value(n).run->input;
+
+    // set the pull down menus correctly
+    ui->input_surface_surfacetypes->setCurrentIndex(modelrunlist->value(n).surfacestatus);
+    ui->input_soil_soiltypes->setCurrentIndex(modelrunlist->value(n).soilstatus);
 
     ui->input_timestep->setText(QString::number(tempinput->dt));
     ui->input_time->setText(QString::number(tempinput->runtime / 3600.));
@@ -516,7 +532,6 @@ void MainWindow::startrun()
   }
 }
 
-
 void MainWindow::canceledit()
 {
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
@@ -578,8 +593,8 @@ void MainWindow::setLandSoil()
     ui->input_surface_surfacetypes->addItem(surfacetypes[i].name, i);
 
   // Read soil types into pull down menu
-  //for(int i=0;i<1;i++)
-    ui->input_soil_soiltypes->addItem(soiltypes[0].name, 0);
+  for(int i=0;i<1;i++)
+    ui->input_soil_soiltypes->addItem(soiltypes[i].name, i);
   }
 
 void MainWindow::updateSurfacetype(int i)
@@ -595,8 +610,24 @@ void MainWindow::updateSurfacetype(int i)
   ui->input_surface_z0h->setText(QString::number(surfacetypes[i].z0h));
 }
 
+void MainWindow::updateSoiltype(int i)
+{
+  ui->input_soil_wsat->setText(QString::number(soiltypes[i].wsat));
+  ui->input_soil_wfc->setText(QString::number(soiltypes[i].wfc));
+  ui->input_soil_wwilt->setText(QString::number(soiltypes[i].wwilt));
+  ui->input_soil_c1sat->setText(QString::number(soiltypes[i].C1sat));
+  ui->input_soil_c2ref->setText(QString::number(soiltypes[i].C2ref));
+
+  ui->input_soil_a->setText(QString::number(soiltypes[i].a));
+  ui->input_soil_b->setText(QString::number(soiltypes[i].b));
+  ui->input_soil_p->setText(QString::number(soiltypes[i].p));
+  ui->input_soil_CGsat->setText(QString::number(soiltypes[i].CGsat));
+}
+
 // ----------------------------------
 // Switches
+
+
 
 void MainWindow::switch_wind(int state)
 {
@@ -681,4 +712,22 @@ void MainWindow::switch_wq(int state)
     checkstate = false;
 
   formvalues.sw_wq = checkstate;
+}
+
+void MainWindow::switch_surface_advanced(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+}
+
+void MainWindow::switch_soil_advanced(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;  
 }

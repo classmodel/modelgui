@@ -1662,7 +1662,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QCheckBox" name="input_surface_definemanual">
+      <widget class="QCheckBox" name="sw_surface_advanced">
        <property name="geometry">
         <rect>
          <x>200</x>
@@ -1672,7 +1672,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Define manual</string>
+        <string>Advanced</string>
        </property>
       </widget>
       <widget class="QWidget" name="gridLayoutWidget_17">
@@ -2265,7 +2265,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QCheckBox" name="input_soil_definemanual">
+      <widget class="QCheckBox" name="sw_soil_advanced">
        <property name="geometry">
         <rect>
          <x>200</x>
@@ -2275,7 +2275,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Define manual</string>
+        <string>Advanced</string>
        </property>
       </widget>
       <widget class="QWidget" name="gridLayoutWidget_13">
@@ -3293,7 +3293,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

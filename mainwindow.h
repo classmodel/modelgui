@@ -42,6 +42,7 @@ public slots:
   void startGraph();
   void exportRuns();
   void updateSurfacetype(int);
+  void updateSoiltype(int);
 
   // Switches
   void switch_wind(int);
@@ -51,6 +52,8 @@ public slots:
   void switch_ml(int);
   void switch_wtheta(int);
   void switch_wq(int);
+  void switch_soil_advanced(int);
+  void switch_surface_advanced(int);
 
 
   //void switches_changed();

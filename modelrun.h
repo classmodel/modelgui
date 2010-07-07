@@ -9,4 +9,6 @@ public:
   model *run;
   modelrun();
   bool hasrun;
+  int  surfacestatus;
+  int  soilstatus;
 };
