@@ -445,15 +445,10 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       emit zoombymouse();
 
   if (mousepressed)
-  {
-    std::cout << "X1= " << transfx(x_press,xscale,graphminx,1) << " Y1= " << transfy(y_press,yscale,graphminy,1) << std::endl;
     mousepressed = false;
-  }
+
   if (mousereleased)
-  {
-    std::cout << "X2= " << transfx(x_release,xscale,graphminx,1) << " Y2= " << transfy(y_release,yscale,graphminy,1) << std::endl;
     mousereleased = false;
-  }
 }
 
 void plotarea::mousePressEvent( QMouseEvent *e )
