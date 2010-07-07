@@ -331,6 +331,12 @@ modeloutput::modeloutput(int tsteps)
   thetaprof.description     = "Mixed-layer potential temperature";
   thetaprof.id              = "thetaprof";
 
+  qprof.data                = new double[tsteps*4];   // mixed-layer specific humidity [kg kg-1]
+  qprof.name                = "q";
+  qprof.unit                = "g kg\u207B\u00B9";
+  qprof.description         = "Mixed-layer specific humidity";
+  qprof.id                  = "qprof";
+
   // vertical profiles
   zprof.data                = new double[tsteps*4];
   zprof.name                = "z";

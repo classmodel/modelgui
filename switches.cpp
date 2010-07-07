@@ -70,7 +70,6 @@ void MainWindow::loadfieldslots()
   connect(ui->input_surface_cveg,       SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
 
   connect(ui->input_surface_Lambda,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_surface_Wlmax,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_surface_z0m,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_surface_z0h,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
 
@@ -218,6 +217,8 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->zprof;
   else if (plotvar == "thetaprof")
     *data = n.run->output->thetaprof;
+  else if (plotvar == "qprof")
+    *data = n.run->output->qprof;
 
 }
 
@@ -345,6 +346,8 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
 
   // vertical profiles
   else if (label == "zprof")
+    *plotvar = label;
+  else if (label == "qprof")
     *plotvar = label;
   else if (label == "thetaprof")
     *plotvar = label;

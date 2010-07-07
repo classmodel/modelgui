@@ -88,6 +88,7 @@ public:
   // vertical profiles
   outputvar zprof;
   outputvar thetaprof;
+  outputvar qprof;
 
   modeloutput(int);
 };

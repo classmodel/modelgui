@@ -183,8 +183,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.G;
 
   vertprof
-      << modelout.zprof
-      << modelout.thetaprof;
+      << modelout.thetaprof
+      << modelout.qprof;
+
 
   allvariables.insert(0,mixedlayervars);
   allvariables.insert(1,temperaturevars);
@@ -208,7 +209,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       QTreeWidgetItem *treeitem = new QTreeWidgetItem;
       outputvar item = allvariables.value(n).value(i);
       treeitem->setCheckState(1,Qt::Unchecked);
-      treeitem->setCheckState(2,Qt::Unchecked);
+      if (advancedtreegroups.value(n) != "Vertical profiles")
+        treeitem->setCheckState(2,Qt::Unchecked);
       QString variable = QString::fromUtf8(item.name.c_str()) + " [" + QString::fromUtf8(item.unit.c_str()) + "]";
       QString description = QString::fromUtf8(item.description.c_str());
       QString id = QString::fromUtf8(item.id.c_str());
@@ -306,9 +308,23 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
     {
       if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
         if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0) != olditem)
+        {
+          if (plotvarx == "thetaprof" || plotvarx == "qprof")
+          {
+            setplotvar("h", &plotvary);
+            ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Checked);
+          }
           ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Unchecked);
+        }
 
       setplotvar(olditem->text(4), &plotvarx);
+
+      if (plotvarx == "thetaprof" || plotvarx == "qprof")
+      {
+        ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Unchecked);
+        setplotvar("zprof", &plotvary);
+      }
+
     }
     else if(column == 2)
     {

@@ -268,7 +268,6 @@ void MainWindow::updateInputdata()
   formvalues.alpha      = ui->input_surface_alpha->text().toDouble();
   formvalues.cveg       = ui->input_surface_cveg->text().toDouble();
   formvalues.Lambda     = ui->input_surface_Lambda->text().toDouble();
-  formvalues.Wmax       = ui->input_surface_Wlmax->text().toDouble();
 
   if (ui->surfaceTab->isVisible())
   {
@@ -426,7 +425,6 @@ void MainWindow::updateForm()
     ui->input_surface_cveg->setText(QString::number(tempinput->cveg));
 
     ui->input_surface_Lambda->setText(QString::number(tempinput->Lambda));
-    ui->input_surface_Wlmax->setText(QString::number(tempinput->Wmax));
     ui->input_surface_z0m->setText(QString::number(tempinput->z0m));
     ui->input_surface_z0h->setText(QString::number(tempinput->z0h));
 

@@ -104,7 +104,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
       for(int i=0; i<selectedruns->count(); i++)
       {
-        //getdata(&xdata, &ydata, i);
         xdata = xdatalist.value(selectedruns->value(i));
         ydata = ydatalist.value(selectedruns->value(i));
 
@@ -113,7 +112,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         for(int m=0; m<tsteps; m++)
         {
           int m2 = m*4;
-          if (xdata.id == "thetaprof")
+          if (ydata.id == "zprof")
           {
             for(int n=0;n<4;n++)
             {
@@ -150,7 +149,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
           }
         }
 
-        if(xdata.id == "thetaprof")
+        if(ydata.id == "zprof")
         {
           xmin = xmin - 0.01 * (xmax - xmin);
           xmax = xmax + 0.01 * (xmax - xmin);
@@ -323,7 +322,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         plotinterval  = (tsteps * (xmax - xmin)) / (50 * (xmax_auto - xmin_auto));
       else
       {
-        if (xdata.id == "thetaprof")
+        if (ydata.id == "zprof")
           plotinterval = 1.;
         else
           plotinterval  = tsteps / 1000 + 1;
@@ -340,7 +339,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
       paint.setRenderHint(QPainter::Antialiasing, true);
 
-      if (xdata.id != "thetaprof")
+      if (ydata.id != "zprof")
       {
         if (!scatterplot)
         {
@@ -355,13 +354,13 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       }
       else
       {
-        int interval = 60;
+        profinterval = 60;
         for (int m=0; m < 3; m++)
         {
           paint.drawLine(transfx(xdata.data[m],xscale,graphminx),transfy(ydata.data[m],yscale,graphminy),transfx(xdata.data[m+1],xscale,graphminx),transfy(ydata.data[m+1],yscale,graphminy));
           std::cout << xdata.data[m] << ", " << ydata.data[m] << std:: endl;
         }
-        for (int m=(4*interval); m < tsteps * 4; m = m+(interval*4))
+        for (int m=(4*profinterval); m < tsteps * 4; m = m+(profinterval*4))
         {
           paint.drawLine(transfx(xdata.data[m],xscale,graphminx),transfy(ydata.data[m],yscale,graphminy),transfx(xdata.data[m+1],xscale,graphminx),transfy(ydata.data[m+1],yscale,graphminy));
           paint.drawLine(transfx(xdata.data[m+1],xscale,graphminx),transfy(ydata.data[m+1],yscale,graphminy),transfx(xdata.data[m+2],xscale,graphminx),transfy(ydata.data[m+2],yscale,graphminy));
@@ -369,9 +368,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       }
 
       paint.setRenderHint(QPainter::Antialiasing, false);
+      QString legendlabel = runlist->value(selectedruns->value(i)).runname;
+      if (ydata.id == "zprof")
+        legendlabel = runlist->value(selectedruns->value(i)).runname + " [dt=" + QString::number((profinterval * runlist->value(selectedruns->value(i)).run->input.dt) / 3600.) + "h]";
 
       paint.drawLine(leftmargin+(10*PNGscale),legendy+8,leftmargin+(25*PNGscale),legendy+8);
-      paint.drawText(leftmargin+(30*PNGscale),legendy-7,400,30, 0x0081, runlist->value(selectedruns->value(i)).runname);
+      paint.drawText(leftmargin+(30*PNGscale),legendy-7,400,30, 0x0081, legendlabel);
       legendy = legendy+(15 * PNGscale);
     }
 
