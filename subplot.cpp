@@ -33,19 +33,38 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black) << QColor(Qt::gray);
   assignedcolors << -1 << -1 << -1 << -1 << -1 << -1 << -1 << -1;
 
+  // Start mousetracking for this widget
   this->setMouseTracking(true);
+  // Disable rubberband to start with (prevents crash..)
+  drawrubberband        = false;
 }
 
-double plotarea::transfx(double xreal, double xscale, double xmin)
+double plotarea::transfx(double x, double xscale, double xmin, int mode)
 {
-  double xwidget = ((xreal-xmin)*xscale) + leftmargin;
-  return (xwidget);
+  if (mode == 0) // Mode 0 = xreal to xwidget, mode 1 = xwidget to xreal
+  {
+    double xwidget = ((x-xmin)*xscale) + leftmargin;
+    return (xwidget);
+  }
+  if (mode == 1)
+  {
+    double xreal = ((x - leftmargin) / xscale) + xmin;
+    return (xreal);
+  }
 }
 
-double plotarea::transfy(double yreal, double yscale, double ymin)
+double plotarea::transfy(double y, double yscale, double ymin, int mode)
 {
-  double ywidget = plotwidget_height - bottommargin  - ((yreal-ymin)*yscale);
-  return (ywidget);
+  if (mode == 0) // Mode 0 = xreal to xwidget, mode 1 = xwidget to xreal
+  {
+    double ywidget = plotwidget_height - bottommargin  - ((y-ymin)*yscale);
+    return (ywidget);
+  }
+  if (mode == 1)
+  {
+    double yreal = ((-y + plotwidget_height - bottommargin) / yscale) + ymin;
+    return (yreal);
+  }
 }
 
 double plotarea::nicenumber(double x, bool round)
@@ -96,6 +115,33 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
   if (selectedruns->count() > 0)
   {
     outputvar xdata, ydata;
+
+    if (mousereleased)
+    {
+      autoaxis = false;
+      if (x_press < x_release)
+      {
+        xmin = transfx(x_press,xscale,graphminx,1);
+        xmax = transfx(x_release,xscale,graphminx,1);
+      }
+      else
+      {
+        xmax = transfx(x_press,xscale,graphminx,1);
+        xmin = transfx(x_release,xscale,graphminx,1);
+      }
+
+      if (y_press > y_release)
+      {
+        ymin = transfy(y_press,yscale,graphminy,1);
+        ymax = transfy(y_release,yscale,graphminy,1);
+      }
+      else
+      {
+        ymax = transfy(y_press,yscale,graphminy,1);
+        ymin = transfy(y_release,yscale,graphminy,1);
+      }
+
+    }
 
     if (autoaxis)
     {
@@ -295,8 +341,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       
       int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
 
-      double yscale = plotheight / (graphmaxy-graphminy);   // scaling factor for f(real-coordinate to Widget-coordinate)
-      double xscale = plotwidth  / (graphmaxx-graphminx);   // scaling factor for f(real-coordinate to Widget-coordinate)
+      yscale = plotheight / (graphmaxy-graphminy);   // scaling factor for f(real-coordinate to Widget-coordinate)
+      xscale = plotwidth  / (graphmaxx-graphminx);   // scaling factor for f(real-coordinate to Widget-coordinate)
 
       // Find first free color in colorlist
       int j = selectedruns->value(i);
@@ -336,7 +382,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       for (int m=0; m < numpoints; m++)
       {
         int n = m * plotinterval;
-        points[m] = QPointF(transfx(xdata.data[n],xscale,graphminx), transfy(ydata.data[n],yscale,graphminy));
+        points[m] = QPointF(transfx(xdata.data[n],xscale,graphminx,0), transfy(ydata.data[n],yscale,graphminy,0));
       }
 
       paint.setRenderHint(QPainter::Antialiasing, true);
@@ -359,12 +405,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         profinterval = 60;
         for (int m=0; m < 3; m++)
         {
-          paint.drawLine(transfx(xdata.data[m],xscale,graphminx),transfy(ydata.data[m],yscale,graphminy),transfx(xdata.data[m+1],xscale,graphminx),transfy(ydata.data[m+1],yscale,graphminy));
+          paint.drawLine(transfx(xdata.data[m],xscale,graphminx,0),transfy(ydata.data[m],yscale,graphminy,0),transfx(xdata.data[m+1],xscale,graphminx,0),transfy(ydata.data[m+1],yscale,graphminy,0));
         }
         for (int m=(4*profinterval); m < tsteps * 4; m = m+(profinterval*4))
         {
-          paint.drawLine(transfx(xdata.data[m],xscale,graphminx),transfy(ydata.data[m],yscale,graphminy),transfx(xdata.data[m+1],xscale,graphminx),transfy(ydata.data[m+1],yscale,graphminy));
-          paint.drawLine(transfx(xdata.data[m+1],xscale,graphminx),transfy(ydata.data[m+1],yscale,graphminy),transfx(xdata.data[m+2],xscale,graphminx),transfy(ydata.data[m+2],yscale,graphminy));
+          paint.drawLine(transfx(xdata.data[m],xscale,graphminx,0),transfy(ydata.data[m],yscale,graphminy,0),transfx(xdata.data[m+1],xscale,graphminx,0),transfy(ydata.data[m+1],yscale,graphminy,0));
+          paint.drawLine(transfx(xdata.data[m+1],xscale,graphminx,0),transfy(ydata.data[m+1],yscale,graphminy,0),transfx(xdata.data[m+2],xscale,graphminx,0),transfy(ydata.data[m+2],yscale,graphminy,0));
         }
       }
 
@@ -385,7 +431,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       saveImageMode = 0;
       update();
     }
-
   }
 
   for(int i=0; i < assignedcolors.count(); i++)
@@ -394,20 +439,50 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
   if (autoaxis)
     emit axischanged();
+
+  if (mousepressed)
+  {
+    std::cout << "X1= " << transfx(x_press,xscale,graphminx,1) << " Y1= " << transfy(y_press,yscale,graphminy,1) << std::endl;
+    mousepressed = false;
+  }
+  if (mousereleased)
+  {
+    std::cout << "X2= " << transfx(x_release,xscale,graphminx,1) << " Y2= " << transfy(y_release,yscale,graphminy,1) << std::endl;
+    mousereleased = false;
+  }
 }
 
 void plotarea::mousePressEvent( QMouseEvent *e )
 {
   x_press = e->x();
   y_press = e->y();
-  std::cout << "click: x=" << x_press << " y=" << y_press << std::endl;
+
+  origin_rubberband = e->pos();
+  rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
+  drawrubberband = true;
+  rubberBand->setGeometry(QRect(origin_rubberband, QSize()));
+  rubberBand->show();
+
+  mousepressed = true;
+  update();
 }
+
+ void plotarea::mouseMoveEvent(QMouseEvent *e)
+ {
+   if (drawrubberband)
+     rubberBand->setGeometry(QRect(origin_rubberband, e->pos()).normalized());
+ }
 
 void plotarea::mouseReleaseEvent( QMouseEvent *e )
 {
   x_release = e->x();
   y_release = e->y();
-    std::cout << "release: x=" << x_release << " y=" << y_release << std::endl;
+
+  rubberBand->hide();
+  drawrubberband = false;
+
+  mousereleased = true;
+  update();
 }
 
 

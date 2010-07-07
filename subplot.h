@@ -15,6 +15,7 @@
 #include <QFont>
 #include <QPen>
 #include <QPointF>
+#include <QRubberBand>
 
 class plotarea : public QWidget
 {
@@ -34,15 +35,17 @@ public:
   double graphminx, graphmaxx, graphminy, graphmaxy;
   double xmin, xmax, ymin, ymax;
   double xmin_auto, xmax_auto;
+  double yscale, xscale;
   int x_press, x_release, y_press, y_release;
+  bool mousepressed, mousereleased;
 
   bool autoaxis;
   bool scatterplot;
   //void getdata(outputvar*, outputvar*, int);
 
   // Function to translate real coordinates (x,y) to widget coordinates
-  double transfx(double xreal, double xscale, double xmin);
-  double transfy(double yreal, double yscale, double ymin);
+  double transfx(double x, double xscale, double xmin, int mode);
+  double transfy(double y, double yscale, double ymin, int mode);
 
 signals:
   void axischanged();
@@ -58,6 +61,7 @@ protected:
 
   void mousePressEvent( QMouseEvent * );
   void mouseReleaseEvent( QMouseEvent * );
+  void mouseMoveEvent(QMouseEvent *);
 
 private:
   int defaulttopmargin, defaultbottommargin, defaultleftmargin, defaultrightmargin;
@@ -65,5 +69,8 @@ private:
   double nicenumber(double, bool);
   int plotwidget_width, plotwidget_height;
   int profinterval;
+  QPoint origin_rubberband;
+  QRubberBand *rubberBand;
+  bool drawrubberband;
 };
 #endif // SUBPLOT_H
