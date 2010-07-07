@@ -608,6 +608,8 @@ void MainWindow::updateSurfacetype(int i)
   ui->input_surface_Lambda->setText(QString::number(surfacetypes[i].Lambda));
   ui->input_surface_z0m->setText(QString::number(surfacetypes[i].z0m));
   ui->input_surface_z0h->setText(QString::number(surfacetypes[i].z0h));
+
+  updateInputdata();
 }
 
 void MainWindow::updateSoiltype(int i)
@@ -622,6 +624,8 @@ void MainWindow::updateSoiltype(int i)
   ui->input_soil_b->setText(QString::number(soiltypes[i].b));
   ui->input_soil_p->setText(QString::number(soiltypes[i].p));
   ui->input_soil_CGsat->setText(QString::number(soiltypes[i].CGsat));
+
+  updateInputdata();
 }
 
 // ----------------------------------
