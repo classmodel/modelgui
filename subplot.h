@@ -60,5 +60,6 @@ private:
   int topmargin, bottommargin, leftmargin, rightmargin;
   double nicenumber(double, bool);
   int plotwidget_width, plotwidget_height;
+  int profinterval;
 };
 #endif // SUBPLOT_H
