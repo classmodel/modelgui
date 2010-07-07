@@ -34,6 +34,7 @@ public:
   double graphminx, graphmaxx, graphminy, graphmaxy;
   double xmin, xmax, ymin, ymax;
   double xmin_auto, xmax_auto;
+  int x_press, x_release, y_press, y_release;
 
   bool autoaxis;
   bool scatterplot;
@@ -54,6 +55,9 @@ protected:
   QList<int> *selectedruns;
   QMap<int, modelrun> *runlist;
   double PNGscale;
+
+  void mousePressEvent( QMouseEvent * );
+  void mouseReleaseEvent( QMouseEvent * );
 
 private:
   int defaulttopmargin, defaultbottommargin, defaultleftmargin, defaultrightmargin;

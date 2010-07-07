@@ -32,6 +32,8 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   // Define 8 colors for plotting, set them unassigned.
   colors << QColor(Qt::blue) << QColor(Qt::darkGreen) << QColor(Qt::red) << QColor(Qt::cyan) << QColor(Qt::magenta) << QColor(Qt::yellow) << QColor(Qt::black) << QColor(Qt::gray);
   assignedcolors << -1 << -1 << -1 << -1 << -1 << -1 << -1 << -1;
+
+  this->setMouseTracking(true);
 }
 
 double plotarea::transfx(double xreal, double xscale, double xmin)
@@ -358,7 +360,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         for (int m=0; m < 3; m++)
         {
           paint.drawLine(transfx(xdata.data[m],xscale,graphminx),transfy(ydata.data[m],yscale,graphminy),transfx(xdata.data[m+1],xscale,graphminx),transfy(ydata.data[m+1],yscale,graphminy));
-          std::cout << xdata.data[m] << ", " << ydata.data[m] << std:: endl;
         }
         for (int m=(4*profinterval); m < tsteps * 4; m = m+(profinterval*4))
         {
@@ -393,6 +394,20 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
   if (autoaxis)
     emit axischanged();
+}
+
+void plotarea::mousePressEvent( QMouseEvent *e )
+{
+  x_press = e->x();
+  y_press = e->y();
+  std::cout << "click: x=" << x_press << " y=" << y_press << std::endl;
+}
+
+void plotarea::mouseReleaseEvent( QMouseEvent *e )
+{
+  x_release = e->x();
+  y_release = e->y();
+    std::cout << "release: x=" << x_release << " y=" << y_release << std::endl;
 }
 
 

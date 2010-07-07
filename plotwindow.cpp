@@ -332,6 +332,13 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
         if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0) != olditem)
           ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Unchecked);
 
+      if (plotvarx == "thetaprof" || plotvarx == "qprof")
+      {
+       setplotvar("t", &plotvarx);
+       ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Checked);
+       ui->advancedplottree->findItems("thetaprof", Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
+       ui->advancedplottree->findItems("qprof", Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
+      }
       setplotvar(olditem->text(4), &plotvary);
     }
 
