@@ -70,7 +70,6 @@ void MainWindow::loadfieldslots()
   connect(ui->input_surface_cveg,       SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
 
   connect(ui->input_surface_Lambda,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_surface_Wlmax,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_surface_z0m,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
   connect(ui->input_surface_z0h,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
 
