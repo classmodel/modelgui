@@ -47,7 +47,7 @@ double plotarea::transfx(double x, double xscale, double xmin, int mode)
     double xwidget = ((x-xmin)*xscale) + leftmargin;
     return (xwidget);
   }
-  if (mode == 1)
+  else
   {
     double xreal = ((x - leftmargin) / xscale) + xmin;
     return (xreal);
@@ -61,7 +61,7 @@ double plotarea::transfy(double y, double yscale, double ymin, int mode)
     double ywidget = plotwidget_height - bottommargin  - ((y-ymin)*yscale);
     return (ywidget);
   }
-  if (mode == 1)
+  else
   {
     double yreal = ((-y + plotwidget_height - bottommargin) / yscale) + ymin;
     return (yreal);

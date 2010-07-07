@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -1640,46 +1640,23 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="surface_parameters_group">
+     <widget class="QGroupBox" name="surface_advanced_group">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
+        <y>220</y>
         <width>441</width>
-        <height>231</height>
+        <height>141</height>
        </rect>
       </property>
       <property name="title">
-       <string>Surface parameters</string>
+       <string/>
       </property>
-      <widget class="QComboBox" name="input_surface_surfacetypes">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>181</width>
-         <height>23</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="sw_surface_advanced">
-       <property name="geometry">
-        <rect>
-         <x>200</x>
-         <y>30</y>
-         <width>151</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Advanced</string>
-       </property>
-      </widget>
       <widget class="QWidget" name="gridLayoutWidget_17">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>60</y>
+         <y>10</y>
          <width>191</width>
          <height>121</height>
         </rect>
@@ -1838,7 +1815,7 @@
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>60</y>
+         <y>10</y>
          <width>201</width>
          <height>121</height>
         </rect>
@@ -2012,7 +1989,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>91</height>
+         <height>81</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_moisture_grid" columnminimumwidth="50,0,80">
@@ -2105,11 +2082,77 @@
             <height>25</height>
            </size>
           </property>
+          <property name="baseSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
           <property name="text">
            <string>Surface variables</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="surface_properties_group">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>441</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget_21">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>421</width>
+         <height>55</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="surface_moisture_grid_2">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label_surface_variables_2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Surface properties</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QComboBox" name="input_surface_surfacetypes"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="sw_surface_advanced">
+          <property name="text">
+           <string>Advanced</string>
           </property>
          </widget>
         </item>
@@ -2247,42 +2290,19 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
+        <y>220</y>
         <width>441</width>
-        <height>221</height>
+        <height>171</height>
        </rect>
       </property>
       <property name="title">
-       <string>Soil parameters</string>
+       <string/>
       </property>
-      <widget class="QComboBox" name="input_soil_soiltypes">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>181</width>
-         <height>23</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="sw_soil_advanced">
-       <property name="geometry">
-        <rect>
-         <x>200</x>
-         <y>30</y>
-         <width>151</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Advanced</string>
-       </property>
-      </widget>
       <widget class="QWidget" name="gridLayoutWidget_13">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>60</y>
+         <y>10</y>
          <width>191</width>
          <height>151</height>
         </rect>
@@ -2477,7 +2497,7 @@
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>60</y>
+         <y>10</y>
          <width>201</width>
          <height>121</height>
         </rect>
@@ -2744,11 +2764,77 @@
             <height>25</height>
            </size>
           </property>
+          <property name="baseSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
           <property name="text">
            <string>Moisture</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="surface_properties_group_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>441</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget_22">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>421</width>
+         <height>55</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="surface_moisture_grid_3">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label_surface_variables_3">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Soil properties</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QComboBox" name="input_soil_soiltypes"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="sw_soil_advanced">
+          <property name="text">
+           <string>Advanced</string>
           </property>
          </widget>
         </item>
@@ -3293,7 +3379,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
