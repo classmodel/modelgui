@@ -1652,7 +1652,7 @@
       <property name="title">
        <string>Surface parameters</string>
       </property>
-      <widget class="QComboBox" name="input_surface_vegetationtypes">
+      <widget class="QComboBox" name="input_surface_surfacetypes">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1661,11 +1661,6 @@
          <height>23</height>
         </rect>
        </property>
-       <item>
-        <property name="text">
-         <string>Gras!</string>
-        </property>
-       </item>
       </widget>
       <widget class="QCheckBox" name="input_surface_definemanual">
        <property name="geometry">
@@ -2305,11 +2300,6 @@
          <height>23</height>
         </rect>
        </property>
-       <item>
-        <property name="text">
-         <string>Podzol</string>
-        </property>
-       </item>
       </widget>
       <widget class="QCheckBox" name="input_soil_definemanual">
        <property name="geometry">

@@ -3,7 +3,7 @@
 
 #include <QtGui/QMainWindow>
 #include "modelrun.h"
-//#include "plotwindow.h"
+#include "landsoil.h"
 
 class plotwindow;
 
@@ -41,6 +41,8 @@ public slots:
   void canceledit();
   void startGraph();
   void exportRuns();
+  void updateSurfacetype(int);
+
   // Switches
   void switch_wind(int);
   void switch_sl(int);
@@ -64,6 +66,12 @@ private:
   QString bool2string(const bool);
   void updateStatusBar();
   bool CheckState2bool(Qt::CheckState);
+
+  void initLandSoil();
+  void setLandSoil();
+
+  surfacetype surfacetypes[3];
+  soiltype    soiltypes[1];
 };
 
 #endif // MAINWINDOW_H

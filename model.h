@@ -1,3 +1,4 @@
+#include <cstring>
 #include "modelinput.h"
 #include "modeloutput.h"
 
@@ -191,5 +192,5 @@ private:
   double Tsoiltend;
   double wgtend;
   double Wltend;
-
 };
+

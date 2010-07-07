@@ -8,14 +8,16 @@ SOURCES += main.cpp \
     subplot.cpp \
     modeloutput.cpp \
     switches.cpp \
-    defaultinput.cpp
+    defaultinput.cpp \
+    landsoil.cpp
 HEADERS += mainwindow.h \
     modeloutput.h \
     modelinput.h \
     model.h \
     modelrun.h \
     plotwindow.h \
-    subplot.h
+    subplot.h \
+    landsoil.h
 FORMS += mainwindow.ui \
     plotwindow.ui \
     subplot.ui

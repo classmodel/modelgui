@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->graphButton,    SIGNAL(clicked()),                this, SLOT(startGraph()));
   connect(ui->input_name,     SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
   connect(ui->exportButton,   SIGNAL(clicked()),                this, SLOT(exportRuns()));
+  connect(ui->input_surface_surfacetypes, SIGNAL(currentIndexChanged(int)), this, SLOT(updateSurfacetype(int)));
 
   // Switches
   connect(ui->sw_wtheta,      SIGNAL(stateChanged(int)),        this, SLOT(switch_wtheta(int)));
@@ -51,6 +52,8 @@ MainWindow::MainWindow(QWidget *parent)
 
   newrun();
   ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
+
+  setLandSoil();
 
   // if all fields are properly assigned, the next line can be removed
   formvalues            = defaultinput;
@@ -565,6 +568,33 @@ void MainWindow::exportRuns()
         modelrunlist->find(n).value().run->run2file(dirname.toStdString(),runname.toStdString());
     }
   }
+}
+
+void MainWindow::setLandSoil()
+{
+  // Initialize surface and soil types
+  initLandSoil();
+
+  // Read surface types into pull down menu
+  for(int i=0;i<3;i++)
+    ui->input_surface_surfacetypes->addItem(surfacetypes[i].name, i);
+
+  // Read soil types into pull down menu
+  //for(int i=0;i<1;i++)
+    ui->input_soil_soiltypes->addItem(soiltypes[0].name, 0);
+  }
+
+void MainWindow::updateSurfacetype(int i)
+{
+  ui->input_surface_LAI->setText(QString::number(surfacetypes[i].LAI));
+  ui->input_surface_gD->setText(QString::number(surfacetypes[i].gD));
+  ui->input_surface_rsmin->setText(QString::number(surfacetypes[i].rsmin));
+  ui->input_surface_alpha->setText(QString::number(surfacetypes[i].alpha));
+
+  ui->input_surface_cveg->setText(QString::number(surfacetypes[i].cveg));
+  ui->input_surface_Lambda->setText(QString::number(surfacetypes[i].Lambda));
+  ui->input_surface_z0m->setText(QString::number(surfacetypes[i].z0m));
+  ui->input_surface_z0h->setText(QString::number(surfacetypes[i].z0h));
 }
 
 // ----------------------------------
