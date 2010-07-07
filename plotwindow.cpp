@@ -485,8 +485,25 @@ void plotwindow::zoomebymouse()
 
 void plotwindow::cursormoved()
 {
-  QString statusmessage = "X= " + QString::number(plotar->x_current,'f',4) + " Y= " + QString::number(plotar->y_current,'f',4);
-  ui->statusbar->showMessage(statusmessage);
+  if (plotar->selectedruns->count() > 0)
+  {
+    QString statusmessage =
+        QString::fromUtf8(plotar->xdatalist.value(1).name.c_str()) +
+        " = " +
+        QString::number(plotar->x_current,'f',4) +
+        " " +
+        QString::fromUtf8(plotar->xdatalist.value(1).unit.c_str()) +
+        ", " +
+        QString::fromUtf8(plotar->ydatalist.value(1).name.c_str()) +
+        " = " +
+        QString::number(plotar->y_current,'f',4) +
+        " " +
+        QString::fromUtf8(plotar->ydatalist.value(1).unit.c_str());
+
+    ui->statusbar->showMessage(statusmessage);
+  }
+  else
+    ui->statusbar->showMessage(" ");
 }
 
 
