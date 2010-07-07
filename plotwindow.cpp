@@ -21,6 +21,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Signal/slots -------------------------------------------------------------------------------------
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
+  connect(plotar, SIGNAL(zoombymouse()), this, SLOT(zoomebymouse()));
+  connect(plotar, SIGNAL(cursormoved()), this, SLOT(cursormoved()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
   connect(ui->sw_scatterplot, SIGNAL(clicked(bool)), this, SLOT(changeplottype()));
@@ -332,6 +334,13 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
         if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0) != olditem)
           ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Unchecked);
 
+      if (plotvarx == "thetaprof" || plotvarx == "qprof")
+      {
+       setplotvar("t", &plotvarx);
+       ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Checked);
+       ui->advancedplottree->findItems("thetaprof", Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
+       ui->advancedplottree->findItems("qprof", Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
+      }
       setplotvar(olditem->text(4), &plotvary);
     }
 
@@ -458,6 +467,26 @@ void plotwindow::changeplottype()
     plotar->scatterplot = true;
   else
     plotar->scatterplot = false;
+}
+
+void plotwindow::zoomebymouse()
+{
+  ui->autoscaleaxis->setCheckState(Qt::Unchecked);
+  ui->xminInput->setDisabled(false);
+  ui->xmaxInput->setDisabled(false);
+  ui->yminInput->setDisabled(false);
+  ui->ymaxInput->setDisabled(false);
+
+  ui->xminInput->setText(QString::number(plotar->graphminx));
+  ui->xmaxInput->setText(QString::number(plotar->graphmaxx));
+  ui->yminInput->setText(QString::number(plotar->graphminy));
+  ui->ymaxInput->setText(QString::number(plotar->graphmaxy));
+}
+
+void plotwindow::cursormoved()
+{
+  QString statusmessage = "X= " + QString::number(plotar->x_current) + " Y= " + QString::number(plotar->y_current);
+  ui->statusbar->showMessage(statusmessage);
 }
 
 
