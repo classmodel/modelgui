@@ -745,6 +745,10 @@ void MainWindow::switch_surface_advanced(int state)
 
   ui->surface_advanced_group->setEnabled(checkstate);
   ui->input_surface_surfacetypes->setEnabled(!checkstate);
+
+  int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  modelrunlist->find(id).value().surfaceadvanced = checkstate;
+
 }
 
 void MainWindow::switch_soil_advanced(int state)
@@ -757,4 +761,7 @@ void MainWindow::switch_soil_advanced(int state)
 
   ui->soil_advanced_group->setEnabled(checkstate);
   ui->input_soil_soiltypes->setEnabled(!checkstate);
+
+  int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  modelrunlist->find(id).value().soiladvanced = checkstate;
 }
