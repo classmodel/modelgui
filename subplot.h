@@ -49,6 +49,7 @@ public:
 
 signals:
   void axischanged();
+  void zoombymouse();
 
 public slots:
   void saveImage();

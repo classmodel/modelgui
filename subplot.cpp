@@ -440,6 +440,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
   if (autoaxis)
     emit axischanged();
 
+  if (mousereleased)
+      emit zoombymouse();
+
   if (mousepressed)
   {
     std::cout << "X1= " << transfx(x_press,xscale,graphminx,1) << " Y1= " << transfy(y_press,yscale,graphminy,1) << std::endl;

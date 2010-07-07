@@ -37,6 +37,7 @@ public slots:
   void updateselectedruns();
   void changeplotvar();
   void changeaxis();
+  void zoomebymouse();
   void switchtobasicplotting();
   void switchtoadvancedplotting();
   void viewmenutriggered();

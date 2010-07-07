@@ -21,6 +21,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Signal/slots -------------------------------------------------------------------------------------
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
+  connect(plotar, SIGNAL(zoombymouse()), this, SLOT(zoomebymouse()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), this, SLOT(changeaxis()));
   connect(ui->autoscaleaxis, SIGNAL(clicked(bool)), plotar, SLOT(update()));
   connect(ui->sw_scatterplot, SIGNAL(clicked(bool)), this, SLOT(changeplottype()));
@@ -465,6 +466,20 @@ void plotwindow::changeplottype()
     plotar->scatterplot = true;
   else
     plotar->scatterplot = false;
+}
+
+void plotwindow::zoomebymouse()
+{
+  ui->autoscaleaxis->setCheckState(Qt::Unchecked);
+  ui->xminInput->setDisabled(false);
+  ui->xmaxInput->setDisabled(false);
+  ui->yminInput->setDisabled(false);
+  ui->ymaxInput->setDisabled(false);
+
+  ui->xminInput->setText(QString::number(plotar->graphminx));
+  ui->xmaxInput->setText(QString::number(plotar->graphmaxx));
+  ui->yminInput->setText(QString::number(plotar->graphminy));
+  ui->ymaxInput->setText(QString::number(plotar->graphmaxy));
 }
 
 
