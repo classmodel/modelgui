@@ -58,6 +58,9 @@ MainWindow::MainWindow(QWidget *parent)
 
   setLandSoil();
 
+  ui->surface_advanced_group->setEnabled(false);
+  ui->soil_advanced_group->setEnabled(false);
+
   // if all fields are properly assigned, the next line can be removed
   formvalues            = defaultinput;
 }
@@ -137,8 +140,10 @@ void MainWindow::clonerun()
     modelrunlist->find(max+1).value().run->input = modelrunlist->value(id).run->input;
     modelrunlist->find(max+1).value().previnput  = modelrunlist->value(id).previnput;
 
-    modelrunlist->find(max+1).value().surfacestatus = modelrunlist->value(id).surfacestatus;
-    modelrunlist->find(max+1).value().soilstatus    = modelrunlist->value(id).soilstatus;
+    modelrunlist->find(max+1).value().surfacestatus   = modelrunlist->value(id).surfacestatus;
+    modelrunlist->find(max+1).value().soilstatus      = modelrunlist->value(id).soilstatus;
+    modelrunlist->find(max+1).value().surfaceadvanced = modelrunlist->value(id).surfaceadvanced;
+    modelrunlist->find(max+1).value().soiladvanced    = modelrunlist->value(id).soiladvanced;
 
     QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
     point->setText(0, QString::number(max+1));
@@ -302,8 +307,10 @@ void MainWindow::updateInputdata()
     modelrunlist->find(id).value().runname = name;
 
     // save surface and soil status
-    modelrunlist->find(id).value().surfacestatus = ui->input_surface_surfacetypes->currentIndex();
-    modelrunlist->find(id).value().soilstatus    = ui->input_soil_soiltypes->currentIndex();
+    modelrunlist->find(id).value().surfacestatus   = ui->input_surface_surfacetypes->currentIndex();
+    modelrunlist->find(id).value().soilstatus      = ui->input_soil_soiltypes->currentIndex();
+    modelrunlist->find(id).value().surfaceadvanced = CheckState2bool(ui->sw_surface_advanced->checkState());
+    modelrunlist->find(id).value().soiladvanced    = CheckState2bool(ui->sw_soil_advanced->checkState());
 
     updateForm();
   }
@@ -321,6 +328,16 @@ void MainWindow::updateForm()
     // set the pull down menus correctly
     ui->input_surface_surfacetypes->setCurrentIndex(modelrunlist->value(n).surfacestatus);
     ui->input_soil_soiltypes->setCurrentIndex(modelrunlist->value(n).soilstatus);
+
+    if(modelrunlist->value(n).surfaceadvanced)
+      ui->sw_surface_advanced->setCheckState(Qt::Checked);
+    else
+      ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
+
+    if(modelrunlist->value(n).soiladvanced)
+      ui->sw_soil_advanced->setCheckState(Qt::Checked);
+    else
+      ui->sw_soil_advanced->setCheckState(Qt::Unchecked);
 
     ui->input_timestep->setText(QString::number(tempinput->dt));
     ui->input_time->setText(QString::number(tempinput->runtime / 3600.));
@@ -725,6 +742,9 @@ void MainWindow::switch_surface_advanced(int state)
     checkstate = true;
   else
     checkstate = false;
+
+  ui->surface_advanced_group->setEnabled(checkstate);
+  ui->input_surface_surfacetypes->setEnabled(!checkstate);
 }
 
 void MainWindow::switch_soil_advanced(int state)
@@ -734,4 +754,7 @@ void MainWindow::switch_soil_advanced(int state)
     checkstate = true;
   else
     checkstate = false;  
+
+  ui->soil_advanced_group->setEnabled(checkstate);
+  ui->input_soil_soiltypes->setEnabled(!checkstate);
 }

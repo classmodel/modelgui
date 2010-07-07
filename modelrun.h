@@ -11,4 +11,6 @@ public:
   bool hasrun;
   int  surfacestatus;
   int  soilstatus;
+  bool surfaceadvanced;
+  bool soiladvanced;
 };

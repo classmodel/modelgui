@@ -2286,7 +2286,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="soil_parameters_group">
+     <widget class="QGroupBox" name="soil_advanced_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -2781,7 +2781,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="surface_properties_group_2">
+     <widget class="QGroupBox" name="soil_properties_group_2">
       <property name="geometry">
        <rect>
         <x>10</x>
