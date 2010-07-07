@@ -37,6 +37,7 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   this->setMouseTracking(true);
   // Disable rubberband to start with (prevents crash..)
   drawrubberband        = false;
+  mousereleased         = false;
 }
 
 double plotarea::transfx(double x, double xscale, double xmin, int mode)
@@ -474,6 +475,9 @@ void plotarea::mousePressEvent( QMouseEvent *e )
  {
    if (drawrubberband)
      rubberBand->setGeometry(QRect(origin_rubberband, e->pos()).normalized());
+   x_current = transfx(e->x(),xscale,graphminx,1);
+   y_current = transfy(e->y(),yscale,graphminy,1);
+   emit cursormoved();
  }
 
 void plotarea::mouseReleaseEvent( QMouseEvent *e )

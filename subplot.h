@@ -36,7 +36,7 @@ public:
   double xmin, xmax, ymin, ymax;
   double xmin_auto, xmax_auto;
   double yscale, xscale;
-  int x_press, x_release, y_press, y_release;
+  int x_press, x_release, y_press, y_release, x_current, y_current;
   bool mousepressed, mousereleased;
 
   bool autoaxis;
@@ -50,6 +50,7 @@ public:
 signals:
   void axischanged();
   void zoombymouse();
+  void cursormoved();
 
 public slots:
   void saveImage();

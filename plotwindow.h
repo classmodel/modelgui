@@ -38,6 +38,7 @@ public slots:
   void changeplotvar();
   void changeaxis();
   void zoomebymouse();
+  void cursormoved();
   void switchtobasicplotting();
   void switchtoadvancedplotting();
   void viewmenutriggered();
