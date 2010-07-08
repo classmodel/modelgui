@@ -722,27 +722,142 @@ void model::store()
 
 void model::run2file(std::string filedir, std::string filename)
 {
+  // Save time series
   std::ofstream runsave;
+  std::string fullpath        = filedir + "/" + filename + ".csv";
 
-  std::string fullpath = filedir + "/" + filename + ".csv";
-
+  // Start with time series
   runsave.open(fullpath.c_str());
-
   std::cout << "Saving file " << fullpath.c_str() << std::endl;
 
   // Write header first
   runsave << output->t.name << " [" << output->t.unit << "],";
-  runsave << output->h.name << " [" << output->h.unit << "]";
+  runsave << output->h.name << " [" << output->h.unit << "],";
+  runsave << output->lcl.name << " [" << output->lcl.unit << "],";
+
+  runsave << output->theta.name << " [" << output->theta.unit << "],";
+  runsave << output->thetav.name << " [" << output->thetav.unit << "],";
+  runsave << output->dtheta.name << " [" << output->dtheta.unit << "],";
+  runsave << output->dthetav.name << " [" << output->dthetav.unit << "],";
+  runsave << output->wtheta.name << " [" << output->wtheta.unit << "],";
+  runsave << output->wthetae.name << " [" << output->wthetae.unit << "],";
+  runsave << output->wthetav.name << " [" << output->wthetav.unit << "],";
+
+  runsave << output->q.name << " [" << output->q.unit << "],";
+  runsave << output->dq.name << " [" << output->dq.unit << "],";
+  runsave << output->wq.name << " [" << output->wq.unit << "],";
+  runsave << output->wqe.name << " [" << output->wqe.unit << "],";
+
+  runsave << output->u.name << " [" << output->u.unit << "],";
+  runsave << output->du.name << " [" << output->du.unit << "],";
+  runsave << output->v.name << " [" << output->v.unit << "],";
+  runsave << output->dv.name << " [" << output->dv.unit << "],";
+  runsave << output->uw.name << " [" << output->uw.unit << "],";
+  runsave << output->vw.name << " [" << output->vw.unit << "],";
+  runsave << output->uwe.name << " [" << output->uwe.unit << "],";
+  runsave << output->vwe.name << " [" << output->vwe.unit << "],";
+
+  runsave << output->ustar.name << " [" << output->ustar.unit << "],";
+  runsave << output->L.name << " [" << output->L.unit << "],";
+  runsave << output->Rib.name << " [" << output->Rib.unit << "],";
+  runsave << output->ra.name << " [" << output->ra.unit << "],";
+  runsave << output->Cm.name << " [" << output->Cm.unit << "],";
+  runsave << output->Cs.name << " [" << output->Cs.unit << "],";
+
+  runsave << output->Swin.name << " [" << output->Swin.unit << "],";
+  runsave << output->Swout.name << " [" << output->Swout.unit << "],";
+  runsave << output->Lwin.name << " [" << output->Lwin.unit << "],";
+  runsave << output->Lwout.name << " [" << output->Lwout.unit << "],";
+  runsave << output->Q.name << " [" << output->Q.unit << "],";
+
+  runsave << output->wg.name << " [" << output->wg.unit << "],";
+  runsave << output->Tsoil.name << " [" << output->Tsoil.unit << "],";
+  runsave << output->Ts.name << " [" << output->Ts.unit << "],";
+  runsave << output->Wl.name << " [" << output->Wl.unit << "],";
+  runsave << output->rs.name << " [" << output->rs.unit << "],";
+  runsave << output->H.name << " [" << output->H.unit << "],";
+  runsave << output->LE.name << " [" << output->LE.unit << "],";
+  runsave << output->G.name << " [" << output->G.unit << "]";
   runsave << std::endl;
 
   for(int nt=0; nt < tsteps; nt++)
   {
     runsave << output->t.data[nt] << ",";
-    runsave << output->h.data[nt];
+    runsave << output->h.data[nt] << ",";
+    runsave << output->lcl.data[nt] << ",";
+
+    runsave << output->theta.data[nt] << ",";
+    runsave << output->thetav.data[nt] << ",";
+    runsave << output->dtheta.data[nt] << ",";
+    runsave << output->dthetav.data[nt] << ",";
+    runsave << output->wtheta.data[nt] << ",";
+    runsave << output->wthetae.data[nt] << ",";
+    runsave << output->wthetav.data[nt] << ",";
+
+    runsave << output->q.data[nt] << ",";
+    runsave << output->dq.data[nt] << ",";
+    runsave << output->wq.data[nt] << ",";
+    runsave << output->wqe.data[nt] << ",";
+
+    runsave << output->u.data[nt] << ",";
+    runsave << output->du.data[nt] << ",";
+    runsave << output->v.data[nt] << ",";
+    runsave << output->dv.data[nt] << ",";
+    runsave << output->uw.data[nt] << ",";
+    runsave << output->vw.data[nt] << ",";
+    runsave << output->uwe.data[nt] << ",";
+    runsave << output->vwe.data[nt] << ",";
+
+    runsave << output->ustar.data[nt] << ",";
+    runsave << output->L.data[nt] << ",";
+    runsave << output->Rib.data[nt] << ",";
+    runsave << output->ra.data[nt] << ",";
+    runsave << output->Cm.data[nt] << ",";
+    runsave << output->Cs.data[nt] << ",";
+
+    runsave << output->Swin.data[nt] << ",";
+    runsave << output->Swout.data[nt] << ",";
+    runsave << output->Lwin.data[nt] << ",";
+    runsave << output->Lwout.data[nt] << ",";
+    runsave << output->Q.data[nt] << ",";
+
+    runsave << output->wg.data[nt] << ",";
+    runsave << output->Tsoil.data[nt] << ",";
+    runsave << output->Ts.data[nt] << ",";
+    runsave << output->Wl.data[nt] << ",";
+    runsave << output->rs.data[nt] << ",";
+    runsave << output->H.data[nt] << ",";
+    runsave << output->LE.data[nt] << ",";
+    runsave << output->G.data[nt];
     runsave << std::endl;
   }
 
   runsave.close();
+
+  // Save vertical profiles
+  std::ofstream runprofsave;
+  std::string fullpathprofs   = filedir + "/" + filename + "_profs" + ".csv";
+
+  runprofsave.open(fullpathprofs.c_str());
+  std::cout << "Saving file " << fullpathprofs.c_str() << std::endl;
+
+  // Header, start with # for gnuplot
+  runprofsave << "# ";
+  runprofsave << output->zprof.name << " [" << output->zprof.unit << "]   ";
+  runprofsave << output->thetaprof.name << " [" << output->thetaprof.unit << "]   ";
+  runprofsave << output->qprof.name << " [" << output->qprof.unit << "]";
+  runprofsave << std::endl;
+
+  for(int nt=0; nt < tsteps * 4; nt=nt+4)
+  {
+    runprofsave << "# timestep: " << output->t.data[nt] << " [hour]" << std::endl;
+    for (int k=0; k<4; k++)
+      runprofsave << output->zprof.data[nt+k] << "   " << output->thetaprof.data[nt+k] << " " << output->qprof.data[nt+k] << std::endl;
+    runprofsave << "  " << std::endl;
+    runprofsave << "  " << std::endl;
+  }
+
+  runprofsave.close();
 
   return;
 }
