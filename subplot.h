@@ -39,6 +39,10 @@ public:
   int x_press, x_release, y_press, y_release;
   double x_current, y_current;
   bool mousepressed, mousereleased;
+  int legend_width, legend_height;
+  int legend_x, legend_y;
+  bool legendmoved;
+  int legend_x_offset, legend_y_offset;
 
   bool autoaxis;
   bool scatterplot;

@@ -38,6 +38,8 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
   // Disable rubberband to start with (prevents crash..)
   drawrubberband        = false;
   mousereleased         = false;
+
+  legendmoved           = false;
 }
 
 double plotarea::transfx(double x, double xscale, double xmin, int mode)
@@ -332,7 +334,13 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     paint.setClipping(true);
     paint.setClipRect(leftmargin,topmargin,plotwidth,plotheight);
 
-    int legendy = topmargin+5;
+    legend_width = 0;
+    legend_height = selectedruns->count() * 15;
+    if (!legendmoved)
+    {
+      legend_y = topmargin + 5;
+      legend_x = leftmargin;
+    }
 
     for(int i=0; i<selectedruns->count(); i++)
     {
@@ -420,14 +428,23 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         }
       }
 
+      // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      // Create and draw legend entry
       paint.setRenderHint(QPainter::Antialiasing, false);
+
+      // Create legend label text, add time interval for vertical profiles
       QString legendlabel = runlist->value(selectedruns->value(i)).runname;
       if (ydata.id == "zprof")
         legendlabel = runlist->value(selectedruns->value(i)).runname + " [dt=" + QString::number((profinterval * runlist->value(selectedruns->value(i)).run->input.dt) / 3600.) + "h]";
 
-      paint.drawLine(leftmargin+(10*PNGscale),legendy+8,leftmargin+(25*PNGscale),legendy+8);
-      paint.drawText(leftmargin+(30*PNGscale),legendy-7,400,30, 0x0081, legendlabel);
-      legendy = legendy+(15 * PNGscale);
+      // Find the maximum length of a legend string, needed for the movable legend.
+      if (legendlabel.length() > legend_width)
+        legend_width = legendlabel.length();
+
+      // Draw the legend
+      paint.drawLine(legend_x+(10*PNGscale),i*15*PNGscale + legend_y + 8,legend_x+(25*PNGscale),i*15*PNGscale + legend_y+8);
+      paint.drawText(legend_x+(30*PNGscale),i*15*PNGscale + legend_y - 7,(legendlabel.length() * 8),30, 0x0081, legendlabel);
+      // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
 
     if (saveImageMode == 1)
@@ -438,6 +455,10 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       update();
     }
   }
+
+  //rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
+  //rubberBand->setGeometry(legend_x+10,legend_y,(20 + legend_width * 7),legend_height);
+  //rubberBand->show();
 
   for(int i=0; i < assignedcolors.count(); i++)
     if(!selectedruns->contains(assignedcolors.value(i)))
@@ -461,18 +482,36 @@ void plotarea::mousePressEvent( QMouseEvent *e )
   x_press = e->x();
   y_press = e->y();
 
-  origin_rubberband = e->pos();
-  rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
-  drawrubberband = true;
-  rubberBand->setGeometry(QRect(origin_rubberband, QSize()));
-  rubberBand->show();
-
-  mousepressed = true;
-  update();
+  if (x_press > legend_x + 10 &&
+      x_press < legend_x + legend_width * 7 + 30  &&
+      y_press > legend_y &&
+      y_press < legend_y + legend_height)
+  {
+    legendmoved = true;
+    legend_x_offset = e->x() - legend_x;
+    legend_y_offset = e->y() - legend_y;
+  }
+  else
+  {
+    origin_rubberband = e->pos();
+    rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
+    drawrubberband = true;
+    rubberBand->setGeometry(QRect(origin_rubberband, QSize()));
+    rubberBand->show();
+    mousepressed = true;
+    update();
+  }
 }
 
  void plotarea::mouseMoveEvent(QMouseEvent *e)
  {
+   if (legendmoved)
+   {
+     legend_x = e->x() - legend_x_offset;
+     legend_y = e->y() - legend_y_offset;
+     update();
+   }
+
    if (drawrubberband)
      rubberBand->setGeometry(QRect(origin_rubberband, e->pos()).normalized());
    x_current = transfx(e->x(),xscale,graphminx,1);
@@ -485,11 +524,16 @@ void plotarea::mouseReleaseEvent( QMouseEvent *e )
   x_release = e->x();
   y_release = e->y();
 
-  rubberBand->hide();
-  drawrubberband = false;
+  if (legendmoved)
+    legendmoved = false;
 
-  mousereleased = true;
-  update();
+  if (drawrubberband)
+  {
+    rubberBand->hide();
+    drawrubberband = false;
+    mousereleased = true;
+    update();
+  }
 }
 
 
