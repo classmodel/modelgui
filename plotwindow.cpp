@@ -11,6 +11,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   selectedruns = new QList<int>;
   runlist = runs;
 
+  this->setMouseTracking(true);
+
   // Place left dockwidget in corner
   this->setCorner(Qt::TopLeftCorner,Qt::LeftDockWidgetArea);
   ui->AdvancedDock->setShown(true);
@@ -483,9 +485,14 @@ void plotwindow::zoomebymouse()
   ui->ymaxInput->setText(QString::number(plotar->graphmaxy));
 }
 
+void plotwindow::mouseMoveEvent(QMouseEvent *e)
+ {
+   cursormoved();
+ }
+
 void plotwindow::cursormoved()
 {
-  if (plotar->selectedruns->count() > 0)
+  if (plotar->selectedruns->count() > 0 && plotar->underMouse())
   {
     QString statusmessage =
         QString::fromUtf8(plotar->xdatalist.value(1).name.c_str()) +

@@ -50,6 +50,7 @@ public slots:
   void changeplottype();
 
 protected:
+  void mouseMoveEvent(QMouseEvent *);
 
 private:
   Ui::plotwindow *ui;
