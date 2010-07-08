@@ -41,7 +41,7 @@ public:
   bool mousepressed, mousereleased;
   int legend_width, legend_height;
   int legend_x, legend_y;
-  bool legendmoved;
+  bool legendmoved, legendmoves;
   int legend_x_offset, legend_y_offset;
 
   bool autoaxis;

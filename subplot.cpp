@@ -456,10 +456,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     }
   }
 
-  //rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
-  //rubberBand->setGeometry(legend_x+10,legend_y,(20 + legend_width * 7),legend_height);
-  //rubberBand->show();
-
   for(int i=0; i < assignedcolors.count(); i++)
     if(!selectedruns->contains(assignedcolors.value(i)))
       assignedcolors.replace(i,-1);
@@ -487,6 +483,7 @@ void plotarea::mousePressEvent( QMouseEvent *e )
       y_press > legend_y &&
       y_press < legend_y + legend_height)
   {
+    legendmoves = true;
     legendmoved = true;
     legend_x_offset = e->x() - legend_x;
     legend_y_offset = e->y() - legend_y;
@@ -503,9 +500,9 @@ void plotarea::mousePressEvent( QMouseEvent *e )
   }
 }
 
- void plotarea::mouseMoveEvent(QMouseEvent *e)
+void plotarea::mouseMoveEvent(QMouseEvent *e)
  {
-   if (legendmoved)
+  if (legendmoves)
    {
      legend_x = e->x() - legend_x_offset;
      legend_y = e->y() - legend_y_offset;
@@ -514,8 +511,10 @@ void plotarea::mousePressEvent( QMouseEvent *e )
 
    if (drawrubberband)
      rubberBand->setGeometry(QRect(origin_rubberband, e->pos()).normalized());
+
    x_current = transfx(e->x(),xscale,graphminx,1);
    y_current = transfy(e->y(),yscale,graphminy,1);
+
    emit cursormoved();
  }
 
@@ -524,8 +523,8 @@ void plotarea::mouseReleaseEvent( QMouseEvent *e )
   x_release = e->x();
   y_release = e->y();
 
-  if (legendmoved)
-    legendmoved = false;
+  if (legendmoves)
+    legendmoves = false;
 
   if (drawrubberband)
   {
