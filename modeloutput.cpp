@@ -264,7 +264,7 @@ modeloutput::modeloutput(int tsteps)
   Lwin.id                   = "Lwin";
 
   Lwout.data                = new double[tsteps];   // Outgoing long wave radiation [W m-2]
-  Lwout.name                = "Lwin";
+  Lwout.name                = "Lwout";
   Lwout.unit                = "W m\u207B\u00B2";
   Lwout.description         = "Outgoing long wave radiation";
   Lwout.id                  = "Lwout";
