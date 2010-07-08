@@ -268,7 +268,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>194</height>
+         <height>199</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="heat_grid" columnminimumwidth="50,0,60">
@@ -733,7 +733,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>194</height>
+         <height>199</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="moisture_grid" columnminimumwidth="50,0,80">
@@ -2010,7 +2010,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>83</height>
+         <height>85</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_moisture_grid" columnminimumwidth="50,0,80">
@@ -3174,44 +3174,6 @@
        </layout>
       </widget>
      </widget>
-    </widget>
-    <widget class="QWidget" name="speciesTab">
-     <attribute name="title">
-      <string>Species</string>
-     </attribute>
-     <widget class="QGroupBox" name="groupBox">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>171</width>
-        <height>371</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <widget class="QTreeWidget" name="treeWidget">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>151</width>
-         <height>341</height>
-        </rect>
-       </property>
-       <column>
-        <property name="text">
-         <string>Species</string>
-        </property>
-       </column>
-      </widget>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="reactionsTab">
-     <attribute name="title">
-      <string>Reactions</string>
-     </attribute>
     </widget>
    </widget>
    <widget class="QGroupBox" name="modelrunsGroup">

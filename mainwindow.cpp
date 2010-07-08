@@ -323,6 +323,9 @@ void MainWindow::updateForm()
     ui->input_surface_surfacetypes->setCurrentIndex(modelrunlist->value(n).surfacestatus);
     ui->input_soil_soiltypes->setCurrentIndex(modelrunlist->value(n).soilstatus);
 
+    updateSurfacetype(modelrunlist->value(n).surfacestatus);
+    updateSoiltype(modelrunlist->value(n).soilstatus);
+
     if(modelrunlist->value(n).surfaceadvanced)
       ui->sw_surface_advanced->setCheckState(Qt::Checked);
     else
@@ -622,6 +625,18 @@ void MainWindow::updateSurfacetype(int i)
 
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
   modelrunlist->find(id).value().surfacestatus   = ui->input_surface_surfacetypes->currentIndex();
+
+  modelinput *tempinput = &modelrunlist->find(id).value().run->input;
+
+  // SURFACE
+  tempinput->LAI        = ui->input_surface_LAI->text().toDouble();
+  tempinput->gD         = ui->input_surface_gD->text().toDouble();
+  tempinput->rsmin      = ui->input_surface_rsmin->text().toDouble();
+  tempinput->alpha      = ui->input_surface_alpha->text().toDouble();
+  tempinput->cveg       = ui->input_surface_cveg->text().toDouble();
+  tempinput->Lambda     = ui->input_surface_Lambda->text().toDouble();
+  tempinput->z0m        = ui->input_surface_z0m->text().toDouble();
+  tempinput->z0h        = ui->input_surface_z0h->text().toDouble();
 }
 
 void MainWindow::updateSoiltype(int i)
@@ -639,8 +654,19 @@ void MainWindow::updateSoiltype(int i)
 
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
   modelrunlist->find(id).value().soilstatus   = ui->input_soil_soiltypes->currentIndex();
-  //modelrunlist->find(id).value().surfaceadvanced = CheckState2bool(ui->sw_surface_advanced->checkState());
-  //modelrunlist->find(id).value().soiladvanced    = CheckState2bool(ui->sw_soil_advanced->checkState());
+
+  modelinput *tempinput = &modelrunlist->find(id).value().run->input;
+
+  tempinput->wsat       = ui->input_soil_wsat->text().toDouble();
+  tempinput->wfc        = ui->input_soil_wfc->text().toDouble();
+  tempinput->wwilt      = ui->input_soil_wwilt->text().toDouble();
+  tempinput->T2         = ui->input_soil_T2->text().toDouble();
+  tempinput->C1sat      = ui->input_soil_c1sat->text().toDouble();
+  tempinput->C2ref      = ui->input_soil_c2ref->text().toDouble();
+  tempinput->a          = ui->input_soil_a->text().toDouble();
+  tempinput->b          = ui->input_soil_b->text().toDouble();
+  tempinput->p          = ui->input_soil_p->text().toDouble();
+  tempinput->CGsat      = ui->input_soil_CGsat->text().toDouble();
 }
 
 // ----------------------------------
