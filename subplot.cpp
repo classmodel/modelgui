@@ -483,7 +483,6 @@ void plotarea::mousePressEvent( QMouseEvent *e )
       y_press > legend_y &&
       y_press < legend_y + legend_height)
   {
-    legendmoves = true;
     legendmoved = true;
     legend_x_offset = e->x() - legend_x;
     legend_y_offset = e->y() - legend_y;
@@ -502,7 +501,7 @@ void plotarea::mousePressEvent( QMouseEvent *e )
 
 void plotarea::mouseMoveEvent(QMouseEvent *e)
  {
-  if (legendmoves)
+  if (legendmoved)
    {
      legend_x = e->x() - legend_x_offset;
      legend_y = e->y() - legend_y_offset;
@@ -523,8 +522,8 @@ void plotarea::mouseReleaseEvent( QMouseEvent *e )
   x_release = e->x();
   y_release = e->y();
 
-  if (legendmoves)
-    legendmoves = false;
+  if (legendmoved)
+    legendmoved = false;
 
   if (drawrubberband)
   {
