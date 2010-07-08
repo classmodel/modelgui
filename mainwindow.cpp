@@ -62,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
   ui->soil_advanced_group->setEnabled(false);
 
   // if all fields are properly assigned, the next line can be removed
-  formvalues            = defaultinput;
+  //formvalues            = defaultinput;
 }
 
 MainWindow::~MainWindow()
@@ -305,12 +305,6 @@ void MainWindow::updateInputdata()
     int id = ui->modelRunTree->currentItem()->text(0).toInt();
     modelrunlist->value(id).run->input = formvalues;
     modelrunlist->find(id).value().runname = name;
-
-    // save surface and soil status
-    modelrunlist->find(id).value().surfacestatus   = ui->input_surface_surfacetypes->currentIndex();
-    modelrunlist->find(id).value().soilstatus      = ui->input_soil_soiltypes->currentIndex();
-    modelrunlist->find(id).value().surfaceadvanced = CheckState2bool(ui->sw_surface_advanced->checkState());
-    modelrunlist->find(id).value().soiladvanced    = CheckState2bool(ui->sw_soil_advanced->checkState());
 
     updateForm();
   }
@@ -626,7 +620,8 @@ void MainWindow::updateSurfacetype(int i)
   ui->input_surface_z0m->setText(QString::number(surfacetypes[i].z0m));
   ui->input_surface_z0h->setText(QString::number(surfacetypes[i].z0h));
 
-  updateInputdata();
+  int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  modelrunlist->find(id).value().surfacestatus   = ui->input_surface_surfacetypes->currentIndex();
 }
 
 void MainWindow::updateSoiltype(int i)
@@ -642,7 +637,10 @@ void MainWindow::updateSoiltype(int i)
   ui->input_soil_p->setText(QString::number(soiltypes[i].p));
   ui->input_soil_CGsat->setText(QString::number(soiltypes[i].CGsat));
 
-  updateInputdata();
+  int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  modelrunlist->find(id).value().soilstatus   = ui->input_soil_soiltypes->currentIndex();
+  //modelrunlist->find(id).value().surfaceadvanced = CheckState2bool(ui->sw_surface_advanced->checkState());
+  //modelrunlist->find(id).value().soiladvanced    = CheckState2bool(ui->sw_soil_advanced->checkState());
 }
 
 // ----------------------------------
