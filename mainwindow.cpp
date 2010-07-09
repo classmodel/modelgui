@@ -53,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
   modelrunlist = new QMap<int, modelrun>;
   selectedruns = new QList<int>;
 
+  activerun = -1;
   newrun();
   ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
 
@@ -63,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   // if all fields are properly assigned, the next line can be removed
   //formvalues            = defaultinput;
+
 }
 
 MainWindow::~MainWindow()
@@ -164,6 +166,9 @@ void MainWindow::clonerun()
 
 void MainWindow::runTreeChanged()
 {
+  if(activerun != -1)
+    updateInputdata();
+
   bool inputfields, deleteitems;
 
   if (ui->modelRunTree->selectedItems().size() == 0)
@@ -300,11 +305,19 @@ void MainWindow::updateInputdata()
   // OTHER
   QString name          = QString::fromStdString(ui->input_name->text().toStdString());
 
-  if (ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
+//  if (ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
+//  {
+//    int id = ui->modelRunTree->currentItem()->text(0).toInt();
+//    modelrunlist->value(id).run->input = formvalues;
+//    modelrunlist->find(id).value().runname = name;
+//
+//    updateForm();
+//  }
+
+  if (activerun != -1 && ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
   {
-    int id = ui->modelRunTree->currentItem()->text(0).toInt();
-    modelrunlist->value(id).run->input = formvalues;
-    modelrunlist->find(id).value().runname = name;
+    modelrunlist->value(activerun).run->input = formvalues;
+    modelrunlist->find(activerun).value().runname = name;
 
     updateForm();
   }
@@ -315,6 +328,8 @@ void MainWindow::updateForm()
   if (ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
   {
     int n = ui->modelRunTree->currentItem()->text(0).toInt();
+
+    activerun = n;
 
     modelinput *tempinput;
     tempinput = &modelrunlist->value(n).run->input;
@@ -474,6 +489,8 @@ void MainWindow::updateForm()
 
     updateStatusBar();
   }
+  else
+    activerun = -1;
 }
 
 void MainWindow::updateStatusBar()

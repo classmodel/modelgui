@@ -75,6 +75,8 @@ private:
 
   surfacetype surfacetypes[3];
   soiltype    soiltypes[1];
+
+  int activerun;
 };
 
 #endif // MAINWINDOW_H
