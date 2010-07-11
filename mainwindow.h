@@ -72,6 +72,7 @@ private:
 
   void initLandSoil();
   void setLandSoil();
+  void closeEvent(QCloseEvent *event);
 
   surfacetype surfacetypes[3];
   soiltype    soiltypes[1];
