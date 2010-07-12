@@ -150,7 +150,10 @@ void MainWindow::newrun()
 
   ui->modelRunTree->setCurrentItem(point);
 
-  loadFormData();
+  runTreeChanged();
+
+  // CvH runTreeChanged also triggers loadFormData
+  // loadFormData();
   // CvH test blocking events to prevent multiple triggering of identical functions
   blockInput(false);
 }
@@ -238,6 +241,7 @@ void MainWindow::runTreeChanged()
   ui->startButton->setEnabled(deleteitems);
   ui->cancelButton->setEnabled(inputfields);
   ui->exportButton->setEnabled(deleteitems);
+  
   updateSelectedRuns();
   loadFormData();
 
