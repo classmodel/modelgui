@@ -73,7 +73,7 @@ private:
 
   void initLandSoil();
   void setLandSoil();
-  void closeEvent(QCloseEvent *event);
+  // void closeEvent(QCloseEvent *event);
   void blockInput(bool);
 
   surfacetype surfacetypes[3];

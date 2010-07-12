@@ -81,10 +81,10 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
-{
-  graph->close();
-}
+// void MainWindow::closeEvent(QCloseEvent *event)
+//{
+//  graph->close();
+//}
 
 void MainWindow::blockInput(bool check)
 {
@@ -575,11 +575,12 @@ void MainWindow::loadFormData()
 
 void MainWindow::updateStatusBar()
 {
-  QString statusmessage = "mixed-layer " + bool2string(CheckState2bool(ui->sw_ml->checkState())) + " | " +
-    "wind " + bool2string(CheckState2bool(ui->sw_wind->checkState())) + " | " +
-    "surface-layer " + bool2string(CheckState2bool(ui->sw_sl->checkState())) + " | " +
-    "surface " + bool2string(CheckState2bool(ui->sw_ls->checkState())) + " | " +
-    "radiation " + bool2string(CheckState2bool(ui->sw_rad->checkState()));
+  QString statusmessage =
+    "mixed-layer "   + bool2string(CheckState2bool(ui->sw_ml->checkState()))   + " | " +
+    "wind "          + bool2string(CheckState2bool(ui->sw_wind->checkState())) + " | " +
+    "surface-layer " + bool2string(CheckState2bool(ui->sw_sl->checkState()))   + " | " +
+    "surface "       + bool2string(CheckState2bool(ui->sw_ls->checkState()))   + " | " +
+    "radiation "     + bool2string(CheckState2bool(ui->sw_rad->checkState()));
   ui->statusbar->showMessage(statusmessage);
 }
 
