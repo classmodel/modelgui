@@ -78,6 +78,7 @@ private:
   soiltype    soiltypes[1];
 
   int activerun;
+  int activetab;
 };
 
 #endif // MAINWINDOW_H

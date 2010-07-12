@@ -308,10 +308,10 @@ void MainWindow::storeFormData()
 
   formvalues.sw_sl      = CheckState2bool(ui->sw_sl->checkState());
 
-  if (ui->windTab->isVisible())
+  if (activetab == 1)
   {
-    formvalues.z0h        = ui->input_surfacelayer_z0h->text().toDouble();
-    formvalues.z0m        = ui->input_surfacelayer_z0m->text().toDouble();
+    formvalues.z0m                = ui->input_surfacelayer_z0m->text().toDouble();
+    formvalues.z0h                = ui->input_surfacelayer_z0h->text().toDouble();
   }
   // END TAB2
 
@@ -328,10 +328,10 @@ void MainWindow::storeFormData()
   formvalues.cveg       = ui->input_surface_cveg->text().toDouble();
   formvalues.Lambda     = ui->input_surface_Lambda->text().toDouble();
 
-  if (ui->surfaceTab->isVisible())
+  if (activetab == 2)
   {
-    formvalues.z0m        = ui->input_surface_z0m->text().toDouble();
-    formvalues.z0h        = ui->input_surface_z0h->text().toDouble();
+    formvalues.z0m                = ui->input_surface_z0m->text().toDouble();
+    formvalues.z0h                = ui->input_surface_z0h->text().toDouble();
   }
   // END TAB3
 
@@ -389,6 +389,9 @@ void MainWindow::storeFormData()
     modelrunlist->find(activerun).value().soiladvanced    = CheckState2bool(ui->sw_soil_advanced->checkState());
     // updateForm();
   }
+
+  // only change tabindex after storing all data;
+  activetab = ui->tabWidget->currentIndex();
 }
 
 void MainWindow::loadFormData()
@@ -824,6 +827,22 @@ void MainWindow::switch_ls(int state)
     checkstate = true;
   else
     checkstate = false;
+
+  ui->input_surfacelayer_z0m->setEnabled(!checkstate);
+  ui->label_surfacelayer_z0m->setEnabled(!checkstate);
+  ui->unitlabel_surfacelayer_z0m->setEnabled(!checkstate);
+  if(checkstate)
+    ui->input_surfacelayer_z0m->setToolTip("If SURFACE is enabled, z0m is set in SURFACE tab");
+  else
+    ui->input_surfacelayer_z0m->setToolTip("roughness length for momentum");
+
+  ui->input_surfacelayer_z0h->setEnabled(!checkstate);
+  ui->label_surfacelayer_z0h->setEnabled(!checkstate);
+  ui->unitlabel_surfacelayer_z0h->setEnabled(!checkstate);
+  if(checkstate)
+    ui->input_surfacelayer_z0h->setToolTip("If SURFACE is enabled, z0h is set in SURFACE tab");
+  else
+    ui->input_surfacelayer_z0h->setToolTip("roughness length for scalars");
 
   // formvalues.sw_ls = checkstate;
   updateStatusBar();
