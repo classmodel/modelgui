@@ -90,6 +90,7 @@ void MainWindow::blockInput(bool check)
 {
   ui->input_surface_surfacetypes->blockSignals(check);
   ui->input_soil_soiltypes->blockSignals(check);
+  ui->modelRunTree->blockSignals(check);
   // ui->sw_wtheta->blockSignals(check);
   // ui->sw_wq->blockSignals(check);
   // ui->sw_wind->blockSignals(check);
