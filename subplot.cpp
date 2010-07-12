@@ -119,7 +119,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
   {
     outputvar xdata, ydata;
 
-    if (mousereleased)
+    if (mousereleased && (x_release != 0) && (y_release != 0))
     {
       autoaxis = false;
       if (x_press < x_release)
@@ -127,7 +127,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         xmin = transfx(x_press,xscale,graphminx,1);
         xmax = transfx(x_release,xscale,graphminx,1);
       }
-      else
+      else if(x_press > x_release)
       {
         xmax = transfx(x_press,xscale,graphminx,1);
         xmin = transfx(x_release,xscale,graphminx,1);
@@ -138,7 +138,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         ymin = transfy(y_press,yscale,graphminy,1);
         ymax = transfy(y_release,yscale,graphminy,1);
       }
-      else
+      else if(y_press < y_release)
       {
         ymax = transfy(y_press,yscale,graphminy,1);
         ymin = transfy(y_release,yscale,graphminy,1);
