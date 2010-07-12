@@ -56,14 +56,14 @@ MainWindow::MainWindow(QWidget *parent)
   modelrunlist = new QMap<int, modelrun>;
   selectedruns = new QList<int>;
 
+  setLandSoil();
   activerun = -1;
+
   newrun();
   ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
 
   // CvH test blocking events to prevent multiple triggering of identical functions
   blockInput(true);
-
-  setLandSoil();
 
   ui->surface_advanced_group->setEnabled(false);
   ui->soil_advanced_group->setEnabled(false);
@@ -91,15 +91,15 @@ void MainWindow::blockInput(bool check)
   ui->input_surface_surfacetypes->blockSignals(check);
   ui->input_soil_soiltypes->blockSignals(check);
   ui->modelRunTree->blockSignals(check);
-  // ui->sw_wtheta->blockSignals(check);
-  // ui->sw_wq->blockSignals(check);
-  // ui->sw_wind->blockSignals(check);
-  // ui->sw_sl->blockSignals(check);
-  // ui->sw_ls->blockSignals(check);
-  // ui->sw_rad->blockSignals(check);
-  // ui->sw_ml->blockSignals(check);
-  // ui->sw_surface_advanced->blockSignals(check);
-  // ui->sw_soil_advanced->blockSignals(check);
+  ui->sw_wtheta->blockSignals(check);
+  ui->sw_wq->blockSignals(check);
+  ui->sw_wind->blockSignals(check);
+  ui->sw_sl->blockSignals(check);
+  ui->sw_ls->blockSignals(check);
+  ui->sw_rad->blockSignals(check);
+  ui->sw_ml->blockSignals(check);
+  ui->sw_surface_advanced->blockSignals(check);
+  ui->sw_soil_advanced->blockSignals(check);
 }
 
 void MainWindow::tabChanged(int)
@@ -719,9 +719,9 @@ void MainWindow::updateSurfacetype(int i)
   if(ui->modelRunTree->selectedItems().count() == 0)
     return;
 
-  int id = ui->modelRunTree->currentItem()->text(0).toInt();
-  if(modelrunlist->find(id).value().surfaceadvanced)
-    return;
+  // int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  // if(modelrunlist->find(id).value().surfaceadvanced)
+  //  return;
 
   ui->input_surface_LAI->setText(QString::number(surfacetypes[i].LAI));
   ui->input_surface_gD->setText(QString::number(surfacetypes[i].gD));
@@ -760,10 +760,10 @@ void MainWindow::updateSoiltype(int i)
   if(ui->modelRunTree->selectedItems().count() == 0)
     return;
 
-  int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  // int id = ui->modelRunTree->currentItem()->text(0).toInt();
 
-  if(modelrunlist->find(id).value().soiladvanced)
-    return;
+  // if(modelrunlist->find(id).value().soiladvanced)
+  //  return;
 
   ui->input_soil_wsat->setText(QString::number(soiltypes[i].wsat));
   ui->input_soil_wfc->setText(QString::number(soiltypes[i].wfc));
