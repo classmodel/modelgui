@@ -22,7 +22,6 @@ public:
   QMap<int, modelrun> *modelrunlist;           // List containing objects with model output
   QList<int> *selectedruns;
   //void updateRunList();
-  void updateForm();
   void createrun();
   void showGraph(QMap<int, modelrun> *, QList<int> *);
   plotwindow *graph;
@@ -35,7 +34,6 @@ public slots:
   void clonerun();
   void deleteRun();
   void runTreeChanged();                       // Disable input field when selection runs > 1
-  void updateInputdata();
   void updateRunName();
   void startrun();
   void canceledit();
@@ -43,6 +41,7 @@ public slots:
   void exportRuns();
   void updateSurfacetype(int);
   void updateSoiltype(int);
+  void tabChanged(int);
 
   // Switches
   void switch_wind(int);
@@ -66,6 +65,8 @@ private:
   Ui::MainWindow *ui;
   void readdefaultinput();
   void updateSelectedRuns();
+  void loadFormData();
+  void storeFormData();
   QString bool2string(const bool);
   void updateStatusBar();
   bool CheckState2bool(Qt::CheckState);
@@ -73,6 +74,7 @@ private:
   void initLandSoil();
   void setLandSoil();
   void closeEvent(QCloseEvent *event);
+  void blockInput(bool);
 
   surfacetype surfacetypes[3];
   soiltype    soiltypes[1];

@@ -25,21 +25,24 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->graphButton,    SIGNAL(clicked()),                this, SLOT(startGraph()));
   connect(ui->input_name,     SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
   connect(ui->exportButton,   SIGNAL(clicked()),                this, SLOT(exportRuns()));
+
+    // Switches
+
   connect(ui->input_surface_surfacetypes, SIGNAL(currentIndexChanged(int)), this, SLOT(updateSurfacetype(int)));
   connect(ui->input_soil_soiltypes,       SIGNAL(currentIndexChanged(int)), this, SLOT(updateSoiltype(int)));
+  connect(ui->sw_wtheta,                  SIGNAL(stateChanged(int)),        this, SLOT(switch_wtheta(int)));
+  connect(ui->sw_wq,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_wq(int)));
+  connect(ui->sw_wind,                    SIGNAL(stateChanged(int)),        this, SLOT(switch_wind(int)));
+  connect(ui->sw_sl,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_sl(int)));
+  connect(ui->sw_ls,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_ls(int)));
+  connect(ui->sw_rad,                     SIGNAL(stateChanged(int)),        this, SLOT(switch_rad(int)));
+  connect(ui->sw_ml,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
+  connect(ui->sw_surface_advanced,        SIGNAL(stateChanged(int)),        this, SLOT(switch_surface_advanced(int)));
+  connect(ui->sw_soil_advanced,           SIGNAL(stateChanged(int)),        this, SLOT(switch_soil_advanced(int)));
 
-  // Switches
-  connect(ui->sw_wtheta,      SIGNAL(stateChanged(int)),        this, SLOT(switch_wtheta(int)));
-  connect(ui->sw_wq,          SIGNAL(stateChanged(int)),        this, SLOT(switch_wq(int)));
-  connect(ui->sw_wind,        SIGNAL(stateChanged(int)),        this, SLOT(switch_wind(int)));
-  connect(ui->sw_sl,          SIGNAL(stateChanged(int)),        this, SLOT(switch_sl(int)));
-  connect(ui->sw_ls,          SIGNAL(stateChanged(int)),        this, SLOT(switch_ls(int)));
-  connect(ui->sw_rad,         SIGNAL(stateChanged(int)),        this, SLOT(switch_rad(int)));
-  connect(ui->sw_ml,          SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
-  connect(ui->sw_surface_advanced, SIGNAL(stateChanged(int)),   this, SLOT(switch_surface_advanced(int)));
-  connect(ui->sw_soil_advanced,    SIGNAL(stateChanged(int)),   this, SLOT(switch_soil_advanced(int)));
+  connect(ui->tabWidget,                  SIGNAL(currentChanged(int)),      this, SLOT(tabChanged(int)));
 
-  loadfieldslots();
+  // loadfieldslots();
 
   // Setup QTreeWidget with model runs
     QStringList heading;
@@ -57,10 +60,16 @@ MainWindow::MainWindow(QWidget *parent)
   newrun();
   ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
 
+  // CvH test blocking events to prevent multiple triggering of identical functions
+  blockInput(true);
+
   setLandSoil();
 
   ui->surface_advanced_group->setEnabled(false);
   ui->soil_advanced_group->setEnabled(false);
+
+  // CvH test blocking events to prevent multiple triggering of identical functions
+  blockInput(false);
 
   // if all fields are properly assigned, the next line can be removed
   //formvalues            = defaultinput;
@@ -77,9 +86,34 @@ void MainWindow::closeEvent(QCloseEvent *event)
   graph->close();
 }
 
+void MainWindow::blockInput(bool check)
+{
+  ui->input_surface_surfacetypes->blockSignals(check);
+  ui->input_soil_soiltypes->blockSignals(check);
+  // ui->sw_wtheta->blockSignals(check);
+  // ui->sw_wq->blockSignals(check);
+  // ui->sw_wind->blockSignals(check);
+  // ui->sw_sl->blockSignals(check);
+  // ui->sw_ls->blockSignals(check);
+  // ui->sw_rad->blockSignals(check);
+  // ui->sw_ml->blockSignals(check);
+  // ui->sw_surface_advanced->blockSignals(check);
+  // ui->sw_soil_advanced->blockSignals(check);
+}
+
+void MainWindow::tabChanged(int)
+{
+  storeFormData();
+}
+
 void MainWindow::newrun()
 {
-  updateInputdata();
+  // CvH test blocking events to prevent multiple triggering of identical functions
+  blockInput(true);
+
+  if(activerun != -1)
+    storeFormData();
+
   modelrun run;
   run.hasrun = false;
 
@@ -115,12 +149,14 @@ void MainWindow::newrun()
 
   ui->modelRunTree->setCurrentItem(point);
 
-  updateForm();
+  loadFormData();
+  // CvH test blocking events to prevent multiple triggering of identical functions
+  blockInput(false);
 }
 
 void MainWindow::clonerun()
 {
-  updateInputdata();
+  storeFormData();
 
   for (int n=0; n<ui->modelRunTree->selectedItems().count(); n++)
   {
@@ -166,13 +202,16 @@ void MainWindow::clonerun()
       ui->modelRunTree->setCurrentItem(point);
   }
 
-  updateForm();
+  loadFormData();
 }
 
 void MainWindow::runTreeChanged()
 {
+  // CvH test blocking events to prevent multiple triggering of identical functions
+  blockInput(true);
+
   if(activerun != -1)
-    updateInputdata();
+    storeFormData();
 
   bool inputfields, deleteitems;
 
@@ -199,7 +238,10 @@ void MainWindow::runTreeChanged()
   ui->cancelButton->setEnabled(inputfields);
   ui->exportButton->setEnabled(deleteitems);
   updateSelectedRuns();
-  updateForm();
+  loadFormData();
+
+  // CvH test blocking events to prevent multiple triggering of identical functions
+  blockInput(false);
 }
 
 void MainWindow::updateSelectedRuns()
@@ -214,8 +256,9 @@ void MainWindow::updateSelectedRuns()
 }
 
 
-void MainWindow::updateInputdata()
+void MainWindow::storeFormData()
 {
+  // TAB 1
   formvalues.dt         = ui->input_timestep->text().toDouble();        // time step [s]
   formvalues.runtime    = ui->input_time->text().toDouble() * 3600;     // total run time [s]
   formvalues.sinperiod  = ui->input_sinperiod->text().toDouble() * 3600;// period for sinusoidal fluxes
@@ -242,7 +285,10 @@ void MainWindow::updateInputdata()
   formvalues.advq       = ui->input_moisture_advq->text().toDouble() / 1000;  // advection of moisture [kg kg-1 s-1]
   formvalues.wq         = ui->input_moisture_wq->text().toDouble() / 1000;    // surface kinematic moisture flux [kg kg-1 m s-1]
   formvalues.sw_wq      = CheckState2bool(ui->sw_wq->checkState());
+  // END TAB1
 
+
+  // TAB2
   // WIND
   formvalues.sw_wind    = CheckState2bool(ui->sw_wind->checkState());
   formvalues.u          = ui->input_wind_u->text().toDouble();            // initial mixed-layer u-wind speed [m s-1]
@@ -255,31 +301,21 @@ void MainWindow::updateInputdata()
                           - ui->input_wind_v->text().toDouble();          // initial u-wind jump at h [m s-1]
   formvalues.gammav     = ui->input_wind_gammav->text().toDouble();       // free atmosphere v-wind speed lapse rate [s-1]
   formvalues.advv       = ui->input_wind_advv->text().toDouble();         // advection of v-wind [m s-2]
+
   formvalues.ustar      = ui->input_wind_ustar->text().toDouble();        // surface friction velocity [m s-1]
   formvalues.fc         = ui->input_wind_fc->text().toDouble();           // Coriolis parameter [m s-1]
+
+  formvalues.sw_sl      = CheckState2bool(ui->sw_sl->checkState());
 
   if (ui->windTab->isVisible())
   {
     formvalues.z0h        = ui->input_surfacelayer_z0h->text().toDouble();
     formvalues.z0m        = ui->input_surfacelayer_z0m->text().toDouble();
   }
+  // END TAB2
 
-  // SOIL
+  // TAB3
   formvalues.sw_ls      = CheckState2bool(ui->sw_ls->checkState());
-  formvalues.T2         = ui->input_soil_T2->text().toDouble();
-  formvalues.Tsoil      = ui->input_soil_Tsoil->text().toDouble();
-  formvalues.w2         = ui->input_soil_W2->text().toDouble();
-  formvalues.wg         = ui->input_soil_Wg->text().toDouble();
-  formvalues.wsat       = ui->input_soil_wsat->text().toDouble();
-  formvalues.wfc        = ui->input_soil_wfc->text().toDouble();
-  formvalues.wwilt      = ui->input_soil_wwilt->text().toDouble();
-  formvalues.T2         = ui->input_soil_T2->text().toDouble();
-  formvalues.C1sat      = ui->input_soil_c1sat->text().toDouble();
-  formvalues.C2ref      = ui->input_soil_c2ref->text().toDouble();
-  formvalues.a          = ui->input_soil_a->text().toDouble();
-  formvalues.b          = ui->input_soil_b->text().toDouble();
-  formvalues.p          = ui->input_soil_p->text().toDouble();
-  formvalues.CGsat      = ui->input_soil_CGsat->text().toDouble();
 
   // SURFACE
   formvalues.Ts         = ui->input_surface_Ts->text().toDouble();
@@ -296,7 +332,27 @@ void MainWindow::updateInputdata()
     formvalues.z0m        = ui->input_surface_z0m->text().toDouble();
     formvalues.z0h        = ui->input_surface_z0h->text().toDouble();
   }
+  // END TAB3
 
+  // TAB4
+  // SOIL
+  formvalues.T2         = ui->input_soil_T2->text().toDouble();
+  formvalues.Tsoil      = ui->input_soil_Tsoil->text().toDouble();
+  formvalues.w2         = ui->input_soil_W2->text().toDouble();
+  formvalues.wg         = ui->input_soil_Wg->text().toDouble();
+  formvalues.wsat       = ui->input_soil_wsat->text().toDouble();
+  formvalues.wfc        = ui->input_soil_wfc->text().toDouble();
+  formvalues.wwilt      = ui->input_soil_wwilt->text().toDouble();
+  formvalues.T2         = ui->input_soil_T2->text().toDouble();
+  formvalues.C1sat      = ui->input_soil_c1sat->text().toDouble();
+  formvalues.C2ref      = ui->input_soil_c2ref->text().toDouble();
+  formvalues.a          = ui->input_soil_a->text().toDouble();
+  formvalues.b          = ui->input_soil_b->text().toDouble();
+  formvalues.p          = ui->input_soil_p->text().toDouble();
+  formvalues.CGsat      = ui->input_soil_CGsat->text().toDouble();
+  // END TAB4
+
+  // TAB5
   // RADIATION
   formvalues.sw_rad     = CheckState2bool(ui->sw_rad->checkState());
   formvalues.doy        = ui->input_rad_DOY->text().toDouble();
@@ -306,6 +362,7 @@ void MainWindow::updateInputdata()
 
   formvalues.Q          = ui->input_rad_Qnet->text().toDouble();
   formvalues.cc         = ui->input_rad_clouds->text().toDouble();
+  // END TAB5
 
   // OTHER
   QString name          = QString::fromStdString(ui->input_name->text().toStdString());
@@ -321,14 +378,19 @@ void MainWindow::updateInputdata()
 
   if (activerun != -1 && ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
   {
-    modelrunlist->value(activerun).run->input = formvalues;
-    modelrunlist->find(activerun).value().runname = name;
+    modelrunlist->find(activerun).value().run->input = formvalues;
+    modelrunlist->find(activerun).value().runname    = name;
 
-    updateForm();
+    modelrunlist->find(activerun).value().surfacestatus = ui->input_surface_surfacetypes->currentIndex();
+    modelrunlist->find(activerun).value().soilstatus    = ui->input_soil_soiltypes->currentIndex();
+
+    modelrunlist->find(activerun).value().surfaceadvanced = CheckState2bool(ui->sw_surface_advanced->checkState());
+    modelrunlist->find(activerun).value().soiladvanced    = CheckState2bool(ui->sw_soil_advanced->checkState());
+    // updateForm();
   }
 }
 
-void MainWindow::updateForm()
+void MainWindow::loadFormData()
 {
   if (ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
   {
@@ -342,21 +404,6 @@ void MainWindow::updateForm()
     // set the pull down menus correctly
     ui->input_surface_surfacetypes->setCurrentIndex(modelrunlist->value(n).surfacestatus);
     ui->input_soil_soiltypes->setCurrentIndex(modelrunlist->value(n).soilstatus);
-
-    if(!modelrunlist->value(n).surfaceadvanced)
-      updateSurfacetype(modelrunlist->value(n).surfacestatus);
-    if(!modelrunlist->value(n).soiladvanced)
-      updateSoiltype(modelrunlist->value(n).soilstatus);
-
-    if(modelrunlist->value(n).surfaceadvanced)
-      ui->sw_surface_advanced->setCheckState(Qt::Checked);
-    else
-      ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
-
-    if(modelrunlist->value(n).soiladvanced)
-      ui->sw_soil_advanced->setCheckState(Qt::Checked);
-    else
-      ui->sw_soil_advanced->setCheckState(Qt::Unchecked);
 
     ui->input_timestep->setText(QString::number(tempinput->dt));
     ui->input_time->setText(QString::number(tempinput->runtime / 3600.));
@@ -454,31 +501,49 @@ void MainWindow::updateForm()
     ui->input_soil_W2->setText(QString::number(tempinput->w2));
     ui->input_soil_Wg->setText(QString::number(tempinput->wg));
 
-    ui->input_soil_wsat->setText(QString::number(tempinput->wsat));
-    ui->input_soil_wfc->setText(QString::number(tempinput->wfc));
-    ui->input_soil_wwilt->setText(QString::number(tempinput->wwilt));
+    if(!modelrunlist->value(n).soiladvanced)
+    {
+      updateSoiltype(modelrunlist->value(n).soilstatus);
+      ui->sw_soil_advanced->setCheckState(Qt::Unchecked);
+    }
+    else
+    {
+      ui->sw_soil_advanced->setCheckState(Qt::Checked);
+      ui->input_soil_wsat->setText(QString::number(tempinput->wsat));
+      ui->input_soil_wfc->setText(QString::number(tempinput->wfc));
+      ui->input_soil_wwilt->setText(QString::number(tempinput->wwilt));
 
-    ui->input_soil_c1sat->setText(QString::number(tempinput->C1sat));
-    ui->input_soil_c2ref->setText(QString::number(tempinput->C2ref));
+      ui->input_soil_c1sat->setText(QString::number(tempinput->C1sat));
+      ui->input_soil_c2ref->setText(QString::number(tempinput->C2ref));
 
-    ui->input_soil_a->setText(QString::number(tempinput->a));
-    ui->input_soil_b->setText(QString::number(tempinput->b));
-    ui->input_soil_p->setText(QString::number(tempinput->p));
-    ui->input_soil_CGsat->setText(QString::number(tempinput->CGsat));
+      ui->input_soil_a->setText(QString::number(tempinput->a));
+      ui->input_soil_b->setText(QString::number(tempinput->b));
+      ui->input_soil_p->setText(QString::number(tempinput->p));
+      ui->input_soil_CGsat->setText(QString::number(tempinput->CGsat));
+    }
 
     // SURFACE
     ui->input_surface_Ts->setText(QString::number(tempinput->Ts));
     ui->input_surface_Wl->setText(QString::number(tempinput->Wl));
 
-    ui->input_surface_LAI->setText(QString::number(tempinput->LAI));
-    ui->input_surface_gD->setText(QString::number(tempinput->gD));
-    ui->input_surface_rsmin->setText(QString::number(tempinput->rsmin));
-    ui->input_surface_alpha->setText(QString::number(tempinput->alpha));
-    ui->input_surface_cveg->setText(QString::number(tempinput->cveg));
+    if(!modelrunlist->value(n).surfaceadvanced)
+    {
+      ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
+      updateSurfacetype(modelrunlist->value(n).surfacestatus);
+    }
+    else
+    {
+      ui->sw_surface_advanced->setCheckState(Qt::Checked);
+      ui->input_surface_LAI->setText(QString::number(tempinput->LAI));
+      ui->input_surface_gD->setText(QString::number(tempinput->gD));
+      ui->input_surface_rsmin->setText(QString::number(tempinput->rsmin));
+      ui->input_surface_alpha->setText(QString::number(tempinput->alpha));
+      ui->input_surface_cveg->setText(QString::number(tempinput->cveg));
 
-    ui->input_surface_Lambda->setText(QString::number(tempinput->Lambda));
-    ui->input_surface_z0m->setText(QString::number(tempinput->z0m));
-    ui->input_surface_z0h->setText(QString::number(tempinput->z0h));
+      ui->input_surface_Lambda->setText(QString::number(tempinput->Lambda));
+      ui->input_surface_z0m->setText(QString::number(tempinput->z0m));
+      ui->input_surface_z0h->setText(QString::number(tempinput->z0h));
+    }
 
     // RADIATION
     ui->input_rad_DOY->setText(QString::number(tempinput->doy));
@@ -492,6 +557,16 @@ void MainWindow::updateForm()
     // OTHER
     ui->input_name->setText(modelrunlist->value(n).runname);
 
+//    if(modelrunlist->value(n).surfaceadvanced)
+//      ui->sw_surface_advanced->setCheckState(Qt::Checked);
+//    else
+//      ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
+
+//    if(modelrunlist->value(n).soiladvanced)
+//      ui->sw_soil_advanced->setCheckState(Qt::Checked);
+//    else
+//      ui->sw_soil_advanced->setCheckState(Qt::Unchecked);
+
     updateStatusBar();
   }
   else
@@ -500,11 +575,11 @@ void MainWindow::updateForm()
 
 void MainWindow::updateStatusBar()
 {
-  QString statusmessage = "mixed-layer " + bool2string(formvalues.sw_ml) + " | " +
-    "wind " + bool2string(formvalues.sw_wind) + " | " +
-    "surface-layer " + bool2string(formvalues.sw_sl) + " | " +
-    "surface " + bool2string(formvalues.sw_ls) + " | " +
-    "radiation " + bool2string(formvalues.sw_rad);
+  QString statusmessage = "mixed-layer " + bool2string(CheckState2bool(ui->sw_ml->checkState())) + " | " +
+    "wind " + bool2string(CheckState2bool(ui->sw_wind->checkState())) + " | " +
+    "surface-layer " + bool2string(CheckState2bool(ui->sw_sl->checkState())) + " | " +
+    "surface " + bool2string(CheckState2bool(ui->sw_ls->checkState())) + " | " +
+    "radiation " + bool2string(CheckState2bool(ui->sw_rad->checkState()));
   ui->statusbar->showMessage(statusmessage);
 }
 
@@ -553,7 +628,7 @@ void MainWindow::startrun()
   {
     for (int i=0; i<ui->modelRunTree->selectedItems().count(); i++)
     {
-      updateInputdata();
+      storeFormData();
       int id = ui->modelRunTree->selectedItems()[i]->text(0).toInt();
       modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
       modelrunlist->find(id).value().run->runmodel();
@@ -574,7 +649,7 @@ void MainWindow::canceledit()
 {
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
   modelrunlist->find(id).value().run->input = modelrunlist->find(id).value().previnput;
-  updateForm();
+  loadFormData();
 }
 
 void MainWindow::startGraph()
@@ -593,6 +668,8 @@ void MainWindow::showGraph(QMap<int, modelrun> *main, QList<int> *selected)
 
 void MainWindow::exportRuns()
 {
+  storeFormData();
+
   if(ui->modelRunTree->selectedItems().count() > 0)
   {
     QString dirname = QFileDialog::getExistingDirectory(this, "Select directory for saving runs", "~");
@@ -639,9 +716,10 @@ void MainWindow::updateSurfacetype(int i)
 {
   if(ui->modelRunTree->selectedItems().count() == 0)
     return;
+
   int id = ui->modelRunTree->currentItem()->text(0).toInt();
   if(modelrunlist->find(id).value().surfaceadvanced)
-    return;  
+    return;
 
   ui->input_surface_LAI->setText(QString::number(surfacetypes[i].LAI));
   ui->input_surface_gD->setText(QString::number(surfacetypes[i].gD));
@@ -654,25 +732,25 @@ void MainWindow::updateSurfacetype(int i)
   ui->input_surface_z0h->setText(QString::number(surfacetypes[i].z0h));
 
 
-  QMap<int,modelrun>::iterator n = modelrunlist->find(id);
-  while(n != modelrunlist->end())
-  {
-    modelrunlist->find(id).value().surfacestatus   = ui->input_surface_surfacetypes->currentIndex();
-
-    modelinput *tempinput = &modelrunlist->find(id).value().run->input;
-
-    // SURFACE
-    tempinput->LAI        = ui->input_surface_LAI->text().toDouble();
-    tempinput->gD         = ui->input_surface_gD->text().toDouble();
-    tempinput->rsmin      = ui->input_surface_rsmin->text().toDouble();
-    tempinput->alpha      = ui->input_surface_alpha->text().toDouble();
-    tempinput->cveg       = ui->input_surface_cveg->text().toDouble();
-    tempinput->Lambda     = ui->input_surface_Lambda->text().toDouble();
-    tempinput->z0m        = ui->input_surface_z0m->text().toDouble();
-    tempinput->z0h        = ui->input_surface_z0h->text().toDouble();
-
-    n++;
-  }
+//  QMap<int,modelrun>::iterator n = modelrunlist->find(id);
+//  while(n != modelrunlist->end())
+//  {
+//    modelrunlist->find(id).value().surfacestatus   = ui->input_surface_surfacetypes->currentIndex();
+//
+//    modelinput *tempinput = &modelrunlist->find(id).value().run->input;
+//
+//    // SURFACE
+//    tempinput->LAI        = ui->input_surface_LAI->text().toDouble();
+//    tempinput->gD         = ui->input_surface_gD->text().toDouble();
+//    tempinput->rsmin      = ui->input_surface_rsmin->text().toDouble();
+//    tempinput->alpha      = ui->input_surface_alpha->text().toDouble();
+//    tempinput->cveg       = ui->input_surface_cveg->text().toDouble();
+//    tempinput->Lambda     = ui->input_surface_Lambda->text().toDouble();
+//    tempinput->z0m        = ui->input_surface_z0m->text().toDouble();
+//    tempinput->z0h        = ui->input_surface_z0h->text().toDouble();
+//
+//    n++;
+//  }
 }
 
 void MainWindow::updateSoiltype(int i)
@@ -696,25 +774,25 @@ void MainWindow::updateSoiltype(int i)
   ui->input_soil_p->setText(QString::number(soiltypes[i].p));
   ui->input_soil_CGsat->setText(QString::number(soiltypes[i].CGsat));
 
-  QMap<int,modelrun>::iterator n = modelrunlist->find(id);
-  while(n != modelrunlist->end())
-  {
-    modelrunlist->find(id).value().soilstatus   = ui->input_soil_soiltypes->currentIndex();
-
-    modelinput *tempinput = &modelrunlist->find(id).value().run->input;
-
-    tempinput->wsat       = ui->input_soil_wsat->text().toDouble();
-    tempinput->wfc        = ui->input_soil_wfc->text().toDouble();
-    tempinput->wwilt      = ui->input_soil_wwilt->text().toDouble();
-    tempinput->C1sat      = ui->input_soil_c1sat->text().toDouble();
-    tempinput->C2ref      = ui->input_soil_c2ref->text().toDouble();
-    tempinput->a          = ui->input_soil_a->text().toDouble();
-    tempinput->b          = ui->input_soil_b->text().toDouble();
-    tempinput->p          = ui->input_soil_p->text().toDouble();
-    tempinput->CGsat      = ui->input_soil_CGsat->text().toDouble();
-
-    n++;
-  }
+//  QMap<int,modelrun>::iterator n = modelrunlist->find(id);
+//  while(n != modelrunlist->end())
+//  {
+//    modelrunlist->find(id).value().soilstatus   = ui->input_soil_soiltypes->currentIndex();
+//
+//    modelinput *tempinput = &modelrunlist->find(id).value().run->input;
+//
+//    tempinput->wsat       = ui->input_soil_wsat->text().toDouble();
+//    tempinput->wfc        = ui->input_soil_wfc->text().toDouble();
+//    tempinput->wwilt      = ui->input_soil_wwilt->text().toDouble();
+//    tempinput->C1sat      = ui->input_soil_c1sat->text().toDouble();
+//    tempinput->C2ref      = ui->input_soil_c2ref->text().toDouble();
+//    tempinput->a          = ui->input_soil_a->text().toDouble();
+//    tempinput->b          = ui->input_soil_b->text().toDouble();
+//    tempinput->p          = ui->input_soil_p->text().toDouble();
+//    tempinput->CGsat      = ui->input_soil_CGsat->text().toDouble();
+//
+//    n++;
+//  }
 }
 
 // ----------------------------------
@@ -745,7 +823,7 @@ void MainWindow::switch_ls(int state)
   else
     checkstate = false;
 
-  formvalues.sw_ls = checkstate;
+  // formvalues.sw_ls = checkstate;
   updateStatusBar();
 }
 
@@ -757,7 +835,7 @@ void MainWindow::switch_sl(int state)
   else
     checkstate = false;
 
-  formvalues.sw_sl = checkstate;
+  // formvalues.sw_sl = checkstate;
   updateStatusBar();
 }
 
@@ -769,7 +847,7 @@ void MainWindow::switch_rad(int state)
   else
     checkstate = false;
 
-  formvalues.sw_rad = checkstate;
+  // formvalues.sw_rad = checkstate;
   updateStatusBar();
 }
 
@@ -781,7 +859,7 @@ void MainWindow::switch_ml(int state)
   else
     checkstate = false;
 
-  formvalues.sw_ml = checkstate;
+  // formvalues.sw_ml = checkstate;
   updateStatusBar();
 }
 
@@ -793,7 +871,7 @@ void MainWindow::switch_wtheta(int state)
   else
     checkstate = false;
 
-  formvalues.sw_wtheta = checkstate;
+  // formvalues.sw_wtheta = checkstate;
 }
 
 void MainWindow::switch_wq(int state)
@@ -804,7 +882,7 @@ void MainWindow::switch_wq(int state)
   else
     checkstate = false;
 
-  formvalues.sw_wq = checkstate;
+  // formvalues.sw_wq = checkstate;
 }
 
 void MainWindow::switch_surface_advanced(int state)
@@ -818,8 +896,8 @@ void MainWindow::switch_surface_advanced(int state)
   ui->surface_advanced_group->setEnabled(checkstate);
   ui->input_surface_surfacetypes->setEnabled(!checkstate);
 
-  int id = ui->modelRunTree->currentItem()->text(0).toInt();
-  modelrunlist->find(id).value().surfaceadvanced = checkstate;
+  // int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  // modelrunlist->find(id).value().surfaceadvanced = checkstate;
 
 }
 
@@ -834,6 +912,6 @@ void MainWindow::switch_soil_advanced(int state)
   ui->soil_advanced_group->setEnabled(checkstate);
   ui->input_soil_soiltypes->setEnabled(!checkstate);
 
-  int id = ui->modelRunTree->currentItem()->text(0).toInt();
-  modelrunlist->find(id).value().soiladvanced = checkstate;
+  // int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  // modelrunlist->find(id).value().soiladvanced = checkstate;
 }
