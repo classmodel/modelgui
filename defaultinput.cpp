@@ -59,6 +59,7 @@ void MainWindow::readdefaultinput()
   
   // land surface parameters
   defaultinput.sw_ls      = false;    // land surface switch
+  defaultinput.sw_sea     = false;    // land / sea switch
   defaultinput.wg         = 0.21;     // volumetric water content top soil layer [m3 m-3]
   defaultinput.w2         = 0.21;     // volumetric water content deeper soil layer [m3 m-3]
   defaultinput.cveg       = 0.9;      // vegetation fraction [-]

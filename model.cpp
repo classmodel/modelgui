@@ -183,6 +183,7 @@ void model::initmodel()
   
   // land surface
   sw_ls      =  input.sw_ls;            // land surface switch
+  sw_sea     =  input.sw_sea;           // land / sea switch
   wg         =  input.wg;               // volumetric water content top soil layer [m3 m-3]
   w2         =  input.w2;               // volumetric water content deeper soil layer [m3 m-3]
   Tsoil      =  input.Tsoil;            // temperature top soil layer [K]
@@ -542,71 +543,91 @@ void model::runlsmodel()
   else
     ra    = U / pow(ustar,2.);
 
-  // first calculate essential thermodynamic variables
-  esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
-  qsat    = 0.622 * esat / Ps;
-  desatdT = esat * (17.2694 / (theta - 35.86) - 17.2694 * (theta - 273.16) / pow(theta - 35.86,2.));
-  dqsatdT = 0.622 * desatdT / Ps;
-  e       = q * Ps / 0.622;
+  if(sw_sea)
+  {
+    rs = 0.;
 
-  // calculate surface resistances using Jarvis-Stewart model
-  if(sw_rad)
-    f1   = 1. / ((0.004 * Swin + 0.05) / (0.81 * (0.004 * Swin + 1.)));
+    esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
+    qsat    = 0.622 * esat / Ps;
+    esatsurf  = 0.611e3 * exp(17.2694 * (Ts - 273.16) / (Ts - 35.86));
+    qsatsurf  = 0.622 * esatsurf / Ps;
+
+    LEveg  = 0.;
+    LEliq  = rho * Lv / ra * (qsatsurf - q);
+    LEsoil = 0.;
+
+    LE     = LEsoil + LEveg + LEliq;
+    H      = rho * cp / ra * (Ts - theta);
+    LEpot  = LE;
+  }
   else
-    f1   = 1.;
+  {
+    // first calculate essential thermodynamic variables
+    esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
+    qsat    = 0.622 * esat / Ps;
+    desatdT = esat * (17.2694 / (theta - 35.86) - 17.2694 * (theta - 273.16) / pow(theta - 35.86,2.));
+    dqsatdT = 0.622 * desatdT / Ps;
+    e       = q * Ps / 0.622;
 
-  if(w2 > wwilt)
-    f2   = (wfc - wwilt) / (w2 - wwilt);
-  else
-    f2   = 1.e8;
+    // calculate surface resistances using Jarvis-Stewart model
+    if(sw_rad)
+      f1   = 1. / ((0.004 * Swin + 0.05) / (0.81 * (0.004 * Swin + 1.)));
+    else
+      f1   = 1.;
 
-  f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
-  f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
+    if(w2 > wwilt)
+      f2   = (wfc - wwilt) / (w2 - wwilt);
+    else
+      f2   = 1.e8;
 
-  rs     = rsmin / LAI * f1 * f2 * f3;
+    f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
+    f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
 
-  // recompute f2 using wg instead of w2
-  if(wg > wwilt)
-    f2   = (wfc - wwilt) / (wg - wwilt);
-  else
-    f2   = 1.e8;
+    rs     = rsmin / LAI * f1 * f2 * f3;
 
-  rssoil = rssoilmin * f2;
+    // recompute f2 using wg instead of w2
+    if(wg > wwilt)
+      f2   = (wfc - wwilt) / (wg - wwilt);
+    else
+      f2   = 1.e8;
 
-  Wlmx   = LAI * Wmax;
-  cliq   = min(1., Wl / Wlmx);
+    rssoil = rssoilmin * f2;
 
-  // calculate skin temperature implictly
-  Ts   = (Q  + rho * cp / ra * theta \
-      + cveg * (1. - cliq) * rho * Lv / (ra + rs) * (dqsatdT * theta - qsat + q)       // transpiration
-      + (1. - cveg) * rho * Lv / (ra + rssoil) * (dqsatdT * theta - qsat + q)          // bare soil evaporation
-      + cveg * cliq * rho * Lv / ra * (dqsatdT * theta - qsat + q) + Lambda * Tsoil)   // liquid water evaporation
-    / (rho * cp / ra + cveg * (1. - cliq) * rho * Lv / (ra + rs) * dqsatdT + (1. - cveg) * rho * Lv / (ra + rssoil) * dqsatdT + cveg * cliq * rho * Lv / ra * dqsatdT + Lambda);
+    Wlmx   = LAI * Wmax;
+    cliq   = min(1., Wl / Wlmx);
 
-  esatsurf  = 0.611e3 * exp(17.2694 * (Ts - 273.16) / (Ts - 35.86));
-  qsatsurf  = 0.622 * esatsurf / Ps;
+    // calculate skin temperature implictly
+    Ts   = (Q  + rho * cp / ra * theta \
+        + cveg * (1. - cliq) * rho * Lv / (ra + rs) * (dqsatdT * theta - qsat + q)       // transpiration
+        + (1. - cveg) * rho * Lv / (ra + rssoil) * (dqsatdT * theta - qsat + q)          // bare soil evaporation
+        + cveg * cliq * rho * Lv / ra * (dqsatdT * theta - qsat + q) + Lambda * Tsoil)   // liquid water evaporation
+      / (rho * cp / ra + cveg * (1. - cliq) * rho * Lv / (ra + rs) * dqsatdT + (1. - cveg) * rho * Lv / (ra + rssoil) * dqsatdT + cveg * cliq * rho * Lv / ra * dqsatdT + Lambda);
 
-  LEveg  = (1. - cliq) * cveg * rho * Lv / (ra + rs) * (dqsatdT * (Ts - theta) + qsat - q);
-  LEliq  = cliq * cveg * rho * Lv / ra * (dqsatdT * (Ts - theta) + qsat - q);
-  LEsoil = (1. - cveg) * rho * Lv / (ra + rssoil) * (dqsatdT * (Ts - theta) + qsat - q);
+    esatsurf  = 0.611e3 * exp(17.2694 * (Ts - 273.16) / (Ts - 35.86));
+    qsatsurf  = 0.622 * esatsurf / Ps;
 
-  Wltend = - LEliq / (rhow * Lv);
+    LEveg  = (1. - cliq) * cveg * rho * Lv / (ra + rs) * (dqsatdT * (Ts - theta) + qsat - q);
+    LEliq  = cliq * cveg * rho * Lv / ra * (dqsatdT * (Ts - theta) + qsat - q);
+    LEsoil = (1. - cveg) * rho * Lv / (ra + rssoil) * (dqsatdT * (Ts - theta) + qsat - q);
 
-  LE     = LEsoil + LEveg + LEliq;
-  H      = rho * cp / ra * (Ts - theta);
-  G      = Lambda * (Ts - Tsoil);
-  LEpot  = (dqsatdT * (Q - G) + rho * cp / ra * (qsat - q)) / (dqsatdT + cp / Lv);
-  LEref  = (dqsatdT * (Q - G) + rho * cp / ra * (qsat - q)) / (dqsatdT + cp / Lv * (1. + rsmin / LAI / ra));
+    Wltend = - LEliq / (rhow * Lv);
 
-  CG         = pow(CGsat * (wsat / w2), b / (2. * log(10.)));
+    LE     = LEsoil + LEveg + LEliq;
+    H      = rho * cp / ra * (Ts - theta);
+    G      = Lambda * (Ts - Tsoil);
+    LEpot  = (dqsatdT * (Q - G) + rho * cp / ra * (qsat - q)) / (dqsatdT + cp / Lv);
+    LEref  = (dqsatdT * (Q - G) + rho * cp / ra * (qsat - q)) / (dqsatdT + cp / Lv * (1. + rsmin / LAI / ra));
 
-  Tsoiltend  = CG * G - 2. * pi / 86400. * (Tsoil - T2);
+    CG         = pow(CGsat * (wsat / w2), b / (2. * log(10.)));
 
-  d1         = 0.1;
-  C1         = pow(C1sat * (wsat / wg), b / 2. + 1.);
-  C2         = C2ref * (w2 / (wsat - w2));
-  wgeq       = w2 - wsat * a * ( pow(w2 / wsat, p) * (1. - pow(w2 / wsat,8.*p)) );
-  wgtend     = - C1 / (rhow * d1) * LEsoil / Lv - C2 / 86400. * (wg - wgeq);
+    Tsoiltend  = CG * G - 2. * pi / 86400. * (Tsoil - T2);
+
+    d1         = 0.1;
+    C1         = pow(C1sat * (wsat / wg), b / 2. + 1.);
+    C2         = C2ref * (w2 / (wsat - w2));
+    wgeq       = w2 - wsat * a * ( pow(w2 / wsat, p) * (1. - pow(w2 / wsat,8.*p)) );
+    wgtend     = - C1 / (rhow * d1) * LEsoil / Lv - C2 / 86400. * (wg - wgeq);
+  }
 
   // calculate kinematic heat fluxes
   wtheta     = H  / (rho * cp);

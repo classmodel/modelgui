@@ -47,6 +47,7 @@ public slots:
   void switch_wind(int);
   void switch_sl(int);
   void switch_ls(int);
+  void switch_sea(int);
   void switch_rad(int);
   void switch_ml(int);
   void switch_wtheta(int);

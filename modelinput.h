@@ -58,6 +58,7 @@ public:
 
   // land surface parameters
   bool   sw_ls;     // land surface switch
+  bool   sw_sea;    // land / sea switch
   double wg;        // volumetric water content top soil layer [m3 m-3]
   double w2;        // volumetric water content deeper soil layer [m3 m-3]
   double Tsoil;     // temperature top soil layer [K]
@@ -144,6 +145,7 @@ public:
 
     // land surface parameters
     sw_ls      = false;
+    sw_sea     = true;
     wg         = -1.;
     w2         = -1.;
     Tsoil      = -1.;

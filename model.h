@@ -119,6 +119,7 @@ private:
 
   // surface layer variables
   bool   sw_sl;     // surface layer switch
+  bool   sw_sea;    // land / sea switch
   double ustar;     // surface friction velocity [m s-1]
 
   double z0m;       // roughness length for momentum [m]

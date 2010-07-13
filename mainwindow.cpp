@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->sw_wind,                    SIGNAL(stateChanged(int)),        this, SLOT(switch_wind(int)));
   connect(ui->sw_sl,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_sl(int)));
   connect(ui->sw_ls,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_ls(int)));
+  connect(ui->sw_sea,                     SIGNAL(currentIndexChanged(int)), this, SLOT(switch_sea(int)));
   connect(ui->sw_rad,                     SIGNAL(stateChanged(int)),        this, SLOT(switch_rad(int)));
   connect(ui->sw_ml,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
   connect(ui->sw_surface_advanced,        SIGNAL(stateChanged(int)),        this, SLOT(switch_surface_advanced(int)));
@@ -321,6 +322,10 @@ void MainWindow::storeFormData()
 
   // TAB3
   formvalues.sw_ls      = CheckState2bool(ui->sw_ls->checkState());
+  if(ui->sw_sea->currentIndex() == 0)
+    formvalues.sw_sea   = false;
+  else
+    formvalues.sw_sea   = true;
 
   // SURFACE
   formvalues.Ts         = ui->input_surface_Ts->text().toDouble();
@@ -448,6 +453,11 @@ void MainWindow::loadFormData()
     else
       check = Qt::Unchecked;
     ui->sw_ls->setCheckState(check);
+
+    if(tempinput->sw_sea == true)
+      ui->sw_sea->setCurrentIndex(1);
+    else
+      ui->sw_sea->setCurrentIndex(0);
 
     if (tempinput->sw_wtheta == true)
       check = Qt::Checked;
@@ -850,6 +860,11 @@ void MainWindow::switch_ls(int state)
 
   // formvalues.sw_ls = checkstate;
   updateStatusBar();
+}
+
+void MainWindow::switch_sea(int state)
+{
+  return;
 }
 
 void MainWindow::switch_sl(int state)
