@@ -638,14 +638,17 @@ void model::intlsmodel()
 {
   double Tsoil0, wg0, Wl0;
 
-  // integrate soil equations
-  Tsoil0   = Tsoil;
-  wg0      = wg;
-  Wl0      = Wl;
+  if(!sw_sea)
+  {
+    // integrate soil equations
+    Tsoil0   = Tsoil;
+    wg0      = wg;
+    Wl0      = Wl;
 
-  Tsoil    = Tsoil0  + dt * Tsoiltend;
-  wg       = wg0     + dt * wgtend;
-  Wl       = Wl0     + dt * Wltend;
+    Tsoil    = Tsoil0  + dt * Tsoiltend;
+    wg       = wg0     + dt * wgtend;
+    Wl       = Wl0     + dt * Wltend;
+  }
 }
 
 void model::store()

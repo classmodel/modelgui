@@ -83,7 +83,7 @@ void MainWindow::readdefaultinput()
   defaultinput.rssoilmin  = 50.;      // minimun resistance soil evaporation [s m-1]
   defaultinput.alpha      = 0.25;     // surface albedo [-]
   
-  defaultinput.Ts         = 280.;     // initial surface temperature [K]
+  defaultinput.Ts         = 290.;     // initial surface temperature [K]
   
   defaultinput.Wmax       = 0.0002;   // thickness of water layer on wet vegetation [m]
   defaultinput.Wl         = 0.0000;   // equivalent water layer depth for wet vegetation [m]
