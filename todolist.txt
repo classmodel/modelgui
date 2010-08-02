@@ -1,14 +1,3 @@
 To-do list:
 
-++++++++++++++++++++++
-Plotting
-++++++++++++++++++++++
-High priority:
-  +
-
-Reasonable priority:
-  + Make legend movable, or create algoritm to place the legend at the best possible position.
-
-Low priority (esthetic updates, etc..)
-  + Create dynamic spacing between y-axis and axis-desription (cbl-height, etc.) depending on size (width) y-labels.
-  + Make options for dashed/dash-dot/etc. lines (?)
+ - Fine-tune save PNG function (Bart)
