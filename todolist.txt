@@ -1,3 +1,4 @@
 To-do list:
 
- - Fine-tune save PNG function (Bart)
+Fine-tune save PNG function (Bart)
+[bug] Legend moves back to original position when you single-click somewhere in the graph
