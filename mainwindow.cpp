@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->tabWidget,                  SIGNAL(currentChanged(int)),      this, SLOT(tabChanged(int)));
 
   // loadfieldslots();
+  readdefaultinput();
 
   // Setup QTreeWidget with model runs
     QStringList heading;
@@ -77,7 +78,6 @@ MainWindow::MainWindow(QWidget *parent)
 
   // if all fields are properly assigned, the next line can be removed
   //formvalues            = defaultinput;
-
 }
 
 MainWindow::~MainWindow()
@@ -138,7 +138,6 @@ void MainWindow::newrun()
   run.runname.append(base);
   modelrunlist->insert((max+1),run);
 
-  readdefaultinput();
   modelrunlist->value(max+1).run->input       = defaultinput;
   modelrunlist->find(max+1).value().previnput = defaultinput;
 
