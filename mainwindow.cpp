@@ -724,11 +724,14 @@ void MainWindow::saveRuns()
 {
   storeFormData();
 
-  //QString dirname = QFileDialog::getExistingDirectory(this, "Select directory for saving runs", "~");
-  QString testfile = "/Users/chiel/test/session.mxl";
+  QString filename = QFileDialog::getSaveFileName(this, "Save session file", "session.mxl");
 
-  QFile file(testfile);
-  file.open(QFile::WriteOnly);
+  QFile file(filename);
+  if(!file.open(QFile::WriteOnly | QFile::Truncate))
+  {
+    std::cout << "Error! Cannot open file! Abort saving..." << std::endl;
+    return;
+  }
   QTextStream out(&file);   // we will serialize the data into the file
 
   QMap<int,modelrun>::iterator i;
@@ -736,6 +739,7 @@ void MainWindow::saveRuns()
 
   for (i = modelrunlist->begin(); i != modelrunlist->end(); ++i)
   {
+    std::cout << "Saving MXL run..." << std::endl;
     temprun = i.value();
     // NON-INPUT CLASS ELEMENTS
     out << "#MXL# NEWRUN"                << endl;
@@ -843,6 +847,7 @@ void MainWindow::saveRuns()
     // END TAB5
   }
   out << "#MXL# EOF" << endl;
+  std::cout << "Saving MXL session COMPLETE!" << std::endl;
 
   file.close();
 }
@@ -851,15 +856,15 @@ void MainWindow::loadRuns()
 {
   storeFormData();
 
-  //QString dirname = QFileDialog::getExistingDirectory(this, "Select directory for saving runs", "~");
-  QString testfile = "/Users/chiel/test/session.mxl";
+  QString filename = QFileDialog::getOpenFileName(this, "Load session file", "~");
 
-  QFile file(testfile);
+  QFile file(filename);
   file.open(QFile::ReadOnly);
   QTextStream in(&file);   // we will serialize the data into the file
 
   QString line;
   modelrun temprun;
+  modelinput tempinput;
 
   line = in.readLine();
   if(line != "#MXL# NEWRUN")
@@ -868,6 +873,8 @@ void MainWindow::loadRuns()
   {
     while(line == "#MXL# NEWRUN")
     {
+      temprun.run = new model(defaultinput);
+
       std::cout << "Loading MXL run..." << std::endl;
       line = in.readLine();
       temprun.runname               = line;
@@ -884,174 +891,212 @@ void MainWindow::loadRuns()
 
       //  // TAB 1
       line = in.readLine();
-      temprun.run->input.dt         = line.toDouble();
+      tempinput.dt         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.runtime    = line.toDouble();
+      tempinput.runtime    = line.toDouble();
       line = in.readLine();
-      temprun.run->input.sinperiod  = line.toDouble();
+      tempinput.sinperiod  = line.toDouble();
 
       //  // MIXED-LAYER
       line = in.readLine();
-      temprun.run->input.sw_ml      = line.toInt();
+      tempinput.sw_ml      = line.toInt();
       line = in.readLine();
-      temprun.run->input.h          = line.toDouble();
+      tempinput.h          = line.toDouble();
       line = in.readLine();
-      temprun.run->input.Ps         = line.toDouble();
+      tempinput.Ps         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.ws         = line.toDouble();
+      tempinput.ws         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.beta       = line.toDouble();
+      tempinput.beta       = line.toDouble();
 
       //  // HEAT
       line = in.readLine();
-      temprun.run->input.theta      = line.toDouble();
+      tempinput.theta      = line.toDouble();
       line = in.readLine();
-      temprun.run->input.dtheta     = line.toDouble();
+      tempinput.dtheta     = line.toDouble();
       line = in.readLine();
-      temprun.run->input.gammatheta = line.toDouble();
+      tempinput.gammatheta = line.toDouble();
       line = in.readLine();
-      temprun.run->input.advtheta   = line.toDouble();
+      tempinput.advtheta   = line.toDouble();
       line = in.readLine();
-      temprun.run->input.wtheta     = line.toDouble();
+      tempinput.wtheta     = line.toDouble();
       line = in.readLine();
-      temprun.run->input.sw_wtheta  = line.toInt();
+      tempinput.sw_wtheta  = line.toInt();
 
       //  // MOISTURE
       line = in.readLine();
-      temprun.run->input.q          = line.toDouble();
+      tempinput.q          = line.toDouble();
       line = in.readLine();
-      temprun.run->input.dq         = line.toDouble();
+      tempinput.dq         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.gammaq     = line.toDouble();
+      tempinput.gammaq     = line.toDouble();
       line = in.readLine();
-      temprun.run->input.advq       = line.toDouble();
+      tempinput.advq       = line.toDouble();
       line = in.readLine();
-      temprun.run->input.wq         = line.toDouble();
+      tempinput.wq         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.sw_wq      = line.toInt();
+      tempinput.sw_wq      = line.toInt();
       // END TAB1
 
       // TAB2
       // WIND
       line = in.readLine();
-      temprun.run->input.sw_wind    = line.toInt();
+      tempinput.sw_wind    = line.toInt();
       line = in.readLine();
-      temprun.run->input.u          = line.toDouble();
+      tempinput.u          = line.toDouble();
       line = in.readLine();
-      temprun.run->input.du         = line.toDouble();
+      tempinput.du         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.gammau     = line.toDouble();
+      tempinput.gammau     = line.toDouble();
       line = in.readLine();
-      temprun.run->input.advu       = line.toDouble();
+      tempinput.advu       = line.toDouble();
       line = in.readLine();
-      temprun.run->input.v          = line.toDouble();
+      tempinput.v          = line.toDouble();
       line = in.readLine();
-      temprun.run->input.dv         = line.toDouble();
+      tempinput.dv         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.gammav     = line.toDouble();
+      tempinput.gammav     = line.toDouble();
       line = in.readLine();
-      temprun.run->input.advv       = line.toDouble();
+      tempinput.advv       = line.toDouble();
 
       line = in.readLine();
-      temprun.run->input.ustar      = line.toDouble();
+      tempinput.ustar      = line.toDouble();
       line = in.readLine();
-      temprun.run->input.fc         = line.toDouble();
+      tempinput.fc         = line.toDouble();
 
       line = in.readLine();
-      temprun.run->input.sw_sl      = line.toInt();
+      tempinput.sw_sl      = line.toInt();
       line = in.readLine();
-      temprun.run->input.z0m        = line.toDouble();
+      tempinput.z0m        = line.toDouble();
       line = in.readLine();
-      temprun.run->input.z0h        = line.toDouble();
+      tempinput.z0h        = line.toDouble();
       // END TAB2
 
       // TAB3
       line = in.readLine();
-      temprun.run->input.sw_ls      = line.toInt();
+      tempinput.sw_ls      = line.toInt();
       line = in.readLine();
-      temprun.run->input.sw_sea     = line.toInt();
+      tempinput.sw_sea     = line.toInt();
 
       // SURFACE
       line = in.readLine();
-      temprun.run->input.Ts         = line.toDouble();
+      tempinput.Ts         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.Wl         = line.toDouble();
+      tempinput.Wl         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.LAI        = line.toDouble();
+      tempinput.LAI        = line.toDouble();
       line = in.readLine();
-      temprun.run->input.gD         = line.toDouble();
+      tempinput.gD         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.rsmin      = line.toDouble();
+      tempinput.rsmin      = line.toDouble();
       line = in.readLine();
-      temprun.run->input.alpha      = line.toDouble();
+      tempinput.alpha      = line.toDouble();
       line = in.readLine();
-      temprun.run->input.cveg       = line.toDouble();
+      tempinput.cveg       = line.toDouble();
       line = in.readLine();
-      temprun.run->input.Lambda     = line.toDouble();
+      tempinput.Lambda     = line.toDouble();
       line = in.readLine();
-      temprun.run->input.z0m        = line.toDouble();
+      tempinput.z0m        = line.toDouble();
       line = in.readLine();
-      temprun.run->input.z0h        = line.toDouble();
+      tempinput.z0h        = line.toDouble();
       // END TAB3
 
       // TAB4
       // SOIL
       line = in.readLine();
-      temprun.run->input.T2         = line.toDouble();
+      tempinput.T2         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.Tsoil      = line.toDouble();
+      tempinput.Tsoil      = line.toDouble();
       line = in.readLine();
-      temprun.run->input.w2         = line.toDouble();
+      tempinput.w2         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.wg         = line.toDouble();
+      tempinput.wg         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.wsat       = line.toDouble();
+      tempinput.wsat       = line.toDouble();
       line = in.readLine();
-      temprun.run->input.wfc        = line.toDouble();
+      tempinput.wfc        = line.toDouble();
       line = in.readLine();
-      temprun.run->input.wwilt      = line.toDouble();
+      tempinput.wwilt      = line.toDouble();
       line = in.readLine();
-      temprun.run->input.T2         = line.toDouble();
+      tempinput.T2         = line.toDouble();
       line = in.readLine();
-      temprun.run->input.C1sat      = line.toDouble();
+      tempinput.C1sat      = line.toDouble();
       line = in.readLine();
-      temprun.run->input.C2ref      = line.toDouble();
+      tempinput.C2ref      = line.toDouble();
       line = in.readLine();
-      temprun.run->input.a          = line.toDouble();
+      tempinput.a          = line.toDouble();
       line = in.readLine();
-      temprun.run->input.b          = line.toDouble();
+      tempinput.b          = line.toDouble();
       line = in.readLine();
-      temprun.run->input.p          = line.toDouble();
+      tempinput.p          = line.toDouble();
       line = in.readLine();
-      temprun.run->input.CGsat      = line.toDouble();
+      tempinput.CGsat      = line.toDouble();
       // END TAB4
 
       // TAB5
       // RADIATION
       line = in.readLine();
-      temprun.run->input.sw_rad     = line.toInt();
+      tempinput.sw_rad     = line.toInt();
       line = in.readLine();
-      temprun.run->input.doy        = line.toDouble();
+      tempinput.doy        = line.toDouble();
       line = in.readLine();
-      temprun.run->input.lat        = line.toDouble();
+      tempinput.lat        = line.toDouble();
       line = in.readLine();
-      temprun.run->input.lon        = line.toDouble();
+      tempinput.lon        = line.toDouble();
       line = in.readLine();
-      temprun.run->input.tstart     = line.toDouble();
+      tempinput.tstart     = line.toDouble();
 
       line = in.readLine();
-      temprun.run->input.Q          = line.toDouble();
+      tempinput.Q          = line.toDouble();
       line = in.readLine();
-      temprun.run->input.cc         = line.toDouble();
+      tempinput.cc         = line.toDouble();
 
       // END TAB5
 
       line = in.readLine();
+
+      if(line == "#MXL# EOF" || line == "#MXL# NEWRUN")
+      {
+        std::cout << "MXL Run correctly imported!" << std::endl;
+
+        // Add temp run to runtree
+        blockInput(true);
+        temprun.hasrun = false;
+
+        QMap<int, modelrun>::iterator i = modelrunlist->begin();
+        int max=0;
+        while (i != modelrunlist->end())
+        {
+          if (i.key() > max)
+            max = i.key();
+          ++i;
+        }
+
+        modelrunlist->insert((max+1),temprun);
+        modelrunlist->find(max+1).value().run->input = tempinput;
+        modelrunlist->find(max+1).value().previnput  = tempinput;
+
+        QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
+        point->setText(0, QString::number(max+1));
+        point->setText(1, temprun.runname);
+
+        QFont font;
+        font = point->font(1);
+        font.setItalic(true);
+        point->setFont(1,font);
+        point->setTextColor(1,Qt::gray);
+
+        ui->modelRunTree->setCurrentItem(point);
+
+        runTreeChanged();
+        blockInput(false);
+      }
+      else
+      {
+        std::cout << "MXL run corrupted" << std::endl;
+        break;
+      }
     }
-    if(line == "#MXL# EOF")
-      std::cout << "MXL Session file imported" << std::endl;
-    else
-      std::cout << "MXL Session file corrupted" << std::endl;
   }
   file.close();
 }
