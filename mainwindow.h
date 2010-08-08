@@ -38,6 +38,8 @@ public slots:
   void startrun();
   void canceledit();
   void startGraph();
+  void saveRuns();
+  void loadRuns();
   void exportRuns();
   void updateSurfacetype(int);
   void updateSoiltype(int);

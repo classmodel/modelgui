@@ -8,6 +8,7 @@
 #include <QString>
 #include <QFileDialog>
 #include <QFont>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -15,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
 
   connect(ui->actionExit,     SIGNAL(triggered()),              this, SLOT(close()));
+  connect(ui->actionSave,     SIGNAL(triggered()),              this, SLOT(saveRuns()));
+  connect(ui->actionLoad,     SIGNAL(triggered()),              this, SLOT(loadRuns()));
 
   connect(ui->startButton,    SIGNAL(clicked()),                this, SLOT(startrun()));
   connect(ui->cancelButton,   SIGNAL(clicked()),                this, SLOT(canceledit()));
@@ -715,6 +718,342 @@ void MainWindow::exportRuns()
         modelrunlist->find(n).value().run->run2file(dirname.toStdString(),runname.toStdString());
     }
   }
+}
+
+void MainWindow::saveRuns()
+{
+  storeFormData();
+
+  //QString dirname = QFileDialog::getExistingDirectory(this, "Select directory for saving runs", "~");
+  QString testfile = "/Users/chiel/test/session.mxl";
+
+  QFile file(testfile);
+  file.open(QFile::WriteOnly);
+  QTextStream out(&file);   // we will serialize the data into the file
+
+  QMap<int,modelrun>::iterator i;
+  modelrun temprun;
+
+  for (i = modelrunlist->begin(); i != modelrunlist->end(); ++i)
+  {
+    temprun = i.value();
+    // NON-INPUT CLASS ELEMENTS
+    out << "#MXL# NEWRUN"                << endl;
+    out << temprun.runname               << endl;
+    out << temprun.surfacestatus         << endl;
+    out << temprun.soilstatus            << endl;
+
+    out << temprun.surfaceadvanced       << endl;
+    out << temprun.soiladvanced          << endl;
+
+    // TAB 1
+    out << temprun.run->input.dt         << endl;
+    out << temprun.run->input.runtime    << endl;
+    out << temprun.run->input.sinperiod  << endl;
+
+    // MIXED-LAYER
+    out << temprun.run->input.sw_ml      << endl;
+    out << temprun.run->input.h          << endl;
+    out << temprun.run->input.Ps         << endl;
+    out << temprun.run->input.ws         << endl;
+    out << temprun.run->input.beta       << endl;
+
+    // HEAT
+    out << temprun.run->input.theta      << endl;
+    out << temprun.run->input.dtheta     << endl;
+    out << temprun.run->input.gammatheta << endl;
+    out << temprun.run->input.advtheta   << endl;
+    out << temprun.run->input.wtheta     << endl;
+    out << temprun.run->input.sw_wtheta  << endl;
+
+    // MOISTURE
+    out << temprun.run->input.q          << endl;
+    out << temprun.run->input.dq         << endl;
+    out << temprun.run->input.gammaq     << endl;
+    out << temprun.run->input.advq       << endl;
+    out << temprun.run->input.wq         << endl;
+    out << temprun.run->input.sw_wq      << endl;
+    // END TAB1
+
+    // TAB2
+    // WIND
+    out << temprun.run->input.sw_wind    << endl;
+    out << temprun.run->input.u          << endl;
+    out << temprun.run->input.du         << endl;
+    out << temprun.run->input.gammau     << endl;
+    out << temprun.run->input.advu       << endl;
+    out << temprun.run->input.v          << endl;
+    out << temprun.run->input.dv         << endl;
+    out << temprun.run->input.gammav     << endl;
+    out << temprun.run->input.advv       << endl;
+
+    out << temprun.run->input.ustar      << endl;
+    out << temprun.run->input.fc         << endl;
+
+    out << temprun.run->input.sw_sl      << endl;
+    out << temprun.run->input.z0m        << endl;
+    out << temprun.run->input.z0h        << endl;
+    // END TAB2
+
+    // TAB3
+    out << temprun.run->input.sw_ls      << endl;
+    out << temprun.run->input.sw_sea     << endl;
+
+    // SURFACE
+    out << temprun.run->input.Ts         << endl;
+    out << temprun.run->input.Wl         << endl;
+    out << temprun.run->input.LAI        << endl;
+    out << temprun.run->input.gD         << endl;
+    out << temprun.run->input.rsmin      << endl;
+    out << temprun.run->input.alpha      << endl;
+    out << temprun.run->input.cveg       << endl;
+    out << temprun.run->input.Lambda     << endl;
+    out << temprun.run->input.z0m        << endl;
+    out << temprun.run->input.z0h        << endl;
+    // END TAB3
+
+    // TAB4
+    // SOIL
+    out << temprun.run->input.T2         << endl;
+    out << temprun.run->input.Tsoil      << endl;
+    out << temprun.run->input.w2         << endl;
+    out << temprun.run->input.wg         << endl;
+    out << temprun.run->input.wsat       << endl;
+    out << temprun.run->input.wfc        << endl;
+    out << temprun.run->input.wwilt      << endl;
+    out << temprun.run->input.T2         << endl;
+    out << temprun.run->input.C1sat      << endl;
+    out << temprun.run->input.C2ref      << endl;
+    out << temprun.run->input.a          << endl;
+    out << temprun.run->input.b          << endl;
+    out << temprun.run->input.p          << endl;
+    out << temprun.run->input.CGsat      << endl;
+    // END TAB4
+
+    // TAB5
+    // RADIATION
+    out << temprun.run->input.sw_rad     << endl;
+    out << temprun.run->input.doy        << endl;
+    out << temprun.run->input.lat        << endl;
+    out << temprun.run->input.lon        << endl;
+    out << temprun.run->input.tstart     << endl;
+
+    out << temprun.run->input.Q          << endl;
+    out << temprun.run->input.cc         << endl;
+    // END TAB5
+  }
+  out << "#MXL# EOF" << endl;
+
+  file.close();
+}
+
+void MainWindow::loadRuns()
+{
+  storeFormData();
+
+  //QString dirname = QFileDialog::getExistingDirectory(this, "Select directory for saving runs", "~");
+  QString testfile = "/Users/chiel/test/session.mxl";
+
+  QFile file(testfile);
+  file.open(QFile::ReadOnly);
+  QTextStream in(&file);   // we will serialize the data into the file
+
+  QString line;
+  modelrun temprun;
+
+  line = in.readLine();
+  if(line != "#MXL# NEWRUN")
+    std::cout << "Error! Not a MXL session file" << std::endl;
+  else
+  {
+    while(line == "#MXL# NEWRUN")
+    {
+      std::cout << "Loading MXL run..." << std::endl;
+      line = in.readLine();
+      temprun.runname               = line;
+
+      line = in.readLine();
+      temprun.surfacestatus         = line.toInt();
+      line = in.readLine();
+      temprun.soilstatus            = line.toInt();
+
+      line = in.readLine();
+      temprun.surfaceadvanced       = line.toInt();
+      line = in.readLine();
+      temprun.soiladvanced          = line.toInt();
+
+      //  // TAB 1
+      line = in.readLine();
+      temprun.run->input.dt         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.runtime    = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.sinperiod  = line.toDouble();
+
+      //  // MIXED-LAYER
+      line = in.readLine();
+      temprun.run->input.sw_ml      = line.toInt();
+      line = in.readLine();
+      temprun.run->input.h          = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.Ps         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.ws         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.beta       = line.toDouble();
+
+      //  // HEAT
+      line = in.readLine();
+      temprun.run->input.theta      = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.dtheta     = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.gammatheta = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.advtheta   = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.wtheta     = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.sw_wtheta  = line.toInt();
+
+      //  // MOISTURE
+      line = in.readLine();
+      temprun.run->input.q          = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.dq         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.gammaq     = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.advq       = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.wq         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.sw_wq      = line.toInt();
+      // END TAB1
+
+      // TAB2
+      // WIND
+      line = in.readLine();
+      temprun.run->input.sw_wind    = line.toInt();
+      line = in.readLine();
+      temprun.run->input.u          = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.du         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.gammau     = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.advu       = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.v          = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.dv         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.gammav     = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.advv       = line.toDouble();
+
+      line = in.readLine();
+      temprun.run->input.ustar      = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.fc         = line.toDouble();
+
+      line = in.readLine();
+      temprun.run->input.sw_sl      = line.toInt();
+      line = in.readLine();
+      temprun.run->input.z0m        = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.z0h        = line.toDouble();
+      // END TAB2
+
+      // TAB3
+      line = in.readLine();
+      temprun.run->input.sw_ls      = line.toInt();
+      line = in.readLine();
+      temprun.run->input.sw_sea     = line.toInt();
+
+      // SURFACE
+      line = in.readLine();
+      temprun.run->input.Ts         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.Wl         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.LAI        = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.gD         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.rsmin      = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.alpha      = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.cveg       = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.Lambda     = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.z0m        = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.z0h        = line.toDouble();
+      // END TAB3
+
+      // TAB4
+      // SOIL
+      line = in.readLine();
+      temprun.run->input.T2         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.Tsoil      = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.w2         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.wg         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.wsat       = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.wfc        = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.wwilt      = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.T2         = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.C1sat      = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.C2ref      = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.a          = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.b          = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.p          = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.CGsat      = line.toDouble();
+      // END TAB4
+
+      // TAB5
+      // RADIATION
+      line = in.readLine();
+      temprun.run->input.sw_rad     = line.toInt();
+      line = in.readLine();
+      temprun.run->input.doy        = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.lat        = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.lon        = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.tstart     = line.toDouble();
+
+      line = in.readLine();
+      temprun.run->input.Q          = line.toDouble();
+      line = in.readLine();
+      temprun.run->input.cc         = line.toDouble();
+
+      // END TAB5
+
+      line = in.readLine();
+    }
+    if(line == "#MXL# EOF")
+      std::cout << "MXL Session file imported" << std::endl;
+    else
+      std::cout << "MXL Session file corrupted" << std::endl;
+  }
+  file.close();
 }
 
 void MainWindow::setLandSoil()

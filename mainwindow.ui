@@ -3370,6 +3370,7 @@
      <string>File</string>
     </property>
     <addaction name="actionSave"/>
+    <addaction name="actionLoad"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -3397,6 +3398,11 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionLoad">
+   <property name="text">
+    <string>Load</string>
    </property>
   </action>
  </widget>
