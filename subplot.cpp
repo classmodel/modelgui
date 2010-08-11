@@ -36,11 +36,13 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
 
   // Start mousetracking for this widget
   this->setMouseTracking(true);
+
   // Disable rubberband to start with (prevents crash..)
   drawrubberband        = false;
   mousereleased         = false;
 
   legendmoved           = false;
+  legendmoves           = false;
 }
 
 double plotarea::transfx(double x, double xscale, double xmin, int mode)
@@ -341,6 +343,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     legend_width = 0;
     legend_height = selectedruns->count() * 15;
+
     if (!legendmoved)
     {
       legend_y = topmargin + 5;
@@ -349,7 +352,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(int i=0; i<selectedruns->count(); i++)
     {
-      //getdata(&xdata, &ydata, i);
       xdata = xdatalist.value(selectedruns->value(i));
       ydata = ydatalist.value(selectedruns->value(i));
       
@@ -472,7 +474,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     emit axischanged();
 
   if (mousereleased)
-      emit zoombymouse();
+    emit zoombymouse();
 
   if (mousepressed)
     mousepressed = false;
@@ -491,6 +493,7 @@ void plotarea::mousePressEvent( QMouseEvent *e )
       y_press > legend_y &&
       y_press < legend_y + legend_height)
   {
+    legendmoves = true;
     legendmoved = true;
     legend_x_offset = e->x() - legend_x;
     legend_y_offset = e->y() - legend_y;
@@ -509,7 +512,7 @@ void plotarea::mousePressEvent( QMouseEvent *e )
 
 void plotarea::mouseMoveEvent(QMouseEvent *e)
  {
-  if (legendmoved)
+  if (legendmoves)
    {
      legend_x = e->x() - legend_x_offset;
      legend_y = e->y() - legend_y_offset;
@@ -530,14 +533,17 @@ void plotarea::mouseReleaseEvent( QMouseEvent *e )
   x_release = e->x();
   y_release = e->y();
 
-  if (legendmoved)
-    legendmoved = false;
+  if (legendmoves)
+  {
+    legendmoves = false;
+  }
 
   if (drawrubberband)
   {
     rubberBand->hide();
     drawrubberband = false;
-    mousereleased = true;
+    if (x_release != x_press)
+      mousereleased = true;
     update();
   }
 }
