@@ -158,7 +158,10 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         xdata = xdatalist.value(selectedruns->value(i));
         ydata = ydatalist.value(selectedruns->value(i));
 
-        int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
+        double tempruntime = runlist->find(selectedruns->value(i)).value().run->input.runtime;
+        double tempdt      = runlist->find(selectedruns->value(i)).value().run->input.dt;
+
+        int tsteps = int(tempruntime / tempdt) + 1;
 
         for(int m=0; m<tsteps; m++)
         {
@@ -348,7 +351,10 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       xdata = xdatalist.value(selectedruns->value(i));
       ydata = ydatalist.value(selectedruns->value(i));
       
-      int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
+      double tempruntime = runlist->find(selectedruns->value(i)).value().run->input.runtime;
+      double tempdt      = runlist->find(selectedruns->value(i)).value().run->input.dt;
+
+      int tsteps = int(tempruntime / tempdt) + 1;
 
       yscale = plotheight / (graphmaxy-graphminy);   // scaling factor for f(real-coordinate to Widget-coordinate)
       xscale = plotwidth  / (graphmaxx-graphminx);   // scaling factor for f(real-coordinate to Widget-coordinate)
@@ -433,9 +439,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       paint.setRenderHint(QPainter::Antialiasing, false);
 
       // Create legend label text, add time interval for vertical profiles
-      QString legendlabel = runlist->value(selectedruns->value(i)).runname;
+      QString legendlabel = runlist->find(selectedruns->value(i)).value().runname;
       if (ydata.id == "zprof")
-        legendlabel = runlist->value(selectedruns->value(i)).runname + " [dt=" + QString::number((profinterval * runlist->value(selectedruns->value(i)).run->input.dt) / 3600.) + "h]";
+        legendlabel = runlist->find(selectedruns->value(i)).value().runname + " [dt=" + QString::number((profinterval * runlist->find(selectedruns->value(i)).value().run->input.dt) / 3600.) + "h]";
 
       // Find the maximum length of a legend string, needed for the movable legend.
       if (legendlabel.length() > legend_width)

@@ -1,3 +1,5 @@
+#include "modelchemtypes.h"
+
 // Model input class
 class modelinput
 {
@@ -40,6 +42,14 @@ public:
   double gammav;    // free atmosphere v-wind speed lapse rate [s-1]
   double advv;      // advection of v-wind [m s-2]
 
+  int nsc;
+  double *sc;       // initial mixed-layer scalar [kg kg-1]
+  double *dsc;      // initial scalar jump at h [kg kg-1]
+  double *gammasc;  // free atmosphere scalar lapse rate [kg kg-1 m-1]
+  double *advsc;    // advection of moisture [kg kg-1 s-1]
+  double *wsc;      // surface kinematic moisture flux [kg kg-1 m s-1]
+  bool   *sw_wsc;   // switch for sinusoidal wsc
+
   // surface layer variables
   bool   sw_sl;     // surface layer switch
   double ustar;     // surface friction velocity [m s-1]
@@ -54,7 +64,6 @@ public:
   double tstart;    // time of the day [h UTC]
   double cc;        // cloud cover fraction [-]
   double Q;         // net radiation [W m-2]
-
 
   // land surface parameters
   bool   sw_ls;     // land surface switch
@@ -89,6 +98,12 @@ public:
   double Wl;        // equivalent water layer depth for wet vegetation [m]
   
   double Lambda;    // thermal diffusivity skin layer [-]
+
+  // chemistry
+  bool   sw_chem;
+  Reaction *reactions;
+  int    rsize;
+  int    csize;
 
   modelinput()
   {
@@ -127,6 +142,25 @@ public:
     dv         = -1.;
     gammav     = -1.;
     advv       = -1.;
+
+    // scalars for chemistry
+    nsc        = 0;
+    //sc         = new double[nsc];
+    //dsc        = new double[nsc];
+    //gammasc    = new double[nsc];
+    //advsc      = new double[nsc];
+    //wsc        = new double[nsc];
+    //sw_wsc     = new bool[nsc];
+
+    //for(int i=0; i<nsc; i++)
+    //{
+    //  sc[i]       = -1.;
+    //  dsc[i]      = -1.;
+    //  gammasc[i]  = -1.;
+    //  advsc[i]    = -1.;
+    //  wsc[i]      = -1.;
+    //  sw_wsc[i]   = -1.;
+    //}
 
     // surface layer variables
     sw_sl      = false;
@@ -176,6 +210,11 @@ public:
     Wl         = -1.;
     
     Lambda     = -1.;
+
+    // chemistry
+    sw_chem    = false;
+    csize      = -1;
+    rsize      = -1;
   }
 };
 

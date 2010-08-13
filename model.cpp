@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include "model.h"
+
 using namespace std;
 
 inline double sign(double n) { return n > 0 ? 1 : (n < 0 ? -1 : 0);}
@@ -55,7 +56,25 @@ model::model(modelinput extinput)
   input.dv         =  extinput.dv;               // initial u-wind jump at h [m s-1]
   input.gammav     =  extinput.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
   input.advv       =  extinput.advv;             // advection of v-wind [m s-2]
-  
+ 
+  input.nsc        =  extinput.nsc;              // Number of scalars
+  input.sc         =  new double[input.nsc];
+  input.dsc        =  new double[input.nsc];
+  input.gammasc    =  new double[input.nsc];
+  input.advsc      =  new double[input.nsc];
+  input.wsc        =  new double[input.nsc];
+  input.sw_wsc     =  new bool[input.nsc];
+
+  for(int i=0; i<input.nsc; i++)
+  {
+    input.sc[i]       =  extinput.sc[i];
+    input.dsc[i]      =  extinput.dsc[i];     
+    input.gammasc[i]  =  extinput.gammasc[i];
+    input.advsc[i]    =  extinput.advsc[i];
+    input.wsc[i]      =  extinput.wsc[i];
+    input.sw_wsc[i]   =  extinput.sw_wsc[i];
+  }
+
   // surface-layer
   input.sw_sl      =  extinput.sw_sl;      // surface layer switch
   input.ustar      =  extinput.ustar;      // surface friction velocity [m s-1]
@@ -103,6 +122,15 @@ model::model(modelinput extinput)
   input.Wl         =  extinput.Wl;         // equivalent water layer depth for wet vegetation [m]
   
   input.Lambda     =  extinput.Lambda;     // thermal diffusivity skin layer [-]
+
+  // chemistry
+  input.sw_chem    =  extinput.sw_chem;
+  input.rsize      =  extinput.rsize;
+  input.csize      =  extinput.csize;
+
+  input.reactions  =  new Reaction[input.rsize];
+  for(int i=0; i<input.rsize; i++)
+    input.reactions[i] = extinput.reactions[i]; // CvH check is assignment operator needs to be overloaded
 
   return;
 }
@@ -156,7 +184,32 @@ void model::initmodel()
   dv         =  input.dv;               // initial u-wind jump at h [m s-1]
   gammav     =  input.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
   advv       =  input.advv;             // advection of v-wind [m s-2]
-  
+
+  nsc        =  input.nsc;
+  sc         =  new double[nsc];
+  dsc        =  new double[nsc];
+  gammasc    =  new double[nsc];
+  advsc      =  new double[nsc];
+  wsc        =  new double[nsc];
+  sw_wsc     =  new bool[nsc];
+
+  sctend     =  new double[nsc];
+  dsctend    =  new double[nsc];
+  wsc0       =  new double[nsc];
+  wsce       =  new double[nsc];
+
+  for(int i=0; i<nsc; i++)
+  {
+    sc[i]       =  input.sc[i];
+    dsc[i]      =  input.dsc[i];
+    gammasc[i]  =  input.gammasc[i];
+    advsc[i]    =  input.advsc[i];
+    wsc[i]      =  input.wsc[i];
+    wsc0[i]     =  input.wsc[i];
+    sw_wsc[i]   =  input.sw_wsc[i];
+    //cout << i << ", " << sc[i] << ", " << dsc[i] << ", " << wsc0[i] << endl;
+  }
+
   // surface-layer
   sw_sl      =  input.sw_sl;            // surface layer switch
   ustar      =  input.ustar;            // surface friction velocity [m s-1]
@@ -232,9 +285,22 @@ void model::initmodel()
   LEref      =  -1.;                    // reference evaporation using rs = rsmin / LAI [W m-2]
   G          =  -1.;                    // ground heat flux [W m-2]
 
+  // chemistry
+  sw_chem    =  input.sw_chem;
+  rsize      =  input.rsize;
+  csize      =  input.csize;
+  reactions  =  new Reaction[rsize];
+  for(int i=0; i<input.rsize; i++)
+    reactions[i] = input.reactions[i]; 
+
+
   // initialize time variables
   tsteps = int(runtime / dt) + 1;
   t      = 0;
+
+  // CvH initialize chemistry
+  if(sw_chem)
+    initchemmodel();
 
   if(sw_rad)
     runradmodel();
@@ -281,6 +347,9 @@ void model::runmodel()
 
     if(sw_ml)
       intmlmodel();
+
+    if(sw_chem)
+      runchemmodel();
 
     store();
   }
@@ -330,6 +399,16 @@ void model::runmlmodel()
   dthetatend  = gammatheta * we - thetatend;
   dqtend      = gammaq     * we - qtend;
 
+  for(int i=0; i<nsc; i++)
+  {
+    if(sw_wq && (!sw_ls))
+      wsc[i] = wsc0[i] * std::sin(pi / sinperiod * t * dt);
+
+    wsce[i]    = we * dsc[i];
+    sctend[i]  = (wsc[i] + wsce[i]) / h + advsc[i];
+    dsctend[i] = gammasc[i] * we - sctend[i];
+  }
+
   // assume u + du = ug, so ug - u = du
   if(sw_wind)
   {
@@ -354,6 +433,7 @@ void model::intmlmodel()
   double h0;
   double theta0, dtheta0, q0, dq0;
   double u0, du0, v0, dv0;
+  double *sc0, *dsc0;
 
   // set values previous time step
   h0      = h;
@@ -368,6 +448,14 @@ void model::intmlmodel()
   v0      = v;
   dv0     = dv;
 
+  sc0  = new double[nsc];
+  dsc0 = new double[nsc];
+  for(int i=0; i<nsc; i++)
+  {
+    sc0[i]  = sc[i];
+    dsc0[i] = dsc[i];
+  }
+
   // integrate mixed-layer equations
   h        = h0      + dt * htend;
 
@@ -375,6 +463,12 @@ void model::intmlmodel()
   dtheta   = dtheta0 + dt * dthetatend;
   q        = q0      + dt * qtend;
   dq       = dq0     + dt * dqtend;
+
+  for(int i=0; i<nsc; i++)
+  {
+    sc[i]    = sc0[i]  + dt * sctend[i];
+    dsc[i]   = dsc0[i] + dt * dsctend[i];
+  }
 
   if(sw_wind)
   {
@@ -654,6 +748,7 @@ void model::intlsmodel()
 void model::store()
 {
   cout << "(t,h,LCL,theta,q,u,v) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
+  cout << "(t,sc0,sc1,sc3,sc9)   " << t * dt << ", " << sc[0] << ", " << sc[1] << ", " << sc[3] << ", " << sc[9] << endl;
   output->t.data[t]          = t * dt / 3600.; // + tstart;
 
   output->h.data[t]          = h;
@@ -871,7 +966,7 @@ void model::run2file(std::string filedir, std::string filename)
   runprofsave << output->thetaprof.name << " [" << output->thetaprof.unit << "]   ";
   runprofsave << output->qprof.name << " [" << output->qprof.unit << "]";
   runprofsave << std::endl;
-
+  
   for(int nt=0; nt < tsteps * 4; nt=nt+4)
   {
     runprofsave << "# timestep: " << output->t.data[nt] << " [hour]" << std::endl;
@@ -885,3 +980,90 @@ void model::run2file(std::string filedir, std::string filename)
 
   return;
 }
+
+void model::initchemmodel()
+{
+
+  cout << "Starting initchemmodel" << endl;
+
+  int tnor;
+  int i;
+  
+  //const int RSIZE = 13;
+  //const int CSIZE = 21;
+
+  //Reaction Reactions[RSIZE];
+  Reaction **RC_ptr;
+  RC_ptr = new Reaction*[rsize];
+
+  for(i=0;i<rsize;i++)
+    RC_ptr[i]=&reactions[i];
+
+  //Name_Number  PL_scheme[CSIZE];
+  Name_Number **PL_ptr;
+  PL_ptr    = new Name_Number*[csize];
+
+  // initialize PL_scheme, it has not been done yet
+  PL_scheme = new Name_Number[csize];
+
+  for(i=0;i<csize;i++)
+    PL_ptr[i]=&PL_scheme[i];
+
+  for(i=0;i<csize;i++)
+  {
+    PL_scheme[i].active = FALSE;
+    PL_scheme[i].chem_number = -99;
+  }
+
+  //tnor = i;
+  //if (tnor!=rsize)
+  //  printf("tnor = %i declared %i\n",tnor,rsize);
+
+  // HERE THE FINAL MODULE STARTS
+  cm = new modelchem(RC_ptr, PL_ptr, rsize, csize);
+  cm->nr_chemicals = cm->inputchem(rsize);
+  return;
+}
+
+void model::runchemmodel()
+{
+  double *iterin, *iterout;
+  iterin  = new double[nsc];
+  iterout = new double[nsc];
+
+  for(int i=0; i<nsc; i++)
+  {
+    iterin[i] = sc[i];
+    iterout[i] = sc[i];
+  }
+
+  cout << "Running chemmodel for timestep: " << t << endl;
+  cm->calc_k(1000.0,298.0,298., \
+          1.125919, 0, 1, 12., \
+          298.,1000.,4., \
+          298.,1000.,4., sc, dsc );
+
+  cm->iter(1, dt, iterout, iterin);
+  for(int i=0; i<nsc; i++)
+    cout << i << ": " << iterout[i] << ", " << iterin[i] << endl;
+
+  for(int i=0; i<nsc; i++)
+   sc[i] = iterout[i];
+
+  // do the FT
+  for(int i=0; i<nsc; i++)
+  {
+    iterin[i] = sc[i] + dsc[i];
+    iterout[i] = sc[i] + dsc[i];
+  }
+
+  cm->iter(0, dt, iterout, iterin);
+  for(int i=0; i<nsc; i++)
+    cout << i << ": " << iterout[i] << ", " << iterin[i] << endl;
+
+  for(int i=0; i<nsc; i++)
+   dsc[i] = iterout[i] - sc[i];
+
+  return;
+}
+

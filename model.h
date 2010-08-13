@@ -1,6 +1,7 @@
 #include <cstring>
 #include "modelinput.h"
 #include "modeloutput.h"
+#include "modelchem.h"
 
 class model
 {
@@ -23,6 +24,9 @@ private:
 
   void runlsmodel();
   void intlsmodel();
+
+  void initchemmodel();
+  void runchemmodel();
 
   void store();
 
@@ -113,6 +117,17 @@ private:
   double vw;        // surface momentum flux in v-direction [m2 s-2]
   double vwe;       // Entrainment momentum flux in v-direction [m2 s-2]
 
+  int nsc;
+  double *sc;       // initial mixed-layer scalar 
+  double *dsc;      // initial scalar jump at h [kg kg-1]
+  double *gammasc;  // free atmosphere scalar lapse rate [kg kg-1 m-1]
+  double *advsc;    // advection of scalar [kg kg-1 s-1]
+  double *wsc;      // surface kinematic scalar flux [kg kg-1 m s-1]
+  bool   *sw_wsc;   // switch for sinusoidal wsc
+  double *wsc0;
+  double *wsce;
+  double *sctend, *dsctend;
+
   double htend;
   double thetatend, qtend, utend, vtend;
   double dthetatend, dqtend, dutend, dvtend;
@@ -193,5 +208,13 @@ private:
   double Tsoiltend;
   double wgtend;
   double Wltend;
+
+  // chemistry
+  modelchem *cm;
+  bool   sw_chem;
+  int    rsize;
+  int    csize;
+  Reaction *reactions;
+  Name_Number *PL_scheme;
 };
 

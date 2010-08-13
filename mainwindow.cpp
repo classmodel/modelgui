@@ -119,7 +119,7 @@ void MainWindow::newrun()
   if(activerun != -1)
     storeFormData();
 
-  modelrun run;
+  modelrun run(defaultinput);
   run.hasrun = false;
 
   QMap<int, modelrun>::iterator i = modelrunlist->begin();
@@ -138,8 +138,8 @@ void MainWindow::newrun()
   run.runname.append(base);
   modelrunlist->insert((max+1),run);
 
-  modelrunlist->value(max+1).run->input       = defaultinput;
-  modelrunlist->find(max+1).value().previnput = defaultinput;
+  modelrunlist->find(max+1).value().run->input = defaultinput;
+  modelrunlist->find(max+1).value().previnput  = defaultinput;
 
   QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
   point->setText(0, QString::number(max+1));
@@ -167,7 +167,7 @@ void MainWindow::clonerun()
 
   for (int n=0; n<ui->modelRunTree->selectedItems().count(); n++)
   {
-    modelrun run;
+    modelrun run(defaultinput);
     run.hasrun = false;
 
     QMap<int, modelrun>::iterator i = modelrunlist->begin();
@@ -180,20 +180,20 @@ void MainWindow::clonerun()
     }
 
     int id = ui->modelRunTree->selectedItems()[n]->text(0).toInt();
-    QString base = modelrunlist->value(id).runname;
+    QString base = modelrunlist->find(id).value().runname;
     QString append = " (clone)";
     base.append(append);
     run.runname.append(base);
     modelrunlist->insert((max+1),run);
 
     //modelrunlist->value(max+1).run->input       = modelrunlist->value(id).run->input;
-    modelrunlist->find(max+1).value().run->input = modelrunlist->value(id).run->input;
-    modelrunlist->find(max+1).value().previnput  = modelrunlist->value(id).previnput;
+    modelrunlist->find(max+1).value().run->input = modelrunlist->find(id).value().run->input;
+    modelrunlist->find(max+1).value().previnput  = modelrunlist->find(id).value().previnput;
 
-    modelrunlist->find(max+1).value().surfacestatus   = modelrunlist->value(id).surfacestatus;
-    modelrunlist->find(max+1).value().soilstatus      = modelrunlist->value(id).soilstatus;
-    modelrunlist->find(max+1).value().surfaceadvanced = modelrunlist->value(id).surfaceadvanced;
-    modelrunlist->find(max+1).value().soiladvanced    = modelrunlist->value(id).soiladvanced;
+    modelrunlist->find(max+1).value().surfacestatus   = modelrunlist->find(id).value().surfacestatus;
+    modelrunlist->find(max+1).value().soilstatus      = modelrunlist->find(id).value().soilstatus;
+    modelrunlist->find(max+1).value().surfaceadvanced = modelrunlist->find(id).value().surfaceadvanced;
+    modelrunlist->find(max+1).value().soiladvanced    = modelrunlist->find(id).value().soiladvanced;
 
     QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelRunTree);
     point->setText(0, QString::number(max+1));
@@ -258,7 +258,7 @@ void MainWindow::updateSelectedRuns()
   for (int i = 0; i < ui->modelRunTree->topLevelItemCount(); i++)
   {
     QTreeWidgetItem *item =  ui->modelRunTree->topLevelItem (i);
-      if (item->isSelected() && modelrunlist->value(item->text(0).toInt()).hasrun)
+      if (item->isSelected() && modelrunlist->find(item->text(0).toInt()).value().hasrun)
         selectedruns->append(item->text(0).toInt());
   }
 }
@@ -414,11 +414,11 @@ void MainWindow::loadFormData()
     activerun = n;
 
     modelinput *tempinput;
-    tempinput = &modelrunlist->value(n).run->input;
+    tempinput = &modelrunlist->find(n).value().run->input;
 
     // set the pull down menus correctly
-    ui->input_surface_surfacetypes->setCurrentIndex(modelrunlist->value(n).surfacestatus);
-    ui->input_soil_soiltypes->setCurrentIndex(modelrunlist->value(n).soilstatus);
+    ui->input_surface_surfacetypes->setCurrentIndex(modelrunlist->find(n).value().surfacestatus);
+    ui->input_soil_soiltypes->setCurrentIndex(modelrunlist->find(n).value().soilstatus);
 
     ui->input_timestep->setText(QString::number(tempinput->dt));
     ui->input_time->setText(QString::number(tempinput->runtime / 3600.));
@@ -521,9 +521,9 @@ void MainWindow::loadFormData()
     ui->input_soil_W2->setText(QString::number(tempinput->w2));
     ui->input_soil_Wg->setText(QString::number(tempinput->wg));
 
-    if(!modelrunlist->value(n).soiladvanced)
+    if(!modelrunlist->find(n).value().soiladvanced)
     {
-      updateSoiltype(modelrunlist->value(n).soilstatus);
+      updateSoiltype(modelrunlist->find(n).value().soilstatus);
       ui->sw_soil_advanced->setCheckState(Qt::Unchecked);
     }
     else
@@ -546,10 +546,10 @@ void MainWindow::loadFormData()
     ui->input_surface_Ts->setText(QString::number(tempinput->Ts));
     ui->input_surface_Wl->setText(QString::number(tempinput->Wl));
 
-    if(!modelrunlist->value(n).surfaceadvanced)
+    if(!modelrunlist->find(n).value().surfaceadvanced)
     {
       ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
-      updateSurfacetype(modelrunlist->value(n).surfacestatus);
+      updateSurfacetype(modelrunlist->find(n).value().surfacestatus);
     }
     else
     {
@@ -575,7 +575,7 @@ void MainWindow::loadFormData()
     ui->input_rad_clouds->setText(QString::number(tempinput->cc));
 
     // OTHER
-    ui->input_name->setText(modelrunlist->value(n).runname);
+    ui->input_name->setText(modelrunlist->find(n).value().runname);
 
 //    if(modelrunlist->value(n).surfaceadvanced)
 //      ui->sw_surface_advanced->setCheckState(Qt::Checked);
@@ -651,7 +651,7 @@ void MainWindow::startrun()
     {
       storeFormData();
       int id = ui->modelRunTree->selectedItems()[i]->text(0).toInt();
-      modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
+      //modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
       modelrunlist->find(id).value().run->runmodel();
       modelrunlist->find(id).value().hasrun = true;
 
@@ -734,7 +734,7 @@ void MainWindow::saveRuns()
   QTextStream out(&file);   // we will serialize the data into the file
 
   QMap<int,modelrun>::iterator i;
-  modelrun temprun;
+  modelrun temprun(defaultinput);
 
   for (i = modelrunlist->begin(); i != modelrunlist->end(); ++i)
   {
@@ -862,7 +862,7 @@ void MainWindow::loadRuns()
   QTextStream in(&file);   // we will serialize the data into the file
 
   QString line;
-  modelrun temprun;
+  modelrun temprun(defaultinput);
   modelinput tempinput;
 
   line = in.readLine();

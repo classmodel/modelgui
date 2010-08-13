@@ -89,4 +89,10 @@ void MainWindow::readdefaultinput()
   defaultinput.Wl         = 0.0000;   // equivalent water layer depth for wet vegetation [m]
   
   defaultinput.Lambda     = 5.9;      // thermal diffusivity skin layer [-]
+
+  //chemistry
+  defaultinput.sw_chem    = false;
+  defaultinput.nsc        = 20;
+  defaultinput.rsize      = 0;
+  defaultinput.csize      = 0;
 }

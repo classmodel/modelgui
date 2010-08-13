@@ -7,7 +7,7 @@ public:
   modelinput previnput;
   QString runname;
   model *run;
-  modelrun();
+  modelrun(modelinput);
   bool hasrun;
   int  surfacestatus;
   int  soilstatus;

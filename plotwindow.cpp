@@ -72,7 +72,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   // Iterate through QMap with modelruns; create entry in QtreeWidget when run.hasrun==true
   QMap<int, modelrun>::const_iterator i = runlist->constBegin();
   while (i != runlist->constEnd()) {
-    if (runlist->value(i.key()).hasrun)
+    if (runlist->find(i.key()).value().hasrun)
     {
       QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelruntree);
       if (initialselected->contains(i.key()))
@@ -84,7 +84,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
         point->setCheckState(1,Qt::Unchecked);
       point->setDisabled(false);
       point->setText(0, QString::number(i.key()));
-      point->setText(1, runlist->value(i.key()).runname);
+      point->setText(1, runlist->find(i.key()).value().runname);
     }
   ++i;
   }
@@ -119,6 +119,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   QList<outputvar> radiationvars;
   QList<outputvar> surfacevars;
   QList<outputvar> vertprof;
+  QList<outputvar> chemistry;
 
   QList<QString> advancedtreegroups;
   advancedtreegroups
@@ -129,7 +130,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << "Surface-layer"
       << "Radiation"
       << "Surface"
-      << "Vertical profiles";
+      << "Vertical profiles"
+      << "Chemistry";
 
   mixedlayervars
       << modelout.t
@@ -189,6 +191,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   vertprof
       << modelout.thetaprof
       << modelout.qprof;
+
+  chemistry
+      << modelout.q;
 
 
   allvariables.insert(0,mixedlayervars);
@@ -368,8 +373,8 @@ void plotwindow::updateplotdata()
   QMap<int, modelrun>::const_iterator i = runlist->constBegin();
   while (i != runlist->constEnd())
   {
-    getdata(&xdata, runlist->value(i.key()), plotvarx);
-    getdata(&ydata, runlist->value(i.key()), plotvary);
+    getdata(&xdata, runlist->find(i.key()).value(), plotvarx);
+    getdata(&ydata, runlist->find(i.key()).value(), plotvary);
 
     int key = i.key();
     plotar->xdatalist.insert(key, xdata);
@@ -428,10 +433,10 @@ void plotwindow::addrun(int num)
     point->setCheckState(1,Qt::Unchecked);
     point->setDisabled(false);
     point->setText(0, QString::number(num));
-    point->setText(1, runlist->value(num).runname);
+    point->setText(1, runlist->find(num).value().runname);
   }
   if (ui->modelruntree->findItems(id,Qt::MatchExactly,0).count() == 1)
-    ui->modelruntree->findItems(id,Qt::MatchExactly,0).value(0)->setText(1,runlist->value(num).runname);
+    ui->modelruntree->findItems(id,Qt::MatchExactly,0).value(0)->setText(1,runlist->find(num).value().runname);
 
   updateplotdata();
   plotar->update();

@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     modeloutput.cpp \
     switches.cpp \
     defaultinput.cpp \
-    landsoil.cpp
+    landsoil.cpp \
+    modelchem.cpp
 HEADERS += mainwindow.h \
     modeloutput.h \
     modelinput.h \
@@ -17,7 +18,9 @@ HEADERS += mainwindow.h \
     modelrun.h \
     plotwindow.h \
     subplot.h \
-    landsoil.h
+    landsoil.h \
+    modelchemtypes.h \
+    modelchem.h
 FORMS += mainwindow.ui \
     plotwindow.ui \
     subplot.ui
