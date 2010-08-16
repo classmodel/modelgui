@@ -95,4 +95,126 @@ void MainWindow::readdefaultinput()
   defaultinput.nsc        = 20;
   defaultinput.rsize      = 0;
   defaultinput.csize      = 0;
+
+  defaultinput.sc[0]      = 0.;
+  defaultinput.dsc[0]     = 0.;
+  defaultinput.gammasc[0] = 0.;
+  defaultinput.wsc[0]     = 1.0;
+  defaultinput.sw_wsc[0]  = false;
+
+  defaultinput.sc[1]      = 10.;
+  defaultinput.dsc[1]     = 0.;
+  defaultinput.gammasc[1] = 0.;
+  defaultinput.wsc[1]     = 0.;
+  defaultinput.sw_wsc[1]  = false;
+
+  defaultinput.sc[2]      = 0.;
+  defaultinput.dsc[2]     = 0.;
+  defaultinput.gammasc[2] = 0.;
+  defaultinput.wsc[2]     = 0.;
+  defaultinput.sw_wsc[2]  = false;
+
+  defaultinput.sc[3]      = 0.;
+  defaultinput.dsc[3]     = 0.;
+  defaultinput.gammasc[3] = 0.;
+  defaultinput.wsc[3]     = 5.e-4;
+  defaultinput.sw_wsc[3]  = false;
+
+  defaultinput.sc[4]      = 1.;
+  defaultinput.dsc[4]     = -1.;
+  defaultinput.gammasc[4] = 0.;
+  defaultinput.wsc[4]     = 0.;
+  defaultinput.sw_wsc[4]  = false;
+
+  defaultinput.sc[5]      = 1724.;
+  defaultinput.dsc[5]     = 0.;
+  defaultinput.gammasc[5] = 0.;
+  defaultinput.wsc[5]     = 0.;
+  defaultinput.sw_wsc[5]  = false;
+
+  defaultinput.sc[6]      = 0.;
+  defaultinput.dsc[6]     = 0.;
+  defaultinput.gammasc[6] = 0.;
+  defaultinput.wsc[6]     = 0.;
+  defaultinput.sw_wsc[6]  = false;
+
+  defaultinput.sc[7]      = 0.;
+  defaultinput.dsc[7]     = 0.;
+  defaultinput.gammasc[7] = 0.;
+  defaultinput.wsc[7]     = 0.;
+  defaultinput.sw_wsc[7]  = false;
+
+  defaultinput.sc[8]      = 1.3;
+  defaultinput.dsc[8]     = 0.;
+  defaultinput.gammasc[8] = 0.;
+  defaultinput.wsc[8]     = 0.;
+  defaultinput.sw_wsc[8]  = false;
+
+  defaultinput.sc[9]      = 2.;
+  defaultinput.dsc[9]     = 0.;
+  defaultinput.gammasc[9] = 0.;
+  defaultinput.wsc[9]     = 0.1;
+  defaultinput.sw_wsc[9]  = false;
+
+  defaultinput.sc[10]      = 0.;
+  defaultinput.dsc[10]     = 0.;
+  defaultinput.gammasc[10] = 0.;
+  defaultinput.wsc[10]     = 0.;
+  defaultinput.sw_wsc[10]  = false;
+
+  defaultinput.sc[11]      = 0.;
+  defaultinput.dsc[11]     = 0.;
+  defaultinput.gammasc[11] = 0.;
+  defaultinput.wsc[11]     = 0.;
+  defaultinput.sw_wsc[11]  = false;
+
+  defaultinput.sc[12]      = 0.;
+  defaultinput.dsc[12]     = 0.;
+  defaultinput.gammasc[12] = 0.;
+  defaultinput.wsc[12]     = 0.;
+  defaultinput.sw_wsc[12]  = false;
+
+  defaultinput.sc[13]      = 124.;
+  defaultinput.dsc[13]     = 0.;
+  defaultinput.gammasc[13] = 0.;
+  defaultinput.wsc[13]     = 0.;
+  defaultinput.sw_wsc[13]  = false;
+
+  defaultinput.sc[14]      = 0.;
+  defaultinput.dsc[14]     = 0.;
+  defaultinput.gammasc[14] = 0.;
+  defaultinput.wsc[14]     = 0.;
+  defaultinput.sw_wsc[14]  = false;
+
+  defaultinput.sc[15]      = 0.;
+  defaultinput.dsc[15]     = 0.;
+  defaultinput.gammasc[15] = 0.;
+  defaultinput.wsc[15]     = 0.;
+  defaultinput.sw_wsc[15]  = false;
+
+  defaultinput.sc[16]      = 0.2e9;
+  defaultinput.dsc[16]     = 0.;
+  defaultinput.gammasc[16] = 0.;
+  defaultinput.wsc[16]     = 0.;
+  defaultinput.sw_wsc[16]  = false;
+
+  defaultinput.sc[17]      = 0.8e9;
+  defaultinput.dsc[17]     = 0.;
+  defaultinput.gammasc[17] = 0.;
+  defaultinput.wsc[17]     = 0.;
+  defaultinput.sw_wsc[17]  = false;
+
+  defaultinput.sc[18]      = 0.;
+  defaultinput.dsc[18]     = 0.;
+  defaultinput.gammasc[18] = 0.;
+  defaultinput.wsc[18]     = 0.;
+  defaultinput.sw_wsc[18]  = false;
+
+  defaultinput.sc[19]      = 0.;
+  defaultinput.dsc[19]     = 0.;
+  defaultinput.gammasc[19] = 0.;
+  defaultinput.wsc[19]     = 0.;
+  defaultinput.sw_wsc[19]  = false;
+
+  // TEMP FOR CHEMISTRY
 }
