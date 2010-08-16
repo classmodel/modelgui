@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     switches.cpp \
     defaultinput.cpp \
     landsoil.cpp \
-    modelchem.cpp
+    modelchem.cpp \
+    modelinput.cpp
 HEADERS += mainwindow.h \
     modeloutput.h \
     modelinput.h \

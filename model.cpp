@@ -1011,7 +1011,7 @@ void model::initchemmodel()
 
   for(i=0;i<csize;i++)
   {
-    PL_scheme[i].active = FALSE;
+    PL_scheme[i].active = 0; // WAS FALSE
     PL_scheme[i].chem_number = -99;
   }
 
