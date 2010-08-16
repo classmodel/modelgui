@@ -213,8 +213,8 @@ public:
 
     // chemistry
     sw_chem    = false;
-    csize      = -1;
-    rsize      = -1;
+    csize      = 0;
+    rsize      = 0;
   }
 };
 
