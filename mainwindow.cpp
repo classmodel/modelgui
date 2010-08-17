@@ -77,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent)
   blockInput(false);
 
   // if all fields are properly assigned, the next line can be removed
-  //formvalues            = defaultinput;
+  formvalues            = defaultinput;
 }
 
 MainWindow::~MainWindow()
@@ -119,7 +119,7 @@ void MainWindow::newrun()
   if(activerun != -1)
     storeFormData();
 
-  modelrun run(defaultinput);
+  modelrun run(&defaultinput);
   run.hasrun = false;
 
   QMap<int, modelrun>::iterator i = modelrunlist->begin();
@@ -167,7 +167,7 @@ void MainWindow::clonerun()
 
   for (int n=0; n<ui->modelRunTree->selectedItems().count(); n++)
   {
-    modelrun run(defaultinput);
+    modelrun run(&defaultinput);
     run.hasrun = false;
 
     QMap<int, modelrun>::iterator i = modelrunlist->begin();
@@ -734,7 +734,7 @@ void MainWindow::saveRuns()
   QTextStream out(&file);   // we will serialize the data into the file
 
   QMap<int,modelrun>::iterator i;
-  modelrun temprun(defaultinput);
+  modelrun temprun(&defaultinput);
 
   for (i = modelrunlist->begin(); i != modelrunlist->end(); ++i)
   {
@@ -862,7 +862,7 @@ void MainWindow::loadRuns()
   QTextStream in(&file);   // we will serialize the data into the file
 
   QString line;
-  modelrun temprun(defaultinput);
+  modelrun temprun(&defaultinput);
   modelinput tempinput;
 
   line = in.readLine();
@@ -872,7 +872,7 @@ void MainWindow::loadRuns()
   {
     while(line == "#MXL# NEWRUN")
     {
-      temprun.run = new model(defaultinput);
+      temprun.run = new model(&defaultinput);
 
       std::cout << "Loading MXL run..." << std::endl;
       line = in.readLine();

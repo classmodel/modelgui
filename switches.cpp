@@ -1,3 +1,4 @@
+#include <sstream>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "plotwindow.h"
@@ -220,6 +221,13 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   else if (plotvar == "qprof")
     *data = n.run->output->qprof;
 
+  // chemistry
+  for(int i=0; i<22; i++) // nsc hardcoded
+  {
+    QString scalar = "sc" + QString::number(i);
+    if (plotvar == scalar)
+       *data = n.run->output->sc[i];
+  }
 }
 
 
@@ -351,4 +359,11 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
     *plotvar = label;
   else if (label == "thetaprof")
     *plotvar = label;
+
+  for(int i=0; i<22; i++) // nsc hardcoded!
+  {
+    QString scalar = "sc" + QString::number(i);
+    if (label == scalar)
+      *plotvar = label;
+  }
 }

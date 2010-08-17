@@ -6,7 +6,7 @@
 class model
 {
 public:
-  model(modelinput);
+  model(modelinput*);
   void runmodel();
   modelinput input;
   modeloutput *output;

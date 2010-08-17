@@ -90,5 +90,8 @@ public:
   outputvar thetaprof;
   outputvar qprof;
 
-  modeloutput(int);
+  //chemistry
+  outputvar *sc;        // mixed-layer specific humidity [kg kg-1]
+
+  modeloutput(int,int);
 };

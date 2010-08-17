@@ -91,7 +91,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Create dropdown menu with plotvariables for basic plotting
   QStringList varnames;
-  modeloutput modelout(0);
+  modeloutput modelout(0,22);
 
   varnames << QString::fromStdString(modelout.h.description) << QString::fromStdString(modelout.theta.description) << QString::fromStdString(modelout.dtheta.description) << QString::fromStdString(modelout.wtheta.description)
           << QString::fromStdString(modelout.q.description) << QString::fromStdString(modelout.dq.description) << QString::fromStdString(modelout.wq.description);
@@ -192,8 +192,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.thetaprof
       << modelout.qprof;
 
-  chemistry
-      << modelout.q;
+  for(int n=0; n<22; n++)
+    chemistry << modelout.sc[n];
 
 
   allvariables.insert(0,mixedlayervars);
@@ -204,6 +204,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   allvariables.insert(5,radiationvars);
   allvariables.insert(6,surfacevars);
   allvariables.insert(7,vertprof);
+  allvariables.insert(8,chemistry);
 
   for (int n=0; n<advancedtreegroups.size(); n++)
   {

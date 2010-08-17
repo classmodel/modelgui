@@ -7,7 +7,7 @@ using namespace std;
 
 inline double sign(double n) { return n > 0 ? 1 : (n < 0 ? -1 : 0);}
 
-model::model(modelinput extinput)
+model::model(modelinput *extinput)
 {
   // model constants
   Lv         =  2.5e6;                  // heat of vaporization [J kg-1]
@@ -128,7 +128,7 @@ model::model(modelinput extinput)
 //  input.rsize      =  extinput.rsize;
 //  input.csize      =  extinput.csize;
 
-  input = extinput;
+  input = *extinput;
 
   //input.reactions  =  new Reaction[input.rsize];
   //for(int i=0; i<input.rsize; i++)
@@ -319,7 +319,7 @@ void model::initmodel()
     runmlmodel();
 
   // set output array to given value
-  output = new modeloutput(tsteps);
+  output = new modeloutput(tsteps, nsc);
 
   store();
   return;
@@ -838,6 +838,10 @@ void model::store()
   output->qprof.data[startt + 3] = output->q.data[t] + output->dq.data[t] + output->gammaq.data[t] * 1.e6;
   output->zprof.data[startt + 3] = output->h.data[t] + 1.e6;
 
+  //chemistry
+  for(int n=0;n<nsc; n++)
+    output->sc[n].data[t] = sc[n];
+
   return;
 } 
 
@@ -995,7 +999,9 @@ void model::initchemmodel()
   //const int CSIZE = 21;
 
   //Reaction Reactions[RSIZE];
+
   Reaction **RC_ptr;
+
   RC_ptr = new Reaction*[rsize];
 
   for(i=0;i<rsize;i++)
@@ -1016,10 +1022,6 @@ void model::initchemmodel()
     PL_scheme[i].active = 0; // WAS FALSE
     PL_scheme[i].chem_number = -99;
   }
-
-  //tnor = i;
-  //if (tnor!=rsize)
-  //  printf("tnor = %i declared %i\n",tnor,rsize);
 
   // HERE THE FINAL MODULE STARTS
   cm = new modelchem(RC_ptr, PL_ptr, rsize, csize);

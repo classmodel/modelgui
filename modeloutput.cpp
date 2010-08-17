@@ -1,5 +1,6 @@
+#include <sstream>
 #include "modeloutput.h"
-modeloutput::modeloutput(int tsteps)
+modeloutput::modeloutput(int tsteps, int nsc)
 {
   t.data                    = new double[tsteps];   // time [h]
   t.name                    = "time";
@@ -343,6 +344,19 @@ modeloutput::modeloutput(int tsteps)
   zprof.unit                = "m";
   zprof.description         = "Height";
   zprof.id                  = "zprof";
+
+  //chemistry
+  sc                        = new outputvar[nsc];
+  for(int n=0; n<nsc; n++)
+  {
+    sc[n].data = new double[tsteps];
+    std::stringstream an;
+    an << n;
+    sc[n].name = "scalar" + an.str();
+    sc[n].unit = "-";
+    sc[n].description = "Chemistry scalar " + an.str();
+    sc[n].id   = "sc" + an.str();
+  }
 
   return;
 }

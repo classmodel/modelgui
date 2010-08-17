@@ -1,6 +1,6 @@
 #include "modelrun.h"
 
-modelrun::modelrun(modelinput giveninput)
+modelrun::modelrun(modelinput *giveninput)
 {
   // modelinput ref_input;
   run = new model(giveninput);
