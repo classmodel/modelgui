@@ -896,8 +896,8 @@ void MainWindow::readdefaultinput()
   defaultreactions[24].nr_chem_outp    = 2;
   defaultreactions[24].inp[0].coef     = 1.00;
   defaultreactions[24].inp[0].cname    = "N2O5";
-  defaultreactions[24].inp[0].chem_nr  = 22;
-  defaultreactions[24].inp[0].index    = 22;
+  defaultreactions[24].inp[0].chem_nr  = 21;
+  defaultreactions[24].inp[0].index    = 21;
   defaultreactions[24].outp[0].coef    = 1.00;
   defaultreactions[24].outp[0].cname   = "NO3";
   defaultreactions[24].outp[0].chem_nr = 20;
