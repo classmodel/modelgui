@@ -404,6 +404,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
   sc[19].description = "H2O2";
   sc[20].description = "NO3";
   sc[21].description = "N2O5";
+  // CvH remove later...
 
   return;
 }
