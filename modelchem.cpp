@@ -37,9 +37,6 @@ void modelchem::inputchem(int tnor)
   Name_Number *PL_temp;
     
   
-  // CvH, is this var only local?
-  int nr_chemicals;
-
   PL_temp = new Name_Number[csize];
 
   k = 0;
@@ -678,6 +675,8 @@ void modelchem::calc_k( \
       }//end switch
     }//end if
   } //tnor
+  for(int i=0; i<rsize; i++)
+    printf("K_cbl: %i, %f\n", i, RC_ptr[i]->Keff_cbl);
 }
 
 // CvH iter: cf_switch: BL or FT
@@ -699,6 +698,7 @@ void modelchem::iter(int cf_switch, double dt, double ynew[], double ycurrent[])
   //for( n=0;n<nr_chemicals;n++)
   //  printf("CvH PL_ptr: %p\n", PL_ptr[n]); 
   //return;
+  printf("CvH nr_chemicals: %i\n", nr_chemicals);
 
   for( iiter=0;iiter<niter;iiter++)
   {
