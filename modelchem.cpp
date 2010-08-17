@@ -1,3 +1,4 @@
+#include <string>
 #include <fstream>
 #include <cmath>
 #include <cstring>
@@ -25,10 +26,10 @@ int modelchem::inputchem(int tnor)
 {
   int i,j,k,L;
   int found;
-  char name[10];
-  char dname1[6],dname2[6];
+  std::string name;
+  //char dname1[6],dname2[6];
   int react_nr;
-  int icoeff[3];
+  int icoef[3];
   int nchasp;
   FILE *rcout;
   Name_Number *PL_temp;
@@ -45,10 +46,10 @@ int modelchem::inputchem(int tnor)
     printf("CvH check: %i, %p\n", i, RC_ptr[i]);
     for( j=0;j<RC_ptr[i]->nr_chem_inp;j++)
     {               // look only on input side of reaction
-      strcpy(name , RC_ptr[i]->inp[j].cname);
+      name = RC_ptr[i]->inp[j].cname;
       found = 0;
       for(L=0;L<=k;L++){
-        if(strcmp(name , PL_ptr[L]->name) == 0) {
+        if(name == PL_ptr[L]->name) {
           found = 1;
           PL_ptr[L]->nr_PL = PL_ptr[L]->nr_PL +1;      //count number of reactions
           if( PL_ptr[L]->nr_PL > MRPCC ) {
@@ -61,7 +62,7 @@ int modelchem::inputchem(int tnor)
         } //end if
       } //end for L
       if (found == 0) {
-        strcpy(PL_ptr[k]->name,name);
+        PL_ptr[k]->name = name;
         PL_ptr[k]->chem_number = RC_ptr[i]->inp[j].chem_nr;
         PL_ptr[k]->nr_PL = PL_ptr[k]->nr_PL +1;
         if ( PL_ptr[k]->nr_PL > MRPCC ) {
@@ -78,10 +79,10 @@ int modelchem::inputchem(int tnor)
 
   for(i=0;i<rsize;i++){
     for(j=0;j<RC_ptr[i]->nr_chem_outp;j++){             // look only on output side of reaction
-      strcpy(name , RC_ptr[i]->outp[j].cname);
+      name = RC_ptr[i]->outp[j].cname;
       found = 0;
       for(L=0;L<k;L++){
-        if(strcmp(name , PL_ptr[L]->name) == 0) {
+        if(name == PL_ptr[L]->name) {
           found = 1;
           PL_ptr[L]->nr_PL = PL_ptr[L]->nr_PL +1;        //count number of reactions
           if( PL_ptr[L]->nr_PL > MRPCC ) {
@@ -94,7 +95,7 @@ int modelchem::inputchem(int tnor)
         } //end if
       } //end for L
       if(found == 0) {
-        strcpy(PL_ptr[k]->name,name);
+        PL_ptr[k]->name = name;
         PL_ptr[k]->chem_number = RC_ptr[i]->outp[j].chem_nr;
         PL_ptr[k]->nr_PL = PL_ptr[k]->nr_PL +1;
         if ( PL_ptr[L]->nr_PL > MRPCC ) {
@@ -118,14 +119,15 @@ int modelchem::inputchem(int tnor)
       if( PL_ptr[i]->PL[j].PorL == PRODUCTION){
         for(k=0;k<RC_ptr[react_nr]->nr_chem_outp;k++){
 //debug only
-  strcpy(dname1,RC_ptr[react_nr]->outp[k].cname);
-    strcpy(dname2,PL_ptr[i]->name);
+  //strcpy(dname1,RC_ptr[react_nr]->outp[k].cname);
+    //strcpy(dname2,PL_ptr[i]->name);
 
-          if( strcmp(dname1,dname2)==0){
+          if( RC_ptr[react_nr]->outp[k].cname == PL_ptr[i]->name)
+          {
             switch(RC_ptr[react_nr]->nr_chem_inp){            //left of arrow 1 reactant
               case 1:
-                icoeff[0] = (int)(RC_ptr[react_nr]->inp[0].coeff +0.05);
-                switch (icoeff[0]){
+                icoef[0] = (int)(RC_ptr[react_nr]->inp[0].coef +0.05);
+                switch (icoef[0]){
                   case 1:
                      PL_ptr[i]->PL[j].formula = 1;
                      PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
@@ -138,32 +140,32 @@ int modelchem::inputchem(int tnor)
                   default:
                      PL_ptr[i]->PL[j].formula = 3;
                      PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                     PL_ptr[i]->PL[j].exp1  = icoeff[0];
+                     PL_ptr[i]->PL[j].exp1  = icoef[0];
                      break;
                 }
-                PL_ptr[i]->PL[j].coef =  RC_ptr[react_nr]->outp[k].coeff;
+                PL_ptr[i]->PL[j].coef =  RC_ptr[react_nr]->outp[k].coef;
                 break;
               case 2:  //there are 2 reacting species
-                icoeff[0] = (int)(RC_ptr[react_nr]->inp[0].coeff +0.05);
-                icoeff[1] = (int)(RC_ptr[react_nr]->inp[1].coeff +0.05);
-                if ((icoeff[0] == 1) && (icoeff[1] == 1) ){
+                icoef[0] = (int)(RC_ptr[react_nr]->inp[0].coef +0.05);
+                icoef[1] = (int)(RC_ptr[react_nr]->inp[1].coef +0.05);
+                if ((icoef[0] == 1) && (icoef[1] == 1) ){
                   PL_ptr[i]->PL[j].formula = 2;
                   PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
                   PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[1].index;
                 }else{
                   PL_ptr[i]->PL[j].formula = 4;
                   PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                  PL_ptr[i]->PL[j].exp1  = icoeff[0];
+                  PL_ptr[i]->PL[j].exp1  = icoef[0];
                   PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[1].index;
-                  PL_ptr[i]->PL[j].exp2  = icoeff[1];
+                  PL_ptr[i]->PL[j].exp2  = icoef[1];
                 }
-                PL_ptr[i]->PL[j].coef =  RC_ptr[react_nr]->outp[k].coeff;
+                PL_ptr[i]->PL[j].coef =  RC_ptr[react_nr]->outp[k].coef;
                 break;
               case 3: // there are 3 reacting species
-                icoeff[0] = (int)(RC_ptr[react_nr]->inp[0].coeff +0.05);
-                icoeff[1] = (int)(RC_ptr[react_nr]->inp[1].coeff +0.05);
-                icoeff[2] = (int)(RC_ptr[react_nr]->inp[2].coeff +0.05);
-                if( (icoeff[0]==1) && (icoeff[1] == 1) && (icoeff[2] == 1)){
+                icoef[0] = (int)(RC_ptr[react_nr]->inp[0].coef +0.05);
+                icoef[1] = (int)(RC_ptr[react_nr]->inp[1].coef +0.05);
+                icoef[2] = (int)(RC_ptr[react_nr]->inp[2].coef +0.05);
+                if( (icoef[0]==1) && (icoef[1] == 1) && (icoef[2] == 1)){
                   // we don't need exponents keep it simple
                   PL_ptr[i]->PL[j].formula = 5;
                   PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
@@ -172,29 +174,29 @@ int modelchem::inputchem(int tnor)
                 }else{
                   PL_ptr[i]->PL[j].formula = 6;
                   PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                  PL_ptr[i]->PL[j].exp1  = icoeff[0];
+                  PL_ptr[i]->PL[j].exp1  = icoef[0];
                   PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[1].index;
-                  PL_ptr[i]->PL[j].exp2  = icoeff[1];
+                  PL_ptr[i]->PL[j].exp2  = icoef[1];
                   PL_ptr[i]->PL[j].comp3 = RC_ptr[react_nr]->inp[2].index;
-                  PL_ptr[i]->PL[j].exp3  = icoeff[2];
+                  PL_ptr[i]->PL[j].exp3  = icoef[2];
                 }
-                PL_ptr[i]->PL[j].coef =  RC_ptr[react_nr]->outp[k].coeff;
+                PL_ptr[i]->PL[j].coef =  RC_ptr[react_nr]->outp[k].coef;
                 break;
               case 4:
-                icoeff[0] = (int)(RC_ptr[react_nr]->inp[0].coeff +0.05);
-                icoeff[1] = (int)(RC_ptr[react_nr]->inp[1].coeff +0.05);
-                icoeff[2] = (int)(RC_ptr[react_nr]->inp[2].coeff +0.05);
-                icoeff[3] = (int)(RC_ptr[react_nr]->inp[3].coeff +0.05);
+                icoef[0] = (int)(RC_ptr[react_nr]->inp[0].coef +0.05);
+                icoef[1] = (int)(RC_ptr[react_nr]->inp[1].coef +0.05);
+                icoef[2] = (int)(RC_ptr[react_nr]->inp[2].coef +0.05);
+                icoef[3] = (int)(RC_ptr[react_nr]->inp[3].coef +0.05);
                 PL_ptr[i]->PL[j].formula = 7;
                 PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                PL_ptr[i]->PL[j].exp1  = icoeff[0];
+                PL_ptr[i]->PL[j].exp1  = icoef[0];
                 PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[1].index;
-                PL_ptr[i]->PL[j].exp2  = icoeff[1];
+                PL_ptr[i]->PL[j].exp2  = icoef[1];
                 PL_ptr[i]->PL[j].comp3 = RC_ptr[react_nr]->inp[2].index;
-                PL_ptr[i]->PL[j].exp3  = icoeff[2];
+                PL_ptr[i]->PL[j].exp3  = icoef[2];
                 PL_ptr[i]->PL[j].comp4 = RC_ptr[react_nr]->inp[3].index;
-                PL_ptr[i]->PL[j].exp4  = icoeff[3];
-                PL_ptr[i]->PL[j].coef =  RC_ptr[react_nr]->outp[k].coeff;
+                PL_ptr[i]->PL[j].exp4  = icoef[3];
+                PL_ptr[i]->PL[j].coef =  RC_ptr[react_nr]->outp[k].coef;
                 break;
               default:
                 printf("Error 1");
@@ -214,13 +216,13 @@ int modelchem::inputchem(int tnor)
       react_nr = PL_ptr[i]->PL[j].r_nr;
       if( PL_ptr[i]->PL[j].PorL == LOSS){    // This is LOSS
         for(k=0;k<RC_ptr[react_nr]->nr_chem_inp;k++){
-          icoeff[0] = (int)(RC_ptr[react_nr]->inp[0].coeff +0.05);
-          icoeff[1] = (int)(RC_ptr[react_nr]->inp[1].coeff +0.05);
-          icoeff[2] = (int)(RC_ptr[react_nr]->inp[2].coeff +0.05);
-          icoeff[3] = (int)(RC_ptr[react_nr]->inp[3].coeff +0.05);
+          icoef[0] = (int)(RC_ptr[react_nr]->inp[0].coef +0.05);
+          icoef[1] = (int)(RC_ptr[react_nr]->inp[1].coef +0.05);
+          icoef[2] = (int)(RC_ptr[react_nr]->inp[2].coef +0.05);
+          icoef[3] = (int)(RC_ptr[react_nr]->inp[3].coef +0.05);
           switch(RC_ptr[react_nr]->nr_chem_inp){
             case 1: //the loss comp is the only reactant
-              switch (icoeff[0]){
+              switch (icoef[0]){
                 case 1:
                   PL_ptr[i]->PL[j].formula = 0;
                   break;
@@ -231,137 +233,138 @@ int modelchem::inputchem(int tnor)
                 case 3:
                   PL_ptr[i]->PL[j].formula = 3;
                   PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                  PL_ptr[i]->PL[j].exp1  = icoeff[0] - 1;
+                  PL_ptr[i]->PL[j].exp1  = icoef[0] - 1;
                   break;
               }
-              PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[0].coeff;
+              PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[0].coef;
               break;
             case 2: // we have 2 components in which one is current species
          //debug only
-        strcpy(dname1,RC_ptr[react_nr]->inp[k].cname);
-          strcpy(dname2,PL_ptr[i]->name);
-               if( strcmp(dname1,dname2)==0){
+        //strcpy(dname1,RC_ptr[react_nr]->inp[k].cname);
+          //strcpy(dname2,PL_ptr[i]->name);
+               if( RC_ptr[react_nr]->inp[k].cname == PL_ptr[i]->name){
                 switch (k){
                   case 0:
-                    if( (icoeff[0] ==1) && (icoeff[1] == 1) ){
+                    if( (icoef[0] ==1) && (icoef[1] == 1) ){
                       PL_ptr[i]->PL[j].formula = 1;
                       PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[1].index;
-                    }else if((icoeff[0] ==1) && (icoeff[1] > 1) ){
+                    }else if((icoef[0] ==1) && (icoef[1] > 1) ){
                       PL_ptr[i]->PL[j].formula = 3;
                       PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[1].index;
-                      PL_ptr[i]->PL[j].exp1  = icoeff[1];
-                    }else if((icoeff[0] ==2) && (icoeff[1] == 1) ){
+                      PL_ptr[i]->PL[j].exp1  = icoef[1];
+                    }else if((icoef[0] ==2) && (icoef[1] == 1) ){
                       PL_ptr[i]->PL[j].formula = 2;
                       PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
                       PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[1].index;
                     }else{
                       PL_ptr[i]->PL[j].formula = 4;
                       PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                      PL_ptr[i]->PL[j].exp1  = icoeff[0] - 1;
+                      PL_ptr[i]->PL[j].exp1  = icoef[0] - 1;
                       PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[1].index;
-                      PL_ptr[i]->PL[j].exp2  = icoeff[1];
+                      PL_ptr[i]->PL[j].exp2  = icoef[1];
                     }
-                    PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[0].coeff;
+                    PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[0].coef;
                     break;
                   case 1:
-                    if( (icoeff[0] ==1) && (icoeff[1] == 1) ){
+                    if( (icoef[0] ==1) && (icoef[1] == 1) ){
                       PL_ptr[i]->PL[j].formula = 1;
                       PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                    }else if((icoeff[1] ==1) && (icoeff[0] > 1)){
+                    }else if((icoef[1] ==1) && (icoef[0] > 1)){
                       PL_ptr[i]->PL[j].formula = 3;
                       PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                      PL_ptr[i]->PL[j].exp1  = icoeff[0];
-                    }else if((icoeff[1] ==2) && (icoeff[0] == 1) ) {
+                      PL_ptr[i]->PL[j].exp1  = icoef[0];
+                    }else if((icoef[1] ==2) && (icoef[0] == 1) ) {
                       PL_ptr[i]->PL[j].formula = 2;
                       PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
                       PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[1].index;
                     }else{
                       PL_ptr[i]->PL[j].formula = 4;
                       PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                      PL_ptr[i]->PL[j].exp1  = icoeff[0];
+                      PL_ptr[i]->PL[j].exp1  = icoef[0];
                       PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[1].index;
-                      PL_ptr[i]->PL[j].exp2  = icoeff[1] - 1;
+                      PL_ptr[i]->PL[j].exp2  = icoef[1] - 1;
                     }
-                    PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[1].coeff;
+                    PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[1].coef;
                     break;
                 } //end switch k
               } //if( RC_ptr[react_nr]->inp[k].name == PL_ptr[i]->name)
               break;
             case 3: //we have 3 components on input
-              if( strcmp(dname1,dname2)==0){
+              if( RC_ptr[react_nr]->inp[k].cname == PL_ptr[i]->name){
                 switch (k){
                   case 1:
                     PL_ptr[i]->PL[j].formula = 6;
                     PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[1].index;
-                    PL_ptr[i]->PL[j].exp1  = icoeff[1];
+                    PL_ptr[i]->PL[j].exp1  = icoef[1];
                     PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[2].index;
-                    PL_ptr[i]->PL[j].exp2  = icoeff[2];
-                    PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[0].coeff;
-                    if ( icoeff[0] == 1 ) {
+                    PL_ptr[i]->PL[j].exp2  = icoef[2];
+                    PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[0].coef;
+                    if ( icoef[0] == 1 ) {
                       PL_ptr[i]->PL[j].formula = 4;
                     }else{
                       PL_ptr[i]->PL[j].comp3 = RC_ptr[react_nr]->inp[0].index;
-                      PL_ptr[i]->PL[j].exp3  = icoeff[0] - 1;
+                      PL_ptr[i]->PL[j].exp3  = icoef[0] - 1;
                     }
                     break;
                   case 2:
                     PL_ptr[i]->PL[j].formula = 6;
                     PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                    PL_ptr[i]->PL[j].exp1  = icoeff[0];
+                    PL_ptr[i]->PL[j].exp1  = icoef[0];
                     PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[2].index;
-                    PL_ptr[i]->PL[j].exp2  = icoeff[2];
-                    PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[1].coeff;
-                    if ( icoeff[1] == 1 ){
+                    PL_ptr[i]->PL[j].exp2  = icoef[2];
+                    PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[1].coef;
+                    if ( icoef[1] == 1 ){
                       PL_ptr[i]->PL[j].formula = 4;
                     }else{
                       PL_ptr[i]->PL[j].comp3 = RC_ptr[react_nr]->inp[1].index;
-                      PL_ptr[i]->PL[j].exp3  = icoeff[1] -1;
+                      PL_ptr[i]->PL[j].exp3  = icoef[1] -1;
                     }
                     break;
                   case 3:
                     PL_ptr[i]->PL[j].formula = 6;
                     PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                    PL_ptr[i]->PL[j].exp1  = icoeff[0];
+                    PL_ptr[i]->PL[j].exp1  = icoef[0];
                     PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[1].index;
-                    PL_ptr[i]->PL[j].exp2  = icoeff[1];
-                    PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[2].coeff;
-                    if ( icoeff[2] == 1 ){
+                    PL_ptr[i]->PL[j].exp2  = icoef[1];
+                    PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[2].coef;
+                    if ( icoef[2] == 1 ){
                       PL_ptr[i]->PL[j].formula = 4;
                     }else{
                       PL_ptr[i]->PL[j].comp3 = RC_ptr[react_nr]->inp[2].index;
-                      PL_ptr[i]->PL[j].exp3  = icoeff[2] -1;
+                      PL_ptr[i]->PL[j].exp3  = icoef[2] -1;
                     }
                     break;
                   }// end switch k
                 } //end if
               break;
             case 4:  //we have 4 components on input
-              if( strcmp(dname1,dname2)==0){
+              if( RC_ptr[react_nr]->inp[k].cname == PL_ptr[i]->name)
+              {
                  PL_ptr[i]->PL[j].formula = 7;
                  PL_ptr[i]->PL[j].comp1 = RC_ptr[react_nr]->inp[0].index;
-                 PL_ptr[i]->PL[j].exp1  = icoeff[0];
+                 PL_ptr[i]->PL[j].exp1  = icoef[0];
                  PL_ptr[i]->PL[j].comp2 = RC_ptr[react_nr]->inp[1].index;
-                 PL_ptr[i]->PL[j].exp2  = icoeff[1];
+                 PL_ptr[i]->PL[j].exp2  = icoef[1];
                  PL_ptr[i]->PL[j].comp3 = RC_ptr[react_nr]->inp[2].index;
-                 PL_ptr[i]->PL[j].exp3  = icoeff[2];
+                 PL_ptr[i]->PL[j].exp3  = icoef[2];
                  PL_ptr[i]->PL[j].comp4 = RC_ptr[react_nr]->inp[3].index;
-                 PL_ptr[i]->PL[j].exp4  = icoeff[3];
+                 PL_ptr[i]->PL[j].exp4  = icoef[3];
                  switch(k){
                    case 1:
-                     PL_ptr[i]->PL[j].exp1  = icoeff[0] - 1;
-                     PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[0].coeff;
+                     PL_ptr[i]->PL[j].exp1  = icoef[0] - 1;
+                     PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[0].coef;
                      break;
                    case 2:
-                     PL_ptr[i]->PL[j].exp2  = icoeff[1] - 1;
-                     PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[1].coeff;
+                     PL_ptr[i]->PL[j].exp2  = icoef[1] - 1;
+                     PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[1].coef;
                      break;
                    case 3:
-                     PL_ptr[i]->PL[j].exp3  = icoeff[2] - 1;
-                     PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[2].coeff;
+                     PL_ptr[i]->PL[j].exp3  = icoef[2] - 1;
+                     PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[2].coef;
                      break;
                    case 4:
-                     PL_ptr[i]->PL[j].exp4  = icoeff[3] - 1;
-                     PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[3].coeff;
+                     PL_ptr[i]->PL[j].exp4  = icoef[3] - 1;
+                     PL_ptr[i]->PL[j].coef = RC_ptr[react_nr]->inp[3].coef;
                      break;
                  }//end switch k
                }//end if
@@ -375,7 +378,7 @@ int modelchem::inputchem(int tnor)
 
   for (i=0;i<csize;i++){
     PL_temp[i].nr_PL = 0;
-    strcpy(PL_temp[i].name, "\0");
+    PL_temp[i].name = "\0";
   }
 
 // sort PL_scheme on chem_number;
@@ -402,7 +405,8 @@ int modelchem::inputchem(int tnor)
 
 // we don't calculate production and loss off N2, O2, and H2O
   for(i=0;i<csize;i++){
-    if(strcmp(PL_ptr[i]->name,"N2")== 0 || strcmp(PL_ptr[i]->name,"O2")== 0 || strcmp(PL_ptr[i]->name,"H2O")== 0){
+    if(PL_ptr[i]->name == "N2" || PL_ptr[i]->name == "O2" || PL_ptr[i]->name == "H2O")
+    {
       printf("Deactivate: %i\n", i);
       PL_ptr[i]->active = 0;
         nchasp--;
@@ -410,114 +414,114 @@ int modelchem::inputchem(int tnor)
   }
   j=0;
 
-
-
-//  PL_scheme = PL_temp;
-
+//
+//
+////  PL_scheme = PL_temp;
+//
   printf("number of active species: %i number declared %i\n",  nchasp, csize);
-
-  rcout=fopen("reaction_scheme","w");
-  for(i=0;i<csize;i++){
-    fprintf(rcout,"---------------------------------------------------\n");
-    fprintf(rcout," ");
-    if(PL_ptr[i]->active == 0 && strlen(PL_ptr[i]->name)>0){
-      fprintf(rcout,"%s  (%i) NOT CALCULATED \n",PL_ptr[i]->name,i);
-      fprintf(rcout,"\n");
-    }else if(strlen(PL_ptr[i]->name)==0){
-      fprintf(rcout,"%-6s  (%i) NO SPECIES \n",PL_ptr[i]->name,i);
-    }else{
-      fprintf(rcout,"%-6s  (%2i) \n",PL_ptr[i]->name,i);
-      fprintf(rcout,"YP = \n");
-      for(j=0;j<PL_ptr[i]->nr_PL;j++){
-        if(PL_ptr[i]->PL[j].PorL == PRODUCTION){
-          switch (PL_ptr[i]->PL[j].formula){
-            case 0:
-              fprintf(rcout,"  + %4.2f * K(%2i) (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[i]->PL[j].formula);
-              break;
-            case 1:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,\
-                PL_ptr[i]->PL[j].r_nr,\
-                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,\
-                PL_ptr[i]->PL[j].formula);
-              break;
-            case 2:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].formula);
-              break;
-            case 3:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
-                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,PL_ptr[i]->PL[j].formula);
-              break;
-            case 4:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
-                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,PL_ptr[i]->PL[j].formula);
-              break;
-            case 5:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s]* Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,\
-                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].formula);
-              break;
-            case 6:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
-                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,PL_ptr[i]->PL[j].formula);
-              break;
-            case 7:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i(F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
-                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
-                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,\
-                PL_ptr[PL_ptr[i]->PL[j].comp4]->name,PL_ptr[i]->PL[j].exp4,PL_ptr[i]->PL[j].formula);
-              break;
-          }//end switch
-        }//end if production
-      }//end for j
-
-      fprintf(rcout,"YL = \n");
-      for(j=0;j<PL_ptr[i]->nr_PL;j++){
-        if(PL_ptr[i]->PL[j].PorL == LOSS){
-          switch (PL_ptr[i]->PL[j].formula){
-            case 0:
-              fprintf(rcout,"  + %4.2f * K(%2i) (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[i]->PL[j].formula);
-              break;
-            case 1:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].formula);
-              break;
-            case 2:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].formula);
-              break;
-            case 3:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,PL_ptr[i]->PL[j].formula);
-              break;
-            case 4:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
-                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,PL_ptr[i]->PL[j].formula);
-              break;
-            case 5:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s]* Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,\
-                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].formula);
-              break;
-            case 6:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
-                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,PL_ptr[i]->PL[j].formula);
-              break;
-            case 7:
-              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
-                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
-                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,\
-                PL_ptr[PL_ptr[i]->PL[j].comp4]->name,PL_ptr[i]->PL[j].exp4,PL_ptr[i]->PL[j].formula);
-              break;
-          }//end switch
-        }//end if production
-      }//end for j
-    }//end else
-
-  }//end for i
-  fprintf(rcout,"---------------------------------------------------\n");
-
-  fclose(rcout);
+//
+//  rcout=fopen("reaction_scheme","w");
+//  for(i=0;i<csize;i++){
+//    fprintf(rcout,"---------------------------------------------------\n");
+//    fprintf(rcout," ");
+//    if(PL_ptr[i]->active == 0 && strlen(PL_ptr[i]->name)>0){
+//      fprintf(rcout,"%s  (%i) NOT CALCULATED \n",PL_ptr[i]->name,i);
+//      fprintf(rcout,"\n");
+//    }else if(strlen(PL_ptr[i]->name)==0){
+//      fprintf(rcout,"%-6s  (%i) NO SPECIES \n",PL_ptr[i]->name,i);
+//    }else{
+//      fprintf(rcout,"%-6s  (%2i) \n",PL_ptr[i]->name,i);
+//      fprintf(rcout,"YP = \n");
+//      for(j=0;j<PL_ptr[i]->nr_PL;j++){
+//        if(PL_ptr[i]->PL[j].PorL == PRODUCTION){
+//          switch (PL_ptr[i]->PL[j].formula){
+//            case 0:
+//              fprintf(rcout,"  + %4.2f * K(%2i) (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 1:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,\
+//                PL_ptr[i]->PL[j].r_nr,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,\
+//                PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 2:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 3:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 4:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 5:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s]* Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 6:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 7:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i(F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp4]->name,PL_ptr[i]->PL[j].exp4,PL_ptr[i]->PL[j].formula);
+//              break;
+//          }//end switch
+//        }//end if production
+//      }//end for j
+//
+//      fprintf(rcout,"YL = \n");
+//      for(j=0;j<PL_ptr[i]->nr_PL;j++){
+//        if(PL_ptr[i]->PL[j].PorL == LOSS){
+//          switch (PL_ptr[i]->PL[j].formula){
+//            case 0:
+//              fprintf(rcout,"  + %4.2f * K(%2i) (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 1:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 2:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 3:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 4:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 5:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s]* Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 6:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,PL_ptr[i]->PL[j].formula);
+//              break;
+//            case 7:
+//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,\
+//                PL_ptr[PL_ptr[i]->PL[j].comp4]->name,PL_ptr[i]->PL[j].exp4,PL_ptr[i]->PL[j].formula);
+//              break;
+//          }//end switch
+//        }//end if production
+//      }//end for j
+//    }//end else
+//
+//  }//end for i
+//  fprintf(rcout,"---------------------------------------------------\n");
+//
+//  fclose(rcout);
 
   return(nr_chemicals);
 }
@@ -581,7 +585,7 @@ void modelchem::calc_k( \
         RC_ptr[i]->Keff_cbl= 0.0;
         RC_ptr[i]->Keff_cbl= 0.0;
       }else{
-        switch(RC_ptr[i]->func){
+        switch(RC_ptr[i]->func1){
           case 0: // constant independent of sza
             RC_ptr[i]->Keff_cbl = RC_ptr[i]->KReact;
             RC_ptr[i]->Keff_ft  = RC_ptr[i]->KReact;
@@ -615,7 +619,7 @@ void modelchem::calc_k( \
     }
     else
     {   // normal (no photolysis) reactions func can has a different meaning
-      switch ( RC_ptr[i]->func ){
+      switch ( RC_ptr[i]->func1 ){
         case 0:
           //do nothing K is in PPB and constant
         case 1: // K in cm3/molecules*sec
@@ -635,7 +639,7 @@ void modelchem::calc_k( \
           k1=RC_ptr[i]->A * (powf(temp_cbl/300,RC_ptr[i]->B)) * exp(RC_ptr[i]->C/temp_cbl) * conv_cbl * 1e9;
           k2=RC_ptr[i]->D * (powf(temp_cbl/300,RC_ptr[i]->E)) * exp(RC_ptr[i]->F/temp_cbl);
           K = k1*k2/(k1+k2) * RC_ptr[i]->G;
-          if (RC_ptr[i]->func == 4) {
+          if (RC_ptr[i]->func1 == 4) {
               RC_ptr[i]->Keff_cbl = K * conv_cbl;
           }else{
               RC_ptr[i]->Keff_cbl = K;
@@ -644,7 +648,7 @@ void modelchem::calc_k( \
           k1=RC_ptr[i]->A * (powf(temp_ft/300,RC_ptr[i]->B)) * exp(RC_ptr[i]->C/temp_ft) * conv_ft * 1e9;
           k2=RC_ptr[i]->D * (powf(temp_ft/300,RC_ptr[i]->E)) * exp(RC_ptr[i]->F/temp_ft);
           K = k1*k2/(k1+k2) * RC_ptr[i]->G;
-          if (RC_ptr[i]->func == 4) {
+          if (RC_ptr[i]->func1 == 4) {
               RC_ptr[i]->Keff_ft = K * conv_ft;
           }else{
               RC_ptr[i]->Keff_ft = K;
@@ -699,9 +703,9 @@ void modelchem::iter(int cf_switch, double dt, double ynew[], double ycurrent[])
     for( n=0;n<nr_chemicals;n++)
     {
        if (PL_ptr[n]->active == 1){
-       if (strcmp(PL_ptr[n]->name ,"CO")==0) break;  // don't do calculations for CO;
-       if (strcmp(PL_ptr[n]->name ,"H2O")==0) break; // don't do calculations for H2O;
-       if (strcmp(PL_ptr[n]->name ,"PRODUC")==0) break;
+       if (PL_ptr[n]->name == "CO") break;  // don't do calculations for CO;
+       if (PL_ptr[n]->name == "H2O") break; // don't do calculations for H2O;
+       if (PL_ptr[n]->name == "PRODUC") break;
 
        YL = 0.;
        YP = 0.;

@@ -222,6 +222,7 @@ modelinput::modelinput(const modelinput &ref)
   sw_chem    = ref.sw_chem;
   csize      = ref.csize;
   rsize      = ref.rsize;
+  reactions  = ref.reactions; // CvH warning...
 }
 
 modelinput &modelinput::operator=(const modelinput &ref)
@@ -342,6 +343,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
     sw_chem    = ref.sw_chem;
     csize      = ref.csize;
     rsize      = ref.rsize;
+    reactions  = ref.reactions; // CvH warning...
   }
   return *this;
 }

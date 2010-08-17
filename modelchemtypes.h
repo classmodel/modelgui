@@ -1,17 +1,19 @@
 #ifndef MODELCHEMTYPES
 #define MODELCHEMTYPES
 #define MRPCC 20
+#include <string>
+
 typedef struct{
-  char cname[6];
-  double coeff;
+  std::string cname;
+  double coef;
   int chem_nr;
   int index;  /*  waarschijnlijk niet nodig */
 }Chem;
 
 typedef struct{
-  char rname[10];
+  std::string rname;
   int  RadDep;
-  int func;
+  int func1;
   double KReact;
   double Keff_cbl;
   double Keff_ft;
@@ -44,7 +46,7 @@ typedef struct{
 }Form;
 
 typedef struct{
-  char name [6];    //name of chemical
+  std::string name;    //name of chemical
   int active;        //active=1 else 0
   int chem_number;    //number [not doublely used)
   int nr_PL;        //total number of reactions in which this chemical is used

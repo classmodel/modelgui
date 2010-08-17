@@ -291,9 +291,10 @@ void model::initmodel()
   sw_chem    =  input.sw_chem;
   rsize      =  input.rsize;
   csize      =  input.csize;
-  reactions  =  new Reaction[rsize];
-  for(int i=0; i<input.rsize; i++)
-    reactions[i] = input.reactions[i]; 
+  reactions  =  input.reactions; // CvH forward address to reaction array
+
+  //for(int i=0; i<input.rsize; i++)
+  //  reactions[i] = input.reactions[i];
 
 
   // initialize time variables
@@ -995,9 +996,6 @@ void model::initchemmodel()
   int tnor;
   int i;
   
-  //const int RSIZE = 13;
-  //const int CSIZE = 21;
-
   //Reaction Reactions[RSIZE];
 
   Reaction **RC_ptr;
@@ -1021,6 +1019,7 @@ void model::initchemmodel()
   {
     PL_scheme[i].active = 0; // WAS FALSE
     PL_scheme[i].chem_number = -99;
+    PL_scheme[i].nr_PL = 0;
   }
 
   // HERE THE FINAL MODULE STARTS
