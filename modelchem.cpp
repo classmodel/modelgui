@@ -4,7 +4,7 @@
 #include <cstring>
 #include "modelchem.h"
 
-modelchem::modelchem(Reaction *RC_ptrin[], Name_Number *PL_ptrin[], int rsizein, int csizein)
+modelchem::modelchem(Reaction **RC_ptrin, Name_Number ** PL_ptrin, int rsizein, int csizein)
 {
   int i;
 
@@ -14,11 +14,13 @@ modelchem::modelchem(Reaction *RC_ptrin[], Name_Number *PL_ptrin[], int rsizein,
   PL_ptr = new Name_Number*[csize];
 
   printf("rsize: %i, csize: %i\n", rsize, csize);
-  for(i=0; i < rsize; i++)
-    RC_ptr[i] = RC_ptrin[i];
+  // for(i=0; i < rsize; i++)
+  //  RC_ptr[i] = RC_ptrin[i];
+  RC_ptr = RC_ptrin;
 
-  for(i=0; i<csize; i++)
-    PL_ptr[i] = PL_ptrin[i];
+  // for(i=0; i<csize; i++)
+  //  PL_ptr[i] = PL_ptrin[i];
+  PL_ptr = PL_ptrin;
 }
 
 //int modelchem::inputchem(Reaction *RC_ptr[],Name_Number *PL_ptr[],int tnor)
