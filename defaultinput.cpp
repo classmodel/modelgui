@@ -895,7 +895,7 @@ void MainWindow::readdefaultinput()
   defaultreactions[24].nr_chem_inp     = 1;
   defaultreactions[24].nr_chem_outp    = 2;
   defaultreactions[24].inp[0].coef     = 1.00;
-  defaultreactions[24].inp[0].cname    = "N205";
+  defaultreactions[24].inp[0].cname    = "N2O5";
   defaultreactions[24].inp[0].chem_nr  = 22;
   defaultreactions[24].inp[0].index    = 22;
   defaultreactions[24].outp[0].coef    = 1.00;
@@ -924,7 +924,7 @@ void MainWindow::readdefaultinput()
   defaultreactions[25].inp[0].chem_nr  = 21;
   defaultreactions[25].inp[0].index    = 21;
   defaultreactions[25].inp[1].coef     = 1.00;
-  defaultreactions[25].inp[1].cname    = "H20";
+  defaultreactions[25].inp[1].cname    = "H2O";
   defaultreactions[25].inp[1].chem_nr  = 14;
   defaultreactions[25].inp[1].index    = 14;
   defaultreactions[25].outp[0].coef    = 2.00;
@@ -949,7 +949,7 @@ void MainWindow::readdefaultinput()
   defaultreactions[26].inp[0].chem_nr  = 21;
   defaultreactions[26].inp[0].index    = 21;
   defaultreactions[26].inp[1].coef     = 2.00;
-  defaultreactions[26].inp[1].cname    = "H20";
+  defaultreactions[26].inp[1].cname    = "H2O";
   defaultreactions[26].inp[1].chem_nr  = 14;
   defaultreactions[26].inp[1].index    = 14;
   defaultreactions[26].outp[0].coef    = 2.00;

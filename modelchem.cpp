@@ -110,7 +110,7 @@ int modelchem::inputchem(int tnor)
   } //end for i
 
 
-  nr_chemicals = k;
+  nr_chemicals = k+1; // CvH k has 0 basis, thus nr of chemicals == k + 1
   printf("number of species: %i, number declared %i\n",  nr_chemicals, csize);
 
   for(i=0;i<nr_chemicals;i++){                        //this is for PRODUCTION
