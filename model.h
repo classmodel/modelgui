@@ -212,6 +212,7 @@ private:
   // chemistry
   modelchem *cm;
   bool   sw_chem;
+  bool   sw_chem_constant;
   int    rsize;
   int    csize;
   Reaction *reactions;

@@ -108,6 +108,7 @@ modelinput::modelinput()
 
   // chemistry
   sw_chem    = false;
+  sw_chem_constant = false;
   csize      = 0;
   rsize      = 0;
 }
@@ -220,6 +221,7 @@ modelinput::modelinput(const modelinput &ref)
 
   // chemistry
   sw_chem    = ref.sw_chem;
+  sw_chem_constant = ref.sw_chem_constant;
   csize      = ref.csize;
   rsize      = ref.rsize;
   reactions  = ref.reactions; // CvH warning...
@@ -341,6 +343,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
 
     // chemistry
     sw_chem    = ref.sw_chem;
+    sw_chem_constant = ref.sw_chem_constant;
     csize      = ref.csize;
     rsize      = ref.rsize;
     reactions  = ref.reactions; // CvH warning...

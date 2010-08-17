@@ -105,6 +105,7 @@ public:
 
   // chemistry
   bool   sw_chem;
+  bool   sw_chem_constant;
   Reaction *reactions;
   int    rsize;
   int    csize;

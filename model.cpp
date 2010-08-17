@@ -289,6 +289,7 @@ void model::initmodel()
 
   // chemistry
   sw_chem    =  input.sw_chem;
+  sw_chem_constant = input.sw_chem_constant;
   rsize      =  input.rsize;
   csize      =  input.csize;
   reactions  =  input.reactions; // CvH forward address to reaction array
@@ -1041,10 +1042,21 @@ void model::runchemmodel()
   }
 
   cout << "Running chemmodel for timestep: " << t << endl;
-  cm->calc_k(1000.0,298.0,298., \
+
+  if(sw_chem_constant)
+  {
+    cm->calc_k(1000.0,298.0,298., \
           1.125919, 0, 1, 12., \
           298.,1000.,4., \
           298.,1000.,4., sc, dsc );
+  }
+  else
+  {
+    cm->calc_k(1000.0,298.0,298., \
+          1.125919, 0, 1, 12., \
+          298.,1000.,4., \
+          298.,1000.,4., sc, dsc );
+  }
 
   cm->iter(1, dt, iterout, iterin);
   for(int i=0; i<nsc; i++)
