@@ -31,7 +31,7 @@ void modelchem::inputchem(int tnor)
   std::string name;
   //char dname1[6],dname2[6];
   int react_nr;
-  int icoef[3];
+  int icoef[4];
   int nchasp;
   FILE *rcout;
   Name_Number *PL_temp;
