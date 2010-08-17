@@ -1024,7 +1024,7 @@ void model::initchemmodel()
 
   // HERE THE FINAL MODULE STARTS
   cm = new modelchem(RC_ptr, PL_ptr, rsize, csize);
-  cm->nr_chemicals = cm->inputchem(rsize);
+  cm->inputchem(rsize);
   return;
 }
 

@@ -22,7 +22,7 @@ modelchem::modelchem(Reaction *RC_ptrin[], Name_Number *PL_ptrin[], int rsizein,
 }
 
 //int modelchem::inputchem(Reaction *RC_ptr[],Name_Number *PL_ptr[],int tnor)
-int modelchem::inputchem(int tnor)
+void modelchem::inputchem(int tnor)
 {
   int i,j,k,L;
   int found;
@@ -523,7 +523,7 @@ int modelchem::inputchem(int tnor)
 //
 //  fclose(rcout);
 
-  return(nr_chemicals);
+  return;
 }
 
 void modelchem::calc_k( \
