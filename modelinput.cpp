@@ -4,6 +4,7 @@ modelinput::modelinput()
 {
   runtime    = -1.;
   dt         = -1.;
+  sinperiod  = -1.;
 
   // mixed-layer variables
   sw_ml      = true;
@@ -117,6 +118,7 @@ modelinput::modelinput(const modelinput &ref)
 {
   runtime    = ref.runtime;
   dt         = ref.dt;
+  sinperiod  = ref.sinperiod;
 
   // mixed-layer variables
   sw_ml      = ref.sw_ml;
@@ -233,6 +235,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
   {
     runtime    = ref.runtime;
     dt         = ref.dt;
+    sinperiod  = ref.sinperiod;
 
     // mixed-layer variables
     sw_ml      = ref.sw_ml;
