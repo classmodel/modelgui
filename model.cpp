@@ -1067,7 +1067,7 @@ void model::runchemmodel()
     iterout[i] = sc[i];
   }
 
-  cout << "Running chemmodel for timestep: " << t << endl;
+  //cout << "Running chemmodel for timestep: " << t << endl;
 
   if(sw_chem_constant)
   {    
@@ -1075,12 +1075,16 @@ void model::runchemmodel()
     double  sinlea;  // sinus of local declination angle [-]
 
     sda    = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
-    sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
+
+    sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
+
+    if(sinlea >= 0.)
+      sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
 
     cm->calc_k(P_ref,P_ref, \
                 Tcbl_ref, Tfc_ref, \
                 qcbl_ref, qfc_ref, \
-                sinlea, sc, dsc );
+                sinlea );
   }
   else
   {
@@ -1092,7 +1096,7 @@ void model::runchemmodel()
     double  qfc;
 
     Ptop = Ps - rho * g * h;
-    Tcbl = theta - 0.5 * g / cp * h;
+    Tcbl = theta;
     Tfc  = theta - g / cp * h;
     qfc  = q + dq;
 
@@ -1102,12 +1106,12 @@ void model::runchemmodel()
     cm->calc_k(Ps,   Ptop, \
                Tcbl, Tfc, \
                q,    qfc, \
-               sinlea, sc, dsc );
+               sinlea );
   }
 
   cm->iter(1, dt, iterout, iterin);
-  for(int i=0; i<nsc; i++)
-    cout << i << ": " << iterout[i] << ", " << iterin[i] << endl;
+  //for(int i=0; i<nsc; i++)
+  //  cout << i << ": " << iterout[i] << ", " << iterin[i] << endl;
 
   for(int i=0; i<nsc; i++)
    sc[i] = iterout[i];
@@ -1120,8 +1124,8 @@ void model::runchemmodel()
   }
 
   cm->iter(0, dt, iterout, iterin);
-  for(int i=0; i<nsc; i++)
-    cout << i << ": " << iterout[i] << ", " << iterin[i] << endl;
+  //for(int i=0; i<nsc; i++)
+  //  cout << i << ": " << iterout[i] << ", " << iterin[i] << endl;
 
   for(int i=0; i<nsc; i++)
    dsc[i] = iterout[i] - sc[i];

@@ -13,7 +13,7 @@ modelchem::modelchem(Reaction **RC_ptrin, Name_Number ** PL_ptrin, int rsizein, 
   RC_ptr = new Reaction*[rsize];
   PL_ptr = new Name_Number*[csize];
 
-  printf("rsize: %i, csize: %i\n", rsize, csize);
+  //printf("rsize: %i, csize: %i\n", rsize, csize);
   // for(i=0; i < rsize; i++)
   //  RC_ptr[i] = RC_ptrin[i];
   RC_ptr = RC_ptrin;
@@ -42,7 +42,7 @@ void modelchem::inputchem(int tnor)
   k = 0;
   for(i=0;i<rsize;i++)
   {
-    printf("CvH check: %i, %p\n", i, RC_ptr[i]);
+    //printf("CvH check: %i, %p\n", i, RC_ptr[i]);
     for( j=0;j<RC_ptr[i]->nr_chem_inp;j++)
     {               // look only on input side of reaction
       name = RC_ptr[i]->inp[j].cname;
@@ -528,28 +528,18 @@ void modelchem::inputchem(int tnor)
 void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
                         double temp_cbl ,double temp_ft, \
                         double Q_bl, double Q_ft, \
-                        double zenith, double* sc, double* dsc)
+                        double coszen)
 {
   int i;
-  double coszen;
   double K,k1,k2,k3;
   double conv_cbl,conv_ft;
   double Rfact;
   int lday;
 
-  double *c_cbl;
-  double *c_ft;
-
-  c_cbl = new double[csize];
-  c_ft  = new double[csize];
-
-  for(i=0; i<csize; i++)
-  {
-    c_cbl[i] = sc[i];
-    c_ft[i]  = sc[i] + dsc[i];
-  }
-
-
+  pressure_cbl = pressure_cbl / 100; // conversion from hPa to Pa
+  pressure_ft = pressure_ft / 100;
+  Q_bl = Q_bl * 1000; // conversion from kg kg-1 to g kg-1
+  Q_ft = Q_ft * 1000;
 
   Rfact=8.314e-2; //mbar*m3/K*mol
 //  if (lchconst ==1){
@@ -560,10 +550,10 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
   conv_ft = 6.023e8 * pressure_ft  /(Rfact * temp_ft);
  // }
 
-  if(cos(zenith) > 0.)
+  if(coszen > 0.)
   {
     lday = 1;
-    coszen=cos(zenith);
+ //   coszen=cos(zenith);
  //   if (ldiuvar == 0){
  //     // we need solar zenith angle for h_ref or 12 hour  !!!!!!!!!!!!!!!!!
  //     // for testing set a value of .8
@@ -606,10 +596,10 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
           case 4: // powferfunction but special for JO3
           //need [H20] in kg/kg so c_cbl[H2O]*1e-9
              K = RC_ptr[i]->A * pow(coszen, RC_ptr[i]->B);
-             RC_ptr[i]->Keff_cbl = K * RC_ptr[i]->D *  c_cbl[QLOC]*1.e-9 / \
-                  (RC_ptr[i]->D * c_cbl[QLOC]*1.e-9  + RC_ptr[i]->E * (1.- c_cbl[QLOC]*1.e-9));
-             RC_ptr[i]->Keff_ft = K * RC_ptr[i]->D *  c_cbl[QLOC]* 1.e-9 / \
-                  (RC_ptr[i]->D * c_cbl[QLOC]* 1.e-9 + RC_ptr[i]->E * (1.- c_cbl[QLOC]*1.e-9));
+             RC_ptr[i]->Keff_cbl = K * RC_ptr[i]->D *  Q_bl * 1.e-9 / \
+                  (RC_ptr[i]->D * Q_bl * 1.e-9  + RC_ptr[i]->E * (1.- Q_bl * 1.e-9));
+             RC_ptr[i]->Keff_ft = K * RC_ptr[i]->D *  Q_ft * 1.e-9 / \
+                  (RC_ptr[i]->D * Q_ft * 1.e-9 + RC_ptr[i]->E * (1.- Q_ft * 1.e-9));
             break;
           default: //if someone put by mistake a number
              RC_ptr[i]->Keff_cbl = 1;
@@ -628,12 +618,12 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
           RC_ptr[i]->Keff_ft  = RC_ptr[i]->A * conv_ft;
           break;
         case 2: //temperature depence of K for both cbl and ft
-          RC_ptr[i]->Keff_cbl = RC_ptr[i]->A * exp(RC_ptr[i]->B / temp_cbl)* conv_cbl;
-          RC_ptr[i]->Keff_ft  = RC_ptr[i]->A * exp(RC_ptr[i]->B / temp_ft )* conv_ft;
+          RC_ptr[i]->Keff_cbl = RC_ptr[i]->A * exp(RC_ptr[i]->B / temp_cbl) * conv_cbl;
+          RC_ptr[i]->Keff_ft  = RC_ptr[i]->A * exp(RC_ptr[i]->B / temp_ft ) * conv_ft;
           break;
         case 3: //more complex temperature dependence
-          RC_ptr[i]->Keff_cbl = RC_ptr[i]->A * (powf(temp_cbl/RC_ptr[i]->B,RC_ptr[i]->C)) * exp(RC_ptr[i]->D / temp_cbl)* conv_cbl;
-          RC_ptr[i]->Keff_ft  = RC_ptr[i]->A * (powf(temp_ft /RC_ptr[i]->B,RC_ptr[i]->C)) * exp(RC_ptr[i]->D / temp_ft )* conv_ft;
+          RC_ptr[i]->Keff_cbl = RC_ptr[i]->A * (powf(temp_cbl/RC_ptr[i]->B,RC_ptr[i]->C)) * exp(RC_ptr[i]->D / temp_cbl) * conv_cbl;
+          RC_ptr[i]->Keff_ft  = RC_ptr[i]->A * (powf(temp_ft /RC_ptr[i]->B,RC_ptr[i]->C)) * exp(RC_ptr[i]->D / temp_ft ) * conv_ft;
           break;
         case 4: //use Lindemann-Hinshelwood equation  4 = second order 5 = first order so no conv_XXX factor
         case 5:  //first CBL
@@ -658,13 +648,13 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
         case 6://special function of reaction 2H02->H202
            //first CBL
            k1 = RC_ptr[i]->A * exp(RC_ptr[i]->B / temp_cbl)* conv_cbl;
-           k2 = RC_ptr[i]->C * exp(RC_ptr[i]->D / temp_cbl)* conv_cbl*conv_cbl *1e9;
-           k3 = RC_ptr[i]->E * exp(RC_ptr[i]->F / temp_cbl)* conv_cbl * c_cbl[QLOC];
+           k2 = RC_ptr[i]->C * exp(RC_ptr[i]->D / temp_cbl)* conv_cbl * conv_cbl *1e9;
+           k3 = RC_ptr[i]->E * exp(RC_ptr[i]->F / temp_cbl)* conv_cbl * Q_bl;
            RC_ptr[i]->Keff_cbl = (k1+k2)*(1+k3);
            //for FT
            k1 = RC_ptr[i]->A * exp(RC_ptr[i]->B / temp_ft)* conv_ft;
            k2 = RC_ptr[i]->C * exp(RC_ptr[i]->D / temp_ft)* conv_ft*conv_ft *1e9;
-           k3 = RC_ptr[i]->E * exp(RC_ptr[i]->F / temp_ft)* conv_ft * c_ft[QLOC];
+           k3 = RC_ptr[i]->E * exp(RC_ptr[i]->F / temp_ft)* conv_ft * Q_ft;
            RC_ptr[i]->Keff_ft = (k1+k2)*(1+k3);
            break;
          case 7: // same as 3 but third order so conv_XXX**2
@@ -677,6 +667,7 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
       }//end switch
     }//end if
   } //tnor
+
   for(int i=0; i<rsize; i++)
     printf("K_cbl: %i, %f\n", i, RC_ptr[i]->Keff_cbl);
 }
@@ -700,7 +691,7 @@ void modelchem::iter(int cf_switch, double dt, double ynew[], double ycurrent[])
   //for( n=0;n<nr_chemicals;n++)
   //  printf("CvH PL_ptr: %p\n", PL_ptr[n]); 
   //return;
-  printf("CvH nr_chemicals: %i\n", nr_chemicals);
+  //printf("CvH nr_chemicals: %i\n", nr_chemicals);
 
   for( iiter=0;iiter<niter;iiter++)
   {

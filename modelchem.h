@@ -34,7 +34,7 @@ class modelchem
     void calc_k( double pressure_cbl, double pressure_ft, \
                  double temp_cbl ,double temp_ft, \
                  double Q_bl, double Q_ft, \
-                 double zenith, double* sc, double* dsc);
+                 double zenith);
 
     void iter(int cf_switch, double dt, double ynew[],double ycurrent[]);
   

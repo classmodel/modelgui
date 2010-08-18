@@ -92,7 +92,7 @@ void MainWindow::readdefaultinput()
 
   //chemistry
   defaultinput.sw_chem    = true;
-  defaultinput.sw_chem_constant = false;
+  defaultinput.sw_chem_constant = true;
   defaultinput.nsc        = 22;
   defaultinput.reactions  = defaultreactions; // CvH copy addresses, all runs will have therefore the same struct as reference
 
@@ -102,8 +102,8 @@ void MainWindow::readdefaultinput()
   defaultinput.P_ref      = 100000;
   defaultinput.Tcbl_ref   = 298.;
   defaultinput.Tfc_ref    = 298.;
-  defaultinput.qcbl_ref   = 0.004;
-  defaultinput.qfc_ref    = 0.004;
+  defaultinput.qcbl_ref   = 0.010;
+  defaultinput.qfc_ref    = 0.010;
   defaultinput.tod_ref    = 12;
 
   defaultinput.sc[0]      = 0.;
@@ -138,7 +138,7 @@ void MainWindow::readdefaultinput()
   defaultinput.dsc[4]     = -0.6;
   defaultinput.gammasc[4] = 0.;
   defaultinput.advsc[4]   = 0.;
-  defaultinput.wsc[4]     = 8.e-3;
+  defaultinput.wsc[4]     = -8.e-3;
   defaultinput.sw_wsc[4]  = false;
 
   defaultinput.sc[5]      = 1724.;
