@@ -1111,7 +1111,7 @@ void model::runchemmodel()
 
   cm->iter(1, dt, iterout, iterin);
   //for(int i=0; i<nsc; i++)
-  //  cout << i << ": " << iterout[i] << ", " << iterin[i] << endl;
+  cout << "NO2" << ": " << sc[4] << ", " << sc[4]+ dsc[4] << endl;
 
   for(int i=0; i<nsc; i++)
    sc[i] = iterout[i];

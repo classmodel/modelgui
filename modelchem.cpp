@@ -536,10 +536,13 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
   double Rfact;
   int lday;
 
+  const double MW_Air = 28.97;
+  const double MW_H2O = 18;
+
   pressure_cbl = pressure_cbl / 100; // conversion from hPa to Pa
   pressure_ft = pressure_ft / 100;
-  q_bl = q_bl * 1000; // conversion from kg kg-1 to g kg-1
-  q_ft = q_ft * 1000;
+  q_bl = q_bl * 1e9 * MW_Air / MW_H2O;
+  q_ft = q_ft * 1e9 * MW_Air / MW_H2O;
 
   Rfact=8.314e-2; //mbar*m3/K*mol
 //  if (lchconst ==1){
@@ -668,8 +671,8 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
     }//end if
   } //tnor
 
-  for(int i=0; i<rsize; i++)
-    printf("K_cbl: %i, %f\n", i, RC_ptr[i]->Keff_cbl);
+  //for(int i=0; i<rsize; i++)
+   // printf("K_cbl: %i, %f\n", i, RC_ptr[i]->Keff_cbl);
 }
 
 // CvH iter: cf_switch: BL or FT
