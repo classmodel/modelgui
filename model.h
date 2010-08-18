@@ -217,5 +217,11 @@ private:
   int    csize;
   Reaction *reactions;
   Name_Number *PL_scheme;
+  double P_ref;
+  double Tcbl_ref;
+  double Tfc_ref;
+  double qcbl_ref;
+  double qfc_ref;
+  double tod_ref;
 };
 

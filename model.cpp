@@ -293,6 +293,12 @@ void model::initmodel()
   rsize      =  input.rsize;
   csize      =  input.csize;
   reactions  =  input.reactions; // CvH forward address to reaction array
+  P_ref      =  input.P_ref;
+  Tcbl_ref   =  input.Tcbl_ref;
+  Tfc_ref    =  input.Tfc_ref;
+  qcbl_ref   =  input.qcbl_ref;
+  qfc_ref    =  input.qfc_ref;
+  tod_ref    =  input.tod_ref;
 
   //for(int i=0; i<input.rsize; i++)
   //  reactions[i] = input.reactions[i];
@@ -1064,18 +1070,39 @@ void model::runchemmodel()
   cout << "Running chemmodel for timestep: " << t << endl;
 
   if(sw_chem_constant)
-  {
-    cm->calc_k(1000.0,1000.0, \
-                298.0, 298.0, \
-                  4.0,   4.0, \
-             1.125919, sc, dsc );
+  {    
+    double  sda;     // solar declination angle [rad]
+    double  sinlea;  // sinus of local declination angle [-]
+
+    sda    = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
+    sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
+
+    cm->calc_k(P_ref,P_ref, \
+                Tcbl_ref, Tfc_ref, \
+                qcbl_ref, qfc_ref, \
+                sinlea, sc, dsc );
   }
   else
   {
-      cm->calc_k(1000.0,1000.0, \
-                  298.0, 298.0, \
-                    4.0,   4.0, \
-               1.125919, sc, dsc );
+    double  Ptop;
+    double  Tcbl;
+    double  Tfc;
+    double  sda;     // solar declination angle [rad]
+    double  sinlea;  // sinus of local declination angle [-]
+    double  qfc;
+
+    Ptop = Ps - rho * g * h;
+    Tcbl = theta - 0.5 * g / cp * h;
+    Tfc  = theta - g / cp * h;
+    qfc  = q + dq;
+
+    sda    = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
+    sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
+
+    cm->calc_k(Ps,   Ptop, \
+               Tcbl, Tfc, \
+               q,    qfc, \
+               sinlea, sc, dsc );
   }
 
   cm->iter(1, dt, iterout, iterin);

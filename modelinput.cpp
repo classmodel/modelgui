@@ -112,6 +112,12 @@ modelinput::modelinput()
   sw_chem_constant = false;
   csize      = 0;
   rsize      = 0;
+  P_ref      = -1.;
+  Tcbl_ref   = -1.;
+  Tfc_ref    = -1.;
+  qcbl_ref   = -1.;
+  qfc_ref    = -1.;
+  tod_ref    = -1.;
 }
 
 modelinput::modelinput(const modelinput &ref)
@@ -227,6 +233,13 @@ modelinput::modelinput(const modelinput &ref)
   csize      = ref.csize;
   rsize      = ref.rsize;
   reactions  = ref.reactions; // CvH warning...
+
+  P_ref      = ref.P_ref;
+  Tcbl_ref   = ref.Tcbl_ref;
+  Tfc_ref    = ref.Tfc_ref;
+  qcbl_ref   = ref.qcbl_ref;
+  qfc_ref    = ref.qfc_ref;
+  tod_ref    = ref.tod_ref;
 }
 
 modelinput &modelinput::operator=(const modelinput &ref)
@@ -350,6 +363,13 @@ modelinput &modelinput::operator=(const modelinput &ref)
     csize      = ref.csize;
     rsize      = ref.rsize;
     reactions  = ref.reactions; // CvH warning...
+
+    P_ref      = ref.P_ref;
+    Tcbl_ref   = ref.Tcbl_ref;
+    Tfc_ref    = ref.Tfc_ref;
+    qcbl_ref   = ref.qcbl_ref;
+    qfc_ref    = ref.qfc_ref;
+    tod_ref    = ref.tod_ref;
   }
   return *this;
 }

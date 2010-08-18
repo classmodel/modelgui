@@ -109,5 +109,11 @@ public:
   Reaction *reactions;
   int    rsize;
   int    csize;
+  double P_ref;
+  double Tcbl_ref;
+  double Tfc_ref;
+  double qcbl_ref;
+  double qfc_ref;
+  double tod_ref;
 };
 

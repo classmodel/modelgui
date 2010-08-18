@@ -99,6 +99,13 @@ void MainWindow::readdefaultinput()
   defaultinput.rsize      = 27;
   defaultinput.csize      = 22;
 
+  defaultinput.P_ref      = 100000;
+  defaultinput.Tcbl_ref   = 298.;
+  defaultinput.Tfc_ref    = 298.;
+  defaultinput.qcbl_ref   = 0.004;
+  defaultinput.qfc_ref    = 0.004;
+  defaultinput.tod_ref    = 12;
+
   defaultinput.sc[0]      = 0.;
   defaultinput.dsc[0]     = 0.;
   defaultinput.gammasc[0] = 0.;
