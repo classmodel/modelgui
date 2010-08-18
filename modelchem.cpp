@@ -527,7 +527,7 @@ void modelchem::inputchem(int tnor)
 
 void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
                         double temp_cbl ,double temp_ft, \
-                        double Q_bl, double Q_ft, \
+                        double q_bl, double q_ft, \
                         double coszen)
 {
   int i;
@@ -538,8 +538,8 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
 
   pressure_cbl = pressure_cbl / 100; // conversion from hPa to Pa
   pressure_ft = pressure_ft / 100;
-  Q_bl = Q_bl * 1000; // conversion from kg kg-1 to g kg-1
-  Q_ft = Q_ft * 1000;
+  q_bl = q_bl * 1000; // conversion from kg kg-1 to g kg-1
+  q_ft = q_ft * 1000;
 
   Rfact=8.314e-2; //mbar*m3/K*mol
 //  if (lchconst ==1){
@@ -596,10 +596,10 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
           case 4: // powferfunction but special for JO3
           //need [H20] in kg/kg so c_cbl[H2O]*1e-9
              K = RC_ptr[i]->A * pow(coszen, RC_ptr[i]->B);
-             RC_ptr[i]->Keff_cbl = K * RC_ptr[i]->D *  Q_bl * 1.e-9 / \
-                  (RC_ptr[i]->D * Q_bl * 1.e-9  + RC_ptr[i]->E * (1.- Q_bl * 1.e-9));
-             RC_ptr[i]->Keff_ft = K * RC_ptr[i]->D *  Q_ft * 1.e-9 / \
-                  (RC_ptr[i]->D * Q_ft * 1.e-9 + RC_ptr[i]->E * (1.- Q_ft * 1.e-9));
+             RC_ptr[i]->Keff_cbl = K * RC_ptr[i]->D *  q_bl * 1.e-9 / \
+                  (RC_ptr[i]->D * q_bl * 1.e-9  + RC_ptr[i]->E * (1.- q_bl * 1.e-9));
+             RC_ptr[i]->Keff_ft = K * RC_ptr[i]->D *  q_ft * 1.e-9 / \
+                  (RC_ptr[i]->D * q_ft * 1.e-9 + RC_ptr[i]->E * (1.- q_ft * 1.e-9));
             break;
           default: //if someone put by mistake a number
              RC_ptr[i]->Keff_cbl = 1;
@@ -649,12 +649,12 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
            //first CBL
            k1 = RC_ptr[i]->A * exp(RC_ptr[i]->B / temp_cbl)* conv_cbl;
            k2 = RC_ptr[i]->C * exp(RC_ptr[i]->D / temp_cbl)* conv_cbl * conv_cbl *1e9;
-           k3 = RC_ptr[i]->E * exp(RC_ptr[i]->F / temp_cbl)* conv_cbl * Q_bl;
+           k3 = RC_ptr[i]->E * exp(RC_ptr[i]->F / temp_cbl)* conv_cbl * q_bl;
            RC_ptr[i]->Keff_cbl = (k1+k2)*(1+k3);
            //for FT
            k1 = RC_ptr[i]->A * exp(RC_ptr[i]->B / temp_ft)* conv_ft;
            k2 = RC_ptr[i]->C * exp(RC_ptr[i]->D / temp_ft)* conv_ft*conv_ft *1e9;
-           k3 = RC_ptr[i]->E * exp(RC_ptr[i]->F / temp_ft)* conv_ft * Q_ft;
+           k3 = RC_ptr[i]->E * exp(RC_ptr[i]->F / temp_ft)* conv_ft * q_ft;
            RC_ptr[i]->Keff_ft = (k1+k2)*(1+k3);
            break;
          case 7: // same as 3 but third order so conv_XXX**2
