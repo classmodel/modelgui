@@ -419,117 +419,116 @@ void modelchem::inputchem(int tnor)
 //
   printf("number of active species: %i number declared %i\n",  nchasp, csize);
 //
-//  rcout=fopen("reaction_scheme","w");
-//  for(i=0;i<csize;i++){
-//    fprintf(rcout,"---------------------------------------------------\n");
-//    fprintf(rcout," ");
-//    if(PL_ptr[i]->active == 0 && strlen(PL_ptr[i]->name)>0){
-//      fprintf(rcout,"%s  (%i) NOT CALCULATED \n",PL_ptr[i]->name,i);
-//      fprintf(rcout,"\n");
-//    }else if(strlen(PL_ptr[i]->name)==0){
-//      fprintf(rcout,"%-6s  (%i) NO SPECIES \n",PL_ptr[i]->name,i);
-//    }else{
-//      fprintf(rcout,"%-6s  (%2i) \n",PL_ptr[i]->name,i);
-//      fprintf(rcout,"YP = \n");
-//      for(j=0;j<PL_ptr[i]->nr_PL;j++){
-//        if(PL_ptr[i]->PL[j].PorL == PRODUCTION){
-//          switch (PL_ptr[i]->PL[j].formula){
-//            case 0:
-//              fprintf(rcout,"  + %4.2f * K(%2i) (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 1:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,\
-//                PL_ptr[i]->PL[j].r_nr,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,\
-//                PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 2:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 3:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 4:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 5:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s]* Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 6:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 7:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i(F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp4]->name,PL_ptr[i]->PL[j].exp4,PL_ptr[i]->PL[j].formula);
-//              break;
-//          }//end switch
-//        }//end if production
-//      }//end for j
-//
-//      fprintf(rcout,"YL = \n");
-//      for(j=0;j<PL_ptr[i]->nr_PL;j++){
-//        if(PL_ptr[i]->PL[j].PorL == LOSS){
-//          switch (PL_ptr[i]->PL[j].formula){
-//            case 0:
-//              fprintf(rcout,"  + %4.2f * K(%2i) (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 1:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 2:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 3:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 4:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 5:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s]* Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[PL_ptr[i]->PL[j].comp2]->name,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 6:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,PL_ptr[i]->PL[j].formula);
-//              break;
-//            case 7:
-//              fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp1]->name,PL_ptr[i]->PL[j].exp1,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp2]->name,PL_ptr[i]->PL[j].exp2,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp3]->name,PL_ptr[i]->PL[j].exp3,\
-//                PL_ptr[PL_ptr[i]->PL[j].comp4]->name,PL_ptr[i]->PL[j].exp4,PL_ptr[i]->PL[j].formula);
-//              break;
-//          }//end switch
-//        }//end if production
-//      }//end for j
-//    }//end else
-//
-//  }//end for i
-//  fprintf(rcout,"---------------------------------------------------\n");
-//
-//  fclose(rcout);
+    rcout=fopen("reaction_scheme","w");
+    for(i=0;i<csize;i++){
+      fprintf(rcout,"---------------------------------------------------\n");
+      fprintf(rcout," ");
+      if(PL_ptr[i]->active == 0 && strlen(PL_ptr[i]->name.c_str())>0){
+        fprintf(rcout,"%s  (%i) NOT CALCULATED \n",PL_ptr[i]->name.c_str(),i);
+        fprintf(rcout,"\n");
+      }else if(strlen(PL_ptr[i]->name.c_str())==0){
+        fprintf(rcout,"%-6s  (%i) NO SPECIES \n",PL_ptr[i]->name.c_str(),i);
+      }else{
+        fprintf(rcout,"%-6s  (%2i) \n",PL_ptr[i]->name.c_str(),i);
+        fprintf(rcout,"YP = \n");
+        for(j=0;j<PL_ptr[i]->nr_PL;j++){
+          if(PL_ptr[i]->PL[j].PorL == PRODUCTION){
+            switch (PL_ptr[i]->PL[j].formula){
+              case 0:
+                fprintf(rcout,"  + %4.2f * K(%2i) (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[i]->PL[j].formula);
+                break;
+              case 1:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,\
+                  PL_ptr[i]->PL[j].r_nr,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),\
+                  PL_ptr[i]->PL[j].formula);
+                break;
+              case 2:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[PL_ptr[i]->PL[j].comp2]->name.c_str(),PL_ptr[i]->PL[j].formula);
+                break;
+              case 3:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[i]->PL[j].exp1,PL_ptr[i]->PL[j].formula);
+                break;
+              case 4:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[i]->PL[j].exp1,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp2]->name.c_str(),PL_ptr[i]->PL[j].exp2,PL_ptr[i]->PL[j].formula);
+                break;
+              case 5:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s]* Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[PL_ptr[i]->PL[j].comp2]->name.c_str(),\
+                  PL_ptr[PL_ptr[i]->PL[j].comp3]->name.c_str(),PL_ptr[i]->PL[j].formula);
+                break;
+              case 6:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[i]->PL[j].exp1,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp2]->name.c_str(),PL_ptr[i]->PL[j].exp2,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp3]->name.c_str(),PL_ptr[i]->PL[j].exp3,PL_ptr[i]->PL[j].formula);
+                break;
+              case 7:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i  * Y[%-5s] ** %i(F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[i]->PL[j].exp1,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp2]->name.c_str(),PL_ptr[i]->PL[j].exp2,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp3]->name.c_str(),PL_ptr[i]->PL[j].exp3,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp4]->name.c_str(),PL_ptr[i]->PL[j].exp4,PL_ptr[i]->PL[j].formula);
+                break;
+            }//end switch
+          }//end if production
+        }//end for j
+
+        fprintf(rcout,"YL = \n");
+        for(j=0;j<PL_ptr[i]->nr_PL;j++){
+          if(PL_ptr[i]->PL[j].PorL == LOSS){
+            switch (PL_ptr[i]->PL[j].formula){
+              case 0:
+                fprintf(rcout,"  + %4.2f * K(%2i) (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[i]->PL[j].formula);
+                break;
+              case 1:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[i]->PL[j].formula);
+                break;
+              case 2:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[PL_ptr[i]->PL[j].comp2]->name.c_str(),PL_ptr[i]->PL[j].formula);
+                break;
+              case 3:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[i]->PL[j].exp1,PL_ptr[i]->PL[j].formula);
+                break;
+              case 4:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[i]->PL[j].exp1,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp2]->name.c_str(),PL_ptr[i]->PL[j].exp2,PL_ptr[i]->PL[j].formula);
+                break;
+              case 5:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] * Y[%-5s]* Y[%-5s] (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[PL_ptr[i]->PL[j].comp2]->name.c_str(),\
+                  PL_ptr[PL_ptr[i]->PL[j].comp3]->name.c_str(),PL_ptr[i]->PL[j].formula);
+                break;
+              case 6:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[i]->PL[j].exp1,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp2]->name.c_str(),PL_ptr[i]->PL[j].exp2,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp3]->name.c_str(),PL_ptr[i]->PL[j].exp3,PL_ptr[i]->PL[j].formula);
+                break;
+              case 7:
+                fprintf(rcout,"  + %4.2f * K(%2i) * Y[%-5s] ** %i  * Y[%-5s] ** %i * Y[%-5s] ** %i * Y[%-5s] ** %i (F=%i)\n",PL_ptr[i]->PL[j].coef,PL_ptr[i]->PL[j].r_nr,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp1]->name.c_str(),PL_ptr[i]->PL[j].exp1,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp2]->name.c_str(),PL_ptr[i]->PL[j].exp2,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp3]->name.c_str(),PL_ptr[i]->PL[j].exp3,\
+                  PL_ptr[PL_ptr[i]->PL[j].comp4]->name.c_str(),PL_ptr[i]->PL[j].exp4,PL_ptr[i]->PL[j].formula);
+                break;
+            }//end switch
+          }//end if production
+        }//end for j
+      }//end else
+
+    }//end for i
+    fprintf(rcout,"---------------------------------------------------\n");
+
+    fclose(rcout);
 
   return;
 }
 
-void modelchem::calc_k( \
-          double pressure,double temp_cbl,double temp_ft, \
-          double zenith,int ldiuvar,int lchconst, double h_ref, \
-          double t_ref_cbl,double p_ref_cbl,double q_ref_cbl, \
-          double t_ref_ft,double p_ref_ft,double q_ref_ft, double* sc, double* dsc)
+void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
+                        double temp_cbl ,double temp_ft, \
+                        double Q_bl, double Q_ft, \
+                        double zenith, double* sc, double* dsc)
 {
   int i;
   double coszen;
@@ -553,24 +552,27 @@ void modelchem::calc_k( \
 
 
   Rfact=8.314e-2; //mbar*m3/K*mol
-  if (lchconst ==1){
-    conv_cbl= 6.023e8 * p_ref_cbl/(Rfact * temp_cbl);
-    conv_ft = 6.023e8 * p_ref_ft /(Rfact * temp_ft);
-  }else{
-    conv_cbl= 6.023e8 * pressure /(Rfact * temp_cbl);
-    conv_ft = 6.023e8 * pressure /(Rfact * temp_ft);
-  }
+//  if (lchconst ==1){
+//    conv_cbl= 6.023e8 * p_ref_cbl/(Rfact * temp_cbl);
+//    conv_ft = 6.023e8 * p_ref_ft /(Rfact * temp_ft);
+//  }else{
+  conv_cbl= 6.023e8 * pressure_cbl /(Rfact * temp_cbl);
+  conv_ft = 6.023e8 * pressure_ft  /(Rfact * temp_ft);
+ // }
 
-  if(cos(zenith) > 0.){
+  if(cos(zenith) > 0.)
+  {
     lday = 1;
     coszen=cos(zenith);
-    if (ldiuvar == 0){
-      // we need solar zenith angle for h_ref or 12 hour  !!!!!!!!!!!!!!!!!
-      // for testing set a value of .8
-      zenith = 1.012093;
-      coszen = cos(zenith);
-    }
-  }else{
+ //   if (ldiuvar == 0){
+ //     // we need solar zenith angle for h_ref or 12 hour  !!!!!!!!!!!!!!!!!
+ //     // for testing set a value of .8
+ //     zenith = 1.012093;
+ //     coszen = cos(zenith);
+ //   }
+  }
+  else
+  {
     lday = 0;
   }
 
@@ -705,7 +707,7 @@ void modelchem::iter(int cf_switch, double dt, double ynew[], double ycurrent[])
     for( n=0;n<nr_chemicals;n++)
     {
        if (PL_ptr[n]->active == 1){
-       if (PL_ptr[n]->name == "CO") break;  // don't do calculations for CO;
+    //   if (PL_ptr[n]->name == "CO") break;  // don't do calculations for CO;
        if (PL_ptr[n]->name == "H2O") break; // don't do calculations for H2O;
        if (PL_ptr[n]->name == "PRODUC") break;
 
@@ -761,7 +763,7 @@ void modelchem::iter(int cf_switch, double dt, double ynew[], double ycurrent[])
          *YPL_ptr = *YPL_ptr + YPL;
        } //j=1, PL_ptr[n]->nr_PL;
 
-       ynew[n] = std::max(0.0, (ycurrent[n]+dt*YP)/(1.0+dt*YL));
+       ynew[n] = std::max(0.0, (ycurrent[n] + dt * YP)/(1.0 + dt * YL));
 
       }  //active == true
     } //n=1,nchsp

@@ -31,11 +31,10 @@ class modelchem
     //int inputchem(Reaction *RC[],Name_Number *PL_ptr[],int tnor);
     void inputchem(int tnor);
 
-    void calc_k( \
-          double pressure,double temp_cbl,double temp_ft, \
-          double zenith,int ldiuvar,int lchconst, double h_ref, \
-          double t_ref_cbl,double p_ref_cbl,double q_ref_cbl, \
-          double t_ref_ft,double p_ref_ft,double q_ref_ft, double*, double*);
+    void calc_k( double pressure_cbl, double pressure_ft, \
+                 double temp_cbl ,double temp_ft, \
+                 double Q_bl, double Q_ft, \
+                 double zenith, double* sc, double* dsc);
 
     void iter(int cf_switch, double dt, double ynew[],double ycurrent[]);
   
