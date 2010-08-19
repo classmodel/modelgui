@@ -634,6 +634,9 @@ void MainWindow::deleteRun()
     }
     qDeleteAll(ui->modelRunTree->selectedItems());
     ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
+
+    if(ui->modelRunTree->topLevelItemCount() > 0)
+      activerun = ui->modelRunTree->currentItem()->text(0).toInt();
   }
   updateSelectedRuns();
   runTreeChanged();
