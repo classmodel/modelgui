@@ -1057,14 +1057,16 @@ void model::initchemmodel()
 
 void model::runchemmodel()
 {
-  double *iterin, *iterout;
+  double *iterin, *iterout, *fsc;
   iterin  = new double[nsc];
   iterout = new double[nsc];
+  fsc     = new double[nsc];
 
   for(int i=0; i<nsc; i++)
   {
-    iterin[i] = sc[i];
+    iterin[i]  = sc[i];
     iterout[i] = sc[i];
+    fsc[i]     = sc[i] + dsc[i];
   }
 
   //cout << "Running chemmodel for timestep: " << t << endl;
@@ -1119,8 +1121,8 @@ void model::runchemmodel()
   // do the FT
   for(int i=0; i<nsc; i++)
   {
-    iterin[i] = sc[i] + dsc[i];
-    iterout[i] = sc[i] + dsc[i];
+    iterin[i]  = fsc[i];
+    iterout[i] = fsc[i];
   }
 
   cm->iter(0, dt, iterout, iterin);
