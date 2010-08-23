@@ -35,8 +35,8 @@ void modelchem::inputchem(int tnor)
   int nchasp;
   FILE *rcout;
   Name_Number *PL_temp;
-    
-  
+
+
   PL_temp = new Name_Number[csize];
 
   k = 0;
@@ -413,10 +413,19 @@ void modelchem::inputchem(int tnor)
   }
   j=0;
 
-//
-//
-////  PL_scheme = PL_temp;
-//
+// deactivate the chemicals that don't have to be plotted
+//  for(i=0;i<csize;i++){
+//    if(PL_ptr[i]->active == 1)
+//    {
+//        chem_active[i] = true;
+//    }
+//    else
+//    {
+//        chem_active[i] = false;
+//    }
+//  }
+
+
   printf("number of active species: %i number declared %i\n",  nchasp, csize);
 //
     rcout=fopen("reaction_scheme","w");
@@ -545,24 +554,13 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
   q_ft = q_ft * 1e9 * MW_Air / MW_H2O;
 
   Rfact=8.314e-2; //mbar*m3/K*mol
-//  if (lchconst ==1){
-//    conv_cbl= 6.023e8 * p_ref_cbl/(Rfact * temp_cbl);
-//    conv_ft = 6.023e8 * p_ref_ft /(Rfact * temp_ft);
-//  }else{
+
   conv_cbl= 6.023e8 * pressure_cbl /(Rfact * temp_cbl);
   conv_ft = 6.023e8 * pressure_ft  /(Rfact * temp_ft);
- // }
 
   if(coszen > 0.)
   {
     lday = 1;
- //   coszen=cos(zenith);
- //   if (ldiuvar == 0){
- //     // we need solar zenith angle for h_ref or 12 hour  !!!!!!!!!!!!!!!!!
- //     // for testing set a value of .8
- //     zenith = 1.012093;
- //     coszen = cos(zenith);
- //   }
   }
   else
   {
@@ -677,7 +675,7 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
 
 // CvH iter: cf_switch: BL or FT
 // CvH ynew = array scalars out, ycurrent = array scalars in
-void modelchem::iter(int cf_switch, double dt, double ynew[], double ycurrent[])
+void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double ycurrent[])
 {
  //t is the number of sec since the beginning of the run (for dtime=1)
   int n,j;
@@ -685,14 +683,24 @@ void modelchem::iter(int cf_switch, double dt, double ynew[], double ycurrent[])
   double YP,YL,YPL,*YPL_ptr;
   double kreact;
 
+  const double MW_Air = 28.97;
+  const double MW_H2O = 18;
+
+  for(n=0;n<nr_chemicals;n++){
+    if(PL_ptr[n]->name == "H2O"){
+      ynew[n]= q * 1e9 * MW_Air / MW_H2O;
+      ycurrent[n] = q * 1e9 * MW_Air / MW_H2O;
+      break;
+    }
+  }
 
 // start Gauss Seidel iterations;
 // Gauss-Seidel iterations;
 
   niter=4;
-  
+
   //for( n=0;n<nr_chemicals;n++)
-  //  printf("CvH PL_ptr: %p\n", PL_ptr[n]); 
+  //  printf("CvH PL_ptr: %p\n", PL_ptr[n]);
   //return;
   //printf("CvH nr_chemicals: %i\n", nr_chemicals);
 
@@ -701,9 +709,9 @@ void modelchem::iter(int cf_switch, double dt, double ynew[], double ycurrent[])
     for( n=0;n<nr_chemicals;n++)
     {
        if (PL_ptr[n]->active == 1){
-    //   if (PL_ptr[n]->name == "CO") break;  // don't do calculations for CO;
-       if (PL_ptr[n]->name == "H2O") break; // don't do calculations for H2O;
-       if (PL_ptr[n]->name == "PRODUC") break;
+        // if (PL_ptr[n]->name == "CO") continue;  // don't do calculations for CO;
+         if (PL_ptr[n]->name == "H2O") continue; // don't do calculations for H2O;
+         if (PL_ptr[n]->name == "PRODU") continue;
 
        YL = 0.;
        YP = 0.;

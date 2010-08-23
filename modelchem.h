@@ -36,7 +36,7 @@ class modelchem
                  double Q_bl, double Q_ft, \
                  double zenith);
 
-    void iter(int cf_switch, double dt, double ynew[],double ycurrent[]);
+    void iter(int cf_switch, double dt, double q, double ynew[],double ycurrent[]);
   
     int nr_chemicals;
     char chem_name[25][10];

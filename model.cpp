@@ -1087,6 +1087,22 @@ void model::runchemmodel()
                 Tcbl_ref, Tfc_ref, \
                 qcbl_ref, qfc_ref, \
                 sinlea );
+
+    cm->iter(1, dt, qcbl_ref, iterout, iterin);
+
+    for(int i=0; i<nsc; i++)
+     sc[i] = iterout[i];
+
+    for(int i=0; i<nsc; i++)
+    {
+      iterin[i]  = fsc[i];
+      iterout[i] = fsc[i];
+    }
+
+    cm->iter(0, dt, qfc_ref, iterout, iterin);
+
+    for(int i=0; i<nsc; i++)
+     dsc[i] = iterout[i] - sc[i];
   }
   else
   {
@@ -1109,28 +1125,23 @@ void model::runchemmodel()
                Tcbl, Tfc, \
                q,    qfc, \
                sinlea );
+
+    cm->iter(1, dt, q, iterout, iterin);
+
+    for(int i=0; i<nsc; i++)
+     sc[i] = iterout[i];
+
+    for(int i=0; i<nsc; i++)
+    {
+      iterin[i]  = fsc[i];
+      iterout[i] = fsc[i];
+    }
+
+    cm->iter(0, dt, qfc, iterout, iterin);
+
+    for(int i=0; i<nsc; i++)
+      dsc[i] = iterout[i] - sc[i];
   }
-
-  cm->iter(1, dt, iterout, iterin);
-  //for(int i=0; i<nsc; i++)
-  cout << "NO2" << ": " << sc[4] << ", " << sc[4]+ dsc[4] << endl;
-
-  for(int i=0; i<nsc; i++)
-   sc[i] = iterout[i];
-
-  // do the FT
-  for(int i=0; i<nsc; i++)
-  {
-    iterin[i]  = fsc[i];
-    iterout[i] = fsc[i];
-  }
-
-  cm->iter(0, dt, iterout, iterin);
-  //for(int i=0; i<nsc; i++)
-  //  cout << i << ": " << iterout[i] << ", " << iterin[i] << endl;
-
-  for(int i=0; i<nsc; i++)
-   dsc[i] = iterout[i] - sc[i];
 
   return;
 }
