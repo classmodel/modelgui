@@ -79,8 +79,8 @@ MainWindow::MainWindow(QWidget *parent)
     point->setText(1, QString::fromStdString(modelout.sc[visible_species.value(i)].name));
   }
 
-  ui->species_treewidget->setCurrentItem(ui->species_treewidget->topLevelItem(0));
   activespecies = visible_species[0];
+  ui->species_treewidget->setCurrentItem(ui->species_treewidget->topLevelItem(0));
   // End species
 
   modelrunlist = new QMap<int, modelrun>;
