@@ -62,10 +62,10 @@ MainWindow::MainWindow(QWidget *parent)
   QList<int> visible_species;         // Posibility to show only a subset of the species.
   visible_species << 0 << 1 << 5 << 10 << 12 << 14 << 15 << 16;
 
-  QStringList headingspecies;
-  headingspecies << "ID" << "Species";
+  QStringList chemheading;
+  chemheading << "ID" << "Species";
   ui->species_treewidget->setColumnCount(2);
-  ui->species_treewidget->setHeaderLabels(headingspecies);
+  ui->species_treewidget->setHeaderLabels(chemheading);
   ui->species_treewidget->setColumnWidth(0,35);
   ui->species_treewidget->hideColumn(0);
   ui->species_treewidget->setSelectionMode(QAbstractItemView::SingleSelection);
