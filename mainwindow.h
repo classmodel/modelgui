@@ -45,6 +45,7 @@ public slots:
   void updateSurfacetype(int);
   void updateSoiltype(int);
   void tabChanged(int);
+  void speciesselectionchanged();
 
   // Switches
   void switch_wind(int);
@@ -67,8 +68,8 @@ private:
   Ui::MainWindow *ui;
   void readdefaultinput();
   void updateSelectedRuns();
-  void loadFormData();
   void storeFormData();
+  void loadFormData();
   QString bool2string(const bool);
   void updateStatusBar();
   bool CheckState2bool(Qt::CheckState);
@@ -83,6 +84,9 @@ private:
 
   int activerun;
   int activetab;
+
+  int activespecies;
+  bool speciesset;
 };
 
 #endif // MAINWINDOW_H

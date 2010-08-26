@@ -28,9 +28,11 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->graphButton,    SIGNAL(clicked()),                this, SLOT(startGraph()));
   connect(ui->input_name,     SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
   connect(ui->exportButton,   SIGNAL(clicked()),                this, SLOT(exportRuns()));
+  connect(ui->tabWidget,      SIGNAL(currentChanged(int)),      this, SLOT(tabChanged(int)));
 
-    // Switches
+  connect(ui->species_treewidget,         SIGNAL(itemSelectionChanged()),   this, SLOT(speciesselectionchanged()));
 
+  // Switches
   connect(ui->input_surface_surfacetypes, SIGNAL(currentIndexChanged(int)), this, SLOT(updateSurfacetype(int)));
   connect(ui->input_soil_soiltypes,       SIGNAL(currentIndexChanged(int)), this, SLOT(updateSoiltype(int)));
   connect(ui->sw_wtheta,                  SIGNAL(stateChanged(int)),        this, SLOT(switch_wtheta(int)));
@@ -44,19 +46,42 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->sw_surface_advanced,        SIGNAL(stateChanged(int)),        this, SLOT(switch_surface_advanced(int)));
   connect(ui->sw_soil_advanced,           SIGNAL(stateChanged(int)),        this, SLOT(switch_soil_advanced(int)));
 
-  connect(ui->tabWidget,                  SIGNAL(currentChanged(int)),      this, SLOT(tabChanged(int)));
-
   // loadfieldslots();
   readdefaultinput();
 
   // Setup QTreeWidget with model runs
-    QStringList heading;
+  QStringList heading;
   heading << "ID" << "Name";
   ui->modelRunTree->setColumnCount(2);
   ui->modelRunTree->setHeaderLabels(heading);
   ui->modelRunTree->setColumnWidth(0,35);
   ui->modelRunTree->hideColumn(0);
   ui->modelRunTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
+  // Setup QTreeWidget with chemical species
+  QList<int> visible_species;         // Posibility to show only a subset of the species.
+  visible_species << 0 << 1 << 5 << 10 << 12 << 14 << 15 << 16;
+
+  QStringList headingspecies;
+  headingspecies << "ID" << "Species";
+  ui->species_treewidget->setColumnCount(2);
+  ui->species_treewidget->setHeaderLabels(headingspecies);
+  ui->species_treewidget->setColumnWidth(0,35);
+  ui->species_treewidget->hideColumn(0);
+  ui->species_treewidget->setSelectionMode(QAbstractItemView::SingleSelection);
+
+  modeloutput modelout(0,22);
+
+  for (int i=0; i<visible_species.size(); i++)
+  {
+    QTreeWidgetItem *point = new QTreeWidgetItem(ui->species_treewidget);
+    point->setText(0, QString::number(visible_species.value(i)));
+    point->setText(1, QString::fromStdString(modelout.sc[visible_species.value(i)].name));
+  }
+
+  ui->species_treewidget->setCurrentItem(ui->species_treewidget->topLevelItem(0));
+  activespecies = visible_species[0];
+  // End species
 
   modelrunlist = new QMap<int, modelrun>;
   selectedruns = new QList<int>;
@@ -85,10 +110,18 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
+// For Windows only...
 // void MainWindow::closeEvent(QCloseEvent *event)
 //{
 //  graph->close();
 //}
+
+void MainWindow::speciesselectionchanged()
+{
+  storeFormData();
+  loadFormData();
+  activespecies = ui->species_treewidget->currentItem()->text(0).toInt();
+}
 
 void MainWindow::blockInput(bool check)
 {
@@ -376,6 +409,14 @@ void MainWindow::storeFormData()
   formvalues.cc         = ui->input_rad_clouds->text().toDouble();
   // END TAB5
 
+  // TAB6
+  // SPECIES PROPERTIES
+  formvalues.sc[activespecies]        = ui->input_species_scalar->text().toDouble();
+  formvalues.dsc[activespecies]       = ui->input_species_dscalar->text().toDouble();
+  formvalues.gammasc[activespecies]   = ui->input_species_gammascalar->text().toDouble();
+  formvalues.wsc[activespecies]       = ui->input_species_wscalar->text().toDouble();
+  formvalues.advsc[activespecies]     = ui->input_species_advscalar->text().toDouble();
+
   // OTHER
   QString name          = QString::fromStdString(ui->input_name->text().toStdString());
 
@@ -576,6 +617,17 @@ void MainWindow::loadFormData()
 
     // OTHER
     ui->input_name->setText(modelrunlist->find(n).value().runname);
+
+    // CHEMISTRY
+    if (ui->species_treewidget->selectedItems().count() != 0)
+    {
+      int id = ui->species_treewidget->currentItem()->text(0).toInt();
+      ui->input_species_scalar->setText(QString::number(tempinput->sc[id]));
+      ui->input_species_dscalar->setText(QString::number(tempinput->dsc[id]));
+      ui->input_species_gammascalar->setText(QString::number(tempinput->gammasc[id]));
+      ui->input_species_wscalar->setText(QString::number(tempinput->wsc[id]));
+      ui->input_species_advscalar->setText(QString::number(tempinput->advsc[id]));
+    }
 
 //    if(modelrunlist->value(n).surfaceadvanced)
 //      ui->sw_surface_advanced->setCheckState(Qt::Checked);
