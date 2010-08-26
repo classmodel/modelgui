@@ -110,8 +110,11 @@ modelinput::modelinput()
   // chemistry
   sw_chem    = false;
   sw_chem_constant = false;
-  csize      = 0;
-  rsize      = 0;
+  csize      = 22;
+  rsize      = 27;
+  sw_reactions = new bool[rsize];
+  for(int n=0; n<nsc; n++)
+    sw_reactions[n] = true;
   P_ref      = -1.;
   Tcbl_ref   = -1.;
   Tfc_ref    = -1.;
@@ -228,11 +231,14 @@ modelinput::modelinput(const modelinput &ref)
   Lambda     = ref.Lambda;
 
   // chemistry
-  sw_chem    = ref.sw_chem;
+  sw_chem      = ref.sw_chem;
   sw_chem_constant = ref.sw_chem_constant;
-  csize      = ref.csize;
-  rsize      = ref.rsize;
-  reactions  = ref.reactions; // CvH warning...
+  csize        = ref.csize;
+  rsize        = ref.rsize;
+  reactions    = ref.reactions; // CvH warning...
+  sw_reactions = new bool[rsize];
+  for(int n=0; n<nsc; n++)
+    sw_reactions[n] = ref.sw_reactions[n];
 
   P_ref      = ref.P_ref;
   Tcbl_ref   = ref.Tcbl_ref;
@@ -363,6 +369,10 @@ modelinput &modelinput::operator=(const modelinput &ref)
     csize      = ref.csize;
     rsize      = ref.rsize;
     reactions  = ref.reactions; // CvH warning...
+    delete[] sw_reactions;
+    sw_reactions = new bool[rsize];
+    for(int n=0; n<nsc; n++)
+      sw_reactions[n] = ref.sw_reactions[n];
 
     P_ref      = ref.P_ref;
     Tcbl_ref   = ref.Tcbl_ref;
