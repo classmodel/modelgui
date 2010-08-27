@@ -136,7 +136,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   mixedlayervars
       << modelout.t
       << modelout.h
-      << modelout.lcl;
+      << modelout.lcl
+      << modelout.we;
 
   temperaturevars
       << modelout.theta

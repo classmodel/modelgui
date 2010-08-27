@@ -777,6 +777,7 @@ void model::store()
   output->wtheta.data[t]     = wtheta;
   output->wthetae.data[t]    = wthetae;
   output->wthetav.data[t]    = wthetav;
+  output->we.data[t]         = we;
   
   output->q.data[t]          = q * 1000.;
   //output.qsat[t]       = qsat;
@@ -875,6 +876,7 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->wtheta.name << " [" << output->wtheta.unit << "],";
   runsave << output->wthetae.name << " [" << output->wthetae.unit << "],";
   runsave << output->wthetav.name << " [" << output->wthetav.unit << "],";
+  runsave << output->we.name      << " [" << output->we.unit << "],";
 
   runsave << output->q.name << " [" << output->q.unit << "],";
   runsave << output->dq.name << " [" << output->dq.unit << "],";
@@ -938,6 +940,7 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->wtheta.data[nt] << ",";
     runsave << output->wthetae.data[nt] << ",";
     runsave << output->wthetav.data[nt] << ",";
+    runsave << output->we.data[nt] << ",";
 
     runsave << output->q.data[nt] << ",";
     runsave << output->dq.data[nt] << ",";

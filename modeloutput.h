@@ -20,7 +20,8 @@ public:
   outputvar Ps;        // surface pressure [Pa]
   outputvar ws;        // large scale vertical velocity [m s-1]
   outputvar beta;      // entrainment ratio for virtual heat [-]
-  outputvar lcl;       // lifted condensation level [m]
+  outputvar lcl;       // lifting condensation level [m]
+  outputvar we;        // entrainment velocity [m s-1]
 
   // temperature
   outputvar theta;     // initial mixed-layer potential temperature [K]

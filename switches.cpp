@@ -108,6 +108,8 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->ws;
   else if (plotvar == "LCL")
     *data = n.run->output->lcl;
+  else if (plotvar == "we")
+    *data = n.run->output->we;
 
   // temperature
   else if (plotvar == "theta")
@@ -245,6 +247,8 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
   else if (label == "ws")
     *plotvar = label;
   else if (label == "LCL")
+    *plotvar = label;
+  else if (label == "we")
     *plotvar = label;
 
   // temperature

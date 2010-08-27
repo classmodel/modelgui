@@ -27,11 +27,17 @@ modeloutput::modeloutput(int tsteps, int nsc)
   ws.description            = "Large scale vertical velocity";
   ws.id                     = "ws";
 
-  lcl.data                  = new double[tsteps];   // Lifted Condensation level [m]
+  lcl.data                  = new double[tsteps];   // Lifting Condensation level [m]
   lcl.name                  = "LCL";
   lcl.unit                  = "m";
-  lcl.description           = "Lifted Condensation Level";
+  lcl.description           = "Lifting Condensation Level";
   lcl.id                    = "LCL";
+
+  we.data                   = new double[tsteps];   // surface kinematic heat flux [K m s-1]
+  we.name                   = "we";
+  we.unit                   = "m s\u207B\u00B9";
+  we.description            = "Entrainment velocity";
+  we.id                     = "we";
 
   theta.data                = new double[tsteps];   //  mixed-layer potential temperature [K]
   theta.name                = "\u03B8";
@@ -74,7 +80,6 @@ modeloutput::modeloutput(int tsteps, int nsc)
   beta.unit                 = "-";
   beta.description          = "Entrainment ratio";
   beta.id                   = "beta";
-
 
   wtheta.data               = new double[tsteps];   // surface kinematic heat flux [K m s-1]
   wtheta.name               = "w'\u03B8'(s)";
