@@ -113,7 +113,7 @@ modelinput::modelinput()
   csize      = 22;
   rsize      = 27;
   sw_reactions = new bool[rsize];
-  for(int n=0; n<nsc; n++)
+  for(int n=0; n<rsize; n++)
     sw_reactions[n] = true;
   P_ref      = -1.;
   Tcbl_ref   = -1.;
@@ -238,7 +238,7 @@ modelinput::modelinput(const modelinput &ref)
   rsize        = ref.rsize;
   reactions    = ref.reactions; // CvH warning...
   sw_reactions = new bool[rsize];
-  for(int n=0; n<nsc; n++)
+  for(int n=0; n<rsize; n++)
     sw_reactions[n] = ref.sw_reactions[n];
 
   P_ref      = ref.P_ref;
@@ -373,7 +373,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
     reactions  = ref.reactions; // CvH warning...
     delete[] sw_reactions;
     sw_reactions = new bool[rsize];
-    for(int n=0; n<nsc; n++)
+    for(int n=0; n<rsize; n++)
       sw_reactions[n] = ref.sw_reactions[n];
 
     P_ref      = ref.P_ref;

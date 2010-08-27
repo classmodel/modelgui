@@ -50,9 +50,9 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->sw_surface_advanced,        SIGNAL(stateChanged(int)),        this, SLOT(switch_surface_advanced(int)));
   connect(ui->sw_soil_advanced,           SIGNAL(stateChanged(int)),        this, SLOT(switch_soil_advanced(int)));
 
-  connect(ui->input_reactions_simplebutton, SIGNAL(clicked()),              this, SLOT(switch_simple_reactions()));
-  connect(ui->input_reactions_complexbutton, SIGNAL(clicked()),              this, SLOT(switch_complex_reactions()));
-
+  connect(ui->input_reactions_nonebutton, SIGNAL(clicked()),                this, SLOT(setNoReactions()));
+  connect(ui->input_reactions_simplebutton, SIGNAL(clicked()),              this, SLOT(setSimpleReactions()));
+  connect(ui->input_reactions_complexbutton, SIGNAL(clicked()),             this, SLOT(setComplexReactions()));
 
   // loadfieldslots();
   readdefaultinput();
@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Setup QTreeWidget with chemical species
   QList<int> visible_species;         // Posibility to show only a subset of the species.
-  visible_species << 0 << 1 << 5 << 10 << 12 << 14 << 15 << 16;
+  visible_species << 0 << 1 << 3 << 4 << 9 << 5 << 13;
 
   QStringList chemheading;
   chemheading << "ID" << "Species";
@@ -341,7 +341,6 @@ void MainWindow::storeFormData()
   formvalues.sw_wq      = CheckState2bool(ui->sw_wq->checkState());
   // END TAB1
 
-
   // TAB2
   // WIND
   formvalues.sw_wind    = CheckState2bool(ui->sw_wind->checkState());
@@ -444,6 +443,36 @@ void MainWindow::storeFormData()
   formvalues.wsc[activespecies]       = ui->input_species_wscalar->text().toDouble();
   formvalues.advsc[activespecies]     = ui->input_species_advscalar->text().toDouble();
 
+  // TAB 7
+  // EQUATIONS
+  formvalues.sw_reactions[0]      = CheckState2bool(ui->sw_R1->checkState());
+  formvalues.sw_reactions[1]      = CheckState2bool(ui->sw_R2->checkState());
+  formvalues.sw_reactions[2]      = CheckState2bool(ui->sw_R3->checkState());
+  formvalues.sw_reactions[3]      = CheckState2bool(ui->sw_R4->checkState());
+  formvalues.sw_reactions[4]      = CheckState2bool(ui->sw_R5->checkState());
+  formvalues.sw_reactions[5]      = CheckState2bool(ui->sw_R6->checkState());
+  formvalues.sw_reactions[6]      = CheckState2bool(ui->sw_R7->checkState());
+  formvalues.sw_reactions[7]      = CheckState2bool(ui->sw_R8->checkState());
+  formvalues.sw_reactions[8]      = CheckState2bool(ui->sw_R9->checkState());
+  formvalues.sw_reactions[9]      = CheckState2bool(ui->sw_R10->checkState());
+  formvalues.sw_reactions[10]     = CheckState2bool(ui->sw_R11->checkState());
+  formvalues.sw_reactions[11]     = CheckState2bool(ui->sw_R12->checkState());
+  formvalues.sw_reactions[12]     = CheckState2bool(ui->sw_R13->checkState());
+  formvalues.sw_reactions[13]     = CheckState2bool(ui->sw_R14->checkState());
+  formvalues.sw_reactions[14]     = CheckState2bool(ui->sw_R15->checkState());
+  formvalues.sw_reactions[15]     = CheckState2bool(ui->sw_R16->checkState());
+  formvalues.sw_reactions[16]     = CheckState2bool(ui->sw_R17->checkState());
+  formvalues.sw_reactions[17]     = CheckState2bool(ui->sw_R18->checkState());
+  formvalues.sw_reactions[18]     = CheckState2bool(ui->sw_R19->checkState());
+  formvalues.sw_reactions[19]     = CheckState2bool(ui->sw_R20->checkState());
+  formvalues.sw_reactions[20]     = CheckState2bool(ui->sw_R21->checkState());
+  formvalues.sw_reactions[21]     = CheckState2bool(ui->sw_R22->checkState());
+  formvalues.sw_reactions[22]     = CheckState2bool(ui->sw_R23->checkState());
+  formvalues.sw_reactions[23]     = CheckState2bool(ui->sw_R24->checkState());
+  formvalues.sw_reactions[24]     = CheckState2bool(ui->sw_R25->checkState());
+  formvalues.sw_reactions[25]     = CheckState2bool(ui->sw_R26->checkState());
+  formvalues.sw_reactions[26]     = CheckState2bool(ui->sw_R27->checkState());
+
   // OTHER
   QString name          = QString::fromStdString(ui->input_name->text().toStdString());
 
@@ -493,71 +522,111 @@ void MainWindow::loadFormData()
     ui->input_sinperiod->setText(QString::number(tempinput->sinperiod / 3600.));
 
     // SWITCHES
-    Qt::CheckState check;
-    if (tempinput->sw_wind == true)
-      check = Qt::Checked;
-    else
-      check = Qt::Unchecked;
-    ui->sw_wind->setCheckState(check);
+    //Qt::CheckState check;
+    ui->sw_wind->setCheckState(Bool2CheckState(tempinput->sw_wind));
+    ui->sw_ml->setCheckState(Bool2CheckState(tempinput->sw_ml));
+    ui->sw_rad->setCheckState(Bool2CheckState(tempinput->sw_rad));
+    ui->sw_sl->setCheckState(Bool2CheckState(tempinput->sw_sl));
+    ui->sw_ls->setCheckState(Bool2CheckState(tempinput->sw_ls));
+    ui->sw_wtheta->setCheckState(Bool2CheckState(tempinput->sw_wtheta));
+    ui->sw_wq->setCheckState(Bool2CheckState(tempinput->sw_wq));
+    ui->sw_chem->setCheckState(Bool2CheckState(tempinput->sw_chem));
+    ui->sw_chem_constant->setCheckState(Bool2CheckState(tempinput->sw_chem_constant));
+    ui->sw_species_photolysis->setCheckState(Bool2CheckState(tempinput->sw_photo_constant));
 
-    if (tempinput->sw_ml == true)
-      check = Qt::Checked;
-    else
-      check = Qt::Unchecked;
-    ui->sw_ml->setCheckState(check);
-
-    if (tempinput->sw_rad == true)
-      check = Qt::Checked;
-    else
-      check = Qt::Unchecked;
-    ui->sw_rad->setCheckState(check);
-
-    if (tempinput->sw_sl == true)
-      check = Qt::Checked;
-    else
-      check = Qt::Unchecked;
-    ui->sw_sl->setCheckState(check);
-
-    if (tempinput->sw_ls == true)
-      check = Qt::Checked;
-    else
-      check = Qt::Unchecked;
-    ui->sw_ls->setCheckState(check);
+    ui->sw_R1->setCheckState(Bool2CheckState(tempinput->sw_reactions[0]));
+    ui->sw_R2->setCheckState(Bool2CheckState(tempinput->sw_reactions[1]));
+    ui->sw_R3->setCheckState(Bool2CheckState(tempinput->sw_reactions[2]));
+    ui->sw_R4->setCheckState(Bool2CheckState(tempinput->sw_reactions[3]));
+    ui->sw_R5->setCheckState(Bool2CheckState(tempinput->sw_reactions[4]));
+    ui->sw_R6->setCheckState(Bool2CheckState(tempinput->sw_reactions[5]));
+    ui->sw_R7->setCheckState(Bool2CheckState(tempinput->sw_reactions[6]));
+    ui->sw_R8->setCheckState(Bool2CheckState(tempinput->sw_reactions[7]));
+    ui->sw_R9->setCheckState(Bool2CheckState(tempinput->sw_reactions[8]));
+    ui->sw_R10->setCheckState(Bool2CheckState(tempinput->sw_reactions[9]));
+    ui->sw_R11->setCheckState(Bool2CheckState(tempinput->sw_reactions[10]));
+    ui->sw_R12->setCheckState(Bool2CheckState(tempinput->sw_reactions[11]));
+    ui->sw_R13->setCheckState(Bool2CheckState(tempinput->sw_reactions[12]));
+    ui->sw_R14->setCheckState(Bool2CheckState(tempinput->sw_reactions[13]));
+    ui->sw_R15->setCheckState(Bool2CheckState(tempinput->sw_reactions[14]));
+    ui->sw_R16->setCheckState(Bool2CheckState(tempinput->sw_reactions[15]));
+    ui->sw_R17->setCheckState(Bool2CheckState(tempinput->sw_reactions[16]));
+    ui->sw_R18->setCheckState(Bool2CheckState(tempinput->sw_reactions[17]));
+    ui->sw_R19->setCheckState(Bool2CheckState(tempinput->sw_reactions[18]));
+    ui->sw_R20->setCheckState(Bool2CheckState(tempinput->sw_reactions[19]));
+    ui->sw_R21->setCheckState(Bool2CheckState(tempinput->sw_reactions[20]));
+    ui->sw_R22->setCheckState(Bool2CheckState(tempinput->sw_reactions[21]));
+    ui->sw_R23->setCheckState(Bool2CheckState(tempinput->sw_reactions[22]));
+    ui->sw_R24->setCheckState(Bool2CheckState(tempinput->sw_reactions[23]));
+    ui->sw_R25->setCheckState(Bool2CheckState(tempinput->sw_reactions[24]));
+    ui->sw_R26->setCheckState(Bool2CheckState(tempinput->sw_reactions[25]));
+    ui->sw_R27->setCheckState(Bool2CheckState(tempinput->sw_reactions[26]));
 
     if(tempinput->sw_sea == true)
       ui->sw_sea->setCurrentIndex(1);
     else
       ui->sw_sea->setCurrentIndex(0);
 
-    if (tempinput->sw_wtheta == true)
-      check = Qt::Checked;
-    else
-      check = Qt::Unchecked;
-    ui->sw_wtheta->setCheckState(check);
+//    if (tempinput->sw_wind == true)
+//      check = Qt::Checked;
+//    else
+//      check = Qt::Unchecked;
+//    ui->sw_wind->setCheckState(check);
+//
+//    if (tempinput->sw_ml == true)
+//      check = Qt::Checked;
+//    else
+//      check = Qt::Unchecked;
+//    ui->sw_ml->setCheckState(check);
+//
+//    if (tempinput->sw_rad == true)
+//      check = Qt::Checked;
+//    else
+//      check = Qt::Unchecked;
+//    ui->sw_rad->setCheckState(check);
+//
+//    if (tempinput->sw_sl == true)
+//      check = Qt::Checked;
+//    else
+//      check = Qt::Unchecked;
+//    ui->sw_sl->setCheckState(check);
+//
+//    if (tempinput->sw_ls == true)
+//      check = Qt::Checked;
+//    else
+//      check = Qt::Unchecked;
+//    ui->sw_ls->setCheckState(check);
+//
+//    if (tempinput->sw_wtheta == true)
+//      check = Qt::Checked;
+//    else
+//      check = Qt::Unchecked;
+//    ui->sw_wtheta->setCheckState(check);
+//
+//    if (tempinput->sw_wq == true)
+//      check = Qt::Checked;
+//    else
+//      check = Qt::Unchecked;
+//    ui->sw_wq->setCheckState(check);
+//
+//    if (tempinput->sw_chem == true)
+//      check = Qt::Checked;
+//    else
+//      check = Qt::Unchecked;
+//    ui->sw_chem->setCheckState(check);
+//
+//    if (tempinput->sw_chem_constant == true)
+//      check = Qt::Checked;
+//    else
+//      check = Qt::Unchecked;
+//    ui->sw_chem_constant->setCheckState(check);
+//
+//    if (tempinput->sw_photo_constant == true)
+//      check = Qt::Checked;
+//    else
+//      check = Qt::Unchecked;
+//    ui->sw_species_photolysis->setCheckState(check);
 
-    if (tempinput->sw_wq == true)
-      check = Qt::Checked;
-    else
-      check = Qt::Unchecked;
-    ui->sw_wq->setCheckState(check);
-
-    if (tempinput->sw_chem == true)
-      check = Qt::Checked;
-    else
-      check = Qt::Unchecked;
-    ui->sw_chem->setCheckState(check);
-
-    if (tempinput->sw_chem_constant == true)
-      check = Qt::Checked;
-    else
-      check = Qt::Unchecked;
-    ui->sw_chem_constant->setCheckState(check);
-
-    if (tempinput->sw_photo_constant == true)
-      check = Qt::Checked;
-    else
-      check = Qt::Unchecked;
-    ui->sw_species_photolysis->setCheckState(check);
 
     // MIXED-LAYER
     ui->input_ml_h->setText(QString::number(tempinput->h));
@@ -595,11 +664,6 @@ void MainWindow::loadFormData()
 
     ui->input_surfacelayer_z0h->setText(QString::number(tempinput->z0h));
     ui->input_surfacelayer_z0m->setText(QString::number(tempinput->z0m));
-
-    //if (tempinput->sw_wind == true)
-      //ui->switch_wind->setChecked(true);
-    //else
-      //ui->switch_wind->setChecked(false);
 
     // SOIL
     ui->input_soil_T2->setText(QString::number(tempinput->T2));
@@ -681,16 +745,6 @@ void MainWindow::loadFormData()
       ui->input_species_advscalar->setText(QString::number(tempinput->advsc[id]));
     }
 
-//    if(modelrunlist->value(n).surfaceadvanced)
-//      ui->sw_surface_advanced->setCheckState(Qt::Checked);
-//    else
-//      ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
-
-//    if(modelrunlist->value(n).soiladvanced)
-//      ui->sw_soil_advanced->setCheckState(Qt::Checked);
-//    else
-//      ui->sw_soil_advanced->setCheckState(Qt::Unchecked);
-
     updateStatusBar();
   }
   else
@@ -723,6 +777,14 @@ bool MainWindow::CheckState2bool(Qt::CheckState state)
     return false;
   else
     return true;
+}
+
+Qt::CheckState MainWindow::Bool2CheckState(bool state)
+{
+  if(state == true)
+    return Qt::Checked;
+  else
+    return Qt::Unchecked;
 }
 
 void MainWindow::deleteRun()
@@ -1313,6 +1375,70 @@ void MainWindow::updateSoiltype(int i)
 // ----------------------------------
 // Switches
 
+void MainWindow::setNoReactions()
+{
+  setReactions(0);
+}
+
+void MainWindow::setSimpleReactions()
+{
+  setReactions(1);
+}
+
+void MainWindow::setComplexReactions()
+{
+  setReactions(2);
+}
+
+void MainWindow::setReactions(int mode)
+{
+  // mode 0 = no reactions
+  // mode 1 = simple (only R5, R21)
+  // mode 2 = complex (all reactions)
+
+  bool active;
+
+  if (mode == 0)
+    active = false;
+  else if (mode == 1)
+    active = false;
+  else if (mode == 2)
+    active = true;
+
+  ui->sw_R1->setChecked(active);
+  ui->sw_R2->setChecked(active);
+  ui->sw_R3->setChecked(active);
+  ui->sw_R4->setChecked(active);
+  if (mode != 1)
+    ui->sw_R5->setChecked(active);
+  else
+    ui->sw_R5->setChecked(true);
+  ui->sw_R6->setChecked(active);
+  ui->sw_R7->setChecked(active);
+  ui->sw_R8->setChecked(active);
+  ui->sw_R9->setChecked(active);
+  ui->sw_R10->setChecked(active);
+  ui->sw_R11->setChecked(active);
+  ui->sw_R12->setChecked(active);
+  ui->sw_R13->setChecked(active);
+  ui->sw_R14->setChecked(active);
+  ui->sw_R15->setChecked(active);
+  ui->sw_R16->setChecked(active);
+  ui->sw_R17->setChecked(active);
+  ui->sw_R18->setChecked(active);
+  ui->sw_R19->setChecked(active);
+  ui->sw_R20->setChecked(active);
+  if (mode != 1)
+    ui->sw_R21->setChecked(active);
+  else
+    ui->sw_R21->setChecked(true);
+  ui->sw_R22->setChecked(active);
+  ui->sw_R23->setChecked(active);
+  ui->sw_R24->setChecked(active);
+  ui->sw_R25->setChecked(active);
+  ui->sw_R26->setChecked(active);
+  ui->sw_R27->setChecked(active);
+}
 
 
 void MainWindow::switch_wind(int state)
@@ -1511,13 +1637,3 @@ void MainWindow::switch_photolysis(int state)
 }
 
 
-void MainWindow::switch_simple_reactions()
-{
-  ui->sw_R5->setChecked(true);
-  ui->sw_R21->setChecked(true);
-}
-
-void MainWindow::switch_complex_reactions()
-{
-  ui->sw_R1->setChecked(true);
-}

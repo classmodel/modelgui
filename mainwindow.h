@@ -48,6 +48,9 @@ public slots:
   void updateSoiltype(int);
   void tabChanged(int);
   void speciesselectionchanged();
+  void setNoReactions();
+  void setSimpleReactions();
+  void setComplexReactions();
 
   // Switches
   void switch_wind(int);
@@ -63,8 +66,6 @@ public slots:
   void switch_chem(int);
   void switch_chem_constant(int);
   void switch_photolysis(int);
-  void switch_simple_reactions();
-  void switch_complex_reactions();
 
 signals:
   void rundeleted(int);
@@ -79,11 +80,14 @@ private:
   QString bool2string(const bool);
   void updateStatusBar();
   bool CheckState2bool(Qt::CheckState);
+  Qt::CheckState Bool2CheckState(bool);
+  void setReactions(int);
 
   void initLandSoil();
   void setLandSoil();
   // void closeEvent(QCloseEvent *event);
   void blockInput(bool);
+
 
   surfacetype surfacetypes[3];
   soiltype    soiltypes[1];
