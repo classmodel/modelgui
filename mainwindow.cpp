@@ -433,9 +433,9 @@ void MainWindow::storeFormData()
   formvalues.sw_chem_constant = CheckState2bool(ui->sw_chem_constant->checkState());
   formvalues.Tcbl_ref   = ui->input_species_ref_Tcbl->text().toDouble();
   formvalues.Tfc_ref    = ui->input_species_ref_Tft->text().toDouble();
-  formvalues.qcbl_ref   = ui->input_species_ref_qcbl->text().toDouble();
-  formvalues.qfc_ref    = ui->input_species_ref_qft->text().toDouble();
-  formvalues.P_ref      = ui->input_species_ref_pref->text().toDouble();
+  formvalues.qcbl_ref   = ui->input_species_ref_qcbl->text().toDouble() / 1000.;
+  formvalues.qfc_ref    = ui->input_species_ref_qft->text().toDouble()  / 1000.;
+  formvalues.P_ref      = ui->input_species_ref_pref->text().toDouble() * 100.;
 
   // SPECIES - PROPERTIES
   formvalues.sc[activespecies]        = ui->input_species_scalar->text().toDouble();
@@ -667,9 +667,9 @@ void MainWindow::loadFormData()
     ui->input_species_photolysis_tref->setText(QString::number(tempinput->tod_ref));
     ui->input_species_ref_Tcbl->setText(QString::number(tempinput->Tcbl_ref));
     ui->input_species_ref_Tft->setText(QString::number(tempinput->Tfc_ref));
-    ui->input_species_ref_qcbl->setText(QString::number(tempinput->qcbl_ref));
-    ui->input_species_ref_qft->setText(QString::number(tempinput->qfc_ref));
-    ui->input_species_ref_pref->setText(QString::number(tempinput->P_ref));
+    ui->input_species_ref_qcbl->setText(QString::number(tempinput->qcbl_ref * 1000.));
+    ui->input_species_ref_qft->setText(QString::number(tempinput->qfc_ref * 1000.));
+    ui->input_species_ref_pref->setText(QString::number(tempinput->P_ref / 100.));
 
     if (ui->species_treewidget->selectedItems().count() != 0)
     {
