@@ -445,6 +445,7 @@ void MainWindow::storeFormData()
 
   // TAB 7
   // EQUATIONS
+  formvalues.stocoef              = ui->input_reactions_OHrecycling->value();
   formvalues.sw_reactions[0]      = CheckState2bool(ui->sw_R1->checkState());
   formvalues.sw_reactions[1]      = CheckState2bool(ui->sw_R2->checkState());
   formvalues.sw_reactions[2]      = CheckState2bool(ui->sw_R3->checkState());
@@ -734,6 +735,8 @@ void MainWindow::loadFormData()
     ui->input_species_ref_qcbl->setText(QString::number(tempinput->qcbl_ref * 1000.));
     ui->input_species_ref_qft->setText(QString::number(tempinput->qfc_ref * 1000.));
     ui->input_species_ref_pref->setText(QString::number(tempinput->P_ref / 100.));
+
+    ui->input_reactions_OHrecycling->setValue(tempinput->stocoef);
 
     if (ui->species_treewidget->selectedItems().count() != 0)
     {

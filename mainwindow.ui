@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -3859,7 +3859,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>420</width>
+         <width>417</width>
          <height>750</height>
         </rect>
        </property>
@@ -5574,7 +5574,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
