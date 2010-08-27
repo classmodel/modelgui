@@ -37,7 +37,7 @@ public slots:
   void deleteRun();
   void runTreeChanged();                       // Disable input field when selection runs > 1
   void runTreePressed(QModelIndex);
-  void updateRunName();
+  void updateRunName(QString);
   void startrun();
   void canceledit();
   void startGraph();

@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->modelRunTree,   SIGNAL(pressed(QModelIndex)),     this, SLOT(runTreePressed(QModelIndex)));
   connect(ui->deleteButton,   SIGNAL(clicked()),                this, SLOT(deleteRun()));
   connect(ui->graphButton,    SIGNAL(clicked()),                this, SLOT(startGraph()));
-  connect(ui->input_name,     SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
+  connect(ui->input_name,     SIGNAL(textChanged(QString)),     this, SLOT(updateRunName(QString)));
   connect(ui->exportButton,   SIGNAL(clicked()),                this, SLOT(exportRuns()));
   connect(ui->tabWidget,      SIGNAL(currentChanged(int)),      this, SLOT(tabChanged(int)));
 
@@ -702,10 +702,12 @@ void MainWindow::deleteRun()
   blockInput(false);
 }
 
-void MainWindow::updateRunName()
+void MainWindow::updateRunName(QString dummy)
 {
+  blockInput(true);
   if(ui->modelRunTree->selectedItems().count() > 0)
     ui->modelRunTree->currentItem()->setText(1,ui->input_name->text());
+  blockInput(false);
 }
 
 void MainWindow::startrun()
