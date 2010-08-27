@@ -13,11 +13,12 @@ public:
 class modeloutput
 {
 public:
-  outputvar t;         // time [s]
+  outputvar t;         // time [h]
+  outputvar tutc;      // time in UTC [h]
 
   // mixed-layer variables
   outputvar h;         // CBL height [m]
-  outputvar Ps;        // surface pressure [Pa]
+  outputvar Ps;        // surface pressure [hPa]
   outputvar ws;        // large scale vertical velocity [m s-1]
   outputvar beta;      // entrainment ratio for virtual heat [-]
   outputvar lcl;       // lifting condensation level [m]

@@ -288,11 +288,17 @@ void model::initmodel()
   G          =  -1.;                    // ground heat flux [W m-2]
 
   // chemistry
-  sw_chem    =  input.sw_chem;
-  sw_chem_constant = input.sw_chem_constant;
+  sw_chem           = input.sw_chem;
+  sw_chem_constant  = input.sw_chem_constant;
+  sw_photo_constant = input.sw_photo_constant;
   rsize      =  input.rsize;
   csize      =  input.csize;
+  sw_chemoutput = new bool[csize];
   reactions  =  input.reactions; // CvH forward address to reaction array
+  sw_reactions = new bool[rsize];
+  for(int i=0; i<rsize; i++)
+    sw_reactions[i] = input.sw_reactions[i];
+
   P_ref      =  input.P_ref;
   Tcbl_ref   =  input.Tcbl_ref;
   Tfc_ref    =  input.Tfc_ref;
@@ -760,7 +766,7 @@ void model::store()
   cout << "(t,h,LCL,theta,q,u,v) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
   cout << "(t,sc0,sc1,sc3,sc9)   " << t * dt << ", " << sc[0] << ", " << sc[1] << ", " << sc[3] << ", " << sc[9] << endl;
   output->t.data[t]          = t * dt / 3600.; // + tstart;
-
+  output->tutc.data[t]       = t * dt / 3600. + tstart;
   output->h.data[t]          = h;
   output->Ps.data[t]         = Ps;
   output->ws.data[t]         = ws;
@@ -866,7 +872,9 @@ void model::run2file(std::string filedir, std::string filename)
 
   // Write header first
   runsave << output->t.name << " [" << output->t.unit << "],";
+  runsave << output->tutc.name << " [" << output->tutc.unit << "],";
   runsave << output->h.name << " [" << output->h.unit << "],";
+  runsave << output->we.name << " [" << output->we.unit << "],";
   runsave << output->lcl.name << " [" << output->lcl.unit << "],";
 
   runsave << output->theta.name << " [" << output->theta.unit << "],";
@@ -876,7 +884,6 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->wtheta.name << " [" << output->wtheta.unit << "],";
   runsave << output->wthetae.name << " [" << output->wthetae.unit << "],";
   runsave << output->wthetav.name << " [" << output->wthetav.unit << "],";
-  runsave << output->we.name      << " [" << output->we.unit << "],";
 
   runsave << output->q.name << " [" << output->q.unit << "],";
   runsave << output->dq.name << " [" << output->dq.unit << "],";
@@ -930,7 +937,9 @@ void model::run2file(std::string filedir, std::string filename)
   for(int nt=0; nt < tsteps; nt++)
   {
     runsave << output->t.data[nt] << ",";
+    runsave << output->tutc.data[nt] << ",";
     runsave << output->h.data[nt] << ",";
+    runsave << output->we.data[nt] << ",";
     runsave << output->lcl.data[nt] << ",";
 
     runsave << output->theta.data[nt] << ",";
@@ -940,7 +949,6 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->wtheta.data[nt] << ",";
     runsave << output->wthetae.data[nt] << ",";
     runsave << output->wthetav.data[nt] << ",";
-    runsave << output->we.data[nt] << ",";
 
     runsave << output->q.data[nt] << ",";
     runsave << output->dq.data[nt] << ",";
@@ -1021,9 +1029,8 @@ void model::run2file(std::string filedir, std::string filename)
 void model::initchemmodel()
 {
 
-  cout << "Starting initchemmodel" << endl;
+  //cout << "Starting initchemmodel" << endl;
 
-  int tnor;
   int i;
   
   //Reaction Reactions[RSIZE];
@@ -1054,7 +1061,7 @@ void model::initchemmodel()
 
   // HERE THE FINAL MODULE STARTS
   cm = new modelchem(RC_ptr, PL_ptr, rsize, csize);
-  cm->inputchem(rsize);
+  cm->inputchem(sw_reactions,sw_chemoutput);
   return;
 }
 
@@ -1083,8 +1090,9 @@ void model::runchemmodel()
 
     sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
 
-    if(sinlea >= 0.)
-      sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
+    if(sw_photo_constant)
+      if(sinlea >= 0.)
+        sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
 
     cm->calc_k(P_ref,P_ref, \
                 Tcbl_ref, Tfc_ref, \
@@ -1123,6 +1131,10 @@ void model::runchemmodel()
 
     sda    = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
     sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
+
+    if(sw_photo_constant)
+      if(sinlea >= 0.)
+        sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
 
     cm->calc_k(Ps,   Ptop, \
                Tcbl, Tfc, \

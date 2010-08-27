@@ -233,6 +233,7 @@ modelinput::modelinput(const modelinput &ref)
   // chemistry
   sw_chem      = ref.sw_chem;
   sw_chem_constant = ref.sw_chem_constant;
+  sw_photo_constant = ref.sw_photo_constant;
   csize        = ref.csize;
   rsize        = ref.rsize;
   reactions    = ref.reactions; // CvH warning...
@@ -366,6 +367,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
     // chemistry
     sw_chem    = ref.sw_chem;
     sw_chem_constant = ref.sw_chem_constant;
+    sw_photo_constant = ref.sw_photo_constant;
     csize      = ref.csize;
     rsize      = ref.rsize;
     reactions  = ref.reactions; // CvH warning...
