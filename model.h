@@ -227,5 +227,6 @@ private:
   double qcbl_ref;
   double qfc_ref;
   double tod_ref;
+  double phi;
 };
 

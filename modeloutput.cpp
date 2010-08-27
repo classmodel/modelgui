@@ -357,6 +357,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   zprof.id                  = "zprof";
 
   //chemistry
+  phi.data                    = new double[tsteps];   // Net radiation [W m-2]
+  phi.name                    = "phi";
+  phi.unit                    = "-";
+  phi.description             = "Photostationary state";
+  phi.id                      = "phi";
+
   sc                        = new outputvar[nsc];
   for(int n=0; n<nsc; n++)
   {

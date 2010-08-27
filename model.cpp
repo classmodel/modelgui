@@ -1103,7 +1103,7 @@ void model::runchemmodel()
                 qcbl_ref, qfc_ref, \
                 sinlea );
 
-    cm->iter(1, dt, qcbl_ref, iterout, iterin);
+    cm->iter(1, dt, qcbl_ref, iterout, iterin, &phi);
 
     for(int i=0; i<nsc; i++)
      sc[i] = iterout[i];
@@ -1114,7 +1114,7 @@ void model::runchemmodel()
       iterout[i] = fsc[i];
     }
 
-    cm->iter(0, dt, qfc_ref, iterout, iterin);
+    cm->iter(0, dt, qfc_ref, iterout, iterin, &phi);
 
     for(int i=0; i<nsc; i++)
      dsc[i] = iterout[i] - sc[i];
@@ -1145,7 +1145,7 @@ void model::runchemmodel()
                q,    qfc, \
                sinlea );
 
-    cm->iter(1, dt, q, iterout, iterin);
+    cm->iter(1, dt, q, iterout, iterin, &phi);
 
     for(int i=0; i<nsc; i++)
      sc[i] = iterout[i];
@@ -1156,7 +1156,7 @@ void model::runchemmodel()
       iterout[i] = fsc[i];
     }
 
-    cm->iter(0, dt, qfc, iterout, iterin);
+    cm->iter(0, dt, qfc, iterout, iterin, &phi);
 
     for(int i=0; i<nsc; i++)
       dsc[i] = iterout[i] - sc[i];

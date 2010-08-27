@@ -94,6 +94,7 @@ public:
 
   //chemistry
   outputvar *sc;        // mixed-layer specific humidity [kg kg-1]
+  outputvar phi;        // photostationary state [-]
 
   modeloutput(int,int);
 };

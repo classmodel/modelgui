@@ -681,7 +681,7 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
 
 // CvH iter: cf_switch: BL or FT
 // CvH ynew = array scalars out, ycurrent = array scalars in
-void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double ycurrent[])
+void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double ycurrent[], double *phi)
 {
  //t is the number of sec since the beginning of the run (for dtime=1)
   int n,j;
@@ -689,7 +689,7 @@ void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double y
   double YP,YL,YPL,*YPL_ptr;
   double kreact;
   int no2,no,o3;
-  double phi;
+  //double phi;
 
   const double MW_Air = 28.97;
   const double MW_H2O = 18;
@@ -786,13 +786,12 @@ void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double y
       }  //active == true
     } //n=1,nchsp
   } //iiter
-  phi=RC_ptr[4]->Keff_cbl*ynew[no2];
   if((RC_ptr[4]->Keff_cbl>1.e-5) && (ynew[no2]>1.e-5)){
-    phi = RC_ptr[20]->Keff_cbl*ynew[no]*ynew[o3]/(RC_ptr[4]->Keff_cbl*ynew[no2]);
+    *phi = RC_ptr[20]->Keff_cbl*ynew[no]*ynew[o3]/(RC_ptr[4]->Keff_cbl*ynew[no2]);
   }
   else
   {
-    phi=0;
+    *phi=0;
   }
 }
 
