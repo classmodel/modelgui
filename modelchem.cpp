@@ -32,6 +32,9 @@ void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput, double stocoe
 
   PL_temp = new Name_Number[csize];
 
+  // hardcode becarefull
+  RC_ptr[18]->outp[0].coef = stocoef;
+
   k = 0;
   for(i=0;i<rsize;i++)
   {
@@ -786,12 +789,17 @@ void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double y
       }  //active == true
     } //n=1,nchsp
   } //iiter
-  if((RC_ptr[4]->Keff_cbl>1.e-5) && (ynew[no2]>1.e-5)){
-    *phi = RC_ptr[20]->Keff_cbl*ynew[no]*ynew[o3]/(RC_ptr[4]->Keff_cbl*ynew[no2]);
-  }
-  else
-  {
-    *phi=0;
+
+  if(cf_switch ==true){
+    if(no2>0 && no>0 && o3>0){
+      if((RC_ptr[4]->Keff_cbl>1e-10) && (ynew[no2]>1e-5)){
+        *phi = RC_ptr[20]->Keff_cbl*ynew[no]*ynew[o3]/(RC_ptr[4]->Keff_cbl*ynew[no2]);
+      }
+      else
+      {
+        *phi=0;
+      }
+    }
   }
 }
 
