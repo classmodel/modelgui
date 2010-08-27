@@ -859,6 +859,7 @@ void model::store()
   output->zprof.data[startt + 3] = output->h.data[t] + 1.e6;
 
   //chemistry
+  output->phi.data[t]     = phi;
   for(int n=0;n<nsc; n++)
     output->sc[n].data[t] = sc[n];
 
@@ -1115,7 +1116,9 @@ void model::runchemmodel()
       iterout[i] = fsc[i];
     }
 
-    cm->iter(0, dt, qfc_ref, iterout, iterin, &phi);
+    double dummy;
+
+    cm->iter(0, dt, qfc_ref, iterout, iterin, &dummy);
 
     for(int i=0; i<nsc; i++)
      dsc[i] = iterout[i] - sc[i];

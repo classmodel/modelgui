@@ -195,6 +195,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.thetaprof
       << modelout.qprof;
 
+  chemistry
+      << modelout.phi;
+
   for(int n=0; n<22; n++)
     chemistry << modelout.sc[n];
 
