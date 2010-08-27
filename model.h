@@ -215,7 +215,9 @@ private:
   bool   sw_chem_constant;
   int    rsize;
   int    csize;
+  bool   *sw_chemoutput;
   Reaction *reactions;
+  bool     *sw_reactions;
   Name_Number *PL_scheme;
   double P_ref;
   double Tcbl_ref;

@@ -292,7 +292,12 @@ void model::initmodel()
   sw_chem_constant = input.sw_chem_constant;
   rsize      =  input.rsize;
   csize      =  input.csize;
+  sw_chemoutput = new bool[csize];
   reactions  =  input.reactions; // CvH forward address to reaction array
+  sw_reactions = new bool[rsize];
+  for(int i=0; i<rsize; i++)
+    sw_reactions[i] = input.sw_reactions[i];
+
   P_ref      =  input.P_ref;
   Tcbl_ref   =  input.Tcbl_ref;
   Tfc_ref    =  input.Tfc_ref;
@@ -1021,9 +1026,8 @@ void model::run2file(std::string filedir, std::string filename)
 void model::initchemmodel()
 {
 
-  cout << "Starting initchemmodel" << endl;
+  //cout << "Starting initchemmodel" << endl;
 
-  int tnor;
   int i;
   
   //Reaction Reactions[RSIZE];
@@ -1054,7 +1058,7 @@ void model::initchemmodel()
 
   // HERE THE FINAL MODULE STARTS
   cm = new modelchem(RC_ptr, PL_ptr, rsize, csize);
-  cm->inputchem(rsize);
+  cm->inputchem(sw_reactions,sw_chemoutput);
   return;
 }
 
