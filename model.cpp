@@ -288,8 +288,9 @@ void model::initmodel()
   G          =  -1.;                    // ground heat flux [W m-2]
 
   // chemistry
-  sw_chem    =  input.sw_chem;
-  sw_chem_constant = input.sw_chem_constant;
+  sw_chem           = input.sw_chem;
+  sw_chem_constant  = input.sw_chem_constant;
+  sw_photo_constant = input.sw_photo_constant;
   rsize      =  input.rsize;
   csize      =  input.csize;
   sw_chemoutput = new bool[csize];
@@ -1089,8 +1090,9 @@ void model::runchemmodel()
 
     sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
 
-    if(sinlea >= 0.)
-      sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
+    if(sw_photo_constant)
+      if(sinlea >= 0.)
+        sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
 
     cm->calc_k(P_ref,P_ref, \
                 Tcbl_ref, Tfc_ref, \
@@ -1129,6 +1131,10 @@ void model::runchemmodel()
 
     sda    = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
     sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
+
+    if(sw_photo_constant)
+      if(sinlea >= 0.)
+        sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
 
     cm->calc_k(Ps,   Ptop, \
                Tcbl, Tfc, \

@@ -213,6 +213,7 @@ private:
   modelchem *cm;
   bool   sw_chem;
   bool   sw_chem_constant;
+  bool   sw_photo_constant;
   int    rsize;
   int    csize;
   bool   *sw_chemoutput;
