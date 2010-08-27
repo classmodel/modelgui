@@ -320,8 +320,8 @@ void MainWindow::storeFormData()
   formvalues.sw_ml      = CheckState2bool(ui->sw_ml->checkState());
   formvalues.h          = ui->input_ml_h->text().toDouble();             // initial ABL height [m]
   formvalues.Ps         = ui->input_ml_ps->text().toDouble() * 100;      // surface pressure [Pa]
-  formvalues.ws         = ui->input_ml_ws->text().toDouble();            // large scale vertical velocity [m s-1]
-  formvalues.beta       = ui->input_ml_beta->text().toDouble();             // entrainment ratio for virtual heat [-]
+  formvalues.omegas     = ui->input_ml_omegas->text().toDouble();        // large scale vertical velocity [m s-1]
+  formvalues.beta       = ui->input_ml_beta->text().toDouble();          // entrainment ratio for virtual heat [-]
 
   // HEAT
   formvalues.theta      = ui->input_heat_theta->text().toDouble();       // initial mixed-layer potential temperature [K]
@@ -556,7 +556,7 @@ void MainWindow::loadFormData()
     // MIXED-LAYER
     ui->input_ml_h->setText(QString::number(tempinput->h));
     ui->input_ml_ps->setText(QString::number(tempinput->Ps / 100.));
-    ui->input_ml_ws->setText(QString::number(tempinput->ws));
+    ui->input_ml_omegas->setText(QString::number(tempinput->omegas));
     ui->input_ml_beta->setText(QString::number(tempinput->beta));
 
     // HEAT
@@ -865,7 +865,7 @@ void MainWindow::saveRuns()
     out << temprun.run->input.sw_ml      << endl;
     out << temprun.run->input.h          << endl;
     out << temprun.run->input.Ps         << endl;
-    out << temprun.run->input.ws         << endl;
+    out << temprun.run->input.omegas     << endl;
     out << temprun.run->input.beta       << endl;
 
     // HEAT
@@ -1011,7 +1011,7 @@ void MainWindow::loadRuns()
       line = in.readLine();
       tempinput.Ps         = line.toDouble();
       line = in.readLine();
-      tempinput.ws         = line.toDouble();
+      tempinput.omegas     = line.toDouble();
       line = in.readLine();
       tempinput.beta       = line.toDouble();
 

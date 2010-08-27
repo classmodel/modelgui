@@ -137,6 +137,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.t
       << modelout.tutc
       << modelout.h
+      << modelout.ws
       << modelout.we
       << modelout.lcl;
 

@@ -10,7 +10,7 @@ modelinput::modelinput()
   sw_ml      = true;
   h          = -1.;
   Ps         = -1.;
-  ws         = -1.;
+  omegas     = -1.;
   fc         = -1.;
   
   theta      = -1.;
@@ -133,7 +133,7 @@ modelinput::modelinput(const modelinput &ref)
   sw_ml      = ref.sw_ml;
   h          = ref.h;
   Ps         = ref.Ps;
-  ws         = ref.ws;
+  omegas     = ref.omegas;
   fc         = ref.fc;
 
   theta      = ref.theta;
@@ -261,7 +261,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
     sw_ml      = ref.sw_ml;
     h          = ref.h;
     Ps         = ref.Ps;
-    ws         = ref.ws;
+    omegas     = ref.omegas;
     fc         = ref.fc;
 
     theta      = ref.theta;

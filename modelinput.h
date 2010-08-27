@@ -17,7 +17,7 @@ public:
   bool   sw_ml;     // mixed-layer model switch;
   double h;         // initial ABL height [m]
   double Ps;        // surface pressure [Pa]
-  double ws;        // large scale vertical velocity [m s-1]
+  double omegas;    // large scale divergence [s-1]
   double fc;        // Coriolis parameter [s-1]
   
   double theta;     // initial mixed-layer potential temperature [K]

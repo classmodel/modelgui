@@ -13,7 +13,7 @@ void MainWindow::readdefaultinput()
   defaultinput.sw_ml      = true;     // mixed-layer model switch
   defaultinput.h          = 200.;     // initial ABL height [m]
   defaultinput.Ps         = 101300.;  // surface pressure [Pa]
-  defaultinput.ws         = 0.;       // large scale vertical velocity [m s-1]
+  defaultinput.omegas     = 0.;       // large scale vertical velocity [m s-1]
   defaultinput.fc         = 1.e-4;    // Coriolis parameter [m s-1]
 
   defaultinput.theta      = 288.;     // initial mixed-layer potential temperature [K]

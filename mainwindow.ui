@@ -589,7 +589,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;w&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s&lt;/span&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;ω&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s&lt;/span&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -597,9 +597,9 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_ml_ws">
+         <widget class="QLineEdit" name="input_ml_omegas">
           <property name="toolTip">
-           <string>large scale vertical velocity</string>
+           <string>large scale divergence</string>
           </property>
           <property name="text">
            <string/>
@@ -641,7 +641,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3859,7 +3859,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>417</width>
+         <width>420</width>
          <height>750</height>
         </rect>
        </property>
@@ -5567,7 +5567,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>19</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -5619,7 +5619,7 @@
   <tabstop>input_heat_advtheta</tabstop>
   <tabstop>input_ml_h</tabstop>
   <tabstop>input_ml_ps</tabstop>
-  <tabstop>input_ml_ws</tabstop>
+  <tabstop>input_ml_omegas</tabstop>
   <tabstop>input_ml_beta</tabstop>
   <tabstop>input_moisture_q</tabstop>
   <tabstop>input_moisture_dq</tabstop>

@@ -58,6 +58,7 @@ private:
   bool   sw_ml;     // mixed-layer model switch;
   double h;         // initial ABL height [m]
   double Ps;        // surface pressure [Pa]
+  double omegas;    // large scale divergence [s-1]
   double ws;        // large scale vertical velocity [m s-1]
   double fc;        // coriolis parameter [s-1]
   double we;        // entrainment velocity [m s-1]
