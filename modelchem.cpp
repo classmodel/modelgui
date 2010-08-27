@@ -6,20 +6,13 @@
 
 modelchem::modelchem(Reaction **RC_ptrin, Name_Number ** PL_ptrin, int rsizein, int csizein)
 {
-  int i;
-
   csize  = csizein;
   rsize  = rsizein;
   RC_ptr = new Reaction*[rsize];
   PL_ptr = new Name_Number*[csize];
 
-  //printf("rsize: %i, csize: %i\n", rsize, csize);
-  // for(i=0; i < rsize; i++)
-  //  RC_ptr[i] = RC_ptrin[i];
   RC_ptr = RC_ptrin;
 
-  // for(i=0; i<csize; i++)
-  //  PL_ptr[i] = PL_ptrin[i];
   PL_ptr = PL_ptrin;
 }
 
@@ -35,14 +28,20 @@ void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput)
   int nchasp;
   FILE *rcout;
   Name_Number *PL_temp;
-
+  Name_Number PL_dummy;
 
   PL_temp = new Name_Number[csize];
 
   k = 0;
   for(i=0;i<rsize;i++)
   {
+    if(sw_reactions[i]==false){
+       RC_ptr[i]->activ = false;
+       continue;
+    }
     //printf("CvH check: %i, %p\n", i, RC_ptr[i]);
+    RC_ptr[i]->activ = true;
+
     for( j=0;j<RC_ptr[i]->nr_chem_inp;j++)
     {               // look only on input side of reaction
       name = RC_ptr[i]->inp[j].cname;
@@ -77,6 +76,8 @@ void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput)
 
 
   for(i=0;i<rsize;i++){
+   if(RC_ptr[i]->activ == false) continue;
+
     for(j=0;j<RC_ptr[i]->nr_chem_outp;j++){             // look only on output side of reaction
       name = RC_ptr[i]->outp[j].cname;
       found = 0;
@@ -382,6 +383,7 @@ void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput)
 
 // sort PL_scheme on chem_number;
   for (i=0;i<csize;i++){
+    PL_dummy=*PL_ptr[i];
     if(PL_ptr[i]->chem_number != -99){
       PL_temp[PL_ptr[i]->chem_number] = *PL_ptr[i];
     }
@@ -397,18 +399,21 @@ void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput)
   for(i=0;i<csize;i++){
   if(PL_ptr[i]->nr_PL > 0){
     PL_ptr[i]->active = 1;
+    sw_chemoutput[i] = true;
     nchasp++;
   }else{
     PL_ptr[i]->active = 0;}
+    sw_chemoutput[i] = false;
   }
 
 // we don't calculate production and loss off N2, O2, and H2O
   for(i=0;i<csize;i++){
-    if(PL_ptr[i]->name == "N2" || PL_ptr[i]->name == "O2" || PL_ptr[i]->name == "H2O")
+    if(PL_ptr[i]->name == "N2" || PL_ptr[i]->name == "O2" || PL_ptr[i]->name == "H2O"|| PL_ptr[i]->name == "PRODU")
     {
       printf("Deactivate: %i\n", i);
       PL_ptr[i]->active = 0;
-        nchasp--;
+      sw_chemoutput[i] = false;
+      nchasp--;
     }
   }
   j=0;
@@ -571,6 +576,7 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
   // adjust the Kreact depending on the func code
   for(i=0;i<rsize;i++)
   {
+    if(RC_ptr[i]->activ == false) continue;
     if(RC_ptr[i]->RadDep == 1)
     {
       if(lday == 0){
@@ -682,15 +688,27 @@ void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double y
   int iiter,niter;
   double YP,YL,YPL,*YPL_ptr;
   double kreact;
+  int no2,no,o3;
+  double phi;
 
   const double MW_Air = 28.97;
   const double MW_H2O = 18;
 
-  for(n=0;n<nr_chemicals;n++){
+  no=no2=o3=0;
+
+  for(n=0;n<csize;n++){
     if(PL_ptr[n]->name == "H2O"){
       ynew[n]= q * 1e9 * MW_Air / MW_H2O;
       ycurrent[n] = q * 1e9 * MW_Air / MW_H2O;
-      break;
+    }
+    if(PL_ptr[n]->name == "NO2"){
+      no2=n;
+    }
+    if(PL_ptr[n]->name == "NO"){
+      no=n;
+    }
+    if(PL_ptr[n]->name == "O3"){
+      o3=n;
     }
   }
 
@@ -706,12 +724,10 @@ void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double y
 
   for( iiter=0;iiter<niter;iiter++)
   {
-    for( n=0;n<nr_chemicals;n++)
+    for( n=0;n<csize;n++)
     {
        if (PL_ptr[n]->active == 1){
         // if (PL_ptr[n]->name == "CO") continue;  // don't do calculations for CO;
-         if (PL_ptr[n]->name == "H2O") continue; // don't do calculations for H2O;
-         if (PL_ptr[n]->name == "PRODU") continue;
 
        YL = 0.;
        YP = 0.;
@@ -770,5 +786,13 @@ void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double y
       }  //active == true
     } //n=1,nchsp
   } //iiter
+  phi=RC_ptr[4]->Keff_cbl*ynew[no2];
+  if((RC_ptr[4]->Keff_cbl>1.e-5) && (ynew[no2]>1.e-5)){
+    phi = RC_ptr[20]->Keff_cbl*ynew[no]*ynew[o3]/(RC_ptr[4]->Keff_cbl*ynew[no2]);
+  }
+  else
+  {
+    phi=0;
+  }
 }
 

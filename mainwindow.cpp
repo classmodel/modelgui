@@ -321,8 +321,8 @@ void MainWindow::storeFormData()
   formvalues.sw_ml      = CheckState2bool(ui->sw_ml->checkState());
   formvalues.h          = ui->input_ml_h->text().toDouble();             // initial ABL height [m]
   formvalues.Ps         = ui->input_ml_ps->text().toDouble() * 100;      // surface pressure [Pa]
-  formvalues.ws         = ui->input_ml_ws->text().toDouble();            // large scale vertical velocity [m s-1]
-  formvalues.beta       = ui->input_ml_beta->text().toDouble();             // entrainment ratio for virtual heat [-]
+  formvalues.omegas     = ui->input_ml_omegas->text().toDouble();        // large scale vertical velocity [m s-1]
+  formvalues.beta       = ui->input_ml_beta->text().toDouble();          // entrainment ratio for virtual heat [-]
 
   // HEAT
   formvalues.theta      = ui->input_heat_theta->text().toDouble();       // initial mixed-layer potential temperature [K]
@@ -414,7 +414,7 @@ void MainWindow::storeFormData()
   formvalues.sw_rad     = CheckState2bool(ui->sw_rad->checkState());
   formvalues.doy        = ui->input_rad_DOY->text().toDouble();
   formvalues.lat        = ui->input_rad_lat->text().toDouble();
-  formvalues.lon        = ui->input_rad_lon->text().toDouble();
+  formvalues.lon        = ui->input_rad_lon->text().toDouble() * -1.;
   formvalues.tstart     = ui->input_rad_time->text().toDouble();
 
   formvalues.Q          = ui->input_rad_Qnet->text().toDouble();
@@ -631,7 +631,7 @@ void MainWindow::loadFormData()
     // MIXED-LAYER
     ui->input_ml_h->setText(QString::number(tempinput->h));
     ui->input_ml_ps->setText(QString::number(tempinput->Ps / 100.));
-    ui->input_ml_ws->setText(QString::number(tempinput->ws));
+    ui->input_ml_omegas->setText(QString::number(tempinput->omegas));
     ui->input_ml_beta->setText(QString::number(tempinput->beta));
 
     // HEAT
@@ -718,7 +718,7 @@ void MainWindow::loadFormData()
     // RADIATION
     ui->input_rad_DOY->setText(QString::number(tempinput->doy));
     ui->input_rad_lat->setText(QString::number(tempinput->lat));
-    ui->input_rad_lon->setText(QString::number(tempinput->lon));
+    ui->input_rad_lon->setText(QString::number(tempinput->lon * -1.));
     ui->input_rad_time->setText(QString::number(tempinput->tstart));
 
     ui->input_rad_Qnet->setText(QString::number(tempinput->Q));
@@ -933,7 +933,7 @@ void MainWindow::saveRuns()
     out << temprun.run->input.sw_ml      << endl;
     out << temprun.run->input.h          << endl;
     out << temprun.run->input.Ps         << endl;
-    out << temprun.run->input.ws         << endl;
+    out << temprun.run->input.omegas     << endl;
     out << temprun.run->input.beta       << endl;
 
     // HEAT
@@ -1079,7 +1079,7 @@ void MainWindow::loadRuns()
       line = in.readLine();
       tempinput.Ps         = line.toDouble();
       line = in.readLine();
-      tempinput.ws         = line.toDouble();
+      tempinput.omegas     = line.toDouble();
       line = in.readLine();
       tempinput.beta       = line.toDouble();
 

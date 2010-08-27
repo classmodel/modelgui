@@ -148,7 +148,8 @@ void model::initmodel()
   sw_ml      =  input.sw_ml;
   h          =  input.h;                // initial ABL height [m]
   Ps         =  input.Ps;               // surface pressure [Pa]
-  ws         =  input.ws;               // large scale vertical velocity [m s-1]
+  omegas     =  input.omegas;           // large scale vertical velocity [m s-1]
+  ws         =  -1.;
   fc         =  input.fc;               // coriolis parameter [s-1]
   
   theta      =  input.theta;            // initial mixed-layer potential temperature [K]
@@ -395,6 +396,9 @@ void model::runmlmodel()
   thetav   = theta  + 0.61 * theta * q;
   wthetav  = wtheta + 0.61 * theta * wq;
   dthetav  = (theta + dtheta) * (1. + 0.61 * (q + dq)) - theta * (1. + 0.61 * q);
+
+  // compute large scale vertical velocity
+  ws = -omegas * h;
 
   // compute tendencies
   if(beta == 0 && dthetav == 0)
