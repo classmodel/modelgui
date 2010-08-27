@@ -242,6 +242,7 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   // chemistry
   else if (plotvar == "phi")
     *data = n.run->output->phi;
+
   for(int i=0; i<22; i++) // nsc hardcoded
   {
     QString scalar = "sc" + QString::number(i);

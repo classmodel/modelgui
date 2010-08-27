@@ -29,7 +29,7 @@ class modelchem
   public:
     modelchem(Reaction*[], Name_Number*[], const int, const int);
     //int inputchem(Reaction *RC[],Name_Number *PL_ptr[],int tnor);
-    void inputchem(bool*, bool*);
+    void inputchem(bool*, bool*, double);
 
     void calc_k( double pressure_cbl, double pressure_ft, \
                  double temp_cbl ,double temp_ft, \

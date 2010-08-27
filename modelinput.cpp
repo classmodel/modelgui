@@ -121,6 +121,7 @@ modelinput::modelinput()
   qcbl_ref   = -1.;
   qfc_ref    = -1.;
   tod_ref    = -1.;
+  stocoef    = -1.;
 }
 
 modelinput::modelinput(const modelinput &ref)
@@ -247,6 +248,8 @@ modelinput::modelinput(const modelinput &ref)
   qcbl_ref   = ref.qcbl_ref;
   qfc_ref    = ref.qfc_ref;
   tod_ref    = ref.tod_ref;
+
+  stocoef    = ref.stocoef;
 }
 
 modelinput &modelinput::operator=(const modelinput &ref)
@@ -382,6 +385,8 @@ modelinput &modelinput::operator=(const modelinput &ref)
     qcbl_ref   = ref.qcbl_ref;
     qfc_ref    = ref.qfc_ref;
     tod_ref    = ref.tod_ref;
+
+    stocoef    = ref.stocoef;
   }
   return *this;
 }

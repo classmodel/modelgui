@@ -106,6 +106,7 @@ void MainWindow::readdefaultinput()
   defaultinput.qcbl_ref   = 0.010;
   defaultinput.qfc_ref    = 0.010;
   defaultinput.tod_ref    = 12;
+  defaultinput.stocoef    = 0.;
 
   defaultinput.sc[0]      = 0.;
   defaultinput.dsc[0]     = 0.;

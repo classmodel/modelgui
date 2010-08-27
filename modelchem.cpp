@@ -17,7 +17,7 @@ modelchem::modelchem(Reaction **RC_ptrin, Name_Number ** PL_ptrin, int rsizein, 
 }
 
 //int modelchem::inputchem(Reaction *RC_ptr[],Name_Number *PL_ptr[],int tnor)
-void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput)
+void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput, double stocoef)
 {
   int i,j,k,L;
   int found;

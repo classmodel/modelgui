@@ -306,6 +306,7 @@ void model::initmodel()
   qcbl_ref   =  input.qcbl_ref;
   qfc_ref    =  input.qfc_ref;
   tod_ref    =  input.tod_ref;
+  stocoef    =  input.stocoef;
 
   //for(int i=0; i<input.rsize; i++)
   //  reactions[i] = input.reactions[i];
@@ -1065,7 +1066,7 @@ void model::initchemmodel()
 
   // HERE THE FINAL MODULE STARTS
   cm = new modelchem(RC_ptr, PL_ptr, rsize, csize);
-  cm->inputchem(sw_reactions,sw_chemoutput);
+  cm->inputchem(sw_reactions, sw_chemoutput, stocoef);
   return;
 }
 
