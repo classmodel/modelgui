@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->newRunButton,   SIGNAL(clicked()),                this, SLOT(newrun()));
   connect(ui->cloneRunButton, SIGNAL(clicked()),                this, SLOT(clonerun()));
   connect(ui->modelRunTree,   SIGNAL(itemSelectionChanged()),   this, SLOT(runTreeChanged()));
+  connect(ui->modelRunTree,   SIGNAL(pressed(QModelIndex)),     this, SLOT(runTreePressed(QModelIndex)));
   connect(ui->deleteButton,   SIGNAL(clicked()),                this, SLOT(deleteRun()));
   connect(ui->graphButton,    SIGNAL(clicked()),                this, SLOT(startGraph()));
   connect(ui->input_name,     SIGNAL(editingFinished()),        this, SLOT(updateRunName()));
@@ -45,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->sw_ml,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
   connect(ui->sw_surface_advanced,        SIGNAL(stateChanged(int)),        this, SLOT(switch_surface_advanced(int)));
   connect(ui->sw_soil_advanced,           SIGNAL(stateChanged(int)),        this, SLOT(switch_soil_advanced(int)));
+
 
   // loadfieldslots();
   readdefaultinput();
@@ -243,6 +245,11 @@ void MainWindow::clonerun()
   }
 
   loadFormData();
+}
+
+void MainWindow::runTreePressed(QModelIndex dummy)
+{
+   runTreeChanged();
 }
 
 void MainWindow::runTreeChanged()

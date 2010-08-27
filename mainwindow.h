@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QtGui/QMainWindow>
+#include <QModelIndex>
 #include "modelrun.h"
 #include "landsoil.h"
 
@@ -35,6 +36,7 @@ public slots:
   void clonerun();
   void deleteRun();
   void runTreeChanged();                       // Disable input field when selection runs > 1
+  void runTreePressed(QModelIndex);
   void updateRunName();
   void startrun();
   void canceledit();
