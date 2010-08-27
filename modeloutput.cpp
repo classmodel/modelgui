@@ -8,6 +8,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   t.description             = "Elapsed time since start of model";
   t.id                      = "t";
 
+  tutc.data                 = new double[tsteps];   // time UTC [h]
+  tutc.name                 = "time";
+  tutc.unit                 = "h UTC";
+  tutc.description          = "Time in hours UTC";
+  tutc.id                   = "tutc";
+
   // mixed-layer variables
   h.data                    = new double[tsteps];   // CBL height [m]
   h.name                    = "h";

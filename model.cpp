@@ -765,7 +765,7 @@ void model::store()
   cout << "(t,h,LCL,theta,q,u,v) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
   cout << "(t,sc0,sc1,sc3,sc9)   " << t * dt << ", " << sc[0] << ", " << sc[1] << ", " << sc[3] << ", " << sc[9] << endl;
   output->t.data[t]          = t * dt / 3600.; // + tstart;
-
+  output->tutc.data[t]       = t * dt / 3600. + tstart;
   output->h.data[t]          = h;
   output->Ps.data[t]         = Ps;
   output->ws.data[t]         = ws;
@@ -871,7 +871,9 @@ void model::run2file(std::string filedir, std::string filename)
 
   // Write header first
   runsave << output->t.name << " [" << output->t.unit << "],";
+  runsave << output->tutc.name << " [" << output->tutc.unit << "],";
   runsave << output->h.name << " [" << output->h.unit << "],";
+  runsave << output->we.name << " [" << output->we.unit << "],";
   runsave << output->lcl.name << " [" << output->lcl.unit << "],";
 
   runsave << output->theta.name << " [" << output->theta.unit << "],";
@@ -881,7 +883,6 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->wtheta.name << " [" << output->wtheta.unit << "],";
   runsave << output->wthetae.name << " [" << output->wthetae.unit << "],";
   runsave << output->wthetav.name << " [" << output->wthetav.unit << "],";
-  runsave << output->we.name      << " [" << output->we.unit << "],";
 
   runsave << output->q.name << " [" << output->q.unit << "],";
   runsave << output->dq.name << " [" << output->dq.unit << "],";
@@ -935,7 +936,9 @@ void model::run2file(std::string filedir, std::string filename)
   for(int nt=0; nt < tsteps; nt++)
   {
     runsave << output->t.data[nt] << ",";
+    runsave << output->tutc.data[nt] << ",";
     runsave << output->h.data[nt] << ",";
+    runsave << output->we.data[nt] << ",";
     runsave << output->lcl.data[nt] << ",";
 
     runsave << output->theta.data[nt] << ",";
@@ -945,7 +948,6 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->wtheta.data[nt] << ",";
     runsave << output->wthetae.data[nt] << ",";
     runsave << output->wthetav.data[nt] << ",";
-    runsave << output->we.data[nt] << ",";
 
     runsave << output->q.data[nt] << ",";
     runsave << output->dq.data[nt] << ",";

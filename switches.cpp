@@ -98,6 +98,8 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   // mixed-layer
   if (plotvar == "t")
     *data = n.run->output->t;
+  else if (plotvar == "tutc")
+    *data = n.run->output->tutc;
   else if (plotvar == "h")
     *data = n.run->output->h;
   else if (plotvar == "Ps")
@@ -237,6 +239,8 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
 {
   // mixed-layer
   if (label == "t")
+    *plotvar = label;
+  else if (label == "tutc")
     *plotvar = label;
   else if (label == "h")
     *plotvar = label;
