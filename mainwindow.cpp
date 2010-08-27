@@ -44,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->sw_sea,                     SIGNAL(currentIndexChanged(int)), this, SLOT(switch_sea(int)));
   connect(ui->sw_rad,                     SIGNAL(stateChanged(int)),        this, SLOT(switch_rad(int)));
   connect(ui->sw_ml,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
+  connect(ui->sw_chem,                    SIGNAL(stateChanged(int)),        this, SLOT(switch_chem(int)));
   connect(ui->sw_surface_advanced,        SIGNAL(stateChanged(int)),        this, SLOT(switch_surface_advanced(int)));
   connect(ui->sw_soil_advanced,           SIGNAL(stateChanged(int)),        this, SLOT(switch_soil_advanced(int)));
 
@@ -659,7 +660,8 @@ void MainWindow::updateStatusBar()
     "wind "          + bool2string(CheckState2bool(ui->sw_wind->checkState())) + " | " +
     "surface-layer " + bool2string(CheckState2bool(ui->sw_sl->checkState()))   + " | " +
     "surface "       + bool2string(CheckState2bool(ui->sw_ls->checkState()))   + " | " +
-    "radiation "     + bool2string(CheckState2bool(ui->sw_rad->checkState()));
+    "radiation "     + bool2string(CheckState2bool(ui->sw_rad->checkState()))  + " | " +
+    "chemistry "     + bool2string(CheckState2bool(ui->sw_chem->checkState()));
   ui->statusbar->showMessage(statusmessage);
 }
 
@@ -1404,4 +1406,21 @@ void MainWindow::switch_soil_advanced(int state)
 
   // int id = ui->modelRunTree->currentItem()->text(0).toInt();
   // modelrunlist->find(id).value().soiladvanced = checkstate;
+}
+
+void MainWindow::switch_chem(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  ui->species_photo_group->setEnabled(checkstate);
+  ui->species_group_ref->setEnabled(checkstate);
+  ui->species_species_group->setEnabled(checkstate);
+  ui->reactions_group->setEnabled(checkstate);
+  ui->reactions_scrollarea->setEnabled(checkstate);
+
+  updateStatusBar();
 }

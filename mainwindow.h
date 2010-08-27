@@ -60,6 +60,7 @@ public slots:
   void switch_wq(int);
   void switch_soil_advanced(int);
   void switch_surface_advanced(int);
+  void switch_chem(int);
   //void switches_changed();
 
 signals:

@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -3296,7 +3296,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="species_ref_group">
+     <widget class="QGroupBox" name="species_group_ref">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -3870,9 +3870,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>40</y>
+        <y>60</y>
         <width>441</width>
-        <height>361</height>
+        <height>341</height>
        </rect>
       </property>
       <property name="verticalScrollBarPolicy">
@@ -5341,57 +5341,70 @@
        </widget>
       </widget>
      </widget>
-     <widget class="QWidget" name="gridLayoutWidget_25">
+     <widget class="QGroupBox" name="reactions_group">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>321</width>
-        <height>26</height>
+        <width>341</width>
+        <height>51</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="reactions_grid" columnstretch="0,0,1,1">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="input_reactions_simplebutton">
-         <property name="text">
-          <string>Simple</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="input_reactions_complexbutton">
-         <property name="text">
-          <string>Complex</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_reactions_OHrecycling">
-         <property name="toolTip">
-          <string>Stoichiometric coefficient R19</string>
-         </property>
-         <property name="text">
-          <string>OH-recycling</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QDoubleSpinBox" name="input_reactions_OHrecycling">
-         <property name="decimals">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <double>10.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.100000000000000</double>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget_25">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>321</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="reactions_grid" columnstretch="0,0,1,1">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="input_reactions_simplebutton">
+          <property name="text">
+           <string>Simple</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="input_reactions_complexbutton">
+          <property name="text">
+           <string>Complex</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_reactions_OHrecycling">
+          <property name="toolTip">
+           <string>Stoichiometric coefficient R19</string>
+          </property>
+          <property name="text">
+           <string>OH-recycling</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QDoubleSpinBox" name="input_reactions_OHrecycling">
+          <property name="decimals">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
    </widget>
