@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -1601,7 +1601,7 @@
     </widget>
     <widget class="QWidget" name="radiationTab">
      <attribute name="title">
-      <string>Radiation / location</string>
+      <string>Rad / Geo</string>
      </attribute>
      <widget class="QGroupBox" name="rad_group">
       <property name="geometry">
@@ -3185,7 +3185,7 @@
         <x>10</x>
         <y>70</y>
         <width>211</width>
-        <height>111</height>
+        <height>81</height>
        </rect>
       </property>
       <property name="title">
@@ -3197,7 +3197,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>84</height>
+         <height>61</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="species_foto_grid" columnminimumwidth="50,0,60">
@@ -3268,31 +3268,6 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1" colspan="2">
-         <widget class="QCheckBox" name="sw_species_photolysis_radiation">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>mixed-layer model switch</string>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="text">
-           <string>Link to radiation</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </widget>
@@ -3300,7 +3275,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
+        <y>160</y>
         <width>211</width>
         <height>201</height>
        </rect>
@@ -3426,7 +3401,7 @@
          </widget>
         </item>
         <item row="0" column="1" colspan="2">
-         <widget class="QCheckBox" name="sw_species_refvalues">
+         <widget class="QCheckBox" name="sw_chem_constant">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -3446,7 +3421,7 @@
            <enum>Qt::LeftToRight</enum>
           </property>
           <property name="text">
-           <string>Reference values</string>
+           <string>Constant rate</string>
           </property>
          </widget>
         </item>
@@ -3852,14 +3827,12 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_chem_dummy">
           <property name="text">
-           <string> </string>
+           <string/>
           </property>
          </widget>
         </item>
        </layout>
       </widget>
-      <zorder>gridLayoutWidget_26</zorder>
-      <zorder>gridLayoutWidget_26</zorder>
      </widget>
     </widget>
     <widget class="QWidget" name="reactionsTab">
@@ -3885,7 +3858,7 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-395</y>
+         <y>0</y>
          <width>417</width>
          <height>750</height>
         </rect>

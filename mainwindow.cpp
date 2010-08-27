@@ -45,8 +45,12 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->sw_rad,                     SIGNAL(stateChanged(int)),        this, SLOT(switch_rad(int)));
   connect(ui->sw_ml,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
   connect(ui->sw_chem,                    SIGNAL(stateChanged(int)),        this, SLOT(switch_chem(int)));
+  connect(ui->sw_chem_constant,           SIGNAL(stateChanged(int)),        this, SLOT(switch_chem_constant(int)));
   connect(ui->sw_surface_advanced,        SIGNAL(stateChanged(int)),        this, SLOT(switch_surface_advanced(int)));
   connect(ui->sw_soil_advanced,           SIGNAL(stateChanged(int)),        this, SLOT(switch_soil_advanced(int)));
+
+  connect(ui->input_reactions_simplebutton, SIGNAL(clicked()),              this, SLOT(switch_simple_reactions()));
+  connect(ui->input_reactions_complexbutton, SIGNAL(clicked()),              this, SLOT(switch_complex_reactions()));
 
 
   // loadfieldslots();
@@ -418,7 +422,20 @@ void MainWindow::storeFormData()
   // END TAB5
 
   // TAB6
-  // SPECIES PROPERTIES
+  // SPECIES
+  formvalues.sw_chem    = CheckState2bool(ui->sw_chem->checkState());
+  // SPECIES - PHOTOLYSIS
+  formvalues.tod_ref    = ui->input_species_photolysis_tref->text().toDouble();
+
+  // CONSTANT CHEMISTRY
+  formvalues.sw_chem_constant = CheckState2bool(ui->sw_chem_constant->checkState());
+  formvalues.Tcbl_ref   = ui->input_species_ref_Tcbl->text().toDouble();
+  formvalues.Tfc_ref    = ui->input_species_ref_Tft->text().toDouble();
+  formvalues.qcbl_ref   = ui->input_species_ref_qcbl->text().toDouble();
+  formvalues.qfc_ref    = ui->input_species_ref_qft->text().toDouble();
+  formvalues.P_ref      = ui->input_species_ref_pref->text().toDouble();
+
+  // SPECIES - PROPERTIES
   formvalues.sc[activespecies]        = ui->input_species_scalar->text().toDouble();
   formvalues.dsc[activespecies]       = ui->input_species_dscalar->text().toDouble();
   formvalues.gammasc[activespecies]   = ui->input_species_gammascalar->text().toDouble();
@@ -521,6 +538,20 @@ void MainWindow::loadFormData()
     else
       check = Qt::Unchecked;
     ui->sw_wq->setCheckState(check);
+
+    if (tempinput->sw_chem == true)
+      check = Qt::Checked;
+    else
+      check = Qt::Unchecked;
+    ui->sw_chem->setCheckState(check);
+
+    if (tempinput->sw_chem_constant == true)
+      check = Qt::Checked;
+    else
+      check = Qt::Unchecked;
+    ui->sw_chem_constant->setCheckState(check);
+
+
 
     // MIXED-LAYER
     ui->input_ml_h->setText(QString::number(tempinput->h));
@@ -627,6 +658,13 @@ void MainWindow::loadFormData()
     ui->input_name->setText(modelrunlist->find(n).value().runname);
 
     // CHEMISTRY
+    ui->input_species_photolysis_tref->setText(QString::number(tempinput->tod_ref));
+    ui->input_species_ref_Tcbl->setText(QString::number(tempinput->Tcbl_ref));
+    ui->input_species_ref_Tft->setText(QString::number(tempinput->Tfc_ref));
+    ui->input_species_ref_qcbl->setText(QString::number(tempinput->qcbl_ref));
+    ui->input_species_ref_qft->setText(QString::number(tempinput->qfc_ref));
+    ui->input_species_ref_pref->setText(QString::number(tempinput->P_ref));
+
     if (ui->species_treewidget->selectedItems().count() != 0)
     {
       int id = ui->species_treewidget->currentItem()->text(0).toInt();
@@ -1423,4 +1461,44 @@ void MainWindow::switch_chem(int state)
   ui->reactions_scrollarea->setEnabled(checkstate);
 
   updateStatusBar();
+}
+
+void MainWindow::switch_chem_constant(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  ui->label_species_ref_Tcbl->setEnabled(checkstate);
+  ui->input_species_ref_Tcbl->setEnabled(checkstate);
+  ui->unitlabel_species_ref_Tcbl->setEnabled(checkstate);
+
+  ui->label_species_ref_Tft->setEnabled(checkstate);
+  ui->input_species_ref_Tft->setEnabled(checkstate);
+  ui->unitlabel_species_ref_Tft->setEnabled(checkstate);
+
+  ui->label_species_ref_qcbl->setEnabled(checkstate);
+  ui->input_species_ref_qcbl->setEnabled(checkstate);
+  ui->unitlabel_species_ref_qcbl->setEnabled(checkstate);
+
+  ui->label_species_ref_qft->setEnabled(checkstate);
+  ui->input_species_ref_qft->setEnabled(checkstate);
+  ui->unitlabel_species_ref_qft->setEnabled(checkstate);
+
+  ui->label_species_ref_pref->setEnabled(checkstate);
+  ui->input_species_ref_pref->setEnabled(checkstate);
+  ui->unitlabel_species_ref_pref->setEnabled(checkstate);
+}
+
+void MainWindow::switch_simple_reactions()
+{
+  ui->sw_R5->setChecked(true);
+  ui->sw_R21->setChecked(true);
+}
+
+void MainWindow::switch_complex_reactions()
+{
+  ui->sw_R1->setChecked(true);
 }

@@ -61,7 +61,9 @@ public slots:
   void switch_soil_advanced(int);
   void switch_surface_advanced(int);
   void switch_chem(int);
-  //void switches_changed();
+  void switch_chem_constant(int);
+  void switch_simple_reactions();
+  void switch_complex_reactions();
 
 signals:
   void rundeleted(int);
@@ -89,7 +91,6 @@ private:
   int activetab;
 
   int activespecies;
-  bool speciesset;
 };
 
 #endif // MAINWINDOW_H

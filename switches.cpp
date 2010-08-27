@@ -83,10 +83,25 @@ void MainWindow::loadfieldslots()
   connect(ui->input_rad_clouds,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
 
   // OTHER
-  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_time,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_timestep,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateRunName()));
+  connect(ui->input_name,               SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_time,               SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_timestep,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_name,               SIGNAL(editingFinished()), this, SLOT(updateRunName()));
+
+  // CHEMISTRY -> SPECIES
+  connect(ui->input_species_photolysis_tref, SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+
+  connect(ui->input_species_ref_Tcbl,   SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_species_ref_Tft,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_species_ref_qcbl,   SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_species_ref_qft,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_species_ref_pref,   SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+
+  connect(ui->input_species_scalar,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_species_dscalar,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_species_gammascalar,SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_species_wscalar,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+  connect(ui->input_species_advscalar,  SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
 }
 
 
