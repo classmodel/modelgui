@@ -62,6 +62,7 @@ public slots:
   void switch_surface_advanced(int);
   void switch_chem(int);
   void switch_chem_constant(int);
+  void switch_photolysis(int);
   void switch_simple_reactions();
   void switch_complex_reactions();
 

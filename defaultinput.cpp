@@ -93,6 +93,7 @@ void MainWindow::readdefaultinput()
   //chemistry
   defaultinput.sw_chem    = true;
   defaultinput.sw_chem_constant = true;
+  defaultinput.sw_photo_constant = true;
   defaultinput.nsc        = 22;
   defaultinput.reactions  = defaultreactions; // CvH copy addresses, all runs will have therefore the same struct as reference
 

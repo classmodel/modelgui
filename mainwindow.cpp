@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->sw_ml,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
   connect(ui->sw_chem,                    SIGNAL(stateChanged(int)),        this, SLOT(switch_chem(int)));
   connect(ui->sw_chem_constant,           SIGNAL(stateChanged(int)),        this, SLOT(switch_chem_constant(int)));
+  connect(ui->sw_species_photolysis,      SIGNAL(stateChanged(int)),        this, SLOT(switch_photolysis(int)));
   connect(ui->sw_surface_advanced,        SIGNAL(stateChanged(int)),        this, SLOT(switch_surface_advanced(int)));
   connect(ui->sw_soil_advanced,           SIGNAL(stateChanged(int)),        this, SLOT(switch_soil_advanced(int)));
 
@@ -425,6 +426,7 @@ void MainWindow::storeFormData()
   // SPECIES
   formvalues.sw_chem    = CheckState2bool(ui->sw_chem->checkState());
   // SPECIES - PHOTOLYSIS
+  formvalues.sw_photo_constant = CheckState2bool(ui->sw_species_photolysis->checkState());
   formvalues.tod_ref    = ui->input_species_photolysis_tref->text().toDouble();
 
   // CONSTANT CHEMISTRY
@@ -551,7 +553,11 @@ void MainWindow::loadFormData()
       check = Qt::Unchecked;
     ui->sw_chem_constant->setCheckState(check);
 
-
+    if (tempinput->sw_photo_constant == true)
+      check = Qt::Checked;
+    else
+      check = Qt::Unchecked;
+    ui->sw_species_photolysis->setCheckState(check);
 
     // MIXED-LAYER
     ui->input_ml_h->setText(QString::number(tempinput->h));
@@ -1491,6 +1497,19 @@ void MainWindow::switch_chem_constant(int state)
   ui->input_species_ref_pref->setEnabled(checkstate);
   ui->unitlabel_species_ref_pref->setEnabled(checkstate);
 }
+
+
+void MainWindow::switch_photolysis(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  ui->input_species_photolysis_tref->setEnabled(checkstate);
+}
+
 
 void MainWindow::switch_simple_reactions()
 {
