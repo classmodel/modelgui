@@ -10,8 +10,7 @@
 #include <QFont>
 #include <QTextStream>
 
-MainWindow::MainWindow(QWidget *parent)
-  : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent=0), ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
 
@@ -118,11 +117,10 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-// For Windows only...
-// void MainWindow::closeEvent(QCloseEvent *event)
-//{
-//  graph->close();
-//}
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+  graph->close();
+}
 
 void MainWindow::speciesselectionchanged()
 {
