@@ -12,6 +12,7 @@ typedef struct{
 
 typedef struct{
   std::string rname;
+  bool activ;
   int  RadDep;
   int func1;
   double KReact;

@@ -131,14 +131,14 @@ void MainWindow::readdefaultinput()
   defaultinput.dsc[3]     = 0.;
   defaultinput.gammasc[3] = 0.;
   defaultinput.advsc[3]   = 0.;
-  defaultinput.wsc[3]     = 3.e-2;
+  defaultinput.wsc[3]     = 1.e-1;
   defaultinput.sw_wsc[3]  = false;
 
-  defaultinput.sc[4]      = 0.6;
-  defaultinput.dsc[4]     = -0.6;
+  defaultinput.sc[4]      = 0.0;
+  defaultinput.dsc[4]     = 0.;
   defaultinput.gammasc[4] = 0.;
   defaultinput.advsc[4]   = 0.;
-  defaultinput.wsc[4]     = -8.e-3;
+  defaultinput.wsc[4]     = 0;
   defaultinput.sw_wsc[4]  = false;
 
   defaultinput.sc[5]      = 1724.;
@@ -173,7 +173,7 @@ void MainWindow::readdefaultinput()
   defaultinput.dsc[9]     = 0.;
   defaultinput.gammasc[9] = 0.;
   defaultinput.advsc[9]   = 0.;
-  defaultinput.wsc[9]     = 3.e-2;
+  defaultinput.wsc[9]     = .5;
   defaultinput.sw_wsc[9]  = false;
 
   defaultinput.sc[10]      = 0.;
@@ -190,14 +190,14 @@ void MainWindow::readdefaultinput()
   defaultinput.wsc[11]     = 0.;
   defaultinput.sw_wsc[11]  = false;
 
-  defaultinput.sc[12]      = 3.e-3;
+  defaultinput.sc[12]      = 0.;
   defaultinput.dsc[12]     = 0.;
   defaultinput.gammasc[12] = 0.;
   defaultinput.advsc[12]   = 0.;
   defaultinput.wsc[12]     = 0.;
   defaultinput.sw_wsc[12]  = false;
 
-  defaultinput.sc[13]      = 105.;
+  defaultinput.sc[13]      = 100.;
   defaultinput.dsc[13]     = 0.;
   defaultinput.gammasc[13] = 0.;
   defaultinput.advsc[13]   = 0.;
@@ -239,7 +239,7 @@ void MainWindow::readdefaultinput()
   defaultinput.wsc[18]     = 0.;
   defaultinput.sw_wsc[18]  = false;
 
-  defaultinput.sc[19]      = 0.1;
+  defaultinput.sc[19]      = 0.;
   defaultinput.dsc[19]     = 0.;
   defaultinput.gammasc[19] = 0.;
   defaultinput.advsc[19]   = 0.;
@@ -279,8 +279,8 @@ void MainWindow::readdefaultinput()
   defaultreactions[0].outp[1].cname   = "O2";
   defaultreactions[0].outp[1].chem_nr = 16;
   defaultreactions[0].outp[1].index   = 16;
-  defaultreactions[0].A               = +3.830e-05;
-  defaultreactions[0].B               = -5.750e-01;
+  defaultreactions[0].A               = +3.171e-4;
+  defaultreactions[0].B               = -1.809;
   defaultreactions[0].C               = +1.200e+00;
   defaultreactions[0].D               = +1.000e+00;
   defaultreactions[0].E               = +1.000e+00;
@@ -400,8 +400,8 @@ void MainWindow::readdefaultinput()
   defaultreactions[5].outp[0].cname   = "HO2";
   defaultreactions[5].outp[0].chem_nr = 12;
   defaultreactions[5].outp[0].index   = 12;
-  defaultreactions[5].A               = +1.470e-04;
-  defaultreactions[5].B               = -5.750e-01;
+  defaultreactions[5].A               = +2.16e-4;
+  defaultreactions[5].B               = -7.78e-01;
   defaultreactions[5].C               = +1.000e+00;
   defaultreactions[5].D               = +1.000e+00;
   defaultreactions[5].E               = +1.000e+00;
@@ -728,7 +728,7 @@ void MainWindow::readdefaultinput()
   defaultreactions[17].inp[1].chem_nr  = 12;
   defaultreactions[17].inp[1].index    = 12;
   defaultreactions[17].outp[0].coef    = 1.00;
-  defaultreactions[17].outp[0].cname   = "PRODU";
+  defaultreactions[17].outp[0].cname   = "PRODUC";
   defaultreactions[17].outp[0].chem_nr = 15;
   defaultreactions[17].outp[0].index   = 15;
   defaultreactions[17].A               = +4.100e-13;
@@ -757,7 +757,7 @@ void MainWindow::readdefaultinput()
   defaultreactions[18].outp[0].chem_nr = 11;
   defaultreactions[18].outp[0].index   = 11;
   defaultreactions[18].outp[1].coef    = 1.00;
-  defaultreactions[18].outp[1].cname   = "PRODU";
+  defaultreactions[18].outp[1].cname   = "PRODUC";
   defaultreactions[18].outp[1].chem_nr = 15;
   defaultreactions[18].outp[1].index   = 15;
   defaultreactions[18].A               = +1.500e-11;
