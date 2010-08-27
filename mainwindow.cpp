@@ -790,7 +790,6 @@ Qt::CheckState MainWindow::Bool2CheckState(bool state)
 
 void MainWindow::deleteRun()
 {
-  //blockInput(true);
   if(ui->modelRunTree->selectedItems().count() > 0)
   {
     for (int i=0; i<ui->modelRunTree->selectedItems().count(); i++)
@@ -807,7 +806,6 @@ void MainWindow::deleteRun()
       activerun = ui->modelRunTree->currentItem()->text(0).toInt();
   }
   updateSelectedRuns();
-  blockInput(false);
   runTreeChanged();
 }
 
