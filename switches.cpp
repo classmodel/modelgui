@@ -103,34 +103,6 @@
 //  connect(ui->input_species_wscalar,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
 //  connect(ui->input_species_advscalar,  SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
 //}
-  connect(ui->sw_R1,                    SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R2,                    SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R3,                    SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R4,                    SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R5,                    SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R6,                    SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R7,                    SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R8,                    SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R9,                    SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R10,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R11,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R12,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R13,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R14,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R15,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R16,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R17,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R18,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R19,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R20,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R21,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R22,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R23,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R24,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R25,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R26,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-  connect(ui->sw_R27,                   SIGNAL(stateChanged(int)), this, SLOT(updateInputdata()));
-
 
 void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
 {
