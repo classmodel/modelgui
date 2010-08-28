@@ -861,7 +861,10 @@ void model::store()
   //chemistry
   output->phi.data[t]     = phi;
   for(int n=0;n<nsc; n++)
-    output->sc[n].data[t] = sc[n];
+    if(sw_chemoutput[n])
+      output->sc[n].data[t] = sc[n];
+    else
+      output->sc[n].data[t] = 0;
 
   return;
 } 
