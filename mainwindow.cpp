@@ -119,7 +119,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-  graph->close();
+  if (graph)
+    graph->close();
 }
 
 void MainWindow::speciesselectionchanged()
