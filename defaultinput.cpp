@@ -730,7 +730,7 @@ void MainWindow::readdefaultinput()
   defaultreactions[17].inp[1].chem_nr  = 12;
   defaultreactions[17].inp[1].index    = 12;
   defaultreactions[17].outp[0].coef    = 1.00;
-  defaultreactions[17].outp[0].cname   = "PRODUC";
+  defaultreactions[17].outp[0].cname   = "Product";
   defaultreactions[17].outp[0].chem_nr = 15;
   defaultreactions[17].outp[0].index   = 15;
   defaultreactions[17].A               = +4.100e-13;
@@ -759,7 +759,7 @@ void MainWindow::readdefaultinput()
   defaultreactions[18].outp[0].chem_nr = 11;
   defaultreactions[18].outp[0].index   = 11;
   defaultreactions[18].outp[1].coef    = 1.00;
-  defaultreactions[18].outp[1].cname   = "PRODUC";
+  defaultreactions[18].outp[1].cname   = "Product";
   defaultreactions[18].outp[1].chem_nr = 15;
   defaultreactions[18].outp[1].index   = 15;
   defaultreactions[18].A               = +1.500e-11;

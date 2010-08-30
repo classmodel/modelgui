@@ -391,7 +391,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
   sc[12].name = "HO2";
   sc[13].name = "CO";
   sc[14].name = "H2O";
-  sc[15].name = "PRODUC";
+  sc[15].name = "Product";
   sc[16].name = "O2";
   sc[17].name = "N2";
   sc[18].name = "HNO3";
@@ -414,7 +414,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
   sc[12].description = "HO2";
   sc[13].description = "CO";
   sc[14].description = "H2O";
-  sc[15].description = "PRODUC";
+  sc[15].description = "Product";
   sc[16].description = "O2";
   sc[17].description = "N2";
   sc[18].description = "HNO3";
