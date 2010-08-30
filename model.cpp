@@ -447,6 +447,17 @@ void model::runmlmodel()
   double Td      = 1. / ((1./273.15) - (Rv/Lv)*log(e/611.));
   double Tlcl    = 1. / ( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
   lcl            = 0. - (cp * (Tlcl - theta) / g);
+
+  // RH evaluated at T = theta
+  double esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
+  RH             = e / esat;
+
+  // RH at mixed-layer top
+  double Ptop    = Ps / exp((g * h)/(Rd * theta));
+  double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
+  double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
+  double etop    = q * Ptop / 0.622;
+  RHtop          = etop / esattop;
 }
 
 void model::intmlmodel()
@@ -789,6 +800,8 @@ void model::store()
   output->wthetae.data[t]    = wthetae;
   output->wthetav.data[t]    = wthetav;
   output->we.data[t]         = we;
+  output->RH.data[t]         = RH;
+  output->RHtop.data[t]      = RHtop;
   
   output->q.data[t]          = q * 1000.;
   //output.qsat[t]       = qsat;

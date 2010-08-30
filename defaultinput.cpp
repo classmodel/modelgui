@@ -6,7 +6,7 @@ void MainWindow::readdefaultinput()
 
   // model test
   defaultinput.dt         = 60.;      // time step [s]
-  defaultinput.runtime    = 36000.;   // total run time [s]
+  defaultinput.runtime    = 43200.;   // total run time [s]
   defaultinput.sinperiod  = 43200.;   // period for sinusoidal heat fluxes [s]
 
   // mixed-layer input
@@ -17,14 +17,14 @@ void MainWindow::readdefaultinput()
   defaultinput.fc         = 1.e-4;    // Coriolis parameter [m s-1]
 
   defaultinput.theta      = 288.;     // initial mixed-layer potential temperature [K]
-  defaultinput.dtheta     = 5.;       // initial temperature jump at h [K]
+  defaultinput.dtheta     = 1.;       // initial temperature jump at h [K]
   defaultinput.gammatheta = 0.006;    // free atmosphere potential temperature lapse rate [K m-1]
   defaultinput.advtheta   = 0.;       // advection of heat [K s-1]
   defaultinput.beta       = 0.2;      // entrainment ratio for virtual heat [-]
   defaultinput.wtheta     = 0.1;      // surface kinematic heat flux [K m s-1]
   defaultinput.sw_wtheta  = false;    // switch for sinusoidal wtheta
 
-  defaultinput.q          = 0.007;    // initial mixed-layer specific humidity [kg kg-1]
+  defaultinput.q          = 0.008;    // initial mixed-layer specific humidity [kg kg-1]
   defaultinput.dq         = -0.001;   // initial specific humidity jump at h [kg kg-1]
   defaultinput.gammaq     = 0.;       // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   defaultinput.advq       = 0.;       // advection of moisture [kg kg-1 s-1]

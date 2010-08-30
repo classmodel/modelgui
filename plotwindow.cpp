@@ -139,7 +139,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.h
       << modelout.ws
       << modelout.we
-      << modelout.lcl;
+      << modelout.lcl
+      << modelout.RH
+      << modelout.RHtop;
 
   temperaturevars
       << modelout.theta
