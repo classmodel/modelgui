@@ -457,7 +457,10 @@ void model::runmlmodel()
   double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
   double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
   double etop    = q * Ptop / 0.622;
-  RHtop          = etop / esattop;
+  if ((etop / esattop) > 1.)
+    RHtop        = 1.;
+  else
+    RHtop        = etop / esattop;
 }
 
 void model::intmlmodel()
