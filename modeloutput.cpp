@@ -29,7 +29,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
 
   ws.data                   = new double[tsteps];   // large scale vertical velocity [m s-1]
   ws.name                   = "ws";
-  ws.unit                   = "m s\u207B\u00B9";
+  ws.unit                   = "<html>m s<sup>-1</sup></html>";
   ws.description            = "Large scale vertical velocity";
   ws.id                     = "ws";
 
