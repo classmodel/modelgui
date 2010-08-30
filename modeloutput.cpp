@@ -101,7 +101,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
 
   wtheta.data               = new double[tsteps];   // surface kinematic heat flux [K m s-1]
   wtheta.name               = "w'\u03B8'(s)";
-  wtheta.unit               = "K m s\u207B\u00B9";
+  wtheta.unit               = "K m s\u02C9\u00B9";
   wtheta.description        = "Surface kinematic heat flux";
   wtheta.id                 = "wtheta";
 

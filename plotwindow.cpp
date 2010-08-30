@@ -227,16 +227,29 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       QTreeWidgetItem *treeitem = new QTreeWidgetItem;
       outputvar item = allvariables.value(n).value(i);
       treeitem->setCheckState(1,Qt::Unchecked);
+
       if (advancedtreegroups.value(n) != "Vertical profiles")
         treeitem->setCheckState(2,Qt::Unchecked);
       QString variable = QString::fromUtf8(item.name.c_str()) + " [" + QString::fromUtf8(item.unit.c_str()) + "]";
       QString description = QString::fromUtf8(item.description.c_str());
       QString id = QString::fromUtf8(item.id.c_str());
 
-      treeitem->setText(0, variable);
+      QLabel *testlabel = new QLabel;
+      testlabel->setText(variable);
+      QLabel *testlabel1 = new QLabel;
+      testlabel1->setText(description);
+      QLabel *testlabel2 = new QLabel;
+      testlabel2->setText(id);
+
+      treegroup->addChild(treeitem);
+
+      ui->advancedplottree->setItemWidget(treeitem,0,testlabel);
+      //ui->advancedplottree->setItemWidget(treeitem,3,testlabel1);
+
+      //treeitem->setText(0, variable);
       treeitem->setText(3, description);
       treeitem->setText(4, id);
-      treegroup->addChild(treeitem);
+
     }
   }
 
