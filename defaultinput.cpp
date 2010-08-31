@@ -31,7 +31,7 @@ void MainWindow::readdefaultinput()
   defaultinput.wq         = 0.0001;   // surface kinematic moisture flux [kg kg-1 m s-1]
   defaultinput.sw_wq      = false;    // switch for sinusoidal wq
 
-  defaultinput.sw_wind    = true;     // prognostic wind switch
+  defaultinput.sw_wind    = false;     // prognostic wind switch
   defaultinput.u          = 6.;       // initial mixed-layer u-wind speed [m s-1]
   defaultinput.du         = 4.;       // initial u-wind jump at h [m s-1]
   defaultinput.gammau     = 0.;       // free atmosphere u-wind speed lapse rate [s-1]
@@ -91,7 +91,7 @@ void MainWindow::readdefaultinput()
   defaultinput.Lambda     = 5.9;      // thermal diffusivity skin layer [-]
 
   //chemistry
-  defaultinput.sw_chem    = true;
+  defaultinput.sw_chem    = false;
   defaultinput.sw_chem_constant = true;
   defaultinput.sw_photo_constant = true;
   defaultinput.nsc        = 22;
