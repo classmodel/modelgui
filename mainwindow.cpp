@@ -729,23 +729,28 @@ Qt::CheckState MainWindow::Bool2CheckState(bool state)
 
 void MainWindow::deleteRun()
 {
+  blockInput(true);
   if(ui->modelRunTree->selectedItems().count() > 0)
   {
     for (int i=0; i<ui->modelRunTree->selectedItems().count(); i++)
     {
+
       QString ident = ui->modelRunTree->selectedItems()[i]->text(0);
       int n = ident.toInt(0,10);
       modelrunlist->remove(n);
       emit rundeleted(n);
     }
+
     qDeleteAll(ui->modelRunTree->selectedItems());
+    runTreeChanged();
     ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
 
     if(ui->modelRunTree->topLevelItemCount() > 0)
       activerun = ui->modelRunTree->currentItem()->text(0).toInt();
   }
-  updateSelectedRuns();
-  runTreeChanged();
+  //updateSelectedRuns();
+  //runTreeChanged();
+  blockInput(false);
 }
 
 void MainWindow::updateRunName(QString dummy)
