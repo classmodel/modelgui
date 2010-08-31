@@ -510,166 +510,104 @@ void MainWindow::loadFormData()
 
     activerun = n;
 
-    modelinput *tempinput;
-    tempinput = &modelrunlist->find(n).value().run->input;
+    formvalues = modelrunlist->find(n).value().run->input;
 
     // set the pull down menus correctly
     ui->input_surface_surfacetypes->setCurrentIndex(modelrunlist->find(n).value().surfacestatus);
     ui->input_soil_soiltypes->setCurrentIndex(modelrunlist->find(n).value().soilstatus);
 
-    ui->input_timestep->setText(QString::number(tempinput->dt));
-    ui->input_time->setText(QString::number(tempinput->runtime / 3600.));
-    ui->input_sinperiod->setText(QString::number(tempinput->sinperiod / 3600.));
+    ui->input_timestep->setText(QString::number(formvalues.dt));
+    ui->input_time->setText(QString::number(formvalues.runtime / 3600.));
+    ui->input_sinperiod->setText(QString::number(formvalues.sinperiod / 3600.));
 
     // SWITCHES
     //Qt::CheckState check;
-    ui->sw_wind->setCheckState(Bool2CheckState(tempinput->sw_wind));
-    ui->sw_ml->setCheckState(Bool2CheckState(tempinput->sw_ml));
-    ui->sw_rad->setCheckState(Bool2CheckState(tempinput->sw_rad));
-    ui->sw_sl->setCheckState(Bool2CheckState(tempinput->sw_sl));
-    ui->sw_ls->setCheckState(Bool2CheckState(tempinput->sw_ls));
-    ui->sw_wtheta->setCheckState(Bool2CheckState(tempinput->sw_wtheta));
-    ui->sw_wq->setCheckState(Bool2CheckState(tempinput->sw_wq));
-    ui->sw_chem->setCheckState(Bool2CheckState(tempinput->sw_chem));
-    ui->sw_chem_constant->setCheckState(Bool2CheckState(tempinput->sw_chem_constant));
-    ui->sw_species_photolysis->setCheckState(Bool2CheckState(tempinput->sw_photo_constant));
+    ui->sw_wind->setCheckState(Bool2CheckState(formvalues.sw_wind));
+    ui->sw_ml->setCheckState(Bool2CheckState(formvalues.sw_ml));
+    ui->sw_rad->setCheckState(Bool2CheckState(formvalues.sw_rad));
+    ui->sw_sl->setCheckState(Bool2CheckState(formvalues.sw_sl));
+    ui->sw_ls->setCheckState(Bool2CheckState(formvalues.sw_ls));
+    ui->sw_wtheta->setCheckState(Bool2CheckState(formvalues.sw_wtheta));
+    ui->sw_wq->setCheckState(Bool2CheckState(formvalues.sw_wq));
+    ui->sw_chem->setCheckState(Bool2CheckState(formvalues.sw_chem));
+    ui->sw_chem_constant->setCheckState(Bool2CheckState(formvalues.sw_chem_constant));
+    ui->sw_species_photolysis->setCheckState(Bool2CheckState(formvalues.sw_photo_constant));
 
-    ui->sw_R1->setCheckState(Bool2CheckState(tempinput->sw_reactions[0]));
-    ui->sw_R2->setCheckState(Bool2CheckState(tempinput->sw_reactions[1]));
-    ui->sw_R3->setCheckState(Bool2CheckState(tempinput->sw_reactions[2]));
-    ui->sw_R4->setCheckState(Bool2CheckState(tempinput->sw_reactions[3]));
-    ui->sw_R5->setCheckState(Bool2CheckState(tempinput->sw_reactions[4]));
-    ui->sw_R6->setCheckState(Bool2CheckState(tempinput->sw_reactions[5]));
-    ui->sw_R7->setCheckState(Bool2CheckState(tempinput->sw_reactions[6]));
-    ui->sw_R8->setCheckState(Bool2CheckState(tempinput->sw_reactions[7]));
-    ui->sw_R9->setCheckState(Bool2CheckState(tempinput->sw_reactions[8]));
-    ui->sw_R10->setCheckState(Bool2CheckState(tempinput->sw_reactions[9]));
-    ui->sw_R11->setCheckState(Bool2CheckState(tempinput->sw_reactions[10]));
-    ui->sw_R12->setCheckState(Bool2CheckState(tempinput->sw_reactions[11]));
-    ui->sw_R13->setCheckState(Bool2CheckState(tempinput->sw_reactions[12]));
-    ui->sw_R14->setCheckState(Bool2CheckState(tempinput->sw_reactions[13]));
-    ui->sw_R15->setCheckState(Bool2CheckState(tempinput->sw_reactions[14]));
-    ui->sw_R16->setCheckState(Bool2CheckState(tempinput->sw_reactions[15]));
-    ui->sw_R17->setCheckState(Bool2CheckState(tempinput->sw_reactions[16]));
-    ui->sw_R18->setCheckState(Bool2CheckState(tempinput->sw_reactions[17]));
-    ui->sw_R19->setCheckState(Bool2CheckState(tempinput->sw_reactions[18]));
-    ui->sw_R20->setCheckState(Bool2CheckState(tempinput->sw_reactions[19]));
-    ui->sw_R21->setCheckState(Bool2CheckState(tempinput->sw_reactions[20]));
-    ui->sw_R22->setCheckState(Bool2CheckState(tempinput->sw_reactions[21]));
-    ui->sw_R23->setCheckState(Bool2CheckState(tempinput->sw_reactions[22]));
-    ui->sw_R24->setCheckState(Bool2CheckState(tempinput->sw_reactions[23]));
-    ui->sw_R25->setCheckState(Bool2CheckState(tempinput->sw_reactions[24]));
-    ui->sw_R26->setCheckState(Bool2CheckState(tempinput->sw_reactions[25]));
-    ui->sw_R27->setCheckState(Bool2CheckState(tempinput->sw_reactions[26]));
+    ui->sw_R1->setCheckState(Bool2CheckState(formvalues.sw_reactions[0]));
+    ui->sw_R2->setCheckState(Bool2CheckState(formvalues.sw_reactions[1]));
+    ui->sw_R3->setCheckState(Bool2CheckState(formvalues.sw_reactions[2]));
+    ui->sw_R4->setCheckState(Bool2CheckState(formvalues.sw_reactions[3]));
+    ui->sw_R5->setCheckState(Bool2CheckState(formvalues.sw_reactions[4]));
+    ui->sw_R6->setCheckState(Bool2CheckState(formvalues.sw_reactions[5]));
+    ui->sw_R7->setCheckState(Bool2CheckState(formvalues.sw_reactions[6]));
+    ui->sw_R8->setCheckState(Bool2CheckState(formvalues.sw_reactions[7]));
+    ui->sw_R9->setCheckState(Bool2CheckState(formvalues.sw_reactions[8]));
+    ui->sw_R10->setCheckState(Bool2CheckState(formvalues.sw_reactions[9]));
+    ui->sw_R11->setCheckState(Bool2CheckState(formvalues.sw_reactions[10]));
+    ui->sw_R12->setCheckState(Bool2CheckState(formvalues.sw_reactions[11]));
+    ui->sw_R13->setCheckState(Bool2CheckState(formvalues.sw_reactions[12]));
+    ui->sw_R14->setCheckState(Bool2CheckState(formvalues.sw_reactions[13]));
+    ui->sw_R15->setCheckState(Bool2CheckState(formvalues.sw_reactions[14]));
+    ui->sw_R16->setCheckState(Bool2CheckState(formvalues.sw_reactions[15]));
+    ui->sw_R17->setCheckState(Bool2CheckState(formvalues.sw_reactions[16]));
+    ui->sw_R18->setCheckState(Bool2CheckState(formvalues.sw_reactions[17]));
+    ui->sw_R19->setCheckState(Bool2CheckState(formvalues.sw_reactions[18]));
+    ui->sw_R20->setCheckState(Bool2CheckState(formvalues.sw_reactions[19]));
+    ui->sw_R21->setCheckState(Bool2CheckState(formvalues.sw_reactions[20]));
+    ui->sw_R22->setCheckState(Bool2CheckState(formvalues.sw_reactions[21]));
+    ui->sw_R23->setCheckState(Bool2CheckState(formvalues.sw_reactions[22]));
+    ui->sw_R24->setCheckState(Bool2CheckState(formvalues.sw_reactions[23]));
+    ui->sw_R25->setCheckState(Bool2CheckState(formvalues.sw_reactions[24]));
+    ui->sw_R26->setCheckState(Bool2CheckState(formvalues.sw_reactions[25]));
+    ui->sw_R27->setCheckState(Bool2CheckState(formvalues.sw_reactions[26]));
 
-    if(tempinput->sw_sea == true)
+    if(formvalues.sw_sea == true)
       ui->sw_sea->setCurrentIndex(1);
     else
       ui->sw_sea->setCurrentIndex(0);
 
-//    if (tempinput->sw_wind == true)
-//      check = Qt::Checked;
-//    else
-//      check = Qt::Unchecked;
-//    ui->sw_wind->setCheckState(check);
-//
-//    if (tempinput->sw_ml == true)
-//      check = Qt::Checked;
-//    else
-//      check = Qt::Unchecked;
-//    ui->sw_ml->setCheckState(check);
-//
-//    if (tempinput->sw_rad == true)
-//      check = Qt::Checked;
-//    else
-//      check = Qt::Unchecked;
-//    ui->sw_rad->setCheckState(check);
-//
-//    if (tempinput->sw_sl == true)
-//      check = Qt::Checked;
-//    else
-//      check = Qt::Unchecked;
-//    ui->sw_sl->setCheckState(check);
-//
-//    if (tempinput->sw_ls == true)
-//      check = Qt::Checked;
-//    else
-//      check = Qt::Unchecked;
-//    ui->sw_ls->setCheckState(check);
-//
-//    if (tempinput->sw_wtheta == true)
-//      check = Qt::Checked;
-//    else
-//      check = Qt::Unchecked;
-//    ui->sw_wtheta->setCheckState(check);
-//
-//    if (tempinput->sw_wq == true)
-//      check = Qt::Checked;
-//    else
-//      check = Qt::Unchecked;
-//    ui->sw_wq->setCheckState(check);
-//
-//    if (tempinput->sw_chem == true)
-//      check = Qt::Checked;
-//    else
-//      check = Qt::Unchecked;
-//    ui->sw_chem->setCheckState(check);
-//
-//    if (tempinput->sw_chem_constant == true)
-//      check = Qt::Checked;
-//    else
-//      check = Qt::Unchecked;
-//    ui->sw_chem_constant->setCheckState(check);
-//
-//    if (tempinput->sw_photo_constant == true)
-//      check = Qt::Checked;
-//    else
-//      check = Qt::Unchecked;
-//    ui->sw_species_photolysis->setCheckState(check);
-
-
     // MIXED-LAYER
-    ui->input_ml_h->setText(QString::number(tempinput->h));
-    ui->input_ml_ps->setText(QString::number(tempinput->Ps / 100.));
-    ui->input_ml_omegas->setText(QString::number(tempinput->omegas));
-    ui->input_ml_beta->setText(QString::number(tempinput->beta));
+    ui->input_ml_h->setText(QString::number(formvalues.h));
+    ui->input_ml_ps->setText(QString::number(formvalues.Ps / 100.));
+    ui->input_ml_omegas->setText(QString::number(formvalues.omegas));
+    ui->input_ml_beta->setText(QString::number(formvalues.beta));
 
     // HEAT
-    ui->input_heat_theta->setText(QString::number(tempinput->theta));
-    ui->input_heat_dtheta->setText(QString::number(tempinput->dtheta));
-    ui->input_heat_gammatheta->setText(QString::number(tempinput->gammatheta));
-    ui->input_heat_advtheta->setText(QString::number(tempinput->advtheta));
-    ui->input_heat_wtheta->setText(QString::number(tempinput->wtheta));
+    ui->input_heat_theta->setText(QString::number(formvalues.theta));
+    ui->input_heat_dtheta->setText(QString::number(formvalues.dtheta));
+    ui->input_heat_gammatheta->setText(QString::number(formvalues.gammatheta));
+    ui->input_heat_advtheta->setText(QString::number(formvalues.advtheta));
+    ui->input_heat_wtheta->setText(QString::number(formvalues.wtheta));
 
     // MOISTURE
-    ui->input_moisture_q->setText(QString::number(tempinput->q * 1000.));
-    ui->input_moisture_dq->setText(QString::number(tempinput->dq * 1000.));
-    ui->input_moisture_gammaq->setText(QString::number(tempinput->gammaq * 1000.));
-    ui->input_moisture_advq->setText(QString::number(tempinput->advq * 1000.));
-    ui->input_moisture_wq->setText(QString::number(tempinput->wq * 1000.));
+    ui->input_moisture_q->setText(QString::number(formvalues.q * 1000.));
+    ui->input_moisture_dq->setText(QString::number(formvalues.dq * 1000.));
+    ui->input_moisture_gammaq->setText(QString::number(formvalues.gammaq * 1000.));
+    ui->input_moisture_advq->setText(QString::number(formvalues.advq * 1000.));
+    ui->input_moisture_wq->setText(QString::number(formvalues.wq * 1000.));
 
     // WIND
-    ui->input_wind_u->setText(QString::number(tempinput->u));
-    ui->input_wind_ug->setText(QString::number(tempinput->u + tempinput->du));
-    ui->input_wind_gammau->setText(QString::number(tempinput->gammau));
-    ui->input_wind_advu->setText(QString::number(tempinput->advu));
+    ui->input_wind_u->setText(QString::number(formvalues.u));
+    ui->input_wind_ug->setText(QString::number(formvalues.u + formvalues.du));
+    ui->input_wind_gammau->setText(QString::number(formvalues.gammau));
+    ui->input_wind_advu->setText(QString::number(formvalues.advu));
 
-    ui->input_wind_v->setText(QString::number(tempinput->v));
-    ui->input_wind_vg->setText(QString::number(tempinput->v + tempinput->dv));
-    ui->input_wind_gammav->setText(QString::number(tempinput->gammav));
-    ui->input_wind_advv->setText(QString::number(tempinput->advv));
+    ui->input_wind_v->setText(QString::number(formvalues.v));
+    ui->input_wind_vg->setText(QString::number(formvalues.v + formvalues.dv));
+    ui->input_wind_gammav->setText(QString::number(formvalues.gammav));
+    ui->input_wind_advv->setText(QString::number(formvalues.advv));
 
-    ui->input_wind_fc->setText(QString::number(tempinput->fc));
-    ui->input_wind_ustar->setText(QString::number(tempinput->ustar));
+    ui->input_wind_fc->setText(QString::number(formvalues.fc));
+    ui->input_wind_ustar->setText(QString::number(formvalues.ustar));
 
-    ui->input_surfacelayer_z0h->setText(QString::number(tempinput->z0h));
-    ui->input_surfacelayer_z0m->setText(QString::number(tempinput->z0m));
+    ui->input_surfacelayer_z0h->setText(QString::number(formvalues.z0h));
+    ui->input_surfacelayer_z0m->setText(QString::number(formvalues.z0m));
 
     // SOIL
-    ui->input_soil_T2->setText(QString::number(tempinput->T2));
-    ui->input_soil_Tsoil->setText(QString::number(tempinput->Tsoil));
-    ui->input_soil_W2->setText(QString::number(tempinput->w2));
-    ui->input_soil_Wg->setText(QString::number(tempinput->wg));
+    ui->input_soil_T2->setText(QString::number(formvalues.T2));
+    ui->input_soil_Tsoil->setText(QString::number(formvalues.Tsoil));
+    ui->input_soil_W2->setText(QString::number(formvalues.w2));
+    ui->input_soil_Wg->setText(QString::number(formvalues.wg));
 
     if(!modelrunlist->find(n).value().soiladvanced)
     {
@@ -679,22 +617,22 @@ void MainWindow::loadFormData()
     else
     {
       ui->sw_soil_advanced->setCheckState(Qt::Checked);
-      ui->input_soil_wsat->setText(QString::number(tempinput->wsat));
-      ui->input_soil_wfc->setText(QString::number(tempinput->wfc));
-      ui->input_soil_wwilt->setText(QString::number(tempinput->wwilt));
+      ui->input_soil_wsat->setText(QString::number(formvalues.wsat));
+      ui->input_soil_wfc->setText(QString::number(formvalues.wfc));
+      ui->input_soil_wwilt->setText(QString::number(formvalues.wwilt));
 
-      ui->input_soil_c1sat->setText(QString::number(tempinput->C1sat));
-      ui->input_soil_c2ref->setText(QString::number(tempinput->C2ref));
+      ui->input_soil_c1sat->setText(QString::number(formvalues.C1sat));
+      ui->input_soil_c2ref->setText(QString::number(formvalues.C2ref));
 
-      ui->input_soil_a->setText(QString::number(tempinput->a));
-      ui->input_soil_b->setText(QString::number(tempinput->b));
-      ui->input_soil_p->setText(QString::number(tempinput->p));
-      ui->input_soil_CGsat->setText(QString::number(tempinput->CGsat));
+      ui->input_soil_a->setText(QString::number(formvalues.a));
+      ui->input_soil_b->setText(QString::number(formvalues.b));
+      ui->input_soil_p->setText(QString::number(formvalues.p));
+      ui->input_soil_CGsat->setText(QString::number(formvalues.CGsat));
     }
 
     // SURFACE
-    ui->input_surface_Ts->setText(QString::number(tempinput->Ts));
-    ui->input_surface_Wl->setText(QString::number(tempinput->Wl));
+    ui->input_surface_Ts->setText(QString::number(formvalues.Ts));
+    ui->input_surface_Wl->setText(QString::number(formvalues.Wl));
 
     if(!modelrunlist->find(n).value().surfaceadvanced)
     {
@@ -704,47 +642,47 @@ void MainWindow::loadFormData()
     else
     {
       ui->sw_surface_advanced->setCheckState(Qt::Checked);
-      ui->input_surface_LAI->setText(QString::number(tempinput->LAI));
-      ui->input_surface_gD->setText(QString::number(tempinput->gD));
-      ui->input_surface_rsmin->setText(QString::number(tempinput->rsmin));
-      ui->input_surface_alpha->setText(QString::number(tempinput->alpha));
-      ui->input_surface_cveg->setText(QString::number(tempinput->cveg));
+      ui->input_surface_LAI->setText(QString::number(formvalues.LAI));
+      ui->input_surface_gD->setText(QString::number(formvalues.gD));
+      ui->input_surface_rsmin->setText(QString::number(formvalues.rsmin));
+      ui->input_surface_alpha->setText(QString::number(formvalues.alpha));
+      ui->input_surface_cveg->setText(QString::number(formvalues.cveg));
 
-      ui->input_surface_Lambda->setText(QString::number(tempinput->Lambda));
-      ui->input_surface_z0m->setText(QString::number(tempinput->z0m));
-      ui->input_surface_z0h->setText(QString::number(tempinput->z0h));
+      ui->input_surface_Lambda->setText(QString::number(formvalues.Lambda));
+      ui->input_surface_z0m->setText(QString::number(formvalues.z0m));
+      ui->input_surface_z0h->setText(QString::number(formvalues.z0h));
     }
 
     // RADIATION
-    ui->input_rad_DOY->setText(QString::number(tempinput->doy));
-    ui->input_rad_lat->setText(QString::number(tempinput->lat));
-    ui->input_rad_lon->setText(QString::number(tempinput->lon * -1.));
-    ui->input_rad_time->setText(QString::number(tempinput->tstart));
+    ui->input_rad_DOY->setText(QString::number(formvalues.doy));
+    ui->input_rad_lat->setText(QString::number(formvalues.lat));
+    ui->input_rad_lon->setText(QString::number(formvalues.lon * -1.));
+    ui->input_rad_time->setText(QString::number(formvalues.tstart));
 
-    ui->input_rad_Qnet->setText(QString::number(tempinput->Q));
-    ui->input_rad_clouds->setText(QString::number(tempinput->cc));
+    ui->input_rad_Qnet->setText(QString::number(formvalues.Q));
+    ui->input_rad_clouds->setText(QString::number(formvalues.cc));
 
     // OTHER
     ui->input_name->setText(modelrunlist->find(n).value().runname);
 
     // CHEMISTRY
-    ui->input_species_photolysis_tref->setText(QString::number(tempinput->tod_ref));
-    ui->input_species_ref_Tcbl->setText(QString::number(tempinput->Tcbl_ref));
-    ui->input_species_ref_Tft->setText(QString::number(tempinput->Tfc_ref));
-    ui->input_species_ref_qcbl->setText(QString::number(tempinput->qcbl_ref * 1000.));
-    ui->input_species_ref_qft->setText(QString::number(tempinput->qfc_ref * 1000.));
-    ui->input_species_ref_pref->setText(QString::number(tempinput->P_ref / 100.));
+    ui->input_species_photolysis_tref->setText(QString::number(formvalues.tod_ref));
+    ui->input_species_ref_Tcbl->setText(QString::number(formvalues.Tcbl_ref));
+    ui->input_species_ref_Tft->setText(QString::number(formvalues.Tfc_ref));
+    ui->input_species_ref_qcbl->setText(QString::number(formvalues.qcbl_ref * 1000.));
+    ui->input_species_ref_qft->setText(QString::number(formvalues.qfc_ref * 1000.));
+    ui->input_species_ref_pref->setText(QString::number(formvalues.P_ref / 100.));
 
-    ui->input_reactions_OHrecycling->setValue(tempinput->stocoef);
+    ui->input_reactions_OHrecycling->setValue(formvalues.stocoef);
 
     if (ui->species_treewidget->selectedItems().count() != 0)
     {
       int id = ui->species_treewidget->currentItem()->text(0).toInt();
-      ui->input_species_scalar->setText(QString::number(tempinput->sc[id]));
-      ui->input_species_dscalar->setText(QString::number(tempinput->dsc[id]));
-      ui->input_species_gammascalar->setText(QString::number(tempinput->gammasc[id]));
-      ui->input_species_wscalar->setText(QString::number(tempinput->wsc[id]));
-      ui->input_species_advscalar->setText(QString::number(tempinput->advsc[id]));
+      ui->input_species_scalar->setText(QString::number(formvalues.sc[id]));
+      ui->input_species_dscalar->setText(QString::number(formvalues.dsc[id]));
+      ui->input_species_gammascalar->setText(QString::number(formvalues.gammasc[id]));
+      ui->input_species_wscalar->setText(QString::number(formvalues.wsc[id]));
+      ui->input_species_advscalar->setText(QString::number(formvalues.advsc[id]));
     }
 
     updateStatusBar();
@@ -1019,6 +957,36 @@ void MainWindow::saveRuns()
     out << temprun.run->input.Q          << endl;
     out << temprun.run->input.cc         << endl;
     // END TAB5
+
+    // TAB 6 and 7
+    // CHEMISTRY
+    out << temprun.run->input.sw_chem           << endl;
+    out << temprun.run->input.sw_chem_constant  << endl;
+    out << temprun.run->input.sw_photo_constant << endl;
+    out << temprun.run->input.csize             << endl;
+    out << temprun.run->input.rsize             << endl;
+
+    // store scalars
+    for(int n=0; n<temprun.run->input.csize; n++)
+    {
+      out << temprun.run->input.sc[n]      << endl;
+      out << temprun.run->input.dsc[n]     << endl;
+      out << temprun.run->input.gammasc[n] << endl;
+      out << temprun.run->input.advsc[n]   << endl;
+      out << temprun.run->input.wsc[n]     << endl;
+    }
+
+    for(int n=0; n<temprun.run->input.rsize; n++)
+      out << temprun.run->input.sw_reactions[n] << endl;
+
+    out << temprun.run->input.P_ref             << endl;
+    out << temprun.run->input.Tcbl_ref          << endl;
+    out << temprun.run->input.Tfc_ref           << endl;
+    out << temprun.run->input.qcbl_ref          << endl;
+    out << temprun.run->input.qfc_ref           << endl;
+    out << temprun.run->input.tod_ref           << endl;
+
+    out << temprun.run->input.stocoef           << endl;
   }
   out << "#MXL# EOF" << endl;
   std::cout << "Saving MXL session COMPLETE!" << std::endl;
@@ -1226,6 +1194,55 @@ void MainWindow::loadRuns()
       tempinput.cc         = line.toDouble();
 
       // END TAB5
+
+      // CHEMISTRY
+      line = in.readLine();
+      tempinput.sw_chem           = line.toInt();
+      line = in.readLine();
+      tempinput.sw_chem_constant  = line.toInt();
+      line = in.readLine();
+      tempinput.sw_photo_constant = line.toInt();
+      line = in.readLine();
+      tempinput.csize             = line.toInt();
+      line = in.readLine();
+      tempinput.rsize             = line.toInt();
+
+      // store scalars
+      for(int n=0; n<tempinput.csize; n++)
+      {
+        line = in.readLine();
+        tempinput.sc[n]      = line.toDouble();
+        line = in.readLine();
+        tempinput.dsc[n]     = line.toDouble();
+        line = in.readLine();
+        tempinput.gammasc[n] = line.toDouble();
+        line = in.readLine();
+        tempinput.advsc[n]   = line.toDouble();
+        line = in.readLine();
+        tempinput.wsc[n]     = line.toDouble();
+      }
+
+      for(int n=0; n<tempinput.rsize; n++)
+      {
+        line = in.readLine();
+        tempinput.sw_reactions[n] = line.toInt();
+      }
+
+      line = in.readLine();
+      tempinput.P_ref       = line.toDouble();      
+      line = in.readLine();
+      tempinput.Tcbl_ref    = line.toDouble();  
+      line = in.readLine();
+      tempinput.Tfc_ref     = line.toDouble();
+      line = in.readLine();
+      tempinput.qcbl_ref    = line.toDouble();
+      line = in.readLine();
+      tempinput.qfc_ref     = line.toDouble();
+      line = in.readLine();
+      tempinput.tod_ref     = line.toDouble();
+
+      line = in.readLine();
+      tempinput.stocoef     = line.toDouble();
 
       line = in.readLine();
 
