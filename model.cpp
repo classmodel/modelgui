@@ -336,7 +336,7 @@ void model::initmodel()
 
   // initialize chemistry using a very small time step value
   if(sw_chem)
-    //runchemmodel(dt / 1000.);
+    runchemmodel(dt / 1000.);
 
   // set output array to given value
   output = new modeloutput(tsteps, nsc);
