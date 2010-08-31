@@ -400,18 +400,18 @@ void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput, double stocoe
 
   nchasp =0;
   for(i=0;i<csize;i++){
-  if(PL_ptr[i]->nr_PL > 0){
-    PL_ptr[i]->active = 1;
-    sw_chemoutput[i] = true;
-    nchasp++;
-  }else{
-    PL_ptr[i]->active = 0;}
-    sw_chemoutput[i] = false;
+    if(PL_ptr[i]->nr_PL > 0){
+      PL_ptr[i]->active = 1;
+      sw_chemoutput[i] = true;
+      nchasp++;
+    }else{
+      PL_ptr[i]->active = 0;
+      sw_chemoutput[i] = false;
+    }
   }
-
-// we don't calculate production and loss off N2, O2, and H2O
+// we don't calculate production and loss off N2, O2, and H2O switch on Inert
   for(i=0;i<csize;i++){
-    if(PL_ptr[i]->name == "N2" || PL_ptr[i]->name == "O2" || PL_ptr[i]->name == "H2O"|| PL_ptr[i]->name == "PRODU")
+    if(PL_ptr[i]->name == "N2" || PL_ptr[i]->name == "O2" || PL_ptr[i]->name == "H2O"|| PL_ptr[i]->name == "Product")
     {
       printf("Deactivate: %i\n", i);
       PL_ptr[i]->active = 0;
@@ -419,22 +419,14 @@ void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput, double stocoe
       nchasp--;
     }
   }
-  j=0;
+  //switch plot for Inert ON
+  sw_chemoutput[0]=true;
 
-// deactivate the chemicals that don't have to be plotted
-//  for(i=0;i<csize;i++){
-//    if(PL_ptr[i]->active == 1)
-//    {
-//        chem_active[i] = true;
-//    }
-//    else
-//    {
-//        chem_active[i] = false;
-//    }
+
 //  }
 
 
-  printf("number of active species: %i number declared %i\n",  nchasp, csize);
+ // printf("number of active species: %i number declared %i\n",  nchasp, csize);
 //
     rcout=fopen("reaction_scheme","w");
     for(i=0;i<csize;i++){

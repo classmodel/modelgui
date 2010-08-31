@@ -238,6 +238,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       treeitem->setText(3, description);
       treeitem->setText(4, id);
       treegroup->addChild(treeitem);
+      treegroup->addChild(treeitem);
     }
   }
 
@@ -364,16 +365,16 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
     updateplotdata();
     plotar->update();
   }
-  else
-  {
-    if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
-      if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0) == olditem)
-        ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Checked);
-
-    if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).count() > 0)
-      if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0) == olditem)
-        ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Checked);
-  }
+//  else
+//  {
+//    if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
+//      if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0) == olditem)
+//        ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Checked);
+//
+//    if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).count() > 0)
+//      if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0) == olditem)
+//        ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Checked);
+//  }
 }
 
 void plotwindow::updateplotdata()
@@ -512,13 +513,13 @@ void plotwindow::cursormoved()
     QString statusmessage =
         QString::fromUtf8(plotar->xdatalist.value(1).name.c_str()) +
         " = " +
-        QString::number(plotar->x_current,'f',4) +
+        QString::number(plotar->x_current,'g',5) +
         " " +
         QString::fromUtf8(plotar->xdatalist.value(1).unit.c_str()) +
         ", " +
         QString::fromUtf8(plotar->ydatalist.value(1).name.c_str()) +
         " = " +
-        QString::number(plotar->y_current,'f',4) +
+        QString::number(plotar->y_current,'g',5) +
         " " +
         QString::fromUtf8(plotar->ydatalist.value(1).unit.c_str());
 

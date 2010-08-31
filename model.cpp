@@ -334,6 +334,10 @@ void model::initmodel()
   if(sw_ml)
     runmlmodel();
 
+  // initialize chemistry using a very small time step value
+  if(sw_chem)
+    runchemmodel(dt / 1000.);
+
   // set output array to given value
   output = new modeloutput(tsteps, nsc);
 
@@ -367,7 +371,7 @@ void model::runmodel()
       intmlmodel();
 
     if(sw_chem)
-      runchemmodel();
+      runchemmodel(dt);
 
     store();
   }
@@ -877,7 +881,10 @@ void model::store()
   //chemistry
   output->phi.data[t]     = phi;
   for(int n=0;n<nsc; n++)
-    output->sc[n].data[t] = sc[n];
+    if(sw_chemoutput[n])
+      output->sc[n].data[t] = sc[n];
+    else
+      output->sc[n].data[t] = 0;
 
   return;
 } 
@@ -1087,7 +1094,7 @@ void model::initchemmodel()
   return;
 }
 
-void model::runchemmodel()
+void model::runchemmodel(double chemdt)
 {
   double *iterin, *iterout, *fsc;
   iterin  = new double[nsc];
@@ -1121,7 +1128,7 @@ void model::runchemmodel()
                 qcbl_ref, qfc_ref, \
                 sinlea );
 
-    cm->iter(1, dt, qcbl_ref, iterout, iterin, &phi);
+    cm->iter(1, chemdt, qcbl_ref, iterout, iterin, &phi);
 
     for(int i=0; i<nsc; i++)
      sc[i] = iterout[i];
@@ -1134,7 +1141,7 @@ void model::runchemmodel()
 
     double dummy;
 
-    cm->iter(0, dt, qfc_ref, iterout, iterin, &dummy);
+    cm->iter(0, chemdt, qfc_ref, iterout, iterin, &dummy);
 
     for(int i=0; i<nsc; i++)
      dsc[i] = iterout[i] - sc[i];
@@ -1165,7 +1172,7 @@ void model::runchemmodel()
                q,    qfc, \
                sinlea );
 
-    cm->iter(1, dt, q, iterout, iterin, &phi);
+    cm->iter(1, chemdt, q, iterout, iterin, &phi);
 
     for(int i=0; i<nsc; i++)
      sc[i] = iterout[i];
@@ -1176,7 +1183,7 @@ void model::runchemmodel()
       iterout[i] = fsc[i];
     }
 
-    cm->iter(0, dt, qfc, iterout, iterin, &phi);
+    cm->iter(0, chemdt, qfc, iterout, iterin, &phi);
 
     for(int i=0; i<nsc; i++)
       dsc[i] = iterout[i] - sc[i];
@@ -1184,4 +1191,3 @@ void model::runchemmodel()
 
   return;
 }
-
