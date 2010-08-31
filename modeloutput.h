@@ -23,6 +23,8 @@ public:
   outputvar beta;      // entrainment ratio for virtual heat [-]
   outputvar lcl;       // lifting condensation level [m]
   outputvar we;        // entrainment velocity [m s-1]
+  outputvar RH;        // Relative humidity at T=theta [-]
+  outputvar RHtop;     // Relative humidity at mixed-layer top [-]
 
   // temperature
   outputvar theta;     // initial mixed-layer potential temperature [K]
