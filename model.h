@@ -26,7 +26,7 @@ private:
   void intlsmodel();
 
   void initchemmodel();
-  void runchemmodel();
+  void runchemmodel(double);
 
   void store();
 
