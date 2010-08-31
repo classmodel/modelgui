@@ -524,13 +524,13 @@ void plotwindow::cursormoved()
     QString statusmessage =
         QString::fromUtf8(plotar->xdatalist.value(1).name.c_str()) +
         " = " +
-        QString::number(plotar->x_current,'f',4) +
+        QString::number(plotar->x_current,'g',5) +
         " " +
         QString::fromUtf8(plotar->xdatalist.value(1).unit.c_str()) +
         ", " +
         QString::fromUtf8(plotar->ydatalist.value(1).name.c_str()) +
         " = " +
-        QString::number(plotar->y_current,'f',4) +
+        QString::number(plotar->y_current,'g',5) +
         " " +
         QString::fromUtf8(plotar->ydatalist.value(1).unit.c_str());
 
