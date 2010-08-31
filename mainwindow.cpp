@@ -10,8 +10,7 @@
 #include <QFont>
 #include <QTextStream>
 
-MainWindow::MainWindow(QWidget *parent)
-  : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
 
@@ -68,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   // Setup QTreeWidget with chemical species
   QList<int> visible_species;         // Posibility to show only a subset of the species.
-  visible_species << 0 << 1 << 3 << 4 << 9 << 5 << 13;
+  visible_species << 0 << 1 << 3 << 4 << 9 << 5 << 13 << 6 << 7 << 8 << 11 << 12 << 19 << 18 << 20 << 21;
 
   QStringList chemheading;
   chemheading << "ID" << "Species";
@@ -118,11 +117,11 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-// For Windows only...
-// void MainWindow::closeEvent(QCloseEvent *event)
-//{
-//  graph->close();
-//}
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+  if (graph)
+    graph->close();
+}
 
 void MainWindow::speciesselectionchanged()
 {

@@ -45,6 +45,18 @@ modeloutput::modeloutput(int tsteps, int nsc)
   we.description            = "Entrainment velocity";
   we.id                     = "we";
 
+  RH.data                   = new double[tsteps];   // Relative humidity at ..? [-]
+  RH.name                   = "RH(surf)";
+  RH.unit                   = "-";
+  RH.description            = "Relative humidity at surface";
+  RH.id                     = "RH";
+
+  RHtop.data                = new double[tsteps];   // Relative humidity at mixed-layer top [-]
+  RHtop.name                = "RH(top)";
+  RHtop.unit                = "-";
+  RHtop.description         = "Relative humidity at mixed-layer top";
+  RHtop.id                  = "RHtop";
+
   theta.data                = new double[tsteps];   //  mixed-layer potential temperature [K]
   theta.name                = "\u03B8";
   theta.unit                = "K";
@@ -89,7 +101,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
 
   wtheta.data               = new double[tsteps];   // surface kinematic heat flux [K m s-1]
   wtheta.name               = "w'\u03B8'(s)";
-  wtheta.unit               = "K m s\u207B\u00B9";
+  wtheta.unit               = "K m s\u02C9\u00B9";
   wtheta.description        = "Surface kinematic heat flux";
   wtheta.id                 = "wtheta";
 

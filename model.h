@@ -63,6 +63,8 @@ private:
   double fc;        // coriolis parameter [s-1]
   double we;        // entrainment velocity [m s-1]
   double lcl;       // lifted condensation level [m]
+  double RH;        // Relative humidity at T=theta [-]
+  double RHtop;     // Relative humidity at mixed-layer top [-]
   
   double theta;     // initial mixed-layer potential temperature [K]
   double dtheta;    // initial temperature jump at h [K]
