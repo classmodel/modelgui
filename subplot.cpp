@@ -1,6 +1,7 @@
 #include <cmath>
 #include "subplot.h"
 #include "ui_subplot.h"
+#include <QTextDocument>
 
 plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent)
 {
