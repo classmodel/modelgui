@@ -234,22 +234,10 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       QString description = QString::fromUtf8(item.description.c_str());
       QString id = QString::fromUtf8(item.id.c_str());
 
-      QLabel *testlabel = new QLabel;
-      testlabel->setText(variable);
-      QLabel *testlabel1 = new QLabel;
-      testlabel1->setText(description);
-      QLabel *testlabel2 = new QLabel;
-      testlabel2->setText(id);
-
-      treegroup->addChild(treeitem);
-
-      ui->advancedplottree->setItemWidget(treeitem,0,testlabel);
-      //ui->advancedplottree->setItemWidget(treeitem,3,testlabel1);
-
-      //treeitem->setText(0, variable);
+      treeitem->setText(0, variable);
       treeitem->setText(3, description);
       treeitem->setText(4, id);
-
+      treegroup->addChild(treeitem);
     }
   }
 
