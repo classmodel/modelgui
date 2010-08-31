@@ -309,10 +309,13 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     graphmaxy = std::ceil(ymax / d) * d;
     nfrac     = std::max(-1 * (int)std::floor(std::log10(d)), 0);
 
+    std::cout << "ndec: " << nfrac << std::endl;
+
     for(y = graphminy; y <= graphmaxy + .5 * d; y = y + d)
     {
-      paint.drawText((leftmargin-100),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-13,90,30,0x0082, QString::number(y,'f',nfrac));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
+      paint.drawText((leftmargin-100),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-13,90,30,0x0082, QString::number(y,'g',5));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
       paint.drawLine(leftmargin,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin,leftmargin+(3 * PNGscale),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin);
+
     }
 
     // Draw labels X-axis
