@@ -382,7 +382,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
     std::stringstream an;
     an << n;
     sc[n].name = "scalar" + an.str();
-    sc[n].unit = "-";
+    sc[n].unit = "ppb";
     sc[n].description = "Chemistry scalar " + an.str();
     sc[n].id   = "sc" + an.str();
   }
