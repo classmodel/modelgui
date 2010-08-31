@@ -1020,6 +1020,36 @@ void MainWindow::saveRuns()
     out << temprun.run->input.Q          << endl;
     out << temprun.run->input.cc         << endl;
     // END TAB5
+
+    // TAB 6 and 7
+    // CHEMISTRY
+    out << temprun.run->input.sw_chem           << endl;
+    out << temprun.run->input.sw_chem_constant  << endl;
+    out << temprun.run->input.sw_photo_constant << endl;
+    out << temprun.run->input.csize             << endl;
+    out << temprun.run->input.rsize             << endl;
+
+    // store scalars
+    for(int n=0; n<temprun.run->input.csize; n++)
+    {
+      out << temprun.run->input.sc[n]      << endl;
+      out << temprun.run->input.dsc[n]     << endl;
+      out << temprun.run->input.gammasc[n] << endl;
+      out << temprun.run->input.advsc[n]   << endl;
+      out << temprun.run->input.wsc[n]     << endl;
+    }
+
+    for(int n=0; n<temprun.run->input.rsize; n++)
+      out << temprun.run->input.sw_reactions[n] << endl;
+
+    out << temprun.run->input.P_ref             << endl;
+    out << temprun.run->input.Tcbl_ref          << endl;
+    out << temprun.run->input.Tfc_ref           << endl;
+    out << temprun.run->input.qcbl_ref          << endl;
+    out << temprun.run->input.qfc_ref           << endl;
+    out << temprun.run->input.tod_ref           << endl;
+
+    out << temprun.run->input.stocoef           << endl;
   }
   out << "#MXL# EOF" << endl;
   std::cout << "Saving MXL session COMPLETE!" << std::endl;
@@ -1227,6 +1257,55 @@ void MainWindow::loadRuns()
       tempinput.cc         = line.toDouble();
 
       // END TAB5
+
+      // CHEMISTRY
+      line = in.readLine();
+      tempinput.sw_chem           = line.toInt();
+      line = in.readLine();
+      tempinput.sw_chem_constant  = line.toInt();
+      line = in.readLine();
+      tempinput.sw_photo_constant = line.toInt();
+      line = in.readLine();
+      tempinput.csize             = line.toInt();
+      line = in.readLine();
+      tempinput.rsize             = line.toInt();
+
+      // store scalars
+      for(int n=0; n<tempinput.csize; n++)
+      {
+        line = in.readLine();
+        tempinput.sc[n]      = line.toDouble();
+        line = in.readLine();
+        tempinput.dsc[n]     = line.toDouble();
+        line = in.readLine();
+        tempinput.gammasc[n] = line.toDouble();
+        line = in.readLine();
+        tempinput.advsc[n]   = line.toDouble();
+        line = in.readLine();
+        tempinput.wsc[n]     = line.toDouble();
+      }
+
+      for(int n=0; n<tempinput.rsize; n++)
+      {
+        line = in.readLine();
+        tempinput.sw_reactions[n] = line.toInt();
+      }
+
+      line = in.readLine();
+      tempinput.P_ref       = line.toDouble();      
+      line = in.readLine();
+      tempinput.Tcbl_ref    = line.toDouble();  
+      line = in.readLine();
+      tempinput.Tfc_ref     = line.toDouble();
+      line = in.readLine();
+      tempinput.qcbl_ref    = line.toDouble();
+      line = in.readLine();
+      tempinput.qfc_ref     = line.toDouble();
+      line = in.readLine();
+      tempinput.tod_ref     = line.toDouble();
+
+      line = in.readLine();
+      tempinput.stocoef     = line.toDouble();
 
       line = in.readLine();
 
