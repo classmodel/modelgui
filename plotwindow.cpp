@@ -138,10 +138,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.tutc
       << modelout.h
       << modelout.ws
-      << modelout.we
-      << modelout.lcl
-      << modelout.RH
-      << modelout.RHtop;
+      << modelout.we;
 
   temperaturevars
       << modelout.theta
@@ -156,7 +153,10 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.q
       << modelout.dq
       << modelout.wq
-      << modelout.wqe;
+      << modelout.wqe
+      << modelout.lcl
+      << modelout.RH
+      << modelout.RHtop;
 
   windvars
       << modelout.u
@@ -238,7 +238,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       treeitem->setText(0, variable);
       treeitem->setText(3, description);
       treeitem->setText(4, id);
-      treegroup->addChild(treeitem);
+
     }
   }
 
