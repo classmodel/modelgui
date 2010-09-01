@@ -3761,12 +3761,12 @@
           </item>
           <item>
            <property name="text">
-            <string>Fixed diurnal cycle</string>
+            <string>Fixed diurnal</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Radiation diurnal cycle</string>
+            <string>Radiation diurnal</string>
            </property>
           </item>
          </widget>
@@ -3858,7 +3858,7 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-340</y>
+         <y>0</y>
          <width>417</width>
          <height>750</height>
         </rect>
@@ -5319,7 +5319,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>381</width>
+        <width>441</width>
         <height>51</height>
        </rect>
       </property>
@@ -5331,11 +5331,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>361</width>
+         <width>421</width>
          <height>26</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="reactions_grid" columnstretch="0,0,1,1,0">
+       <layout class="QGridLayout" name="reactions_grid" columnstretch="0,0,0,1,0">
         <item row="0" column="1">
          <widget class="QPushButton" name="input_reactions_simplebutton">
           <property name="toolTip">
@@ -5368,7 +5368,7 @@
            <string>Stoichiometric coefficient for reaction 19</string>
           </property>
           <property name="text">
-           <string>OH-recycling</string>
+           <string>OH-recycling </string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
