@@ -203,6 +203,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   for(int n=0; n<22; n++)
     chemistry << modelout.sc[n];
 
+  ui->advancedplottree->setFocusPolicy(Qt::NoFocus);
 
   allvariables.insert(0,mixedlayervars);
   allvariables.insert(1,temperaturevars);
