@@ -3858,7 +3858,7 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
+         <y>-340</y>
          <width>417</width>
          <height>750</height>
         </rect>
@@ -3912,7 +3912,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;0(1D) + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;0(1D) + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -4455,7 +4455,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;(H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O) + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -4579,7 +4579,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;(H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O) + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -4722,7 +4722,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CO&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -5017,7 +5017,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;NO + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
