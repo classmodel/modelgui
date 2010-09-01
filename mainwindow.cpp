@@ -441,6 +441,7 @@ void MainWindow::storeFormData()
   formvalues.gammasc[activespecies]   = ui->input_species_gammascalar->text().toDouble();
   formvalues.wsc[activespecies]       = ui->input_species_wscalar->text().toDouble();
   formvalues.advsc[activespecies]     = ui->input_species_advscalar->text().toDouble();
+  formvalues.sw_wsc[activespecies]    = ui->selector_species_diurnal->currentIndex();
 
   // TAB 7
   // EQUATIONS
@@ -673,6 +674,7 @@ void MainWindow::loadFormData()
     ui->input_species_ref_qft->setText(QString::number(formvalues.qfc_ref * 1000.));
     ui->input_species_ref_pref->setText(QString::number(formvalues.P_ref / 100.));
 
+
     ui->input_reactions_OHrecycling->setValue(formvalues.stocoef);
 
     if (ui->species_treewidget->selectedItems().count() != 0)
@@ -683,6 +685,7 @@ void MainWindow::loadFormData()
       ui->input_species_gammascalar->setText(QString::number(formvalues.gammasc[id]));
       ui->input_species_wscalar->setText(QString::number(formvalues.wsc[id]));
       ui->input_species_advscalar->setText(QString::number(formvalues.advsc[id]));
+      ui->selector_species_diurnal->setCurrentIndex(formvalues.sw_wsc[id]);
     }
 
     updateStatusBar();
