@@ -46,7 +46,7 @@ modelinput::modelinput()
   gammasc    = new double[nsc];
   advsc      = new double[nsc];
   wsc        = new double[nsc];
-  sw_wsc     = new bool[nsc];
+  sw_wsc     = new int[nsc];
 
   for(int i=0; i<nsc; i++)
   {
@@ -170,7 +170,7 @@ modelinput::modelinput(const modelinput &ref)
   gammasc    = new double[nsc];
   advsc      = new double[nsc];
   wsc        = new double[nsc];
-  sw_wsc     = new bool[nsc];
+  sw_wsc     = new int[nsc];
 
   for(int i=0; i<nsc; i++)
   {
@@ -306,7 +306,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
     gammasc    = new double[nsc];
     advsc      = new double[nsc];
     wsc        = new double[nsc];
-    sw_wsc     = new bool[nsc];
+    sw_wsc     = new int[nsc];
 
     for(int i=0; i<nsc; i++)
     {

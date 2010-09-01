@@ -92,7 +92,7 @@ void MainWindow::readdefaultinput()
 
   //chemistry
   defaultinput.sw_chem    = false;
-  defaultinput.sw_chem_constant = true;
+  defaultinput.sw_chem_constant  = true;
   defaultinput.sw_photo_constant = true;
   defaultinput.nsc        = 22;
   defaultinput.reactions  = defaultreactions; // CvH copy addresses, all runs will have therefore the same struct as reference
@@ -113,154 +113,154 @@ void MainWindow::readdefaultinput()
   defaultinput.gammasc[0] = 0.;
   defaultinput.advsc[0]   = 0.;
   defaultinput.wsc[0]     = 1.0;
-  defaultinput.sw_wsc[0]  = false;
+  defaultinput.sw_wsc[0]  = 2;
 
   defaultinput.sc[1]      = 31.;
   defaultinput.dsc[1]     = 0.;
   defaultinput.gammasc[1] = 0.;
   defaultinput.advsc[1]   = 0.;
   defaultinput.wsc[1]     = 0.;
-  defaultinput.sw_wsc[1]  = false;
+  defaultinput.sw_wsc[1]  = 0;
 
   defaultinput.sc[2]      = 0.;
   defaultinput.dsc[2]     = 0.;
   defaultinput.gammasc[2] = 0.;
   defaultinput.advsc[2]   = 0.;
   defaultinput.wsc[2]     = 0.;
-  defaultinput.sw_wsc[2]  = false;
+  defaultinput.sw_wsc[2]  = 0;
 
   defaultinput.sc[3]      = 0.;
   defaultinput.dsc[3]     = 0.;
   defaultinput.gammasc[3] = 0.;
   defaultinput.advsc[3]   = 0.;
   defaultinput.wsc[3]     = 1.e-1;
-  defaultinput.sw_wsc[3]  = false;
+  defaultinput.sw_wsc[3]  = 0;
 
   defaultinput.sc[4]      = 0.0;
   defaultinput.dsc[4]     = 0.;
   defaultinput.gammasc[4] = 0.;
   defaultinput.advsc[4]   = 0.;
   defaultinput.wsc[4]     = 0;
-  defaultinput.sw_wsc[4]  = false;
+  defaultinput.sw_wsc[4]  = 0;
 
   defaultinput.sc[5]      = 1724.;
   defaultinput.dsc[5]     = 0.;
   defaultinput.gammasc[5] = 0.;
   defaultinput.advsc[5]   = 0.;
   defaultinput.wsc[5]     = 0.;
-  defaultinput.sw_wsc[5]  = false;
+  defaultinput.sw_wsc[5]  = 0;
 
   defaultinput.sc[6]      = 0.;
   defaultinput.dsc[6]     = 0.;
   defaultinput.gammasc[6] = 0.;
   defaultinput.advsc[6]   = 0.;
   defaultinput.wsc[6]     = 0.;
-  defaultinput.sw_wsc[6]  = false;
+  defaultinput.sw_wsc[6]  = 0;
 
   defaultinput.sc[7]      = 0.;
   defaultinput.dsc[7]     = 0.;
   defaultinput.gammasc[7] = 0.;
   defaultinput.advsc[7]   = 0.;
   defaultinput.wsc[7]     = 0.;
-  defaultinput.sw_wsc[7]  = false;
+  defaultinput.sw_wsc[7]  = 0;
 
   defaultinput.sc[8]      = 0.;
   defaultinput.dsc[8]     = 0.;
   defaultinput.gammasc[8] = 0.;
   defaultinput.advsc[8]   = 0.;
   defaultinput.wsc[8]     = 0.;
-  defaultinput.sw_wsc[8]  = false;
+  defaultinput.sw_wsc[8]  = 0;
 
   defaultinput.sc[9]      = 0.;
   defaultinput.dsc[9]     = 0.;
   defaultinput.gammasc[9] = 0.;
   defaultinput.advsc[9]   = 0.;
   defaultinput.wsc[9]     = .5;
-  defaultinput.sw_wsc[9]  = false;
+  defaultinput.sw_wsc[9]  = 0;
 
   defaultinput.sc[10]      = 0.;
   defaultinput.dsc[10]     = 0.;
   defaultinput.gammasc[10] = 0.;
   defaultinput.advsc[10]   = 0.;
   defaultinput.wsc[10]     = 0.;
-  defaultinput.sw_wsc[10]  = false;
+  defaultinput.sw_wsc[10]  = 0;
 
   defaultinput.sc[11]      = 0.;
   defaultinput.dsc[11]     = 0.;
   defaultinput.gammasc[11] = 0.;
   defaultinput.advsc[11]   = 0.;
   defaultinput.wsc[11]     = 0.;
-  defaultinput.sw_wsc[11]  = false;
+  defaultinput.sw_wsc[11]  = 0;
 
   defaultinput.sc[12]      = 0.;
   defaultinput.dsc[12]     = 0.;
   defaultinput.gammasc[12] = 0.;
   defaultinput.advsc[12]   = 0.;
   defaultinput.wsc[12]     = 0.;
-  defaultinput.sw_wsc[12]  = false;
+  defaultinput.sw_wsc[12]  = 0;
 
   defaultinput.sc[13]      = 100.;
   defaultinput.dsc[13]     = 0.;
   defaultinput.gammasc[13] = 0.;
   defaultinput.advsc[13]   = 0.;
   defaultinput.wsc[13]     = 0.;
-  defaultinput.sw_wsc[13]  = false;
+  defaultinput.sw_wsc[13]  = 0;
 
   defaultinput.sc[14]      = 0.;
   defaultinput.dsc[14]     = 0.;
   defaultinput.gammasc[14] = 0.;
   defaultinput.advsc[14]   = 0.;
   defaultinput.wsc[14]     = 0.;
-  defaultinput.sw_wsc[14]  = false;
+  defaultinput.sw_wsc[14]  = 0;
 
   defaultinput.sc[15]      = 0.;
   defaultinput.dsc[15]     = 0.;
   defaultinput.gammasc[15] = 0.;
   defaultinput.advsc[15]   = 0.;
   defaultinput.wsc[15]     = 0.;
-  defaultinput.sw_wsc[15]  = false;
+  defaultinput.sw_wsc[15]  = 0;
 
   defaultinput.sc[16]      = 0.2e9;
   defaultinput.dsc[16]     = 0.;
   defaultinput.gammasc[16] = 0.;
   defaultinput.advsc[16]   = 0.;
   defaultinput.wsc[16]     = 0.;
-  defaultinput.sw_wsc[16]  = false;
+  defaultinput.sw_wsc[16]  = 0;
 
   defaultinput.sc[17]      = 0.8e9;
   defaultinput.dsc[17]     = 0.;
   defaultinput.gammasc[17] = 0.;
   defaultinput.advsc[17]   = 0.;
   defaultinput.wsc[17]     = 0.;
-  defaultinput.sw_wsc[17]  = false;
+  defaultinput.sw_wsc[17]  = 0;
 
   defaultinput.sc[18]      = 0.;
   defaultinput.dsc[18]     = 0.;
   defaultinput.gammasc[18] = 0.;
   defaultinput.advsc[18]   = 0.;
   defaultinput.wsc[18]     = 0.;
-  defaultinput.sw_wsc[18]  = false;
+  defaultinput.sw_wsc[18]  = 0;
 
   defaultinput.sc[19]      = 0.;
   defaultinput.dsc[19]     = 0.;
   defaultinput.gammasc[19] = 0.;
   defaultinput.advsc[19]   = 0.;
   defaultinput.wsc[19]     = 0.;
-  defaultinput.sw_wsc[19]  = false;
+  defaultinput.sw_wsc[19]  = 0;
 
   defaultinput.sc[20]      = 0.;
   defaultinput.dsc[20]     = 0.;
   defaultinput.gammasc[20] = 0.;
   defaultinput.advsc[20]   = 0.;
   defaultinput.wsc[20]     = 0.;
-  defaultinput.sw_wsc[20]  = false;
+  defaultinput.sw_wsc[20]  = 0;
 
   defaultinput.sc[21]      = 0.;
   defaultinput.dsc[21]     = 0.;
   defaultinput.gammasc[21] = 0.;
   defaultinput.advsc[21]   = 0.;
   defaultinput.wsc[21]     = 0.;
-  defaultinput.sw_wsc[21]  = false;
+  defaultinput.sw_wsc[21]  = 0;
 
 
   // TEMP FOR CHEMISTRY

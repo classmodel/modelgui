@@ -52,7 +52,7 @@ public:
   double *gammasc;  // free atmosphere scalar lapse rate [kg kg-1 m-1]
   double *advsc;    // advection of moisture [kg kg-1 s-1]
   double *wsc;      // surface kinematic moisture flux [kg kg-1 m s-1]
-  bool   *sw_wsc;   // switch for sinusoidal wsc
+  int    *sw_wsc;   // switch for sinusoidal wsc
 
   // surface layer variables
   bool   sw_sl;     // surface layer switch
