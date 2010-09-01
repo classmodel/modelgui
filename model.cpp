@@ -330,7 +330,6 @@ void model::runmlmodel()
       double sinlea    = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
       sinlea  = max(sinlea, 0.);
       wsc[i]  = wsc0[i] * sinlea / sinleamax;
-      cout << t*dt /3600. + tstart << "," << wsc[i] << endl;
     }
 
     wsce[i]    = we * dsc[i];
