@@ -470,7 +470,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     if(!selectedruns->contains(assignedcolors.value(i)))
       assignedcolors.replace(i,-1);
 
-  if (autoaxis)
+  if (autoaxis && !legendmoved)
     emit axischanged();
 
   if (mousereleased)

@@ -362,6 +362,7 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
       setplotvar(olditem->text(4), &plotvary);
     }
 
+    plotar->legendmoved = false;
     updateplotdata();
     plotar->update();
   }
@@ -458,6 +459,7 @@ void plotwindow::changeaxis()
   if (ui->autoscaleaxis->checkState() == Qt::Checked)
   {
     plotar->autoaxis = true;
+    plotar->legendmoved = false;
     ui->xminInput->setText(QString::number(plotar->graphminx));
     ui->xmaxInput->setText(QString::number(plotar->graphmaxx));
     ui->yminInput->setText(QString::number(plotar->graphminy));
