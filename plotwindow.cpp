@@ -238,7 +238,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       treeitem->setText(0, variable);
       treeitem->setText(3, description);
       treeitem->setText(4, id);
-      treegroup->addChild(treeitem);
+
       treegroup->addChild(treeitem);
     }
   }

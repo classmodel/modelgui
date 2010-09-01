@@ -735,7 +735,7 @@ Qt::CheckState MainWindow::Bool2CheckState(bool state)
 int MainWindow::Bool2Int(bool state)
 {
   if(state == true)
-    return 2;
+    return 1;
   else
     return 0;
 }
