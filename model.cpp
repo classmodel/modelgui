@@ -297,11 +297,13 @@ void model::runmlmodel()
   wthetav  = wtheta + 0.61 * theta * wq;
   dthetav  = (theta + dtheta) * (1. + 0.61 * (q + dq)) - theta * (1. + 0.61 * q);
 
+  int inputdthetav  = (input.theta + input.dtheta) * (1. + 0.61 * (input.q + input.dq)) - input.theta * (1. + 0.61 * input.q);
+
   // compute large scale vertical velocity
   ws = -omegas * h;
 
   // compute tendencies
-  if(beta == 0 && dthetav == 0)
+  if(beta == 0 && inputdthetav == 0)
     we    = 1 / gammatheta * wthetav / h;
   else
     we    = (beta * wthetav) / dthetav;
