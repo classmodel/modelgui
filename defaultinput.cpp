@@ -674,7 +674,7 @@ void MainWindow::readdefaultinput()
   defaultreactions[15].RadDep          = 0;
   defaultreactions[15].func1           = 2;
   defaultreactions[15].nr_chem_inp     = 2;
-  defaultreactions[15].nr_chem_outp    = 1;
+  defaultreactions[15].nr_chem_outp    = 2;
   defaultreactions[15].inp[0].coef     = 1.00;
   defaultreactions[15].inp[0].cname    = "OH";
   defaultreactions[15].inp[0].chem_nr  = 11;
@@ -685,8 +685,12 @@ void MainWindow::readdefaultinput()
   defaultreactions[15].inp[1].index    = 6;
   defaultreactions[15].outp[0].coef    = 1.00;
   defaultreactions[15].outp[0].cname   = "HO2";
-  defaultreactions[15].outp[0].chem_nr = 12;
-  defaultreactions[15].outp[0].index   = 12;
+  defaultreactions[15].outp[0].chem_nr = 13;
+  defaultreactions[15].outp[0].index   = 13;
+  defaultreactions[15].outp[1].coef    = 1.00;
+  defaultreactions[15].outp[1].cname   = "CO";
+  defaultreactions[15].outp[1].chem_nr = 12;
+  defaultreactions[15].outp[1].index   = 12;
   defaultreactions[15].A               = +5.500e-12;
   defaultreactions[15].B               = +1.250e+02;
   defaultreactions[15].C               = +1.000e+00;
