@@ -982,6 +982,7 @@ void MainWindow::saveRuns()
       out << temprun.run->input.gammasc[n] << endl;
       out << temprun.run->input.advsc[n]   << endl;
       out << temprun.run->input.wsc[n]     << endl;
+      out << temprun.run->input.sw_wsc[n]  << endl;
     }
 
     for(int n=0; n<temprun.run->input.rsize; n++)
@@ -1228,6 +1229,8 @@ void MainWindow::loadRuns()
         tempinput.advsc[n]   = line.toDouble();
         line = in.readLine();
         tempinput.wsc[n]     = line.toDouble();
+        line = in.readLine();
+        tempinput.sw_wsc[n]  = line.toInt();
       }
 
       for(int n=0; n<tempinput.rsize; n++)
