@@ -3219,7 +3219,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>mixed-layer model switch</string>
+           <string>fixed photolysis switch</string>
           </property>
           <property name="layoutDirection">
            <enum>Qt::LeftToRight</enum>
@@ -3232,7 +3232,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_species_photolysis_tref">
           <property name="toolTip">
-           <string>initial ABL height</string>
+           <string/>
           </property>
           <property name="text">
            <string/>
@@ -3312,7 +3312,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_species_ref_Tft">
           <property name="toolTip">
-           <string>surface pressure</string>
+           <string>free tropospheric temperature</string>
           </property>
           <property name="text">
            <string/>
@@ -3338,7 +3338,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_species_ref_qcbl">
           <property name="toolTip">
-           <string>large scale vertical velocity</string>
+           <string>mixed-layer specific humidity</string>
           </property>
           <property name="text">
            <string/>
@@ -3377,7 +3377,7 @@
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_species_ref_qft">
           <property name="toolTip">
-           <string>entrainment ratio for virtual heat</string>
+           <string>free tropospheric specific humidity</string>
           </property>
           <property name="text">
            <string/>
@@ -3415,7 +3415,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>mixed-layer model switch</string>
+           <string/>
           </property>
           <property name="layoutDirection">
            <enum>Qt::LeftToRight</enum>
@@ -3454,7 +3454,7 @@
         <item row="5" column="1">
          <widget class="QLineEdit" name="input_species_ref_pref">
           <property name="toolTip">
-           <string>entrainment ratio for virtual heat</string>
+           <string>reference pressure</string>
           </property>
           <property name="text">
            <string/>
@@ -3506,7 +3506,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_species_ref_Tcbl">
           <property name="toolTip">
-           <string>initial ABL height</string>
+           <string>mixed-layer temperature</string>
           </property>
           <property name="text">
            <string/>
@@ -3598,7 +3598,7 @@
         <item row="0" column="1">
          <widget class="QLineEdit" name="input_species_scalar">
           <property name="toolTip">
-           <string>initial mixed-layer potential temperature</string>
+           <string>initial scalar concentration</string>
           </property>
           <property name="text">
            <string/>
@@ -3611,7 +3611,7 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_species_dscalar">
           <property name="toolTip">
-           <string>initial temperature jump at h</string>
+           <string>initial scalar jump at h</string>
           </property>
           <property name="text">
            <string/>
@@ -3624,7 +3624,7 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_species_gammascalar">
           <property name="toolTip">
-           <string>free atmosphere potential temperature lapse rate</string>
+           <string>free atmosphere scalar lapse rate</string>
           </property>
           <property name="text">
            <string/>
@@ -3650,7 +3650,7 @@
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_species_wscalar">
           <property name="toolTip">
-           <string>surface kinematic heat flux</string>
+           <string>surface kinematic scalar flux</string>
           </property>
           <property name="text">
            <string/>
@@ -3712,7 +3712,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="5" column="0">
          <widget class="QLabel" name="label_species_advscalar">
           <property name="toolTip">
            <string/>
@@ -3726,10 +3726,10 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="5" column="1">
          <widget class="QLineEdit" name="input_species_advscalar">
           <property name="toolTip">
-           <string>advection of heat</string>
+           <string>advection of scalar</string>
           </property>
           <property name="text">
            <string/>
@@ -3739,7 +3739,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
+        <item row="5" column="2">
          <widget class="QLabel" name="unitlabel_species_advscalar">
           <property name="toolTip">
            <string/>
@@ -3752,7 +3752,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1" colspan="2">
+        <item row="4" column="1" colspan="2">
          <widget class="QComboBox" name="selector_species_diurnal">
           <item>
            <property name="text">
@@ -3761,12 +3761,12 @@
           </item>
           <item>
            <property name="text">
-            <string>Simpel diurnal</string>
+            <string>Fixed diurnal</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Advanced diurnal</string>
+            <string>Radiation diurnal</string>
            </property>
           </item>
          </widget>
@@ -3814,7 +3814,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>mixed-layer model switch</string>
+           <string>chemistry model switch</string>
           </property>
           <property name="layoutDirection">
            <enum>Qt::LeftToRight</enum>
@@ -3859,7 +3859,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>420</width>
+         <width>417</width>
          <height>750</height>
         </rect>
        </property>
@@ -3912,7 +3912,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;0(1D) + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;0(1D) + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -4455,7 +4455,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;(H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O) + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -4579,7 +4579,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;(H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O) + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -4722,7 +4722,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CO&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -5017,7 +5017,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;NO + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -5319,7 +5319,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>351</width>
+        <width>441</width>
         <height>51</height>
        </rect>
       </property>
@@ -5331,13 +5331,16 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>339</width>
+         <width>421</width>
          <height>26</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="reactions_grid" columnstretch="0,0,1,1,0">
+       <layout class="QGridLayout" name="reactions_grid" columnstretch="0,0,0,1,0">
         <item row="0" column="1">
          <widget class="QPushButton" name="input_reactions_simplebutton">
+          <property name="toolTip">
+           <string>select simple reactions</string>
+          </property>
           <property name="text">
            <string>Simple</string>
           </property>
@@ -5345,6 +5348,9 @@
         </item>
         <item row="0" column="2">
          <widget class="QPushButton" name="input_reactions_complexbutton">
+          <property name="toolTip">
+           <string>select all reactions</string>
+          </property>
           <property name="text">
            <string>Complex</string>
           </property>
@@ -5352,11 +5358,17 @@
         </item>
         <item row="0" column="3">
          <widget class="QLabel" name="label_reactions_OHrecycling">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
-           <string>Stoichiometric coefficient R19</string>
+           <string>Stoichiometric coefficient for reaction 19</string>
           </property>
           <property name="text">
-           <string>OH-recycling</string>
+           <string>OH-recycling </string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -5365,6 +5377,9 @@
         </item>
         <item row="0" column="4">
          <widget class="QDoubleSpinBox" name="input_reactions_OHrecycling">
+          <property name="toolTip">
+           <string>Stoichiometric coefficient for reaction 19</string>
+          </property>
           <property name="decimals">
            <number>1</number>
           </property>
@@ -5378,6 +5393,9 @@
         </item>
         <item row="0" column="0">
          <widget class="QPushButton" name="input_reactions_nonebutton">
+          <property name="toolTip">
+           <string>deselect all reactions</string>
+          </property>
           <property name="text">
            <string>None</string>
           </property>
@@ -5574,7 +5592,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

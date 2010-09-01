@@ -22,112 +22,7 @@ model::model(modelinput *extinput)
   S0         =  1368.;                  // solar constant [W m-2]
   pi         =  3.14159265359;          // Pi
 
-//  // read initial and boundary conditions from input file
-//  input.runtime    =  extinput.runtime;          // duration of model run [s]
-//  input.dt         =  extinput.dt;               // time step [s]
-//
-//  // mixed-layer
-//  input.sw_ml      =  extinput.sw_ml;
-//  input.h          =  extinput.h;                // initial ABL height [m]
-//  input.Ps         =  extinput.Ps;               // surface pressure [Pa]
-//  input.ws         =  extinput.ws;               // large scale vertical velocity [m s-1]
-//  input.fc         =  extinput.fc;               // coriolis parameter [s-1]
-//
-//  input.theta      =  extinput.theta;            // initial mixed-layer potential temperature [K]
-//  input.dtheta     =  extinput.dtheta;           // initial temperature jump at h [K]
-//  input.gammatheta =  extinput.gammatheta;       // free atmosphere potential temperature lapse rate [K m-1]
-//  input.advtheta   =  extinput.advtheta;         // advection of heat [K s-1]
-//  input.beta       =  extinput.beta;             // entrainment ratio for virtual heat [-]
-//  input.wtheta     =  extinput.wtheta;           // surface kinematic heat flux [K m s-1]
-//
-//  input.q          =  extinput.q;                // initial mixed-layer specific humidity [kg kg-1]
-//  input.dq         =  extinput.dq;               // initial specific humidity jump at h [kg kg-1]
-//  input.gammaq     =  extinput.gammaq;           // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
-//  input.advq       =  extinput.advq;             // advection of moisture [kg kg-1 s-1]
-//  input.wq         =  extinput.wq;               // surface kinematic moisture flux [kg kg-1 m s-1]
-//
-//  input.sw_wind    =  extinput.sw_wind;          // prognostic wind switch
-//  input.u          =  extinput.u;                // initial mixed-layer u-wind speed [m s-1]
-//  input.du         =  extinput.du;               // initial u-wind jump at h [m s-1]
-//  input.gammau     =  extinput.gammau;           // free atmosphere u-wind speed lapse rate [s-1]
-//  input.advu       =  extinput.advu;             // advection of u-wind [m s-2]
-//
-//  input.v          =  extinput.v;                // initial mixed-layer u-wind speed [m s-1]
-//  input.dv         =  extinput.dv;               // initial u-wind jump at h [m s-1]
-//  input.gammav     =  extinput.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
-//  input.advv       =  extinput.advv;             // advection of v-wind [m s-2]
-//
-//  input.nsc        =  extinput.nsc;              // Number of scalars
-//  input.sc         =  new double[input.nsc];
-//  input.dsc        =  new double[input.nsc];
-//  input.gammasc    =  new double[input.nsc];
-//  input.advsc      =  new double[input.nsc];
-//  input.wsc        =  new double[input.nsc];
-//  input.sw_wsc     =  new bool[input.nsc];
-//
-//  for(int i=0; i<input.nsc; i++)
-//  {
-//    input.sc[i]       =  extinput.sc[i];
-//    input.dsc[i]      =  extinput.dsc[i];
-//    input.gammasc[i]  =  extinput.gammasc[i];
-//    input.advsc[i]    =  extinput.advsc[i];
-//    input.wsc[i]      =  extinput.wsc[i];
-//    input.sw_wsc[i]   =  extinput.sw_wsc[i];
-//  }
-//
-//  // surface-layer
-//  input.sw_sl      =  extinput.sw_sl;      // surface layer switch
-//  input.ustar      =  extinput.ustar;      // surface friction velocity [m s-1]
-//  input.z0m        =  extinput.z0m;        // roughness length for momentum [m]
-//  input.z0h        =  extinput.z0h;        // roughness length for scalars [m]
-//
-//  // radiation
-//  input.sw_rad     =  extinput.sw_rad;     // radiation switch
-//  input.lat        =  extinput.lat;        // latitude [deg]
-//  input.lon        =  extinput.lon;        // longitude [deg]
-//  input.doy        =  extinput.doy;        // day of the year [-]
-//  input.tstart     =  extinput.tstart;     // time of the day [h UTC]
-//  input.cc         =  extinput.cc;         // cloud cover fraction [-]
-//  input.Q          =  extinput.Q;          // net radiation [-]
-//
-//  // land surface
-//  input.sw_ls      =  extinput.sw_ls;      // land surface switch
-//  input.wg         =  extinput.wg;         // volumetric water content top soil layer [m3 m-3]
-//  input.w2         =  extinput.w2;         // volumetric water content deeper soil layer [m3 m-3]
-//  input.Tsoil      =  extinput.Tsoil;      // temperature top soil layer [K]
-//  input.T2         =  extinput.T2;         // temperature deeper soil layer [K]
-//
-//  input.a          =  extinput.a;          // Clapp and Hornberger retention curve parameter a
-//  input.b          =  extinput.b;          // Clapp and Hornberger retention curve parameter b
-//  input.p          =  extinput.p;          // Clapp and Hornberger retention curve parameter p
-//  input.CGsat      =  extinput.CGsat;      // saturated soil conductivity for heat
-//
-//  input.wsat       =  extinput.wsat;       // saturated volumetric water content ECMWF config [-]
-//  input.wfc        =  extinput.wfc;        // volumetric water content field capacity [-]
-//  input.wwilt      =  extinput.wwilt;      // volumetric water content wilting point [-]
-//
-//  input.C1sat      =  extinput.C1sat;
-//  input.C2ref      =  extinput.C2ref;
-//
-//  input.LAI        =  extinput.LAI;        // leaf area index [-]
-//  input.gD         =  extinput.gD;         // correction factor transpiration for VPD [-]
-//  input.rsmin      =  extinput.rsmin;      // minimum resistance transpiration [s m-1]
-//  input.rssoilmin  =  extinput.rssoilmin;  // minimum resistance soil evaporation [s m-1]
-//  input.alpha      =  extinput.alpha;      // surface albedo [-]
-//
-//  input.Ts         =  extinput.Ts;         // initial surface temperature [K]
-//
-//  input.cveg       =  extinput.cveg;       // vegetation fraction [-]
-//  input.Wmax       =  extinput.Wmax;       // thickness of water layer on wet vegetation [m]
-//  input.Wl         =  extinput.Wl;         // equivalent water layer depth for wet vegetation [m]
-//
-//  input.Lambda     =  extinput.Lambda;     // thermal diffusivity skin layer [-]
-//
-//  // chemistry
-//  input.sw_chem    =  extinput.sw_chem;
-//  input.rsize      =  extinput.rsize;
-//  input.csize      =  extinput.csize;
-
+  // read initial and boundary conditions from input file
   input = *extinput;
 
   //input.reactions  =  new Reaction[input.rsize];
@@ -194,7 +89,7 @@ void model::initmodel()
   gammasc    =  new double[nsc];
   advsc      =  new double[nsc];
   wsc        =  new double[nsc];
-  sw_wsc     =  new bool[nsc];
+  sw_wsc     =  new int[nsc];
 
   sctend     =  new double[nsc];
   dsctend    =  new double[nsc];
@@ -426,8 +321,16 @@ void model::runmlmodel()
 
   for(int i=0; i<nsc; i++)
   {
-    if(sw_wq && (!sw_ls))
+    if(sw_wsc[i] == 1)
       wsc[i] = wsc0[i] * std::sin(pi / sinperiod * t * dt);
+    else if(sw_wsc[i] == 2)
+    {
+      double sda       = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
+      double sinleamax = sin(2. * pi * lat / 360.) * sin(sda) + cos(2. * pi * lat / 360.) * cos(sda);
+      double sinlea    = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
+      sinlea  = max(sinlea, 0.);
+      wsc[i]  = wsc0[i] * sinlea / sinleamax;
+    }
 
     wsce[i]    = we * dsc[i];
     sctend[i]  = (wsc[i] + wsce[i]) / h + advsc[i];
@@ -461,10 +364,7 @@ void model::runmlmodel()
   double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
   double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
   double etop    = q * Ptop / 0.622;
-  if ((etop / esattop) > 1.)
-    RHtop        = 1.;
-  else
-    RHtop        = etop / esattop;
+  RHtop          = etop / esattop;
 }
 
 void model::intmlmodel()

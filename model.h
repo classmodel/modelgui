@@ -126,7 +126,7 @@ private:
   double *gammasc;  // free atmosphere scalar lapse rate [kg kg-1 m-1]
   double *advsc;    // advection of scalar [kg kg-1 s-1]
   double *wsc;      // surface kinematic scalar flux [kg kg-1 m s-1]
-  bool   *sw_wsc;   // switch for sinusoidal wsc
+  int    *sw_wsc;   // switch for sinusoidal wsc
   double *wsc0;
   double *wsce;
   double *sctend, *dsctend;
