@@ -1016,6 +1016,7 @@ void MainWindow::loadRuns()
   QString line;
   modelrun temprun(&defaultinput);
   modelinput tempinput;
+  tempinput = defaultinput;
 
   line = in.readLine();
   if(line != "#MXL# NEWRUN")
