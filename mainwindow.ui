@@ -3859,7 +3859,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>417</width>
+         <width>420</width>
          <height>750</height>
         </rect>
        </property>
@@ -3912,7 +3912,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>&lt;html&gt;0(1D) + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
+            <string>&lt;html&gt;O(1D) + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -5592,7 +5592,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>19</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
