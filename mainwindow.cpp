@@ -385,8 +385,8 @@ void MainWindow::storeFormData()
 
   if (activetab == 2)
   {
-    formvalues.z0m                = ui->input_surface_z0m->text().toDouble();
-    formvalues.z0h                = ui->input_surface_z0h->text().toDouble();
+    formvalues.z0m      = ui->input_surface_z0m->text().toDouble();
+    formvalues.z0h      = ui->input_surface_z0h->text().toDouble();
   }
   // END TAB3
 
@@ -524,6 +524,7 @@ void MainWindow::loadFormData()
     // SWITCHES
     //Qt::CheckState check;
     ui->sw_wind->setCheckState(Bool2CheckState(formvalues.sw_wind));
+      switch_wind(Bool2Int(formvalues.sw_wind));
     ui->sw_ml->setCheckState(Bool2CheckState(formvalues.sw_ml));
     ui->sw_rad->setCheckState(Bool2CheckState(formvalues.sw_rad));
     ui->sw_sl->setCheckState(Bool2CheckState(formvalues.sw_sl));
@@ -531,6 +532,7 @@ void MainWindow::loadFormData()
     ui->sw_wtheta->setCheckState(Bool2CheckState(formvalues.sw_wtheta));
     ui->sw_wq->setCheckState(Bool2CheckState(formvalues.sw_wq));
     ui->sw_chem->setCheckState(Bool2CheckState(formvalues.sw_chem));
+      switch_chem(Bool2Int(formvalues.sw_chem));
     ui->sw_chem_constant->setCheckState(Bool2CheckState(formvalues.sw_chem_constant));
     ui->sw_species_photolysis->setCheckState(Bool2CheckState(formvalues.sw_photo_constant));
 
@@ -728,6 +730,14 @@ Qt::CheckState MainWindow::Bool2CheckState(bool state)
     return Qt::Checked;
   else
     return Qt::Unchecked;
+}
+
+int MainWindow::Bool2Int(bool state)
+{
+  if(state == true)
+    return 1;
+  else
+    return 0;
 }
 
 void MainWindow::deleteRun()
@@ -1509,7 +1519,6 @@ void MainWindow::switch_ls(int state)
   else
     ui->input_surfacelayer_z0h->setToolTip("roughness length for scalars");
 
-  // formvalues.sw_ls = checkstate;
   updateStatusBar();
 }
 
@@ -1526,7 +1535,6 @@ void MainWindow::switch_sl(int state)
   else
     checkstate = false;
 
-  // formvalues.sw_sl = checkstate;
   updateStatusBar();
 }
 
@@ -1538,7 +1546,6 @@ void MainWindow::switch_rad(int state)
   else
     checkstate = false;
 
-  // formvalues.sw_rad = checkstate;
   updateStatusBar();
 }
 
@@ -1550,7 +1557,6 @@ void MainWindow::switch_ml(int state)
   else
     checkstate = false;
 
-  // formvalues.sw_ml = checkstate;
   updateStatusBar();
 }
 
@@ -1561,8 +1567,6 @@ void MainWindow::switch_wtheta(int state)
     checkstate = true;
   else
     checkstate = false;
-
-  // formvalues.sw_wtheta = checkstate;
 }
 
 void MainWindow::switch_wq(int state)
@@ -1572,8 +1576,6 @@ void MainWindow::switch_wq(int state)
     checkstate = true;
   else
     checkstate = false;
-
-  // formvalues.sw_wq = checkstate;
 }
 
 void MainWindow::switch_surface_advanced(int state)
@@ -1587,9 +1589,6 @@ void MainWindow::switch_surface_advanced(int state)
   ui->surface_advanced_group->setEnabled(checkstate);
   ui->input_surface_surfacetypes->setEnabled(!checkstate);
 
-  // int id = ui->modelRunTree->currentItem()->text(0).toInt();
-  // modelrunlist->find(id).value().surfaceadvanced = checkstate;
-
 }
 
 void MainWindow::switch_soil_advanced(int state)
@@ -1602,9 +1601,6 @@ void MainWindow::switch_soil_advanced(int state)
 
   ui->soil_advanced_group->setEnabled(checkstate);
   ui->input_soil_soiltypes->setEnabled(!checkstate);
-
-  // int id = ui->modelRunTree->currentItem()->text(0).toInt();
-  // modelrunlist->find(id).value().soiladvanced = checkstate;
 }
 
 void MainWindow::switch_chem(int state)

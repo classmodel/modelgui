@@ -81,6 +81,7 @@ private:
   void updateStatusBar();
   bool CheckState2bool(Qt::CheckState);
   Qt::CheckState Bool2CheckState(bool);
+  int Bool2Int(bool);
   void setReactions(int);
 
   void initLandSoil();
