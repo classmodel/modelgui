@@ -364,6 +364,8 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
     }
 
     plotar->legendmoved = false;
+    ui->autoscaleaxis->setCheckState(Qt::Checked);
+    plotar->autoaxis = true;
     updateplotdata();
     plotar->update();
   }
