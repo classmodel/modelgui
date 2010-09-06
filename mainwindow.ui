@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -2528,7 +2528,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;T&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;soil&lt;/span&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;T&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;soil 1&lt;/span&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2551,7 +2551,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;T&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;T&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;soil 2&lt;/span&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3017,7 +3017,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;W&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;g&lt;/span&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;W&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;soil 1&lt;/span&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3040,7 +3040,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;W&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;W&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;soil 2&lt;/span&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3859,7 +3859,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>420</width>
+         <width>417</width>
          <height>750</height>
         </rect>
        </property>
@@ -5592,7 +5592,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
