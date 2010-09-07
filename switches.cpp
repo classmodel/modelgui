@@ -246,6 +246,8 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   // chemistry
   else if (plotvar == "phi")
     *data = n.run->output->phi;
+  else if (plotvar == "k_r05")
+    *data = n.run->output->k_r05;
 
   for(int i=0; i<22; i++) // nsc hardcoded
   {
@@ -395,6 +397,8 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
 
   // chemistry
   else if (label == "phi")
+    *plotvar = label;
+  else if (label == "k_r05")
     *plotvar = label;
 
   for(int i=0; i<22; i++) // nsc hardcoded!

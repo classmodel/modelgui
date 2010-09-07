@@ -11,7 +11,7 @@ public:
   modelinput input;
   modeloutput *output;
   void run2file(std::string, std::string);
- 
+
 private:
   void initmodel();
 
@@ -46,7 +46,7 @@ private:
   double rhow;      // density of water [kg m-3]
   double S0;        // solar constant [W m-2]
   double pi;
-  
+
   // time variables
   double runtime;   // duration of model run [s]
   double dt;        // time step [s]
@@ -65,7 +65,7 @@ private:
   double lcl;       // lifted condensation level [m]
   double RH;        // Relative humidity at T=theta [-]
   double RHtop;     // Relative humidity at mixed-layer top [-]
-  
+
   double theta;     // initial mixed-layer potential temperature [K]
   double dtheta;    // initial temperature jump at h [K]
   double gammatheta;// free atmosphere potential temperature lapse rate [K m-1]
@@ -89,7 +89,7 @@ private:
   double thetavsurf;// surface virtual potential temperature [K]
   double qsurf;     // surface specific humidity [g kg-1]
   double wthetav;   // surface kinematic virtual heat flux [K m s-1]
-  
+
   double q;         // initial mixed-layer specific humidity [kg kg-1]
   double dq;        // initial specific humidity jump at h [kg kg-1]
   double gammaq;    // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
@@ -112,7 +112,7 @@ private:
   double advu;      // advection of u-wind [m s-2]
   double uw;        // surface momentum flux in u-direction [m2 s-2]
   double uwe;       // Entrainment momentum flux in u-direction [m2 s-2]
-  
+
   double v;         // initial mixed-layer u-wind speed [m s-1]
   double dv;        // initial u-wind jump at h [m s-1]
   double gammav;    // free atmosphere v-wind speed lapse rate [s-1]
@@ -121,7 +121,7 @@ private:
   double vwe;       // Entrainment momentum flux in v-direction [m2 s-2]
 
   int nsc;
-  double *sc;       // initial mixed-layer scalar 
+  double *sc;       // initial mixed-layer scalar
   double *dsc;      // initial scalar jump at h [kg kg-1]
   double *gammasc;  // free atmosphere scalar lapse rate [kg kg-1 m-1]
   double *advsc;    // advection of scalar [kg kg-1 s-1]
@@ -231,5 +231,6 @@ private:
   double tod_ref;
   double stocoef;
   double phi;
+  double k_r05;
 };
 

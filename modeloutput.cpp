@@ -375,6 +375,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   phi.description             = "Photostationary state";
   phi.id                      = "phi";
 
+  k_r05.data                    = new double[tsteps];   // Net radiation [W m-2]
+  k_r05.name                    = "k_r05";
+  k_r05.unit                    = "-";
+  k_r05.description             = "NO2 photolysis rate (r05)";
+  k_r05.id                      = "k_r05";
+
   sc                        = new outputvar[nsc];
   for(int n=0; n<nsc; n++)
   {

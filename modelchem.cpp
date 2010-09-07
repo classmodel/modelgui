@@ -676,7 +676,7 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
 
 // CvH iter: cf_switch: BL or FT
 // CvH ynew = array scalars out, ycurrent = array scalars in
-void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double ycurrent[], double *phi)
+void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double ycurrent[], double *phi, double *k_r05)
 {
  //t is the number of sec since the beginning of the run (for dtime=1)
   int n,j;
@@ -782,7 +782,7 @@ void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double y
     } //n=1,nchsp
   } //iiter
 
-  if(cf_switch ==true){
+  if(cf_switch ==true){   // hardcoded reaction 4
     if(no2>0 && no>0 && o3>0){
       if((RC_ptr[4]->Keff_cbl>1e-10) && (ynew[no2]>1e-5)){
         *phi = RC_ptr[20]->Keff_cbl*ynew[no]*ynew[o3]/(RC_ptr[4]->Keff_cbl*ynew[no2]);
@@ -793,5 +793,12 @@ void modelchem::iter(int cf_switch, double dt, double q, double ynew[], double y
       }
     }
   }
+
+  // hard coded
+
+  if(RC_ptr[4]->activ == true)
+    *k_r05 = RC_ptr[4]->Keff_cbl;
+  else
+    *k_r05 = 0.;
 }
 

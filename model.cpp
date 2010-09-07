@@ -46,7 +46,7 @@ void model::initmodel()
   omegas     =  input.omegas;           // large scale vertical velocity [m s-1]
   ws         =  -1.;
   fc         =  input.fc;               // coriolis parameter [s-1]
-  
+
   theta      =  input.theta;            // initial mixed-layer potential temperature [K]
   dtheta     =  input.dtheta;           // initial temperature jump at h [K]
   gammatheta =  input.gammatheta;       // free atmosphere potential temperature lapse rate [K m-1]
@@ -55,9 +55,9 @@ void model::initmodel()
   wtheta     =  input.wtheta;           // surface kinematic heat flux [K m s-1]
   wtheta0    =  input.wtheta;           // maximum surface kinematic heat flux [K m s-1]
   sw_wtheta  =  input.sw_wtheta;
-  
+
   thetasurf  =  input.theta;            // surface potential temperature [K]
-  
+
   q          =  input.q;                // initial mixed-layer specific humidity [kg kg-1]
   dq         =  input.dq;               // initial specific humidity jump at h [kg kg-1]
   gammaq     =  input.gammaq;           // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
@@ -71,13 +71,13 @@ void model::initmodel()
   e          =  -1.;                    // mixed-layer vapor pressure [Pa]
   qsatsurf   =  -1.;                    // surface saturated specific humidity [g kg-1]
   dqsatdT    =  -1.;                    // slope saturated specific humidity curve [g kg-1 K-1]
-  
+
   sw_wind    =  input.sw_wind;          // prognostic wind switch
   u          =  input.u;                // initial mixed-layer u-wind speed [m s-1]
   du         =  input.du;               // initial u-wind jump at h [m s-1]
   gammau     =  input.gammau;           // free atmosphere u-wind speed lapse rate [s-1]
   advu       =  input.advu;             // advection of u-wind [m s-2]
-  
+
   v          =  input.v;                // initial mixed-layer u-wind speed [m s-1]
   dv         =  input.dv;               // initial u-wind jump at h [m s-1]
   gammav     =  input.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
@@ -118,7 +118,7 @@ void model::initmodel()
   L          =  -1;                     // Obukhov length [-]
   Rib        =  -1;                     // bulk Richardson number [-]
   ra         =  -1;                     // aerodynamic resistance [s m-1]
-  
+
   // radiation
   sw_rad     =  input.sw_rad;           // radiation switch
   lat        =  input.lat;              // latitude [deg]
@@ -131,7 +131,7 @@ void model::initmodel()
   Lwin       =  -1;
   Lwout      =  -1;
   Q          =  input.Q;                // net radiation [W m-2]
-  
+
   // land surface
   sw_ls      =  input.sw_ls;            // land surface switch
   sw_sea     =  input.sw_sea;           // land / sea switch
@@ -139,19 +139,19 @@ void model::initmodel()
   w2         =  input.w2;               // volumetric water content deeper soil layer [m3 m-3]
   Tsoil      =  input.Tsoil;            // temperature top soil layer [K]
   T2         =  input.T2;               // temperature deeper soil layer [K]
-  
+
   a          =  input.a;                // Clapp and Hornberger retention curve parameter a
   b          =  input.b;                // Clapp and Hornberger retention curve parameter b
   p          =  input.p;                // Clapp and Hornberger retention curve parameter p
   CGsat      =  input.CGsat;            // saturated soil conductivity for heat
-  
+
   wsat       =  input.wsat;             // saturated volumetric water content ECMWF config [-]
   wfc        =  input.wfc;              // volumetric water content field capacity [-]
   wwilt      =  input.wwilt;            // volumetric water content wilting point [-]
-  
+
   C1sat      =  input.C1sat;
   C2ref      =  input.C2ref;
-  
+
   LAI        =  input.LAI;              // leaf area index [-]
   gD         =  input.gD;               // correction factor transpiration for VPD [-]
   rsmin      =  input.rsmin;            // minimum resistance transpiration [s m-1]
@@ -160,14 +160,14 @@ void model::initmodel()
 
   rs         =  1e6;
   rssoil     =  1e6;
-  
+
   Ts         =  input.Ts;               // initial surface temperature [K]
-  
+
   cveg       =  input.cveg;             // vegetation fraction [-]
   Wmax       =  input.Wmax;             // thickness of water layer on wet vegetation [m]
   Wl         =  input.Wl;               // equivalent water layer depth for wet vegetation [m]
   cliq       =  -1;                     // wet fraction [-]
-  
+
   Lambda     =  input.Lambda;           // thermal diffusivity skin layer [-]
 
   Tsoiltend  =  -1.;                    // soil temperature tendency [K s-1]
@@ -238,7 +238,7 @@ void model::initmodel()
 
   store();
   return;
-} 
+}
 
 
 void model::runmodel()
@@ -711,7 +711,7 @@ void model::store()
   output->we.data[t]         = we;
   output->RH.data[t]         = RH;
   output->RHtop.data[t]      = RHtop;
-  
+
   output->q.data[t]          = q * 1000.;
   //output.qsat[t]       = qsat;
   //output.e[t]          = e;
@@ -728,7 +728,7 @@ void model::store()
   output->advu.data[t]       = advu;
   output->uw.data[t]         = uw;
   output->uwe.data[t]        = uwe;
-  
+
   output->v.data[t]          = v;
   output->dv.data[t]         = dv;
   output->gammav.data[t]     = gammav;
@@ -782,6 +782,8 @@ void model::store()
 
   //chemistry
   output->phi.data[t]     = phi;
+  output->k_r05.data[t]   = k_r05;
+
   for(int n=0;n<nsc; n++)
     if(sw_chemoutput[n])
       output->sc[n].data[t] = sc[n];
@@ -789,7 +791,7 @@ void model::store()
       output->sc[n].data[t] = 0;
 
   return;
-} 
+}
 
 void model::run2file(std::string filedir, std::string filename)
 {
@@ -942,7 +944,7 @@ void model::run2file(std::string filedir, std::string filename)
   runprofsave << output->thetaprof.name << " [" << output->thetaprof.unit << "]   ";
   runprofsave << output->qprof.name << " [" << output->qprof.unit << "]";
   runprofsave << std::endl;
-  
+
   for(int nt=0; nt < tsteps * 4; nt=nt+4)
   {
     runprofsave << "# timestep: " << output->t.data[nt] << " [hour]" << std::endl;
@@ -963,7 +965,7 @@ void model::initchemmodel()
   //cout << "Starting initchemmodel" << endl;
 
   int i;
-  
+
   //Reaction Reactions[RSIZE];
 
   Reaction **RC_ptr;
@@ -1013,7 +1015,7 @@ void model::runchemmodel(double chemdt)
   //cout << "Running chemmodel for timestep: " << t << endl;
 
   if(sw_chem_constant)
-  {    
+  {
     double  sda;     // solar declination angle [rad]
     double  sinlea;  // sinus of local declination angle [-]
 
@@ -1030,7 +1032,7 @@ void model::runchemmodel(double chemdt)
                 qcbl_ref, qfc_ref, \
                 sinlea );
 
-    cm->iter(1, chemdt, qcbl_ref, iterout, iterin, &phi);
+    cm->iter(1, chemdt, qcbl_ref, iterout, iterin, &phi, &k_r05);
 
     for(int i=0; i<nsc; i++)
      sc[i] = iterout[i];
@@ -1043,7 +1045,7 @@ void model::runchemmodel(double chemdt)
 
     double dummy;
 
-    cm->iter(0, chemdt, qfc_ref, iterout, iterin, &dummy);
+    cm->iter(0, chemdt, qfc_ref, iterout, iterin, &dummy, &dummy);
 
     for(int i=0; i<nsc; i++)
      dsc[i] = iterout[i] - sc[i];
@@ -1074,7 +1076,7 @@ void model::runchemmodel(double chemdt)
                q,    qfc, \
                sinlea );
 
-    cm->iter(1, chemdt, q, iterout, iterin, &phi);
+    cm->iter(1, chemdt, q, iterout, iterin, &phi, &k_r05);
 
     for(int i=0; i<nsc; i++)
      sc[i] = iterout[i];
@@ -1085,7 +1087,7 @@ void model::runchemmodel(double chemdt)
       iterout[i] = fsc[i];
     }
 
-    cm->iter(0, chemdt, qfc, iterout, iterin, &phi);
+    cm->iter(0, chemdt, qfc, iterout, iterin, &phi, &k_r05);
 
     for(int i=0; i<nsc; i++)
       dsc[i] = iterout[i] - sc[i];

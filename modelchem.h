@@ -23,7 +23,7 @@
 
 #define QLOC 15
 
-   
+
 class modelchem
 {
   public:
@@ -36,8 +36,8 @@ class modelchem
                  double Q_bl, double Q_ft, \
                  double zenith);
 
-    void iter(int cf_switch, double dt, double q, double ynew[],double ycurrent[], double*);
-  
+    void iter(int cf_switch, double dt, double q, double ynew[],double ycurrent[], double*, double*);
+
     int nr_chemicals;
     char chem_name[25][10];
 
