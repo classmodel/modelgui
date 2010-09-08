@@ -202,7 +202,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.k_r05;
 
   for(int n=0; n<22; n++)
-    chemistry << modelout.sc[n];
+    if(n < 14 || n > 17)
+      chemistry << modelout.sc[n];
 
   ui->advancedplottree->setFocusPolicy(Qt::NoFocus);
 
