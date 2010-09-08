@@ -69,7 +69,7 @@
         <x>10</x>
         <y>10</y>
         <width>211</width>
-        <height>171</height>
+        <height>141</height>
        </rect>
       </property>
       <property name="title">
@@ -81,26 +81,13 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>151</height>
+         <height>111</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="modelsettings_grid" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_name">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>Name:</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0" colspan="3">
          <widget class="QLabel" name="label_mixedlayer">
           <property name="minimumSize">
@@ -116,21 +103,14 @@
            </size>
           </property>
           <property name="text">
-           <string>Model settings</string>
+           <string>Time settings</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="1" column="1" colspan="2">
-         <widget class="QLineEdit" name="input_name">
-          <property name="toolTip">
-           <string>name of the model run</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
+        <item row="1" column="0">
          <widget class="QLabel" name="label_time">
           <property name="toolTip">
            <string/>
@@ -143,7 +123,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="1" column="1">
          <widget class="QLineEdit" name="input_time">
           <property name="toolTip">
            <string>total simulation time</string>
@@ -156,7 +136,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
+        <item row="1" column="2">
          <widget class="QLabel" name="unitlabel_time">
           <property name="toolTip">
            <string/>
@@ -169,7 +149,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="label_timestep">
           <property name="toolTip">
            <string/>
@@ -182,7 +162,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="2" column="1">
          <widget class="QLineEdit" name="input_timestep">
           <property name="toolTip">
            <string>time step</string>
@@ -195,7 +175,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
+        <item row="2" column="2">
          <widget class="QLabel" name="unitlabel_timestep">
           <property name="toolTip">
            <string/>
@@ -208,7 +188,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="3" column="1">
          <widget class="QLineEdit" name="input_sinperiod">
           <property name="toolTip">
            <string>period of diurnal cycle</string>
@@ -221,7 +201,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="3" column="0">
          <widget class="QLabel" name="label_period">
           <property name="toolTip">
            <string/>
@@ -234,7 +214,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
+        <item row="3" column="2">
          <widget class="QLabel" name="unitlabel_period">
           <property name="toolTip">
            <string/>
@@ -524,7 +504,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>150</height>
+         <height>141</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="ml_grid" columnminimumwidth="50,0,80">
@@ -5428,9 +5408,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>10</y>
+       <y>60</y>
        <width>131</width>
-       <height>221</height>
+       <height>171</height>
       </rect>
      </property>
      <column>
@@ -5539,6 +5519,38 @@
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="QLineEdit" name="input_name">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>131</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>name of the model run</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_name">
+     <property name="geometry">
+      <rect>
+       <x>16</x>
+       <y>10</y>
+       <width>121</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="text">
+      <string>Run name</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
     </widget>
    </widget>
    <widget class="QPushButton" name="startButton">
