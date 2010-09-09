@@ -86,6 +86,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     point->setText(1, QString::fromStdString(modelout.sc[visible_species.value(i)].name));
   }
 
+  activerun = -1;
   activespecies = visible_species[0];
   ui->species_treewidget->setCurrentItem(ui->species_treewidget->topLevelItem(0));
   // End species
@@ -94,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   selectedruns = new QList<int>;
 
   setLandSoil();
-  activerun = -1;
+
 
   newrun();
   ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
@@ -486,16 +487,20 @@ void MainWindow::storeFormData()
 //    updateForm();
 //  }
 
-  if (activerun != -1 && ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
+  if (activerun != -1) // && ui->modelRunTree->selectedItems().size() == 1)                  // Extra check if QTreeWidget has selected item
   {
-    modelrunlist->find(activerun).value().run->input = formvalues;
-    modelrunlist->find(activerun).value().runname    = name;
+    QMap<int, modelrun>::const_iterator i = modelrunlist->find(activerun);
+    if(i != modelrunlist->end())
+    {
+      modelrunlist->find(activerun).value().run->input = formvalues;
+      modelrunlist->find(activerun).value().runname    = name;
 
-    modelrunlist->find(activerun).value().surfacestatus = ui->input_surface_surfacetypes->currentIndex();
-    modelrunlist->find(activerun).value().soilstatus    = ui->input_soil_soiltypes->currentIndex();
+      modelrunlist->find(activerun).value().surfacestatus = ui->input_surface_surfacetypes->currentIndex();
+      modelrunlist->find(activerun).value().soilstatus    = ui->input_soil_soiltypes->currentIndex();
 
-    modelrunlist->find(activerun).value().surfaceadvanced = CheckState2bool(ui->sw_surface_advanced->checkState());
-    modelrunlist->find(activerun).value().soiladvanced    = CheckState2bool(ui->sw_soil_advanced->checkState());
+      modelrunlist->find(activerun).value().surfaceadvanced = CheckState2bool(ui->sw_surface_advanced->checkState());
+      modelrunlist->find(activerun).value().soiladvanced    = CheckState2bool(ui->sw_soil_advanced->checkState());
+    }
     // updateForm();
   }
 
