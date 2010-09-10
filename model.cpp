@@ -615,10 +615,12 @@ void model::runlsmodel()
     else
       f2   = 1.e8;
 
-    f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
-    f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
+    //f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
+    //f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
+    f3     = 1. / exp(- gD * (esat - e) / 100.);
+    f4     = 1./ (1. - 0.0016 * pow(298.0 - theta, 2.));
 
-    rs     = rsmin / LAI * f1 * f2 * f3;
+    rs     = rsmin / LAI * f1 * f2 * f3 * f4;
 
     // recompute f2 using wg instead of w2
     if(wg > wwilt)
