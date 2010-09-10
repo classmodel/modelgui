@@ -3819,1488 +3819,13 @@
      <attribute name="title">
       <string>Reactions</string>
      </attribute>
-     <widget class="QScrollArea" name="reactions_scrollarea">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>60</y>
-        <width>441</width>
-        <height>341</height>
-       </rect>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOn</enum>
-      </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="reactions_scrollarea_widget">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>417</width>
-         <height>750</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>750</height>
-        </size>
-       </property>
-       <widget class="QWidget" name="gridLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>391</width>
-          <height>727</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="reactions_grid2" columnstretch="0,0,0,0,1" columnminimumwidth="0,40,0,30,0">
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="sw_R1">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_reactions_R1L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; + hv&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="sw_R2">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
-          <widget class="QLabel" name="label_reactions_R1R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;O(1D) + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QLabel" name="label_reactions_arrow">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QLabel" name="label_reactions_R2L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;O(1D) + H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="4">
-          <widget class="QLabel" name="label_reactions_R2R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;OH + OH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_2">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="label_reactions_R2">
-           <property name="text">
-            <string>&lt;html&gt;R2 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_reactions_R1">
-           <property name="text">
-            <string>&lt;html&gt;R1 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="sw_R3">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="label_reactions_R3">
-           <property name="text">
-            <string>&lt;html&gt;R3 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QLabel" name="label_reactions_R3L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;O(1D) + N&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="4">
-          <widget class="QLabel" name="label_reactions_R3R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_3">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QCheckBox" name="sw_R4">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QLabel" name="label_reactions_R4">
-           <property name="text">
-            <string>&lt;html&gt;R4 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="2">
-          <widget class="QLabel" name="label_reactions_R4L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;O(1D) + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_4">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="4">
-          <widget class="QLabel" name="label_reactions_R4R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QCheckBox" name="sw_R5">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QCheckBox" name="sw_R6">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0">
-          <widget class="QCheckBox" name="sw_R7">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="0">
-          <widget class="QCheckBox" name="sw_R8">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="0">
-          <widget class="QCheckBox" name="sw_R9">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="0">
-          <widget class="QCheckBox" name="sw_R10">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="0">
-          <widget class="QCheckBox" name="sw_R11">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="1">
-          <widget class="QLabel" name="label_reactions_R11">
-           <property name="text">
-            <string>&lt;html&gt;R11 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLabel" name="label_reactions_R5">
-           <property name="text">
-            <string>&lt;html&gt;R5 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="1">
-          <widget class="QLabel" name="label_reactions_R6">
-           <property name="text">
-            <string>&lt;html&gt;R6 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QLabel" name="label_reactions_R7">
-           <property name="text">
-            <string>&lt;html&gt;R7 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="1">
-          <widget class="QLabel" name="label_reactions_R8">
-           <property name="text">
-            <string>&lt;html&gt;R8 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="1">
-          <widget class="QLabel" name="label_reactions_R9">
-           <property name="text">
-            <string>&lt;html&gt;R9 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="1">
-          <widget class="QLabel" name="label_reactions_R10">
-           <property name="text">
-            <string>&lt;html&gt;R10 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="2">
-          <widget class="QLabel" name="label_reactions_R5L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + hv&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_5">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="4">
-          <widget class="QLabel" name="label_reactions_R5R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;NO + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="2">
-          <widget class="QLabel" name="label_reactions_R6L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O + hv&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="4">
-          <widget class="QLabel" name="label_reactions_R6R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="2">
-          <widget class="QLabel" name="label_reactions_R7L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;OH + CO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="4">
-          <widget class="QLabel" name="label_reactions_R7R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="2">
-          <widget class="QLabel" name="label_reactions_R8L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;OH + CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;4&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="4">
-          <widget class="QLabel" name="label_reactions_R8R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="2">
-          <widget class="QLabel" name="label_reactions_R9L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;OH + ISO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="4">
-          <widget class="QLabel" name="label_reactions_R9R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;RO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_6">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_7">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_8">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_9">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_10">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_12">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="2">
-          <widget class="QLabel" name="label_reactions_R10L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;OH + MVK&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="4">
-          <widget class="QLabel" name="label_reactions_R10R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="2">
-          <widget class="QLabel" name="label_reactions_R11L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;OH + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="4">
-          <widget class="QLabel" name="label_reactions_R11R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;(H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O) + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="11" column="0">
-          <widget class="QCheckBox" name="sw_R12">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="0">
-          <widget class="QCheckBox" name="sw_R13">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="13" column="0">
-          <widget class="QCheckBox" name="sw_R14">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="14" column="0">
-          <widget class="QCheckBox" name="sw_R15">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="15" column="0">
-          <widget class="QCheckBox" name="sw_R16">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="16" column="0">
-          <widget class="QCheckBox" name="sw_R17">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="17" column="0">
-          <widget class="QCheckBox" name="sw_R18">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="11" column="1">
-          <widget class="QLabel" name="label_reactions_R12">
-           <property name="text">
-            <string>&lt;html&gt;R12 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="1">
-          <widget class="QLabel" name="label_reactions_R13">
-           <property name="text">
-            <string>&lt;html&gt;R13 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="13" column="1">
-          <widget class="QLabel" name="label_reactions_R14">
-           <property name="text">
-            <string>&lt;html&gt;R14 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="14" column="1">
-          <widget class="QLabel" name="label_reactions_R15">
-           <property name="text">
-            <string>&lt;html&gt;R15 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="15" column="1">
-          <widget class="QLabel" name="label_reactions_R16">
-           <property name="text">
-            <string>&lt;html&gt;R16 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="16" column="1">
-          <widget class="QLabel" name="label_reactions_R17">
-           <property name="text">
-            <string>&lt;html&gt;R17 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="17" column="1">
-          <widget class="QLabel" name="label_reactions_R18">
-           <property name="text">
-            <string>&lt;html&gt;R18 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="11" column="2">
-          <widget class="QLabel" name="label_reactions_R12L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;OH + H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="11" column="4">
-          <widget class="QLabel" name="label_reactions_R12R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;(H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O) + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="2">
-          <widget class="QLabel" name="label_reactions_R13L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="4">
-          <widget class="QLabel" name="label_reactions_R13R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;OH + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="13" column="2">
-          <widget class="QLabel" name="label_reactions_R14L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="13" column="4">
-          <widget class="QLabel" name="label_reactions_R14R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="11" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_11">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_13">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="13" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_14">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="14" column="2">
-          <widget class="QLabel" name="label_reactions_R15L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;RO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="14" column="4">
-          <widget class="QLabel" name="label_reactions_R15R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O + MVK&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="15" column="2">
-          <widget class="QLabel" name="label_reactions_R16L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;OH + CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="15" column="4">
-          <widget class="QLabel" name="label_reactions_R16R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CO&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="16" column="2">
-          <widget class="QLabel" name="label_reactions_R17L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="16" column="4">
-          <widget class="QLabel" name="label_reactions_R17R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="17" column="2">
-          <widget class="QLabel" name="label_reactions_R18L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="17" column="4">
-          <widget class="QLabel" name="label_reactions_R18R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;Product&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="14" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_15">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="15" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_16">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="16" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_17">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="17" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_18">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="18" column="0">
-          <widget class="QCheckBox" name="sw_R19">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="19" column="0">
-          <widget class="QCheckBox" name="sw_R20">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="20" column="0">
-          <widget class="QCheckBox" name="sw_R21">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="21" column="0">
-          <widget class="QCheckBox" name="sw_R22">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="22" column="0">
-          <widget class="QCheckBox" name="sw_R23">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="23" column="0">
-          <widget class="QCheckBox" name="sw_R24">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="24" column="0">
-          <widget class="QCheckBox" name="sw_R25">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="25" column="0">
-          <widget class="QCheckBox" name="sw_R26">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="26" column="0">
-          <widget class="QCheckBox" name="sw_R27">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="18" column="1">
-          <widget class="QLabel" name="label_reactions_R19">
-           <property name="text">
-            <string>&lt;html&gt;R19 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="19" column="1">
-          <widget class="QLabel" name="label_reactions_R20">
-           <property name="text">
-            <string>&lt;html&gt;R20 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="20" column="1">
-          <widget class="QLabel" name="label_reactions_R21">
-           <property name="text">
-            <string>&lt;html&gt;R21 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="21" column="1">
-          <widget class="QLabel" name="label_reactions_R22">
-           <property name="text">
-            <string>&lt;html&gt;R22 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="22" column="1">
-          <widget class="QLabel" name="label_reactions_R23">
-           <property name="text">
-            <string>&lt;html&gt;R23&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="23" column="1">
-          <widget class="QLabel" name="label_reactions_R24">
-           <property name="text">
-            <string>&lt;html&gt;R24 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="25" column="1">
-          <widget class="QLabel" name="label_reactions_R26">
-           <property name="text">
-            <string>&lt;html&gt;R26 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="24" column="1">
-          <widget class="QLabel" name="label_reactions_R25">
-           <property name="text">
-            <string>&lt;html&gt;R25 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="26" column="1">
-          <widget class="QLabel" name="label_reactions_R27">
-           <property name="text">
-            <string>&lt;html&gt;R27 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="18" column="2">
-          <widget class="QLabel" name="label_reactions_R19L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;RO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="18" column="4">
-          <widget class="QLabel" name="label_reactions_R19R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;nOH + Product&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="19" column="2">
-          <widget class="QLabel" name="label_reactions_R20L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;OH + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="19" column="4">
-          <widget class="QLabel" name="label_reactions_R20R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;HNO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="20" column="2">
-          <widget class="QLabel" name="label_reactions_R21L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;NO + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="20" column="4">
-          <widget class="QLabel" name="label_reactions_R21R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="21" column="2">
-          <widget class="QLabel" name="label_reactions_R22L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;NO + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; &lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="21" column="4">
-          <widget class="QLabel" name="label_reactions_R22R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;2NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="22" column="2">
-          <widget class="QLabel" name="label_reactions_R23L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; &lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="22" column="4">
-          <widget class="QLabel" name="label_reactions_R23R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="23" column="2">
-          <widget class="QLabel" name="label_reactions_R24L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; + M &lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="23" column="4">
-          <widget class="QLabel" name="label_reactions_R24R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;N&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;5&lt;/span&gt; + M&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="24" column="2">
-          <widget class="QLabel" name="label_reactions_R25L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;N&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;5&lt;/span&gt; + M&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="24" column="4">
-          <widget class="QLabel" name="label_reactions_R25R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + M&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="25" column="2">
-          <widget class="QLabel" name="label_reactions_R26L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;N&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;5&lt;/span&gt; + H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="25" column="4">
-          <widget class="QLabel" name="label_reactions_R26R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;2HNO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="26" column="2">
-          <widget class="QLabel" name="label_reactions_R27L">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;N&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;5&lt;/span&gt; + 2H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="26" column="4">
-          <widget class="QLabel" name="label_reactions_R27R">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;2HNO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="18" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_19">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="19" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_20">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="20" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_21">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="21" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_22">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="22" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_23">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="23" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_24">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="24" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_25">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="25" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_27">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="26" column="3">
-          <widget class="QLabel" name="label_reactions_arrow_26">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-     </widget>
      <widget class="QGroupBox" name="reactions_group">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
         <width>441</width>
-        <height>51</height>
+        <height>401</height>
        </rect>
       </property>
       <property name="title">
@@ -5382,6 +3907,1484 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QScrollArea" name="reactions_scrollarea">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>421</width>
+         <height>341</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOn</enum>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="reactions_scrollarea_widget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>403</width>
+          <height>750</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>750</height>
+         </size>
+        </property>
+        <widget class="QWidget" name="gridLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>391</width>
+           <height>727</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="reactions_grid2" columnstretch="0,0,0,0,1" columnminimumwidth="0,40,0,30,0">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="sw_R1">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_reactions_R1L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; + hv&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="sw_R2">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLabel" name="label_reactions_R1R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;O(1D) + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_reactions_arrow">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_reactions_R2L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;O(1D) + H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QLabel" name="label_reactions_R2R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + OH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_2">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_reactions_R2">
+            <property name="text">
+             <string>&lt;html&gt;R2 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_reactions_R1">
+            <property name="text">
+             <string>&lt;html&gt;R1 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="sw_R3">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_reactions_R3">
+            <property name="text">
+             <string>&lt;html&gt;R3 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_reactions_R3L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;O(1D) + N&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4">
+           <widget class="QLabel" name="label_reactions_R3R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_3">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="sw_R4">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_reactions_R4">
+            <property name="text">
+             <string>&lt;html&gt;R4 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLabel" name="label_reactions_R4L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;O(1D) + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_4">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="4">
+           <widget class="QLabel" name="label_reactions_R4R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QCheckBox" name="sw_R5">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QCheckBox" name="sw_R6">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QCheckBox" name="sw_R7">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <widget class="QCheckBox" name="sw_R8">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0">
+           <widget class="QCheckBox" name="sw_R9">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="0">
+           <widget class="QCheckBox" name="sw_R10">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QCheckBox" name="sw_R11">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="1">
+           <widget class="QLabel" name="label_reactions_R11">
+            <property name="text">
+             <string>&lt;html&gt;R11 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLabel" name="label_reactions_R5">
+            <property name="text">
+             <string>&lt;html&gt;R5 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLabel" name="label_reactions_R6">
+            <property name="text">
+             <string>&lt;html&gt;R6 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QLabel" name="label_reactions_R7">
+            <property name="text">
+             <string>&lt;html&gt;R7 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1">
+           <widget class="QLabel" name="label_reactions_R8">
+            <property name="text">
+             <string>&lt;html&gt;R8 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <widget class="QLabel" name="label_reactions_R9">
+            <property name="text">
+             <string>&lt;html&gt;R9 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="1">
+           <widget class="QLabel" name="label_reactions_R10">
+            <property name="text">
+             <string>&lt;html&gt;R10 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QLabel" name="label_reactions_R5L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + hv&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_5">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="4">
+           <widget class="QLabel" name="label_reactions_R5R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;NO + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QLabel" name="label_reactions_R6L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O + hv&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="4">
+           <widget class="QLabel" name="label_reactions_R6R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QLabel" name="label_reactions_R7L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + CO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="4">
+           <widget class="QLabel" name="label_reactions_R7R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="2">
+           <widget class="QLabel" name="label_reactions_R8L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;4&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="4">
+           <widget class="QLabel" name="label_reactions_R8R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="2">
+           <widget class="QLabel" name="label_reactions_R9L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + ISO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="4">
+           <widget class="QLabel" name="label_reactions_R9R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;RO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_6">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_7">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_8">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_9">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_10">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_12">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="2">
+           <widget class="QLabel" name="label_reactions_R10L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + MVK&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="4">
+           <widget class="QLabel" name="label_reactions_R10R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="2">
+           <widget class="QLabel" name="label_reactions_R11L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="4">
+           <widget class="QLabel" name="label_reactions_R11R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;(H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O) + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="0">
+           <widget class="QCheckBox" name="sw_R12">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="0">
+           <widget class="QCheckBox" name="sw_R13">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="0">
+           <widget class="QCheckBox" name="sw_R14">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="14" column="0">
+           <widget class="QCheckBox" name="sw_R15">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="0">
+           <widget class="QCheckBox" name="sw_R16">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="0">
+           <widget class="QCheckBox" name="sw_R17">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="17" column="0">
+           <widget class="QCheckBox" name="sw_R18">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="1">
+           <widget class="QLabel" name="label_reactions_R12">
+            <property name="text">
+             <string>&lt;html&gt;R12 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="1">
+           <widget class="QLabel" name="label_reactions_R13">
+            <property name="text">
+             <string>&lt;html&gt;R13 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="1">
+           <widget class="QLabel" name="label_reactions_R14">
+            <property name="text">
+             <string>&lt;html&gt;R14 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="14" column="1">
+           <widget class="QLabel" name="label_reactions_R15">
+            <property name="text">
+             <string>&lt;html&gt;R15 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="1">
+           <widget class="QLabel" name="label_reactions_R16">
+            <property name="text">
+             <string>&lt;html&gt;R16 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="1">
+           <widget class="QLabel" name="label_reactions_R17">
+            <property name="text">
+             <string>&lt;html&gt;R17 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="17" column="1">
+           <widget class="QLabel" name="label_reactions_R18">
+            <property name="text">
+             <string>&lt;html&gt;R18 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="2">
+           <widget class="QLabel" name="label_reactions_R12L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="4">
+           <widget class="QLabel" name="label_reactions_R12R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;(H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O) + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="2">
+           <widget class="QLabel" name="label_reactions_R13L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="4">
+           <widget class="QLabel" name="label_reactions_R13R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="2">
+           <widget class="QLabel" name="label_reactions_R14L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="4">
+           <widget class="QLabel" name="label_reactions_R14R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_11">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_13">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_14">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="14" column="2">
+           <widget class="QLabel" name="label_reactions_R15L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;RO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="14" column="4">
+           <widget class="QLabel" name="label_reactions_R15R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O + MVK&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="2">
+           <widget class="QLabel" name="label_reactions_R16L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="4">
+           <widget class="QLabel" name="label_reactions_R16R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + CO&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="2">
+           <widget class="QLabel" name="label_reactions_R17L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="4">
+           <widget class="QLabel" name="label_reactions_R17R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="17" column="2">
+           <widget class="QLabel" name="label_reactions_R18L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;CH&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="17" column="4">
+           <widget class="QLabel" name="label_reactions_R18R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;Product&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="14" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_15">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_16">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_17">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="17" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_18">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="0">
+           <widget class="QCheckBox" name="sw_R19">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="19" column="0">
+           <widget class="QCheckBox" name="sw_R20">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="20" column="0">
+           <widget class="QCheckBox" name="sw_R21">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="21" column="0">
+           <widget class="QCheckBox" name="sw_R22">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="22" column="0">
+           <widget class="QCheckBox" name="sw_R23">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="23" column="0">
+           <widget class="QCheckBox" name="sw_R24">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="24" column="0">
+           <widget class="QCheckBox" name="sw_R25">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="25" column="0">
+           <widget class="QCheckBox" name="sw_R26">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="26" column="0">
+           <widget class="QCheckBox" name="sw_R27">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="1">
+           <widget class="QLabel" name="label_reactions_R19">
+            <property name="text">
+             <string>&lt;html&gt;R19 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="19" column="1">
+           <widget class="QLabel" name="label_reactions_R20">
+            <property name="text">
+             <string>&lt;html&gt;R20 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="20" column="1">
+           <widget class="QLabel" name="label_reactions_R21">
+            <property name="text">
+             <string>&lt;html&gt;R21 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="21" column="1">
+           <widget class="QLabel" name="label_reactions_R22">
+            <property name="text">
+             <string>&lt;html&gt;R22 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="22" column="1">
+           <widget class="QLabel" name="label_reactions_R23">
+            <property name="text">
+             <string>&lt;html&gt;R23&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="23" column="1">
+           <widget class="QLabel" name="label_reactions_R24">
+            <property name="text">
+             <string>&lt;html&gt;R24 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="25" column="1">
+           <widget class="QLabel" name="label_reactions_R26">
+            <property name="text">
+             <string>&lt;html&gt;R26 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="24" column="1">
+           <widget class="QLabel" name="label_reactions_R25">
+            <property name="text">
+             <string>&lt;html&gt;R25 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="26" column="1">
+           <widget class="QLabel" name="label_reactions_R27">
+            <property name="text">
+             <string>&lt;html&gt;R27 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="2">
+           <widget class="QLabel" name="label_reactions_R19L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;RO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="4">
+           <widget class="QLabel" name="label_reactions_R19R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;nOH + Product&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="19" column="2">
+           <widget class="QLabel" name="label_reactions_R20L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="19" column="4">
+           <widget class="QLabel" name="label_reactions_R20R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;HNO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="20" column="2">
+           <widget class="QLabel" name="label_reactions_R21L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;NO + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="20" column="4">
+           <widget class="QLabel" name="label_reactions_R21R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + (O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="21" column="2">
+           <widget class="QLabel" name="label_reactions_R22L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;NO + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; &lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="21" column="4">
+           <widget class="QLabel" name="label_reactions_R22R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;2NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="22" column="2">
+           <widget class="QLabel" name="label_reactions_R23L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; &lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="22" column="4">
+           <widget class="QLabel" name="label_reactions_R23R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="23" column="2">
+           <widget class="QLabel" name="label_reactions_R24L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; + M &lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="23" column="4">
+           <widget class="QLabel" name="label_reactions_R24R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;N&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;5&lt;/span&gt; + M&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="24" column="2">
+           <widget class="QLabel" name="label_reactions_R25L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;N&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;5&lt;/span&gt; + M&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="24" column="4">
+           <widget class="QLabel" name="label_reactions_R25R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt; + NO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + M&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="25" column="2">
+           <widget class="QLabel" name="label_reactions_R26L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;N&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;5&lt;/span&gt; + H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="25" column="4">
+           <widget class="QLabel" name="label_reactions_R26R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;2HNO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="26" column="2">
+           <widget class="QLabel" name="label_reactions_R27L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;N&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;5&lt;/span&gt; + 2H&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;O&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="26" column="4">
+           <widget class="QLabel" name="label_reactions_R27R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;2HNO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_19">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="19" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_20">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="20" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_21">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="21" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_22">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="22" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_23">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="23" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_24">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="24" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_25">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="25" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_27">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="26" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_26">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </widget>
      </widget>
     </widget>
