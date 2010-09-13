@@ -290,6 +290,7 @@ void MainWindow::runTreeChanged()
   ui->startButton->setEnabled(deleteitems);
   ui->cancelButton->setEnabled(inputfields);
   ui->exportButton->setEnabled(deleteitems);
+  ui->input_name->setEnabled(inputfields);
   
   updateSelectedRuns();
   loadFormData();
@@ -776,6 +777,14 @@ void MainWindow::updateRunName(QString dummy)
   blockInput(true);
   if(ui->modelRunTree->selectedItems().count() > 0)
     ui->modelRunTree->currentItem()->setText(1,ui->input_name->text());
+
+  storeFormData();
+  if (graph)
+  {
+    graph->updateselectedruns();
+    graph->addrun(ui->modelRunTree->currentItem()->text(0).toInt());
+  }
+
   blockInput(false);
 }
 
