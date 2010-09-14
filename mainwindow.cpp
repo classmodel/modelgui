@@ -779,10 +779,14 @@ void MainWindow::updateRunName(QString dummy)
     ui->modelRunTree->currentItem()->setText(1,ui->input_name->text());
 
   storeFormData();
+
   if (graph)
   {
     graph->updateselectedruns();
-    graph->addrun(ui->modelRunTree->currentItem()->text(0).toInt());
+    int id = ui->modelRunTree->currentItem()->text(0).toInt();
+
+    if(modelrunlist->find(id).value().hasrun)
+      graph->addrun(id);
   }
 
   blockInput(false);
