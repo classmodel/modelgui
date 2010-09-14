@@ -962,7 +962,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>130</y>
         <width>211</width>
         <height>171</height>
        </rect>
@@ -1156,7 +1156,7 @@
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>10</y>
+        <y>130</y>
         <width>221</width>
         <height>171</height>
        </rect>
@@ -1350,7 +1350,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>190</y>
+        <y>10</y>
         <width>211</width>
         <height>111</height>
        </rect>
@@ -1466,7 +1466,7 @@
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>190</y>
+        <y>10</y>
         <width>221</width>
         <height>111</height>
        </rect>
@@ -1589,7 +1589,7 @@
         <x>10</x>
         <y>10</y>
         <width>211</width>
-        <height>201</height>
+        <height>171</height>
        </rect>
       </property>
       <property name="title">
@@ -1601,13 +1601,23 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>182</height>
+         <height>151</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="rad_grid1" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="input_rad_lat">
+          <property name="toolTip">
+           <string>latitude</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_rad_lat">
           <property name="toolTip">
@@ -1615,16 +1625,6 @@
           </property>
           <property name="text">
            <string>&lt;html&gt;Lat&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="input_rad_lat">
-          <property name="toolTip">
-           <string>latitude</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1644,16 +1644,6 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="input_rad_lon">
-          <property name="toolTip">
-           <string>longitude</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_rad_lon">
           <property name="toolTip">
@@ -1661,6 +1651,16 @@
           </property>
           <property name="text">
            <string>&lt;html&gt;Lon&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_rad_lon">
+          <property name="toolTip">
+           <string>longitude</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1680,26 +1680,6 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="input_rad_DOY">
-          <property name="toolTip">
-           <string>day of the year</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLineEdit" name="input_rad_time">
-          <property name="toolTip">
-           <string>time of the day</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_rad_DOY">
           <property name="toolTip">
@@ -1713,13 +1693,10 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_rad_time">
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="input_rad_DOY">
           <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;Time&lt;/html&gt;</string>
+           <string>day of the year</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1739,6 +1716,29 @@
           </property>
          </widget>
         </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_rad_time">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;Time&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="input_rad_time">
+          <property name="toolTip">
+           <string>time of the day</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
         <item row="4" column="2">
          <widget class="QLabel" name="unitlabel_rad_time">
           <property name="toolTip">
@@ -1752,52 +1752,31 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="QCheckBox" name="sw_rad">
+        <item row="0" column="0" colspan="3">
+         <widget class="QLabel" name="label_location_time">
           <property name="minimumSize">
            <size>
             <width>0</width>
             <height>25</height>
            </size>
           </property>
-          <property name="text">
-           <string>Radiation</string>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
           </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_rad_clouds">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>Clouds</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QLineEdit" name="input_rad_clouds">
-          <property name="toolTip">
-           <string>cloud cover fraction</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QLabel" name="unitlabel_rad_clouds">
-          <property name="toolTip">
-           <string/>
+          <property name="baseSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
+           <string>Location and time</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -1810,7 +1789,7 @@
         <x>230</x>
         <y>10</y>
         <width>221</width>
-        <height>81</height>
+        <height>121</height>
        </rect>
       </property>
       <property name="title">
@@ -1822,7 +1801,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>57</height>
+         <height>91</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="rad_grid2" columnminimumwidth="50,0,80">
@@ -1865,25 +1844,52 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="3">
-         <widget class="QLabel" name="label_rad_qnet">
+        <item row="0" column="1" colspan="2">
+         <widget class="QCheckBox" name="sw_rad">
           <property name="minimumSize">
            <size>
             <width>0</width>
             <height>25</height>
            </size>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>25</height>
-           </size>
-          </property>
           <property name="text">
-           <string>Fixed forcing</string>
+           <string>Radiation</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_rad_clouds">
+          <property name="toolTip">
+           <string>cloud cover fraction (0-1)</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_rad_clouds">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>Clouds</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="unitlabel_rad_clouds">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -2430,7 +2436,7 @@
          <x>10</x>
          <y>10</y>
          <width>421</width>
-         <height>58</height>
+         <height>61</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_moisture_grid_2">
@@ -2459,15 +2465,15 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QComboBox" name="input_surface_surfacetypes"/>
-        </item>
         <item row="1" column="1">
          <widget class="QCheckBox" name="sw_surface_advanced">
           <property name="text">
            <string>Advanced</string>
           </property>
          </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QComboBox" name="input_surface_surfacetypes"/>
         </item>
        </layout>
       </widget>
@@ -3532,7 +3538,7 @@
          <x>10</x>
          <y>210</y>
          <width>201</width>
-         <height>171</height>
+         <height>186</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="species_species_grid" columnminimumwidth="50,0,80">
@@ -3614,7 +3620,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
+        <item row="4" column="0">
          <widget class="QLabel" name="label_species_wscalar">
           <property name="toolTip">
            <string/>
@@ -3627,7 +3633,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="4" column="1">
          <widget class="QLineEdit" name="input_species_wscalar">
           <property name="toolTip">
            <string>surface kinematic scalar flux</string>
@@ -3679,7 +3685,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
+        <item row="4" column="2">
          <widget class="QLabel" name="unitlabel_species_wscalar">
           <property name="toolTip">
            <string/>
@@ -3692,47 +3698,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_species_advscalar">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;C&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;adv&lt;/span&gt;&lt;/html&gt;
-</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QLineEdit" name="input_species_advscalar">
-          <property name="toolTip">
-           <string>advection of scalar</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QLabel" name="unitlabel_species_advscalar">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[ppb s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1" colspan="2">
+        <item row="5" column="1" colspan="2">
          <widget class="QComboBox" name="selector_species_diurnal">
           <item>
            <property name="text">
@@ -3749,6 +3715,46 @@
             <string>Radiation diurnal</string>
            </property>
           </item>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_species_advscalar">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;C&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;adv&lt;/span&gt;&lt;/html&gt;
+</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="input_species_advscalar">
+          <property name="toolTip">
+           <string>advection of scalar</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="unitlabel_species_advscalar">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[ppb s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
          </widget>
         </item>
        </layout>
@@ -5395,7 +5401,7 @@
       <x>490</x>
       <y>20</y>
       <width>150</width>
-      <height>431</height>
+      <height>441</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -5425,10 +5431,10 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>15</x>
        <y>240</y>
-       <width>111</width>
-       <height>167</height>
+       <width>121</width>
+       <height>171</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
