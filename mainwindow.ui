@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -5647,10 +5647,17 @@
   </action>
  </widget>
  <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>input_time</tabstop>
+  <tabstop>input_timestep</tabstop>
+  <tabstop>input_sinperiod</tabstop>
   <tabstop>input_heat_theta</tabstop>
   <tabstop>input_heat_dtheta</tabstop>
   <tabstop>input_heat_gammatheta</tabstop>
+  <tabstop>input_heat_advtheta</tabstop>
   <tabstop>input_heat_wtheta</tabstop>
+  <tabstop>sw_wtheta</tabstop>
+  <tabstop>sw_ml</tabstop>
   <tabstop>input_ml_h</tabstop>
   <tabstop>input_ml_ps</tabstop>
   <tabstop>input_ml_omegas</tabstop>
@@ -5658,22 +5665,116 @@
   <tabstop>input_moisture_q</tabstop>
   <tabstop>input_moisture_dq</tabstop>
   <tabstop>input_moisture_gammaq</tabstop>
+  <tabstop>input_moisture_advq</tabstop>
   <tabstop>input_moisture_wq</tabstop>
-  <tabstop>modelRunTree</tabstop>
-  <tabstop>newRunButton</tabstop>
-  <tabstop>cloneRunButton</tabstop>
-  <tabstop>deleteButton</tabstop>
+  <tabstop>sw_wq</tabstop>
+  <tabstop>sw_wind</tabstop>
   <tabstop>input_wind_fc</tabstop>
   <tabstop>input_wind_ustar</tabstop>
   <tabstop>input_wind_u</tabstop>
   <tabstop>input_wind_ug</tabstop>
   <tabstop>input_wind_gammau</tabstop>
   <tabstop>input_wind_advu</tabstop>
+  <tabstop>sw_sl</tabstop>
+  <tabstop>input_surfacelayer_z0m</tabstop>
+  <tabstop>input_surfacelayer_z0h</tabstop>
   <tabstop>input_wind_v</tabstop>
   <tabstop>input_wind_vg</tabstop>
   <tabstop>input_wind_gammav</tabstop>
   <tabstop>input_wind_advv</tabstop>
-  <tabstop>tabWidget</tabstop>
+  <tabstop>input_rad_lat</tabstop>
+  <tabstop>input_rad_lon</tabstop>
+  <tabstop>input_rad_DOY</tabstop>
+  <tabstop>input_rad_time</tabstop>
+  <tabstop>sw_rad</tabstop>
+  <tabstop>input_rad_Qnet</tabstop>
+  <tabstop>input_rad_clouds</tabstop>
+  <tabstop>sw_ls</tabstop>
+  <tabstop>sw_sea</tabstop>
+  <tabstop>input_surface_Ts</tabstop>
+  <tabstop>input_surface_Wl</tabstop>
+  <tabstop>input_surface_surfacetypes</tabstop>
+  <tabstop>sw_surface_advanced</tabstop>
+  <tabstop>input_surface_LAI</tabstop>
+  <tabstop>input_surface_gD</tabstop>
+  <tabstop>input_surface_rsmin</tabstop>
+  <tabstop>input_surface_alpha</tabstop>
+  <tabstop>input_surface_cveg</tabstop>
+  <tabstop>input_surface_Lambda</tabstop>
+  <tabstop>input_surface_z0m</tabstop>
+  <tabstop>input_surface_z0h</tabstop>
+  <tabstop>input_soil_Tsoil</tabstop>
+  <tabstop>input_soil_T2</tabstop>
+  <tabstop>input_soil_Wg</tabstop>
+  <tabstop>input_soil_W2</tabstop>
+  <tabstop>input_soil_soiltypes</tabstop>
+  <tabstop>sw_soil_advanced</tabstop>
+  <tabstop>input_soil_wsat</tabstop>
+  <tabstop>input_soil_wfc</tabstop>
+  <tabstop>input_soil_wwilt</tabstop>
+  <tabstop>input_soil_c1sat</tabstop>
+  <tabstop>input_soil_c2ref</tabstop>
+  <tabstop>input_soil_a</tabstop>
+  <tabstop>input_soil_b</tabstop>
+  <tabstop>input_soil_p</tabstop>
+  <tabstop>input_soil_CGsat</tabstop>
+  <tabstop>sw_chem</tabstop>
+  <tabstop>sw_species_photolysis</tabstop>
+  <tabstop>input_species_photolysis_tref</tabstop>
+  <tabstop>sw_chem_constant</tabstop>
+  <tabstop>input_species_ref_Tcbl</tabstop>
+  <tabstop>input_species_ref_Tft</tabstop>
+  <tabstop>input_species_ref_qcbl</tabstop>
+  <tabstop>input_species_ref_qft</tabstop>
+  <tabstop>input_species_ref_pref</tabstop>
+  <tabstop>species_treewidget</tabstop>
+  <tabstop>input_species_scalar</tabstop>
+  <tabstop>input_species_dscalar</tabstop>
+  <tabstop>input_species_gammascalar</tabstop>
+  <tabstop>input_species_advscalar</tabstop>
+  <tabstop>input_species_wscalar</tabstop>
+  <tabstop>selector_species_diurnal</tabstop>
+  <tabstop>input_reactions_nonebutton</tabstop>
+  <tabstop>input_reactions_simplebutton</tabstop>
+  <tabstop>input_reactions_complexbutton</tabstop>
+  <tabstop>input_reactions_OHrecycling</tabstop>
+  <tabstop>input_name</tabstop>
+  <tabstop>modelRunTree</tabstop>
+  <tabstop>newRunButton</tabstop>
+  <tabstop>cloneRunButton</tabstop>
+  <tabstop>deleteButton</tabstop>
+  <tabstop>exportButton</tabstop>
+  <tabstop>graphButton</tabstop>
+  <tabstop>startButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+  <tabstop>sw_R22</tabstop>
+  <tabstop>sw_R2</tabstop>
+  <tabstop>sw_R3</tabstop>
+  <tabstop>sw_R4</tabstop>
+  <tabstop>sw_R5</tabstop>
+  <tabstop>sw_R6</tabstop>
+  <tabstop>sw_R7</tabstop>
+  <tabstop>sw_R8</tabstop>
+  <tabstop>sw_R9</tabstop>
+  <tabstop>sw_R10</tabstop>
+  <tabstop>sw_R11</tabstop>
+  <tabstop>sw_R12</tabstop>
+  <tabstop>sw_R13</tabstop>
+  <tabstop>sw_R14</tabstop>
+  <tabstop>sw_R15</tabstop>
+  <tabstop>sw_R16</tabstop>
+  <tabstop>sw_R17</tabstop>
+  <tabstop>sw_R1</tabstop>
+  <tabstop>sw_R23</tabstop>
+  <tabstop>sw_R24</tabstop>
+  <tabstop>sw_R25</tabstop>
+  <tabstop>sw_R26</tabstop>
+  <tabstop>sw_R27</tabstop>
+  <tabstop>reactions_scrollarea</tabstop>
+  <tabstop>sw_R18</tabstop>
+  <tabstop>sw_R19</tabstop>
+  <tabstop>sw_R20</tabstop>
+  <tabstop>sw_R21</tabstop>
  </tabstops>
  <resources/>
  <connections/>
