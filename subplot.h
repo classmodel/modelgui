@@ -66,7 +66,7 @@ public slots:
 protected:
   void paintEvent(QPaintEvent *event);
   QMap<int, modelrun> *runlist;
-  double PNGscale;
+  double PNGscale, PNGfontscale;
 
   void mousePressEvent( QMouseEvent * );
   void mouseReleaseEvent( QMouseEvent * );

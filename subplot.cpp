@@ -233,12 +233,14 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       plotwidget_width = 1000;
       plotwidget_height = 800;
       PNGscale = 2;
+      PNGfontscale = 2.5;
     }
     else
     {
       plotwidget_width = geometry().width();
       plotwidget_height = geometry().height();
       PNGscale = 1;
+      PNGfontscale = 1;
     }
 
     topmargin     = defaulttopmargin * PNGscale;
@@ -261,7 +263,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       image.fill(QColor(Qt::white).rgb());
       paint.begin(&image);\
-      QFont font("sans-serif", 26, QFont::Normal);
+      QFont font("sans-serif", 24, QFont::Normal);
       paint.setFont(font);
     }
 
@@ -329,12 +331,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-30,plotwidget_height-bottommargin+8,60,30, 0x0024, QString::number(x,'f',nfrac));
       paint.drawLine(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin,((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin-(3 * PNGscale));
-    } 
+    }
 
     // Axis labels
-    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + (28 * PNGscale),300,30,Qt::AlignHCenter, xlabel);
+    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + (28 * PNGscale),300,(30*PNGscale),Qt::AlignHCenter, xlabel);
     paint.rotate(270);
-    paint.drawText(-((plotheight / 2) + topmargin + 150),(5 * PNGscale),300,25,Qt::AlignCenter, ylabel);
+    paint.drawText(-((plotheight / 2) + topmargin + 150),(5 * PNGscale),300,(25*PNGscale),Qt::AlignCenter, ylabel);
     paint.rotate(90);
 
     // Hereafter; clip data plot .
@@ -354,7 +356,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       xdata = xdatalist.value(selectedruns->value(i));
       ydata = ydatalist.value(selectedruns->value(i));
-      
+
       double tempruntime = runlist->find(selectedruns->value(i)).value().run->input.runtime;
       double tempdt      = runlist->find(selectedruns->value(i)).value().run->input.dt;
 
@@ -453,7 +455,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
       // Draw the legend
       paint.drawLine(legend_x+(10*PNGscale),i*15*PNGscale + legend_y + 8,legend_x+(25*PNGscale),i*15*PNGscale + legend_y+8);
-      paint.drawText(legend_x+(30*PNGscale),i*15*PNGscale + legend_y - 7,(legendlabel.length() * 8),30, 0x0081, legendlabel);
+      paint.drawText(legend_x+(30*PNGscale),i*15*PNGscale + legend_y - 7,(legendlabel.length() * 8 * PNGscale),30, 0x0081, legendlabel);
       // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
 
