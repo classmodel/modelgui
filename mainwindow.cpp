@@ -120,7 +120,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-  if (graph)
+  if (graph != NULL)
     graph->close();
 }
 
@@ -780,7 +780,7 @@ void MainWindow::updateRunName(QString dummy)
 
   //storeFormData();
 
-  if (graph)
+  if (graph != NULL)
   {
     graph->updateselectedruns();
     int id = ui->modelRunTree->currentItem()->text(0).toInt();
