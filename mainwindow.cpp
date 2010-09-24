@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   connect(ui->input_reactions_complexbutton, SIGNAL(clicked()),             this, SLOT(setComplexReactions()));
 
   // loadfieldslots();
+  numgraphs = 0;
   readdefaultinput();
 
   // Setup QTreeWidget with model runs
@@ -114,8 +115,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
   // if all fields are properly assigned, the next line can be removed
   formvalues            = defaultinput;
-
-  numgraphs = 0;
 }
 
 MainWindow::~MainWindow()
