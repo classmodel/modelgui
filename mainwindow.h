@@ -53,6 +53,7 @@ public slots:
   void setSimpleReactions();
   void setComplexReactions();
   void graphClosed();
+  void showAbout();
 
   // Switches
   void switch_wind(int);

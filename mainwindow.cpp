@@ -9,6 +9,7 @@
 #include <QFileDialog>
 #include <QFont>
 #include <QTextStream>
+#include "QMessageBox"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -31,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   connect(ui->tabWidget,      SIGNAL(currentChanged(int)),      this, SLOT(tabChanged(int)));
 
   connect(ui->species_treewidget,         SIGNAL(itemSelectionChanged()),   this, SLOT(speciesselectionchanged()));
+
+  connect(ui->actionAbout,    SIGNAL(triggered()),              this, SLOT(showAbout()));
 
   // Switches
   connect(ui->input_surface_surfacetypes, SIGNAL(currentIndexChanged(int)), this, SLOT(updateSurfacetype(int)));
@@ -1687,6 +1690,16 @@ void MainWindow::switch_photolysis(int state)
     checkstate = false;
 
   ui->input_species_photolysis_tref->setEnabled(checkstate);
+}
+
+void MainWindow::showAbout(){
+  QMessageBox msgBox;
+  QSpacerItem* horizontalSpacer = new QSpacerItem(300, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+  msgBox.setText("About this software");
+  msgBox.setInformativeText("<html><b>Meteorology and Air Quality section,<br/>Wageningen University and Research Center<br/>2010</b></br><br/><br/>Authors:<br/>Chiel van Heerwaarden (..),<br/>Jordi Vil&#225;-Guerau de Arellano (..),<br/>Kees van den Dries (..),<br/>Bart van Stratum (..)<br/><br/>Contact: xx@wur.nl</html>");
+  QGridLayout* layout = (QGridLayout*)msgBox.layout();
+  layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
+  msgBox.exec();
 }
 
 
