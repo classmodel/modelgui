@@ -253,6 +253,11 @@ plotwindow::~plotwindow()
   delete ui;
 }
 
+void plotwindow::closeEvent(QCloseEvent *event)
+{
+  emit graphclosed();
+}
+
 // Add functionality to view-menu
 // ++++++++++++++++++++++++++++++++++++++++++++++++++
 void plotwindow::viewmenutriggered()

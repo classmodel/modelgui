@@ -111,6 +111,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
   // if all fields are properly assigned, the next line can be removed
   formvalues            = defaultinput;
+
+  numgraphs = 0;
 }
 
 MainWindow::~MainWindow()
@@ -120,7 +122,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-  if (graph != NULL)
+  if (numgraphs > 0)
     graph->close();
 }
 
@@ -780,7 +782,7 @@ void MainWindow::updateRunName(QString dummy)
 
   //storeFormData();
 
-  if (graph != NULL)
+  if (numgraphs > 0)
   {
     graph->updateselectedruns();
     int id = ui->modelRunTree->currentItem()->text(0).toInt();
@@ -832,8 +834,16 @@ void MainWindow::showGraph(QMap<int, modelrun> *main, QList<int> *selected)
   graph = new plotwindow(main, selected, this);
   graph->setWindowFlags(Qt::Window);
   graph->show();
+  numgraphs++;
+  std::cout << numgraphs << std::endl;
   connect(this, SIGNAL(rundeleted(int)), graph, SLOT(deleterun(int)));
   connect(this, SIGNAL(runadded(int)), graph, SLOT(addrun(int)));
+  connect(graph, SIGNAL(graphclosed()), this, SLOT(graphClosed()));
+}
+
+void MainWindow::graphClosed(){
+  numgraphs--;
+  std::cout << numgraphs << std::endl;
 }
 
 void MainWindow::exportRuns()
