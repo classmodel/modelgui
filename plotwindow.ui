@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Plot window | Mixed-Layer Model</string>
+   <string>CLASS graph</string>
   </property>
   <property name="dockNestingEnabled">
    <bool>true</bool>
