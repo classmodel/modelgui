@@ -329,7 +329,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(x = graphminx; x <= graphmaxx + .5 * d; x = x + d)
     {
-      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-30,plotwidget_height-bottommargin+8,60,30, 0x0024, QString::number(x,'f',nfrac));
+      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-30,plotwidget_height-bottommargin+8,60,(30*PNGfontscale), 0x0024, QString::number(x,'f',nfrac));
       paint.drawLine(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin,((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin-(3 * PNGscale));
     }
 
