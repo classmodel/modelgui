@@ -1695,7 +1695,7 @@ void MainWindow::showAbout(){
   QMessageBox msgBox;
   QSpacerItem* horizontalSpacer = new QSpacerItem(350, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
   msgBox.setText("About the CLASS-model");
-  msgBox.setInformativeText("<html><b>Chemistry Land surface Atmosphere Soil Slab model</b><br/><br/><b>Meteorology and Air Quality section,<br/>Wageningen University and Research Center</b><br/></br><br/><br/>Authors:<br/>Chiel van Heerwaarden,<br/>Bart van Stratum,<br/>Kees van den Dries<br/>Jordi Vil&#225;-Guerau de Arellano.<br/><br/>Contact: jordi.vila@wur.nl<br/><br/>&copy; 2010, GPLv3 licence<br/>Source code available at http://gitorious.org/mlmodel</html>");
+  msgBox.setInformativeText("<html><b>Chemistry Land surface Atmosphere Soil Slab model</b><br/><br/><b>Meteorology and Air Quality section,<br/>Wageningen University and Research Center</b><br/></br><br/><br/>Authors:<br/>Chiel van Heerwaarden,<br/>Bart van Stratum,<br/>Kees van den Dries<br/>Jordi Vil&#224;-Guerau de Arellano.<br/><br/>Contact: jordi.vila@wur.nl<br/><br/>&copy; 2010, GPLv3 licence<br/>Source code available at http://gitorious.org/mlmodel</html>");
   QGridLayout* layout = (QGridLayout*)msgBox.layout();
   layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
   msgBox.exec();
