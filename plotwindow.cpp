@@ -314,14 +314,17 @@ void plotwindow::togglemodelruns(bool checkstate)
 
 void plotwindow::updateselectedruns()  // create QList containing ID's of selected runs
 {
-  int id = ui->modelruntree->currentItem()->text(0).toInt();
-  if (ui->modelruntree->currentItem()->checkState(1) == 2)
+  if(ui->modelruntree->topLevelItemCount() > 0)
   {
-    if (!selectedruns->contains(id))
-      selectedruns->append(id);
+    int id = ui->modelruntree->currentItem()->text(0).toInt();
+    if (ui->modelruntree->currentItem()->checkState(1) == 2)
+    {
+      if (!selectedruns->contains(id))
+        selectedruns->append(id);
+    }
+    else if(ui->modelruntree->currentItem()->checkState(1) == 0)
+      selectedruns->removeAt(selectedruns->indexOf(id));
   }
-  else if(ui->modelruntree->currentItem()->checkState(1) == 0)
-    selectedruns->removeAt(selectedruns->indexOf(id));
 
   plotar->update();
 }
