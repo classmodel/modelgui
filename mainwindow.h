@@ -22,6 +22,7 @@ public:
   ~MainWindow();
   QMap<int, modelrun> *modelrunlist;           // List containing objects with model output
   QList<int> *selectedruns;
+  QList<plotwindow*> plotwindowList;
   //void updateRunList();
   void createrun();
   void showGraph(QMap<int, modelrun> *, QList<int> *);

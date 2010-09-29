@@ -124,8 +124,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-  if (numgraphs > 0)
-    graph->close();
+  //if (numgraphs > 0)
+  //  graph->close();
+  if (plotwindowList.size() > 0)
+  {
+    for (int i = 0; i < plotwindowList.size(); i++)
+      plotwindowList.value(i)->close();
+  }
 }
 
 void MainWindow::speciesselectionchanged()
@@ -836,6 +841,7 @@ void MainWindow::showGraph(QMap<int, modelrun> *main, QList<int> *selected)
   graph = new plotwindow(main, selected, this);
   graph->setWindowFlags(Qt::Window);
   graph->show();
+  plotwindowList.prepend(graph);
   numgraphs++;
   std::cout << numgraphs << std::endl;
   connect(this, SIGNAL(rundeleted(int)), graph, SLOT(deleterun(int)));
