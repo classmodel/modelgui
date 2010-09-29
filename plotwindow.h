@@ -50,7 +50,7 @@ public slots:
   void changeplottype();
 
 signals:
-  void graphclosed();
+  void graphclosed(plotwindow* plot);
 
 protected:
   void mouseMoveEvent(QMouseEvent *);

@@ -255,7 +255,7 @@ plotwindow::~plotwindow()
 
 void plotwindow::closeEvent(QCloseEvent *event)
 {
-  emit graphclosed();
+  emit graphclosed(this);
 }
 
 // Add functionality to view-menu

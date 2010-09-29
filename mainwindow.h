@@ -31,7 +31,7 @@ public:
   modelinput formvalues;
   Reaction defaultreactions[27];
   void loadfieldslots();
-  int numgraphs;
+  //int numgraphs;
 
 public slots:
   void newrun();
@@ -53,7 +53,7 @@ public slots:
   void setNoReactions();
   void setSimpleReactions();
   void setComplexReactions();
-  void graphClosed();
+  void graphClosed(plotwindow*);
   void showAbout();
 
   // Switches

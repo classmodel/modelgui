@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   connect(ui->input_reactions_complexbutton, SIGNAL(clicked()),             this, SLOT(setComplexReactions()));
 
   // loadfieldslots();
-  numgraphs = 0;
+  //numgraphs = 0;
   readdefaultinput();
 
   // Setup QTreeWidget with model runs
@@ -128,6 +128,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
   //  graph->close();
   if (plotwindowList.size() > 0)
   {
+    blockInput(true);
     for (int i = 0; i < plotwindowList.size(); i++)
       plotwindowList.value(i)->close();
   }
@@ -154,6 +155,11 @@ void MainWindow::blockInput(bool check)
   ui->sw_ml->blockSignals(check);
   ui->sw_surface_advanced->blockSignals(check);
   ui->sw_soil_advanced->blockSignals(check);
+  if (plotwindowList.size() > 0)
+  {
+    for (int i = 0; i < plotwindowList.size(); i++)
+      plotwindowList.value(i)->blockSignals(check);
+  }
 }
 
 void MainWindow::tabChanged(int)
@@ -789,14 +795,27 @@ void MainWindow::updateRunName(QString dummy)
 
   //storeFormData();
 
-  if (numgraphs > 0)
+  if (plotwindowList.size() > 0)
   {
-    graph->updateselectedruns();
     int id = ui->modelRunTree->currentItem()->text(0).toInt();
     modelrunlist->find(id).value().runname = ui->input_name->text();
-    if(modelrunlist->find(id).value().hasrun)
-      graph->addrun(id);
+
+    for (int i = 0; i < plotwindowList.size(); i++)
+    {
+      plotwindowList.value(i)->updateselectedruns();
+      if(modelrunlist->find(id).value().hasrun)
+        plotwindowList.value(i)->addrun(id);
+    }
   }
+
+  //if (numgraphs > 0)
+  //{
+  //  graph->updateselectedruns();
+  //  int id = ui->modelRunTree->currentItem()->text(0).toInt();
+  //  modelrunlist->find(id).value().runname = ui->input_name->text();
+  //  if(modelrunlist->find(id).value().hasrun)
+  //    graph->addrun(id);
+  //}
 
   blockInput(false);
 }
@@ -842,16 +861,19 @@ void MainWindow::showGraph(QMap<int, modelrun> *main, QList<int> *selected)
   graph->setWindowFlags(Qt::Window);
   graph->show();
   plotwindowList.prepend(graph);
-  numgraphs++;
-  std::cout << numgraphs << std::endl;
+  //numgraphs++;
+  //std::cout << numgraphs << std::endl;
+  std::cout << "size plotwindowlist: " << plotwindowList.size() << std::endl;
   connect(this, SIGNAL(rundeleted(int)), graph, SLOT(deleterun(int)));
   connect(this, SIGNAL(runadded(int)), graph, SLOT(addrun(int)));
-  connect(graph, SIGNAL(graphclosed()), this, SLOT(graphClosed()));
+  connect(graph, SIGNAL(graphclosed(plotwindow*)), this, SLOT(graphClosed(plotwindow*)));
 }
 
-void MainWindow::graphClosed(){
-  numgraphs--;
-  std::cout << numgraphs << std::endl;
+void MainWindow::graphClosed(plotwindow* plot){
+  //numgraphs--;
+  //std::cout << numgraphs << std::endl;
+  plotwindowList.removeAt(plotwindowList.indexOf(plot));
+  std::cout << "size plotwindowlist: " << plotwindowList.size() << std::endl;
 }
 
 void MainWindow::exportRuns()
