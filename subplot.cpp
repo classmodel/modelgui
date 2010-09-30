@@ -455,7 +455,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
       // Draw the legend
       paint.drawLine(legend_x+(10*PNGscale),i*15*PNGscale + legend_y + 8,legend_x+(25*PNGscale),i*15*PNGscale + legend_y+8);
-      paint.drawText(legend_x+(30*PNGscale),i*15*PNGscale + legend_y - 7,(legendlabel.length() * 8 * PNGscale),30, 0x0081, legendlabel);
+      paint.drawText(legend_x+(30*PNGscale),i*15*PNGscale + legend_y - 7,(legendlabel.length() * 10 * PNGfontscale),30, 0x0081, legendlabel);
       // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
 
