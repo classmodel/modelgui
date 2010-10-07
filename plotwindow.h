@@ -49,11 +49,15 @@ public slots:
   void selectadvanceddata(QTreeWidgetItem*,int);
   void changeplottype();
 
+signals:
+  void graphclosed(plotwindow* plot);
+
 protected:
   void mouseMoveEvent(QMouseEvent *);
 
 private:
   Ui::plotwindow *ui;
+  void closeEvent(QCloseEvent *event);
   QStringList outputnames;
   void updateplotdata();
   void getdata(outputvar*, modelrun, QString);

@@ -13,14 +13,18 @@ public:
 class modeloutput
 {
 public:
-  outputvar t;         // time [s]
+  outputvar t;         // time [h]
+  outputvar tutc;      // time in UTC [h]
 
   // mixed-layer variables
   outputvar h;         // CBL height [m]
-  outputvar Ps;        // surface pressure [Pa]
+  outputvar Ps;        // surface pressure [hPa]
   outputvar ws;        // large scale vertical velocity [m s-1]
   outputvar beta;      // entrainment ratio for virtual heat [-]
-  outputvar lcl;       // lifted condensation level [m]
+  outputvar lcl;       // lifting condensation level [m]
+  outputvar we;        // entrainment velocity [m s-1]
+  outputvar RH;        // Relative humidity at T=theta [-]
+  outputvar RHtop;     // Relative humidity at mixed-layer top [-]
 
   // temperature
   outputvar theta;     // initial mixed-layer potential temperature [K]
@@ -32,7 +36,7 @@ public:
   outputvar wtheta;    // surface kinematic heat flux [K m s-1]
   outputvar wthetae;   // entrainment kinematic heat flux [K m s-1]
   outputvar wthetav;   // surface kinematic virtual heat flux [K m s-1]
-  
+
   // moisture
   outputvar q;         // mixed-layer specific humidity [kg kg-1]
   //double *qsat;      // mixed-layer saturated specific humidity [kg kg-1]
@@ -58,7 +62,7 @@ public:
   outputvar advv;      // advection of v-wind [m s-2]
   outputvar vw;        // surface v-momentum flux [m2 s-2]
   outputvar vwe;       // entrainment v-momentum flux [m2 s-2]
-  
+
   // surface-layer
   outputvar ustar;     // friction velocity [m s-1]
   outputvar L;         // Obukhov length [m]
@@ -90,5 +94,10 @@ public:
   outputvar thetaprof;
   outputvar qprof;
 
-  modeloutput(int);
+  //chemistry
+  outputvar *sc;        // mixed-layer specific humidity [kg kg-1]
+  outputvar phi;        // photostationary state [-]
+  outputvar k_r05;      // Photolysis rate of reaction r05
+
+  modeloutput(int,int);
 };

@@ -1,16 +1,17 @@
 #include <cstring>
 #include "modelinput.h"
 #include "modeloutput.h"
+#include "modelchem.h"
 
 class model
 {
 public:
-  model(modelinput);
+  model(modelinput*);
   void runmodel();
   modelinput input;
   modeloutput *output;
   void run2file(std::string, std::string);
- 
+
 private:
   void initmodel();
 
@@ -23,6 +24,9 @@ private:
 
   void runlsmodel();
   void intlsmodel();
+
+  void initchemmodel();
+  void runchemmodel(double);
 
   void store();
 
@@ -42,7 +46,7 @@ private:
   double rhow;      // density of water [kg m-3]
   double S0;        // solar constant [W m-2]
   double pi;
-  
+
   // time variables
   double runtime;   // duration of model run [s]
   double dt;        // time step [s]
@@ -54,11 +58,14 @@ private:
   bool   sw_ml;     // mixed-layer model switch;
   double h;         // initial ABL height [m]
   double Ps;        // surface pressure [Pa]
+  double omegas;    // large scale divergence [s-1]
   double ws;        // large scale vertical velocity [m s-1]
   double fc;        // coriolis parameter [s-1]
   double we;        // entrainment velocity [m s-1]
   double lcl;       // lifted condensation level [m]
-  
+  double RH;        // Relative humidity at T=theta [-]
+  double RHtop;     // Relative humidity at mixed-layer top [-]
+
   double theta;     // initial mixed-layer potential temperature [K]
   double dtheta;    // initial temperature jump at h [K]
   double gammatheta;// free atmosphere potential temperature lapse rate [K m-1]
@@ -82,7 +89,7 @@ private:
   double thetavsurf;// surface virtual potential temperature [K]
   double qsurf;     // surface specific humidity [g kg-1]
   double wthetav;   // surface kinematic virtual heat flux [K m s-1]
-  
+
   double q;         // initial mixed-layer specific humidity [kg kg-1]
   double dq;        // initial specific humidity jump at h [kg kg-1]
   double gammaq;    // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
@@ -105,13 +112,24 @@ private:
   double advu;      // advection of u-wind [m s-2]
   double uw;        // surface momentum flux in u-direction [m2 s-2]
   double uwe;       // Entrainment momentum flux in u-direction [m2 s-2]
-  
+
   double v;         // initial mixed-layer u-wind speed [m s-1]
   double dv;        // initial u-wind jump at h [m s-1]
   double gammav;    // free atmosphere v-wind speed lapse rate [s-1]
   double advv;      // advection of v-wind [m s-2]
   double vw;        // surface momentum flux in v-direction [m2 s-2]
   double vwe;       // Entrainment momentum flux in v-direction [m2 s-2]
+
+  int nsc;
+  double *sc;       // initial mixed-layer scalar
+  double *dsc;      // initial scalar jump at h [kg kg-1]
+  double *gammasc;  // free atmosphere scalar lapse rate [kg kg-1 m-1]
+  double *advsc;    // advection of scalar [kg kg-1 s-1]
+  double *wsc;      // surface kinematic scalar flux [kg kg-1 m s-1]
+  int    *sw_wsc;   // switch for sinusoidal wsc
+  double *wsc0;
+  double *wsce;
+  double *sctend, *dsctend;
 
   double htend;
   double thetatend, qtend, utend, vtend;
@@ -193,5 +211,26 @@ private:
   double Tsoiltend;
   double wgtend;
   double Wltend;
+
+  // chemistry
+  modelchem *cm;
+  bool   sw_chem;
+  bool   sw_chem_constant;
+  bool   sw_photo_constant;
+  int    rsize;
+  int    csize;
+  bool   *sw_chemoutput;
+  Reaction *reactions;
+  bool     *sw_reactions;
+  Name_Number *PL_scheme;
+  double P_ref;
+  double Tcbl_ref;
+  double Tfc_ref;
+  double qcbl_ref;
+  double qfc_ref;
+  double tod_ref;
+  double stocoef;
+  double phi;
+  double k_r05;
 };
 

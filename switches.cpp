@@ -1,93 +1,108 @@
+#include <sstream>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "plotwindow.h"
 
-void MainWindow::loadfieldslots()
-{
-  // MIXED-LAYER
-  connect(ui->input_ml_h,               SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_ml_ps,              SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_ml_ws,              SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_ml_beta,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  // HEAT
-  connect(ui->input_heat_theta,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_heat_dtheta,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_heat_gammatheta,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_heat_wtheta,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_heat_advtheta,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  // MOISTURE
-  connect(ui->input_moisture_q,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_moisture_dq,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_moisture_gammaq,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_moisture_wq,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_moisture_advq,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  // WIND
-  //connect(ui->switch_wind,        SIGNAL(clicked()),         this, SLOT(updateInputdata()));
-  connect(ui->input_wind_u,             SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_wind_ug,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_wind_gammau,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_wind_advu,          SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  connect(ui->input_wind_v,             SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_wind_vg,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_wind_gammav,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_wind_advv,          SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  connect(ui->input_wind_fc,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_wind_ustar,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  connect(ui->input_surfacelayer_z0h,   SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_surfacelayer_z0m,   SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  // SOIL
-  connect(ui->input_soil_T2,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_soil_Tsoil,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_soil_W2,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_soil_Wg,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  connect(ui->input_soil_wsat,          SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_soil_wfc,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_soil_wwilt,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_soil_c1sat,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_soil_c2ref,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  connect(ui->input_soil_a,             SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_soil_b,             SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_soil_p,             SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_soil_CGsat,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  // SURFACE
-  connect(ui->input_surface_Ts,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_surface_Wl,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  connect(ui->input_surface_LAI,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_surface_gD,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_surface_rsmin,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_surface_alpha,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_surface_cveg,       SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  connect(ui->input_surface_Lambda,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_surface_z0m,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_surface_z0h,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  // RADIATION
-  connect(ui->input_rad_DOY,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_rad_lat,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_rad_lon,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_rad_time,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_rad_Qnet,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_rad_clouds,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-
-  // OTHER
-  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_time,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_timestep,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
-  connect(ui->input_name,         SIGNAL(editingFinished()), this, SLOT(updateRunName()));
-}
-
+//void MainWindow::loadfieldslots()
+//{
+//  // MIXED-LAYER
+//  connect(ui->input_ml_h,               SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_ml_ps,              SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_ml_omegas,          SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_ml_beta,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  // HEAT
+//  connect(ui->input_heat_theta,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_heat_dtheta,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_heat_gammatheta,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_heat_wtheta,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_heat_advtheta,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  // MOISTURE
+//  connect(ui->input_moisture_q,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_moisture_dq,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_moisture_gammaq,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_moisture_wq,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_moisture_advq,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  // WIND
+//  //connect(ui->switch_wind,        SIGNAL(clicked()),         this, SLOT(updateInputdata()));
+//  connect(ui->input_wind_u,             SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_wind_ug,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_wind_gammau,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_wind_advu,          SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  connect(ui->input_wind_v,             SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_wind_vg,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_wind_gammav,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_wind_advv,          SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  connect(ui->input_wind_fc,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_wind_ustar,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  connect(ui->input_surfacelayer_z0h,   SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_surfacelayer_z0m,   SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  // SOIL
+//  connect(ui->input_soil_T2,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_soil_Tsoil,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_soil_W2,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_soil_Wg,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  connect(ui->input_soil_wsat,          SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_soil_wfc,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_soil_wwilt,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_soil_c1sat,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_soil_c2ref,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  connect(ui->input_soil_a,             SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_soil_b,             SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_soil_p,             SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_soil_CGsat,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  // SURFACE
+//  connect(ui->input_surface_Ts,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_surface_Wl,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  connect(ui->input_surface_LAI,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_surface_gD,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_surface_rsmin,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_surface_alpha,      SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_surface_cveg,       SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  connect(ui->input_surface_Lambda,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_surface_z0m,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_surface_z0h,        SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  // RADIATION
+//  connect(ui->input_rad_DOY,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_rad_lat,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_rad_lon,            SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_rad_time,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_rad_Qnet,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_rad_clouds,         SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  // OTHER
+//  connect(ui->input_name,               SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_time,               SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_timestep,           SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_name,               SIGNAL(editingFinished()), this, SLOT(updateRunName()));
+//
+//  // CHEMISTRY -> SPECIES
+//  connect(ui->input_species_photolysis_tref, SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  connect(ui->input_species_ref_Tcbl,   SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_species_ref_Tft,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_species_ref_qcbl,   SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_species_ref_qft,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_species_ref_pref,   SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//
+//  connect(ui->input_species_scalar,     SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_species_dscalar,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_species_gammascalar,SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_species_wscalar,    SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//  connect(ui->input_species_advscalar,  SIGNAL(editingFinished()), this, SLOT(updateInputdata()));
+//}
 
 void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
 {
@@ -97,6 +112,8 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   // mixed-layer
   if (plotvar == "t")
     *data = n.run->output->t;
+  else if (plotvar == "tutc")
+    *data = n.run->output->tutc;
   else if (plotvar == "h")
     *data = n.run->output->h;
   else if (plotvar == "Ps")
@@ -107,6 +124,12 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->ws;
   else if (plotvar == "LCL")
     *data = n.run->output->lcl;
+  else if (plotvar == "we")
+    *data = n.run->output->we;
+  else if (plotvar == "RH")
+    *data = n.run->output->RH;
+  else if (plotvar == "RHtop")
+    *data = n.run->output->RHtop;
 
   // temperature
   else if (plotvar == "theta")
@@ -220,6 +243,18 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   else if (plotvar == "qprof")
     *data = n.run->output->qprof;
 
+  // chemistry
+  else if (plotvar == "phi")
+    *data = n.run->output->phi;
+  else if (plotvar == "k_r05")
+    *data = n.run->output->k_r05;
+
+  for(int i=0; i<22; i++) // nsc hardcoded
+  {
+    QString scalar = "sc" + QString::number(i);
+    if (plotvar == scalar)
+       *data = n.run->output->sc[i];
+  }
 }
 
 
@@ -227,6 +262,8 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
 {
   // mixed-layer
   if (label == "t")
+    *plotvar = label;
+  else if (label == "tutc")
     *plotvar = label;
   else if (label == "h")
     *plotvar = label;
@@ -237,6 +274,12 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
   else if (label == "ws")
     *plotvar = label;
   else if (label == "LCL")
+    *plotvar = label;
+  else if (label == "we")
+    *plotvar = label;
+  else if (label == "RH")
+    *plotvar = label;
+  else if (label == "RHtop")
     *plotvar = label;
 
   // temperature
@@ -351,4 +394,17 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
     *plotvar = label;
   else if (label == "thetaprof")
     *plotvar = label;
+
+  // chemistry
+  else if (label == "phi")
+    *plotvar = label;
+  else if (label == "k_r05")
+    *plotvar = label;
+
+  for(int i=0; i<22; i++) // nsc hardcoded!
+  {
+    QString scalar = "sc" + QString::number(i);
+    if (label == scalar)
+      *plotvar = label;
+  }
 }

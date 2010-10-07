@@ -23,36 +23,37 @@ class plotarea : public QWidget
 
 public:
   plotarea(QMap<int, modelrun> *, QList<int> *, QWidget *parent = 0);
-  // QString plotvar;
-  int lines;
   QMap<int, outputvar> xdatalist, ydatalist;
   QList<QColor> colors;
   QList<int> assignedcolors;
-  int saveImageMode;
   QString saveImageName;
   QString xlabel, ylabel;
+  QList<int> *selectedruns;
+
+  int saveImageMode;
   int plotinterval;
+  int lines;
+  int legend_width, legend_height;
+  int legend_x, legend_y;
+  int legend_x_offset, legend_y_offset;
+
+  // Mouse functions:
+  int x_press, x_release, y_press, y_release;
+  double x_current, y_current;
+  bool mousepressed, mousereleased;
+  bool legendmoved, legendmoves;
+
   double graphminx, graphmaxx, graphminy, graphmaxy;
   double xmin, xmax, ymin, ymax;
   double xmin_auto, xmax_auto;
   double yscale, xscale;
-  int x_press, x_release, y_press, y_release;
-  double x_current, y_current;
-  bool mousepressed, mousereleased;
-  int legend_width, legend_height;
-  int legend_x, legend_y;
-  bool legendmoved;
-  int legend_x_offset, legend_y_offset;
 
   bool autoaxis;
   bool scatterplot;
-  //void getdata(outputvar*, outputvar*, int);
 
   // Function to translate real coordinates (x,y) to widget coordinates
   double transfx(double x, double xscale, double xmin, int mode);
   double transfy(double y, double yscale, double ymin, int mode);
-
-  QList<int> *selectedruns;
 
 signals:
   void axischanged();
@@ -65,7 +66,7 @@ public slots:
 protected:
   void paintEvent(QPaintEvent *event);
   QMap<int, modelrun> *runlist;
-  double PNGscale;
+  double PNGscale, PNGfontscale;
 
   void mousePressEvent( QMouseEvent * );
   void mouseReleaseEvent( QMouseEvent * );

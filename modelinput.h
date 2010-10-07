@@ -1,7 +1,13 @@
+#include "modelchemtypes.h"
+
 // Model input class
 class modelinput
 {
 public:
+  modelinput();
+  modelinput(const modelinput&);
+  modelinput &operator=(const modelinput&);
+
   // general model variables
   double runtime;   // duration of model run [s]
   double dt;        // time step [s]
@@ -11,7 +17,7 @@ public:
   bool   sw_ml;     // mixed-layer model switch;
   double h;         // initial ABL height [m]
   double Ps;        // surface pressure [Pa]
-  double ws;        // large scale vertical velocity [m s-1]
+  double omegas;    // large scale divergence [s-1]
   double fc;        // Coriolis parameter [s-1]
   
   double theta;     // initial mixed-layer potential temperature [K]
@@ -40,6 +46,14 @@ public:
   double gammav;    // free atmosphere v-wind speed lapse rate [s-1]
   double advv;      // advection of v-wind [m s-2]
 
+  int nsc;
+  double *sc;       // initial mixed-layer scalar [kg kg-1]
+  double *dsc;      // initial scalar jump at h [kg kg-1]
+  double *gammasc;  // free atmosphere scalar lapse rate [kg kg-1 m-1]
+  double *advsc;    // advection of moisture [kg kg-1 s-1]
+  double *wsc;      // surface kinematic moisture flux [kg kg-1 m s-1]
+  int    *sw_wsc;   // switch for sinusoidal wsc
+
   // surface layer variables
   bool   sw_sl;     // surface layer switch
   double ustar;     // surface friction velocity [m s-1]
@@ -54,7 +68,6 @@ public:
   double tstart;    // time of the day [h UTC]
   double cc;        // cloud cover fraction [-]
   double Q;         // net radiation [W m-2]
-
 
   // land surface parameters
   bool   sw_ls;     // land surface switch
@@ -90,92 +103,20 @@ public:
   
   double Lambda;    // thermal diffusivity skin layer [-]
 
-  modelinput()
-  {
-    runtime    = -1.;
-    dt         = -1.;
-
-    // mixed-layer variables
-    sw_ml      = true;
-    h          = -1.;
-    Ps         = -1.;
-    ws         = -1.;
-    fc         = -1.;
-    
-    theta      = -1.;
-    dtheta     = -1.;
-    gammatheta = -1.;
-    advtheta   = -1.;
-    beta       = -1.;
-    wtheta     = -1.;
-    sw_wtheta  = false;
-    
-    q          = -1.;
-    dq         = -1.;
-    gammaq     = -1.;
-    advq       = -1.;
-    wq         = -1.;
-    sw_wq      = false;
-    
-    sw_wind    = false;
-    u          = -1.;
-    du         = -1.;
-    gammau     = -1.;
-    advu       = -1.;
-    
-    v          = -1.;
-    dv         = -1.;
-    gammav     = -1.;
-    advv       = -1.;
-
-    // surface layer variables
-    sw_sl      = false;
-    ustar      = -1.;
-    z0m        = -1.;
-    z0h        = -1.;
-
-    // radiation parameters
-    sw_rad     = false;
-    lat        = -1.;
-    lon        = -1.;
-    doy        = -1.;
-    tstart     = -1.;
-    cc         = -1.; 
-    Q          = -1.;
-
-    // land surface parameters
-    sw_ls      = false;
-    sw_sea     = true;
-    wg         = -1.;
-    w2         = -1.;
-    Tsoil      = -1.;
-    T2         = -1.;
-    
-    a          = -1.;
-    b          = -1.;
-    p          = -1.;
-    CGsat      = -1.;
-    
-    wsat       = -1.;
-    wfc        = -1.;
-    wwilt      = -1.;
-    
-    C1sat      = -1.;
-    C2ref      = -1.;
-      
-    LAI        = -1.;
-    gD         = -1.;
-    rsmin      = -1.;
-    rssoilmin  = -1.;
-    alpha      = -1.;
-    
-    Ts         = -1.;
-    
-    cveg       = -1.;
-    Wmax       = -1.;
-    Wl         = -1.;
-    
-    Lambda     = -1.;
-  }
+  // chemistry
+  bool   sw_chem;
+  bool   sw_chem_constant;
+  bool   sw_photo_constant;
+  Reaction *reactions;
+  bool   *sw_reactions;
+  int    rsize;
+  int    csize;
+  double P_ref;
+  double Tcbl_ref;
+  double Tfc_ref;
+  double qcbl_ref;
+  double qfc_ref;
+  double tod_ref;
+  double stocoef;
 };
 

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QtGui/QMainWindow>
+#include <QModelIndex>
 #include "modelrun.h"
 #include "landsoil.h"
 
@@ -21,20 +22,24 @@ public:
   ~MainWindow();
   QMap<int, modelrun> *modelrunlist;           // List containing objects with model output
   QList<int> *selectedruns;
+  QList<plotwindow*> plotwindowList;
   //void updateRunList();
   void createrun();
   void showGraph(QMap<int, modelrun> *, QList<int> *);
   plotwindow *graph;
   modelinput defaultinput;                     // Store default model input settings
   modelinput formvalues;
+  Reaction defaultreactions[27];
   void loadfieldslots();
+  //int numgraphs;
 
 public slots:
   void newrun();
   void clonerun();
   void deleteRun();
   void runTreeChanged();                       // Disable input field when selection runs > 1
-  void updateRunName();
+  void runTreePressed(QModelIndex);
+  void updateRunName(QString);
   void startrun();
   void canceledit();
   void startGraph();
@@ -44,6 +49,12 @@ public slots:
   void updateSurfacetype(int);
   void updateSoiltype(int);
   void tabChanged(int);
+  void speciesselectionchanged();
+  void setNoReactions();
+  void setSimpleReactions();
+  void setComplexReactions();
+  void graphClosed(plotwindow*);
+  void showAbout();
 
   // Switches
   void switch_wind(int);
@@ -56,7 +67,9 @@ public slots:
   void switch_wq(int);
   void switch_soil_advanced(int);
   void switch_surface_advanced(int);
-  //void switches_changed();
+  void switch_chem(int);
+  void switch_chem_constant(int);
+  void switch_photolysis(int);
 
 signals:
   void rundeleted(int);
@@ -66,15 +79,18 @@ private:
   Ui::MainWindow *ui;
   void readdefaultinput();
   void updateSelectedRuns();
-  void loadFormData();
   void storeFormData();
+  void loadFormData();
   QString bool2string(const bool);
   void updateStatusBar();
   bool CheckState2bool(Qt::CheckState);
+  Qt::CheckState Bool2CheckState(bool);
+  int Bool2Int(bool);
+  void setReactions(int);
 
   void initLandSoil();
   void setLandSoil();
-  // void closeEvent(QCloseEvent *event);
+  void closeEvent(QCloseEvent *event);
   void blockInput(bool);
 
   surfacetype surfacetypes[3];
@@ -82,6 +98,8 @@ private:
 
   int activerun;
   int activetab;
+
+  int activespecies;
 };
 
 #endif // MAINWINDOW_H

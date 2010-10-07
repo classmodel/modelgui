@@ -5,7 +5,7 @@
 #include <iostream>
 #include "QMessageBox"
 
-plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, QMainWindow *parent) : QMainWindow(parent), ui(new Ui::plotwindow)
+plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, QMainWindow *parent) : QMainWindow(parent=0), ui(new Ui::plotwindow)
 {
   ui->setupUi(this);
   selectedruns = new QList<int>;
@@ -72,7 +72,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   // Iterate through QMap with modelruns; create entry in QtreeWidget when run.hasrun==true
   QMap<int, modelrun>::const_iterator i = runlist->constBegin();
   while (i != runlist->constEnd()) {
-    if (runlist->value(i.key()).hasrun)
+    if (runlist->find(i.key()).value().hasrun)
     {
       QTreeWidgetItem *point = new QTreeWidgetItem(ui->modelruntree);
       if (initialselected->contains(i.key()))
@@ -84,14 +84,14 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
         point->setCheckState(1,Qt::Unchecked);
       point->setDisabled(false);
       point->setText(0, QString::number(i.key()));
-      point->setText(1, runlist->value(i.key()).runname);
+      point->setText(1, runlist->find(i.key()).value().runname);
     }
   ++i;
   }
 
   // Create dropdown menu with plotvariables for basic plotting
   QStringList varnames;
-  modeloutput modelout(0);
+  modeloutput modelout(0,22);
 
   varnames << QString::fromStdString(modelout.h.description) << QString::fromStdString(modelout.theta.description) << QString::fromStdString(modelout.dtheta.description) << QString::fromStdString(modelout.wtheta.description)
           << QString::fromStdString(modelout.q.description) << QString::fromStdString(modelout.dq.description) << QString::fromStdString(modelout.wq.description);
@@ -119,6 +119,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   QList<outputvar> radiationvars;
   QList<outputvar> surfacevars;
   QList<outputvar> vertprof;
+  QList<outputvar> chemistry;
 
   QList<QString> advancedtreegroups;
   advancedtreegroups
@@ -129,12 +130,15 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << "Surface-layer"
       << "Radiation"
       << "Surface"
-      << "Vertical profiles";
+      << "Vertical profiles"
+      << "Chemistry";
 
   mixedlayervars
       << modelout.t
+      << modelout.tutc
       << modelout.h
-      << modelout.lcl;
+      << modelout.ws
+      << modelout.we;
 
   temperaturevars
       << modelout.theta
@@ -149,7 +153,10 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.q
       << modelout.dq
       << modelout.wq
-      << modelout.wqe;
+      << modelout.wqe
+      << modelout.lcl
+      << modelout.RH
+      << modelout.RHtop;
 
   windvars
       << modelout.u
@@ -190,6 +197,15 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.thetaprof
       << modelout.qprof;
 
+  chemistry
+      << modelout.phi
+      << modelout.k_r05;
+
+  for(int n=0; n<22; n++)
+    if(n < 14 || n > 17)
+      chemistry << modelout.sc[n];
+
+  ui->advancedplottree->setFocusPolicy(Qt::NoFocus);
 
   allvariables.insert(0,mixedlayervars);
   allvariables.insert(1,temperaturevars);
@@ -199,6 +215,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   allvariables.insert(5,radiationvars);
   allvariables.insert(6,surfacevars);
   allvariables.insert(7,vertprof);
+  allvariables.insert(8,chemistry);
 
   for (int n=0; n<advancedtreegroups.size(); n++)
   {
@@ -213,6 +230,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       QTreeWidgetItem *treeitem = new QTreeWidgetItem;
       outputvar item = allvariables.value(n).value(i);
       treeitem->setCheckState(1,Qt::Unchecked);
+
       if (advancedtreegroups.value(n) != "Vertical profiles")
         treeitem->setCheckState(2,Qt::Unchecked);
       QString variable = QString::fromUtf8(item.name.c_str()) + " [" + QString::fromUtf8(item.unit.c_str()) + "]";
@@ -222,6 +240,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       treeitem->setText(0, variable);
       treeitem->setText(3, description);
       treeitem->setText(4, id);
+
       treegroup->addChild(treeitem);
     }
   }
@@ -232,6 +251,11 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 plotwindow::~plotwindow()
 {
   delete ui;
+}
+
+void plotwindow::closeEvent(QCloseEvent *event)
+{
+  emit graphclosed(this);
 }
 
 // Add functionality to view-menu
@@ -290,14 +314,17 @@ void plotwindow::togglemodelruns(bool checkstate)
 
 void plotwindow::updateselectedruns()  // create QList containing ID's of selected runs
 {
-  int id = ui->modelruntree->currentItem()->text(0).toInt();
-  if (ui->modelruntree->currentItem()->checkState(1) == 2)
+  if(ui->modelruntree->topLevelItemCount() > 0)
   {
-    if (!selectedruns->contains(id))
-      selectedruns->append(id);
+    int id = ui->modelruntree->currentItem()->text(0).toInt();
+    if (ui->modelruntree->currentItem()->checkState(1) == 2)
+    {
+      if (!selectedruns->contains(id))
+        selectedruns->append(id);
+    }
+    else if(ui->modelruntree->currentItem()->checkState(1) == 0)
+      selectedruns->removeAt(selectedruns->indexOf(id));
   }
-  else if(ui->modelruntree->currentItem()->checkState(1) == 0)
-    selectedruns->removeAt(selectedruns->indexOf(id));
 
   plotar->update();
 }
@@ -346,19 +373,22 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
       setplotvar(olditem->text(4), &plotvary);
     }
 
+    plotar->legendmoved = false;
+    ui->autoscaleaxis->setCheckState(Qt::Checked);
+    plotar->autoaxis = true;
     updateplotdata();
     plotar->update();
   }
-  else
-  {
-    if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
-      if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0) == olditem)
-        ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Checked);
-
-    if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).count() > 0)
-      if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0) == olditem)
-        ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Checked);
-  }
+//  else
+//  {
+//    if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
+//      if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0) == olditem)
+//        ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Checked);
+//
+//    if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).count() > 0)
+//      if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0) == olditem)
+//        ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Checked);
+//  }
 }
 
 void plotwindow::updateplotdata()
@@ -368,8 +398,8 @@ void plotwindow::updateplotdata()
   QMap<int, modelrun>::const_iterator i = runlist->constBegin();
   while (i != runlist->constEnd())
   {
-    getdata(&xdata, runlist->value(i.key()), plotvarx);
-    getdata(&ydata, runlist->value(i.key()), plotvary);
+    getdata(&xdata, runlist->find(i.key()).value(), plotvarx);
+    getdata(&ydata, runlist->find(i.key()).value(), plotvary);
 
     int key = i.key();
     plotar->xdatalist.insert(key, xdata);
@@ -428,10 +458,10 @@ void plotwindow::addrun(int num)
     point->setCheckState(1,Qt::Unchecked);
     point->setDisabled(false);
     point->setText(0, QString::number(num));
-    point->setText(1, runlist->value(num).runname);
+    point->setText(1, runlist->find(num).value().runname);
   }
   if (ui->modelruntree->findItems(id,Qt::MatchExactly,0).count() == 1)
-    ui->modelruntree->findItems(id,Qt::MatchExactly,0).value(0)->setText(1,runlist->value(num).runname);
+    ui->modelruntree->findItems(id,Qt::MatchExactly,0).value(0)->setText(1,runlist->find(num).value().runname);
 
   updateplotdata();
   plotar->update();
@@ -442,6 +472,7 @@ void plotwindow::changeaxis()
   if (ui->autoscaleaxis->checkState() == Qt::Checked)
   {
     plotar->autoaxis = true;
+    plotar->legendmoved = false;
     ui->xminInput->setText(QString::number(plotar->graphminx));
     ui->xmaxInput->setText(QString::number(plotar->graphmaxx));
     ui->yminInput->setText(QString::number(plotar->graphminy));
@@ -497,13 +528,13 @@ void plotwindow::cursormoved()
     QString statusmessage =
         QString::fromUtf8(plotar->xdatalist.value(1).name.c_str()) +
         " = " +
-        QString::number(plotar->x_current,'f',4) +
+        QString::number(plotar->x_current,'g',5) +
         " " +
         QString::fromUtf8(plotar->xdatalist.value(1).unit.c_str()) +
         ", " +
         QString::fromUtf8(plotar->ydatalist.value(1).name.c_str()) +
         " = " +
-        QString::number(plotar->y_current,'f',4) +
+        QString::number(plotar->y_current,'g',5) +
         " " +
         QString::fromUtf8(plotar->ydatalist.value(1).unit.c_str());
 

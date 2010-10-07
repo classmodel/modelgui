@@ -2,11 +2,12 @@
 #include <iostream>
 #include <fstream>
 #include "model.h"
+
 using namespace std;
 
 inline double sign(double n) { return n > 0 ? 1 : (n < 0 ? -1 : 0);}
 
-model::model(modelinput extinput)
+model::model(modelinput *extinput)
 {
   // model constants
   Lv         =  2.5e6;                  // heat of vaporization [J kg-1]
@@ -21,11 +22,12 @@ model::model(modelinput extinput)
   S0         =  1368.;                  // solar constant [W m-2]
   pi         =  3.14159265359;          // Pi
 
-  input      =  extinput;
+  //input      =  extinput;
+  input = *extinput;
 
-  // read initial and boundary conditions from input file
-//  input.runtime    =  extinput.runtime;          // duration of model run [s]
-//  input.dt         =  extinput.dt;               // time step [s]
+  //input.reactions  =  new Reaction[input.rsize];
+  //for(int i=0; i<input.rsize; i++)
+  //  input.reactions[i] = extinput.reactions[i]; // CvH check is assignment operator needs to be overloaded
 //
 //  // mixed-layer
 //  input.sw_ml      =  extinput.sw_ml;
@@ -120,9 +122,10 @@ void model::initmodel()
   sw_ml      =  input.sw_ml;
   h          =  input.h;                // initial ABL height [m]
   Ps         =  input.Ps;               // surface pressure [Pa]
-  ws         =  input.ws;               // large scale vertical velocity [m s-1]
+  omegas     =  input.omegas;           // large scale vertical velocity [m s-1]
+  ws         =  -1.;
   fc         =  input.fc;               // coriolis parameter [s-1]
-  
+
   theta      =  input.theta;            // initial mixed-layer potential temperature [K]
   dtheta     =  input.dtheta;           // initial temperature jump at h [K]
   gammatheta =  input.gammatheta;       // free atmosphere potential temperature lapse rate [K m-1]
@@ -131,9 +134,9 @@ void model::initmodel()
   wtheta     =  input.wtheta;           // surface kinematic heat flux [K m s-1]
   wtheta0    =  input.wtheta;           // maximum surface kinematic heat flux [K m s-1]
   sw_wtheta  =  input.sw_wtheta;
-  
+
   thetasurf  =  input.theta;            // surface potential temperature [K]
-  
+
   q          =  input.q;                // initial mixed-layer specific humidity [kg kg-1]
   dq         =  input.dq;               // initial specific humidity jump at h [kg kg-1]
   gammaq     =  input.gammaq;           // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
@@ -147,18 +150,43 @@ void model::initmodel()
   e          =  -1.;                    // mixed-layer vapor pressure [Pa]
   qsatsurf   =  -1.;                    // surface saturated specific humidity [g kg-1]
   dqsatdT    =  -1.;                    // slope saturated specific humidity curve [g kg-1 K-1]
-  
+
   sw_wind    =  input.sw_wind;          // prognostic wind switch
   u          =  input.u;                // initial mixed-layer u-wind speed [m s-1]
   du         =  input.du;               // initial u-wind jump at h [m s-1]
   gammau     =  input.gammau;           // free atmosphere u-wind speed lapse rate [s-1]
   advu       =  input.advu;             // advection of u-wind [m s-2]
-  
+
   v          =  input.v;                // initial mixed-layer u-wind speed [m s-1]
   dv         =  input.dv;               // initial u-wind jump at h [m s-1]
   gammav     =  input.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
   advv       =  input.advv;             // advection of v-wind [m s-2]
-  
+
+  nsc        =  input.nsc;
+  sc         =  new double[nsc];
+  dsc        =  new double[nsc];
+  gammasc    =  new double[nsc];
+  advsc      =  new double[nsc];
+  wsc        =  new double[nsc];
+  sw_wsc     =  new int[nsc];
+
+  sctend     =  new double[nsc];
+  dsctend    =  new double[nsc];
+  wsc0       =  new double[nsc];
+  wsce       =  new double[nsc];
+
+  for(int i=0; i<nsc; i++)
+  {
+    sc[i]       =  input.sc[i];
+    dsc[i]      =  input.dsc[i];
+    gammasc[i]  =  input.gammasc[i];
+    advsc[i]    =  input.advsc[i];
+    wsc[i]      =  input.wsc[i];
+    wsc0[i]     =  input.wsc[i];
+    sw_wsc[i]   =  input.sw_wsc[i];
+    //cout << i << ", " << sc[i] << ", " << dsc[i] << ", " << wsc0[i] << endl;
+  }
+
   // surface-layer
   sw_sl      =  input.sw_sl;            // surface layer switch
   ustar      =  input.ustar;            // surface friction velocity [m s-1]
@@ -169,7 +197,7 @@ void model::initmodel()
   L          =  -1;                     // Obukhov length [-]
   Rib        =  -1;                     // bulk Richardson number [-]
   ra         =  -1;                     // aerodynamic resistance [s m-1]
-  
+
   // radiation
   sw_rad     =  input.sw_rad;           // radiation switch
   lat        =  input.lat;              // latitude [deg]
@@ -182,7 +210,7 @@ void model::initmodel()
   Lwin       =  -1;
   Lwout      =  -1;
   Q          =  input.Q;                // net radiation [W m-2]
-  
+
   // land surface
   sw_ls      =  input.sw_ls;            // land surface switch
   sw_sea     =  input.sw_sea;           // land / sea switch
@@ -190,19 +218,19 @@ void model::initmodel()
   w2         =  input.w2;               // volumetric water content deeper soil layer [m3 m-3]
   Tsoil      =  input.Tsoil;            // temperature top soil layer [K]
   T2         =  input.T2;               // temperature deeper soil layer [K]
-  
+
   a          =  input.a;                // Clapp and Hornberger retention curve parameter a
   b          =  input.b;                // Clapp and Hornberger retention curve parameter b
   p          =  input.p;                // Clapp and Hornberger retention curve parameter p
   CGsat      =  input.CGsat;            // saturated soil conductivity for heat
-  
+
   wsat       =  input.wsat;             // saturated volumetric water content ECMWF config [-]
   wfc        =  input.wfc;              // volumetric water content field capacity [-]
   wwilt      =  input.wwilt;            // volumetric water content wilting point [-]
-  
+
   C1sat      =  input.C1sat;
   C2ref      =  input.C2ref;
-  
+
   LAI        =  input.LAI;              // leaf area index [-]
   gD         =  input.gD;               // correction factor transpiration for VPD [-]
   rsmin      =  input.rsmin;            // minimum resistance transpiration [s m-1]
@@ -211,14 +239,14 @@ void model::initmodel()
 
   rs         =  1e6;
   rssoil     =  1e6;
-  
+
   Ts         =  input.Ts;               // initial surface temperature [K]
-  
+
   cveg       =  input.cveg;             // vegetation fraction [-]
   Wmax       =  input.Wmax;             // thickness of water layer on wet vegetation [m]
   Wl         =  input.Wl;               // equivalent water layer depth for wet vegetation [m]
   cliq       =  -1;                     // wet fraction [-]
-  
+
   Lambda     =  input.Lambda;           // thermal diffusivity skin layer [-]
 
   Tsoiltend  =  -1.;                    // soil temperature tendency [K s-1]
@@ -234,9 +262,37 @@ void model::initmodel()
   LEref      =  -1.;                    // reference evaporation using rs = rsmin / LAI [W m-2]
   G          =  -1.;                    // ground heat flux [W m-2]
 
+  // chemistry
+  sw_chem           = input.sw_chem;
+  sw_chem_constant  = input.sw_chem_constant;
+  sw_photo_constant = input.sw_photo_constant;
+  rsize      =  input.rsize;
+  csize      =  input.csize;
+  sw_chemoutput = new bool[csize];
+  reactions  =  input.reactions; // CvH forward address to reaction array
+  sw_reactions = new bool[rsize];
+  for(int i=0; i<rsize; i++)
+    sw_reactions[i] = input.sw_reactions[i];
+
+  P_ref      =  input.P_ref;
+  Tcbl_ref   =  input.Tcbl_ref;
+  Tfc_ref    =  input.Tfc_ref;
+  qcbl_ref   =  input.qcbl_ref;
+  qfc_ref    =  input.qfc_ref;
+  tod_ref    =  input.tod_ref;
+  stocoef    =  input.stocoef;
+
+  //for(int i=0; i<input.rsize; i++)
+  //  reactions[i] = input.reactions[i];
+
+
   // initialize time variables
   tsteps = int(runtime / dt) + 1;
   t      = 0;
+
+  // CvH initialize chemistry
+  if(sw_chem)
+    initchemmodel();
 
   if(sw_rad)
     runradmodel();
@@ -252,12 +308,16 @@ void model::initmodel()
   if(sw_ml)
     runmlmodel();
 
+  // initialize chemistry using a very small time step value
+  if(sw_chem)
+    runchemmodel(dt / 1000.);
+
   // set output array to given value
-  output = new modeloutput(tsteps);
+  output = new modeloutput(tsteps, nsc);
 
   store();
   return;
-} 
+}
 
 
 void model::runmodel()
@@ -283,6 +343,9 @@ void model::runmodel()
 
     if(sw_ml)
       intmlmodel();
+
+    if(sw_chem)
+      runchemmodel(dt);
 
     store();
   }
@@ -313,8 +376,13 @@ void model::runmlmodel()
   wthetav  = wtheta + 0.61 * theta * wq;
   dthetav  = (theta + dtheta) * (1. + 0.61 * (q + dq)) - theta * (1. + 0.61 * q);
 
+  int inputdthetav  = (input.theta + input.dtheta) * (1. + 0.61 * (input.q + input.dq)) - input.theta * (1. + 0.61 * input.q);
+
+  // compute large scale vertical velocity
+  ws = -omegas * h;
+
   // compute tendencies
-  if(beta == 0 && dthetav == 0)
+  if(beta == 0 && inputdthetav == 0)
     we    = 1 / gammatheta * wthetav / h;
   else
     we    = (beta * wthetav) / dthetav;
@@ -331,6 +399,24 @@ void model::runmlmodel()
 
   dthetatend  = gammatheta * we - thetatend;
   dqtend      = gammaq     * we - qtend;
+
+  for(int i=0; i<nsc; i++)
+  {
+    if(sw_wsc[i] == 1)
+      wsc[i] = wsc0[i] * std::sin(pi / sinperiod * t * dt);
+    else if(sw_wsc[i] == 2)
+    {
+      double sda       = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
+      double sinleamax = sin(2. * pi * lat / 360.) * sin(sda) + cos(2. * pi * lat / 360.) * cos(sda);
+      double sinlea    = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
+      sinlea  = max(sinlea, 0.);
+      wsc[i]  = wsc0[i] * sinlea / sinleamax;
+    }
+
+    wsce[i]    = we * dsc[i];
+    sctend[i]  = (wsc[i] + wsce[i]) / h + advsc[i];
+    dsctend[i] = gammasc[i] * we - sctend[i];
+  }
 
   // assume u + du = ug, so ug - u = du
   if(sw_wind)
@@ -349,6 +435,17 @@ void model::runmlmodel()
   double Td      = 1. / ((1./273.15) - (Rv/Lv)*log(e/611.));
   double Tlcl    = 1. / ( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
   lcl            = 0. - (cp * (Tlcl - theta) / g);
+
+  // RH evaluated at T = theta
+  double esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
+  RH             = e / esat;
+
+  // RH at mixed-layer top
+  double Ptop    = Ps / exp((g * h)/(Rd * theta));
+  double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
+  double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
+  double etop    = q * Ptop / 0.622;
+  RHtop          = etop / esattop;
 }
 
 void model::intmlmodel()
@@ -356,6 +453,7 @@ void model::intmlmodel()
   double h0;
   double theta0, dtheta0, q0, dq0;
   double u0, du0, v0, dv0;
+  double *sc0, *dsc0;
 
   // set values previous time step
   h0      = h;
@@ -370,6 +468,14 @@ void model::intmlmodel()
   v0      = v;
   dv0     = dv;
 
+  sc0  = new double[nsc];
+  dsc0 = new double[nsc];
+  for(int i=0; i<nsc; i++)
+  {
+    sc0[i]  = sc[i];
+    dsc0[i] = dsc[i];
+  }
+
   // integrate mixed-layer equations
   h        = h0      + dt * htend;
 
@@ -377,6 +483,12 @@ void model::intmlmodel()
   dtheta   = dtheta0 + dt * dthetatend;
   q        = q0      + dt * qtend;
   dq       = dq0     + dt * dqtend;
+
+  for(int i=0; i<nsc; i++)
+  {
+    sc[i]    = sc0[i]  + dt * sctend[i];
+    dsc[i]   = dsc0[i] + dt * dsctend[i];
+  }
 
   if(sw_wind)
   {
@@ -582,10 +694,12 @@ void model::runlsmodel()
     else
       f2   = 1.e8;
 
-    f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
-    f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
+    //f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
+    //f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
+    f3     = 1. / exp(- gD * (esat - e) / 100.);
+    f4     = 1./ (1. - 0.0016 * pow(298.0 - theta, 2.));
 
-    rs     = rsmin / LAI * f1 * f2 * f3;
+    rs     = rsmin / LAI * f1 * f2 * f3 * f4;
 
     // recompute f2 using wg instead of w2
     if(wg > wwilt)
@@ -656,8 +770,9 @@ void model::intlsmodel()
 void model::store()
 {
   cout << "(t,h,LCL,theta,q,u,v) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
+  cout << "(t,sc0,sc1,sc3,sc9)   " << t * dt << ", " << sc[0] << ", " << sc[1] << ", " << sc[3] << ", " << sc[9] << endl;
   output->t.data[t]          = t * dt / 3600.; // + tstart;
-
+  output->tutc.data[t]       = t * dt / 3600. + tstart;
   output->h.data[t]          = h;
   output->Ps.data[t]         = Ps;
   output->ws.data[t]         = ws;
@@ -674,7 +789,10 @@ void model::store()
   output->wtheta.data[t]     = wtheta;
   output->wthetae.data[t]    = wthetae;
   output->wthetav.data[t]    = wthetav;
-  
+  output->we.data[t]         = we;
+  output->RH.data[t]         = RH;
+  output->RHtop.data[t]      = RHtop;
+
   output->q.data[t]          = q * 1000.;
   //output.qsat[t]       = qsat;
   //output.e[t]          = e;
@@ -691,7 +809,7 @@ void model::store()
   output->advu.data[t]       = advu;
   output->uw.data[t]         = uw;
   output->uwe.data[t]        = uwe;
-  
+
   output->v.data[t]          = v;
   output->dv.data[t]         = dv;
   output->gammav.data[t]     = gammav;
@@ -743,8 +861,18 @@ void model::store()
   output->qprof.data[startt + 3] = output->q.data[t] + output->dq.data[t] + output->gammaq.data[t] * 1.e6;
   output->zprof.data[startt + 3] = output->h.data[t] + 1.e6;
 
+  //chemistry
+  output->phi.data[t]     = phi;
+  output->k_r05.data[t]   = k_r05;
+
+  for(int n=0;n<nsc; n++)
+    if(sw_chemoutput[n])
+      output->sc[n].data[t] = sc[n];
+    else
+      output->sc[n].data[t] = 0;
+
   return;
-} 
+}
 
 void model::run2file(std::string filedir, std::string filename)
 {
@@ -758,7 +886,9 @@ void model::run2file(std::string filedir, std::string filename)
 
   // Write header first
   runsave << output->t.name << " [" << output->t.unit << "],";
+  runsave << output->tutc.name << " [" << output->tutc.unit << "],";
   runsave << output->h.name << " [" << output->h.unit << "],";
+  runsave << output->we.name << " [" << output->we.unit << "],";
   runsave << output->lcl.name << " [" << output->lcl.unit << "],";
 
   runsave << output->theta.name << " [" << output->theta.unit << "],";
@@ -803,13 +933,27 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->rs.name << " [" << output->rs.unit << "],";
   runsave << output->H.name << " [" << output->H.unit << "],";
   runsave << output->LE.name << " [" << output->LE.unit << "],";
-  runsave << output->G.name << " [" << output->G.unit << "]";
+  runsave << output->G.name << " [" << output->G.unit << "],";
+
+  int n;
+
+  for(n=0; n<nsc; n++)
+  {
+    runsave << output->sc[n].name << " [" << output->sc[n].unit;
+    if(n < (nsc-1))
+      runsave << "],";
+    else
+      runsave << "]";
+  }
+
   runsave << std::endl;
 
   for(int nt=0; nt < tsteps; nt++)
   {
     runsave << output->t.data[nt] << ",";
+    runsave << output->tutc.data[nt] << ",";
     runsave << output->h.data[nt] << ",";
+    runsave << output->we.data[nt] << ",";
     runsave << output->lcl.data[nt] << ",";
 
     runsave << output->theta.data[nt] << ",";
@@ -854,7 +998,15 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->rs.data[nt] << ",";
     runsave << output->H.data[nt] << ",";
     runsave << output->LE.data[nt] << ",";
-    runsave << output->G.data[nt];
+    runsave << output->G.data[nt] << ",";
+
+    for(n=0; n<nsc; n++)
+    {
+      runsave << output->sc[n].data[nt];
+      if(n < (nsc-1))
+        runsave << ",";
+    }
+
     runsave << std::endl;
   }
 
@@ -884,6 +1036,143 @@ void model::run2file(std::string filedir, std::string filename)
   }
 
   runprofsave.close();
+
+  return;
+}
+
+void model::initchemmodel()
+{
+
+  //cout << "Starting initchemmodel" << endl;
+
+  int i;
+
+  //Reaction Reactions[RSIZE];
+
+  Reaction **RC_ptr;
+
+  RC_ptr = new Reaction*[rsize];
+
+  for(i=0;i<rsize;i++)
+    RC_ptr[i]=&reactions[i];
+
+  //Name_Number  PL_scheme[CSIZE];
+  Name_Number **PL_ptr;
+  PL_ptr    = new Name_Number*[csize];
+
+  // initialize PL_scheme, it has not been done yet
+  PL_scheme = new Name_Number[csize];
+
+  for(i=0;i<csize;i++)
+    PL_ptr[i]=&PL_scheme[i];
+
+  for(i=0;i<csize;i++)
+  {
+    PL_scheme[i].active = 0; // WAS FALSE
+    PL_scheme[i].chem_number = -99;
+    PL_scheme[i].nr_PL = 0;
+  }
+
+  // HERE THE FINAL MODULE STARTS
+  cm = new modelchem(RC_ptr, PL_ptr, rsize, csize);
+  cm->inputchem(sw_reactions, sw_chemoutput, stocoef);
+  return;
+}
+
+void model::runchemmodel(double chemdt)
+{
+  double *iterin, *iterout, *fsc;
+  iterin  = new double[nsc];
+  iterout = new double[nsc];
+  fsc     = new double[nsc];
+
+  for(int i=0; i<nsc; i++)
+  {
+    iterin[i]  = sc[i];
+    iterout[i] = sc[i];
+    fsc[i]     = sc[i] + dsc[i];
+  }
+
+  //cout << "Running chemmodel for timestep: " << t << endl;
+
+  if(sw_chem_constant)
+  {
+    double  sda;     // solar declination angle [rad]
+    double  sinlea;  // sinus of local declination angle [-]
+
+    sda    = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
+
+    sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
+
+    if(sw_photo_constant)
+      if(sinlea >= 0.)
+        sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
+
+    cm->calc_k(P_ref,P_ref, \
+                Tcbl_ref, Tfc_ref, \
+                qcbl_ref, qfc_ref, \
+                sinlea );
+
+    cm->iter(1, chemdt, qcbl_ref, iterout, iterin, &phi, &k_r05);
+
+    for(int i=0; i<nsc; i++)
+     sc[i] = iterout[i];
+
+    for(int i=0; i<nsc; i++)
+    {
+      iterin[i]  = fsc[i];
+      iterout[i] = fsc[i];
+    }
+
+    double dummy;
+
+    cm->iter(0, chemdt, qfc_ref, iterout, iterin, &dummy, &dummy);
+
+    for(int i=0; i<nsc; i++)
+     dsc[i] = iterout[i] - sc[i];
+  }
+  else
+  {
+    double  Ptop;
+    double  Tcbl;
+    double  Tfc;
+    double  sda;     // solar declination angle [rad]
+    double  sinlea;  // sinus of local declination angle [-]
+    double  qfc;
+
+    Ptop = Ps - rho * g * h;
+    Tcbl = theta;
+    Tfc  = theta - g / cp * h;
+    qfc  = q + dq;
+
+    sda    = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
+    sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
+
+    if(sw_photo_constant)
+      if(sinlea >= 0.)
+        sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (tod_ref * 3600.) / 86400. - 2. * pi * lon / 360.);
+
+    cm->calc_k(Ps,   Ptop, \
+               Tcbl, Tfc, \
+               q,    qfc, \
+               sinlea );
+
+    cm->iter(1, chemdt, q, iterout, iterin, &phi, &k_r05);
+
+    for(int i=0; i<nsc; i++)
+     sc[i] = iterout[i];
+
+    for(int i=0; i<nsc; i++)
+    {
+      iterin[i]  = fsc[i];
+      iterout[i] = fsc[i];
+    }
+
+    cm->iter(0, chemdt, qfc, iterout, iterin, &phi, &k_r05);
+
+    for(int i=0; i<nsc; i++)
+      dsc[i] = iterout[i] - sc[i];
+  }
 
   return;
 }

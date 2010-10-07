@@ -1,6 +1,7 @@
 #include <cmath>
 #include "subplot.h"
 #include "ui_subplot.h"
+#include <QTextDocument>
 
 plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent)
 {
@@ -35,11 +36,13 @@ plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *par
 
   // Start mousetracking for this widget
   this->setMouseTracking(true);
+
   // Disable rubberband to start with (prevents crash..)
   drawrubberband        = false;
   mousereleased         = false;
 
   legendmoved           = false;
+  legendmoves           = false;
 }
 
 double plotarea::transfx(double x, double xscale, double xmin, int mode)
@@ -158,7 +161,10 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         xdata = xdatalist.value(selectedruns->value(i));
         ydata = ydatalist.value(selectedruns->value(i));
 
-        int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
+        double tempruntime = runlist->find(selectedruns->value(i)).value().run->input.runtime;
+        double tempdt      = runlist->find(selectedruns->value(i)).value().run->input.dt;
+
+        int tsteps = int(tempruntime / tempdt) + 1;
 
         for(int m=0; m<tsteps; m++)
         {
@@ -227,12 +233,14 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       plotwidget_width = 1000;
       plotwidget_height = 800;
       PNGscale = 2;
+      PNGfontscale = 2.5;
     }
     else
     {
       plotwidget_width = geometry().width();
       plotwidget_height = geometry().height();
       PNGscale = 1;
+      PNGfontscale = 1;
     }
 
     topmargin     = defaulttopmargin * PNGscale;
@@ -255,7 +263,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       image.fill(QColor(Qt::white).rgb());
       paint.begin(&image);\
-      QFont font("sans-serif", 26, QFont::Normal);
+      QFont font("sans-serif", 24, QFont::Normal);
       paint.setFont(font);
     }
 
@@ -307,8 +315,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(y = graphminy; y <= graphmaxy + .5 * d; y = y + d)
     {
-      paint.drawText((leftmargin-100),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-13,90,30,0x0082, QString::number(y,'f',nfrac));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
+      paint.drawText((leftmargin-100),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-13,90,30,0x0082, QString::number(y,'g',5));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
       paint.drawLine(leftmargin,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin,leftmargin+(3 * PNGscale),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin);
+
     }
 
     // Draw labels X-axis
@@ -320,14 +329,14 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(x = graphminx; x <= graphmaxx + .5 * d; x = x + d)
     {
-      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-30,plotwidget_height-bottommargin+8,60,30, 0x0024, QString::number(x,'f',nfrac));
+      paint.drawText(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin-30,plotwidget_height-bottommargin+8,60,(30*PNGfontscale), 0x0024, QString::number(x,'f',nfrac));
       paint.drawLine(((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin,((plotwidth * (x-graphminx))/(graphmaxx - graphminx))+leftmargin,plotwidget_height-bottommargin-(3 * PNGscale));
-    } 
+    }
 
     // Axis labels
-    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + (28 * PNGscale),300,30,Qt::AlignHCenter, xlabel);
+    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + (28 * PNGscale),300,(30*PNGscale),Qt::AlignHCenter, xlabel);
     paint.rotate(270);
-    paint.drawText(-((plotheight / 2) + topmargin + 150),(5 * PNGscale),300,25,Qt::AlignCenter, ylabel);
+    paint.drawText(-((plotheight / 2) + topmargin + 150),(5 * PNGscale),300,(25*PNGscale),Qt::AlignCenter, ylabel);
     paint.rotate(90);
 
     // Hereafter; clip data plot .
@@ -336,6 +345,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     legend_width = 0;
     legend_height = selectedruns->count() * 15;
+
     if (!legendmoved)
     {
       legend_y = topmargin + 5;
@@ -344,11 +354,13 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(int i=0; i<selectedruns->count(); i++)
     {
-      //getdata(&xdata, &ydata, i);
       xdata = xdatalist.value(selectedruns->value(i));
       ydata = ydatalist.value(selectedruns->value(i));
-      
-      int tsteps = int(runlist->value(selectedruns->value(i)).run->input.runtime / runlist->value(selectedruns->value(i)).run->input.dt) + 1;
+
+      double tempruntime = runlist->find(selectedruns->value(i)).value().run->input.runtime;
+      double tempdt      = runlist->find(selectedruns->value(i)).value().run->input.dt;
+
+      int tsteps = int(tempruntime / tempdt) + 1;
 
       yscale = plotheight / (graphmaxy-graphminy);   // scaling factor for f(real-coordinate to Widget-coordinate)
       xscale = plotwidth  / (graphmaxx-graphminx);   // scaling factor for f(real-coordinate to Widget-coordinate)
@@ -433,9 +445,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       paint.setRenderHint(QPainter::Antialiasing, false);
 
       // Create legend label text, add time interval for vertical profiles
-      QString legendlabel = runlist->value(selectedruns->value(i)).runname;
+      QString legendlabel = runlist->find(selectedruns->value(i)).value().runname;
       if (ydata.id == "zprof")
-        legendlabel = runlist->value(selectedruns->value(i)).runname + " [dt=" + QString::number((profinterval * runlist->value(selectedruns->value(i)).run->input.dt) / 3600.) + "h]";
+        legendlabel = runlist->find(selectedruns->value(i)).value().runname + " [dt=" + QString::number((profinterval * runlist->find(selectedruns->value(i)).value().run->input.dt) / 3600.) + "h]";
 
       // Find the maximum length of a legend string, needed for the movable legend.
       if (legendlabel.length() > legend_width)
@@ -443,7 +455,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
       // Draw the legend
       paint.drawLine(legend_x+(10*PNGscale),i*15*PNGscale + legend_y + 8,legend_x+(25*PNGscale),i*15*PNGscale + legend_y+8);
-      paint.drawText(legend_x+(30*PNGscale),i*15*PNGscale + legend_y - 7,(legendlabel.length() * 8),30, 0x0081, legendlabel);
+      paint.drawText(legend_x+(30*PNGscale),i*15*PNGscale + legend_y - 7,(legendlabel.length() * 10 * PNGfontscale),30, 0x0081, legendlabel);
       // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
 
@@ -460,11 +472,11 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     if(!selectedruns->contains(assignedcolors.value(i)))
       assignedcolors.replace(i,-1);
 
-  if (autoaxis)
+  if (autoaxis && !legendmoved)
     emit axischanged();
 
   if (mousereleased)
-      emit zoombymouse();
+    emit zoombymouse();
 
   if (mousepressed)
     mousepressed = false;
@@ -483,6 +495,7 @@ void plotarea::mousePressEvent( QMouseEvent *e )
       y_press > legend_y &&
       y_press < legend_y + legend_height)
   {
+    legendmoves = true;
     legendmoved = true;
     legend_x_offset = e->x() - legend_x;
     legend_y_offset = e->y() - legend_y;
@@ -501,7 +514,7 @@ void plotarea::mousePressEvent( QMouseEvent *e )
 
 void plotarea::mouseMoveEvent(QMouseEvent *e)
  {
-  if (legendmoved)
+  if (legendmoves)
    {
      legend_x = e->x() - legend_x_offset;
      legend_y = e->y() - legend_y_offset;
@@ -522,14 +535,17 @@ void plotarea::mouseReleaseEvent( QMouseEvent *e )
   x_release = e->x();
   y_release = e->y();
 
-  if (legendmoved)
-    legendmoved = false;
+  if (legendmoves)
+  {
+    legendmoves = false;
+  }
 
   if (drawrubberband)
   {
     rubberBand->hide();
     drawrubberband = false;
-    mousereleased = true;
+    if (x_release != x_press)
+      mousereleased = true;
     update();
   }
 }

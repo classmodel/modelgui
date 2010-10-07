@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Plot window | Mixed-Layer Model</string>
+   <string>CLASS graph</string>
   </property>
   <property name="dockNestingEnabled">
    <bool>true</bool>
@@ -242,7 +242,7 @@
            <property name="maximumSize">
             <size>
              <width>100</width>
-             <height>1000</height>
+             <height>25</height>
             </size>
            </property>
           </widget>
@@ -278,7 +278,7 @@
            <property name="maximumSize">
             <size>
              <width>100</width>
-             <height>1000</height>
+             <height>25</height>
             </size>
            </property>
           </widget>
@@ -317,7 +317,7 @@
            <property name="maximumSize">
             <size>
              <width>100</width>
-             <height>1000</height>
+             <height>25</height>
             </size>
            </property>
           </widget>
@@ -353,7 +353,7 @@
            <property name="maximumSize">
             <size>
              <width>100</width>
-             <height>1000</height>
+             <height>25</height>
             </size>
            </property>
           </widget>
