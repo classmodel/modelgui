@@ -166,7 +166,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.v
       << modelout.dv
       << modelout.vw
-      << modelout.vwe;
+      << modelout.vwe
+      << modelout.ustar;
 
   surfacelayervars
       << modelout.ustar
