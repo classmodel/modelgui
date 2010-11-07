@@ -129,14 +129,14 @@ void MainWindow::readdefaultinput()
   defaultinput.wsc[2]     = 0.;
   defaultinput.sw_wsc[2]  = 0;
 
-  defaultinput.sc[3]      = 0.;
+  defaultinput.sc[3]      = 0.4;
   defaultinput.dsc[3]     = 0.;
   defaultinput.gammasc[3] = 0.;
   defaultinput.advsc[3]   = 0.;
-  defaultinput.wsc[3]     = 1.e-1;
+  defaultinput.wsc[3]     = 0.;
   defaultinput.sw_wsc[3]  = 0;
 
-  defaultinput.sc[4]      = 0.0;
+  defaultinput.sc[4]      = 0.6;
   defaultinput.dsc[4]     = 0.;
   defaultinput.gammasc[4] = 0.;
   defaultinput.advsc[4]   = 0.;
