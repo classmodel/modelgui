@@ -170,7 +170,6 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.ustar;
 
   surfacelayervars
-      << modelout.ustar
       << modelout.L
       << modelout.Rib
       << modelout.ra
