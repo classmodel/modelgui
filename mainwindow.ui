@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -81,7 +81,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>111</height>
+         <height>121</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="modelsettings_grid" columnminimumwidth="50,0,60">
@@ -504,7 +504,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>141</height>
+         <height>150</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="ml_grid" columnminimumwidth="50,0,80">
@@ -1601,7 +1601,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>151</height>
+         <height>153</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="rad_grid1" columnminimumwidth="50,0,60">
@@ -1918,7 +1918,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
+         <width>210</width>
          <height>61</height>
         </rect>
        </property>
@@ -3049,7 +3049,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m&lt;sup&gt;3&lt;/sup&gt; s&lt;sup&gt;-3&lt;/sup&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m&lt;sup&gt;3&lt;/sup&gt; m&lt;sup&gt;-3&lt;/sup&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3062,7 +3062,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m&lt;sup&gt;3&lt;/sup&gt; s&lt;sup&gt;-3&lt;/sup&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m&lt;sup&gt;3&lt;/sup&gt; m&lt;sup&gt;-3&lt;/sup&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3275,7 +3275,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>181</height>
+         <height>182</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="species_ref_grid" columnminimumwidth="50,0,60">
@@ -3537,7 +3537,7 @@
         <rect>
          <x>10</x>
          <y>210</y>
-         <width>201</width>
+         <width>220</width>
          <height>186</height>
         </rect>
        </property>
@@ -3842,8 +3842,8 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>421</width>
-         <height>26</height>
+         <width>437</width>
+         <height>37</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="reactions_grid" columnstretch="0,0,0,1,0">
@@ -3937,7 +3937,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>403</width>
+          <width>98</width>
           <height>750</height>
          </rect>
         </property>
@@ -5613,7 +5613,7 @@
      <x>0</x>
      <y>0</y>
      <width>650</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
