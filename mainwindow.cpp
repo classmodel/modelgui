@@ -637,6 +637,10 @@ void MainWindow::loadFormData()
     {
       updateSoiltype(modelrunlist->find(n).value().soilstatus);
       ui->sw_soil_advanced->setCheckState(Qt::Unchecked);
+
+      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
+      ui->soil_advanced_group->setEnabled(false);
+      ui->input_soil_soiltypes->setEnabled(true);
     }
     else
     {
@@ -652,6 +656,10 @@ void MainWindow::loadFormData()
       ui->input_soil_b->setText(QString::number(formvalues.b));
       ui->input_soil_p->setText(QString::number(formvalues.p));
       ui->input_soil_CGsat->setText(QString::number(formvalues.CGsat));
+
+      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
+      ui->soil_advanced_group->setEnabled(true);
+      ui->input_soil_soiltypes->setEnabled(false);
     }
 
     // SURFACE
@@ -662,6 +670,10 @@ void MainWindow::loadFormData()
     {
       ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
       updateSurfacetype(modelrunlist->find(n).value().surfacestatus);
+
+      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
+      ui->surface_advanced_group->setEnabled(false);
+      ui->input_surface_surfacetypes->setEnabled(true);
     }
     else
     {
@@ -675,6 +687,10 @@ void MainWindow::loadFormData()
       ui->input_surface_Lambda->setText(QString::number(formvalues.Lambda));
       ui->input_surface_z0m->setText(QString::number(formvalues.z0m));
       ui->input_surface_z0h->setText(QString::number(formvalues.z0h));
+
+      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
+      ui->surface_advanced_group->setEnabled(true);
+      ui->input_surface_surfacetypes->setEnabled(false);
     }
 
     // RADIATION
