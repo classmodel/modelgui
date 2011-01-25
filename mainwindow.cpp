@@ -400,7 +400,7 @@ void MainWindow::storeFormData()
   formvalues.cveg       = ui->input_surface_cveg->text().toDouble();
   formvalues.Lambda     = ui->input_surface_Lambda->text().toDouble();
 
-  if (activetab == 2)
+  if (activetab == 3)
   {
     formvalues.z0m      = ui->input_surface_z0m->text().toDouble();
     formvalues.z0h      = ui->input_surface_z0h->text().toDouble();
