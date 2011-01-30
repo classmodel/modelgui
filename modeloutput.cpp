@@ -302,7 +302,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
   // land and soil
   wg.data                   = new double[tsteps];   // Soil moisture top layer [m3 m-3]
   wg.name                   = "wg";
-  wg.unit                   = "m3 m3";
+  wg.unit                   = "m3 m-3";
   wg.description            = "Volumetric water content top soil layer";
   wg.id                     = "wg";
 
@@ -320,7 +320,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
 
   Wl.data                   = new double[tsteps];   // Liquid water on vegetation [m]
   Wl.name                   = "Wl";
-  Wl.unit                   = "m3 m3";
+  Wl.unit                   = "m3 m-3";
   Wl.description            = "Liquid water on vegetation";
   Wl.id                     = "Wl";
 
