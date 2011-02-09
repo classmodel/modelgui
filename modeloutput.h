@@ -89,6 +89,12 @@ public:
   outputvar LE;        // latent heat flux [W m-2]
   outputvar G;         // ground heat flux [W m-2]
 
+  // shallow-cumulus
+  outputvar ac;        // cloud core fraction [-]
+  outputvar sigmaq;    // mixed-layer top specific humidity std dev [kg kg-1]
+  outputvar M;         // mass-flux (/rho) [m s-1]
+  outputvar wqM;       // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+
   // vertical profiles
   outputvar zprof;
   outputvar thetaprof;

@@ -348,6 +348,31 @@ modeloutput::modeloutput(int tsteps, int nsc)
   G.description             = "Ground heat flux";
   G.id                      = "G";
 
+  // shallow-cumulus
+  ac.data                   = new double[tsteps];   // cloud core fraction [-]
+  ac.name                   = "ac";
+  ac.unit                   = "-";
+  ac.description            = "Cloud core fraction";
+  ac.id                     = "ac";
+
+  sigmaq.data               = new double[tsteps];   // mixed-layer top specific humidity std dev [kg kg-1]
+  sigmaq.name               = "\u03C3q";
+  sigmaq.unit               = "g kg\u207B\u00B9";
+  sigmaq.description        = "stddev(q) at mixed-layer top";
+  sigmaq.id                 = "sigmaq";
+
+  M.data                    = new double[tsteps];   // mass-flux (/rho) [m s-1]
+  M.name                    = "M";
+  M.unit                    = "m s\u207B\u00B9";
+  M.description             = "Mass-flux";
+  M.id                      = "M";
+
+  wqM.data                  = new double[tsteps];   // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+  wqM.name                  = "w'q'(M)";
+  wqM.unit                  = "g kg\u207B\u00B9 m s\u207B\u00B9";
+  wqM.description           = "Mass-flux kinematic moisture flux";
+  wqM.id                    = "wqM";
+
   // vertical profiles
   thetaprof.data            = new double[tsteps*4];
   thetaprof.name            = "\u03B8";
@@ -361,7 +386,6 @@ modeloutput::modeloutput(int tsteps, int nsc)
   qprof.description         = "Mixed-layer specific humidity";
   qprof.id                  = "qprof";
 
-  // vertical profiles
   zprof.data                = new double[tsteps*4];
   zprof.name                = "z";
   zprof.unit                = "m";

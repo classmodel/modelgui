@@ -235,6 +235,16 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   else if (plotvar == "G")
     *data = n.run->output->G;
 
+  // clouds
+  else if (plotvar == "ac")
+    *data = n.run->output->ac;
+  else if (plotvar == "M")
+    *data = n.run->output->M;
+  else if (plotvar == "sigmaq")
+    *data = n.run->output->sigmaq;
+  else if (plotvar == "wqM")
+    *data = n.run->output->wqM;
+
   // vertical profiles
   else if (plotvar == "zprof")
     *data = n.run->output->zprof;
@@ -385,6 +395,16 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
   else if (label == "LE")
     *plotvar = label;
   else if (label == "G")
+    *plotvar = label;
+
+  // clouds
+    else if (label == "ac")
+    *plotvar = label;
+    else if (label == "M")
+    *plotvar = label;
+     else if (label == "sigmaq")
+    *plotvar = label;
+     else if (label == "wqM")
     *plotvar = label;
 
   // vertical profiles

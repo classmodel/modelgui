@@ -107,6 +107,10 @@ modelinput::modelinput()
   
   Lambda     = -1.;
 
+  // shallow-cumulus
+  sw_cu      = true;
+  dz         = -1.;
+
   // chemistry
   sw_chem    = false;
   sw_chem_constant = false;
@@ -230,6 +234,10 @@ modelinput::modelinput(const modelinput &ref)
   Wl         = ref.Wl;
 
   Lambda     = ref.Lambda;
+
+  // shallow-cumulus
+  sw_cu      = ref.sw_cu;
+  dz         = ref.dz;
 
   // chemistry
   sw_chem      = ref.sw_chem;
@@ -366,6 +374,10 @@ modelinput &modelinput::operator=(const modelinput &ref)
     Wl         = ref.Wl;
 
     Lambda     = ref.Lambda;
+
+    // shallow-cumulus
+    sw_cu      = ref.sw_cu;
+    dz         = ref.dz;
 
     // chemistry
     sw_chem    = ref.sw_chem;

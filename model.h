@@ -15,6 +15,8 @@ public:
 private:
   void initmodel();
 
+  void runcumodel();
+
   void runmlmodel();
   void intmlmodel();
 
@@ -211,6 +213,15 @@ private:
   double Tsoiltend;
   double wgtend;
   double Wltend;
+
+  // Shallow-cumulus parameters
+  bool sw_cu;       // shallow-cumulus switch [-]
+  double dz;        // inversion-layer/transition-layer thickness [m]
+  double wstar;     // Deardorff vertical velocity scale [m s-1]
+  double sigmaq2;   // mixed-layer top specific humidity variance [kg2 kg-2]
+  double ac;        // cloud core fraction [-]
+  double M;         // mass-flux (/rho) [m s-1]
+  double wqM;       // mass-flux kinematic moisture flux [kg kg-1 m s-1]
 
   // chemistry
   modelchem *cm;

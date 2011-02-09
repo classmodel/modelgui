@@ -103,6 +103,10 @@ public:
   
   double Lambda;    // thermal diffusivity skin layer [-]
 
+  // shallow-cumulus
+  bool sw_cu;       // shallow-cumulus switch
+  double dz;        // Inversion-layer/transition-layer thickness
+
   // chemistry
   bool   sw_chem;
   bool   sw_chem_constant;

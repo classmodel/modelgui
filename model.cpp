@@ -183,6 +183,15 @@ void model::initmodel()
   LEref      =  -1.;                    // reference evaporation using rs = rsmin / LAI [W m-2]
   G          =  -1.;                    // ground heat flux [W m-2]
 
+  // shallow-cumulus
+  sw_cu      = input.sw_cu;             // shallow-cumulus switch [-]
+  dz         = input.dz;                // inversion-layer/transition-layer thickness [m]
+  wstar      =  -1.;                    // Deardorff vertical velocity scale [m s-1]
+  sigmaq2    =  -1.;                    // mixed-layer top specific humidity variance [kg2 kg-2]
+  ac         =  -1.;                    // cloud core fraction [-]
+  M          =  0.;                     // mass-flux (/rho) [m s-1]
+  wqM        =  0.;                     // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+
   // chemistry
   sw_chem           = input.sw_chem;
   sw_chem_constant  = input.sw_chem_constant;
@@ -226,6 +235,12 @@ void model::initmodel()
   if(sw_ls)
     runlsmodel();
 
+  // BvS shallow-cumulus
+  if(sw_cu){
+   runmlmodel();
+   runcumodel();
+  }
+
   if(sw_ml)
     runmlmodel();
 
@@ -256,6 +271,10 @@ void model::runmodel()
     if(sw_ls)
       runlsmodel();
 
+    // BvS shallow-cumulus
+    if(sw_cu)
+      runcumodel();
+
     if(sw_ml)
       runmlmodel();
 
@@ -274,6 +293,43 @@ void model::runmodel()
   return;
 }
 
+void model::runcumodel()
+{
+  // Virtual temperature units
+  thetav           = theta  + 0.61 * theta * q;
+  wthetav          = wtheta + 0.61 * theta * wq;
+
+  if(wthetav < 0.)
+    wthetav = 1e-6;
+  if(wq < 0.)
+    wq = 0.;
+
+  // Mixed-layer top properties
+  //double Ptop      = Ps / exp((g * h)/(Rd * theta));
+  //double Ttop      = theta / pow((Ps / Ptop),(Rd / cp));
+  //double esattop   = 0.611e3 * exp(17.2694 * (Ttop - 273.16) / (Ttop - 35.86));
+  //double qsattop   = 0.622 * esattop / Ptop;
+
+  double Ptop    = Ps / exp((g * h)/(Rd * theta));
+  double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
+  double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
+  double qsattop  = 0.622 * esattop / Ptop;
+
+  wstar            = pow((g * h * wthetav) / thetav,(1./3.));
+  if (wstar == 0.)
+    wstar = 1e-6;
+  sigmaq2          = -wq * dq * h / (dz * wstar);
+  ac               = 0.5 + (0.36 * atan(1.55 * ((q - qsattop) / pow(sigmaq2,0.5))));
+
+  if (ac < 0.)
+    ac = 0.;
+
+  std::cout << "q-/qsat= " << q-qsattop << ", " << (q/qsattop)*100. << "%, sigq= " << sigmaq2 << ", ac= " << ac*100. << std::endl;
+
+  M                = ac * wstar;
+  wqM              = M * pow(sigmaq2,0.5);
+}
+
 void model::runmlmodel()
 {
   if(!sw_sl)
@@ -289,7 +345,6 @@ void model::runmlmodel()
 
   if(sw_wq && (!sw_ls))
     wq     = wq0 * std::sin(pi / sinperiod * t * dt);
-
 
   // compute mixed-layer tendencies
   // first compute necessary virtual temperature units
@@ -313,10 +368,10 @@ void model::runmlmodel()
   wqe     = we * dq;
 
   // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
-  htend       = we + ws;
+  htend       = we + ws - M;
 
-  thetatend   = (wtheta + wthetae) / h + advtheta;
-  qtend       = (wq     + wqe)     / h + advq;
+  thetatend   = (wtheta + wthetae)     / h + advtheta;
+  qtend       = (wq     + wqe  - wqM)  / h + advq;
 
   dthetatend  = gammatheta * we - thetatend;
   dqtend      = gammaq     * we - qtend;
@@ -691,8 +746,9 @@ void model::intlsmodel()
 
 void model::store()
 {
-  cout << "(t,h,LCL,theta,q,u,v) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
-  cout << "(t,sc0,sc1,sc3,sc9)   " << t * dt << ", " << sc[0] << ", " << sc[1] << ", " << sc[3] << ", " << sc[9] << endl;
+  //cout << "(t,h,LCL,theta,q,u,v) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
+  //cout << "(t,sc0,sc1,sc3,sc9)   " << t * dt << ", " << sc[0] << ", " << sc[1] << ", " << sc[3] << ", " << sc[9] << endl;
+  //cout << "(sigmaq,ac,M,wqM)" << pow(sigmaq2,0.5)*1000. << ac << M << wqM << endl;
   output->t.data[t]          = t * dt / 3600.; // + tstart;
   output->tutc.data[t]       = t * dt / 3600. + tstart;
   output->h.data[t]          = h;
@@ -764,6 +820,12 @@ void model::store()
   output->H.data[t]          = H;
   output->LE.data[t]         = LE;
   output->G.data[t]          = G;
+
+  // shallow-cumulus
+  output->ac.data[t]         = ac;
+  output->sigmaq.data[t]     = pow(sigmaq2,0.5)*1000.;
+  output->M.data[t]          = M;
+  output->wqM.data[t]        = wqM;
 
   // vertical profiles
   int startt = t * 4;

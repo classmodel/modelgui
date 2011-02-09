@@ -90,6 +90,10 @@ void MainWindow::readdefaultinput()
   
   defaultinput.Lambda     = 5.9;      // thermal diffusivity skin layer [-]
 
+  // shallow-cumulus
+  defaultinput.sw_cu      = true;     // shallow-cumulus switch
+  defaultinput.dz         = 100.;     // Inversion-layer/transition-layer thickness
+
   //chemistry
   defaultinput.sw_chem    = false;
   defaultinput.sw_chem_constant  = true;
