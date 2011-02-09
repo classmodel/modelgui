@@ -922,6 +922,11 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->LE.name << " [" << output->LE.unit << "],";
   runsave << output->G.name << " [" << output->G.unit << "],";
 
+  runsave << output->ac.name << " [" << output->ac.unit << "],";
+  runsave << output->sigmaq.name << " [" << output->sigmaq.unit << "],";
+  runsave << output->wqM.name << " [" << output->wqM.unit << "],";
+  runsave << output->M.name << " [" << output->M.unit << "],";
+
   int n;
 
   for(n=0; n<nsc; n++)
@@ -986,6 +991,11 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->H.data[nt] << ",";
     runsave << output->LE.data[nt] << ",";
     runsave << output->G.data[nt] << ",";
+
+    runsave << output->ac.data[nt] << ",";
+    runsave << output->sigmaq.data[nt] << ",";
+    runsave << output->wqM.data[nt] << ",";
+    runsave << output->M.data[nt] << ",";
 
     for(n=0; n<nsc; n++)
     {
