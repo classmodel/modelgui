@@ -1053,6 +1053,8 @@ void MainWindow::saveRuns()
 
     out << temprun.run->input.Q          << endl;
     out << temprun.run->input.cc         << endl;
+
+    out << temprun.run->input.sw_cu      << endl;
     // END TAB5
 
     // TAB 6 and 7
@@ -1291,6 +1293,9 @@ void MainWindow::loadRuns()
       tempinput.Q          = line.toDouble();
       line = in.readLine();
       tempinput.cc         = line.toDouble();
+
+      line = in.readLine();
+      tempinput.sw_cu      = line.toInt();
 
       // END TAB5
 

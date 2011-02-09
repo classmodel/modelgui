@@ -306,11 +306,6 @@ void model::runcumodel()
     wq = 1e-6;
 
   // Mixed-layer top properties
-  //double Ptop      = Ps / exp((g * h)/(Rd * theta));
-  //double Ttop      = theta / pow((Ps / Ptop),(Rd / cp));
-  //double esattop   = 0.611e3 * exp(17.2694 * (Ttop - 273.16) / (Ttop - 35.86));
-  //double qsattop   = 0.622 * esattop / Ptop;
-
   double Ptop    = Ps / exp((g * h)/(Rd * theta));
   double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
   double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
@@ -325,7 +320,7 @@ void model::runcumodel()
   if (ac < 0.)
     ac = 0.;
 
-  //std::cout << "q-/qsat= " << q-qsattop << ", " << (q/qsattop)*100. << "%, sigq= " << sigmaq2 << ", ac= " << ac*100. << std::endl;
+  std::cout << "q-/qsat= " << q-qsattop << ", " << (q/qsattop)*100. << "%, sigq= " << sigmaq2 << ", ac= " << ac*100. << std::endl;
 
   M                = ac * wstar;
   wqM              = M * pow(sigmaq2,0.5);
@@ -374,6 +369,7 @@ void model::runmlmodel()
   thetatend   = (wtheta + wthetae)     / h + advtheta;
   qtend       = (wq     + wqe  - wqM)  / h + advq;
 
+  // Set tendency dtheta & dq to zero when shallow-cumulus is present
   if(sw_cu && ac > 0.){
     dthetatend  = 0.;
     dqtend      = 0.;
