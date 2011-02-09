@@ -185,10 +185,10 @@ void model::initmodel()
 
   // shallow-cumulus
   sw_cu      = input.sw_cu;             // shallow-cumulus switch [-]
-  dz         = input.dz;                // inversion-layer/transition-layer thickness [m]
-  wstar      =  -1.;                    // Deardorff vertical velocity scale [m s-1]
-  sigmaq2    =  -1.;                    // mixed-layer top specific humidity variance [kg2 kg-2]
-  ac         =  -1.;                    // cloud core fraction [-]
+  //dz         = input.dz;                // inversion-layer/transition-layer thickness [m]
+  wstar      =  0.;                    // Deardorff vertical velocity scale [m s-1]
+  sigmaq2    =  0.;                    // mixed-layer top specific humidity variance [kg2 kg-2]
+  ac         =  0.;                    // cloud core fraction [-]
   M          =  0.;                     // mass-flux (/rho) [m s-1]
   wqM        =  0.;                     // mass-flux kinematic moisture flux [kg kg-1 m s-1]
 
@@ -295,6 +295,7 @@ void model::runmodel()
 
 void model::runcumodel()
 {
+  dz = 150.;
   // Virtual temperature units
   thetav           = theta  + 0.61 * theta * q;
   wthetav          = wtheta + 0.61 * theta * wq;
@@ -302,7 +303,7 @@ void model::runcumodel()
   if(wthetav < 0.)
     wthetav = 1e-6;
   if(wq < 0.)
-    wq = 0.;
+    wq = 1e-6;
 
   // Mixed-layer top properties
   //double Ptop      = Ps / exp((g * h)/(Rd * theta));
@@ -324,7 +325,7 @@ void model::runcumodel()
   if (ac < 0.)
     ac = 0.;
 
-  std::cout << "q-/qsat= " << q-qsattop << ", " << (q/qsattop)*100. << "%, sigq= " << sigmaq2 << ", ac= " << ac*100. << std::endl;
+  //std::cout << "q-/qsat= " << q-qsattop << ", " << (q/qsattop)*100. << "%, sigq= " << sigmaq2 << ", ac= " << ac*100. << std::endl;
 
   M                = ac * wstar;
   wqM              = M * pow(sigmaq2,0.5);

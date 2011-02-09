@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   connect(ui->sw_sea,                     SIGNAL(currentIndexChanged(int)), this, SLOT(switch_sea(int)));
   connect(ui->sw_rad,                     SIGNAL(stateChanged(int)),        this, SLOT(switch_rad(int)));
   connect(ui->sw_ml,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
+  connect(ui->sw_cu,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_cu(int)));
   connect(ui->sw_chem,                    SIGNAL(stateChanged(int)),        this, SLOT(switch_chem(int)));
   connect(ui->sw_chem_constant,           SIGNAL(stateChanged(int)),        this, SLOT(switch_chem_constant(int)));
   connect(ui->sw_species_photolysis,      SIGNAL(stateChanged(int)),        this, SLOT(switch_photolysis(int)));
@@ -435,6 +436,8 @@ void MainWindow::storeFormData()
 
   formvalues.Q          = ui->input_rad_Qnet->text().toDouble();
   formvalues.cc         = ui->input_rad_clouds->text().toDouble();
+
+  formvalues.sw_cu      = CheckState2bool(ui->sw_cu->checkState());
   // END TAB5
 
   // TAB6
@@ -547,6 +550,7 @@ void MainWindow::loadFormData()
     ui->sw_wind->setCheckState(Bool2CheckState(formvalues.sw_wind));
       switch_wind(Bool2Int(formvalues.sw_wind));
     ui->sw_ml->setCheckState(Bool2CheckState(formvalues.sw_ml));
+    ui->sw_cu->setCheckState(Bool2CheckState(formvalues.sw_cu));
     ui->sw_rad->setCheckState(Bool2CheckState(formvalues.sw_rad));
     ui->sw_sl->setCheckState(Bool2CheckState(formvalues.sw_sl));
     ui->sw_ls->setCheckState(Bool2CheckState(formvalues.sw_ls));
@@ -741,6 +745,7 @@ void MainWindow::updateStatusBar()
     "surface-layer " + bool2string(CheckState2bool(ui->sw_sl->checkState()))   + " | " +
     "surface "       + bool2string(CheckState2bool(ui->sw_ls->checkState()))   + " | " +
     "radiation "     + bool2string(CheckState2bool(ui->sw_rad->checkState()))  + " | " +
+    "cumulus "       + bool2string(CheckState2bool(ui->sw_cu->checkState()))   + " | " +
     "chemistry "     + bool2string(CheckState2bool(ui->sw_chem->checkState()));
   ui->statusbar->showMessage(statusmessage);
 }
@@ -1624,6 +1629,17 @@ void MainWindow::switch_rad(int state)
 }
 
 void MainWindow::switch_ml(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
+
+  updateStatusBar();
+}
+
+void MainWindow::switch_cu(int state)
 {
   bool checkstate;
   if (state == Qt::Checked)

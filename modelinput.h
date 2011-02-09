@@ -105,7 +105,7 @@ public:
 
   // shallow-cumulus
   bool sw_cu;       // shallow-cumulus switch
-  double dz;        // Inversion-layer/transition-layer thickness
+  //double dz;        // Inversion-layer/transition-layer thickness
 
   // chemistry
   bool   sw_chem;
