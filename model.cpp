@@ -374,8 +374,14 @@ void model::runmlmodel()
   thetatend   = (wtheta + wthetae)     / h + advtheta;
   qtend       = (wq     + wqe  - wqM)  / h + advq;
 
-  dthetatend  = gammatheta * we - thetatend;
-  dqtend      = gammaq     * we - qtend;
+  if(sw_cu && ac > 0.){
+    dthetatend  = 0.;
+    dqtend      = 0.;
+  }
+  else {
+    dthetatend  = gammatheta * we - thetatend;
+    dqtend      = gammaq     * we - qtend;
+  }
 
   for(int i=0; i<nsc; i++)
   {
