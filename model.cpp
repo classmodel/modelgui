@@ -523,7 +523,7 @@ double model::ribtol(double Rib, double zsl, double z0m, double z0h)
     L0 = -2.;
   }
 
-  while (abs(L - L0) > 0.001)
+  while (abs((L - L0) / L0) > 0.001)
   {
     L0      = L;
     fx      = Rib - zsl / L * (log(zsl / z0h) - psih(zsl / L) + psih(z0h / L)) / pow(log(zsl / z0m) - psim(zsl / L) + psim(z0m / L), 2.);
@@ -531,6 +531,7 @@ double model::ribtol(double Rib, double zsl, double z0m, double z0h)
     Lend    = L + 0.001 * L;
     fxdif   = ( (- zsl / Lstart * (log(zsl / z0h) - psih(zsl / Lstart) + psih(z0h / Lstart)) / pow(log(zsl / z0m) - psim(zsl / Lstart) + psim(z0m / Lstart), 2.)) - (-zsl / Lend * (log(zsl / z0h) - psih(zsl / Lend) + psih(z0h / Lend)) / pow(log(zsl / z0m) - psim(zsl / Lend) + psim(z0m / Lend), 2.)) ) / (Lstart - Lend);
     L       = L - fx / fxdif;
+    std::cout << "L= " << L << " L0 = " << L0 << std::endl;
   }
 
   return L;
