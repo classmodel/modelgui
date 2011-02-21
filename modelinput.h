@@ -15,6 +15,7 @@ public:
 
   // mixed-layer variables  
   bool   sw_ml;     // mixed-layer model switch;
+  bool   sw_ftcws;  // compensate FT warming due to subsidence?
   double h;         // initial ABL height [m]
   double Ps;        // surface pressure [Pa]
   double omegas;    // large scale divergence [s-1]
@@ -102,6 +103,11 @@ public:
   double Wl;        // equivalent water layer depth for wet vegetation [m]
   
   double Lambda;    // thermal diffusivity skin layer [-]
+
+  // shallow-cumulus
+  bool sw_cu;       // shallow-cumulus switch
+
+  double dFz;       // Cloud top radiative divergence (stratocumulus)
 
   // chemistry
   bool   sw_chem;

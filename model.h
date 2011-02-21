@@ -15,6 +15,8 @@ public:
 private:
   void initmodel();
 
+  void runcumodel();
+
   void runmlmodel();
   void intmlmodel();
 
@@ -56,12 +58,14 @@ private:
 
   // mixed-layer
   bool   sw_ml;     // mixed-layer model switch;
+  bool   sw_wsft;   // compensate free tropospheric warming due to subsidence?
   double h;         // initial ABL height [m]
   double Ps;        // surface pressure [Pa]
   double omegas;    // large scale divergence [s-1]
   double ws;        // large scale vertical velocity [m s-1]
   double fc;        // coriolis parameter [s-1]
   double we;        // entrainment velocity [m s-1]
+  double wf;        // mixed-layer growth due to dFz [m s-1]
   double lcl;       // lifted condensation level [m]
   double RH;        // Relative humidity at T=theta [-]
   double RHtop;     // Relative humidity at mixed-layer top [-]
@@ -211,6 +215,18 @@ private:
   double Tsoiltend;
   double wgtend;
   double Wltend;
+
+  // Shallow-cumulus parameters
+  bool sw_cu;       // shallow-cumulus switch [-]
+  double dz;        // inversion-layer/transition-layer thickness [m]
+  double wstar;     // Deardorff vertical velocity scale [m s-1]
+  double sigmaq2;   // mixed-layer top specific humidity variance [kg2 kg-2]
+  double ac;        // cloud core fraction [-]
+  double M;         // mass-flux (/rho) [m s-1]
+  double wqM;       // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+
+  // Stratocumulus
+  double dFz;       // cloud-top radiative divergence [W m-2]
 
   // chemistry
   modelchem *cm;

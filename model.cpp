@@ -120,6 +120,7 @@ void model::initmodel()
 
   // mixed-layer
   sw_ml      =  input.sw_ml;
+  sw_wsft    =  input.sw_ftcws;
   h          =  input.h;                // initial ABL height [m]
   Ps         =  input.Ps;               // surface pressure [Pa]
   omegas     =  input.omegas;           // large scale vertical velocity [m s-1]
@@ -262,6 +263,17 @@ void model::initmodel()
   LEref      =  -1.;                    // reference evaporation using rs = rsmin / LAI [W m-2]
   G          =  -1.;                    // ground heat flux [W m-2]
 
+  // shallow-cumulus
+  sw_cu      = input.sw_cu;             // shallow-cumulus switch [-]
+  wstar      =  0.;                     // Deardorff vertical velocity scale [m s-1]
+  sigmaq2    =  0.;                     // mixed-layer top specific humidity variance [kg2 kg-2]
+  ac         =  0.;                     // cloud core fraction [-]
+  M          =  0.;                     // mass-flux (/rho) [m s-1]
+  wqM        =  0.;                     // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+
+  // stratocumulus
+  dFz        = input.dFz;               // cloud-top radiative divergence [W m-2]
+
   // chemistry
   sw_chem           = input.sw_chem;
   sw_chem_constant  = input.sw_chem_constant;
@@ -305,6 +317,12 @@ void model::initmodel()
   if(sw_ls)
     runlsmodel();
 
+  // BvS shallow-cumulus
+  if(sw_cu){
+   runmlmodel();
+   runcumodel();
+  }
+
   if(sw_ml)
     runmlmodel();
 
@@ -335,6 +353,10 @@ void model::runmodel()
     if(sw_ls)
       runlsmodel();
 
+    // BvS shallow-cumulus
+    if(sw_cu)
+      runcumodel();
+
     if(sw_ml)
       runmlmodel();
 
@@ -353,6 +375,39 @@ void model::runmodel()
   return;
 }
 
+void model::runcumodel()
+{
+  dz = 150.;
+  // Virtual temperature units
+  thetav           = theta  + 0.61 * theta * q;
+  wthetav          = wtheta + 0.61 * theta * wq;
+
+  if(wthetav < 0.)
+    wthetav = 1e-6;
+  if(wq < 0.)
+    wq = 1e-6;
+
+  // Mixed-layer top properties
+  double Ptop    = Ps / exp((g * h)/(Rd * theta));
+  double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
+  double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
+  double qsattop  = 0.622 * esattop / Ptop;
+
+  wstar            = pow((g * h * wthetav) / thetav,(1./3.));
+  if (wstar == 0.)
+    wstar = 1e-6;
+  sigmaq2          = -wq * dq * h / (dz * wstar);
+  ac               = 0.5 + (0.36 * atan(1.55 * ((q - qsattop) / pow(sigmaq2,0.5))));
+
+  if (ac < 0.)
+    ac = 0.;
+
+  std::cout << "q-/qsat= " << q-qsattop << ", " << (q/qsattop)*100. << "%, sigq= " << sigmaq2 << ", ac= " << ac*100. << std::endl;
+
+  M                = ac * wstar;
+  wqM              = M * pow(sigmaq2,0.5);
+}
+
 void model::runmlmodel()
 {
   if(!sw_sl)
@@ -369,7 +424,6 @@ void model::runmlmodel()
   if(sw_wq && (!sw_ls))
     wq     = wq0 * std::sin(pi / sinperiod * t * dt);
 
-
   // compute mixed-layer tendencies
   // first compute necessary virtual temperature units
   thetav   = theta  + 0.61 * theta * q;
@@ -380,6 +434,16 @@ void model::runmlmodel()
 
   // compute large scale vertical velocity
   ws = -omegas * h;
+
+  // Compensate free tropospheric warming due to subsidence
+  double C_thetaft;
+  if(sw_wsft)
+    C_thetaft = gammatheta * ws;
+  else
+    C_thetaft = 0.;
+
+  // mixed-layer growth due to cloud top radiative divergence
+  wf = dFz / (rho * cp * dtheta);
 
   // compute tendencies
   if(beta == 0 && inputdthetav == 0)
@@ -392,13 +456,20 @@ void model::runmlmodel()
   wqe     = we * dq;
 
   // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
-  htend       = we + ws;
+  htend       = we + ws + wf - M;
 
-  thetatend   = (wtheta + wthetae) / h + advtheta;
-  qtend       = (wq     + wqe)     / h + advq;
+  thetatend   = (wtheta + wthetae)     / h + advtheta;
+  qtend       = (wq     + wqe  - wqM)  / h + advq;
 
-  dthetatend  = gammatheta * we - thetatend;
-  dqtend      = gammaq     * we - qtend;
+  // Set tendency dtheta & dq to zero when shallow-cumulus is present
+  if(sw_cu && ac > 0.){
+    dthetatend  = 0.;
+    dqtend      = 0.;
+  }
+  else {
+    dthetatend  = gammatheta * (we + wf) - thetatend + C_thetaft;
+    dqtend      = gammaq     * (we + wf) - qtend;
+  }
 
   for(int i=0; i<nsc; i++)
   {
@@ -430,7 +501,7 @@ void model::runmlmodel()
     dvtend      = gammav * we - vtend;
   }
 
-  // calculate LCL (Bolton (2008), The Computation of Equivalent Potential Temperature)
+  // LCL (Bolton (2008), The Computation of Equivalent Potential Temperature)
   double e       = q * Ps / 0.622;
   double Td      = 1. / ((1./273.15) - (Rv/Lv)*log(e/611.));
   double Tlcl    = 1. / ( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
@@ -602,7 +673,7 @@ double model::ribtol(double Rib, double zsl, double z0m, double z0h)
     L0 = -2.;
   }
 
-  while (abs(L - L0) > 0.001)
+  while (abs((L - L0) / L0) > 0.001)
   {
     L0      = L;
     fx      = Rib - zsl / L * (log(zsl / z0h) - psih(zsl / L) + psih(z0h / L)) / pow(log(zsl / z0m) - psim(zsl / L) + psim(z0m / L), 2.);
@@ -610,6 +681,7 @@ double model::ribtol(double Rib, double zsl, double z0m, double z0h)
     Lend    = L + 0.001 * L;
     fxdif   = ( (- zsl / Lstart * (log(zsl / z0h) - psih(zsl / Lstart) + psih(z0h / Lstart)) / pow(log(zsl / z0m) - psim(zsl / Lstart) + psim(z0m / Lstart), 2.)) - (-zsl / Lend * (log(zsl / z0h) - psih(zsl / Lend) + psih(z0h / Lend)) / pow(log(zsl / z0m) - psim(zsl / Lend) + psim(z0m / Lend), 2.)) ) / (Lstart - Lend);
     L       = L - fx / fxdif;
+    std::cout << "L= " << L << " L0 = " << L0 << std::endl;
   }
 
   return L;
@@ -769,8 +841,9 @@ void model::intlsmodel()
 
 void model::store()
 {
-  cout << "(t,h,LCL,theta,q,u,v) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
-  cout << "(t,sc0,sc1,sc3,sc9)   " << t * dt << ", " << sc[0] << ", " << sc[1] << ", " << sc[3] << ", " << sc[9] << endl;
+  //cout << "(t,h,LCL,theta,q,u,v) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
+  //cout << "(t,sc0,sc1,sc3,sc9)   " << t * dt << ", " << sc[0] << ", " << sc[1] << ", " << sc[3] << ", " << sc[9] << endl;
+  //cout << "(sigmaq,ac,M,wqM)" << pow(sigmaq2,0.5)*1000. << ac << M << wqM << endl;
   output->t.data[t]          = t * dt / 3600.; // + tstart;
   output->tutc.data[t]       = t * dt / 3600. + tstart;
   output->h.data[t]          = h;
@@ -778,6 +851,8 @@ void model::store()
   output->ws.data[t]         = ws;
   output->beta.data[t]       = beta;
   output->lcl.data[t]        = lcl;
+  output->RH.data[t]         = RH;
+  output->RHtop.data[t]      = RHtop;
 
   // mixed-layer
   output->theta.data[t]      = theta;
@@ -843,6 +918,12 @@ void model::store()
   output->LE.data[t]         = LE;
   output->G.data[t]          = G;
 
+  // shallow-cumulus
+  output->ac.data[t]         = ac;
+  output->sigmaq.data[t]     = pow(sigmaq2,0.5)*1000.;
+  output->M.data[t]          = M;
+  output->wqM.data[t]        = wqM;
+
   // vertical profiles
   int startt = t * 4;
   output->thetaprof.data[startt + 0] = output->theta.data[t];
@@ -890,6 +971,8 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->h.name << " [" << output->h.unit << "],";
   runsave << output->we.name << " [" << output->we.unit << "],";
   runsave << output->lcl.name << " [" << output->lcl.unit << "],";
+  runsave << output->RH.name << " [" << output->RH.unit << "],";
+  runsave << output->RHtop.name << " [" << output->RHtop.unit << "],";
 
   runsave << output->theta.name << " [" << output->theta.unit << "],";
   runsave << output->thetav.name << " [" << output->thetav.unit << "],";
@@ -935,6 +1018,11 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->LE.name << " [" << output->LE.unit << "],";
   runsave << output->G.name << " [" << output->G.unit << "],";
 
+  runsave << output->ac.name << " [" << output->ac.unit << "],";
+  runsave << output->sigmaq.name << " [" << output->sigmaq.unit << "],";
+  runsave << output->wqM.name << " [" << output->wqM.unit << "],";
+  runsave << output->M.name << " [" << output->M.unit << "],";
+
   int n;
 
   for(n=0; n<nsc; n++)
@@ -955,6 +1043,8 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->h.data[nt] << ",";
     runsave << output->we.data[nt] << ",";
     runsave << output->lcl.data[nt] << ",";
+    runsave << output->RH.data[nt] << ",";
+    runsave << output->RHtop.data[nt] << ",";
 
     runsave << output->theta.data[nt] << ",";
     runsave << output->thetav.data[nt] << ",";
@@ -999,6 +1089,11 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->H.data[nt] << ",";
     runsave << output->LE.data[nt] << ",";
     runsave << output->G.data[nt] << ",";
+
+    runsave << output->ac.data[nt] << ",";
+    runsave << output->sigmaq.data[nt] << ",";
+    runsave << output->wqM.data[nt] << ",";
+    runsave << output->M.data[nt] << ",";
 
     for(n=0; n<nsc; n++)
     {

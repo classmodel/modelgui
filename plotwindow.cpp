@@ -118,6 +118,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   QList<outputvar> surfacelayervars;
   QList<outputvar> radiationvars;
   QList<outputvar> surfacevars;
+  QList<outputvar> cloudvars;
   QList<outputvar> vertprof;
   QList<outputvar> chemistry;
 
@@ -130,6 +131,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << "Surface-layer"
       << "Radiation"
       << "Surface"
+      << "Clouds"
       << "Vertical profiles"
       << "Chemistry";
 
@@ -193,6 +195,12 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.LE
       << modelout.G;
 
+  cloudvars
+      << modelout.ac
+      << modelout.M
+      << modelout.sigmaq
+      << modelout.wqM;
+
   vertprof
       << modelout.thetaprof
       << modelout.qprof;
@@ -214,8 +222,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   allvariables.insert(4,surfacelayervars);
   allvariables.insert(5,radiationvars);
   allvariables.insert(6,surfacevars);
-  allvariables.insert(7,vertprof);
-  allvariables.insert(8,chemistry);
+  allvariables.insert(7,cloudvars);
+  allvariables.insert(8,vertprof);
+  allvariables.insert(9,chemistry);
 
   for (int n=0; n<advancedtreegroups.size(); n++)
   {

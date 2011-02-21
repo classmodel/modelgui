@@ -63,6 +63,7 @@ public slots:
   void switch_sea(int);
   void switch_rad(int);
   void switch_ml(int);
+  void switch_cu(int);
   void switch_wtheta(int);
   void switch_wq(int);
   void switch_soil_advanced(int);
