@@ -437,10 +437,17 @@ void model::runmlmodel()
 
   // Compensate free tropospheric warming due to subsidence
   double C_thetaft;
+  double C_qft;
   if(sw_wsft)
+  {
     C_thetaft = gammatheta * ws;
+    C_qft     = gammaq * ws;
+  }
   else
+  {
     C_thetaft = 0.;
+    C_qft     = 0.;
+  }
 
   // mixed-layer growth due to cloud top radiative divergence
   wf = dFz / (rho * cp * dtheta);
@@ -468,7 +475,7 @@ void model::runmlmodel()
   }
   else {
     dthetatend  = gammatheta * (we + wf) - thetatend + C_thetaft;
-    dqtend      = gammaq     * (we + wf) - qtend;
+    dqtend      = gammaq     * (we + wf) - qtend + C_qft;
   }
 
   for(int i=0; i<nsc; i++)
@@ -681,7 +688,6 @@ double model::ribtol(double Rib, double zsl, double z0m, double z0h)
     Lend    = L + 0.001 * L;
     fxdif   = ( (- zsl / Lstart * (log(zsl / z0h) - psih(zsl / Lstart) + psih(z0h / Lstart)) / pow(log(zsl / z0m) - psim(zsl / Lstart) + psim(z0m / Lstart), 2.)) - (-zsl / Lend * (log(zsl / z0h) - psih(zsl / Lend) + psih(z0h / Lend)) / pow(log(zsl / z0m) - psim(zsl / Lend) + psim(z0m / Lend), 2.)) ) / (Lstart - Lend);
     L       = L - fx / fxdif;
-    std::cout << "L= " << L << " L0 = " << L0 << std::endl;
   }
 
   return L;
