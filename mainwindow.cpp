@@ -336,6 +336,7 @@ void MainWindow::storeFormData()
 
   // MIXED-LAYER
   formvalues.sw_ml      = CheckState2bool(ui->sw_ml->checkState());
+  formvalues.sw_ftcws   = CheckState2bool(ui->sw_ftcws->checkState());
   formvalues.h          = ui->input_ml_h->text().toDouble();             // initial ABL height [m]
   formvalues.Ps         = ui->input_ml_ps->text().toDouble() * 100;      // surface pressure [Pa]
   formvalues.omegas     = ui->input_ml_omegas->text().toDouble();        // large scale vertical velocity [m s-1]
@@ -438,6 +439,8 @@ void MainWindow::storeFormData()
   formvalues.cc         = ui->input_rad_clouds->text().toDouble();
 
   formvalues.sw_cu      = CheckState2bool(ui->sw_cu->checkState());
+
+  formvalues.dFz        = ui->input_rad_dFz->text().toDouble();
   // END TAB5
 
   // TAB6
@@ -550,6 +553,7 @@ void MainWindow::loadFormData()
     ui->sw_wind->setCheckState(Bool2CheckState(formvalues.sw_wind));
       switch_wind(Bool2Int(formvalues.sw_wind));
     ui->sw_ml->setCheckState(Bool2CheckState(formvalues.sw_ml));
+    ui->sw_ftcws->setCheckState(Bool2CheckState(formvalues.sw_ftcws));
     ui->sw_cu->setCheckState(Bool2CheckState(formvalues.sw_cu));
     ui->sw_rad->setCheckState(Bool2CheckState(formvalues.sw_rad));
     ui->sw_sl->setCheckState(Bool2CheckState(formvalues.sw_sl));
@@ -706,6 +710,8 @@ void MainWindow::loadFormData()
     ui->input_rad_Qnet->setText(QString::number(formvalues.Q));
     ui->input_rad_clouds->setText(QString::number(formvalues.cc));
 
+    ui->input_rad_dFz->setText(QString::number(formvalues.dFz));
+
     // OTHER
     ui->input_name->setText(modelrunlist->find(n).value().runname);
 
@@ -745,7 +751,7 @@ void MainWindow::updateStatusBar()
     "surface-layer " + bool2string(CheckState2bool(ui->sw_sl->checkState()))   + " | " +
     "surface "       + bool2string(CheckState2bool(ui->sw_ls->checkState()))   + " | " +
     "radiation "     + bool2string(CheckState2bool(ui->sw_rad->checkState()))  + " | " +
-    "cumulus "       + bool2string(CheckState2bool(ui->sw_cu->checkState()))   + " | " +
+    "sCU "           + bool2string(CheckState2bool(ui->sw_cu->checkState()))   + " | " +
     "chemistry "     + bool2string(CheckState2bool(ui->sw_chem->checkState()));
   ui->statusbar->showMessage(statusmessage);
 }
@@ -966,6 +972,7 @@ void MainWindow::saveRuns()
 
     // MIXED-LAYER
     out << temprun.run->input.sw_ml      << endl;
+    out << temprun.run->input.sw_ftcws   << endl;
     out << temprun.run->input.h          << endl;
     out << temprun.run->input.Ps         << endl;
     out << temprun.run->input.omegas     << endl;
@@ -1055,6 +1062,7 @@ void MainWindow::saveRuns()
     out << temprun.run->input.cc         << endl;
 
     out << temprun.run->input.sw_cu      << endl;
+    out << temprun.run->input.dFz        << endl;
     // END TAB5
 
     // TAB 6 and 7
@@ -1143,6 +1151,8 @@ void MainWindow::loadRuns()
       //  // MIXED-LAYER
       line = in.readLine();
       tempinput.sw_ml      = line.toInt();
+      line = in.readLine();
+      tempinput.sw_ftcws   = line.toInt();
       line = in.readLine();
       tempinput.h          = line.toDouble();
       line = in.readLine();
@@ -1296,6 +1306,8 @@ void MainWindow::loadRuns()
 
       line = in.readLine();
       tempinput.sw_cu      = line.toInt();
+      line = in.readLine();
+      tempinput.dFz        = line.toDouble();
 
       // END TAB5
 

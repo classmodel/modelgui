@@ -8,6 +8,7 @@ modelinput::modelinput()
 
   // mixed-layer variables
   sw_ml      = true;
+  sw_ftcws   = false;
   h          = -1.;
   Ps         = -1.;
   omegas     = -1.;
@@ -109,7 +110,8 @@ modelinput::modelinput()
 
   // shallow-cumulus
   sw_cu      = true;
-  //dz         = -1.;
+
+  dFz        = false;
 
   // chemistry
   sw_chem    = false;
@@ -136,6 +138,7 @@ modelinput::modelinput(const modelinput &ref)
 
   // mixed-layer variables
   sw_ml      = ref.sw_ml;
+  sw_ftcws   = ref.sw_ftcws;
   h          = ref.h;
   Ps         = ref.Ps;
   omegas     = ref.omegas;
@@ -237,7 +240,8 @@ modelinput::modelinput(const modelinput &ref)
 
   // shallow-cumulus
   sw_cu      = ref.sw_cu;
-  //dz         = ref.dz;
+
+  dFz        = ref.dFz;
 
   // chemistry
   sw_chem      = ref.sw_chem;
@@ -270,6 +274,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
 
     // mixed-layer variables
     sw_ml      = ref.sw_ml;
+    sw_ftcws   = ref.sw_ftcws;
     h          = ref.h;
     Ps         = ref.Ps;
     omegas     = ref.omegas;
@@ -377,7 +382,8 @@ modelinput &modelinput::operator=(const modelinput &ref)
 
     // shallow-cumulus
     sw_cu      = ref.sw_cu;
-    //dz         = ref.dz;
+
+    dFz        = ref.dFz;
 
     // chemistry
     sw_chem    = ref.sw_chem;

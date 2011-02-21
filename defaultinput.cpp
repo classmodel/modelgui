@@ -11,6 +11,7 @@ void MainWindow::readdefaultinput()
 
   // mixed-layer input
   defaultinput.sw_ml      = true;     // mixed-layer model switch
+  defaultinput.sw_ftcws   = false;    // compensate FT warming due to subsidence?
   defaultinput.h          = 200.;     // initial ABL height [m]
   defaultinput.Ps         = 101300.;  // surface pressure [Pa]
   defaultinput.omegas     = 0.;       // large scale vertical velocity [m s-1]
@@ -91,8 +92,10 @@ void MainWindow::readdefaultinput()
   defaultinput.Lambda     = 5.9;      // thermal diffusivity skin layer [-]
 
   // shallow-cumulus
-  defaultinput.sw_cu      = false;     // shallow-cumulus switch
-  //defaultinput.dz         = 100.;     // Inversion-layer/transition-layer thickness
+  defaultinput.sw_cu      = false;    // shallow-cumulus switch
+
+  // stratocumulus
+  defaultinput.dFz        = 0.;       // Cloud top radiative divergence (stratocumulus)
 
   //chemistry
   defaultinput.sw_chem    = false;
