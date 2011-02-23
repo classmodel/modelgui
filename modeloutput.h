@@ -32,10 +32,12 @@ public:
   outputvar dtheta;    // initial potential temperature jump at h [K]
   outputvar dthetav;   // initial virtual potential temperature jump at h [K]
   outputvar gammatheta;// free atmosphere potential temperature lapse rate [K m-1]
+  outputvar sigmatheta;// mixed-layer top potential temperature std dev [K]
   outputvar advtheta;  // advection of heat [K s-1]
   outputvar wtheta;    // surface kinematic heat flux [K m s-1]
   outputvar wthetae;   // entrainment kinematic heat flux [K m s-1]
   outputvar wthetav;   // surface kinematic virtual heat flux [K m s-1]
+  outputvar wthetaM;   // mass-flux kinematic heat flux [K m s-1]
 
   // moisture
   outputvar q;         // mixed-layer specific humidity [kg kg-1]
@@ -44,9 +46,11 @@ public:
   //double *esat;      // mixed-layer saturated vapor pressure [Pa]
   outputvar dq;        // initial specific humidity jump at h [kg kg-1]
   outputvar gammaq;    // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
+  outputvar sigmaq;    // mixed-layer top specific humidity std dev [kg kg-1]
   outputvar advq;      // advection of moisture [kg kg-1 s-1]
   outputvar wq;        // surface kinematic moisture flux [kg kg-1 m s-1]
   outputvar wqe;       // entrainment kinematic moisture flux [kg kg-1 m s-1]
+  outputvar wqM;       // mass-flux kinematic moisture flux [kg kg-1 m s-1]
 
   // wind
   outputvar u;         // initial mixed-layer u-wind speed [m s-1]
@@ -91,9 +95,7 @@ public:
 
   // shallow-cumulus
   outputvar ac;        // cloud core fraction [-]
-  outputvar sigmaq;    // mixed-layer top specific humidity std dev [kg kg-1]
   outputvar M;         // mass-flux (/rho) [m s-1]
-  outputvar wqM;       // mass-flux kinematic moisture flux [kg kg-1 m s-1]
 
   // vertical profiles
   outputvar zprof;

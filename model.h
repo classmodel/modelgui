@@ -66,6 +66,7 @@ private:
   double fc;        // coriolis parameter [s-1]
   double we;        // entrainment velocity [m s-1]
   double wf;        // mixed-layer growth due to dFz [m s-1]
+  double wstar;     // Deardorff vertical velocity scale [m s-1]
   double lcl;       // lifted condensation level [m]
   double RH;        // Relative humidity at T=theta [-]
   double RHtop;     // Relative humidity at mixed-layer top [-]
@@ -78,6 +79,8 @@ private:
   double wtheta;    // surface kinematic heat flux [K m s-1]
   double wtheta0;   // maximum surface kinematic heat flux [K m s-1]
   double wthetae;   // entrainment kinematic heat flux [K m s-1]
+  double wthetaM;   // mass-flux kinematic heat flux [K m s-1]
+  double sigmatheta2; // mixed-layer top potential temperature variance [K2]
   bool   sw_wtheta; // switch for sinusoidal temperature flux
 
   double T2m;       // 2m temperature [K]
@@ -101,6 +104,8 @@ private:
   double wq;        // surface kinematic moisture flux [kg kg-1 m s-1]
   double wq0;       // maximum surface kinematic moisture flux [kg kg-1 m s-1]
   double wqe;       // entrainment kinematic moisture flux [kg kg-1 m s-1]
+  double wqM;       // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+  double sigmaq2;   // mixed-layer top specific humidity variance [kg2 kg-2]
   bool   sw_wq;     // switch for sinusoidal moisture flux
 
   double qsat;      // mixed-layer saturated specific humidity [kg kg-1]
@@ -219,11 +224,8 @@ private:
   // Shallow-cumulus parameters
   bool sw_cu;       // shallow-cumulus switch [-]
   double dz;        // inversion-layer/transition-layer thickness [m]
-  double wstar;     // Deardorff vertical velocity scale [m s-1]
-  double sigmaq2;   // mixed-layer top specific humidity variance [kg2 kg-2]
   double ac;        // cloud core fraction [-]
   double M;         // mass-flux (/rho) [m s-1]
-  double wqM;       // mass-flux kinematic moisture flux [kg kg-1 m s-1]
 
   // Stratocumulus
   double dFz;       // cloud-top radiative divergence [W m-2]

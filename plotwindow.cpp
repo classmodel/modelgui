@@ -149,13 +149,17 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.dthetav
       << modelout.wtheta
       << modelout.wthetae
-      << modelout.wthetav;
+      << modelout.wthetav
+      << modelout.wthetaM
+      << modelout.sigmatheta;
 
   moisturevars
       << modelout.q
       << modelout.dq
       << modelout.wq
       << modelout.wqe
+      << modelout.wqM
+      << modelout.sigmaq
       << modelout.lcl
       << modelout.RH
       << modelout.RHtop;
@@ -197,9 +201,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   cloudvars
       << modelout.ac
-      << modelout.M
-      << modelout.sigmaq
-      << modelout.wqM;
+      << modelout.M;
 
   vertprof
       << modelout.thetaprof

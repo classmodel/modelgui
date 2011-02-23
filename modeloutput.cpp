@@ -87,6 +87,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   gammatheta.description    = "Potential temperature lapse rate";
   gammatheta.id             = "gammatheta";
 
+  sigmatheta.data           = new double[tsteps];   // mixed-layer top potential temperature std dev [K]
+  sigmatheta.name           = "\u03C3\u03B8";
+  sigmatheta.unit           = "K";
+  sigmatheta.description    = "stddev(\u03B8) at mixed-layer top";
+  sigmatheta.id             = "sigmatheta";
+
   advtheta.data             = new double[tsteps];   // advection of heat [K s-1]
   advtheta.name             = "adv-\u03B8";
   advtheta.unit             = "K s\u207B\u00B9";
@@ -117,6 +123,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   wthetav.description       = "Surface virtual temperature flux";
   wthetav.id                = "wthetav";
 
+  wthetaM.data              = new double[tsteps];   // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+  wthetaM.name              = "w'\u03B8\u1D65'(M)";
+  wthetaM.unit              = "K m s\u207B\u00B9";
+  wthetaM.description       = "Mass-flux kinematic heat flux";
+  wthetaM.id                = "wthetaM";
+
   q.data                    = new double[tsteps];   // mixed-layer specific humidity [kg kg-1]
   q.name                    = "q";
   q.unit                    = "g kg\u207B\u00B9";
@@ -145,6 +157,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   advq.description          = "Large-scale moisture advection";
   advq.id                   = "advq";
 
+  sigmaq.data               = new double[tsteps];   // mixed-layer top specific humidity std dev [kg kg-1]
+  sigmaq.name               = "\u03C3q";
+  sigmaq.unit               = "g kg\u207B\u00B9";
+  sigmaq.description        = "stddev(q) at mixed-layer top";
+  sigmaq.id                 = "sigmaq";
+
   wq.data                   = new double[tsteps];   // surface kinematic moisture flux [kg kg-1 m s-1]
   wq.name                   = "w'q'(s)";
   wq.unit                   = "g kg\u207B\u00B9 m s\u207B\u00B9";
@@ -156,6 +174,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   wqe.unit                  = "g kg\u207B\u00B9 m s\u207B\u00B9";
   wqe.description           = "Entrainment kinematic moisture flux";
   wqe.id                    = "wqe";
+
+  wqM.data                  = new double[tsteps];   // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+  wqM.name                  = "w'q'(M)";
+  wqM.unit                  = "g kg\u207B\u00B9 m s\u207B\u00B9";
+  wqM.description           = "Mass-flux kinematic moisture flux";
+  wqM.id                    = "wqM";
 
   u.data                    = new double[tsteps];   // initial mixed-layer u-wind speed [m s-1]
   u.name                    = "u";
@@ -355,23 +379,11 @@ modeloutput::modeloutput(int tsteps, int nsc)
   ac.description            = "Cloud core fraction";
   ac.id                     = "ac";
 
-  sigmaq.data               = new double[tsteps];   // mixed-layer top specific humidity std dev [kg kg-1]
-  sigmaq.name               = "\u03C3q";
-  sigmaq.unit               = "g kg\u207B\u00B9";
-  sigmaq.description        = "stddev(q) at mixed-layer top";
-  sigmaq.id                 = "sigmaq";
-
   M.data                    = new double[tsteps];   // mass-flux (/rho) [m s-1]
   M.name                    = "M";
   M.unit                    = "m s\u207B\u00B9";
   M.description             = "Mass-flux";
   M.id                      = "M";
-
-  wqM.data                  = new double[tsteps];   // mass-flux kinematic moisture flux [kg kg-1 m s-1]
-  wqM.name                  = "w'q'(M)";
-  wqM.unit                  = "g kg\u207B\u00B9 m s\u207B\u00B9";
-  wqM.description           = "Mass-flux kinematic moisture flux";
-  wqM.id                    = "wqM";
 
   // vertical profiles
   thetaprof.data            = new double[tsteps*4];

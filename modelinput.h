@@ -20,6 +20,7 @@ public:
   double Ps;        // surface pressure [Pa]
   double omegas;    // large scale divergence [s-1]
   double fc;        // Coriolis parameter [s-1]
+  double wstar;     // Deardorff vertical velocity scale [m s-1]
   
   double theta;     // initial mixed-layer potential temperature [K]
   double dtheta;    // initial temperature jump at h [K]

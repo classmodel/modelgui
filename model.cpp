@@ -21,6 +21,7 @@ model::model(modelinput *extinput)
   rhow       =  1000.;                  // density of water [kg m-3]
   S0         =  1368.;                  // solar constant [W m-2]
   pi         =  3.14159265359;          // Pi
+  dz         =  150.;                   // Transition layer thickness (used for calculation variances) [m]
 
   //input      =  extinput;
   input = *extinput;
@@ -125,6 +126,8 @@ void model::initmodel()
   Ps         =  input.Ps;               // surface pressure [Pa]
   omegas     =  input.omegas;           // large scale vertical velocity [m s-1]
   ws         =  -1.;
+  wf         =  0.;                     // mixed-layer growth due to dFz [m s-1]
+  wstar      =  0.;                     // Deardorff vertical velocity scale [m s-1]
   fc         =  input.fc;               // coriolis parameter [s-1]
 
   theta      =  input.theta;            // initial mixed-layer potential temperature [K]
@@ -134,6 +137,8 @@ void model::initmodel()
   beta       =  input.beta;             // entrainment ratio for virtual heat [-]
   wtheta     =  input.wtheta;           // surface kinematic heat flux [K m s-1]
   wtheta0    =  input.wtheta;           // maximum surface kinematic heat flux [K m s-1]
+  wthetaM    =  0.;                     // mass-flux kinematic heat flux [K m s-1]
+  sigmatheta2 =  0.;                    // mixed-layer top potential temperature variance [kg2 kg-2]
   sw_wtheta  =  input.sw_wtheta;
 
   thetasurf  =  input.theta;            // surface potential temperature [K]
@@ -144,6 +149,8 @@ void model::initmodel()
   advq       =  input.advq;             // advection of moisture [kg kg-1 s-1]
   wq         =  input.wq;               // surface kinematic moisture flux [kg kg-1 m s-1]
   wq0        =  input.wq;               // maximum surface kinematic moisture flux [kg kg-1 m s-1]
+  wqM        =  0.;                     // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+  sigmaq2    =  0.;                     // mixed-layer top specific humidity variance [kg2 kg-2]
   sw_wq      =  input.sw_wq;
 
   qsat       =  -1.;                    // mixed-layer saturated specific humidity [kg kg-1]
@@ -265,11 +272,8 @@ void model::initmodel()
 
   // shallow-cumulus
   sw_cu      = input.sw_cu;             // shallow-cumulus switch [-]
-  wstar      =  0.;                     // Deardorff vertical velocity scale [m s-1]
-  sigmaq2    =  0.;                     // mixed-layer top specific humidity variance [kg2 kg-2]
   ac         =  0.;                     // cloud core fraction [-]
   M          =  0.;                     // mass-flux (/rho) [m s-1]
-  wqM        =  0.;                     // mass-flux kinematic moisture flux [kg kg-1 m s-1]
 
   // stratocumulus
   dFz        = input.dFz;               // cloud-top radiative divergence [W m-2]
@@ -377,15 +381,9 @@ void model::runmodel()
 
 void model::runcumodel()
 {
-  dz = 150.;
   // Virtual temperature units
   thetav           = theta  + 0.61 * theta * q;
   wthetav          = wtheta + 0.61 * theta * wq;
-
-  if(wthetav < 0.)
-    wthetav = 1e-6;
-  if(wq < 0.)
-    wq = 1e-6;
 
   // Mixed-layer top properties
   double Ptop    = Ps / exp((g * h)/(Rd * theta));
@@ -393,19 +391,13 @@ void model::runcumodel()
   double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
   double qsattop  = 0.622 * esattop / Ptop;
 
-  wstar            = pow((g * h * wthetav) / thetav,(1./3.));
-  if (wstar == 0.)
-    wstar = 1e-6;
-  sigmaq2          = -wq * dq * h / (dz * wstar);
   ac               = 0.5 + (0.36 * atan(1.55 * ((q - qsattop) / pow(sigmaq2,0.5))));
-
   if (ac < 0.)
     ac = 0.;
 
-  std::cout << "q-/qsat= " << q-qsattop << ", " << (q/qsattop)*100. << "%, sigq= " << sigmaq2 << ", ac= " << ac*100. << std::endl;
+  //std::cout << "q-/qsat= " << q-qsattop << ", " << (q/qsattop)*100. << "%, sigq= " << sigmaq2 << ", ac= " << ac*100. << std::endl;
 
   M                = ac * wstar;
-  wqM              = M * pow(sigmaq2,0.5);
 }
 
 void model::runmlmodel()
@@ -430,10 +422,17 @@ void model::runmlmodel()
   wthetav  = wtheta + 0.61 * theta * wq;
   dthetav  = (theta + dtheta) * (1. + 0.61 * (q + dq)) - theta * (1. + 0.61 * q);
 
+  if(wthetav > 0.)
+    wstar  = pow((g * h * wthetav) / thetav,(1./3.));
+  else
+    wstar  = 1e-6;
+
   int inputdthetav  = (input.theta + input.dtheta) * (1. + 0.61 * (input.q + input.dq)) - input.theta * (1. + 0.61 * input.q);
 
   // compute large scale vertical velocity
   ws = -omegas * h;
+  // mixed-layer growth due to cloud top radiative divergence
+  wf = dFz / (rho * cp * dtheta);
 
   // Compensate free tropospheric warming due to subsidence
   double C_thetaft;
@@ -449,9 +448,6 @@ void model::runmlmodel()
     C_qft     = 0.;
   }
 
-  // mixed-layer growth due to cloud top radiative divergence
-  wf = dFz / (rho * cp * dtheta);
-
   // compute tendencies
   if(beta == 0 && inputdthetav == 0)
     we    = 1 / gammatheta * wthetav / h;
@@ -462,11 +458,23 @@ void model::runmlmodel()
   wthetae = we * dtheta;
   wqe     = we * dq;
 
+  // compute mixed-layer top variances and mass-fluxes
+  sigmaq2     = wqe     * dq     * h / (dz * wstar);
+  sigmatheta2 = wthetae * dtheta * h / (dz * wstar);
+
+  if (sigmaq2 < 0.)
+    sigmaq2 = 1e-5;
+  if (sigmatheta2 < 0.)
+    sigmatheta2 = 1e-5;
+
+  wqM         = M * pow(sigmaq2,0.5);
+  wthetaM     = M * pow(sigmatheta2,0.5);
+
   // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
   htend       = we + ws + wf - M;
 
-  thetatend   = (wtheta + wthetae)     / h + advtheta;
-  qtend       = (wq     + wqe  - wqM)  / h + advq;
+  thetatend   = (wtheta + wthetae - wthetaM)  / h + advtheta;
+  qtend       = (wq     + wqe     - wqM)      / h + advq;
 
   // Set tendency dtheta & dq to zero when shallow-cumulus is present
   if(sw_cu && ac > 0.){
@@ -474,8 +482,8 @@ void model::runmlmodel()
     dqtend      = 0.;
   }
   else {
-    dthetatend  = gammatheta * (we + wf) - thetatend + C_thetaft;
-    dqtend      = gammaq     * (we + wf) - qtend + C_qft;
+    dthetatend  = gammatheta * (we + wf) - thetatend  + C_thetaft;
+    dqtend      = gammaq     * (we + wf) - qtend      + C_qft;
   }
 
   for(int i=0; i<nsc; i++)
@@ -871,6 +879,8 @@ void model::store()
   output->wthetae.data[t]    = wthetae;
   output->wthetav.data[t]    = wthetav;
   output->we.data[t]         = we;
+  output->sigmatheta.data[t] = pow(sigmatheta2,0.5);
+  output->wthetaM.data[t]    = wthetaM;
   output->RH.data[t]         = RH;
   output->RHtop.data[t]      = RHtop;
 
@@ -883,6 +893,9 @@ void model::store()
   output->advq.data[t]       = advq * 1000.;
   output->wq.data[t]         = wq * 1000.;
   output->wqe.data[t]        = wqe * 1000.;
+  output->sigmaq.data[t]     = pow(sigmaq2,0.5)*1000.;
+  std::cout << output->sigmaq.data[t] << std::endl;
+  output->wqM.data[t]        = wqM * 1000.;
 
   output->u.data[t]          = u;
   output->du.data[t]         = du;
@@ -926,9 +939,7 @@ void model::store()
 
   // shallow-cumulus
   output->ac.data[t]         = ac;
-  output->sigmaq.data[t]     = pow(sigmaq2,0.5)*1000.;
   output->M.data[t]          = M;
-  output->wqM.data[t]        = wqM;
 
   // vertical profiles
   int startt = t * 4;

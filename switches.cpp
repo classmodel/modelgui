@@ -150,6 +150,10 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->wthetae;
   else if (plotvar == "wthetav")
     *data = n.run->output->wthetav;
+  else if (plotvar == "sigmatheta")
+    *data = n.run->output->sigmatheta;
+  else if (plotvar == "wthetaM")
+    *data = n.run->output->wthetaM;
 
   // moisture
   else if (plotvar == "q")
@@ -164,6 +168,10 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->wq;
   else if (plotvar == "wqe")
     *data = n.run->output->wqe;
+  else if (plotvar == "sigmaq")
+    *data = n.run->output->sigmaq;
+  else if (plotvar == "wqM")
+    *data = n.run->output->wqM;
 
   // wind
   else if (plotvar == "u")
@@ -240,10 +248,6 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->ac;
   else if (plotvar == "M")
     *data = n.run->output->M;
-  else if (plotvar == "sigmaq")
-    *data = n.run->output->sigmaq;
-  else if (plotvar == "wqM")
-    *data = n.run->output->wqM;
 
   // vertical profiles
   else if (plotvar == "zprof")
@@ -311,6 +315,10 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
     *plotvar = label;
   else if (label == "wthetav")
     *plotvar = label;
+  else if (label == "sigmatheta")
+    *plotvar = label;
+  else if (label == "wthetaM")
+    *plotvar = label;
 
   // moisture
   else if (label == "q")
@@ -324,6 +332,10 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
   else if (label == "wq")
     *plotvar = label;
   else if (label == "wqe")
+    *plotvar = label;
+  else if (label == "sigmaq")
+    *plotvar = label;
+  else if (label == "wqM")
     *plotvar = label;
 
   // wind
@@ -401,10 +413,6 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
     else if (label == "ac")
     *plotvar = label;
     else if (label == "M")
-    *plotvar = label;
-     else if (label == "sigmaq")
-    *plotvar = label;
-     else if (label == "wqM")
     *plotvar = label;
 
   // vertical profiles
