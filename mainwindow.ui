@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -2089,7 +2089,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>210</width>
+         <width>191</width>
          <height>61</height>
         </rect>
        </property>
@@ -3708,7 +3708,7 @@
         <rect>
          <x>10</x>
          <y>210</y>
-         <width>220</width>
+         <width>201</width>
          <height>186</height>
         </rect>
        </property>
@@ -4002,7 +4002,7 @@
         <x>10</x>
         <y>10</y>
         <width>441</width>
-        <height>401</height>
+        <height>441</height>
        </rect>
       </property>
       <property name="title">
@@ -4013,7 +4013,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>437</width>
+         <width>421</width>
          <height>37</height>
         </rect>
        </property>
@@ -4091,7 +4091,7 @@
          <x>10</x>
          <y>40</y>
          <width>421</width>
-         <height>341</height>
+         <height>391</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -4108,7 +4108,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
+          <width>403</width>
           <height>750</height>
          </rect>
         </property>
@@ -5784,7 +5784,7 @@
      <x>0</x>
      <y>0</y>
      <width>650</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
