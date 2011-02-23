@@ -176,6 +176,8 @@ void model::initmodel()
   gammasc    =  new double[nsc];
   advsc      =  new double[nsc];
   wsc        =  new double[nsc];
+  wscM       =  new double[nsc];
+  sigmasc2   =  new double[nsc];
   sw_wsc     =  new int[nsc];
 
   sctend     =  new double[nsc];
@@ -191,6 +193,9 @@ void model::initmodel()
     advsc[i]    =  input.advsc[i];
     wsc[i]      =  input.wsc[i];
     wsc0[i]     =  input.wsc[i];
+    wscM[i]     =  0.;
+    sigmasc2[i] =  0.;
+
     sw_wsc[i]   =  input.sw_wsc[i];
     //cout << i << ", " << sc[i] << ", " << dsc[i] << ", " << wsc0[i] << endl;
   }
@@ -395,8 +400,6 @@ void model::runcumodel()
   if (ac < 0.)
     ac = 0.;
 
-  //std::cout << "q-/qsat= " << q-qsattop << ", " << (q/qsattop)*100. << "%, sigq= " << sigmaq2 << ", ac= " << ac*100. << std::endl;
-
   M                = ac * wstar;
 }
 
@@ -499,9 +502,18 @@ void model::runmlmodel()
       wsc[i]  = wsc0[i] * sinlea / sinleamax;
     }
 
-    wsce[i]    = we * dsc[i];
-    sctend[i]  = (wsc[i] + wsce[i]) / h + advsc[i];
-    dsctend[i] = gammasc[i] * we - sctend[i];
+    wsce[i]        = we * dsc[i];
+
+    sigmasc2[i]    = wsce[i] * dsc[i] * h / (dz * wstar);
+    if (sigmasc2[i] < 0.)
+      sigmasc2[i] = 1e-5;
+
+    wscM[i]        = M * pow(sigmasc2[i],0.5);
+
+    std::cout << i <<  ": wsce = " << wsce[i] << " wscM = " << wscM[i] << std::endl;
+
+    sctend[i]      = (wsc[i] + wsce[i] - wscM[i]) / h + advsc[i];
+    dsctend[i]     = gammasc[i] * we - sctend[i];
   }
 
   // assume u + du = ug, so ug - u = du
