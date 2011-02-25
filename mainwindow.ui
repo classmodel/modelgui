@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -1487,122 +1487,6 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="surfacelayer_group">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>10</y>
-        <width>221</width>
-        <height>111</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <widget class="QWidget" name="gridLayoutWidget_12">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>201</width>
-         <height>87</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="surfacelayer_grid" columnminimumwidth="50,0,80">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_surfacelayer_z0m">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;z&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;0m&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="input_surfacelayer_z0m">
-          <property name="toolTip">
-           <string>roughness length for momentum</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_surfacelayer_z0m">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[m]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="input_surfacelayer_z0h">
-          <property name="toolTip">
-           <string>roughness length for scalars</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_surfacelayer_z0h">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;z&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;0h&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_surfacelayer_z0h">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[m]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="QCheckBox" name="sw_sl">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>surface-layer switch</string>
-          </property>
-          <property name="text">
-           <string>Surface-layer</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
     </widget>
     <widget class="QWidget" name="radiationTab">
      <attribute name="title">
@@ -2078,7 +1962,7 @@
         <x>10</x>
         <y>10</y>
         <width>211</width>
-        <height>111</height>
+        <height>91</height>
        </rect>
       </property>
       <property name="title">
@@ -2089,11 +1973,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>210</width>
+         <width>191</width>
          <height>61</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="surface_heat_grid" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="surface_heat_grid" columnminimumwidth="10,90,0">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
@@ -2113,7 +1997,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="1" column="1" colspan="2">
          <widget class="QComboBox" name="sw_sea">
           <item>
            <property name="text">
@@ -2127,462 +2011,16 @@
           </item>
          </widget>
         </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="surface_advanced_group">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>220</y>
-        <width>441</width>
-        <height>141</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <widget class="QWidget" name="gridLayoutWidget_17">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>191</width>
-         <height>121</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="surface_parameters_grid1" columnminimumwidth="50,0,60">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_surface_LAI">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;LAI&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="input_surface_LAI">
-          <property name="toolTip">
-           <string>leaf area index</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_surface_gD">
+         <widget class="QLabel" name="unitlabel_surface_Ts_3">
           <property name="toolTip">
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;gD&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="input_surface_gD">
-          <property name="toolTip">
-           <string>correction factor transpiration for VPD</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_surface_LAI">
-          <property name="toolTip">
            <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_surface_gD">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="input_surface_rsmin">
-          <property name="toolTip">
-           <string>minimum resistance transpiration</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="input_surface_alpha">
-          <property name="toolTip">
-           <string>surface albedo</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_surface_rsmin">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;r&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s;min&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_surface_alpha">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;α&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_surface_rsmin">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[s m&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_surface_alpha">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>[-]</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="gridLayoutWidget_18">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>10</y>
-         <width>201</width>
-         <height>121</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="surface_parameters_grid2" columnminimumwidth="50,0,80">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_surfaceLambda">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;Λ&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="input_surface_Lambda">
-          <property name="toolTip">
-           <string>thermal diffusivity skin layer</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_surface_Lambda">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[W m&lt;sup&gt;-2&lt;/sup&gt; K&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="input_surface_z0m">
-          <property name="toolTip">
-           <string>roughness length for momentum</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="input_surface_z0h">
-          <property name="toolTip">
-           <string>roughness length for scalars</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_surface_z0m">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;z&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;0m&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_surface_z0h">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;z&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;0h&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_surface_z0m">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[m]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_surface_z0h">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[m]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="input_surface_cveg">
-          <property name="toolTip">
-           <string>vegetation fraction</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_surface_cveg">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;C&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;veg&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_surface_cveg">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="surface_moisture_group">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>10</y>
-        <width>221</width>
-        <height>111</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <widget class="QWidget" name="gridLayoutWidget_16">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>201</width>
-         <height>89</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="surface_moisture_grid" columnminimumwidth="50,0,80">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_surface_Wl">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;W&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;l&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="input_surface_Wl">
-          <property name="toolTip">
-           <string>equivalent water layer depth for wet vegetation</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_surface_Wl">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[m]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="input_surface_Ts">
-          <property name="toolTip">
-           <string>initial surface temperature</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_surface_Ts">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;T&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_surface_Ts">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[K]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="3">
-         <widget class="QLabel" name="label_surface_variables">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="baseSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Surface variables</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -2595,7 +2033,7 @@
         <x>10</x>
         <y>130</y>
         <width>441</width>
-        <height>81</height>
+        <height>111</height>
        </rect>
       </property>
       <property name="title">
@@ -2607,14 +2045,14 @@
          <x>10</x>
          <y>10</y>
          <width>421</width>
-         <height>61</height>
+         <height>91</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="surface_moisture_grid_2">
+       <layout class="QGridLayout" name="surface_moisture_grid_2" columnminimumwidth="180,85,0,80">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
-        <item row="0" column="0" colspan="2">
+        <item row="0" column="0" colspan="4">
          <widget class="QLabel" name="label_surface_variables_2">
           <property name="minimumSize">
            <size>
@@ -2636,30 +2074,221 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QCheckBox" name="sw_surface_advanced">
-          <property name="text">
-           <string>Advanced</string>
-          </property>
+        <item row="2" column="0">
+         <widget class="QComboBox" name="input_soil_soiltypes">
+          <item>
+           <property name="text">
+            <string>Gras / bos</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QComboBox" name="input_surface_surfacetypes"/>
+         <widget class="QComboBox" name="input_surface_surfacetypes">
+          <item>
+           <property name="text">
+            <string>AGS / Jarvis</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_surface_Ts">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;T&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLineEdit" name="input_surface_Ts">
+          <property name="toolTip">
+           <string>initial surface temperature</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="unitlabel_surface_Ts">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[K]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_surface_Wl">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;W&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;l&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLineEdit" name="input_surface_Wl">
+          <property name="toolTip">
+           <string>equivalent water layer depth for wet vegetation</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="unitlabel_surface_Wl">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[m]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
      </widget>
-    </widget>
-    <widget class="QWidget" name="soilTab">
-     <attribute name="title">
-      <string>Soil</string>
-     </attribute>
-     <widget class="QGroupBox" name="soil_heat_group">
+     <widget class="QGroupBox" name="surfacelayer_group">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>10</y>
+        <width>221</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget_12">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>201</width>
+         <height>87</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="surfacelayer_grid" columnminimumwidth="50,0,80">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item row="1" column="2">
+         <widget class="QLabel" name="unitlabel_surfacelayer_z0m">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[m]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="input_surfacelayer_z0m">
+          <property name="toolTip">
+           <string>roughness length for momentum</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_surfacelayer_z0m">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;z&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;0m&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QCheckBox" name="sw_sl">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>surface-layer switch</string>
+          </property>
+          <property name="text">
+           <string>Surface-layer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="unitlabel_surfacelayer_z0h">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[m]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_surfacelayer_z0h">
+          <property name="toolTip">
+           <string>roughness length for scalars</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_surfacelayer_z0h">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;z&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;0h&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_2">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
-        <width>211</width>
+        <y>250</y>
+        <width>441</width>
         <height>111</height>
        </rect>
       </property>
@@ -2766,7 +2395,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Heat</string>
+           <string>Soil heat</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -2775,390 +2404,10 @@
         </item>
        </layout>
       </widget>
-     </widget>
-     <widget class="QGroupBox" name="soil_advanced_group">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>220</y>
-        <width>441</width>
-        <height>171</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <widget class="QWidget" name="gridLayoutWidget_13">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>191</width>
-         <height>152</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="soil_parameters_grid1" columnminimumwidth="50,0,60">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_soil_wsat">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;w&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;sat&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="input_soil_wsat">
-          <property name="toolTip">
-           <string>saturated volumetric water content ECMWF config</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_soil_wfc">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;w&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;fc&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="input_soil_wfc">
-          <property name="toolTip">
-           <string>volumetric water content field capacity</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="input_soil_wwilt">
-          <property name="toolTip">
-           <string>volumetric water content wilting point</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="input_soil_c1sat">
-          <property name="toolTip">
-           <string>coefficient force term moisture</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLineEdit" name="input_soil_c2ref">
-          <property name="toolTip">
-           <string>coefficient restore term moisture</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_soil_wwilt">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;w&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;wilt&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_soil_c1sat">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;C1&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;sat&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_soil_c2ref">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;C2&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;ref&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_soil_c1sat">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>[-]</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QLabel" name="unitlabel_c2ref">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_soil_wsat">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[m&lt;sup&gt;3&lt;/sup&gt; m&lt;sup&gt;-3&lt;/sup&gt;]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_soil_wfc">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[m&lt;sup&gt;3&lt;/sup&gt; m&lt;sup&gt;-3&lt;/sup&gt;]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_soil_wwilt">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[m&lt;sup&gt;3&lt;/sup&gt; m&lt;sup&gt;-3&lt;/sup&gt;]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="gridLayoutWidget_14">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>10</y>
-         <width>201</width>
-         <height>121</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="soil_parameters_grid2" columnminimumwidth="50,0,80">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_soil_a">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;a&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="input_soil_a">
-          <property name="toolTip">
-           <string>Clapp and Hornberger retention curve parameter a</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_soil_b">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;b&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="input_soil_b">
-          <property name="toolTip">
-           <string>Clapp and Hornberger retention curve parameter b</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="unitlabel_soil_a">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_soil_b">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="input_soil_p">
-          <property name="toolTip">
-           <string>Clapp and Hornberger retention curve parameter p </string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="input_soil_CGsat">
-          <property name="toolTip">
-           <string>saturated soil conductivity for heat</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_soil_p">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;p&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_soil_CGsat">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;CG&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;sat&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_soil_p">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_soil_CGsat">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[K m&lt;sup&gt;-2&lt;/sup&gt; J&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="soil_moisture_group">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>10</y>
-        <width>221</width>
-        <height>111</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
       <widget class="QWidget" name="gridLayoutWidget_10">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>230</x>
          <y>10</y>
          <width>201</width>
          <height>89</height>
@@ -3261,70 +2510,10 @@
            </size>
           </property>
           <property name="text">
-           <string>Moisture</string>
+           <string>Soil moisture</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="soil_properties_group_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>130</y>
-        <width>441</width>
-        <height>81</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <widget class="QWidget" name="gridLayoutWidget_22">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>421</width>
-         <height>58</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="surface_moisture_grid_3">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_surface_variables_3">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Soil properties</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QComboBox" name="input_soil_soiltypes"/>
-        </item>
-        <item row="1" column="1">
-         <widget class="QCheckBox" name="sw_soil_advanced">
-          <property name="text">
-           <string>Advanced</string>
           </property>
          </widget>
         </item>
@@ -3708,7 +2897,7 @@
         <rect>
          <x>10</x>
          <y>210</y>
-         <width>220</width>
+         <width>201</width>
          <height>186</height>
         </rect>
        </property>
@@ -4013,7 +3202,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>437</width>
+         <width>421</width>
          <height>37</height>
         </rect>
        </property>
@@ -4108,7 +3297,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>406</width>
+          <width>403</width>
           <height>750</height>
          </rect>
         </property>
@@ -5565,6 +4754,663 @@
       </widget>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Adv. surf</string>
+     </attribute>
+     <widget class="QGroupBox" name="surface_advanced_group">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>441</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget_17">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>191</width>
+         <height>101</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="surface_parameters_grid1" columnminimumwidth="50,0,60">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_surface_LAI">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;LAI&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="input_surface_LAI">
+          <property name="toolTip">
+           <string>leaf area index</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_surface_gD">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;gD&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="input_surface_gD">
+          <property name="toolTip">
+           <string>correction factor transpiration for VPD</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="unitlabel_surface_LAI">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="unitlabel_surface_gD">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_surface_rsmin">
+          <property name="toolTip">
+           <string>minimum resistance transpiration</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_surface_rsmin">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;r&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s;min&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="unitlabel_surface_rsmin">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[s m&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="gridLayoutWidget_18">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>40</y>
+         <width>201</width>
+         <height>101</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="surface_parameters_grid2" columnminimumwidth="50,0,80">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_surfaceLambda">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;Λ&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_surface_Lambda">
+          <property name="toolTip">
+           <string>thermal diffusivity skin layer</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="unitlabel_surface_Lambda">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[W m&lt;sup&gt;-2&lt;/sup&gt; K&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="input_surface_cveg">
+          <property name="toolTip">
+           <string>vegetation fraction</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_surface_cveg">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;C&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;veg&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="unitlabel_surface_cveg">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="input_surface_alpha">
+          <property name="toolTip">
+           <string>surface albedo</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_surface_alpha">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;α&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="unitlabel_surface_alpha">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>[-]</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QCheckBox" name="sw_surface_advanced">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>207</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Advanced surface</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="soil_advanced_group">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>190</y>
+        <width>441</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget_13">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>191</width>
+         <height>152</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="soil_parameters_grid1" columnminimumwidth="50,0,60">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_soil_wsat">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;w&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;sat&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="input_soil_wsat">
+          <property name="toolTip">
+           <string>saturated volumetric water content ECMWF config</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_soil_wfc">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;w&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;fc&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="input_soil_wfc">
+          <property name="toolTip">
+           <string>volumetric water content field capacity</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_soil_wwilt">
+          <property name="toolTip">
+           <string>volumetric water content wilting point</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="input_soil_c1sat">
+          <property name="toolTip">
+           <string>coefficient force term moisture</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="input_soil_c2ref">
+          <property name="toolTip">
+           <string>coefficient restore term moisture</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_soil_wwilt">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;w&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;wilt&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_soil_c1sat">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;C1&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;sat&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_soil_c2ref">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;C2&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;ref&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="unitlabel_soil_c1sat">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>[-]</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QLabel" name="unitlabel_c2ref">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="unitlabel_soil_wsat">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[m&lt;sup&gt;3&lt;/sup&gt; m&lt;sup&gt;-3&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="unitlabel_soil_wfc">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[m&lt;sup&gt;3&lt;/sup&gt; m&lt;sup&gt;-3&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="unitlabel_soil_wwilt">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[m&lt;sup&gt;3&lt;/sup&gt; m&lt;sup&gt;-3&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="gridLayoutWidget_14">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>40</y>
+         <width>201</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="soil_parameters_grid2" columnminimumwidth="50,0,80">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_soil_a">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;a&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="input_soil_a">
+          <property name="toolTip">
+           <string>Clapp and Hornberger retention curve parameter a</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_soil_b">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;b&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="input_soil_b">
+          <property name="toolTip">
+           <string>Clapp and Hornberger retention curve parameter b</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="unitlabel_soil_a">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="unitlabel_soil_b">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_soil_p">
+          <property name="toolTip">
+           <string>Clapp and Hornberger retention curve parameter p </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="input_soil_CGsat">
+          <property name="toolTip">
+           <string>saturated soil conductivity for heat</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_soil_p">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;p&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_soil_CGsat">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;CG&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;sat&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="unitlabel_soil_p">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[-]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="unitlabel_soil_CGsat">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[K m&lt;sup&gt;-2&lt;/sup&gt; J&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QCheckBox" name="sw_soil_advanced">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>207</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Advanced soil</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="modelrunsGroup">
     <property name="geometry">
@@ -5784,7 +5630,7 @@
      <x>0</x>
      <y>0</y>
      <width>650</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -5858,9 +5704,6 @@
   <tabstop>input_wind_ug</tabstop>
   <tabstop>input_wind_gammau</tabstop>
   <tabstop>input_wind_advu</tabstop>
-  <tabstop>sw_sl</tabstop>
-  <tabstop>input_surfacelayer_z0m</tabstop>
-  <tabstop>input_surfacelayer_z0h</tabstop>
   <tabstop>input_wind_v</tabstop>
   <tabstop>input_wind_vg</tabstop>
   <tabstop>input_wind_gammav</tabstop>
@@ -5874,33 +5717,7 @@
   <tabstop>input_rad_clouds</tabstop>
   <tabstop>sw_ls</tabstop>
   <tabstop>sw_sea</tabstop>
-  <tabstop>input_surface_Ts</tabstop>
-  <tabstop>input_surface_Wl</tabstop>
   <tabstop>input_surface_surfacetypes</tabstop>
-  <tabstop>sw_surface_advanced</tabstop>
-  <tabstop>input_surface_LAI</tabstop>
-  <tabstop>input_surface_gD</tabstop>
-  <tabstop>input_surface_rsmin</tabstop>
-  <tabstop>input_surface_alpha</tabstop>
-  <tabstop>input_surface_cveg</tabstop>
-  <tabstop>input_surface_Lambda</tabstop>
-  <tabstop>input_surface_z0m</tabstop>
-  <tabstop>input_surface_z0h</tabstop>
-  <tabstop>input_soil_Tsoil</tabstop>
-  <tabstop>input_soil_T2</tabstop>
-  <tabstop>input_soil_Wg</tabstop>
-  <tabstop>input_soil_W2</tabstop>
-  <tabstop>input_soil_soiltypes</tabstop>
-  <tabstop>sw_soil_advanced</tabstop>
-  <tabstop>input_soil_wsat</tabstop>
-  <tabstop>input_soil_wfc</tabstop>
-  <tabstop>input_soil_wwilt</tabstop>
-  <tabstop>input_soil_c1sat</tabstop>
-  <tabstop>input_soil_c2ref</tabstop>
-  <tabstop>input_soil_a</tabstop>
-  <tabstop>input_soil_b</tabstop>
-  <tabstop>input_soil_p</tabstop>
-  <tabstop>input_soil_CGsat</tabstop>
   <tabstop>sw_chem</tabstop>
   <tabstop>sw_species_photolysis</tabstop>
   <tabstop>input_species_photolysis_tref</tabstop>
