@@ -170,6 +170,20 @@ void model::initmodel()
   gammav     =  input.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
   advv       =  input.advv;             // advection of v-wind [m s-2]
 
+  // BvS; a scalar, without the need for the chemistry scheme :)
+  sca        = input.sca;               // initial mixed-layer scalar [kg kg-1]
+  dsca       = input.dsca;              // initial scalar jump at h [kg kg-1]
+  gammasca   = input.gammasca;          // free atmosphere scalar lapse rate [kg kg-1 m-1]
+  advsca     = input.advsca;            // advection of scalar [kg kg-1 s-1]
+  wsca       = input.wsca;              // surface kinematic scalar flux [kg kg-1 m s-1]
+
+  CO2        = input.CO2;               // initial mixed-layer CO2 [ppm]
+  dCO2       = input.dCO2;              // initial CO2 jump at h [ppm]
+  gammaCO2   = input.gammaCO2;          // free atmosphere CO2 lapse rate [ppm]
+  advCO2     = input.advCO2;            // advection of CO2 [ppm]
+  wCO2       = input.wCO2;              // surface kinematic CO2 flux [ppm]
+
+  // Other scalars/species (chemistry code..)
   nsc        =  input.nsc;
   sc         =  new double[nsc];
   dsc        =  new double[nsc];
@@ -438,17 +452,20 @@ void model::runmlmodel()
   wf = dFz / (rho * cp * dtheta);
 
   // Compensate free tropospheric warming due to subsidence
-  double C_thetaft;
-  double C_qft;
+  double C_thetaft, C_qft, C_scaft, C_CO2ft;
   if(sw_wsft)
   {
-    C_thetaft = gammatheta * ws;
-    C_qft     = gammaq * ws;
+    C_thetaft = gammatheta    * ws;
+    C_qft     = gammaq        * ws;
+    C_scaft   = gammasca      * ws;
+    C_CO2ft   = gammaCO2      * ws;
   }
   else
   {
     C_thetaft = 0.;
     C_qft     = 0.;
+    C_scaft   = 0.;
+    C_CO2ft   = 0.;
   }
 
   // compute tendencies
@@ -460,33 +477,51 @@ void model::runmlmodel()
   // compute entrainment fluxes
   wthetae = we * dtheta;
   wqe     = we * dq;
+  wscae   = we * dsca;
+  wCO2e   = we * dCO2;
 
   // compute mixed-layer top variances and mass-fluxes
   sigmaq2     = wqe     * dq     * h / (dz * wstar);
   sigmatheta2 = wthetae * dtheta * h / (dz * wstar);
+  sigmasca2   = wscae   * dsca   * h / (dz * wstar);
+  sigmaCO22   = wCO2e   * dCO2   * h / (dz * wstar);
 
+  // Check if variances < 0.
   if (sigmaq2 < 0.)
     sigmaq2 = 1e-5;
   if (sigmatheta2 < 0.)
     sigmatheta2 = 1e-5;
+  if (sigmasca2 < 0.)
+    sigmasca2 = 1e-5;
+  if (sigmaCO22 < 0.)
+    sigmaCO22 = 1e-5;
 
+  // Mass-flux kinematic fluxes
   wqM         = M * pow(sigmaq2,0.5);
   wthetaM     = M * pow(sigmatheta2,0.5);
+  wscaM       = M * pow(sigmasca2,0.5);
+  wCO2M       = M * pow(sigmaCO22,0.5);
 
   // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
   htend       = we + ws + wf - M;
 
   thetatend   = (wtheta + wthetae - wthetaM)  / h + advtheta;
   qtend       = (wq     + wqe     - wqM)      / h + advq;
+  scatend     = (wsca   + wscae   - wscaM)    / h + advsca;
+  CO2tend     = (wCO2   + wCO2e   - wCO2M)    / h + advCO2;
 
   // Set tendency dtheta & dq to zero when shallow-cumulus is present
   if(sw_cu && ac > 0.){
     dthetatend  = 0.;
     dqtend      = 0.;
+    dscatend    = 0.;
+    dCO2tend    = 0.;
   }
   else {
     dthetatend  = gammatheta * (we + wf) - thetatend  + C_thetaft;
     dqtend      = gammaq     * (we + wf) - qtend      + C_qft;
+    dscatend    = gammasca   * (we + wf) - scatend    + C_scaft;
+    dCO2tend    = gammaCO2   * (we + wf) - CO2tend    + C_CO2ft;
   }
 
   for(int i=0; i<nsc; i++)
@@ -510,7 +545,7 @@ void model::runmlmodel()
 
     wscM[i]        = M * pow(sigmasc2[i],0.5);
 
-    std::cout << i <<  ": wsce = " << wsce[i] << " wscM = " << wscM[i] << std::endl;
+    //std::cout << i <<  ": wsce = " << wsce[i] << " wscM = " << wscM[i] << std::endl;
 
     sctend[i]      = (wsc[i] + wsce[i] - wscM[i]) / h + advsc[i];
     dsctend[i]     = gammasc[i] * we - sctend[i];
@@ -549,7 +584,7 @@ void model::runmlmodel()
 void model::intmlmodel()
 {
   double h0;
-  double theta0, dtheta0, q0, dq0;
+  double theta0, dtheta0, q0, dq0, sca0, dsca0, CO20, dCO20;
   double u0, du0, v0, dv0;
   double *sc0, *dsc0;
 
@@ -566,6 +601,11 @@ void model::intmlmodel()
   v0      = v;
   dv0     = dv;
 
+  sca0    = sca;
+  dsca0   = dsca;
+  CO20    = CO2;
+  dCO20   = dCO2;
+
   sc0  = new double[nsc];
   dsc0 = new double[nsc];
   for(int i=0; i<nsc; i++)
@@ -581,6 +621,10 @@ void model::intmlmodel()
   dtheta   = dtheta0 + dt * dthetatend;
   q        = q0      + dt * qtend;
   dq       = dq0     + dt * dqtend;
+  sca      = sca0    + dt * scatend;
+  dsca     = dsca0   + dt * dscatend;
+  CO2      = CO20    + dt * CO2tend;
+  dCO2     = dCO20   + dt * dCO2tend;
 
   for(int i=0; i<nsc; i++)
   {
@@ -867,7 +911,7 @@ void model::intlsmodel()
 
 void model::store()
 {
-  //cout << "(t,h,LCL,theta,q,u,v) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << endl;
+  cout << "(t,h,LCL,theta,q,u,v,CO2) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << ", " << CO2 << endl;
   //cout << "(t,sc0,sc1,sc3,sc9)   " << t * dt << ", " << sc[0] << ", " << sc[1] << ", " << sc[3] << ", " << sc[9] << endl;
   //cout << "(sigmaq,ac,M,wqM)" << pow(sigmaq2,0.5)*1000. << ac << M << wqM << endl;
   output->t.data[t]          = t * dt / 3600.; // + tstart;
@@ -906,7 +950,6 @@ void model::store()
   output->wq.data[t]         = wq * 1000.;
   output->wqe.data[t]        = wqe * 1000.;
   output->sigmaq.data[t]     = pow(sigmaq2,0.5)*1000.;
-  std::cout << output->sigmaq.data[t] << std::endl;
   output->wqM.data[t]        = wqM * 1000.;
 
   output->u.data[t]          = u;
@@ -922,6 +965,25 @@ void model::store()
   output->advv.data[t]       = advv;
   output->vw.data[t]         = vw;
   output->vwe.data[t]        = vwe;
+
+  // BvS; a scalar...
+  output->sca.data[t]             = sca;
+  output->dsca.data[t]            = dsca;
+  output->gammasca.data[t]        = gammasca;
+  output->advsca.data[t]          = advsca;
+  output->wsca.data[t]            = wsca;
+  output->wscae.data[t]           = wscae;
+  output->wscaM.data[t]           = wscaM;
+  output->sigmasca.data[t]        = pow(sigmasca2,0.5);
+
+  output->CO2.data[t]             = CO2;
+  output->dCO2.data[t]            = dCO2;
+  output->gammaCO2.data[t]        = gammaCO2;
+  output->advCO2.data[t]          = advCO2;
+  output->wCO2.data[t]            = wCO2;
+  output->wCO2e.data[t]           = wCO2e;
+  output->wCO2M.data[t]           = wCO2M;
+  output->sigmaCO2.data[t]        = pow(sigmaCO22,0.5);
 
   // surface layer
   output->ustar.data[t]      = ustar;

@@ -48,6 +48,20 @@ public:
   double gammav;    // free atmosphere v-wind speed lapse rate [s-1]
   double advv;      // advection of v-wind [m s-2]
 
+  // BvS; a scalar, without the need for the chemistry scheme :)
+  double sca;       // initial mixed-layer scalar [kg kg-1]
+  double dsca;      // initial scalar jump at h [kg kg-1]
+  double gammasca;  // free atmosphere scalar lapse rate [kg kg-1 m-1]
+  double advsca;    // advection of scalar [kg kg-1 s-1]
+  double wsca;      // surface kinematic scalar flux [kg kg-1 m s-1]
+
+  double CO2;       // initial mixed-layer CO2 [ppm]
+  double dCO2;      // initial CO2 jump at h [ppm]
+  double gammaCO2;  // free atmosphere CO2 lapse rate [ppm]
+  double advCO2;    // advection of CO2 [ppm]
+  double wCO2;      // surface kinematic CO2 flux [ppm]
+
+  // Other scalars/species (chemistry code..)
   int nsc;
   double *sc;       // initial mixed-layer scalar [kg kg-1]
   double *dsc;      // initial scalar jump at h [kg kg-1]

@@ -199,6 +199,33 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   else if (plotvar == "vwe")
     *data = n.run->output->vwe;
 
+  // scalars
+  else if (plotvar == "sca")
+    *data = n.run->output->sca;
+  else if (plotvar == "dsca")
+    *data = n.run->output->dsca;
+  else if (plotvar == "wsca")
+    *data = n.run->output->wsca;
+  else if (plotvar == "wscae")
+    *data = n.run->output->wscae;
+  else if (plotvar == "wscaM")
+    *data = n.run->output->wscaM;
+  else if (plotvar == "sigmasca")
+    *data = n.run->output->sigmasca;
+
+  else if (plotvar == "CO2")
+    *data = n.run->output->CO2;
+  else if (plotvar == "dCO2")
+    *data = n.run->output->dCO2;
+  else if (plotvar == "wCO2")
+    *data = n.run->output->wCO2;
+  else if (plotvar == "wCO2e")
+    *data = n.run->output->wCO2e;
+  else if (plotvar == "wCO2M")
+    *data = n.run->output->wCO2M;
+  else if (plotvar == "sigmaCO2")
+    *data = n.run->output->sigmaCO2;
+
   // surface-layer
   else if (plotvar == "ustar")
     *data = n.run->output->ustar;
@@ -363,6 +390,34 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
     *plotvar = label;
   else if (label == "vwe")
     *plotvar = label;
+
+  // scalars
+  else if (label == "sca")
+    *plotvar = label;
+  else if (label == "dsca")
+    *plotvar = label;
+  else if (label == "wsca")
+    *plotvar = label;
+  else if (label == "wscae")
+    *plotvar = label;
+  else if (label == "wscaM")
+    *plotvar = label;
+  else if (label == "sigmasca")
+    *plotvar = label;
+
+  else if (label == "CO2")
+    *plotvar = label;
+  else if (label == "dCO2")
+    *plotvar = label;
+  else if (label == "wCO2")
+    *plotvar = label;
+  else if (label == "wCO2e")
+    *plotvar = label;
+  else if (label == "wCO2M")
+    *plotvar = label;
+  else if (label == "sigmaCO2")
+    *plotvar = label;
+
 
   // surface-layer
   else if (label == "ustar")

@@ -129,6 +129,26 @@ private:
   double vw;        // surface momentum flux in v-direction [m2 s-2]
   double vwe;       // Entrainment momentum flux in v-direction [m2 s-2]
 
+  // BvS; a scalar, without the need for the chemistry scheme :)
+  double sca;       // initial mixed-layer scalar [kg kg-1]
+  double dsca;      // initial scalar jump at h [kg kg-1]
+  double gammasca;  // free atmosphere scalar lapse rate [kg kg-1 m-1]
+  double advsca;    // advection of scalar [kg kg-1 s-1]
+  double wsca;      // surface kinematic scalar flux [kg kg-1 m s-1]
+  double wscae;     // entrainment kinematic scalar flux [kg kg-1 m s-1]
+  double wscaM;     // mass-flux kinematic scalar flux [kg kg-1 m s-1]
+  double sigmasca2; // mixed-layer top scalar variance [kg2 kg-2]
+
+  double CO2;       // initial mixed-layer CO2 [ppm]
+  double dCO2;      // initial CO2 jump at h [ppm]
+  double gammaCO2;  // free atmosphere CO2 lapse rate [ppm]
+  double advCO2;    // advection of CO2 [ppm]
+  double wCO2;      // surface kinematic CO2 flux [ppm]
+  double wCO2e;     // entrainment kinematic CO2 flux [ppm]
+  double wCO2M;     // mass-flux kinematic CO2 flux [ppm]
+  double sigmaCO22; // mixed-layer top CO2 variance [ppm2]
+
+  // Other scalars/species (chemistry code..)
   int nsc;
   double *sc;       // initial mixed-layer scalar
   double *dsc;      // initial scalar jump at h [kg kg-1]
@@ -143,8 +163,8 @@ private:
   double *sctend, *dsctend;
 
   double htend;
-  double thetatend, qtend, utend, vtend;
-  double dthetatend, dqtend, dutend, dvtend;
+  double thetatend, qtend, utend, vtend, scatend, CO2tend;
+  double dthetatend, dqtend, dutend, dvtend, dscatend, dCO2tend;
 
   // surface layer variables
   bool   sw_sl;     // surface layer switch

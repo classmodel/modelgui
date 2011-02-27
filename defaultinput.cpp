@@ -43,6 +43,19 @@ void MainWindow::readdefaultinput()
   defaultinput.gammav     = 0.;       // free atmosphere v-wind speed lapse rate [s-1]
   defaultinput.advv       = 0.;       // advection of v-wind [m s-2]
 
+  // BvS; a scalar, without the need for the chemistry scheme :)
+  defaultinput.sca        = 0.;       // initial mixed-layer scalar [kg kg-1]
+  defaultinput.dsca       = 0.;       // initial scalar jump at h [kg kg-1]
+  defaultinput.gammasca   = 0.;       // free atmosphere scalar lapse rate [kg kg-1 m-1]
+  defaultinput.advsca     = 0.;       // advection of scalar [kg kg-1 s-1]
+  defaultinput.wsca       = 0.;       // surface kinematic scalar flux [kg kg-1 m s-1]
+
+  defaultinput.CO2        = 422.;     // initial mixed-layer CO2 [ppm]
+  defaultinput.dCO2       = -44.;     // initial CO2 jump at h [ppm]
+  defaultinput.gammaCO2   = 0.;       // free atmosphere CO2 lapse rate [ppm]
+  defaultinput.advCO2     = 0.;       // advection of CO2 [ppm]
+  defaultinput.wCO2       = 0.;       // surface kinematic CO2 flux [ppm]
+
   // surface layer input
   defaultinput.sw_sl      = false;    // surface layer switch
   defaultinput.ustar      = 0.3;      // surface friction velocity [m s-1]

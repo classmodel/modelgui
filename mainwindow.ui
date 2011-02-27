@@ -2033,7 +2033,7 @@
         <x>10</x>
         <y>130</y>
         <width>441</width>
-        <height>111</height>
+        <height>141</height>
        </rect>
       </property>
       <property name="title">
@@ -2045,7 +2045,7 @@
          <x>10</x>
          <y>10</y>
          <width>421</width>
-         <height>91</height>
+         <height>122</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_moisture_grid_2" columnminimumwidth="180,85,0,80">
@@ -2074,20 +2074,22 @@
           </property>
          </widget>
         </item>
+        <item row="3" column="0">
+         <widget class="QComboBox" name="input_soil_soiltypes"/>
+        </item>
         <item row="2" column="0">
-         <widget class="QComboBox" name="input_soil_soiltypes">
-          <item>
-           <property name="text">
-            <string>Gras / bos</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QComboBox" name="input_surface_surfacetypes"/>
         </item>
         <item row="1" column="0">
-         <widget class="QComboBox" name="input_surface_surfacetypes">
+         <widget class="QComboBox" name="input_surface_jarvisAGS">
           <item>
            <property name="text">
-            <string>AGS / Jarvis</string>
+            <string>Jarvis...</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>AG-S...</string>
            </property>
           </item>
          </widget>
@@ -2287,7 +2289,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>250</y>
+        <y>300</y>
         <width>441</width>
         <height>111</height>
        </rect>
@@ -2301,7 +2303,7 @@
          <x>10</x>
          <y>10</y>
          <width>191</width>
-         <height>89</height>
+         <height>91</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_heat_grid" columnminimumwidth="50,0,60">
@@ -2395,7 +2397,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Soil heat</string>
+           <string> </string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -2510,7 +2512,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Soil moisture</string>
+           <string> </string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -2518,6 +2520,34 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QLabel" name="label_soil_heat_2">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>10</y>
+         <width>189</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Soil properties</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </widget>
     </widget>
@@ -2897,7 +2927,7 @@
         <rect>
          <x>10</x>
          <y>210</y>
-         <width>201</width>
+         <width>220</width>
          <height>186</height>
         </rect>
        </property>
@@ -3202,7 +3232,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>421</width>
+         <width>437</width>
          <height>37</height>
         </rect>
        </property>
@@ -3297,7 +3327,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>403</width>
+          <width>406</width>
           <height>750</height>
          </rect>
         </property>
@@ -5630,7 +5660,7 @@
      <x>0</x>
      <y>0</y>
      <width>650</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

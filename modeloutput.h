@@ -67,6 +67,25 @@ public:
   outputvar vw;        // surface v-momentum flux [m2 s-2]
   outputvar vwe;       // entrainment v-momentum flux [m2 s-2]
 
+  // BvS; a scalar...
+  outputvar sca;       // mixed-layer scalar [kg kg-1]
+  outputvar dsca;      // initial scalar jump at h [kg kg-1]
+  outputvar gammasca;  // free atmosphere scalar lapse rate [kg kg-1 m-1]
+  outputvar advsca;    // advection of scalar [kg kg-1 s-1]
+  outputvar wsca;      // surface kinematic scalar flux [kg kg-1 m s-1]
+  outputvar wscae;     // entrainment kinematic scalar flux [kg kg-1 m s-1]
+  outputvar wscaM;     // mass-flux kinematic scalar flux [kg kg-1 m s-1]
+  outputvar sigmasca;  // mixed-layer top scalar std dev [kg kg-1]
+
+  outputvar CO2;       // initial mixed-layer CO2 [ppm]
+  outputvar dCO2;      // initial CO2 jump at h [ppm]
+  outputvar gammaCO2;  // free atmosphere CO2 lapse rate [ppm]
+  outputvar advCO2;    // advection of CO2 [ppm]
+  outputvar wCO2;      // surface kinematic CO2 flux [ppm]
+  outputvar wCO2e;     // entrainment kinematic CO2 flux [ppm]
+  outputvar wCO2M;     // mass-flux kinematic CO2 flux [ppm]
+  outputvar sigmaCO2;  // mixed-layer top CO2 std dev [kg kg-1]
+
   // surface-layer
   outputvar ustar;     // friction velocity [m s-1]
   outputvar L;         // Obukhov length [m]

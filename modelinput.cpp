@@ -40,6 +40,18 @@ modelinput::modelinput()
   gammav     = -1.;
   advv       = -1.;
 
+  // BvS; a scalar, without the need for the chemistry scheme :)
+  sca        = -1.;
+  dsca       = -1.;
+  gammasca   = -1.;
+  advsca     = -1.;
+  wsca       = -1.;
+
+  CO2        = -1.;
+  gammaCO2   = -1.;
+  advCO2     = -1.;
+  wCO2       = -1.;
+
   // scalars for chemistry
   nsc        = 22; // nsc hardcoded...
   sc         = new double[nsc];
@@ -169,6 +181,19 @@ modelinput::modelinput(const modelinput &ref)
   dv         = ref.dv;
   gammav     = ref.gammav;
   advv       = ref.advv;
+
+  // scalar
+  sca        = ref.sca;
+  dsca       = ref.dsca;
+  gammasca   = ref.gammasca;
+  advsca     = ref.advsca;
+  wsca       = ref.wsca;
+
+  CO2        = ref.CO2;
+  dCO2       = ref.dCO2;
+  gammaCO2   = ref.gammaCO2;
+  advCO2     = ref.advCO2;
+  wCO2       = ref.wCO2;
 
   // scalars for chemistry
   nsc        = ref.nsc;
@@ -305,6 +330,19 @@ modelinput &modelinput::operator=(const modelinput &ref)
     dv         = ref.dv;
     gammav     = ref.gammav;
     advv       = ref.advv;
+
+    // scalar
+    sca        = ref.sca;
+    dsca       = ref.dsca;
+    gammasca   = ref.gammasca;
+    advsca     = ref.advsca;
+    wsca       = ref.wsca;
+
+    CO2        = ref.CO2;
+    dCO2       = ref.dCO2;
+    gammaCO2   = ref.gammaCO2;
+    advCO2     = ref.advCO2;
+    wCO2       = ref.wCO2;
 
     // scalars for chemistry
     nsc        = ref.nsc;

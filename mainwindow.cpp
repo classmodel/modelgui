@@ -378,11 +378,11 @@ void MainWindow::storeFormData()
 
   formvalues.sw_sl      = CheckState2bool(ui->sw_sl->checkState());
 
-  if (activetab == 1)
-  {
+  //if (activetab == 1)
+  //{
     formvalues.z0m                = ui->input_surfacelayer_z0m->text().toDouble();
     formvalues.z0h                = ui->input_surfacelayer_z0h->text().toDouble();
-  }
+  //}
   // END TAB2
 
   // TAB3
@@ -402,11 +402,11 @@ void MainWindow::storeFormData()
   formvalues.cveg       = ui->input_surface_cveg->text().toDouble();
   formvalues.Lambda     = ui->input_surface_Lambda->text().toDouble();
 
-  if (activetab == 3)
-  {
-    formvalues.z0m      = ui->input_surface_z0m->text().toDouble();
-    formvalues.z0h      = ui->input_surface_z0h->text().toDouble();
-  }
+  //if (activetab == 3)
+  //{
+  //  formvalues.z0m      = ui->input_surface_z0m->text().toDouble();
+  //  formvalues.z0h      = ui->input_surface_z0h->text().toDouble();
+  //}
   // END TAB3
 
   // TAB4
@@ -693,8 +693,8 @@ void MainWindow::loadFormData()
       ui->input_surface_cveg->setText(QString::number(formvalues.cveg));
 
       ui->input_surface_Lambda->setText(QString::number(formvalues.Lambda));
-      ui->input_surface_z0m->setText(QString::number(formvalues.z0m));
-      ui->input_surface_z0h->setText(QString::number(formvalues.z0h));
+      //ui->input_surface_z0m->setText(QString::number(formvalues.z0m));
+      //ui->input_surface_z0h->setText(QString::number(formvalues.z0h));
 
       // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
       ui->surface_advanced_group->setEnabled(true);
@@ -1440,8 +1440,8 @@ void MainWindow::updateSurfacetype(int i)
 
   ui->input_surface_cveg->setText(QString::number(surfacetypes[i].cveg));
   ui->input_surface_Lambda->setText(QString::number(surfacetypes[i].Lambda));
-  ui->input_surface_z0m->setText(QString::number(surfacetypes[i].z0m));
-  ui->input_surface_z0h->setText(QString::number(surfacetypes[i].z0h));
+  //ui->input_surface_z0m->setText(QString::number(surfacetypes[i].z0m));
+  //ui->input_surface_z0h->setText(QString::number(surfacetypes[i].z0h));
 
 
 //  QMap<int,modelrun>::iterator n = modelrunlist->find(id);
@@ -1599,20 +1599,20 @@ void MainWindow::switch_ls(int state)
   else
     checkstate = false;
 
-  ui->input_surfacelayer_z0m->setEnabled(!checkstate);
-  ui->label_surfacelayer_z0m->setEnabled(!checkstate);
-  ui->unitlabel_surfacelayer_z0m->setEnabled(!checkstate);
-  if(checkstate)
-    ui->input_surfacelayer_z0m->setToolTip("If SURFACE is enabled, z0m is set in SURFACE tab");
-  else
-    ui->input_surfacelayer_z0m->setToolTip("roughness length for momentum");
+  //ui->input_surfacelayer_z0m->setEnabled(!checkstate);
+  //ui->label_surfacelayer_z0m->setEnabled(!checkstate);
+  //ui->unitlabel_surfacelayer_z0m->setEnabled(!checkstate);
+  //if(checkstate)
+  //  ui->input_surfacelayer_z0m->setToolTip("If SURFACE is enabled, z0m is set in SURFACE tab");
+  //else
+  //  ui->input_surfacelayer_z0m->setToolTip("roughness length for momentum");
 
-  ui->input_surfacelayer_z0h->setEnabled(!checkstate);
-  ui->label_surfacelayer_z0h->setEnabled(!checkstate);
-  ui->unitlabel_surfacelayer_z0h->setEnabled(!checkstate);
-  if(checkstate)
-    ui->input_surfacelayer_z0h->setToolTip("If SURFACE is enabled, z0h is set in SURFACE tab");
-  else
+  //ui->input_surfacelayer_z0h->setEnabled(!checkstate);
+  //ui->label_surfacelayer_z0h->setEnabled(!checkstate);
+  //ui->unitlabel_surfacelayer_z0h->setEnabled(!checkstate);
+  //if(checkstate)
+  //  ui->input_surfacelayer_z0h->setToolTip("If SURFACE is enabled, z0h is set in SURFACE tab");
+  //else
     ui->input_surfacelayer_z0h->setToolTip("roughness length for scalars");
 
   updateStatusBar();
