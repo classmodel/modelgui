@@ -2081,7 +2081,7 @@
          <widget class="QComboBox" name="input_surface_surfacetypes"/>
         </item>
         <item row="1" column="0">
-         <widget class="QComboBox" name="input_surface_jarvisAGS">
+         <widget class="QComboBox" name="sw_jarvis">
           <item>
            <property name="text">
             <string>Jarvis...</string>

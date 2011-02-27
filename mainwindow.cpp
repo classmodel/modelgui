@@ -387,6 +387,11 @@ void MainWindow::storeFormData()
 
   // TAB3
   formvalues.sw_ls      = CheckState2bool(ui->sw_ls->checkState());
+  if(ui->sw_jarvis->currentIndex() == 0)
+    formvalues.sw_jarvis = true;
+  else
+    formvalues.sw_jarvis = false;
+
   if(ui->sw_sea->currentIndex() == 0)
     formvalues.sw_sea   = false;
   else
@@ -597,6 +602,11 @@ void MainWindow::loadFormData()
       ui->sw_sea->setCurrentIndex(1);
     else
       ui->sw_sea->setCurrentIndex(0);
+
+    if(formvalues.sw_jarvis == true)
+      ui->sw_jarvis->setCurrentIndex(0);
+    else
+      ui->sw_jarvis->setCurrentIndex(1);
 
     // MIXED-LAYER
     ui->input_ml_h->setText(QString::number(formvalues.h));
