@@ -247,7 +247,7 @@ void model::initmodel()
 
   // land surface
   sw_ls      =  input.sw_ls;            // land surface switch
-  sw_jarvis  =  true;                   // Jarvis / A-Gs switch
+  sw_jarvis  =  input.sw_jarvis;        // Jarvis / A-Gs switch
   sw_sea     =  input.sw_sea;           // land / sea switch
   wg         =  input.wg;               // volumetric water content top soil layer [m3 m-3]
   w2         =  input.w2;               // volumetric water content deeper soil layer [m3 m-3]
@@ -816,6 +816,25 @@ double model::ribtol(double Rib, double zsl, double z0m, double z0h)
 
 }
 
+double model::factorial(int k)
+{
+  double factorial = 1;
+  for(int n = 2;n<k+1;n++)
+    factorial = factorial * n;
+
+  return factorial;
+}
+
+double model::E1(double x)
+{
+  double E1sum = 0;
+  for(int k=1;k<100;k++)
+    E1sum = E1sum + pow((-1.),(k + 0.0)) * pow(x,(k + 0.0)) / ((k + 0.0) * factorial(k));
+
+  double E1 = -0.57721566490153286060 - log(x) - E1sum;
+  return E1;
+}
+
 void model::runradmodel()
 {
   double  sda;      // solar declination angle [rad]
@@ -883,23 +902,98 @@ void model::runlsmodel()
     dqsatdT = 0.622 * desatdT / Ps;
     e       = q * Ps / 0.622;
 
-    // calculate surface resistances using Jarvis-Stewart model
-    if(sw_rad)
-      f1   = 1. / ((0.004 * Swin + 0.05) / (0.81 * (0.004 * Swin + 1.)));
-    else
-      f1   = 1.;
+    if(sw_jarvis)       // calculate surface resistances using Jarvis-Stewart model
+    {
+      std::cout << "running Jarvis" << std::endl;
+      if(sw_rad)
+        f1   = 1. / ((0.004 * Swin + 0.05) / (0.81 * (0.004 * Swin + 1.)));
+      else
+        f1   = 1.;
 
-    if(w2 > wwilt)
-      f2   = (wfc - wwilt) / (w2 - wwilt);
-    else
-      f2   = 1.e8;
+      if(w2 > wwilt)
+        f2   = (wfc - wwilt) / (w2 - wwilt);
+      else
+        f2   = 1.e8;
 
-    //f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
-    //f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
-    f3     = 1. / exp(- gD * (esat - e) / 100.);
-    f4     = 1./ (1. - 0.0016 * pow(298.0 - theta, 2.));
+      //f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
+      //f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
+      f3     = 1. / exp(- gD * (esat - e) / 100.);
+      f4     = 1./ (1. - 0.0016 * pow(298.0 - theta, 2.));
 
-    rs     = rsmin / LAI * f1 * f2 * f3 * f4;
+      rs     = rsmin / LAI * f1 * f2 * f3 * f4;
+    }
+
+    else    // calculate surface resistances using plant physiological (A-gs) model
+    {
+      std::cout << "running A-Gs" << std::endl;
+      double CO2comp, co2abs, alphac, Ag, y, a1, Dstar, gcco2, awco2;
+
+      // calculate CO2 compensation concentration
+      CO2comp = CO2comp298 * rho * pow(Q10CO2,(0.1 * (thetasurf - 298.)));   // CO2 compensation concentration
+
+      // calculate mesophyll conductance
+      gm            = gm298 *  pow(Q10gm,( 0.1 * (thetasurf - 298.))) / ( (1. + exp(0.3 * (T1gm - thetasurf))) * (1. + exp(0.3 * (thetasurf - T2gm)))); // mesophyill conductance
+      gm            = gm / 1000.;   //conversion from mm s-1 to m s-1
+
+      // calculate CO2 concentration inside the leaf (ci)
+      fmin0         = gmin / nuco2q - 1. / 9. * gm;
+      fmin          = -fmin0 + pow((pow(fmin0,2.) + 4 * gmin/nuco2q * gm ),0.5) / (2. * gm);
+
+      esatsurf      = 0.611e3 * exp(17.2694 * (Ts - 273.16) / (Ts - 35.86));
+      Ds            = (esatsurf - e)   / 1000.;    // in kPa
+      D0            = (f0 - fmin) / ad;
+
+      cfrac         = f0 * (1. - Ds / D0) + fmin * (Ds / D0);
+      co2abs        = CO2 * (mco2 / mair) * rho;                                                   // conversion mumol mol-1 (ppm) to mgCO2 m3
+      ci            = cfrac * (co2abs - CO2comp) + CO2comp;
+
+      // calculate maximal gross primary production in high light conditions (Ag)
+      Ammax         = Ammax298 *  pow(Q10Am,(0.1 * (thetasurf - 298.))) / ( (1. + exp(0.3 * (T1Am - thetasurf))) * (1. + exp(0.3 * (thetasurf - T2Am))));
+
+      // calculate effect of soil moisture stress on gross assimilation rate
+      betaw         = max(1e-3, min(1.,(wg - wwilt)/(wfc - wwilt)));
+
+      // calculate stress function
+      fstr          = betaw;
+
+      // calculate gross assimilation rate (Am)
+      Am           = Ammax * (1. - exp(-(gm * (ci - CO2comp) / Ammax)));
+
+      Rdark        = (1. / 9.) * Am;
+
+      PAR          = 0.5 * max(1e-1,Swin * cveg);
+
+      // calculate  light use efficiency
+      alphac       = alpha0 * (co2abs - CO2comp) / (co2abs + 2. * CO2comp);
+
+      // calculate gross primary productivity
+      Ag           = (Am + Rdark) * (1 - exp(alphac * PAR / (Am + Rdark)));
+
+      // 1.- calculate upscaling from leaf to canopy: net flow CO2 into the plant (An)
+      y            =  alphac * Kx * PAR / (Am + Rdark);
+      An           = (Am + Rdark) * (1. - 1. / (Kx * LAI) * (E1( y * exp(-Kx * LAI)) - E1(y)));
+
+      // 2.- calculate upscaling from leaf to canopy: CO2 conductance at canopy level
+      a1           = 1. / (1. - f0);
+      Dstar        = D0 / (a1 - 1.);
+
+      gcco2        = LAI * (gmin / nuco2q + a1 * fstr * An / ((co2abs - CO2comp) * (1. + Ds / Dstar)));
+
+      // calculate surface resistance for moisture and carbon dioxide
+      rs           = 1. / (1.6 * gcco2);
+      rsCO2        = 1. / gcco2;
+
+      // calculate net flux of CO2 into the plant (An)
+      An           = -(co2abs - ci) / (ra + rs);
+
+      // CO2 soil surface flux
+      fw           = Cw * wmax / (wg + wmin);
+      Resp         = R10 * (1. - fw) * exp(E0 / (283.15 * 8.314) * (1. - 283.15 / (thetasurf)));
+
+      // CO2 flux
+      awco2        = (An + Resp);                      // conversion mgCO2 m3 to mumol mol-1 (ppm)
+      wCO2         = (An + Resp) * (mair / mco2) * (1. / rho);   // conversion mgCO2 m3 to mumol mol-1 (ppm)
+    }
 
     // recompute f2 using wg instead of w2
     if(wg > wwilt)

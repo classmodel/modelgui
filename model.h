@@ -33,6 +33,8 @@ private:
   void store();
 
   double ribtol(double, double, double, double);
+  double factorial(int);
+  double E1(double);
   inline double psim(double);
   inline double psih(double);
 
