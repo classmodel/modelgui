@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -987,7 +987,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
+        <y>100</y>
         <width>211</width>
         <height>171</height>
        </rect>
@@ -1181,7 +1181,7 @@
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>130</y>
+        <y>100</y>
         <width>221</width>
         <height>171</height>
        </rect>
@@ -1376,8 +1376,8 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>211</width>
-        <height>111</height>
+        <width>441</width>
+        <height>81</height>
        </rect>
       </property>
       <property name="title">
@@ -1388,11 +1388,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
-         <height>87</height>
+         <width>421</width>
+         <height>61</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="wind_general_grid" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="wind_general_grid" columnminimumwidth="50,0,60,60,0,75">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
@@ -1432,42 +1432,6 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="input_wind_ustar">
-          <property name="toolTip">
-           <string>surface friction velocity</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_wind_ustar">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;u*&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_wind_ustar">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[m s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1" colspan="2">
          <widget class="QCheckBox" name="sw_wind">
           <property name="minimumSize">
@@ -1481,6 +1445,42 @@
           </property>
           <property name="text">
            <string>Wind</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_wind_ustar">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;u*&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QLineEdit" name="input_wind_ustar">
+          <property name="toolTip">
+           <string>surface friction velocity</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QLabel" name="unitlabel_wind_ustar">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[m s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -2397,7 +2397,7 @@
            </size>
           </property>
           <property name="text">
-           <string> </string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -2512,7 +2512,7 @@
            </size>
           </property>
           <property name="text">
-           <string> </string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -5729,7 +5729,6 @@
   <tabstop>sw_wq</tabstop>
   <tabstop>sw_wind</tabstop>
   <tabstop>input_wind_fc</tabstop>
-  <tabstop>input_wind_ustar</tabstop>
   <tabstop>input_wind_u</tabstop>
   <tabstop>input_wind_ug</tabstop>
   <tabstop>input_wind_gammau</tabstop>

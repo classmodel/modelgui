@@ -21,7 +21,14 @@ model::model(modelinput *extinput)
   rhow       =  1000.;                  // density of water [kg m-3]
   S0         =  1368.;                  // solar constant [W m-2]
   pi         =  3.14159265359;          // Pi
-  dz         =  150.;                   // Transition layer thickness (used for calculation variances) [m]
+
+  // Aditions for A-Gs scheme
+  mco2       =  46.;                    // molecular weight CO2 [g mol -1]
+  mair       =  28.9;                   // molecular weight air [g mol -1]
+  nuco2q     =  1.6;                    // ratio molecular viscosity water to carbon dioxide
+
+  // Shallow-cumulus / variance calculations
+  dz         =  150.;                   // Transition layer thickness [m]
 
   //input      =  extinput;
   input = *extinput;
@@ -240,6 +247,7 @@ void model::initmodel()
 
   // land surface
   sw_ls      =  input.sw_ls;            // land surface switch
+  sw_jarvis  =  true;                   // Jarvis / A-Gs switch
   sw_sea     =  input.sw_sea;           // land / sea switch
   wg         =  input.wg;               // volumetric water content top soil layer [m3 m-3]
   w2         =  input.w2;               // volumetric water content deeper soil layer [m3 m-3]
@@ -288,6 +296,56 @@ void model::initmodel()
   LEpot      =  -1.;                    // potential evaporation [W m-2]
   LEref      =  -1.;                    // reference evaporation using rs = rsmin / LAI [W m-2]
   G          =  -1.;                    // ground heat flux [W m-2]
+
+  // initialize plant physilogical model (A-gs)
+  ci         =  -1.;                    // CO2 concentration inside the leaf [mg m-3]
+  cfrac      =  -1.;                    // CO2 concentration fraction [-]
+  Ds         =  -1.;                    // vapor pressure deficit [kPa]
+  D0         =  -1.;                    // vapor pressure deficit stomata closes [kPa]
+  gm         =  -1.;                    // mesophyll conducatnce [mm s-1]
+  fmin       =  -1.;                    // minimum value cfrac [-]
+  fmin0      =  -1.;                    // function to calculate fmin [-]
+  Ammax      =  -1.;                    // CO2 maximal primary productivity [mg m-2 s-1]
+  Am         =  -1.;                    // CO2 primray productivity [mg m-2 s-1]
+  An         =  -1.;                    // net CO2 flow into the plant [mg m-2 s-1]
+  Rdark      =  -1.;                    // CO2 dark respiration [mg m-2 s-1]
+  PAR        =  -1.;                    // Photosyntetically Active Radiation [W m-2]
+  gcCo2      =  -1.;                    // CO2 conductance at canopy level [mm s-1]
+  // BvS, calculat rs either with Jarvis or A-Gs...
+  // rsAgs      =  -1.;                    // surface resistance moisture [s mm-1]
+  rsCO2      =  -1.;                    // surface resistance carbon dioxide [s mm-1]
+  betaw      =  -1.;                    // function depending on soil moisture content to calculate stress function [-]
+  fstr       =  -1.;                    // stress function included in canopy conductance [-]
+
+  // initialize constants depending C3 or C4 plants
+  // BvS, HARD-CODED FOR NOW (don't know how this will be with C3/C4 coupled to vegetation type in land surface..)
+  CO2comp298 =  68.5;                   // CO2 compensation concentration [mg m-3]
+  Q10CO2     =  1.5;                    // function parameter to calculate CO2 compensation concentration [-]
+  gm298      =  7.0;                    // mesophyill conductance at 298 K [mm s-1]
+  Ammax298   =  2.2;                    // CO2 maximal primary productivity [mg m-2 s-1]
+  Q10gm      =  2.0;                    // function parameter to calculate mesophyll conductance [-]
+  T1gm       =  278.;                   // reference temperature to calculate mesophyll conductance gm [K]
+  T2gm       =  301.;                   // reference temperature to calculate mesophyll conductance gm [K]
+  Q10Am      =  2.0;                    // function parameter to calculate maximal primary profuctivity Ammax
+  T1Am       =  281.;                   // reference temperature to calculate maximal primary profuctivity Ammax [K]
+  T2Am       =  311.;                   // reference temperature to calculate maximal primary profuctivity Ammax [K]
+  f0         =  0.89;                   // maximum value Cfrac [-]
+  ad         =  0.07;                   // regression coefficient to calculate Cfrac [kPa-1]
+  alpha0     =  0.017;                  // initial low light conditions [mg J-1]
+  //frveg      =  000000000.;             // fraction of the shortwve radiation contributing to PAR [-]
+  Kx         =  0.7;                    // extinction coefficient PAR [-]
+  gmin       =  0.25e-3;                // cuticular (minimum) conductance [mm s-1]
+
+  Cw         =  0.0016;                 // constant water stress correction (eq. 13 Jacobs et al. 2007) [-]
+  wmax       =  0.55;                   // upper reference value soil water [-]
+  wmin       =  0.005;                  // lower reference value soil water [-]
+  R10        =  0.23;                   // respiration at 10 C [mg CO2 m-2 s-1]
+  E0         =  53.3e3;                 // activation energy [53.3 kJ kmol-1]
+  // END HARD-CODED
+
+  // initialize soil  -1. ration model (coupled to A-gs)
+  fw         =  -1.;                    // water stress correction function [-]
+  Resp       =  -1.;                    // soil surface carbon dioxide flux [mg m-2 s-1]
 
   // shallow-cumulus
   sw_cu      = input.sw_cu;             // shallow-cumulus switch [-]

@@ -49,6 +49,19 @@ private:
   double S0;        // solar constant [W m-2]
   double pi;
 
+  // Aditions for A-Gs scheme
+  double mco2;      // molecular weight CO2 [g mol -1]
+  double mair;      // molecular weight air [g mol -1]
+  double nuco2q;    // ratio molecular viscosity water to carbon dioxide
+  double Cw;        // constant water stress correction (eq. 13 Jacobs et al. 2007) [-]
+  double wmax;      // upper reference value soil water [-]
+  double wmin;      // lower reference value soil water [-]
+  double R10;       // respiration at 10 C [mg CO2 m-2 s-1]
+  double E0;        // activation energy [53.3 kJ kmol-1]
+
+  // Shallow-cumulus / variance calculations
+  double dz;        // inversion-layer/transition-layer thickness [m]
+
   // time variables
   double runtime;   // duration of model run [s]
   double dt;        // time step [s]
@@ -195,6 +208,7 @@ private:
 
   // land surface parameters
   bool   sw_ls;     // land surface switch
+  bool   sw_jarvis; // Jarvis / A-Gs switch
   double wg;        // volumetric water content top soil layer [m3 m-3]
   double w2;        // volumetric water content deeper soil layer [m3 m-3]
   double Tsoil;     // temperature top soil layer [K]
@@ -243,9 +257,50 @@ private:
   double wgtend;
   double Wltend;
 
+  // initialize plant physilogical model (A-gs)
+  double ci;        // CO2 concentration inside the leaf [mg m-3]
+  double cfrac;     // CO2 concentration fraction [-]
+  double Ds;        // vapor pressure deficit [kPa]
+  double D0;        // vapor pressure deficit stomata closes [kPa]
+  double gm;        // mesophyll conducatnce [mm s-1]
+  double fmin;      // minimum value cfrac [-]
+  double fmin0;     // function to calculate fmin [-]
+  double Ammax;     // CO2 maximal primary productivity [mg m-2 s-1]
+  double Am;        // CO2 primray productivity [mg m-2 s-1]
+  double An;        // net CO2 flow into the plant [mg m-2 s-1]
+  double Rdark;     // CO2 dark respiration [mg m-2 s-1]
+  double PAR;       // Photosyntetically Active Radiation [W m-2]
+  double gcCo2;     // CO2 conductance at canopy level [mm s-1]
+  // BvS, calculate rs either with Jarvis or A-Gs...
+  // double rsAgs;     // surface resistance moisture [s mm-1]
+  double rsCO2;     // surface resistance carbon dioxide [s mm-1]
+  double betaw;     // function depending on soil moisture content to calculate stress function [-]
+  double fstr;      // stress function included in canopy conductance [-]
+
+  // initialize constants depending C3 or C4 plants
+  double CO2comp298;// CO2 compensation concentration [mg m-3]
+  double Q10CO2;    // function parameter to calculate CO2 compensation concentration [-]
+  double gm298;     // mesophyill conductance at 298 K [mm s-1]
+  double Ammax298;  // CO2 maximal primary productivity [mg m-2 s-1]
+  double Q10gm;     // function parameter to calculate mesophyll conductance [-]
+  double T1gm;      // reference temperature to calculate mesophyll conductance gm [K]
+  double T2gm;      // reference temperature to calculate mesophyll conductance gm [K]
+  double Q10Am;     // function parameter to calculate maximal primary profuctivity Ammax
+  double T1Am;      // reference temperature to calculate maximal primary profuctivity Ammax [K]
+  double T2Am;      // reference temperature to calculate maximal primary profuctivity Ammax [K]
+  double f0;        // maximum value Cfrac [-]
+  double ad;        // regression coefficient to calculate Cfrac [kPa-1]
+  double alpha0;    // initial low light conditions [mg J-1]
+  double frveg;     // fraction of the shortwve radiation contributing to PAR [-]
+  double Kx;        // extinction coefficient PAR [-]
+  double gmin;      // cuticular (minimum) conductance [mm s-1]
+
+  // initialize soil  -1. ration model (coupled to A-gs)
+  double fw;        // water stress correction function [-]
+  double Resp;      // soil surface carbon dioxide flux [mg m-2 s-1]
+
   // Shallow-cumulus parameters
   bool sw_cu;       // shallow-cumulus switch [-]
-  double dz;        // inversion-layer/transition-layer thickness [m]
   double ac;        // cloud core fraction [-]
   double M;         // mass-flux (/rho) [m s-1]
 
