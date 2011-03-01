@@ -832,6 +832,7 @@ double model::E1(double x)
     E1sum = E1sum + pow((-1.),(k + 0.0)) * pow(x,(k + 0.0)) / ((k + 0.0) * factorial(k));
 
   double E1 = -0.57721566490153286060 - log(x) - E1sum;
+  std::cout << "E1 = " << E1 << std::endl;
   return E1;
 }
 
@@ -904,7 +905,6 @@ void model::runlsmodel()
 
     if(sw_jarvis)       // calculate surface resistances using Jarvis-Stewart model
     {
-      std::cout << "running Jarvis" << std::endl;
       if(sw_rad)
         f1   = 1. / ((0.004 * Swin + 0.05) / (0.81 * (0.004 * Swin + 1.)));
       else
@@ -925,7 +925,6 @@ void model::runlsmodel()
 
     else    // calculate surface resistances using plant physiological (A-gs) model
     {
-      std::cout << "running A-Gs" << std::endl;
       double CO2comp, co2abs, alphac, Ag, y, a1, Dstar, gcco2, awco2;
 
       // calculate CO2 compensation concentration
@@ -989,6 +988,8 @@ void model::runlsmodel()
       // CO2 soil surface flux
       fw           = Cw * wmax / (wg + wmin);
       Resp         = R10 * (1. - fw) * exp(E0 / (283.15 * 8.314) * (1. - 283.15 / (thetasurf)));
+
+      std::cout << "An = " << An << ", Resp = " << Resp << std::endl;
 
       // CO2 flux
       awco2        = (An + Resp);                      // conversion mgCO2 m3 to mumol mol-1 (ppm)
@@ -1063,7 +1064,7 @@ void model::intlsmodel()
 
 void model::store()
 {
-  cout << "(t,h,LCL,theta,q,u,v,CO2) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << ", " << CO2 << endl;
+  //cout << "(t,h,LCL,theta,q,u,v,CO2) " << t * dt << ", " << h << ", " << lcl << ", " << theta << ", " << q*1000. << ", " << u << ", " << v << ", " << CO2 << endl;
   //cout << "(t,sc0,sc1,sc3,sc9)   " << t * dt << ", " << sc[0] << ", " << sc[1] << ", " << sc[3] << ", " << sc[9] << endl;
   //cout << "(sigmaq,ac,M,wqM)" << pow(sigmaq2,0.5)*1000. << ac << M << wqM << endl;
   output->t.data[t]          = t * dt / 3600.; // + tstart;

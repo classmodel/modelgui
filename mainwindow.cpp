@@ -378,6 +378,19 @@ void MainWindow::storeFormData()
 
   formvalues.sw_sl      = CheckState2bool(ui->sw_sl->checkState());
 
+  // SCALAR / CO2
+  formvalues.sca        = ui->input_sca_sca->text().toDouble();
+  formvalues.dsca       = ui->input_sca_dsca->text().toDouble();
+  formvalues.gammasca   = ui->input_sca_gammasca->text().toDouble();
+  formvalues.advsca     = ui->input_sca_advsca->text().toDouble();
+  formvalues.wsca       = ui->input_sca_wsca->text().toDouble();
+
+  formvalues.CO2        = ui->input_CO2_CO2->text().toDouble();
+  formvalues.dCO2       = ui->input_CO2_dCO2->text().toDouble();
+  formvalues.gammaCO2   = ui->input_CO2_gammaCO2->text().toDouble();
+  formvalues.advCO2     = ui->input_CO2_CO2adv->text().toDouble();
+  formvalues.wCO2       = ui->input_CO2_wCO2->text().toDouble();
+
   //if (activetab == 1)
   //{
     formvalues.z0m                = ui->input_surfacelayer_z0m->text().toDouble();
@@ -644,6 +657,19 @@ void MainWindow::loadFormData()
 
     ui->input_surfacelayer_z0h->setText(QString::number(formvalues.z0h));
     ui->input_surfacelayer_z0m->setText(QString::number(formvalues.z0m));
+
+    // SCALAR / CO2
+    ui->input_sca_sca->setText(QString::number(formvalues.sca));
+    ui->input_sca_dsca->setText(QString::number(formvalues.dsca));
+    ui->input_sca_gammasca->setText(QString::number(formvalues.gammasca));
+    ui->input_sca_advsca->setText(QString::number(formvalues.advsca));
+    ui->input_sca_wsca->setText(QString::number(formvalues.wsca));
+
+    ui->input_CO2_CO2->setText(QString::number(formvalues.CO2));
+    ui->input_CO2_dCO2->setText(QString::number(formvalues.dCO2));
+    ui->input_CO2_gammaCO2->setText(QString::number(formvalues.gammaCO2));
+    ui->input_CO2_CO2adv->setText(QString::number(formvalues.advCO2));
+    ui->input_CO2_wCO2->setText(QString::number(formvalues.wCO2));
 
     // SOIL
     ui->input_soil_T2->setText(QString::number(formvalues.T2));
@@ -1023,11 +1049,25 @@ void MainWindow::saveRuns()
     out << temprun.run->input.sw_sl      << endl;
     out << temprun.run->input.z0m        << endl;
     out << temprun.run->input.z0h        << endl;
+
+    // SCALAR / CO2
+    out << temprun.run->input.sca        << endl;
+    out << temprun.run->input.dsca       << endl;
+    out << temprun.run->input.gammasca   << endl;
+    out << temprun.run->input.advsca     << endl;
+    out << temprun.run->input.wsca       << endl;
+
+    out << temprun.run->input.CO2        << endl;
+    out << temprun.run->input.dCO2       << endl;
+    out << temprun.run->input.gammaCO2   << endl;
+    out << temprun.run->input.advCO2     << endl;
+    out << temprun.run->input.wCO2       << endl;
     // END TAB2
 
     // TAB3
     out << temprun.run->input.sw_ls      << endl;
     out << temprun.run->input.sw_sea     << endl;
+    out << temprun.run->input.sw_jarvis  << endl;
 
     // SURFACE
     out << temprun.run->input.Ts         << endl;
@@ -1233,6 +1273,31 @@ void MainWindow::loadRuns()
       tempinput.z0m        = line.toDouble();
       line = in.readLine();
       tempinput.z0h        = line.toDouble();
+
+      // SCALAR / CO2
+      line = in.readLine();
+      tempinput.sca        = line.toDouble();
+      line = in.readLine();
+      tempinput.dsca       = line.toDouble();
+      line = in.readLine();
+      tempinput.gammasca   = line.toDouble();
+      line = in.readLine();
+      tempinput.advsca     = line.toDouble();
+      line = in.readLine();
+      tempinput.wsca       = line.toDouble();
+
+      line = in.readLine();
+      tempinput.CO2        = line.toDouble();
+      line = in.readLine();
+      tempinput.dCO2       = line.toDouble();
+      line = in.readLine();
+      tempinput.gammaCO2   = line.toDouble();
+      line = in.readLine();
+      tempinput.advCO2     = line.toDouble();
+      line = in.readLine();
+      tempinput.wCO2       = line.toDouble();
+
+
       // END TAB2
 
       // TAB3
@@ -1240,6 +1305,8 @@ void MainWindow::loadRuns()
       tempinput.sw_ls      = line.toInt();
       line = in.readLine();
       tempinput.sw_sea     = line.toInt();
+      line = in.readLine();
+      tempinput.sw_jarvis  = line.toInt();
 
       // SURFACE
       line = in.readLine();

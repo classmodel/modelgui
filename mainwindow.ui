@@ -987,7 +987,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>100</y>
+        <y>70</y>
         <width>211</width>
         <height>171</height>
        </rect>
@@ -1181,7 +1181,7 @@
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>100</y>
+        <y>70</y>
         <width>221</width>
         <height>171</height>
        </rect>
@@ -1377,7 +1377,7 @@
         <x>10</x>
         <y>10</y>
         <width>441</width>
-        <height>81</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="title">
@@ -1389,50 +1389,14 @@
          <x>10</x>
          <y>10</y>
          <width>421</width>
-         <height>61</height>
+         <height>31</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="wind_general_grid" columnminimumwidth="50,0,60,60,0,75">
+       <layout class="QGridLayout" name="wind_general_grid" columnminimumwidth="70,30,60,60,30,60,50">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_wind_fc">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;f&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;c&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="input_wind_fc">
-          <property name="toolTip">
-           <string>coriolis parameter</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_wind_fc">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" colspan="2">
+        <item row="0" column="0">
          <widget class="QCheckBox" name="sw_wind">
           <property name="minimumSize">
            <size>
@@ -1448,7 +1412,43 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="3">
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_wind_fc">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;f&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;c&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLineEdit" name="input_wind_fc">
+          <property name="toolTip">
+           <string>coriolis parameter</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLabel" name="unitlabel_wind_fc">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
          <widget class="QLabel" name="label_wind_ustar">
           <property name="toolTip">
            <string/>
@@ -1461,7 +1461,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
+        <item row="0" column="5">
          <widget class="QLineEdit" name="input_wind_ustar">
           <property name="toolTip">
            <string>surface friction velocity</string>
@@ -1471,13 +1471,499 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="5">
+        <item row="0" column="6">
          <widget class="QLabel" name="unitlabel_wind_ustar">
           <property name="toolTip">
            <string/>
           </property>
           <property name="text">
            <string>&lt;html&gt;[m s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="scalar_group">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>250</y>
+        <width>221</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget_16">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>201</width>
+         <height>185</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="scalar_grid" columnminimumwidth="50,0,80">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_sca_sca">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;S&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_sca_dsca">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;ΔS&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_sca_gammasca">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;γ&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;S&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="input_sca_sca">
+          <property name="toolTip">
+           <string>initial mixed-layer potential temperature</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_sca_dsca">
+          <property name="toolTip">
+           <string>initial temperature jump at h</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="input_sca_gammasca">
+          <property name="toolTip">
+           <string>free atmosphere potential temperature lapse rate</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_sca_wsca">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;(w'S')&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s &lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="input_sca_wsca">
+          <property name="toolTip">
+           <string>surface kinematic heat flux</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="unitlabel_sca_sca">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[g kg&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="unitlabel_sca_dsca">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[g kg&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="unitlabel_sca_gammasca">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[g kg&lt;sup&gt;-1&lt;/sup&gt; m&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QLabel" name="unitlabel_sca_wsca">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[g kg&lt;sup&gt;-1&lt;/sup&gt; m s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QLabel" name="label_scalar">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Scalar</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="input_sca_advsca">
+          <property name="toolTip">
+           <string>advection of heat</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_sca_advsca">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;S&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;adv&lt;/span&gt;&lt;/html&gt;
+</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QLabel" name="unitlabel_sca_advsca">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[g kg&lt;sup&gt;-1&lt;/sup&gt; s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="CO2_group">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>250</y>
+        <width>211</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget_22">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>191</width>
+         <height>185</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="CO2_grid" columnminimumwidth="50,0,60">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_CO2_CO2">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;CO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2;0&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_CO2_dCO2">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;ΔCO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2;0&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_CO2_gammaCO2">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;γ&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;CO2&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="input_CO2_CO2">
+          <property name="toolTip">
+           <string>initial mixed-layer potential temperature</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_CO2_dCO2">
+          <property name="toolTip">
+           <string>initial temperature jump at h</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="input_CO2_gammaCO2">
+          <property name="toolTip">
+           <string>free atmosphere potential temperature lapse rate</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_CO2_wCO2">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;(w'CO2')&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s &lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="input_CO2_wCO2">
+          <property name="toolTip">
+           <string>surface kinematic heat flux</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="unitlabel_CO2_CO2">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[ppm]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="unitlabel_CO2_dCO2">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[ppm]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="unitlabel_CO2_gammaCO2">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[ppm m&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QLabel" name="unitlabel_CO2_wCO2">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[ppm m s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QLabel" name="label_CO2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;CO&lt;sub&gt;2&lt;/sub&gt;&lt;/html</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="input_CO2_CO2adv">
+          <property name="toolTip">
+           <string>advection of heat</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_CO2_C02adv">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;CO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2;adv&lt;/span&gt;&lt;/html&gt;
+</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QLabel" name="unitlabel_CO2_CO2adv">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[ppm s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -4792,9 +5278,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>60</y>
         <width>441</width>
-        <height>161</height>
+        <height>151</height>
        </rect>
       </property>
       <property name="title">
@@ -5046,13 +5532,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QCheckBox" name="sw_surface_advanced">
+      <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>207</width>
-         <height>23</height>
+         <width>271</width>
+         <height>16</height>
         </rect>
        </property>
        <property name="text">
@@ -5064,9 +5550,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>190</y>
+        <y>220</y>
         <width>441</width>
-        <height>211</height>
+        <height>201</height>
        </rect>
       </property>
       <property name="title">
@@ -5426,10 +5912,49 @@
         </item>
        </layout>
       </widget>
-      <widget class="QCheckBox" name="sw_soil_advanced">
+      <widget class="QLabel" name="label_2">
        <property name="geometry">
         <rect>
          <x>10</x>
+         <y>10</y>
+         <width>271</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Advanced soil</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>441</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QCheckBox" name="sw_surface_advanced">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>207</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Advanced surface</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="sw_soil_advanced">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
          <y>10</y>
          <width>207</width>
          <height>23</height>
@@ -5727,8 +6252,6 @@
   <tabstop>input_moisture_advq</tabstop>
   <tabstop>input_moisture_wq</tabstop>
   <tabstop>sw_wq</tabstop>
-  <tabstop>sw_wind</tabstop>
-  <tabstop>input_wind_fc</tabstop>
   <tabstop>input_wind_u</tabstop>
   <tabstop>input_wind_ug</tabstop>
   <tabstop>input_wind_gammau</tabstop>
