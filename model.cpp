@@ -832,7 +832,7 @@ double model::E1(double x)
     E1sum = E1sum + pow((-1.),(k + 0.0)) * pow(x,(k + 0.0)) / ((k + 0.0) * factorial(k));
 
   double E1 = -0.57721566490153286060 - log(x) - E1sum;
-  std::cout << "E1 = " << E1 << std::endl;
+  //std::cout << "E1 = " << E1 << std::endl;
   return E1;
 }
 
@@ -989,7 +989,7 @@ void model::runlsmodel()
       fw           = Cw * wmax / (wg + wmin);
       Resp         = R10 * (1. - fw) * exp(E0 / (283.15 * 8.314) * (1. - 283.15 / (thetasurf)));
 
-      std::cout << "An = " << An << ", Resp = " << Resp << std::endl;
+      //std::cout << "An = " << An << ", Resp = " << Resp << std::endl;
 
       // CO2 flux
       awco2        = (An + Resp);                      // conversion mgCO2 m3 to mumol mol-1 (ppm)
@@ -1225,11 +1225,13 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->wtheta.name << " [" << output->wtheta.unit << "],";
   runsave << output->wthetae.name << " [" << output->wthetae.unit << "],";
   runsave << output->wthetav.name << " [" << output->wthetav.unit << "],";
+  runsave << output->wthetaM.name << " [" << output->wthetaM.unit << "],";
 
   runsave << output->q.name << " [" << output->q.unit << "],";
   runsave << output->dq.name << " [" << output->dq.unit << "],";
   runsave << output->wq.name << " [" << output->wq.unit << "],";
   runsave << output->wqe.name << " [" << output->wqe.unit << "],";
+  runsave << output->wqM.name << " [" << output->wqM.unit << "],";
 
   runsave << output->u.name << " [" << output->u.unit << "],";
   runsave << output->du.name << " [" << output->du.unit << "],";
@@ -1239,6 +1241,18 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->vw.name << " [" << output->vw.unit << "],";
   runsave << output->uwe.name << " [" << output->uwe.unit << "],";
   runsave << output->vwe.name << " [" << output->vwe.unit << "],";
+
+  runsave << output->sca.name << " [" << output->sca.unit << "],";
+  runsave << output->dsca.name << " [" << output->dsca.unit << "],";
+  runsave << output->wsca.name << " [" << output->wsca.unit << "],";
+  runsave << output->wscae.name << " [" << output->wscae.unit << "],";
+  runsave << output->wscaM.name << " [" << output->wscaM.unit << "],";
+
+  runsave << output->CO2.name << " [" << output->CO2.unit << "],";
+  runsave << output->dCO2.name << " [" << output->dCO2.unit << "],";
+  runsave << output->wCO2.name << " [" << output->wCO2.unit << "],";
+  runsave << output->wCO2e.name << " [" << output->wCO2e.unit << "],";
+  runsave << output->wCO2M.name << " [" << output->wCO2M.unit << "],";
 
   runsave << output->ustar.name << " [" << output->ustar.unit << "],";
   runsave << output->L.name << " [" << output->L.unit << "],";
@@ -1297,11 +1311,13 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->wtheta.data[nt] << ",";
     runsave << output->wthetae.data[nt] << ",";
     runsave << output->wthetav.data[nt] << ",";
+    runsave << output->wthetaM.data[nt] << ",";
 
     runsave << output->q.data[nt] << ",";
     runsave << output->dq.data[nt] << ",";
     runsave << output->wq.data[nt] << ",";
     runsave << output->wqe.data[nt] << ",";
+    runsave << output->wqM.data[nt] << ",";
 
     runsave << output->u.data[nt] << ",";
     runsave << output->du.data[nt] << ",";
@@ -1311,6 +1327,18 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->vw.data[nt] << ",";
     runsave << output->uwe.data[nt] << ",";
     runsave << output->vwe.data[nt] << ",";
+
+    runsave << output->sca.data[nt] << ",";
+    runsave << output->dsca.data[nt] << ",";
+    runsave << output->wsca.data[nt] << ",";
+    runsave << output->wscae.data[nt] << ",";
+    runsave << output->wscaM.data[nt] << ",";
+
+    runsave << output->CO2.data[nt] << ",";
+    runsave << output->dCO2.data[nt] << ",";
+    runsave << output->wCO2.data[nt] << ",";
+    runsave << output->wCO2e.data[nt] << ",";
+    runsave << output->wCO2M.data[nt] << ",";
 
     runsave << output->ustar.data[nt] << ",";
     runsave << output->L.data[nt] << ",";
