@@ -334,6 +334,18 @@ modeloutput::modeloutput(int tsteps, int nsc)
   wCO2.description          = "Surface kinematic CO2 flux";
   wCO2.id                   = "wCO2";
 
+  wCO2A.data                 = new double[tsteps];  // Assimilation CO2 flux [kg kg-1 m s-1]
+  wCO2A.name                 = "wCO2A";
+  wCO2A.unit                 = "ppm m s\u207B\u00B9";
+  wCO2A.description          = "Assimilation kinematic CO2 flux";
+  wCO2A.id                   = "wCO2A";
+
+  wCO2R.data                 = new double[tsteps];  // Respiration CO2 flux [kg kg-1 m s-1]
+  wCO2R.name                 = "wCO2R";
+  wCO2R.unit                 = "ppm m s\u207B\u00B9";
+  wCO2R.description          = "Respiration kinematic CO2 flux";
+  wCO2R.id                   = "wCO2R";
+
   wCO2e.data                = new double[tsteps];  // entrainment kinematic CO2 flux [kg kg-1 m s-1]
   wCO2e.name                = "wCO2e";
   wCO2e.unit                = "ppm m s\u207B\u00B9";

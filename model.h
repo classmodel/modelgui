@@ -158,6 +158,7 @@ private:
   double dCO2;      // initial CO2 jump at h [ppm]
   double gammaCO2;  // free atmosphere CO2 lapse rate [ppm]
   double advCO2;    // advection of CO2 [ppm]
+  double awco2;
   double wCO2;      // surface kinematic CO2 flux [ppm]
   double wCO2e;     // entrainment kinematic CO2 flux [ppm]
   double wCO2M;     // mass-flux kinematic CO2 flux [ppm]

@@ -82,6 +82,8 @@ public:
   outputvar gammaCO2;  // free atmosphere CO2 lapse rate [ppm]
   outputvar advCO2;    // advection of CO2 [ppm]
   outputvar wCO2;      // surface kinematic CO2 flux [ppm]
+  outputvar wCO2A;     //
+  outputvar wCO2R;     //
   outputvar wCO2e;     // entrainment kinematic CO2 flux [ppm]
   outputvar wCO2M;     // mass-flux kinematic CO2 flux [ppm]
   outputvar sigmaCO2;  // mixed-layer top CO2 std dev [kg kg-1]

@@ -187,6 +187,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.CO2
       << modelout.dCO2
       << modelout.wCO2
+      << modelout.wCO2A
+      << modelout.wCO2R
       << modelout.wCO2e
       << modelout.wCO2M
       << modelout.sigmaCO2;

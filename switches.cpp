@@ -219,6 +219,10 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->dCO2;
   else if (plotvar == "wCO2")
     *data = n.run->output->wCO2;
+  else if (plotvar == "wCO2A")
+    *data = n.run->output->wCO2A;
+  else if (plotvar == "wCO2R")
+    *data = n.run->output->wCO2R;
   else if (plotvar == "wCO2e")
     *data = n.run->output->wCO2e;
   else if (plotvar == "wCO2M")
@@ -410,6 +414,10 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
   else if (label == "dCO2")
     *plotvar = label;
   else if (label == "wCO2")
+    *plotvar = label;
+  else if (label == "wCO2A")
+    *plotvar = label;
+  else if (label == "wCO2R")
     *plotvar = label;
   else if (label == "wCO2e")
     *plotvar = label;

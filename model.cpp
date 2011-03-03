@@ -925,7 +925,7 @@ void model::runlsmodel()
 
     else    // calculate surface resistances using plant physiological (A-gs) model
     {
-      double CO2comp, co2abs, alphac, Ag, y, a1, Dstar, gcco2, awco2;
+      double CO2comp, co2abs, alphac, Ag, y, a1, Dstar, gcco2;
 
       // calculate CO2 compensation concentration
       CO2comp = CO2comp298 * rho * pow(Q10CO2,(0.1 * (thetasurf - 298.)));   // CO2 compensation concentration
@@ -942,7 +942,7 @@ void model::runlsmodel()
       Ds            = (esatsurf - e)   / 1000.;    // in kPa
       D0            = (f0 - fmin) / ad;
 
-      cfrac         = f0 * (1. - Ds / D0) + fmin * (Ds / D0);
+      cfrac         = f0 * (1. - (Ds / D0)) + fmin * (Ds / D0);
       co2abs        = CO2 * (mco2 / mair) * rho;                                                   // conversion mumol mol-1 (ppm) to mgCO2 m3
       ci            = cfrac * (co2abs - CO2comp) + CO2comp;
 
@@ -982,6 +982,7 @@ void model::runlsmodel()
       rs           = 1. / (1.6 * gcco2);
       rsCO2        = 1. / gcco2;
 
+      std::cout << "co2abs = " << co2abs << " ci = " << ci << " ra = " << ra << " rs = " << rs << std::endl;
       // calculate net flux of CO2 into the plant (An)
       An           = -(co2abs - ci) / (ra + rs);
 
@@ -993,7 +994,7 @@ void model::runlsmodel()
 
       // CO2 flux
       awco2        = (An + Resp);                      // conversion mgCO2 m3 to mumol mol-1 (ppm)
-      wCO2         = (An + Resp) * (mair / mco2) * (1. / rho);   // conversion mgCO2 m3 to mumol mol-1 (ppm)
+      wCO2         = (An + Resp); // * (mair / mco2) * (1. / rho);   // conversion mgCO2 m3 to mumol mol-1 (ppm)
     }
 
     // recompute f2 using wg instead of w2
@@ -1133,10 +1134,13 @@ void model::store()
   output->dCO2.data[t]            = dCO2;
   output->gammaCO2.data[t]        = gammaCO2;
   output->advCO2.data[t]          = advCO2;
-  output->wCO2.data[t]            = wCO2;
+  output->wCO2.data[t]            = awco2; //wCO2;
+  output->wCO2A.data[t]           = An; //   * (mair / mco2) * (1. / rho);
+  output->wCO2R.data[t]           = Resp; // * (mair / mco2) * (1. / rho);
   output->wCO2e.data[t]           = wCO2e;
   output->wCO2M.data[t]           = wCO2M;
   output->sigmaCO2.data[t]        = pow(sigmaCO22,0.5);
+
 
   // surface layer
   output->ustar.data[t]      = ustar;
