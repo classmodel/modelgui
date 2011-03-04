@@ -332,7 +332,8 @@ void model::initmodel()
   f0         =  0.89;                   // maximum value Cfrac [-]
   ad         =  0.07;                   // regression coefficient to calculate Cfrac [kPa-1]
   alpha0     =  0.017;                  // initial low light conditions [mg J-1]
-  //frveg      =  000000000.;             // fraction of the shortwve radiation contributing to PAR [-]
+
+
   Kx         =  0.7;                    // extinction coefficient PAR [-]
   gmin       =  0.25e-3;                // cuticular (minimum) conductance [mm s-1]
 

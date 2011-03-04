@@ -25,6 +25,7 @@ void MainWindow::initLandSoil()
   surfacetypes[0].Lambda = 5.9;
   surfacetypes[0].z0m    = 0.02;
   surfacetypes[0].z0h    = 0.002;
+  surfacetypes[0].C3C4   = 1;
 
   // BROADLEAF TREES
   surfacetypes[1].name   = "Broadleaf trees";
@@ -36,6 +37,7 @@ void MainWindow::initLandSoil()
   surfacetypes[1].Lambda = 20;
   surfacetypes[1].z0m    = 2.;
   surfacetypes[1].z0h    = 2.;
+  surfacetypes[1].C3C4   = 0;
 
   // NEEDLELEAF TREES
   surfacetypes[2].name   = "Needleleaf trees";
@@ -47,4 +49,17 @@ void MainWindow::initLandSoil()
   surfacetypes[2].Lambda = 20;
   surfacetypes[2].z0m    = 2.;
   surfacetypes[2].z0h    = 2.;
+  surfacetypes[2].C3C4   = 0;
+
+  // MAIZE
+  surfacetypes[3].name   = "Maize";
+  surfacetypes[3].LAI    = 3.;
+  surfacetypes[3].gD     = 0.;
+  surfacetypes[3].rsmin  = 180.;
+  surfacetypes[3].alpha  = 0.2;
+  surfacetypes[3].cveg   = 0.9;
+  surfacetypes[3].Lambda = 10;
+  surfacetypes[3].z0m    = 0.15;
+  surfacetypes[3].z0h    = 0.015;
+  surfacetypes[3].C3C4   = 2;
 }

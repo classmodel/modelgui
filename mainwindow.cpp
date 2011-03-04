@@ -52,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   connect(ui->sw_species_photolysis,      SIGNAL(stateChanged(int)),        this, SLOT(switch_photolysis(int)));
   connect(ui->sw_surface_advanced,        SIGNAL(stateChanged(int)),        this, SLOT(switch_surface_advanced(int)));
   connect(ui->sw_soil_advanced,           SIGNAL(stateChanged(int)),        this, SLOT(switch_soil_advanced(int)));
+  connect(ui->sw_jarvis,                  SIGNAL(currentIndexChanged(int)), this, SLOT(setLandSoil(int)));
 
   connect(ui->input_reactions_nonebutton, SIGNAL(clicked()),                this, SLOT(setNoReactions()));
   connect(ui->input_reactions_simplebutton, SIGNAL(clicked()),              this, SLOT(setSimpleReactions()));
@@ -99,8 +100,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   modelrunlist = new QMap<int, modelrun>;
   selectedruns = new QList<int>;
 
-  setLandSoil();
-
+  // BvS, moved from setLandSoil()
+  initLandSoil();
+  // Initialize surface and soil types
+  setLandSoil(0);
 
   newrun();
   ui->modelRunTree->setCurrentItem(ui->modelRunTree->topLevelItem(0));
@@ -1487,14 +1490,24 @@ void MainWindow::loadRuns()
   file.close();
 }
 
-void MainWindow::setLandSoil()
+void MainWindow::setLandSoil(int i)
 {
-  // Initialize surface and soil types
-  initLandSoil();
+  // First clear list
+  ui->input_surface_surfacetypes->clear();
+  ui->input_soil_soiltypes->clear();
 
   // Read surface types into pull down menu
-  for(int i=0;i<3;i++)
-    ui->input_surface_surfacetypes->addItem(surfacetypes[i].name, i);
+  if(i == 0)
+  {
+    ui->input_surface_surfacetypes->addItem(surfacetypes[0].name, 0);
+    ui->input_surface_surfacetypes->addItem(surfacetypes[1].name, 1);
+    ui->input_surface_surfacetypes->addItem(surfacetypes[2].name, 2);
+  }
+  else
+  {
+    ui->input_surface_surfacetypes->addItem(surfacetypes[0].name, 0);
+    ui->input_surface_surfacetypes->addItem(surfacetypes[3].name, 1);
+  }
 
   // Read soil types into pull down menu
   for(int i=0;i<1;i++)
@@ -1509,6 +1522,10 @@ void MainWindow::updateSurfacetype(int i)
   // int id = ui->modelRunTree->currentItem()->text(0).toInt();
   // if(modelrunlist->find(id).value().surfaceadvanced)
   //  return;
+
+  // BvS, Uglyest hack ever, have to change this...
+  if(ui->sw_jarvis->currentIndex() == 1 && ui->input_surface_surfacetypes->currentIndex() == 1)
+    i = 3;
 
   ui->input_surface_LAI->setText(QString::number(surfacetypes[i].LAI));
   ui->input_surface_gD->setText(QString::number(surfacetypes[i].gD));

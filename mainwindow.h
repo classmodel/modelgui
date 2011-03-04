@@ -55,6 +55,7 @@ public slots:
   void setComplexReactions();
   void graphClosed(plotwindow*);
   void showAbout();
+  void setLandSoil(int);
 
   // Switches
   void switch_wind(int);
@@ -90,11 +91,10 @@ private:
   void setReactions(int);
 
   void initLandSoil();
-  void setLandSoil();
   void closeEvent(QCloseEvent *event);
   void blockInput(bool);
 
-  surfacetype surfacetypes[3];
+  surfacetype surfacetypes[4];
   soiltype    soiltypes[1];
 
   int activerun;
