@@ -25,41 +25,43 @@ void MainWindow::initLandSoil()
   surfacetypes[0].Lambda = 5.9;
   surfacetypes[0].z0m    = 0.02;
   surfacetypes[0].z0h    = 0.002;
-  surfacetypes[0].C3C4   = 1;
+  surfacetypes[0].C3C4   = 1;                   // 1 = C3
+
+  // MAIZE
+  surfacetypes[1].name   = "Maize";
+  surfacetypes[1].LAI    = 3.;
+  surfacetypes[1].gD     = 0.;
+  surfacetypes[1].rsmin  = 180.;
+  surfacetypes[1].alpha  = 0.2;
+  surfacetypes[1].cveg   = 0.9;
+  surfacetypes[1].Lambda = 10;
+  surfacetypes[1].z0m    = 0.15;
+  surfacetypes[1].z0h    = 0.015;
+  surfacetypes[1].C3C4   = 2;                   // 2 = C4
 
   // BROADLEAF TREES
-  surfacetypes[1].name   = "Broadleaf trees";
-  surfacetypes[1].LAI    = 5.;
-  surfacetypes[1].gD     = 0.03;
-  surfacetypes[1].rsmin  = 200.;
-  surfacetypes[1].alpha  = 0.25;
-  surfacetypes[1].cveg   = 0.9;
-  surfacetypes[1].Lambda = 20;
-  surfacetypes[1].z0m    = 2.;
-  surfacetypes[1].z0h    = 2.;
-  surfacetypes[1].C3C4   = 0;
-
-  // NEEDLELEAF TREES
-  surfacetypes[2].name   = "Needleleaf trees";
+  surfacetypes[2].name   = "Broadleaf trees";
   surfacetypes[2].LAI    = 5.;
   surfacetypes[2].gD     = 0.03;
-  surfacetypes[2].rsmin  = 500.;
+  surfacetypes[2].rsmin  = 200.;
   surfacetypes[2].alpha  = 0.25;
   surfacetypes[2].cveg   = 0.9;
   surfacetypes[2].Lambda = 20;
   surfacetypes[2].z0m    = 2.;
   surfacetypes[2].z0h    = 2.;
-  surfacetypes[2].C3C4   = 0;
+  surfacetypes[2].C3C4   = 0;                   // 0 = no CO2
 
-  // MAIZE
-  surfacetypes[3].name   = "Maize";
-  surfacetypes[3].LAI    = 3.;
-  surfacetypes[3].gD     = 0.;
-  surfacetypes[3].rsmin  = 180.;
-  surfacetypes[3].alpha  = 0.2;
+  // NEEDLELEAF TREES
+  surfacetypes[3].name   = "Needleleaf trees";
+  surfacetypes[3].LAI    = 5.;
+  surfacetypes[3].gD     = 0.03;
+  surfacetypes[3].rsmin  = 500.;
+  surfacetypes[3].alpha  = 0.25;
   surfacetypes[3].cveg   = 0.9;
-  surfacetypes[3].Lambda = 10;
-  surfacetypes[3].z0m    = 0.15;
-  surfacetypes[3].z0h    = 0.015;
-  surfacetypes[3].C3C4   = 2;
+  surfacetypes[3].Lambda = 20;
+  surfacetypes[3].z0m    = 2.;
+  surfacetypes[3].z0h    = 2.;
+  surfacetypes[3].C3C4   = 0;                   // 0 = no CO2
+
+
 }

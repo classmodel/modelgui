@@ -1499,14 +1499,13 @@ void MainWindow::setLandSoil(int i)
   // Read surface types into pull down menu
   if(i == 0)
   {
-    ui->input_surface_surfacetypes->addItem(surfacetypes[0].name, 0);
-    ui->input_surface_surfacetypes->addItem(surfacetypes[1].name, 1);
-    ui->input_surface_surfacetypes->addItem(surfacetypes[2].name, 2);
+    for (int j = 0;j<4;j++)
+      ui->input_surface_surfacetypes->addItem(surfacetypes[j].name, j);
   }
   else
   {
-    ui->input_surface_surfacetypes->addItem(surfacetypes[0].name, 0);
-    ui->input_surface_surfacetypes->addItem(surfacetypes[3].name, 1);
+    for (int j = 0;j<2;j++)
+      ui->input_surface_surfacetypes->addItem(surfacetypes[j].name, j);
   }
 
   // Read soil types into pull down menu
@@ -1524,8 +1523,8 @@ void MainWindow::updateSurfacetype(int i)
   //  return;
 
   // BvS, Uglyest hack ever, have to change this...
-  if(ui->sw_jarvis->currentIndex() == 1 && ui->input_surface_surfacetypes->currentIndex() == 1)
-    i = 3;
+  //if(ui->sw_jarvis->currentIndex() == 1 && ui->input_surface_surfacetypes->currentIndex() == 1)
+  //  i = 3;
 
   ui->input_surface_LAI->setText(QString::number(surfacetypes[i].LAI));
   ui->input_surface_gD->setText(QString::number(surfacetypes[i].gD));

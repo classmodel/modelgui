@@ -248,6 +248,7 @@ void model::initmodel()
   // land surface
   sw_ls      =  input.sw_ls;            // land surface switch
   sw_jarvis  =  input.sw_jarvis;        // Jarvis / A-Gs switch
+  C3C4       =  input.C3C4;             // C3 or C4 vegetation
   sw_sea     =  input.sw_sea;           // land / sea switch
   wg         =  input.wg;               // volumetric water content top soil layer [m3 m-3]
   w2         =  input.w2;               // volumetric water content deeper soil layer [m3 m-3]
@@ -312,7 +313,7 @@ void model::initmodel()
   PAR        =  -1.;                    // Photosyntetically Active Radiation [W m-2]
   gcCo2      =  -1.;                    // CO2 conductance at canopy level [mm s-1]
   // BvS, calculat rs either with Jarvis or A-Gs...
-  // rsAgs      =  -1.;                    // surface resistance moisture [s mm-1]
+  // rsAgs      =  -1.;                 // surface resistance moisture [s mm-1]
   rsCO2      =  -1.;                    // surface resistance carbon dioxide [s mm-1]
   betaw      =  -1.;                    // function depending on soil moisture content to calculate stress function [-]
   fstr       =  -1.;                    // stress function included in canopy conductance [-]

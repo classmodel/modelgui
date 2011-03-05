@@ -89,6 +89,7 @@ modelinput::modelinput()
   // land surface parameters
   sw_ls      = false;
   sw_jarvis  = true;
+  C3C4       = 0.;
   sw_sea     = true;
   wg         = -1.;
   w2         = -1.;
@@ -233,6 +234,7 @@ modelinput::modelinput(const modelinput &ref)
   // land surface parameters
   sw_ls      = ref.sw_ls;
   sw_jarvis  = ref.sw_jarvis;
+  C3C4       = ref.C3C4;
   sw_sea     = ref.sw_sea;  
   wg         = ref.wg;
   w2         = ref.w2;
@@ -389,6 +391,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
     // land surface parameters
     sw_ls      = ref.sw_ls;
     sw_jarvis  = ref.sw_jarvis;
+    C3C4       = ref.C3C4;
     sw_sea     = ref.sw_sea;
     wg         = ref.wg;
     w2         = ref.w2;
