@@ -282,22 +282,22 @@ private:
   double fstr;      // stress function included in canopy conductance [-]
 
   // initialize constants depending C3 or C4 plants
-  double CO2comp298;// CO2 compensation concentration [mg m-3]
-  double Q10CO2;    // function parameter to calculate CO2 compensation concentration [-]
-  double gm298;     // mesophyill conductance at 298 K [mm s-1]
-  double Ammax298;  // CO2 maximal primary productivity [mg m-2 s-1]
-  double Q10gm;     // function parameter to calculate mesophyll conductance [-]
-  double T1gm;      // reference temperature to calculate mesophyll conductance gm [K]
-  double T2gm;      // reference temperature to calculate mesophyll conductance gm [K]
-  double Q10Am;     // function parameter to calculate maximal primary profuctivity Ammax
-  double T1Am;      // reference temperature to calculate maximal primary profuctivity Ammax [K]
-  double T2Am;      // reference temperature to calculate maximal primary profuctivity Ammax [K]
-  double f0;        // maximum value Cfrac [-]
-  double ad;        // regression coefficient to calculate Cfrac [kPa-1]
-  double alpha0;    // initial low light conditions [mg J-1]
-  double frveg;     // fraction of the shortwve radiation contributing to PAR [-]
-  double Kx;        // extinction coefficient PAR [-]
-  double gmin;      // cuticular (minimum) conductance [mm s-1]
+  double CO2comp298[2];    // CO2 compensation concentration [mg m-3]
+  double Q10CO2[2];    // function parameter to calculate CO2 compensation concentration [-]
+  double gm298[2];     // mesophyill conductance at 298 K [mm s-1]
+  double Ammax298[2];  // CO2 maximal primary productivity [mg m-2 s-1]
+  double Q10gm[2];     // function parameter to calculate mesophyll conductance [-]
+  double T1gm[2];      // reference temperature to calculate mesophyll conductance gm [K]
+  double T2gm[2];      // reference temperature to calculate mesophyll conductance gm [K]
+  double Q10Am[2];     // function parameter to calculate maximal primary profuctivity Ammax
+  double T1Am[2];      // reference temperature to calculate maximal primary profuctivity Ammax [K]
+  double T2Am[2];      // reference temperature to calculate maximal primary profuctivity Ammax [K]
+  double f0[2];        // maximum value Cfrac [-]
+  double ad[2];        // regression coefficient to calculate Cfrac [kPa-1]
+  double alpha0[2];    // initial low light conditions [mg J-1]
+  double frveg[2];     // fraction of the shortwve radiation contributing to PAR [-]
+  double Kx[2];        // extinction coefficient PAR [-]
+  double gmin[2];      // cuticular (minimum) conductance [mm s-1]
 
   // initialize soil  -1. ration model (coupled to A-gs)
   double fw;        // water stress correction function [-]

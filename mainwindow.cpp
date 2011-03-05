@@ -413,6 +413,8 @@ void MainWindow::storeFormData()
   else
     formvalues.sw_sea   = true;
 
+  formvalues.C3C4       = surfacetypes[ui->input_surface_surfacetypes->currentIndex()].C3C4;
+
   // SURFACE
   formvalues.Ts         = ui->input_surface_Ts->text().toDouble();
   formvalues.Wl         = ui->input_surface_Wl->text().toDouble();
@@ -1535,7 +1537,6 @@ void MainWindow::updateSurfacetype(int i)
   ui->input_surface_Lambda->setText(QString::number(surfacetypes[i].Lambda));
   //ui->input_surface_z0m->setText(QString::number(surfacetypes[i].z0m));
   //ui->input_surface_z0h->setText(QString::number(surfacetypes[i].z0h));
-
 
 //  QMap<int,modelrun>::iterator n = modelrunlist->find(id);
 //  while(n != modelrunlist->end())

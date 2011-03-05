@@ -89,7 +89,7 @@ modelinput::modelinput()
   // land surface parameters
   sw_ls      = false;
   sw_jarvis  = true;
-  C3C4       = 0.;
+  C3C4       = -1;
   sw_sea     = true;
   wg         = -1.;
   w2         = -1.;

@@ -319,25 +319,40 @@ void model::initmodel()
   fstr       =  -1.;                    // stress function included in canopy conductance [-]
 
   // initialize constants depending C3 or C4 plants
-  // BvS, HARD-CODED FOR NOW (don't know how this will be with C3/C4 coupled to vegetation type in land surface..)
-  CO2comp298 =  68.5;                   // CO2 compensation concentration [mg m-3]
-  Q10CO2     =  1.5;                    // function parameter to calculate CO2 compensation concentration [-]
-  gm298      =  7.0;                    // mesophyill conductance at 298 K [mm s-1]
-  Ammax298   =  2.2;                    // CO2 maximal primary productivity [mg m-2 s-1]
-  Q10gm      =  2.0;                    // function parameter to calculate mesophyll conductance [-]
-  T1gm       =  278.;                   // reference temperature to calculate mesophyll conductance gm [K]
-  T2gm       =  301.;                   // reference temperature to calculate mesophyll conductance gm [K]
-  Q10Am      =  2.0;                    // function parameter to calculate maximal primary profuctivity Ammax
-  T1Am       =  281.;                   // reference temperature to calculate maximal primary profuctivity Ammax [K]
-  T2Am       =  311.;                   // reference temperature to calculate maximal primary profuctivity Ammax [K]
-  f0         =  0.89;                   // maximum value Cfrac [-]
-  ad         =  0.07;                   // regression coefficient to calculate Cfrac [kPa-1]
-  alpha0     =  0.017;                  // initial low light conditions [mg J-1]
+  // C3 plants:
+  CO2comp298[0] =  68.5;                   // CO2 compensation concentration [mg m-3]
+  Q10CO2[0]     =  1.5;                    // function parameter to calculate CO2 compensation concentration [-]
+  gm298[0]      =  7.0;                    // mesophyill conductance at 298 K [mm s-1]
+  Ammax298[0]   =  2.2;                    // CO2 maximal primary productivity [mg m-2 s-1]
+  Q10gm[0]      =  2.0;                    // function parameter to calculate mesophyll conductance [-]
+  T1gm[0]       =  278.;                   // reference temperature to calculate mesophyll conductance gm [K]
+  T2gm[0]       =  301.;                   // reference temperature to calculate mesophyll conductance gm [K]
+  Q10Am[0]      =  2.0;                    // function parameter to calculate maximal primary profuctivity Ammax
+  T1Am[0]       =  281.;                   // reference temperature to calculate maximal primary profuctivity Ammax [K]
+  T2Am[0]       =  311.;                   // reference temperature to calculate maximal primary profuctivity Ammax [K]
+  f0[0]         =  0.89;                   // maximum value Cfrac [-]
+  ad[0]         =  0.07;                   // regression coefficient to calculate Cfrac [kPa-1]
+  alpha0[0]     =  0.017;                  // initial low light conditions [mg J-1]
+  Kx[0]         =  0.7;                    // extinction coefficient PAR [-]
+  gmin[0]       =  0.25e-3;                // cuticular (minimum) conductance [mm s-1]
+  // C4 plants:
+  CO2comp298[1] =  4.3;                    // CO2 compensation concentration [mg m-3]
+  Q10CO2[1]     =  1.5;                    // function parameter to calculate CO2 compensation concentration [-]
+  gm298[1]      =  17.5;                   // mesophyill conductance at 298 K [mm s-1]
+  Ammax298[1]   =  1.7;                    // CO2 maximal primary productivity [mg m-2 s-1]
+  Q10gm[1]      =  2.0;                    // function parameter to calculate mesophyll conductance [-]
+  T1gm[1]       =  286.;                   // reference temperature to calculate mesophyll conductance gm [K]
+  T2gm[1]       =  309.;                   // reference temperature to calculate mesophyll conductance gm [K]
+  Q10Am[1]      =  2.0;                    // function parameter to calculate maximal primary profuctivity Ammax
+  T1Am[1]       =  286.;                   // reference temperature to calculate maximal primary profuctivity Ammax [K]
+  T2Am[1]       =  311.;                   // reference temperature to calculate maximal primary profuctivity Ammax [K]
+  f0[1]         =  0.85;                   // maximum value Cfrac [-]
+  ad[1]         =  0.015;                   // regression coefficient to calculate Cfrac [kPa-1]
+  alpha0[1]     =  0.014;                  // initial low light conditions [mg J-1]
+  Kx[1]         =  0.7;                    // extinction coefficient PAR [-]
+  gmin[1]       =  0.25e-3;                // cuticular (minimum) conductance [mm s-1]
 
-
-  Kx         =  0.7;                    // extinction coefficient PAR [-]
-  gmin       =  0.25e-3;                // cuticular (minimum) conductance [mm s-1]
-
+  // initialize soil  -1. ration model (coupled to A-gs)
   Cw         =  0.0016;                 // constant water stress correction (eq. 13 Jacobs et al. 2007) [-]
   wmax       =  0.55;                   // upper reference value soil water [-]
   wmin       =  0.005;                  // lower reference value soil water [-]
@@ -605,8 +620,6 @@ void model::runmlmodel()
 
     wscM[i]        = M * pow(sigmasc2[i],0.5);
 
-    //std::cout << i <<  ": wsce = " << wsce[i] << " wscM = " << wscM[i] << std::endl;
-
     sctend[i]      = (wsc[i] + wsce[i] - wscM[i]) / h + advsc[i];
     dsctend[i]     = gammasc[i] * we - sctend[i];
   }
@@ -834,7 +847,6 @@ double model::E1(double x)
     E1sum = E1sum + pow((-1.),(k + 0.0)) * pow(x,(k + 0.0)) / ((k + 0.0) * factorial(k));
 
   double E1 = -0.57721566490153286060 - log(x) - E1sum;
-  //std::cout << "E1 = " << E1 << std::endl;
   return E1;
 }
 
@@ -927,29 +939,30 @@ void model::runlsmodel()
 
     else    // calculate surface resistances using plant physiological (A-gs) model
     {
+      int c = C3C4;                 // Picks C3 of C4 constants from array
       double CO2comp, co2abs, alphac, Ag, y, a1, Dstar, gcco2;
 
       // calculate CO2 compensation concentration
-      CO2comp = CO2comp298 * rho * pow(Q10CO2,(0.1 * (thetasurf - 298.)));   // CO2 compensation concentration
+      CO2comp = CO2comp298[c] * rho * pow(Q10CO2[c],(0.1 * (thetasurf - 298.)));   // CO2 compensation concentration
 
       // calculate mesophyll conductance
-      gm            = gm298 *  pow(Q10gm,( 0.1 * (thetasurf - 298.))) / ( (1. + exp(0.3 * (T1gm - thetasurf))) * (1. + exp(0.3 * (thetasurf - T2gm)))); // mesophyill conductance
+      gm            = gm298[c] *  pow(Q10gm[c],( 0.1 * (thetasurf - 298.))) / ( (1. + exp(0.3 * (T1gm[c] - thetasurf))) * (1. + exp(0.3 * (thetasurf - T2gm[c])))); // mesophyill conductance
       gm            = gm / 1000.;   //conversion from mm s-1 to m s-1
 
       // calculate CO2 concentration inside the leaf (ci)
-      fmin0         = gmin / nuco2q - 1. / 9. * gm;
-      fmin          = -fmin0 + pow((pow(fmin0,2.) + 4 * gmin/nuco2q * gm ),0.5) / (2. * gm);
+      fmin0         = gmin[c] / nuco2q - 1. / 9. * gm;
+      fmin          = -fmin0 + pow((pow(fmin0,2.) + 4 * gmin[c]/nuco2q * gm ),0.5) / (2. * gm);
 
       esatsurf      = 0.611e3 * exp(17.2694 * (Ts - 273.16) / (Ts - 35.86));
       Ds            = (esatsurf - e)   / 1000.;    // in kPa
-      D0            = (f0 - fmin) / ad;
+      D0            = (f0[c] - fmin) / ad[c];
 
-      cfrac         = f0 * (1. - (Ds / D0)) + fmin * (Ds / D0);
+      cfrac         = f0[c] * (1. - (Ds / D0)) + fmin * (Ds / D0);
       co2abs        = CO2 * (mco2 / mair) * rho;                                                   // conversion mumol mol-1 (ppm) to mgCO2 m3
       ci            = cfrac * (co2abs - CO2comp) + CO2comp;
 
       // calculate maximal gross primary production in high light conditions (Ag)
-      Ammax         = Ammax298 *  pow(Q10Am,(0.1 * (thetasurf - 298.))) / ( (1. + exp(0.3 * (T1Am - thetasurf))) * (1. + exp(0.3 * (thetasurf - T2Am))));
+      Ammax         = Ammax298[c] *  pow(Q10Am[c],(0.1 * (thetasurf - 298.))) / ( (1. + exp(0.3 * (T1Am[c] - thetasurf))) * (1. + exp(0.3 * (thetasurf - T2Am[c]))));
 
       // calculate effect of soil moisture stress on gross assimilation rate
       betaw         = max(1e-3, min(1.,(wg - wwilt)/(wfc - wwilt)));
@@ -965,34 +978,31 @@ void model::runlsmodel()
       PAR          = 0.5 * max(1e-1,Swin * cveg);
 
       // calculate  light use efficiency
-      alphac       = alpha0 * (co2abs - CO2comp) / (co2abs + 2. * CO2comp);
+      alphac       = alpha0[c] * (co2abs - CO2comp) / (co2abs + 2. * CO2comp);
 
       // calculate gross primary productivity
       Ag           = (Am + Rdark) * (1 - exp(alphac * PAR / (Am + Rdark)));
 
       // 1.- calculate upscaling from leaf to canopy: net flow CO2 into the plant (An)
-      y            =  alphac * Kx * PAR / (Am + Rdark);
-      An           = (Am + Rdark) * (1. - 1. / (Kx * LAI) * (E1( y * exp(-Kx * LAI)) - E1(y)));
+      y            =  alphac * Kx[c] * PAR / (Am + Rdark);
+      An           = (Am + Rdark) * (1. - 1. / (Kx[c] * LAI) * (E1( y * exp(-Kx[c] * LAI)) - E1(y)));
 
       // 2.- calculate upscaling from leaf to canopy: CO2 conductance at canopy level
-      a1           = 1. / (1. - f0);
+      a1           = 1. / (1. - f0[c]);
       Dstar        = D0 / (a1 - 1.);
 
-      gcco2        = LAI * (gmin / nuco2q + a1 * fstr * An / ((co2abs - CO2comp) * (1. + Ds / Dstar)));
+      gcco2        = LAI * (gmin[c] / nuco2q + a1 * fstr * An / ((co2abs - CO2comp) * (1. + Ds / Dstar)));
 
       // calculate surface resistance for moisture and carbon dioxide
       rs           = 1. / (1.6 * gcco2);
       rsCO2        = 1. / gcco2;
 
-      std::cout << "co2abs = " << co2abs << " ci = " << ci << " ra = " << ra << " rs = " << rs << std::endl;
       // calculate net flux of CO2 into the plant (An)
       An           = -(co2abs - ci) / (ra + rs);
 
       // CO2 soil surface flux
       fw           = Cw * wmax / (wg + wmin);
       Resp         = R10 * (1. - fw) * exp(E0 / (283.15 * 8.314) * (1. - 283.15 / (thetasurf)));
-
-      //std::cout << "An = " << An << ", Resp = " << Resp << std::endl;
 
       // CO2 flux
       awco2        = (An + Resp);                      // conversion mgCO2 m3 to mumol mol-1 (ppm)
