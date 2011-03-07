@@ -2570,12 +2570,12 @@
          <widget class="QComboBox" name="sw_jarvis">
           <item>
            <property name="text">
-            <string>Jarvis...?</string>
+            <string>Jarvis Stewart</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Plant physiology</string>
+            <string>A-Gs (plant phys.)</string>
            </property>
           </item>
          </widget>
@@ -2771,7 +2771,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_2">
+     <widget class="QGroupBox" name="soil_properties_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -3718,7 +3718,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>437</width>
+         <width>421</width>
          <height>37</height>
         </rect>
        </property>
@@ -3813,7 +3813,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
+          <width>403</width>
           <height>750</height>
          </rect>
         </property>
@@ -5926,7 +5926,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QGroupBox" name="advanced_surface_switches_group">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -6185,7 +6185,7 @@
      <x>0</x>
      <y>0</y>
      <width>650</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

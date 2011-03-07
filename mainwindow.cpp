@@ -1693,6 +1693,10 @@ void MainWindow::switch_ls(int state)
   else
     checkstate = false;
 
+  ui->surface_properties_group->setEnabled(checkstate);
+  ui->soil_properties_group->setEnabled(checkstate);
+  ui->advanced_surface_switches_group->setEnabled(checkstate);
+
   //ui->input_surfacelayer_z0m->setEnabled(!checkstate);
   //ui->label_surfacelayer_z0m->setEnabled(!checkstate);
   //ui->unitlabel_surfacelayer_z0m->setEnabled(!checkstate);
