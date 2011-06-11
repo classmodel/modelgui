@@ -1,4 +1,32 @@
 To-do list:
+-------------------------------------
+aesthetical:
+-------------------------------------
++ Change omega -> div (subsidence)
++ Strange numbers in graph around zero
++ Variabele -> Variables (graph)
 
-Fine-tune save PNG function (Bart)
-[bug] Legend moves back to original position when you single-click somewhere in the graph
+-------------------------------------
+bugs:
+-------------------------------------
++ dtheta=0,beta=0 bug
++ Crash vertical profiles
+
+
+-------------------------------------
+features:
+-------------------------------------
++ Cancel button interface
++ Mixed-layer switch
++ Photosynthesis rate (?) decoupled from radiation
++ Closing CLASS -> warning to save session
++ Ustar (??)
++ Set run name back to italic when changed
+
+
+-------------------------------------
+Non-windows versions:
+-------------------------------------
++ OSX: position legend when saving PNG
++ Create instruction compiling on Linux (dependencies..)
+
