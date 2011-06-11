@@ -2,15 +2,15 @@ To-do list:
 -------------------------------------
 aesthetical:
 -------------------------------------
-+ Change omega -> div (subsidence)
 + Strange numbers in graph around zero
-+ Variabele -> Variables (graph)
++ Change omega -> div (subsidence) [fixed]
++ Variabele -> Variables (graph) [fixed]
 
 -------------------------------------
 bugs:
 -------------------------------------
 + dtheta=0,beta=0 bug
-+ Crash vertical profiles
++ Crash vertical profiles [fixed]
 
 
 -------------------------------------

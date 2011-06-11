@@ -102,7 +102,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Create the advanced plot QTreeWidget
   QStringList advancedtreeheader;
-  advancedtreeheader << "Variabele" << "X" << "Y" << "Description";
+  advancedtreeheader << "Variables" << "X" << "Y" << "Description";
   ui->advancedplottree->setHeaderLabels(advancedtreeheader);
   ui->advancedplottree->setColumnCount(5);
   ui->advancedplottree->setColumnWidth(0,150);
@@ -380,7 +380,7 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
 
       setplotvar(olditem->text(4), &plotvarx);
 
-      if (plotvarx == "thetaprof" || plotvarx == "qprof")
+      if ((plotvarx == "thetaprof" || plotvarx == "qprof") && plotvary != "zprof")
       {
         ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Unchecked);
         setplotvar("zprof", &plotvary);
