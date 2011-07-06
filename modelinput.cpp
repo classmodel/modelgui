@@ -131,7 +131,7 @@ modelinput::modelinput()
   sw_chem    = false;
   sw_chem_constant = false;
   csize      = 22;
-  rsize      = 27;
+  rsize      = 28;
   sw_reactions = new bool[rsize];
   for(int n=0; n<rsize; n++)
     sw_reactions[n] = true;

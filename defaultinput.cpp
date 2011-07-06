@@ -119,7 +119,7 @@ void MainWindow::readdefaultinput()
   defaultinput.nsc        = 22;
   defaultinput.reactions  = defaultreactions; // CvH copy addresses, all runs will have therefore the same struct as reference
 
-  defaultinput.rsize      = 27;
+  defaultinput.rsize      = 28;
   defaultinput.csize      = 22;
 
   defaultinput.P_ref      = 100000;
@@ -1003,4 +1003,35 @@ void MainWindow::readdefaultinput()
   defaultreactions[26].E               = +1.000e+00;
   defaultreactions[26].F               = +1.000e+00;
   defaultreactions[26].G               = +1.000e+00;
+
+  defaultreactions[27].rname           = "r28";
+  defaultreactions[27].RadDep          = 0;
+  defaultreactions[27].func1           = 2;
+  defaultreactions[27].nr_chem_inp     = 2;
+  defaultreactions[27].nr_chem_outp    = 2;
+  defaultreactions[27].inp[0].coef     = 1.00;
+  defaultreactions[27].inp[0].cname    = "OH";
+  defaultreactions[27].inp[0].chem_nr  = 11;
+  defaultreactions[27].inp[0].index    = 11;
+  defaultreactions[27].inp[1].coef     = 1.00;
+  defaultreactions[27].inp[1].cname    = "O3";
+  defaultreactions[27].inp[1].chem_nr  = 1;
+  defaultreactions[27].inp[1].index    = 1;
+  defaultreactions[27].outp[0].coef    = 1.00;
+  defaultreactions[27].outp[0].cname   = "HO2";
+  defaultreactions[27].outp[0].chem_nr = 12;
+  defaultreactions[27].outp[0].index   = 12;
+  defaultreactions[27].outp[1].coef    = 1.00;
+  defaultreactions[27].outp[1].cname   = "O2";
+  defaultreactions[27].outp[1].chem_nr = 16;
+  defaultreactions[27].outp[1].index   = 16;
+  defaultreactions[27].A               = +1.700e-12;
+  defaultreactions[27].B               = -9.400e+02;
+  defaultreactions[27].C               = +1.000e+00;
+  defaultreactions[27].D               = +1.000e+00;
+  defaultreactions[27].E               = +1.000e+00;
+  defaultreactions[27].F               = +1.000e+00;
+  defaultreactions[27].G               = +1.000e+00;
+
+  // when adding reactions, increase rsize in defaultinput.cpp, in modelinput.cpp and in mainwindow.h
 }

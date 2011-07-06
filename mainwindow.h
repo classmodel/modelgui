@@ -29,7 +29,7 @@ public:
   plotwindow *graph;
   modelinput defaultinput;                     // Store default model input settings
   modelinput formvalues;
-  Reaction defaultreactions[27];
+  Reaction defaultreactions[28];
   void loadfieldslots();
   //int numgraphs;
 
