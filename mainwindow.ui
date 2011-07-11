@@ -3794,9 +3794,9 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>40</y>
-         <width>421</width>
-         <height>391</height>
+         <y>50</y>
+         <width>411</width>
+         <height>371</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -3812,8 +3812,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>404</width>
+          <y>-379</y>
+          <width>393</width>
           <height>750</height>
          </rect>
         </property>
@@ -3828,8 +3828,8 @@
           <rect>
            <x>10</x>
            <y>10</y>
-           <width>391</width>
-           <height>727</height>
+           <width>371</width>
+           <height>731</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="reactions_grid2" columnstretch="0,0,0,0,1" columnminimumwidth="0,40,0,30,0">
@@ -5264,6 +5264,59 @@
             </property>
            </widget>
           </item>
+          <item row="27" column="0">
+           <widget class="QCheckBox" name="sw_R28">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="27" column="1">
+           <widget class="QLabel" name="label_reactions_R28">
+            <property name="text">
+             <string>&lt;html&gt;R28 &lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="27" column="2">
+           <widget class="QLabel" name="label_reactions_R28L">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;OH + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="27" column="3">
+           <widget class="QLabel" name="label_reactions_arrow_28">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&amp;rarr;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="27" column="4">
+           <widget class="QLabel" name="label_reactions_R28R">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;HO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + O&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </widget>
@@ -6185,7 +6238,7 @@
      <x>0</x>
      <y>0</y>
      <width>650</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

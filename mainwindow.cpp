@@ -519,6 +519,7 @@ void MainWindow::storeFormData()
   formvalues.sw_reactions[24]     = CheckState2bool(ui->sw_R25->checkState());
   formvalues.sw_reactions[25]     = CheckState2bool(ui->sw_R26->checkState());
   formvalues.sw_reactions[26]     = CheckState2bool(ui->sw_R27->checkState());
+  formvalues.sw_reactions[27]     = CheckState2bool(ui->sw_R28->checkState());
 
   // OTHER
   QString name          = QString::fromStdString(ui->input_name->text().toStdString());
@@ -615,6 +616,7 @@ void MainWindow::loadFormData()
     ui->sw_R25->setCheckState(Bool2CheckState(formvalues.sw_reactions[24]));
     ui->sw_R26->setCheckState(Bool2CheckState(formvalues.sw_reactions[25]));
     ui->sw_R27->setCheckState(Bool2CheckState(formvalues.sw_reactions[26]));
+    ui->sw_R28->setCheckState(Bool2CheckState(formvalues.sw_reactions[27]));
 
     if(formvalues.sw_sea == true)
       ui->sw_sea->setCurrentIndex(1);
@@ -1667,6 +1669,7 @@ void MainWindow::setReactions(int mode)
   ui->sw_R25->setChecked(active);
   ui->sw_R26->setChecked(active);
   ui->sw_R27->setChecked(active);
+  ui->sw_R28->setChecked(active);
 }
 
 
