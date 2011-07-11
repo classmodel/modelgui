@@ -9,6 +9,7 @@ modelinput::modelinput()
   // mixed-layer variables
   sw_ml      = true;
   sw_ftcws   = false;
+  sw_shearwe = false;
   h          = -1.;
   Ps         = -1.;
   omegas     = -1.;
@@ -153,6 +154,7 @@ modelinput::modelinput(const modelinput &ref)
   // mixed-layer variables
   sw_ml      = ref.sw_ml;
   sw_ftcws   = ref.sw_ftcws;
+  sw_shearwe = ref.sw_shearwe;
   h          = ref.h;
   Ps         = ref.Ps;
   omegas     = ref.omegas;
@@ -304,6 +306,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
     // mixed-layer variables
     sw_ml      = ref.sw_ml;
     sw_ftcws   = ref.sw_ftcws;
+    sw_shearwe = ref.sw_shearwe;
     h          = ref.h;
     Ps         = ref.Ps;
     omegas     = ref.omegas;

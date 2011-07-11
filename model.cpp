@@ -129,6 +129,7 @@ void model::initmodel()
   // mixed-layer
   sw_ml      =  input.sw_ml;
   sw_wsft    =  input.sw_ftcws;
+  sw_shearwe =  input.sw_shearwe;
   h          =  input.h;                // initial ABL height [m]
   Ps         =  input.Ps;               // surface pressure [Pa]
   omegas     =  input.omegas;           // large scale vertical velocity [m s-1]
@@ -547,7 +548,14 @@ void model::runmlmodel()
   if(beta == 0 && inputdthetav == 0)
     we    = 1 / gammatheta * wthetav / h;
   else
-    we    = (beta * wthetav) / dthetav;
+  {
+    if(sw_shearwe)
+      we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
+    else
+      we     = (beta * wthetav) / dthetav;
+  }
+
+
 
   // compute entrainment fluxes
   wthetae = we * dtheta;

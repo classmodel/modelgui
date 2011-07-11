@@ -333,7 +333,6 @@ void MainWindow::updateSelectedRuns()
   }
 }
 
-
 void MainWindow::storeFormData()
 {
   // TAB 1
@@ -344,6 +343,7 @@ void MainWindow::storeFormData()
   // MIXED-LAYER
   formvalues.sw_ml      = CheckState2bool(ui->sw_ml->checkState());
   formvalues.sw_ftcws   = CheckState2bool(ui->sw_ftcws->checkState());
+  formvalues.sw_shearwe = CheckState2bool(ui->sw_shearwe->checkState());
   formvalues.h          = ui->input_ml_h->text().toDouble();             // initial ABL height [m]
   formvalues.Ps         = ui->input_ml_ps->text().toDouble() * 100;      // surface pressure [Pa]
   formvalues.omegas     = ui->input_ml_omegas->text().toDouble();        // large scale vertical velocity [m s-1]
@@ -582,6 +582,7 @@ void MainWindow::loadFormData()
       switch_wind(Bool2Int(formvalues.sw_wind));
     ui->sw_ml->setCheckState(Bool2CheckState(formvalues.sw_ml));
     ui->sw_ftcws->setCheckState(Bool2CheckState(formvalues.sw_ftcws));
+    ui->sw_shearwe->setCheckState(Bool2CheckState(formvalues.sw_shearwe));
     ui->sw_cu->setCheckState(Bool2CheckState(formvalues.sw_cu));
     ui->sw_rad->setCheckState(Bool2CheckState(formvalues.sw_rad));
     ui->sw_sl->setCheckState(Bool2CheckState(formvalues.sw_sl));

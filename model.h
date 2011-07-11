@@ -74,6 +74,7 @@ private:
   // mixed-layer
   bool   sw_ml;     // mixed-layer model switch;
   bool   sw_wsft;   // compensate free tropospheric warming due to subsidence?
+  bool   sw_shearwe; // Include shear effect entrainment
   double h;         // initial ABL height [m]
   double Ps;        // surface pressure [Pa]
   double omegas;    // large scale divergence [s-1]

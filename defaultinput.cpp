@@ -12,6 +12,7 @@ void MainWindow::readdefaultinput()
   // mixed-layer input
   defaultinput.sw_ml      = true;     // mixed-layer model switch
   defaultinput.sw_ftcws   = false;    // compensate FT warming due to subsidence?
+  defaultinput.sw_shearwe = false;    // Include shear effect entrainment
   defaultinput.h          = 200.;     // initial ABL height [m]
   defaultinput.Ps         = 101300.;  // surface pressure [Pa]
   defaultinput.omegas     = 0.;       // large scale vertical velocity [m s-1]
