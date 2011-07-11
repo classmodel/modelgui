@@ -55,6 +55,7 @@ public slots:
   void setComplexReactions();
   void graphClosed(plotwindow*);
   void showAbout();
+  void closeWarning();
   void setLandSoil(int);
 
   // Switches
@@ -89,6 +90,7 @@ private:
   Qt::CheckState Bool2CheckState(bool);
   int Bool2Int(bool);
   void setReactions(int);
+  bool closeCheck;
 
   void initLandSoil();
   void closeEvent(QCloseEvent *event);

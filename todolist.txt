@@ -2,7 +2,7 @@ To-do list:
 -------------------------------------
 aesthetical:
 -------------------------------------
-+ Strange numbers in graph around zero
++ Strange numbers in graph around zero [fixed]
 + Change omega -> div (subsidence) [fixed]
 + Variabele -> Variables (graph) [fixed]
 

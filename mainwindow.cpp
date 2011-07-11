@@ -128,14 +128,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-  //if (numgraphs > 0)
-  //  graph->close();
+  closeCheck = true;
+  closeWarning();
+
   if (plotwindowList.size() > 0)
   {
     blockInput(true);
     for (int i = 0; i < plotwindowList.size(); i++)
       plotwindowList.value(i)->close();
   }
+
+  if(!closeCheck)
+    event->ignore();
 }
 
 void MainWindow::speciesselectionchanged()
@@ -898,7 +902,7 @@ void MainWindow::startrun()
     {
       storeFormData();
       int id = ui->modelRunTree->selectedItems()[i]->text(0).toInt();
-      //modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;
+      modelrunlist->find(id).value().previnput = modelrunlist->find(id).value().run->input;      // Why commented out?
       modelrunlist->find(id).value().run->runmodel();
       modelrunlist->find(id).value().hasrun = true;
 
@@ -1869,7 +1873,8 @@ void MainWindow::switch_photolysis(int state)
   ui->input_species_photolysis_tref->setEnabled(checkstate);
 }
 
-void MainWindow::showAbout(){
+void MainWindow::showAbout()
+{
   QMessageBox msgBox;
   QSpacerItem* horizontalSpacer = new QSpacerItem(350, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
   msgBox.setText("About the CLASS model");
@@ -1878,6 +1883,35 @@ void MainWindow::showAbout(){
   layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
   msgBox.exec();
 }
+
+void MainWindow::closeWarning()
+{
+  QMessageBox msgBox;
+  msgBox.setText("Save session");
+  msgBox.setInformativeText("There are possibly unsaved settings. Do you want to save them?");
+  msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+  msgBox.setDefaultButton(QMessageBox::Save);
+  int ret = msgBox.exec();
+
+  switch (ret)
+  {
+    case QMessageBox::Save:
+      saveRuns();
+      closeCheck = true;     // allowed to close..
+      break;
+    case QMessageBox::Discard:
+      closeCheck = true;     // chose to close..
+      break;
+    case QMessageBox::Cancel:
+      closeCheck = false;
+      break;
+    default:
+      // should never be reached
+      break;
+  }
+}
+
+
 
 
 
