@@ -7,6 +7,7 @@ public:
   modelinput();
   modelinput(const modelinput&);
   modelinput &operator=(const modelinput&);
+  bool operator!=(const modelinput&);
 
   // general model variables
   double runtime;   // duration of model run [s]

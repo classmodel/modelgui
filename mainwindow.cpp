@@ -317,6 +317,31 @@ void MainWindow::runTreeChanged()
   ui->input_name->setEnabled(inputfields);
   
   updateSelectedRuns();
+
+  if (activerun != -1)
+  {
+    if(modelrunlist->find(activerun).value().previnput != modelrunlist->find(activerun).value().run->input)
+    {
+      QFont font;
+      QString id = QString::number(activerun);
+      font = ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->font(1);
+      font.setItalic(true);
+      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setFont(1,font);
+      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setTextColor(1,Qt::gray);
+      std::cout << "not equal!" << std::endl;
+    }
+    else
+    {
+      QFont font;
+      QString id = QString::number(activerun);
+      font = ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->font(1);
+      font.setItalic(false);
+      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setFont(1,font);
+      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setTextColor(1,Qt::black);
+      std::cout << "not equal!" << std::endl;
+    }
+  }
+
   loadFormData();
 
   // CvH test blocking events to prevent multiple triggering of identical functions

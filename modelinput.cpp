@@ -295,6 +295,252 @@ modelinput::modelinput(const modelinput &ref)
   stocoef    = ref.stocoef;
 }
 
+bool modelinput::operator!=(const modelinput &ref)
+{
+  if(runtime         != ref.runtime)
+    return true;	  
+  else if(dt         != ref.dt)
+    return true;	  
+  else if(sinperiod  != ref.sinperiod)
+    return true;	  
+
+  else if(sw_ml      != ref.sw_ml)
+    return true;	  
+  else if(sw_ftcws   != ref.sw_ftcws)
+    return true;	  
+  else if(sw_shearwe != ref.sw_shearwe)
+    return true;	  
+  else if(h          != ref.h)
+    return true;	  
+  else if(Ps         != ref.Ps)
+    return true;	  
+  else if(omegas     != ref.omegas)
+    return true;	  
+  else if(fc         != ref.fc)
+    return true;	  
+
+  else if(theta      != ref.theta)
+    return true;	  
+  else if(dtheta     != ref.dtheta)
+    return true;	  
+  else if(gammatheta != ref.gammatheta)
+    return true;	  
+  else if(advtheta   != ref.advtheta)
+    return true;	  
+  else if(beta       != ref.beta)
+    return true;	  
+  else if(wtheta     != ref.wtheta)
+    return true;	  
+  else if(sw_wtheta  != ref.sw_wtheta)
+    return true;	  
+
+  else if(q          != ref.q)
+    return true;	  
+  else if(dq         != ref.dq)
+    return true;	  
+  else if(gammaq     != ref.gammaq)
+    return true;	  
+  else if(advq       != ref.advq)
+    return true;	  
+  else if(wq         != ref.wq)
+    return true;	  
+  else if(sw_wq      != ref.sw_wq)
+    return true;	  
+
+  else if(sw_wind    != ref.sw_wind)
+    return true;	  
+  else if(u          != ref.u)
+    return true;	  
+  else if(du         != ref.du)
+    return true;	  
+  else if(gammau     != ref.gammau)
+    return true;	  
+  else if(advu       != ref.advu)
+    return true;	  
+
+  else if(v          != ref.v)
+    return true;	  
+  else if(dv         != ref.dv)
+    return true;	  
+  else if(gammav     != ref.gammav)
+    return true;	  
+  else if(advv       != ref.advv)
+    return true;	  
+
+  // scalar
+  else if(sca        != ref.sca)
+    return true;          
+  else if(dsca       != ref.dsca)
+    return true;          
+  else if(gammasca   != ref.gammasca)
+    return true;          
+  else if(advsca     != ref.advsca)
+    return true;          
+  else if(wsca       != ref.wsca)
+    return true;          
+
+  else if(CO2        != ref.CO2)
+    return true;          
+  else if(dCO2       != ref.dCO2)
+    return true;          
+  else if(gammaCO2   != ref.gammaCO2)
+    return true;          
+  else if(advCO2     != ref.advCO2)
+    return true;          
+  else if(wCO2       != ref.wCO2)
+    return true;	  
+
+  // chemistry species :'(
+  else if(nsc        != ref.nsc)
+    return false;
+    
+  for(int i=0; i<nsc; i++)
+  {
+    if(sc[i]       != ref.sc[i])
+      return true;	  
+    if(dsc[i]      != ref.dsc[i])
+      return true;	  
+    if(gammasc[i]  != ref.gammasc[i])
+      return true;	  
+    if(advsc[i]    != ref.advsc[i])
+      return true;	  
+    if(wsc[i]      != ref.wsc[i])
+      return true;	  
+    if(sw_wsc[i]   != ref.sw_wsc[i])
+      return true;	  
+  }
+
+  // surface layer variables
+  if(sw_sl           != ref.sw_sl)
+    return true;	  
+  else if(ustar      != ref.ustar)
+    return true;	  
+  else if(z0m        != ref.z0m)
+    return true;	  
+  else if(z0h        != ref.z0h)
+    return true;	  
+
+  // radiatio!n parameters
+  else if(sw_rad     != ref.sw_rad)
+    return true;	  
+  else if(lat        != ref.lat)
+    return true;	  
+  else if(lon        != ref.lon)
+    return true;	  
+  else if(doy        != ref.doy)
+    return true;	  
+  else if(tstart     != ref.tstart)
+    return true;	  
+  else if(cc         != ref.cc)
+    return true;	  
+  else if(Q          != ref.Q)
+    return true;	  
+
+  // land sur!face parameters
+  else if(sw_ls      != ref.sw_ls)
+    return true;	  
+  else if(sw_jarvis  != ref.sw_jarvis)
+    return true;	  
+  else if(C3C4       != ref.C3C4)
+    return true;	  
+  else if(sw_sea     != ref.sw_sea)
+    return true;	  
+  else if(wg         != ref.wg)
+    return true;	  
+  else if(w2         != ref.w2)
+    return true;	  
+  else if(Tsoil      != ref.Tsoil)
+    return true;	  
+  else if(T2         != ref.T2)
+    return true;	  
+
+  else if(a          != ref.a)
+    return true;	  
+  else if(b          != ref.b)
+    return true;	  
+  else if(p          != ref.p)
+    return true;	  
+  else if(CGsat      != ref.CGsat)
+    return true;	  
+
+  else if(wsat       != ref.wsat)
+    return true;	  
+  else if(wfc        != ref.wfc)
+    return true;	  
+  else if(wwilt      != ref.wwilt)
+    return true;	  
+
+  else if(C1sat      != ref.C1sat)
+    return true;	  
+  else if(C2ref      != ref.C2ref)
+    return true;	  
+
+  else if(LAI        != ref.LAI)
+    return true;	  
+  else if(gD         != ref.gD)
+    return true;	  
+  else if(rsmin      != ref.rsmin)
+    return true;	  
+  else if(rssoilmin  != ref.rssoilmin)
+    return true;	  
+  else if(alpha      != ref.alpha)
+    return true;	  
+
+  else if(Ts         != ref.Ts)
+    return true;	  
+
+  else if(cveg       != ref.cveg)
+    return true;	  
+  else if(Wmax       != ref.Wmax)
+    return true;	  
+  else if(Wl         != ref.Wl)
+    return true;	  
+
+  else if(Lambda     != ref.Lambda)
+    return true;	  
+
+  // shallow-!cumulus
+  else if(sw_cu      != ref.sw_cu)
+    return true;	  
+  else if(dFz        != ref.dFz)
+    return true;	  
+
+  // chemistry :'(
+  else if(sw_chem            != ref.sw_chem)
+    return true;	  
+  else if(sw_chem_constant   != ref.sw_chem_constant)
+    return true;	  
+  else if(sw_photo_constant  != ref.sw_photo_constant)
+    return true;	  
+  else if(csize              != ref.csize)
+    return true;	  
+  else if(rsize              != ref.rsize)
+    return true;	  
+  else if(reactions          != ref.reactions)
+    return true;	  
+
+  for(int n=0; n<rsize; n++)
+    if(sw_reactions[n] != ref.sw_reactions[n])
+      return true;	  
+
+  if(P_ref           != ref.P_ref)
+    return true;     
+  else if(Tcbl_ref   != ref.Tcbl_ref)
+    return true;     
+  else if(Tfc_ref    != ref.Tfc_ref)
+    return true;     
+  else if(qcbl_ref   != ref.qcbl_ref)
+    return true;     
+  else if(qfc_ref    != ref.qfc_ref)
+    return true;     
+  else if(tod_ref    != ref.tod_ref)
+    return true;     
+  else if(stocoef    != ref.stocoef)
+    return true;	  
+  else
+    return false;
+}
+
 modelinput &modelinput::operator=(const modelinput &ref)
 {
   if(this != &ref)
