@@ -3,6 +3,7 @@
 #include "ui_subplot.h"
 #include <QTextDocument>
 
+
 plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent)
 {
   selectedruns          = selected;     // QList with selected runs in plotwindow
@@ -315,9 +316,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     for(y = graphminy; y <= graphmaxy + .5 * d; y = y + d)
     {
-      paint.drawText((leftmargin-100),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-13,90,30,0x0082, QString::number(y,'g',5));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
+      paint.drawText((leftmargin-100),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin-13,90,30,0x0082, QString::number(y,'f',nfrac));      // 0x0080 = AlignVCenter, 0x0002 = AlignRight
       paint.drawLine(leftmargin,(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin,leftmargin+(3 * PNGscale),(plotheight * ((graphmaxy - y) / (graphmaxy - graphminy)))+topmargin);
-
     }
 
     // Draw labels X-axis
