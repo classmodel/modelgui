@@ -555,8 +555,6 @@ void model::runmlmodel()
       we     = (beta * wthetav) / dthetav;
   }
 
-
-
   // compute entrainment fluxes
   wthetae = we * dtheta;
   wqe     = we * dq;

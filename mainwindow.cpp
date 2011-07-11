@@ -129,7 +129,8 @@ MainWindow::~MainWindow()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
   closeCheck = true;
-  closeWarning();
+  if(modelrunlist->size() > 0)
+    closeWarning();
 
   if (plotwindowList.size() > 0)
   {
@@ -985,183 +986,192 @@ void MainWindow::exportRuns()
 
 void MainWindow::saveRuns()
 {
-  storeFormData();
-
-  QString filename = QFileDialog::getSaveFileName(this, "Save session file", "session.mxl");
-
-  QFile file(filename);
-  if(!file.open(QFile::WriteOnly | QFile::Truncate))
+  if(modelrunlist->size() == 0)
   {
-    std::cout << "Error! Cannot open file! Abort saving..." << std::endl;
-    return;
+    QMessageBox msgBox;
+    msgBox.setText("There are no runs to save!");
+    msgBox.exec();
   }
-  QTextStream out(&file);   // we will serialize the data into the file
-
-  QMap<int,modelrun>::iterator i;
-  modelrun temprun(&defaultinput);
-
-  for (i = modelrunlist->begin(); i != modelrunlist->end(); ++i)
+  else
   {
-    std::cout << "Saving MXL run..." << std::endl;
-    temprun = i.value();
-    // NON-INPUT CLASS ELEMENTS
-    out << "#MXL# NEWRUN"                << endl;
-    out << temprun.runname               << endl;
-    out << temprun.surfacestatus         << endl;
-    out << temprun.soilstatus            << endl;
+    storeFormData();
 
-    out << temprun.surfaceadvanced       << endl;
-    out << temprun.soiladvanced          << endl;
+    QString filename = QFileDialog::getSaveFileName(this, "Save session file", "session.mxl");
 
-    // TAB 1
-    out << temprun.run->input.dt         << endl;
-    out << temprun.run->input.runtime    << endl;
-    out << temprun.run->input.sinperiod  << endl;
-
-    // MIXED-LAYER
-    out << temprun.run->input.sw_ml      << endl;
-    out << temprun.run->input.sw_ftcws   << endl;
-    out << temprun.run->input.h          << endl;
-    out << temprun.run->input.Ps         << endl;
-    out << temprun.run->input.omegas     << endl;
-    out << temprun.run->input.beta       << endl;
-
-    // HEAT
-    out << temprun.run->input.theta      << endl;
-    out << temprun.run->input.dtheta     << endl;
-    out << temprun.run->input.gammatheta << endl;
-    out << temprun.run->input.advtheta   << endl;
-    out << temprun.run->input.wtheta     << endl;
-    out << temprun.run->input.sw_wtheta  << endl;
-
-    // MOISTURE
-    out << temprun.run->input.q          << endl;
-    out << temprun.run->input.dq         << endl;
-    out << temprun.run->input.gammaq     << endl;
-    out << temprun.run->input.advq       << endl;
-    out << temprun.run->input.wq         << endl;
-    out << temprun.run->input.sw_wq      << endl;
-    // END TAB1
-
-    // TAB2
-    // WIND
-    out << temprun.run->input.sw_wind    << endl;
-    out << temprun.run->input.u          << endl;
-    out << temprun.run->input.du         << endl;
-    out << temprun.run->input.gammau     << endl;
-    out << temprun.run->input.advu       << endl;
-    out << temprun.run->input.v          << endl;
-    out << temprun.run->input.dv         << endl;
-    out << temprun.run->input.gammav     << endl;
-    out << temprun.run->input.advv       << endl;
-
-    out << temprun.run->input.ustar      << endl;
-    out << temprun.run->input.fc         << endl;
-
-    out << temprun.run->input.sw_sl      << endl;
-    out << temprun.run->input.z0m        << endl;
-    out << temprun.run->input.z0h        << endl;
-
-    // SCALAR / CO2
-    out << temprun.run->input.sca        << endl;
-    out << temprun.run->input.dsca       << endl;
-    out << temprun.run->input.gammasca   << endl;
-    out << temprun.run->input.advsca     << endl;
-    out << temprun.run->input.wsca       << endl;
-
-    out << temprun.run->input.CO2        << endl;
-    out << temprun.run->input.dCO2       << endl;
-    out << temprun.run->input.gammaCO2   << endl;
-    out << temprun.run->input.advCO2     << endl;
-    out << temprun.run->input.wCO2       << endl;
-    // END TAB2
-
-    // TAB3
-    out << temprun.run->input.sw_ls      << endl;
-    out << temprun.run->input.sw_sea     << endl;
-    out << temprun.run->input.sw_jarvis  << endl;
-
-    // SURFACE
-    out << temprun.run->input.Ts         << endl;
-    out << temprun.run->input.Wl         << endl;
-    out << temprun.run->input.LAI        << endl;
-    out << temprun.run->input.gD         << endl;
-    out << temprun.run->input.rsmin      << endl;
-    out << temprun.run->input.alpha      << endl;
-    out << temprun.run->input.cveg       << endl;
-    out << temprun.run->input.Lambda     << endl;
-    out << temprun.run->input.z0m        << endl;
-    out << temprun.run->input.z0h        << endl;
-    // END TAB3
-
-    // TAB4
-    // SOIL
-    out << temprun.run->input.T2         << endl;
-    out << temprun.run->input.Tsoil      << endl;
-    out << temprun.run->input.w2         << endl;
-    out << temprun.run->input.wg         << endl;
-    out << temprun.run->input.wsat       << endl;
-    out << temprun.run->input.wfc        << endl;
-    out << temprun.run->input.wwilt      << endl;
-    out << temprun.run->input.T2         << endl;
-    out << temprun.run->input.C1sat      << endl;
-    out << temprun.run->input.C2ref      << endl;
-    out << temprun.run->input.a          << endl;
-    out << temprun.run->input.b          << endl;
-    out << temprun.run->input.p          << endl;
-    out << temprun.run->input.CGsat      << endl;
-    // END TAB4
-
-    // TAB5
-    // RADIATION
-    out << temprun.run->input.sw_rad     << endl;
-    out << temprun.run->input.doy        << endl;
-    out << temprun.run->input.lat        << endl;
-    out << temprun.run->input.lon        << endl;
-    out << temprun.run->input.tstart     << endl;
-
-    out << temprun.run->input.Q          << endl;
-    out << temprun.run->input.cc         << endl;
-
-    out << temprun.run->input.sw_cu      << endl;
-    out << temprun.run->input.dFz        << endl;
-    // END TAB5
-
-    // TAB 6 and 7
-    // CHEMISTRY
-    out << temprun.run->input.sw_chem           << endl;
-    out << temprun.run->input.sw_chem_constant  << endl;
-    out << temprun.run->input.sw_photo_constant << endl;
-    out << temprun.run->input.csize             << endl;
-    out << temprun.run->input.rsize             << endl;
-
-    // store scalars
-    for(int n=0; n<temprun.run->input.csize; n++)
+    QFile file(filename);
+    if(!file.open(QFile::WriteOnly | QFile::Truncate))
     {
-      out << temprun.run->input.sc[n]      << endl;
-      out << temprun.run->input.dsc[n]     << endl;
-      out << temprun.run->input.gammasc[n] << endl;
-      out << temprun.run->input.advsc[n]   << endl;
-      out << temprun.run->input.wsc[n]     << endl;
-      out << temprun.run->input.sw_wsc[n]  << endl;
+      std::cout << "Error! Cannot open file! Abort saving..." << std::endl;
+      return;
     }
+    QTextStream out(&file);   // we will serialize the data into the file
 
-    for(int n=0; n<temprun.run->input.rsize; n++)
-      out << temprun.run->input.sw_reactions[n] << endl;
+    QMap<int,modelrun>::iterator i;
+    modelrun temprun(&defaultinput);
 
-    out << temprun.run->input.P_ref             << endl;
-    out << temprun.run->input.Tcbl_ref          << endl;
-    out << temprun.run->input.Tfc_ref           << endl;
-    out << temprun.run->input.qcbl_ref          << endl;
-    out << temprun.run->input.qfc_ref           << endl;
-    out << temprun.run->input.tod_ref           << endl;
+    for (i = modelrunlist->begin(); i != modelrunlist->end(); ++i)
+    {
+      std::cout << "Saving MXL run..." << std::endl;
+      temprun = i.value();
+      // NON-INPUT CLASS ELEMENTS
+      out << "#MXL# NEWRUN"                << endl;
+      out << temprun.runname               << endl;
+      out << temprun.surfacestatus         << endl;
+      out << temprun.soilstatus            << endl;
 
-    out << temprun.run->input.stocoef           << endl;
+      out << temprun.surfaceadvanced       << endl;
+      out << temprun.soiladvanced          << endl;
+
+      // TAB 1
+      out << temprun.run->input.dt         << endl;
+      out << temprun.run->input.runtime    << endl;
+      out << temprun.run->input.sinperiod  << endl;
+
+      // MIXED-LAYER
+      out << temprun.run->input.sw_ml      << endl;
+      out << temprun.run->input.sw_ftcws   << endl;
+      out << temprun.run->input.h          << endl;
+      out << temprun.run->input.Ps         << endl;
+      out << temprun.run->input.omegas     << endl;
+      out << temprun.run->input.beta       << endl;
+
+      // HEAT
+      out << temprun.run->input.theta      << endl;
+      out << temprun.run->input.dtheta     << endl;
+      out << temprun.run->input.gammatheta << endl;
+      out << temprun.run->input.advtheta   << endl;
+      out << temprun.run->input.wtheta     << endl;
+      out << temprun.run->input.sw_wtheta  << endl;
+
+      // MOISTURE
+      out << temprun.run->input.q          << endl;
+      out << temprun.run->input.dq         << endl;
+      out << temprun.run->input.gammaq     << endl;
+      out << temprun.run->input.advq       << endl;
+      out << temprun.run->input.wq         << endl;
+      out << temprun.run->input.sw_wq      << endl;
+      // END TAB1
+
+      // TAB2
+      // WIND
+      out << temprun.run->input.sw_wind    << endl;
+      out << temprun.run->input.u          << endl;
+      out << temprun.run->input.du         << endl;
+      out << temprun.run->input.gammau     << endl;
+      out << temprun.run->input.advu       << endl;
+      out << temprun.run->input.v          << endl;
+      out << temprun.run->input.dv         << endl;
+      out << temprun.run->input.gammav     << endl;
+      out << temprun.run->input.advv       << endl;
+
+      out << temprun.run->input.ustar      << endl;
+      out << temprun.run->input.fc         << endl;
+
+      out << temprun.run->input.sw_sl      << endl;
+      out << temprun.run->input.z0m        << endl;
+      out << temprun.run->input.z0h        << endl;
+
+      // SCALAR / CO2
+      out << temprun.run->input.sca        << endl;
+      out << temprun.run->input.dsca       << endl;
+      out << temprun.run->input.gammasca   << endl;
+      out << temprun.run->input.advsca     << endl;
+      out << temprun.run->input.wsca       << endl;
+
+      out << temprun.run->input.CO2        << endl;
+      out << temprun.run->input.dCO2       << endl;
+      out << temprun.run->input.gammaCO2   << endl;
+      out << temprun.run->input.advCO2     << endl;
+      out << temprun.run->input.wCO2       << endl;
+      // END TAB2
+
+      // TAB3
+      out << temprun.run->input.sw_ls      << endl;
+      out << temprun.run->input.sw_sea     << endl;
+      out << temprun.run->input.sw_jarvis  << endl;
+
+      // SURFACE
+      out << temprun.run->input.Ts         << endl;
+      out << temprun.run->input.Wl         << endl;
+      out << temprun.run->input.LAI        << endl;
+      out << temprun.run->input.gD         << endl;
+      out << temprun.run->input.rsmin      << endl;
+      out << temprun.run->input.alpha      << endl;
+      out << temprun.run->input.cveg       << endl;
+      out << temprun.run->input.Lambda     << endl;
+      out << temprun.run->input.z0m        << endl;
+      out << temprun.run->input.z0h        << endl;
+      // END TAB3
+
+      // TAB4
+      // SOIL
+      out << temprun.run->input.T2         << endl;
+      out << temprun.run->input.Tsoil      << endl;
+      out << temprun.run->input.w2         << endl;
+      out << temprun.run->input.wg         << endl;
+      out << temprun.run->input.wsat       << endl;
+      out << temprun.run->input.wfc        << endl;
+      out << temprun.run->input.wwilt      << endl;
+      out << temprun.run->input.T2         << endl;
+      out << temprun.run->input.C1sat      << endl;
+      out << temprun.run->input.C2ref      << endl;
+      out << temprun.run->input.a          << endl;
+      out << temprun.run->input.b          << endl;
+      out << temprun.run->input.p          << endl;
+      out << temprun.run->input.CGsat      << endl;
+      // END TAB4
+
+      // TAB5
+      // RADIATION
+      out << temprun.run->input.sw_rad     << endl;
+      out << temprun.run->input.doy        << endl;
+      out << temprun.run->input.lat        << endl;
+      out << temprun.run->input.lon        << endl;
+      out << temprun.run->input.tstart     << endl;
+
+      out << temprun.run->input.Q          << endl;
+      out << temprun.run->input.cc         << endl;
+
+      out << temprun.run->input.sw_cu      << endl;
+      out << temprun.run->input.dFz        << endl;
+      // END TAB5
+
+      // TAB 6 and 7
+      // CHEMISTRY
+      out << temprun.run->input.sw_chem           << endl;
+      out << temprun.run->input.sw_chem_constant  << endl;
+      out << temprun.run->input.sw_photo_constant << endl;
+      out << temprun.run->input.csize             << endl;
+      out << temprun.run->input.rsize             << endl;
+
+      // store scalars
+      for(int n=0; n<temprun.run->input.csize; n++)
+      {
+        out << temprun.run->input.sc[n]      << endl;
+        out << temprun.run->input.dsc[n]     << endl;
+        out << temprun.run->input.gammasc[n] << endl;
+        out << temprun.run->input.advsc[n]   << endl;
+        out << temprun.run->input.wsc[n]     << endl;
+        out << temprun.run->input.sw_wsc[n]  << endl;
+      }
+
+      for(int n=0; n<temprun.run->input.rsize; n++)
+        out << temprun.run->input.sw_reactions[n] << endl;
+
+      out << temprun.run->input.P_ref             << endl;
+      out << temprun.run->input.Tcbl_ref          << endl;
+      out << temprun.run->input.Tfc_ref           << endl;
+      out << temprun.run->input.qcbl_ref          << endl;
+      out << temprun.run->input.qfc_ref           << endl;
+      out << temprun.run->input.tod_ref           << endl;
+
+      out << temprun.run->input.stocoef           << endl;
+    }
+    out << "#MXL# EOF" << endl;
+    std::cout << "Saving MXL session COMPLETE!" << std::endl;
+
+    file.close();
   }
-  out << "#MXL# EOF" << endl;
-  std::cout << "Saving MXL session COMPLETE!" << std::endl;
-
-  file.close();
 }
 
 void MainWindow::loadRuns()
