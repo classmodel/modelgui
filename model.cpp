@@ -433,10 +433,13 @@ void model::initmodel()
     runchemmodel(dt / 1000.);
 
   if(hasoutput)
-    output->reset(tsteps, nsc);
+  {
+    output->reset(nsc);
+    output->reload(tsteps, nsc);
+  }
   else
   {
-    output = new modeloutput(tsteps, nsc);
+    output    = new modeloutput(tsteps, nsc);
     hasoutput = true;
   }
 

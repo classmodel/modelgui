@@ -129,5 +129,6 @@ public:
   outputvar k_r05;      // Photolysis rate of reaction r05
 
   modeloutput(int,int);
-  void reset(int,int);
+  void reset(int);
+  void reload(int,int);
 };
