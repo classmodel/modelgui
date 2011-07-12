@@ -318,7 +318,7 @@ void MainWindow::runTreeChanged()
   
   updateSelectedRuns();
 
-  if (activerun != -1)
+  if (activerun != -1 && ui->modelRunTree->selectedItems().size() != 0)
   {
     if(modelrunlist->find(activerun).value().previnput != modelrunlist->find(activerun).value().run->input)
     {
@@ -1014,6 +1014,7 @@ void MainWindow::saveRuns()
   if(modelrunlist->size() == 0)
   {
     QMessageBox msgBox;
+    msgBox.setWindowTitle("CLASS - Save session");
     msgBox.setText("There are no runs to save!");
     msgBox.exec();
   }
@@ -1021,7 +1022,7 @@ void MainWindow::saveRuns()
   {
     storeFormData();
 
-    QString filename = QFileDialog::getSaveFileName(this, "Save session file", "session.mxl");
+    QString filename = QFileDialog::getSaveFileName(this, "CLASS - Save session", "session.mxl");
 
     QFile file(filename);
     if(!file.open(QFile::WriteOnly | QFile::Truncate))
@@ -1055,6 +1056,7 @@ void MainWindow::saveRuns()
       // MIXED-LAYER
       out << temprun.run->input.sw_ml      << endl;
       out << temprun.run->input.sw_ftcws   << endl;
+      out << temprun.run->input.sw_shearwe << endl;
       out << temprun.run->input.h          << endl;
       out << temprun.run->input.Ps         << endl;
       out << temprun.run->input.omegas     << endl;
@@ -1251,6 +1253,8 @@ void MainWindow::loadRuns()
       line = in.readLine();
       tempinput.sw_ftcws   = line.toInt();
       line = in.readLine();
+      tempinput.sw_shearwe = line.toInt();
+      line = in.readLine();
       tempinput.h          = line.toDouble();
       line = in.readLine();
       tempinput.Ps         = line.toDouble();
@@ -1343,8 +1347,6 @@ void MainWindow::loadRuns()
       tempinput.advCO2     = line.toDouble();
       line = in.readLine();
       tempinput.wCO2       = line.toDouble();
-
-
       // END TAB2
 
       // TAB3
@@ -1912,6 +1914,7 @@ void MainWindow::switch_photolysis(int state)
 void MainWindow::showAbout()
 {
   QMessageBox msgBox;
+  msgBox.setWindowTitle("CLASS - About");
   QSpacerItem* horizontalSpacer = new QSpacerItem(350, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
   msgBox.setText("About the CLASS model");
   msgBox.setInformativeText("<html><b>Chemistry Land-surface Atmosphere Soil Slab model</b><br/><br/><b>Meteorology and Air Quality section<br/>Wageningen University and Research centre</b><br/></br><br/><br/>Authors:<br/>Chiel van Heerwaarden<br/>Bart van Stratum<br/>Kees van den Dries<br/>Jordi Vil&#224;-Guerau de Arellano<br/><br/>Contact: jordi.vila@wur.nl<br/><br/>&copy; 2010, GPLv3 licence<br/>Source code available at http://gitorious.org/mlmodel</html>");
@@ -1923,7 +1926,8 @@ void MainWindow::showAbout()
 void MainWindow::closeWarning()
 {
   QMessageBox msgBox;
-  msgBox.setText("Save session");
+  msgBox.setWindowTitle("CLASS - Save session?");
+  msgBox.setText("Save settings?");
   msgBox.setInformativeText("There are possibly unsaved settings. Do you want to save them?");
   msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
   msgBox.setDefaultButton(QMessageBox::Save);
