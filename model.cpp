@@ -729,6 +729,9 @@ void model::intmlmodel()
     v        = v0      + dt * vtend;
     dv       = dv0     + dt * dvtend;
   }
+
+  delete[] sc0;
+  delete[] dsc0;
 }
 
 void model::runslmodel()
