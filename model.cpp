@@ -116,6 +116,9 @@ model::model(modelinput *extinput)
 //
 //  input.Lambda     =  extinput.Lambda;     // thermal diffusivity skin layer [-]
 
+  // set output flag to false;
+  hasoutput = false;
+
   return;
 }
 
@@ -429,8 +432,13 @@ void model::initmodel()
   if(sw_chem)
     runchemmodel(dt / 1000.);
 
-  // set output array to given value
-  output = new modeloutput(tsteps, nsc);
+  if(hasoutput)
+    output->reset(tsteps, nsc);
+  else
+  {
+    output = new modeloutput(tsteps, nsc);
+    hasoutput = true;
+  }
 
   store();
   return;

@@ -514,17 +514,17 @@ modeloutput::modeloutput(int tsteps, int nsc)
   zprof.id                  = "zprof";
 
   //chemistry
-  phi.data                    = new double[tsteps];   // Net radiation [W m-2]
-  phi.name                    = "phi";
-  phi.unit                    = "-";
-  phi.description             = "Photostationary state";
-  phi.id                      = "phi";
+  phi.data                  = new double[tsteps];   // Net radiation [W m-2]
+  phi.name                  = "phi";
+  phi.unit                  = "-";
+  phi.description           = "Photostationary state";
+  phi.id                    = "phi";
 
-  k_r05.data                    = new double[tsteps];   // Net radiation [W m-2]
-  k_r05.name                    = "k_r05";
-  k_r05.unit                    = "-";
-  k_r05.description             = "NO2 photolysis rate (r05)";
-  k_r05.id                      = "k_r05";
+  k_r05.data                = new double[tsteps];   // Net radiation [W m-2]
+  k_r05.name                = "k_r05";
+  k_r05.unit                = "-";
+  k_r05.description         = "NO2 photolysis rate (r05)";
+  k_r05.id                  = "k_r05";
 
   sc                        = new outputvar[nsc];
   for(int n=0; n<nsc; n++)
@@ -588,3 +588,273 @@ modeloutput::modeloutput(int tsteps, int nsc)
 
   return;
 }
+
+void modeloutput::reset(int tsteps, int nsc)
+{
+  delete[] t.data;
+  t.data                    = new double[tsteps];   // time [h]
+
+  delete[] tutc.data;
+  tutc.data                 = new double[tsteps];   // time UTC [h]
+
+  delete[] h.data;
+  h.data                    = new double[tsteps];   // CBL height [m]
+
+  delete[] Ps.data;
+  Ps.data                   = new double[tsteps];   // surface pressure [Pa]
+
+  delete[] ws.data;
+  ws.data                   = new double[tsteps];   // large scale vertical velocity [m s-1]
+
+  delete[] lcl.data;
+  lcl.data                  = new double[tsteps];   // Lifting Condensation level [m]
+
+  delete[] we.data;
+  we.data                   = new double[tsteps];   // surface kinematic heat flux [K m s-1]
+
+  delete[] RH.data;
+  RH.data                   = new double[tsteps];   // Relative humidity at ..? [-]
+
+  delete[] RHtop.data;
+  RHtop.data                = new double[tsteps];   // Relative humidity at mixed-layer top [-]
+
+  delete[] theta.data;
+  theta.data                = new double[tsteps];   //  mixed-layer potential temperature [K]
+
+  delete[] thetav.data;
+  thetav.data               = new double[tsteps];   //  mixed-layer virtual potential temperature [K]
+
+  delete[] dtheta.data;
+  dtheta.data               = new double[tsteps];   //  potential temperature jump at h [K]
+
+  delete[] dthetav.data;
+  dthetav.data              = new double[tsteps];   // virtual potential temperature jump at h [K]
+
+  delete[] gammatheta.data;
+  gammatheta.data           = new double[tsteps];   // free atmosphere potential temperature lapse rate [K m-1]
+
+  delete[] sigmatheta.data;
+  sigmatheta.data           = new double[tsteps];   // mixed-layer top potential temperature std dev [K]
+
+  delete[] advtheta.data;
+  advtheta.data             = new double[tsteps];   // advection of heat [K s-1]
+
+  delete[] beta.data;
+  beta.data                 = new double[tsteps];   // entrainment ratio for virtual heat [-]
+
+  delete[] wtheta.data;
+  wtheta.data               = new double[tsteps];   // surface kinematic heat flux [K m s-1]
+
+  delete[] wthetae.data;
+  wthetae.data              = new double[tsteps];   // surface kinematic heat flux [K m s-1]
+
+  delete[] wthetav.data;
+  wthetav.data              = new double[tsteps];   // surface kinematic virtual heat flux [K m s-1]
+
+  delete[] wthetaM.data;
+  wthetaM.data              = new double[tsteps];   // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+
+  delete[] q.data;
+  q.data                    = new double[tsteps];   // mixed-layer specific humidity [kg kg-1]
+
+  delete[] dq.data;
+  dq.data                   = new double[tsteps];   // specific humidity jump at h [kg kg-1]
+
+  delete[] gammaq.data;
+  gammaq.data               = new double[tsteps];   // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
+
+  delete[] advq.data;
+  advq.data                 = new double[tsteps];   // advection of moisture [kg kg-1 s-1]
+
+  delete[] sigmaq.data;
+  sigmaq.data               = new double[tsteps];   // mixed-layer top specific humidity std dev [kg kg-1]
+
+  delete[] wq.data;
+  wq.data                   = new double[tsteps];   // surface kinematic moisture flux [kg kg-1 m s-1]
+
+  delete[] wqe.data;
+  wqe.data                  = new double[tsteps];   // surface kinematic moisture flux [kg kg-1 m s-1]
+
+  delete[] wqM.data;
+  wqM.data                  = new double[tsteps];   // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+
+  delete[] u.data;
+  u.data                    = new double[tsteps];   // initial mixed-layer u-wind speed [m s-1]
+
+  delete[] du.data;
+  du.data                   = new double[tsteps];   // initial u-wind jump at h [m s-1]
+
+  delete[] gammau.data;
+  gammau.data               = new double[tsteps];   // free atmosphere u-wind speed lapse rate [s-1]
+
+  delete[] advu.data;
+  advu.data                 = new double[tsteps];   // advection of u-wind [m s-2]
+
+  delete[] v.data;
+  v.data                    = new double[tsteps];   // initial mixed-layer u-wind speed [m s-1]
+
+  delete[] dv.data;
+  dv.data                   = new double[tsteps];   // initial u-wind jump at h [m s-1]
+
+  delete[] gammav.data;
+  gammav.data               = new double[tsteps];   // free atmosphere v-wind speed lapse rate [s-1]
+
+  delete[] advv.data;
+  advv.data                 = new double[tsteps];   // advection of v-wind [m s-2]
+
+  delete[] uw.data;
+  uw.data                   = new double[tsteps];   // u-momentum flux [m2 s-2]
+
+  delete[] vw.data;
+  vw.data                   = new double[tsteps];   // v-momentum flux [m2 s-2]
+
+  delete[] uwe.data;
+  uwe.data                  = new double[tsteps];   // u-momentum flux [m2 s-2]
+
+  delete[] vwe.data;
+  vwe.data                  = new double[tsteps];   // v-momentum flux [m2 s-2]
+
+  delete[] sca.data;
+  sca.data                  = new double[tsteps];       // mixed-layer scalar [kg kg-1]
+
+  delete[] dsca.data;
+  dsca.data                 = new double[tsteps];      // initial scalar jump at h [kg kg-1]
+
+  delete[] gammasca.data;
+  gammasca.data             = new double[tsteps];  // free atmosphere scalar lapse rate [kg kg-1 m-1]
+
+  delete[] advsca.data;
+  advsca.data               = new double[tsteps];  // advection of scalar [kg kg-1 s-1]
+
+  delete[] wsca.data;
+  wsca.data                 = new double[tsteps];  // surface kinematic scalar flux [kg kg-1 m s-1]
+
+  delete[] wscae.data;
+  wscae.data                = new double[tsteps];  // entrainment kinematic scalar flux [kg kg-1 m s-1]
+
+  delete[] wscaM.data;
+  wscaM.data                = new double[tsteps];  // mass-flux kinematic scalar flux [kg kg-1 m s-1]
+
+  delete[] sigmasca.data;
+  sigmasca.data             = new double[tsteps];   // mixed-layer top scalar std dev [kg kg-1]
+
+  delete[] CO2.data;
+  CO2.data                  = new double[tsteps];       // mixed-layer CO2 [kg kg-1]
+
+  delete[] dCO2.data;
+  dCO2.data                 = new double[tsteps];      // initial CO2 jump at h [kg kg-1]
+
+  delete[] gammaCO2.data;
+  gammaCO2.data             = new double[tsteps];  // free atmosphere CO2 lapse rate [kg kg-1 m-1]
+
+  delete[] advCO2.data;
+  advCO2.data               = new double[tsteps];  // advection of CO2 [kg kg-1 s-1]
+
+  delete[] wCO2.data;
+  wCO2.data                 = new double[tsteps];  // surface kinematic CO2 flux [kg kg-1 m s-1]
+
+  delete[] wCO2A.data;
+  wCO2A.data                = new double[tsteps];  // Assimilation CO2 flux [kg kg-1 m s-1]
+
+  delete[] wCO2R.data;
+  wCO2R.data                = new double[tsteps];  // Respiration CO2 flux [kg kg-1 m s-1]
+
+  delete[] wCO2e.data;
+  wCO2e.data                = new double[tsteps];  // entrainment kinematic CO2 flux [kg kg-1 m s-1]
+
+  delete[] wCO2M.data;
+  wCO2M.data                = new double[tsteps];  // mass-flux kinematic CO2 flux [kg kg-1 m s-1]
+
+  delete[] sigmaCO2.data;
+  sigmaCO2.data             = new double[tsteps];   // mixed-layer top CO2 std dev [ppm]
+
+  delete[] ustar.data;
+  ustar.data                = new double[tsteps];   // friction velocity [m s-1]
+
+  delete[] L.data;
+  L.data                    = new double[tsteps];   // Obukhov length [m]
+
+  delete[] Rib.data;
+  Rib.data                  = new double[tsteps];   // Bulk Richardson number [-]
+
+  delete[] ra.data;
+  ra.data                   = new double[tsteps];   // aerodynamic resistance [s m-1]
+
+  delete[] Cm.data;
+  Cm.data                   = new double[tsteps];   // drag coefficient for momentum [-]
+
+  delete[] Cs.data;
+  Cs.data                   = new double[tsteps];   // drag coefficient for scalars [-]
+
+  delete[] Swin.data;
+  Swin.data                 = new double[tsteps];   // Incoming short wave radiation [W m-2]
+
+  delete[] Swout.data;
+  Swout.data                = new double[tsteps];   // Outgoing short wave radiation [W m-2]
+
+  delete[] Lwin.data;
+  Lwin.data                 = new double[tsteps];   // Incoming long wave radiation [W m-2]
+
+  delete[] Lwout.data;
+  Lwout.data                = new double[tsteps];   // Outgoing long wave radiation [W m-2]
+
+  delete[] Q.data;
+  Q.data                    = new double[tsteps];   // Net radiation [W m-2]
+
+  delete[] wg.data;
+  wg.data                   = new double[tsteps];   // Soil moisture top layer [m3 m-3]
+
+  delete[] Tsoil.data;
+  Tsoil.data                = new double[tsteps];   //  Soil temperature [K]
+
+  delete[] Ts.data;
+  Ts.data                   = new double[tsteps];   //  Skin temperature [K]
+
+  delete[] Wl.data;
+  Wl.data                   = new double[tsteps];   // Liquid water on vegetation [m]
+
+  delete[] rs.data;
+  rs.data                   = new double[tsteps];   // surface resistance [s m-1]
+
+  delete[] H.data;
+  H.data                    = new double[tsteps];   // Net radiation [W m-2]
+
+  delete[] LE.data;
+  LE.data                   = new double[tsteps];   // Net radiation [W m-2]
+
+  delete[] G.data;
+  G.data                    = new double[tsteps];   // Net radiation [W m-2]
+
+  delete[] ac.data;
+  ac.data                   = new double[tsteps];   // cloud core fraction [-]
+
+  delete[] M.data;
+  M.data                    = new double[tsteps];   // mass-flux (/rho) [m s-1]
+
+  delete[] thetaprof.data;
+  thetaprof.data            = new double[tsteps*4];
+
+  delete[] qprof.data;
+  qprof.data                = new double[tsteps*4];   // mixed-layer specific humidity [kg kg-1]
+
+  delete[] zprof.data;
+  zprof.data                = new double[tsteps*4];
+
+  delete[] phi.data;
+  phi.data                  = new double[tsteps];   // Net radiation [W m-2]
+
+  delete[] k_r05.data;
+  k_r05.data                = new double[tsteps];   // Net radiation [W m-2]
+
+  for(int n=0; n<nsc; n++)
+    delete[] sc[n].data;
+
+  delete[] sc;
+
+  sc                        = new outputvar[nsc];
+  for(int n=0; n<nsc; n++)
+    sc[n].data = new double[tsteps];
+
+  return;
+}
+

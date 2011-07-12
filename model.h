@@ -332,5 +332,7 @@ private:
   double stocoef;
   double phi;
   double k_r05;
+
+  bool hasoutput;
 };
 
