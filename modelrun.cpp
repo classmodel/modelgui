@@ -1,3 +1,4 @@
+#include <iostream>
 #include "modelrun.h"
 
 modelrun::modelrun(modelinput *giveninput)
@@ -8,4 +9,9 @@ modelrun::modelrun(modelinput *giveninput)
   soilstatus = 0;
   surfaceadvanced = false;
   soiladvanced    = false;
+}
+
+modelrun::~modelrun()
+{
+  std::cout << "Delete modelrun!" << std::endl;
 }

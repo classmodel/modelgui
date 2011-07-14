@@ -8,6 +8,7 @@ public:
   QString runname;
   model *run;
   modelrun(modelinput*);
+  ~modelrun();
   bool hasrun;
   int  surfacestatus;
   int  soilstatus;
