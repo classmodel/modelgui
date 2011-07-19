@@ -872,6 +872,19 @@ void MainWindow::deleteRun()
 
       QString ident = ui->modelRunTree->selectedItems()[i]->text(0);
       int n = ident.toInt(0,10);
+
+      // CvH This is an extremely ugly hack to solve the memory leak that occurs during run deletion
+      // What needs to be done is managing the modelrun pointers accurately when inserting modelruns into
+      // a list. Now, the memory that is going to be leaked is reduced to a minimum size by rerunning the
+      // model with 1 timestep.
+      if(modelrunlist->find(n).value().hasrun)
+        if(modelrunlist->find(n).value().run->hasoutput)
+        {
+          modelrunlist->find(n).value().run->output->reset(22);
+          modelrunlist->find(n).value().run->output->reload(1,22);
+        }
+      // end of ugly hack
+
       modelrunlist->remove(n);
       emit rundeleted(n);
     }

@@ -11,6 +11,7 @@ public:
   modelinput input;
   modeloutput *output;
   void run2file(std::string, std::string);
+  bool hasoutput;
 
 private:
   void initmodel();
@@ -332,7 +333,5 @@ private:
   double stocoef;
   double phi;
   double k_r05;
-
-  bool hasoutput;
 };
 
