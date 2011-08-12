@@ -270,31 +270,31 @@ modeloutput::modeloutput(int tsteps, int nsc)
 
   gammasca.data             = new double[tsteps];  // free atmosphere scalar lapse rate [kg kg-1 m-1]
   gammasca.name             = "gammasca";
-  gammasca.unit             = "ppm m\u207B\u00B9";
+  gammasca.unit             = "ppm m-\u00B9";
   gammasca.description      = "Scalar lapse rate";
   gammasca.id               = "gammasca";
 
   advsca.data               = new double[tsteps];  // advection of scalar [kg kg-1 s-1]
   advsca.name               = "advsca";
-  advsca.unit               = "ppm s\u207B\u00B9";
+  advsca.unit               = "ppm s-\u00B9";
   advsca.description        = "Large-scale scalar advection";
   advsca.id                 = "advsca";
 
   wsca.data                 = new double[tsteps];  // surface kinematic scalar flux [kg kg-1 m s-1]
   wsca.name                 = "wsca";
-  wsca.unit                 = "ppm m s\u207B\u00B9";
+  wsca.unit                 = "ppm m s-\u00B9";
   wsca.description          = "Surface kinematic scalar flux";
   wsca.id                   = "wsca";
 
   wscae.data                = new double[tsteps];  // entrainment kinematic scalar flux [kg kg-1 m s-1]
   wscae.name                = "wscae";
-  wscae.unit                = "ppm m s\u207B\u00B9";
+  wscae.unit                = "ppm m s-\u00B9";
   wscae.description         = "Entrainment kinematic scalar flux";
   wscae.id                  = "wscae";
 
   wscaM.data                = new double[tsteps];  // mass-flux kinematic scalar flux [kg kg-1 m s-1]
   wscaM.name                = "wscaM";
-  wscaM.unit                = "ppm m s\u207B\u00B9";
+  wscaM.unit                = "ppm m s-\u00B9";
   wscaM.description         = "Mass-flux kinematic scalar flux";
   wscaM.id                  = "wscaM";
 
