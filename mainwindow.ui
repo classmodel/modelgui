@@ -1478,7 +1478,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1491,7 +1491,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1504,7 +1504,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;sup&gt;-1&lt;/sup&gt; m&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm m&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1517,7 +1517,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;sup&gt;-1&lt;/sup&gt; m s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm m s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1579,7 +1579,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;sup&gt;-1&lt;/sup&gt; s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm s&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

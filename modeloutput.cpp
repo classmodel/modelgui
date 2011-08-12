@@ -258,49 +258,49 @@ modeloutput::modeloutput(int tsteps, int nsc)
   // Always present scalars (non-chemistry)
   sca.data                  = new double[tsteps];       // mixed-layer scalar [kg kg-1]
   sca.name                  = "scalar";
-  sca.unit                  = "g kg-\u00B9";
+  sca.unit                  = "ppm";
   sca.description           = "Scalar";
   sca.id                    = "sca";
 
   dsca.data                 = new double[tsteps];      // initial scalar jump at h [kg kg-1]
   dsca.name                 = "\u0394sca";
-  dsca.unit                 = "g kg-\u00B9";
+  dsca.unit                 = "ppm";
   dsca.description          = "Scalar jump at boundary layer top";
   dsca.id                   = "dsca";
 
   gammasca.data             = new double[tsteps];  // free atmosphere scalar lapse rate [kg kg-1 m-1]
   gammasca.name             = "gammasca";
-  gammasca.unit             = "g kg-\u00B9 m-\u00B9";
+  gammasca.unit             = "ppm m\u207B\u00B9";
   gammasca.description      = "Scalar lapse rate";
   gammasca.id               = "gammasca";
 
   advsca.data               = new double[tsteps];  // advection of scalar [kg kg-1 s-1]
   advsca.name               = "advsca";
-  advsca.unit               = "g kg-\u00B9 s-\u00B9";
+  advsca.unit               = "ppm s\u207B\u00B9";
   advsca.description        = "Large-scale scalar advection";
   advsca.id                 = "advsca";
 
   wsca.data                 = new double[tsteps];  // surface kinematic scalar flux [kg kg-1 m s-1]
   wsca.name                 = "wsca";
-  wsca.unit                 = "g kg-\u00B9 m s-\u00B9";
+  wsca.unit                 = "ppm m s\u207B\u00B9";
   wsca.description          = "Surface kinematic scalar flux";
   wsca.id                   = "wsca";
 
   wscae.data                = new double[tsteps];  // entrainment kinematic scalar flux [kg kg-1 m s-1]
   wscae.name                = "wscae";
-  wscae.unit                = "g kg-\u00B9 m s-\u00B9";
+  wscae.unit                = "ppm m s\u207B\u00B9";
   wscae.description         = "Entrainment kinematic scalar flux";
   wscae.id                  = "wscae";
 
   wscaM.data                = new double[tsteps];  // mass-flux kinematic scalar flux [kg kg-1 m s-1]
   wscaM.name                = "wscaM";
-  wscaM.unit                = "g kg-\u00B9 m s-\u00B9";
+  wscaM.unit                = "ppm m s\u207B\u00B9";
   wscaM.description         = "Mass-flux kinematic scalar flux";
   wscaM.id                  = "wscaM";
 
   sigmasca.data             = new double[tsteps];   // mixed-layer top scalar std dev [kg kg-1]
   sigmasca.name             = "\u03C3sca";
-  sigmasca.unit             = "g kg-\u00B9";
+  sigmasca.unit             = "ppm";
   sigmasca.description      = "stddev(sca) at mixed-layer top";
   sigmasca.id               = "sigmasca";
 
