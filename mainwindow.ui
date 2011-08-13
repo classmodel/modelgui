@@ -388,7 +388,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[K m&lt;sup&gt;-1&lt;/sup&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[K m&lt;span style=&quot;font-size: 10px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
