@@ -773,8 +773,65 @@ void modeloutput::reload(int tsteps, int nsc)
   phi.data                  = new double[tsteps];   // Net radiation [W m-2]
   k_r05.data                = new double[tsteps];   // Net radiation [W m-2]
   sc                        = new outputvar[nsc];
-  for(int n=0; n<nsc; n++)
-    sc[n].data = new double[tsteps];
 
+  // Reinitialize the chemistry names, because they have been deleted!
+  for(int n=0; n<nsc; n++)
+  {
+    sc[n].data = new double[tsteps];
+    std::stringstream an;
+    an << n;
+    sc[n].name = "scalar" + an.str();
+    sc[n].unit = "ppb";
+    sc[n].description = "Chemistry scalar " + an.str();
+    sc[n].id   = "sc" + an.str();
+  }
+
+  // CvH: for now, set the name of the chemical species...
+  sc[0].name  = "Inert";
+  sc[1].name  = "O3";
+  sc[2].name  = "O1D";
+  sc[3].name  = "NO";
+  sc[4].name  = "NO2";
+  sc[5].name  = "CH4";
+  sc[6].name  = "CH2O";
+  sc[7].name  = "CH3O2";
+  sc[8].name  = "MVK";
+  sc[9].name  = "ISO";
+  sc[10].name = "RO2";
+  sc[11].name = "OH";
+  sc[12].name = "HO2";
+  sc[13].name = "CO";
+  sc[14].name = "H2O";
+  sc[15].name = "Product";
+  sc[16].name = "O2";
+  sc[17].name = "N2";
+  sc[18].name = "HNO3";
+  sc[19].name = "H2O2";
+  sc[20].name = "NO3";
+  sc[21].name = "N2O5";
+
+  sc[0].description  = "Inert";
+  sc[1].description  = "O3";
+  sc[2].description  = "O1D";
+  sc[3].description  = "NO";
+  sc[4].description  = "NO2";
+  sc[5].description  = "CH4";
+  sc[6].description  = "CH2O";
+  sc[7].description  = "CH3O2";
+  sc[8].description  = "MVK";
+  sc[9].description  = "ISO";
+  sc[10].description = "RO2";
+  sc[11].description = "OH";
+  sc[12].description = "HO2";
+  sc[13].description = "CO";
+  sc[14].description = "H2O";
+  sc[15].description = "Product";
+  sc[16].description = "O2";
+  sc[17].description = "N2";
+  sc[18].description = "HNO3";
+  sc[19].description = "H2O2";
+  sc[20].description = "NO3";
+  sc[21].description = "N2O5";
+  // CvH remove later...
   return;
 }
