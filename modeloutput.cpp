@@ -64,7 +64,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
   theta.id                  = "theta";
 
   thetav.data               = new double[tsteps];   //  mixed-layer virtual potential temperature [K]
-  thetav.name               = "\u03B8\u1D65";
+  thetav.name               = "\u03B8v";
   thetav.unit               = "K";
   thetav.description        = "Mixed-layer virtual potential temperature";
   thetav.id                 = "thetav";
@@ -76,7 +76,7 @@ modeloutput::modeloutput(int tsteps, int nsc)
   dtheta.id                 = "dtheta";
 
   dthetav.data              = new double[tsteps];   // virtual potential temperature jump at h [K]
-  dthetav.name              = "\u0394\u03B8\u1D65";
+  dthetav.name              = "\u0394\u03B8v";
   dthetav.unit              = "K";
   dthetav.description       = "Virtual potential temperature jump at boundary layer top";
   dthetav.id                = "dthetav";
@@ -118,13 +118,13 @@ modeloutput::modeloutput(int tsteps, int nsc)
   wthetae.id                = "wthetae";
 
   wthetav.data              = new double[tsteps];   // surface kinematic virtual heat flux [K m s-1]
-  wthetav.name              = "w'\u03B8\u1D65'(s)";
+  wthetav.name              = "w'\u03B8v'(s)";
   wthetav.unit              = "K m s-\u00B9";
   wthetav.description       = "Surface virtual temperature flux";
   wthetav.id                = "wthetav";
 
   wthetaM.data              = new double[tsteps];   // mass-flux kinematic moisture flux [kg kg-1 m s-1]
-  wthetaM.name              = "w'\u03B8\u1D65'(M)";
+  wthetaM.name              = "w'\u03B8'(M)";
   wthetaM.unit              = "K m s-\u00B9";
   wthetaM.description       = "Mass-flux kinematic heat flux";
   wthetaM.id                = "wthetaM";
