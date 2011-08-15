@@ -1227,10 +1227,10 @@ void model::store()
   output->k_r05.data[t]   = k_r05;
 
   for(int n=0;n<nsc; n++)
-    if(sw_chemoutput[n])
+    // if(sw_chemoutput[n])
       output->sc[n].data[t] = sc[n];
-    else
-      output->sc[n].data[t] = 0;
+    // else
+    //  output->sc[n].data[t] = 0;
 
   return;
 }
