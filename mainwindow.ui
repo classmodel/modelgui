@@ -388,7 +388,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[K m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[K m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -401,7 +401,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[K m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[K m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -476,7 +476,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[K s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[K s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -621,7 +621,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -830,7 +830,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -843,7 +843,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -856,7 +856,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -869,7 +869,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt; m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt; m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -943,7 +943,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt; s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt; s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1081,7 +1081,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1094,7 +1094,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1107,7 +1107,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1120,7 +1120,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-2&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-2&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1275,7 +1275,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1288,7 +1288,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1301,7 +1301,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1314,7 +1314,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-2&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-2&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1504,7 +1504,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppm m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1517,7 +1517,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppm m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1579,7 +1579,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppm s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1747,7 +1747,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppm m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1760,7 +1760,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppm m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1822,7 +1822,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppm s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppm s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1883,7 +1883,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1947,7 +1947,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -2041,7 +2041,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[&lt;sup&gt;o&lt;/sup&gt; N]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;o&lt;/span&gt;N]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -2077,7 +2077,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[&lt;sup&gt;o&lt;/sup&gt; E]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;o&lt;/span&gt;E]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -2241,7 +2241,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[W m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-2&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[W m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-2&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -2372,7 +2372,7 @@
          <x>10</x>
          <y>10</y>
          <width>201</width>
-         <height>83</height>
+         <height>88</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="rad_stratocumulus_grid" columnminimumwidth="50,0,80">
@@ -2408,7 +2408,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[W m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-2&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[W m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-2&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -2994,7 +2994,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;3&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-3&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;3&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-3&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3007,7 +3007,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;3&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-3&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;3&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-3&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3266,7 +3266,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3292,7 +3292,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[g kg&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3450,7 +3450,7 @@
         <rect>
          <x>10</x>
          <y>210</y>
-         <width>201</width>
+         <width>220</width>
          <height>186</height>
         </rect>
        </property>
@@ -3591,7 +3591,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppb m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppb m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3604,7 +3604,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppb m s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppb m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3663,7 +3663,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppb s&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[ppb s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3755,7 +3755,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>421</width>
+         <width>437</width>
          <height>37</height>
         </rect>
        </property>
@@ -3849,8 +3849,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-339</y>
-          <width>394</width>
+          <y>0</y>
+          <width>98</width>
           <height>750</height>
          </rect>
         </property>
@@ -3865,7 +3865,7 @@
           <rect>
            <x>10</x>
            <y>10</y>
-           <width>371</width>
+           <width>389</width>
            <height>731</height>
           </rect>
          </property>
@@ -5490,7 +5490,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[s m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[s m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -5541,7 +5541,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[W m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-2&lt;/span&gt; K&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[W m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-2&lt;/span&gt; K&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -5808,7 +5808,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;3&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-3&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;3&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-3&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -5821,7 +5821,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;3&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-3&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;3&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-3&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -5834,7 +5834,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;3&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-3&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;3&lt;/span&gt; m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-3&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -5993,7 +5993,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[K m&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-2&lt;/span&gt; J&lt;span style=&quot;font-size: 14px; vertical-align:sup;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[K m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-2&lt;/span&gt; J&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -6275,7 +6275,7 @@
      <x>0</x>
      <y>0</y>
      <width>650</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
