@@ -402,11 +402,11 @@ void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput, double stocoe
   for(i=0;i<csize;i++){
     if(PL_ptr[i]->nr_PL > 0){
       PL_ptr[i]->active = 1;
-      sw_chemoutput[i] = true;
+      // sw_chemoutput[i] = true;
       nchasp++;
     }else{
       PL_ptr[i]->active = 0;
-      sw_chemoutput[i] = false;
+      //sw_chemoutput[i] = false;
     }
   }
 // we don't calculate production and loss off N2, O2, and H2O switch on Inert
