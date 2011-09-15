@@ -535,8 +535,7 @@ void model::runmlmodel()
 
   // compute large scale vertical velocity
   ws = -omegas * h;
-  // mixed-layer growth due to cloud top radiative divergence
-  wf = dFz / (rho * cp * dtheta);
+
 
   // Compensate free tropospheric warming due to subsidence
   double C_thetaft, C_qft, C_scaft, C_CO2ft;
@@ -556,14 +555,17 @@ void model::runmlmodel()
   }
 
   // compute tendencies
-  if(beta == 0 && inputdthetav == 0)
+  if(beta == 0 && inputdthetav == 0){
     we    = 1 / gammatheta * wthetav / h;
+    wf    = 1 / gammatheta * (dFz / rho * cp) / h;
+  }
   else
   {
+    wf    = dFz / (rho * cp * dtheta);
     if(sw_shearwe)
-      we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
+      we  = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
     else
-      we     = (beta * wthetav) / dthetav;
+      we  = (beta * wthetav) / dthetav;
   }
 
   // compute entrainment fluxes
@@ -603,18 +605,18 @@ void model::runmlmodel()
   CO2tend     = (wCO2   + wCO2e   - wCO2M)    / h + advCO2;
 
   // Set tendency dtheta & dq to zero when shallow-cumulus is present
-  if(sw_cu && ac > 0.){
-    dthetatend  = 0.;
-    dqtend      = 0.;
-    dscatend    = 0.;
-    dCO2tend    = 0.;
-  }
-  else {
-    dthetatend  = gammatheta * (we + wf) - thetatend  + C_thetaft;
-    dqtend      = gammaq     * (we + wf) - qtend      + C_qft;
-    dscatend    = gammasca   * (we + wf) - scatend    + C_scaft;
-    dCO2tend    = gammaCO2   * (we + wf) - CO2tend    + C_CO2ft;
-  }
+  //if(sw_cu && ac > 0.){
+  //  dthetatend  = 0.;
+  //  dqtend      = 0.;
+  //  dscatend    = 0.;
+  //  dCO2tend    = 0.;
+  //}
+  //else {
+    dthetatend  = gammatheta * (we + wf - M) - thetatend  + C_thetaft;
+    dqtend      = gammaq     * (we + wf - M) - qtend      + C_qft;
+    dscatend    = gammasca   * (we + wf - M) - scatend    + C_scaft;
+    dCO2tend    = gammaCO2   * (we + wf - M) - CO2tend    + C_CO2ft;
+  //}
 
   for(int i=0; i<nsc; i++)
   {
@@ -638,7 +640,7 @@ void model::runmlmodel()
     wscM[i]        = M * pow(sigmasc2[i],0.5);
 
     sctend[i]      = (wsc[i] + wsce[i] - wscM[i]) / h + advsc[i];
-    dsctend[i]     = gammasc[i] * we - sctend[i];
+    dsctend[i]     = gammasc[i] * (we + wf - M) - sctend[i];
   }
 
   // assume u + du = ug, so ug - u = du
