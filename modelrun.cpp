@@ -13,5 +13,5 @@ modelrun::modelrun(modelinput *giveninput)
 
 modelrun::~modelrun()
 {
-  std::cout << "Delete modelrun!" << std::endl;
+  //std::cout << "Delete modelrun!" << std::endl;
 }

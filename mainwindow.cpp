@@ -219,6 +219,7 @@ void MainWindow::newrun()
   ui->modelRunTree->setCurrentItem(point);
 
   runTreeChanged();
+  updateSurfacetype(0);
 
   // CvH runTreeChanged also triggers loadFormData
   // loadFormData();
@@ -328,7 +329,7 @@ void MainWindow::runTreeChanged()
       font.setItalic(true);
       ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setFont(1,font);
       ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setTextColor(1,Qt::gray);
-      std::cout << "not equal!" << std::endl;
+      //std::cout << "not equal!" << std::endl;
     }
     else
     {
@@ -338,7 +339,7 @@ void MainWindow::runTreeChanged()
       font.setItalic(false);
       ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setFont(1,font);
       ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setTextColor(1,Qt::black);
-      std::cout << "not equal!" << std::endl;
+      //std::cout << "not equal!" << std::endl;
     }
   }
 
@@ -751,7 +752,7 @@ void MainWindow::loadFormData()
     if(!modelrunlist->find(n).value().surfaceadvanced)
     {
       ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
-      updateSurfacetype(modelrunlist->find(n).value().surfacestatus);
+      //updateSurfacetype(modelrunlist->find(n).value().surfacestatus);
 
       // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
       ui->surface_advanced_group->setEnabled(false);
@@ -975,19 +976,13 @@ void MainWindow::showGraph(QMap<int, modelrun> *main, QList<int> *selected)
   graph->setWindowFlags(Qt::Window);
   graph->show();
   plotwindowList.prepend(graph);
-  //numgraphs++;
-  //std::cout << numgraphs << std::endl;
-  std::cout << "size plotwindowlist: " << plotwindowList.size() << std::endl;
   connect(this, SIGNAL(rundeleted(int)), graph, SLOT(deleterun(int)));
   connect(this, SIGNAL(runadded(int)), graph, SLOT(addrun(int)));
   connect(graph, SIGNAL(graphclosed(plotwindow*)), this, SLOT(graphClosed(plotwindow*)));
 }
 
 void MainWindow::graphClosed(plotwindow* plot){
-  //numgraphs--;
-  //std::cout << numgraphs << std::endl;
   plotwindowList.removeAt(plotwindowList.indexOf(plot));
-  std::cout << "size plotwindowlist: " << plotwindowList.size() << std::endl;
 }
 
 void MainWindow::exportRuns()
@@ -1592,8 +1587,8 @@ void MainWindow::updateSurfacetype(int i)
 
   ui->input_surface_cveg->setText(QString::number(surfacetypes[i].cveg));
   ui->input_surface_Lambda->setText(QString::number(surfacetypes[i].Lambda));
-  //ui->input_surface_z0m->setText(QString::number(surfacetypes[i].z0m));
-  //ui->input_surface_z0h->setText(QString::number(surfacetypes[i].z0h));
+  ui->input_surfacelayer_z0m->setText(QString::number(surfacetypes[i].z0m));
+  ui->input_surfacelayer_z0h->setText(QString::number(surfacetypes[i].z0h));
 
 //  QMap<int,modelrun>::iterator n = modelrunlist->find(id);
 //  while(n != modelrunlist->end())
