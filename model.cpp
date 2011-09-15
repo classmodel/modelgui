@@ -432,6 +432,8 @@ void model::initmodel()
   if(sw_chem)
     runchemmodel(dt / 1000.);
 
+  statistics();
+
   if(hasoutput)
   {
     output->reset(nsc);
@@ -478,6 +480,8 @@ void model::runmodel()
 
     if(sw_chem)
       runchemmodel(dt);
+
+    statistics();
 
     store();
   }
@@ -654,7 +658,10 @@ void model::runmlmodel()
     dutend      = gammau * we - utend;
     dvtend      = gammav * we - vtend;
   }
+}
 
+void model::statistics()
+{
   // LCL (Bolton (2008), The Computation of Equivalent Potential Temperature)
   double e       = q * Ps / 0.622;
   double Td      = 1. / ((1./273.15) - (Rv/Lv)*log(e/611.));

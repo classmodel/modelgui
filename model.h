@@ -31,6 +31,8 @@ private:
   void initchemmodel();
   void runchemmodel(double);
 
+  void statistics();
+
   void store();
 
   double ribtol(double, double, double, double);
