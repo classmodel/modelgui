@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
+    <width>700</width>
     <height>630</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>650</width>
+    <width>700</width>
     <height>630</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>650</width>
+    <width>700</width>
     <height>630</height>
    </size>
   </property>
@@ -43,7 +43,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>470</width>
+      <width>525</width>
       <height>531</height>
      </rect>
     </property>
@@ -57,7 +57,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -68,7 +68,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>211</width>
+        <width>245</width>
         <height>141</height>
        </rect>
       </property>
@@ -80,11 +80,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
+         <width>221</width>
          <height>121</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="modelsettings_grid" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="modelsettings_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
@@ -125,6 +125,18 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_time">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>total simulation time</string>
           </property>
@@ -164,6 +176,12 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_timestep">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="toolTip">
            <string>time step</string>
           </property>
@@ -190,6 +208,12 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_sinperiod">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="toolTip">
            <string>period of diurnal cycle</string>
           </property>
@@ -235,7 +259,7 @@
        <rect>
         <x>10</x>
         <y>190</y>
-        <width>211</width>
+        <width>245</width>
         <height>231</height>
        </rect>
       </property>
@@ -247,11 +271,14 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
-         <height>214</height>
+         <width>221</width>
+         <height>211</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="heat_grid" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="heat_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
         <item row="1" column="0">
          <widget class="QLabel" name="label_heat_theta">
           <property name="toolTip">
@@ -293,6 +320,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_heat_theta">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial mixed-layer potential temperature</string>
           </property>
@@ -489,9 +522,9 @@
      <widget class="QGroupBox" name="ml_group">
       <property name="geometry">
        <rect>
-        <x>230</x>
+        <x>265</x>
         <y>10</y>
-        <width>221</width>
+        <width>245</width>
         <height>171</height>
        </rect>
       </property>
@@ -503,11 +536,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>232</width>
          <height>151</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="ml_grid" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="ml_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
@@ -526,6 +559,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_ml_h">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial ABL height</string>
           </property>
@@ -698,9 +737,9 @@
      <widget class="QGroupBox" name="moisture_group">
       <property name="geometry">
        <rect>
-        <x>230</x>
+        <x>265</x>
         <y>190</y>
-        <width>221</width>
+        <width>245</width>
         <height>231</height>
        </rect>
       </property>
@@ -712,11 +751,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>232</width>
          <height>214</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="moisture_grid" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="moisture_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
@@ -735,6 +774,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_moisture_q">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial mixed-layer specific humidity</string>
           </property>
@@ -963,7 +1008,7 @@
        <rect>
         <x>10</x>
         <y>100</y>
-        <width>211</width>
+        <width>245</width>
         <height>171</height>
        </rect>
       </property>
@@ -975,11 +1020,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
+         <width>231</width>
          <height>153</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="wind_U_grid" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="wind_U_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
@@ -998,6 +1043,18 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_wind_u">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial mixed-layer u-wind speed</string>
           </property>
@@ -1155,9 +1212,9 @@
      <widget class="QGroupBox" name="wind_V_group">
       <property name="geometry">
        <rect>
-        <x>230</x>
+        <x>265</x>
         <y>100</y>
-        <width>221</width>
+        <width>245</width>
         <height>171</height>
        </rect>
       </property>
@@ -1169,11 +1226,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>231</width>
          <height>153</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="u_comp_grid_2" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="u_comp_grid_2" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
@@ -1192,6 +1249,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_wind_v">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial mixed-layer v-wind speed</string>
           </property>
@@ -1349,9 +1412,9 @@
      <widget class="QGroupBox" name="scalar_group">
       <property name="geometry">
        <rect>
-        <x>230</x>
+        <x>265</x>
         <y>280</y>
-        <width>221</width>
+        <width>245</width>
         <height>211</height>
        </rect>
       </property>
@@ -1363,11 +1426,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>231</width>
          <height>185</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="scalar_grid" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="scalar_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <item row="1" column="0">
          <widget class="QLabel" name="label_sca_sca">
           <property name="toolTip">
@@ -1409,6 +1472,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_sca_sca">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial mixed-layer potential temperature</string>
           </property>
@@ -1594,7 +1663,7 @@
        <rect>
         <x>10</x>
         <y>280</y>
-        <width>211</width>
+        <width>245</width>
         <height>211</height>
        </rect>
       </property>
@@ -1606,11 +1675,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
+         <width>231</width>
          <height>185</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="CO2_grid" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="CO2_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <item row="1" column="0">
          <widget class="QLabel" name="label_CO2_CO2">
           <property name="toolTip">
@@ -1652,6 +1721,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_CO2_CO2">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial mixed-layer potential temperature</string>
           </property>
@@ -1837,7 +1912,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>441</width>
+        <width>501</width>
         <height>80</height>
        </rect>
       </property>
@@ -1849,11 +1924,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
+         <width>231</width>
          <height>61</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="wind_grid_1" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="wind_grid_1" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <item row="1" column="0">
          <widget class="QLabel" name="label_wind_fc">
           <property name="toolTip">
@@ -1911,13 +1986,13 @@
       <widget class="QWidget" name="gridLayoutWidget_30">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>260</x>
          <y>10</y>
-         <width>201</width>
+         <width>231</width>
          <height>61</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="wind_grid_2" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="wind_grid_2" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <item row="1" column="0">
          <widget class="QLabel" name="label_wind_ustar">
           <property name="toolTip">
@@ -2371,7 +2446,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>213</width>
          <height>88</height>
         </rect>
        </property>
@@ -3450,7 +3525,7 @@
         <rect>
          <x>10</x>
          <y>210</y>
-         <width>201</width>
+         <width>220</width>
          <height>186</height>
         </rect>
        </property>
@@ -3755,7 +3830,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>421</width>
+         <width>437</width>
          <height>37</height>
         </rect>
        </property>
@@ -6060,10 +6135,10 @@
    <widget class="QGroupBox" name="modelrunsGroup">
     <property name="geometry">
      <rect>
-      <x>490</x>
+      <x>542</x>
       <y>20</y>
       <width>150</width>
-      <height>441</height>
+      <height>471</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -6096,7 +6171,7 @@
        <x>15</x>
        <y>240</y>
        <width>121</width>
-       <height>171</height>
+       <height>193</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -6105,7 +6180,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>35</height>
          </size>
         </property>
         <property name="toolTip">
@@ -6121,7 +6196,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>35</height>
          </size>
         </property>
         <property name="toolTip">
@@ -6137,7 +6212,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>35</height>
          </size>
         </property>
         <property name="toolTip">
@@ -6153,7 +6228,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>35</height>
          </size>
         </property>
         <property name="toolTip">
@@ -6169,7 +6244,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>40</height>
+          <height>45</height>
          </size>
         </property>
         <property name="font">
@@ -6230,7 +6305,7 @@
       <x>10</x>
       <y>550</y>
       <width>141</width>
-      <height>31</height>
+      <height>35</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -6238,6 +6313,12 @@
       <horstretch>0</horstretch>
       <verstretch>0</verstretch>
      </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>35</height>
+     </size>
     </property>
     <property name="toolTip">
      <string>Start simulating the selected run(s)</string>
@@ -6252,7 +6333,7 @@
       <x>160</x>
       <y>550</y>
       <width>81</width>
-      <height>31</height>
+      <height>35</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -6260,6 +6341,12 @@
       <horstretch>0</horstretch>
       <verstretch>0</verstretch>
      </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>35</height>
+     </size>
     </property>
     <property name="toolTip">
      <string>Discard changes</string>
@@ -6274,7 +6361,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>650</width>
+     <width>700</width>
      <height>22</height>
     </rect>
    </property>
