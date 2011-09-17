@@ -1578,7 +1578,7 @@
        <rect>
         <x>10</x>
         <y>100</y>
-        <width>245</width>
+        <width>251</width>
         <height>171</height>
        </rect>
       </property>
@@ -1590,8 +1590,8 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
-         <height>153</height>
+         <width>241</width>
+         <height>151</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="wind_U_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -1600,6 +1600,24 @@
         </property>
         <item row="1" column="0">
          <widget class="QLabel" name="label_wind_u">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -1614,15 +1632,21 @@
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_wind_u">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="minimumSize">
            <size>
-            <width>60</width>
+            <width>70</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="toolTip">
@@ -1635,6 +1659,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_wind_ug">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -1648,6 +1690,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_wind_ug">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>geostrophic  u-wind speed</string>
           </property>
@@ -1658,6 +1718,24 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_wind_gammau">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -1671,6 +1749,24 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_wind_gammau">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>free atmosphere u-wind speed lapse rate</string>
           </property>
@@ -1681,6 +1777,24 @@
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_wind_advu">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -1694,6 +1808,24 @@
         </item>
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_wind_advu">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>advection of u-wind</string>
           </property>
@@ -1782,9 +1914,9 @@
      <widget class="QGroupBox" name="wind_V_group">
       <property name="geometry">
        <rect>
-        <x>265</x>
+        <x>270</x>
         <y>100</y>
-        <width>245</width>
+        <width>251</width>
         <height>171</height>
        </rect>
       </property>
@@ -1796,8 +1928,8 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
-         <height>153</height>
+         <width>241</width>
+         <height>151</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="u_comp_grid_2" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -1806,6 +1938,24 @@
         </property>
         <item row="1" column="0">
          <widget class="QLabel" name="label_wind_v">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -1819,10 +1969,22 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_wind_v">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
-            <width>60</width>
+            <width>70</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="toolTip">
@@ -1835,6 +1997,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_wind_vg">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -1848,6 +2028,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_wind_vg">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>geostrophic  v-wind speed</string>
           </property>
@@ -1858,6 +2056,24 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_wind_gammav">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -1871,6 +2087,24 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_wind_gammav">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>free atmosphere v-wind speed lapse rate</string>
           </property>
@@ -1881,6 +2115,24 @@
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_wind_advv">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -1894,6 +2146,24 @@
         </item>
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_wind_advv">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>advection of v-wind</string>
           </property>
@@ -1982,10 +2252,10 @@
      <widget class="QGroupBox" name="scalar_group">
       <property name="geometry">
        <rect>
-        <x>265</x>
+        <x>270</x>
         <y>280</y>
-        <width>245</width>
-        <height>211</height>
+        <width>251</width>
+        <height>201</height>
        </rect>
       </property>
       <property name="title">
@@ -1996,13 +2266,31 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
-         <height>185</height>
+         <width>241</width>
+         <height>181</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="scalar_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <item row="1" column="0">
          <widget class="QLabel" name="label_sca_sca">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2016,6 +2304,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_sca_dsca">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2029,6 +2335,24 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_sca_gammasca">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2042,10 +2366,22 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_sca_sca">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
-            <width>60</width>
+            <width>70</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="toolTip">
@@ -2061,6 +2397,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_sca_dsca">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial temperature jump at h</string>
           </property>
@@ -2074,6 +2428,24 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_sca_gammasca">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>free atmosphere potential temperature lapse rate</string>
           </property>
@@ -2087,6 +2459,24 @@
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_sca_wsca">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2100,6 +2490,24 @@
         </item>
         <item row="5" column="1">
          <widget class="QLineEdit" name="input_sca_wsca">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>surface kinematic heat flux</string>
           </property>
@@ -2187,6 +2595,24 @@
         </item>
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_sca_advsca">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>advection of heat</string>
           </property>
@@ -2200,6 +2626,24 @@
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_sca_advsca">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2233,8 +2677,8 @@
        <rect>
         <x>10</x>
         <y>280</y>
-        <width>245</width>
-        <height>211</height>
+        <width>251</width>
+        <height>201</height>
        </rect>
       </property>
       <property name="title">
@@ -2245,13 +2689,31 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
-         <height>185</height>
+         <width>241</width>
+         <height>181</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="CO2_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <item row="1" column="0">
          <widget class="QLabel" name="label_CO2_CO2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2265,6 +2727,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_CO2_dCO2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2278,6 +2758,24 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_CO2_gammaCO2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2291,10 +2789,22 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_CO2_CO2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
-            <width>60</width>
+            <width>70</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="toolTip">
@@ -2310,6 +2820,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_CO2_dCO2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial temperature jump at h</string>
           </property>
@@ -2323,6 +2851,24 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_CO2_gammaCO2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>free atmosphere potential temperature lapse rate</string>
           </property>
@@ -2336,11 +2882,29 @@
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_CO2_wCO2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;(w'CO2')&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s &lt;/span&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;(w'CO&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;2 &lt;/span&gt;')&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s &lt;/span&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2349,6 +2913,24 @@
         </item>
         <item row="5" column="1">
          <widget class="QLineEdit" name="input_CO2_wCO2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>surface kinematic heat flux</string>
           </property>
@@ -2436,6 +3018,24 @@
         </item>
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_CO2_CO2adv">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>advection of heat</string>
           </property>
@@ -2449,6 +3049,24 @@
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_CO2_C02adv">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2482,7 +3100,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>501</width>
+        <width>511</width>
         <height>80</height>
        </rect>
       </property>
@@ -2494,13 +3112,31 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>241</width>
          <height>61</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="wind_grid_1" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <item row="1" column="0">
          <widget class="QLabel" name="label_wind_fc">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2514,6 +3150,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_wind_fc">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>coriolis parameter</string>
           </property>
@@ -2556,15 +3210,33 @@
       <widget class="QWidget" name="gridLayoutWidget_30">
        <property name="geometry">
         <rect>
-         <x>260</x>
+         <x>270</x>
          <y>10</y>
-         <width>231</width>
+         <width>241</width>
          <height>61</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="wind_grid_2" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <item row="1" column="0">
          <widget class="QLabel" name="label_wind_ustar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -2578,6 +3250,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_wind_ustar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>surface friction velocity</string>
           </property>
