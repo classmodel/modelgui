@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>720</width>
+    <width>725</width>
     <height>630</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>720</width>
+    <width>725</width>
     <height>630</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>720</width>
+    <width>725</width>
     <height>630</height>
    </size>
   </property>
@@ -43,7 +43,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>541</width>
+      <width>551</width>
       <height>531</height>
      </rect>
     </property>
@@ -780,7 +780,7 @@
      <widget class="QGroupBox" name="ml_group">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>280</x>
         <y>10</y>
         <width>255</width>
         <height>171</height>
@@ -1133,7 +1133,7 @@
      <widget class="QGroupBox" name="moisture_group">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>280</x>
         <y>190</y>
         <width>255</width>
         <height>231</height>
@@ -6705,7 +6705,7 @@
    <widget class="QGroupBox" name="modelrunsGroup">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>570</x>
       <y>20</y>
       <width>150</width>
       <height>471</height>
@@ -6931,7 +6931,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>720</width>
+     <width>725</width>
      <height>21</height>
     </rect>
    </property>
