@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
+    <width>720</width>
     <height>630</height>
    </rect>
   </property>
@@ -18,19 +18,19 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>700</width>
+    <width>720</width>
     <height>630</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>700</width>
+    <width>720</width>
     <height>630</height>
    </size>
   </property>
   <property name="baseSize">
    <size>
-    <width>650</width>
+    <width>720</width>
     <height>630</height>
    </size>
   </property>
@@ -43,7 +43,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>531</width>
+      <width>541</width>
       <height>531</height>
      </rect>
     </property>
@@ -68,7 +68,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>245</width>
+        <width>255</width>
         <height>141</height>
        </rect>
       </property>
@@ -80,7 +80,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>241</width>
          <height>121</height>
         </rect>
        </property>
@@ -343,7 +343,7 @@
        <rect>
         <x>10</x>
         <y>190</y>
-        <width>245</width>
+        <width>255</width>
         <height>231</height>
        </rect>
       </property>
@@ -355,7 +355,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>241</width>
          <height>211</height>
         </rect>
        </property>
@@ -780,9 +780,9 @@
      <widget class="QGroupBox" name="ml_group">
       <property name="geometry">
        <rect>
-        <x>265</x>
+        <x>270</x>
         <y>10</y>
-        <width>245</width>
+        <width>255</width>
         <height>171</height>
        </rect>
       </property>
@@ -794,7 +794,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>241</width>
          <height>151</height>
         </rect>
        </property>
@@ -1133,9 +1133,9 @@
      <widget class="QGroupBox" name="moisture_group">
       <property name="geometry">
        <rect>
-        <x>265</x>
+        <x>270</x>
         <y>190</y>
-        <width>245</width>
+        <width>255</width>
         <height>231</height>
        </rect>
       </property>
@@ -1147,7 +1147,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>241</width>
          <height>211</height>
         </rect>
        </property>
@@ -6705,7 +6705,7 @@
    <widget class="QGroupBox" name="modelrunsGroup">
     <property name="geometry">
      <rect>
-      <x>542</x>
+      <x>560</x>
       <y>20</y>
       <width>150</width>
       <height>471</height>
@@ -6931,7 +6931,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>700</width>
+     <width>720</width>
      <height>21</height>
     </rect>
    </property>
