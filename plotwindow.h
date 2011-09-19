@@ -56,6 +56,7 @@ protected:
   void mouseMoveEvent(QMouseEvent *);
 
 private:
+  bool MacOS;
   Ui::plotwindow *ui;
   void closeEvent(QCloseEvent *event);
   QStringList outputnames;

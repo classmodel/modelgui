@@ -50,6 +50,7 @@ public:
 
   bool autoaxis;
   bool scatterplot;
+  bool MacOS;
 
   // Function to translate real coordinates (x,y) to widget coordinates
   double transfx(double x, double xscale, double xmin, int mode);

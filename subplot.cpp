@@ -271,7 +271,17 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     else                      // Plot on screen
     {
       paint.begin(this);
-      QFont font("sans-serif", 9, QFont::Normal);
+      QFont font;
+      if(MacOS)
+        font.setPointSize(12);
+      else
+        font.setPointSize(9);
+
+
+
+              //("sans-serif", 13, QFont::Normal);
+
+
       paint.setFont(font);
     }
 

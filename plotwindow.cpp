@@ -8,6 +8,15 @@
 plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, QMainWindow *parent) : QMainWindow(parent=0), ui(new Ui::plotwindow)
 {
   ui->setupUi(this);
+
+  // Switch for Mac OS (X); changes:
+  // 1) Detaches and positions the docks (within the spirit of Mac OS)
+  // 2) Forces closing of docks
+  // 3) Changes font-size plots (in subplot.cpp)
+  MacOS = true;
+  if(MacOS)
+    this->setAttribute(Qt::WA_DeleteOnClose,true);
+
   selectedruns = new QList<int>;
   runlist = runs;
 
@@ -20,6 +29,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
+  // Set MacOS switch in plotarea
+  plotar->MacOS = MacOS;
 
   // Signal/slots -------------------------------------------------------------------------------------
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
@@ -274,8 +285,27 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       treegroup->addChild(treeitem);
     }
   }
-
   ui->plotvar->addItems(varnames);
+
+  // BvS; Extra code to automatically detach and position docks for Mac OS (X)
+  if(MacOS)
+  {
+    ui->AdvancedDock->setFloating(true);
+    ui->PlotsettingsDock->setFloating(true);
+    ui->ModelruntreeDock->setFloating(true);
+
+    this->resize(400,400);
+
+    ui->AdvancedDock->resize(350,425);
+    ui->AdvancedDock->move(this->pos().x()+420,this->pos().y());
+
+    ui->PlotsettingsDock->setMinimumWidth(200);
+    ui->PlotsettingsDock->move(this->pos().x()-220,this->pos().y()+225);
+
+    ui->ModelruntreeDock->setMinimumWidth(200);
+    ui->ModelruntreeDock->resize(200,200);
+    ui->ModelruntreeDock->move(this->pos().x()-220,this->pos().y());
+  }
 }
 
 plotwindow::~plotwindow()
@@ -341,7 +371,6 @@ void plotwindow::togglemodelruns(bool checkstate)
 }
 // ++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
 void plotwindow::updateselectedruns()  // create QList containing ID's of selected runs
 {
   if(ui->modelruntree->topLevelItemCount() > 0)
@@ -358,8 +387,6 @@ void plotwindow::updateselectedruns()  // create QList containing ID's of select
 
   plotar->update();
 }
-
-
 
 void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
 {
