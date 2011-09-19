@@ -3180,6 +3180,12 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="baseSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>coriolis parameter</string>
           </property>
@@ -8262,7 +8268,7 @@
         <x>10</x>
         <y>220</y>
         <width>511</width>
-        <height>201</height>
+        <height>211</height>
        </rect>
       </property>
       <property name="title">
