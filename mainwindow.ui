@@ -47,10 +47,22 @@
       <height>531</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="minimumSize">
      <size>
-      <width>470</width>
+      <width>70</width>
       <height>410</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
      </size>
     </property>
     <property name="toolTip">
@@ -3327,7 +3339,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>211</width>
+        <width>251</width>
         <height>171</height>
        </rect>
       </property>
@@ -3339,7 +3351,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
+         <width>241</width>
          <height>153</height>
         </rect>
        </property>
@@ -3349,6 +3361,24 @@
         </property>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_rad_lat">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>latitude</string>
           </property>
@@ -3359,6 +3389,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_rad_lat">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -3385,6 +3433,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_rad_lon">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -3398,6 +3464,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_rad_lon">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>longitude</string>
           </property>
@@ -3421,6 +3505,24 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_rad_DOY">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -3434,6 +3536,24 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_rad_DOY">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>day of the year</string>
           </property>
@@ -3457,6 +3577,24 @@
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_rad_time">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -3470,6 +3608,24 @@
         </item>
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_rad_time">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>time of the day</string>
           </property>
@@ -3525,9 +3681,9 @@
      <widget class="QGroupBox" name="rad_group2">
       <property name="geometry">
        <rect>
-        <x>230</x>
+        <x>270</x>
         <y>10</y>
-        <width>221</width>
+        <width>251</width>
         <height>111</height>
        </rect>
       </property>
@@ -3539,7 +3695,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>241</width>
          <height>91</height>
         </rect>
        </property>
@@ -3549,6 +3705,24 @@
         </property>
         <item row="1" column="0">
          <widget class="QLabel" name="label_rad_Qnet">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -3562,6 +3736,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_rad_Qnet">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>net radiation</string>
           </property>
@@ -3598,6 +3790,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_rad_clouds">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>cloud cover fraction (0-1)</string>
           </property>
@@ -3608,6 +3818,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_rad_clouds">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -3638,9 +3866,9 @@
      <widget class="QGroupBox" name="cu_group">
       <property name="geometry">
        <rect>
-        <x>230</x>
+        <x>270</x>
         <y>130</y>
-        <width>221</width>
+        <width>251</width>
         <height>51</height>
        </rect>
       </property>
@@ -3652,7 +3880,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>241</width>
          <height>31</height>
         </rect>
        </property>
@@ -3675,6 +3903,24 @@
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="cu_dummy_label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -3692,9 +3938,9 @@
      <widget class="QGroupBox" name="rad_group_2">
       <property name="geometry">
        <rect>
-        <x>230</x>
+        <x>270</x>
         <y>190</y>
-        <width>221</width>
+        <width>251</width>
         <height>111</height>
        </rect>
       </property>
@@ -3706,7 +3952,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>213</width>
+         <width>241</width>
          <height>88</height>
         </rect>
        </property>
@@ -3716,6 +3962,24 @@
         </property>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_rad_dFz">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Cloud top radiative divergence</string>
           </property>
@@ -3726,6 +3990,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_rad_dFz">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -3816,7 +4098,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>211</width>
+        <width>251</width>
         <height>91</height>
        </rect>
       </property>
@@ -3828,7 +4110,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
+         <width>231</width>
          <height>61</height>
         </rect>
        </property>
@@ -3868,6 +4150,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="unitlabel_surface_Ts_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -3887,7 +4187,7 @@
        <rect>
         <x>10</x>
         <y>130</y>
-        <width>441</width>
+        <width>511</width>
         <height>141</height>
        </rect>
       </property>
@@ -3899,8 +4199,8 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>421</width>
-         <height>122</height>
+         <width>491</width>
+         <height>121</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_moisture_grid_2" columnminimumwidth="180,85,0,80">
@@ -3930,13 +4230,51 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QComboBox" name="input_soil_soiltypes"/>
+         <widget class="QComboBox" name="input_soil_soiltypes">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QComboBox" name="input_surface_surfacetypes"/>
+         <widget class="QComboBox" name="input_surface_surfacetypes">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QComboBox" name="sw_jarvis">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Surface resistance model</string>
           </property>
@@ -3954,6 +4292,18 @@
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="label_surface_Ts">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>115</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -3967,6 +4317,24 @@
         </item>
         <item row="1" column="2">
          <widget class="QLineEdit" name="input_surface_Ts">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial surface temperature</string>
           </property>
@@ -4003,6 +4371,24 @@
         </item>
         <item row="2" column="2">
          <widget class="QLineEdit" name="input_surface_Wl">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>equivalent water layer depth for wet vegetation</string>
           </property>
@@ -4024,15 +4410,34 @@
           </property>
          </widget>
         </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="label_surface_Wl_2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>28</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
      <widget class="QGroupBox" name="surfacelayer_group">
       <property name="geometry">
        <rect>
-        <x>230</x>
+        <x>270</x>
         <y>10</y>
-        <width>221</width>
+        <width>251</width>
         <height>111</height>
        </rect>
       </property>
@@ -4044,8 +4449,8 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
-         <height>87</height>
+         <width>241</width>
+         <height>91</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surfacelayer_grid" columnminimumwidth="50,0,80">
@@ -4067,6 +4472,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_surfacelayer_z0m">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>roughness length for momentum</string>
           </property>
@@ -4077,6 +4500,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_surfacelayer_z0m">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4119,6 +4560,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_surfacelayer_z0h">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>roughness length for scalars</string>
           </property>
@@ -4129,6 +4588,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_surfacelayer_z0h">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4148,7 +4625,7 @@
        <rect>
         <x>10</x>
         <y>280</y>
-        <width>441</width>
+        <width>511</width>
         <height>111</height>
        </rect>
       </property>
@@ -4160,7 +4637,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
+         <width>231</width>
          <height>91</height>
         </rect>
        </property>
@@ -4170,6 +4647,24 @@
         </property>
         <item row="1" column="0">
          <widget class="QLabel" name="label_soil_Tsoil">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4183,6 +4678,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_soil_Tsoil">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>temperature top soil layer</string>
           </property>
@@ -4193,6 +4706,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_soil_T2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4206,6 +4737,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_soil_T2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>temperature deeper soil layer</string>
           </property>
@@ -4267,10 +4816,10 @@
       <widget class="QWidget" name="gridLayoutWidget_10">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>270</x>
          <y>10</y>
-         <width>201</width>
-         <height>89</height>
+         <width>241</width>
+         <height>91</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_moisture_grid" columnminimumwidth="50,0,80">
@@ -4279,6 +4828,24 @@
         </property>
         <item row="1" column="0">
          <widget class="QLabel" name="label_soil_Wg">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4292,6 +4859,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_soil_Wg">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>volumetric water content top soil layer</string>
           </property>
@@ -4302,6 +4887,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_soil_W2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4315,6 +4918,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_soil_W2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>volumetric water content deeper soil layer</string>
           </property>
@@ -4382,7 +5003,7 @@
       <widget class="QLabel" name="label_soil_heat_2">
        <property name="geometry">
         <rect>
-         <x>130</x>
+         <x>160</x>
          <y>10</y>
          <width>189</width>
          <height>25</height>
@@ -4418,7 +5039,7 @@
        <rect>
         <x>10</x>
         <y>70</y>
-        <width>211</width>
+        <width>251</width>
         <height>81</height>
        </rect>
       </property>
@@ -4430,11 +5051,11 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
+         <width>241</width>
          <height>61</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="species_foto_grid" columnminimumwidth="50,0,60">
+       <layout class="QGridLayout" name="species_foto_grid" columnminimumwidth="0,0,0">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
@@ -4465,6 +5086,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_species_photolysis_tref">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Reference time</string>
           </property>
@@ -4478,6 +5117,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_species_photolysis_tref">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4510,8 +5167,8 @@
        <rect>
         <x>10</x>
         <y>160</y>
-        <width>211</width>
-        <height>201</height>
+        <width>251</width>
+        <height>211</height>
        </rect>
       </property>
       <property name="title">
@@ -4522,8 +5179,8 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
-         <height>182</height>
+         <width>241</width>
+         <height>191</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="species_ref_grid" columnminimumwidth="50,0,60">
@@ -4532,6 +5189,24 @@
         </property>
         <item row="2" column="0">
          <widget class="QLabel" name="label_species_ref_Tft">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4545,6 +5220,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_species_ref_Tft">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>free tropospheric temperature</string>
           </property>
@@ -4558,6 +5251,24 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_species_ref_qcbl">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4571,6 +5282,24 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_species_ref_qcbl">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>mixed-layer specific humidity</string>
           </property>
@@ -4610,6 +5339,24 @@
         </item>
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_species_ref_qft">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>free tropospheric specific humidity</string>
           </property>
@@ -4661,6 +5408,24 @@
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_species_ref_qft">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4674,6 +5439,24 @@
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_species_ref_pref">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4687,6 +5470,24 @@
         </item>
         <item row="5" column="1">
          <widget class="QLineEdit" name="input_species_ref_pref">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>reference pressure</string>
           </property>
@@ -4726,6 +5527,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_species_ref_Tcbl">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4739,6 +5558,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_species_ref_Tcbl">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>mixed-layer temperature</string>
           </property>
@@ -4756,10 +5593,10 @@
      <widget class="QGroupBox" name="species_species_group">
       <property name="geometry">
        <rect>
-        <x>230</x>
+        <x>270</x>
         <y>10</y>
-        <width>221</width>
-        <height>401</height>
+        <width>251</width>
+        <height>411</height>
        </rect>
       </property>
       <property name="title">
@@ -4770,7 +5607,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>231</width>
          <height>191</height>
         </rect>
        </property>
@@ -4785,13 +5622,31 @@
         <rect>
          <x>10</x>
          <y>210</y>
-         <width>220</width>
-         <height>186</height>
+         <width>231</width>
+         <height>191</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="species_species_grid" columnminimumwidth="50,0,80">
         <item row="0" column="0">
          <widget class="QLabel" name="label_species_scalar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4805,6 +5660,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_species_dscalar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4818,6 +5691,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_species_gammascalar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4831,6 +5722,24 @@
         </item>
         <item row="0" column="1">
          <widget class="QLineEdit" name="input_species_scalar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial scalar concentration</string>
           </property>
@@ -4844,6 +5753,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_species_dscalar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>initial scalar jump at h</string>
           </property>
@@ -4857,6 +5784,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_species_gammascalar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>free atmosphere scalar lapse rate</string>
           </property>
@@ -4870,6 +5815,24 @@
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_species_wscalar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4883,6 +5846,24 @@
         </item>
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_species_wscalar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>surface kinematic scalar flux</string>
           </property>
@@ -4967,6 +5948,24 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_species_advscalar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -4981,6 +5980,24 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_species_advscalar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>advection of scalar</string>
           </property>
@@ -5005,6 +6022,37 @@
           </property>
          </widget>
         </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_species_wscalar_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>  </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -5013,7 +6061,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>211</width>
+        <width>251</width>
         <height>51</height>
        </rect>
       </property>
@@ -5025,7 +6073,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>191</width>
+         <width>241</width>
          <height>31</height>
         </rect>
        </property>
@@ -5060,6 +6108,24 @@
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_chem_dummy">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -5078,7 +6144,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>441</width>
+        <width>511</width>
         <height>481</height>
        </rect>
       </property>
@@ -5090,7 +6156,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>437</width>
+         <width>491</width>
          <height>37</height>
         </rect>
        </property>
@@ -5167,7 +6233,7 @@
         <rect>
          <x>10</x>
          <y>60</y>
-         <width>411</width>
+         <width>491</width>
          <height>411</height>
         </rect>
        </property>
@@ -5184,8 +6250,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>394</width>
+          <y>-339</y>
+          <width>474</width>
           <height>750</height>
          </rect>
         </property>
@@ -5200,7 +6266,7 @@
           <rect>
            <x>10</x>
            <y>10</y>
-           <width>389</width>
+           <width>451</width>
            <height>731</height>
           </rect>
          </property>
@@ -6704,7 +7770,7 @@
        <rect>
         <x>10</x>
         <y>60</y>
-        <width>441</width>
+        <width>511</width>
         <height>151</height>
        </rect>
       </property>
@@ -6716,7 +7782,7 @@
         <rect>
          <x>10</x>
          <y>40</y>
-         <width>191</width>
+         <width>231</width>
          <height>101</height>
         </rect>
        </property>
@@ -6726,6 +7792,24 @@
         </property>
         <item row="0" column="0">
          <widget class="QLabel" name="label_surface_LAI">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -6739,6 +7823,24 @@
         </item>
         <item row="0" column="1">
          <widget class="QLineEdit" name="input_surface_LAI">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>leaf area index</string>
           </property>
@@ -6749,6 +7851,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_surface_gD">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -6762,6 +7882,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_surface_gD">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>correction factor transpiration for VPD</string>
           </property>
@@ -6798,6 +7936,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_surface_rsmin">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>minimum resistance transpiration</string>
           </property>
@@ -6808,6 +7964,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_surface_rsmin">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -6837,9 +8011,9 @@
       <widget class="QWidget" name="gridLayoutWidget_18">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>260</x>
          <y>40</y>
-         <width>201</width>
+         <width>251</width>
          <height>101</height>
         </rect>
        </property>
@@ -6849,6 +8023,24 @@
         </property>
         <item row="2" column="0">
          <widget class="QLabel" name="label_surfaceLambda">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -6862,6 +8054,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_surface_Lambda">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>thermal diffusivity skin layer</string>
           </property>
@@ -6885,6 +8095,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_surface_cveg">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>vegetation fraction</string>
           </property>
@@ -6895,6 +8123,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_surface_cveg">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -6921,6 +8167,24 @@
         </item>
         <item row="0" column="1">
          <widget class="QLineEdit" name="input_surface_alpha">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>surface albedo</string>
           </property>
@@ -6931,6 +8195,24 @@
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_surface_alpha">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -6960,7 +8242,7 @@
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>110</x>
          <y>10</y>
          <width>271</width>
          <height>16</height>
@@ -6969,6 +8251,9 @@
        <property name="text">
         <string>Advanced surface</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </widget>
      <widget class="QGroupBox" name="soil_advanced_group">
@@ -6976,7 +8261,7 @@
        <rect>
         <x>10</x>
         <y>220</y>
-        <width>441</width>
+        <width>511</width>
         <height>201</height>
        </rect>
       </property>
@@ -6988,8 +8273,8 @@
         <rect>
          <x>10</x>
          <y>40</y>
-         <width>191</width>
-         <height>152</height>
+         <width>231</width>
+         <height>161</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_parameters_grid1" columnminimumwidth="50,0,60">
@@ -6998,6 +8283,24 @@
         </property>
         <item row="0" column="0">
          <widget class="QLabel" name="label_soil_wsat">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -7011,6 +8314,24 @@
         </item>
         <item row="0" column="1">
          <widget class="QLineEdit" name="input_soil_wsat">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>saturated volumetric water content ECMWF config</string>
           </property>
@@ -7021,6 +8342,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_soil_wfc">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -7034,6 +8373,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_soil_wfc">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>volumetric water content field capacity</string>
           </property>
@@ -7044,6 +8401,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_soil_wwilt">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>volumetric water content wilting point</string>
           </property>
@@ -7054,6 +8429,24 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_soil_c1sat">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>coefficient force term moisture</string>
           </property>
@@ -7064,6 +8457,24 @@
         </item>
         <item row="4" column="1">
          <widget class="QLineEdit" name="input_soil_c2ref">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>coefficient restore term moisture</string>
           </property>
@@ -7074,6 +8485,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_soil_wwilt">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -7087,6 +8516,24 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_soil_c1sat">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -7100,6 +8547,24 @@
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_soil_c2ref">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -7181,10 +8646,10 @@
       <widget class="QWidget" name="gridLayoutWidget_14">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>260</x>
          <y>40</y>
-         <width>201</width>
-         <height>121</height>
+         <width>251</width>
+         <height>131</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_parameters_grid2" columnminimumwidth="50,0,80">
@@ -7193,6 +8658,24 @@
         </property>
         <item row="0" column="0">
          <widget class="QLabel" name="label_soil_a">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -7206,6 +8689,24 @@
         </item>
         <item row="0" column="1">
          <widget class="QLineEdit" name="input_soil_a">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Clapp and Hornberger retention curve parameter a</string>
           </property>
@@ -7216,6 +8717,24 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_soil_b">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -7229,6 +8748,24 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="input_soil_b">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Clapp and Hornberger retention curve parameter b</string>
           </property>
@@ -7265,6 +8802,24 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="input_soil_p">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Clapp and Hornberger retention curve parameter p </string>
           </property>
@@ -7275,6 +8830,24 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="input_soil_CGsat">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>saturated soil conductivity for heat</string>
           </property>
@@ -7285,6 +8858,24 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_soil_p">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -7298,6 +8889,24 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_soil_CGsat">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
@@ -7340,14 +8949,20 @@
       <widget class="QLabel" name="label_2">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>110</x>
          <y>10</y>
          <width>271</width>
          <height>16</height>
         </rect>
        </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
        <property name="text">
         <string>Advanced soil</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </widget>
@@ -7356,7 +8971,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>441</width>
+        <width>511</width>
         <height>41</height>
        </rect>
       </property>
@@ -7366,7 +8981,7 @@
       <widget class="QCheckBox" name="sw_surface_advanced">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>60</x>
          <y>10</y>
          <width>207</width>
          <height>23</height>
@@ -7379,7 +8994,7 @@
       <widget class="QCheckBox" name="sw_soil_advanced">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>280</x>
          <y>10</y>
          <width>207</width>
          <height>23</height>
@@ -7398,7 +9013,7 @@
       <x>560</x>
       <y>20</y>
       <width>150</width>
-      <height>471</height>
+      <height>521</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -7416,7 +9031,7 @@
        <x>10</x>
        <y>60</y>
        <width>131</width>
-       <height>171</height>
+       <height>241</height>
       </rect>
      </property>
      <column>
@@ -7429,7 +9044,7 @@
      <property name="geometry">
       <rect>
        <x>15</x>
-       <y>240</y>
+       <y>310</y>
        <width>121</width>
        <height>203</height>
       </rect>
