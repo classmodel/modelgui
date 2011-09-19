@@ -132,7 +132,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
   if(modelrunlist->size() > 0)
     closeWarning();
 
-  if (plotwindowList.size() > 0)
+  if (plotwindowList.size() > 0 && closeCheck == true)
   {
     blockInput(true);
     for (int i = 0; i < plotwindowList.size(); i++)
