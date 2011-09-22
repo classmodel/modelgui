@@ -367,7 +367,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>247</width>
          <height>211</height>
         </rect>
        </property>
@@ -806,7 +806,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>247</width>
          <height>151</height>
         </rect>
        </property>
@@ -1159,7 +1159,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>247</width>
          <height>211</height>
         </rect>
        </property>
@@ -1603,7 +1603,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>151</height>
+         <height>153</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="wind_U_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -1941,7 +1941,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>151</height>
+         <height>153</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="u_comp_grid_2" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -2279,7 +2279,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>181</height>
+         <height>185</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="scalar_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -2702,7 +2702,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>181</height>
+         <height>185</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="CO2_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -3124,7 +3124,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>247</width>
          <height>61</height>
         </rect>
        </property>
@@ -3230,7 +3230,7 @@
         <rect>
          <x>270</x>
          <y>10</y>
-         <width>241</width>
+         <width>247</width>
          <height>61</height>
         </rect>
        </property>
@@ -4206,7 +4206,7 @@
          <x>10</x>
          <y>10</y>
          <width>491</width>
-         <height>121</height>
+         <height>130</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_moisture_grid_2" columnminimumwidth="180,85,0,80">
@@ -6257,7 +6257,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>474</width>
+          <width>476</width>
           <height>750</height>
          </rect>
         </property>
@@ -8280,7 +8280,7 @@
          <x>10</x>
          <y>40</y>
          <width>231</width>
-         <height>151</height>
+         <height>152</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_parameters_grid1" columnminimumwidth="50,0,60">
@@ -9243,7 +9243,7 @@
      <x>0</x>
      <y>0</y>
      <width>725</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

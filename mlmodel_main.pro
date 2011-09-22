@@ -1,4 +1,4 @@
-TARGET = mlmodel_main
+TARGET = CLASS
 TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
