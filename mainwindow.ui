@@ -3212,7 +3212,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>25</height>
+            <height>28</height>
            </size>
           </property>
           <property name="toolTip">
@@ -3312,7 +3312,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>25</height>
+            <height>28</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -5070,7 +5070,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>25</height>
+            <height>28</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -6052,7 +6052,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>  </string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -6256,7 +6256,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-339</y>
+          <y>0</y>
           <width>474</width>
           <height>750</height>
          </rect>
@@ -7789,7 +7789,7 @@
          <x>10</x>
          <y>40</y>
          <width>231</width>
-         <height>101</height>
+         <height>91</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_parameters_grid1" columnminimumwidth="50,0,60">
@@ -8020,7 +8020,7 @@
          <x>260</x>
          <y>40</y>
          <width>251</width>
-         <height>101</height>
+         <height>91</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_parameters_grid2" columnminimumwidth="50,0,80">
@@ -8280,7 +8280,7 @@
          <x>10</x>
          <y>40</y>
          <width>231</width>
-         <height>161</height>
+         <height>151</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_parameters_grid1" columnminimumwidth="50,0,60">
@@ -8655,7 +8655,7 @@
          <x>260</x>
          <y>40</y>
          <width>251</width>
-         <height>131</height>
+         <height>121</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_parameters_grid2" columnminimumwidth="50,0,80">

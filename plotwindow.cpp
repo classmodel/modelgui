@@ -13,7 +13,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   // 1) Detaches and positions the docks (within the spirit of Mac OS)
   // 2) Forces closing of docks
   // 3) Changes font-size plots (in subplot.cpp)
-  MacOS = true;
+  MacOS = false;
   if(MacOS)
     this->setAttribute(Qt::WA_DeleteOnClose,true);
 
@@ -29,6 +29,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
+
   // Set MacOS switch in plotarea
   plotar->MacOS = MacOS;
 
