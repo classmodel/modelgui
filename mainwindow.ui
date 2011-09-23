@@ -3230,7 +3230,7 @@
         <rect>
          <x>270</x>
          <y>10</y>
-         <width>241</width>
+         <width>247</width>
          <height>61</height>
         </rect>
        </property>
@@ -6257,7 +6257,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>474</width>
+          <width>476</width>
           <height>750</height>
          </rect>
         </property>
@@ -9052,7 +9052,7 @@
        <x>15</x>
        <y>300</y>
        <width>121</width>
-       <height>203</height>
+       <height>191</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -9061,7 +9061,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>35</height>
+          <height>30</height>
          </size>
         </property>
         <property name="toolTip">
@@ -9077,7 +9077,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>35</height>
+          <height>30</height>
          </size>
         </property>
         <property name="toolTip">
@@ -9093,7 +9093,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>35</height>
+          <height>30</height>
          </size>
         </property>
         <property name="toolTip">
@@ -9109,7 +9109,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>35</height>
+          <height>30</height>
          </size>
         </property>
         <property name="toolTip">
@@ -9125,7 +9125,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>45</height>
+          <height>30</height>
          </size>
         </property>
         <property name="font">
@@ -9186,7 +9186,7 @@
       <x>10</x>
       <y>545</y>
       <width>141</width>
-      <height>35</height>
+      <height>30</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -9198,7 +9198,7 @@
     <property name="minimumSize">
      <size>
       <width>0</width>
-      <height>35</height>
+      <height>30</height>
      </size>
     </property>
     <property name="toolTip">
@@ -9214,7 +9214,7 @@
       <x>160</x>
       <y>545</y>
       <width>81</width>
-      <height>35</height>
+      <height>30</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -9226,7 +9226,7 @@
     <property name="minimumSize">
      <size>
       <width>0</width>
-      <height>35</height>
+      <height>30</height>
      </size>
     </property>
     <property name="toolTip">
@@ -9243,7 +9243,7 @@
      <x>0</x>
      <y>0</y>
      <width>725</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
