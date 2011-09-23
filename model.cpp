@@ -535,7 +535,7 @@ void model::runmlmodel()
   else
     wstar  = 1e-6;
 
-  int inputdthetav  = (input.theta + input.dtheta) * (1. + 0.61 * (input.q + input.dq)) - input.theta * (1. + 0.61 * input.q);
+  double inputdthetav  = (input.theta + input.dtheta) * (1. + 0.61 * (input.q + input.dq)) - input.theta * (1. + 0.61 * input.q);
 
   // compute large scale vertical velocity
   ws = -omegas * h;
