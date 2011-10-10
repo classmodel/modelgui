@@ -307,7 +307,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     // Draw labels Y-axis
     // In case of constant values, draw line in center
-    if(ymax == ymin)
+    if(abs(ymax - ymin) < 1e-10)
     {
       ymax = ymax + 0.1 * ymax;
       ymin = ymin - 0.1 * ymin;
