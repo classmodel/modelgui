@@ -540,7 +540,6 @@ void model::runmlmodel()
   // compute large scale vertical velocity
   ws = -omegas * h;
 
-
   // Compensate free tropospheric warming due to subsidence
   double C_thetaft, C_qft, C_scaft, C_CO2ft;
   if(sw_wsft)

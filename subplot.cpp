@@ -174,7 +174,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
           {
             for(int n=0;n<4;n++)
             {
-              if (n == 1)
+              if (n == 1 || n == 0)
               {
                 if (xdata.data[m2+n] > xmax)
                   xmax = xdata.data[m2+n];
@@ -211,6 +211,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         {
           xmin = xmin - 0.01 * (xmax - xmin);
           xmax = xmax + 0.01 * (xmax - xmin);
+          std::cout << xmin << xmax << std::endl;
         }
 
         xmin_auto = xmin;
