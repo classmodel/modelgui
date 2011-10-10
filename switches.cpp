@@ -285,8 +285,14 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->zprof;
   else if (plotvar == "thetaprof")
     *data = n.run->output->thetaprof;
+  else if (plotvar == "wthetaprof")
+    *data = n.run->output->wthetaprof;
+  else if (plotvar == "wthetavprof")
+    *data = n.run->output->wthetavprof;
   else if (plotvar == "qprof")
     *data = n.run->output->qprof;
+  else if (plotvar == "wqprof")
+    *data = n.run->output->wqprof;
 
   // chemistry
   else if (plotvar == "phi")
@@ -484,6 +490,12 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
   else if (label == "qprof")
     *plotvar = label;
   else if (label == "thetaprof")
+    *plotvar = label;
+  else if (label == "wthetaprof")
+    *plotvar = label;
+  else if (label == "wthetavprof")
+    *plotvar = label;
+  else if (label == "wqprof")
     *plotvar = label;
 
   // chemistry

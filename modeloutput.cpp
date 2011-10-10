@@ -507,6 +507,30 @@ modeloutput::modeloutput(int tsteps, int nsc)
   qprof.description         = "Mixed-layer specific humidity";
   qprof.id                  = "qprof";
 
+  scaprof.data              = new double[tsteps*4];   // mixed-layer scalar [kg kg-1]
+  scaprof.name              = "scalar";
+  scaprof.unit              = "ppm";
+  scaprof.description       = "Scalar";
+  scaprof.id                = "scaprof";
+
+  wthetaprof.data           = new double[tsteps*4];   // Kinematic heat flux [K m s-1]
+  wthetaprof.name           = "w'\u03B8'";
+  wthetaprof.unit           = "K m s-\u00B9";
+  wthetaprof.description    = "Kinematic heat flux";
+  wthetaprof.id             = "wthetaprof";
+
+  wthetavprof.data          = new double[tsteps*4];   // Virtual kinematic heat flux [K m s-1]
+  wthetavprof.name          = "w'\u03B8v'";
+  wthetavprof.unit          = "K m s-\u00B9";
+  wthetavprof.description   = "Virtual kinematic heat flux";
+  wthetavprof.id            = "wthetavprof";
+
+  wqprof.data               = new double[tsteps*4];   // Kinematic moisture flux [kg kg-1 m s-1]
+  wqprof.name               = "w'q'";
+  wqprof.unit               = "g kg-\u00B9 m s-\u00B9";
+  wqprof.description        = "Kinematic moisture flux";
+  wqprof.id                 = "wqprof";
+
   zprof.data                = new double[tsteps*4];
   zprof.name                = "z";
   zprof.unit                = "m";
@@ -672,6 +696,9 @@ void modeloutput::reset(int nsc)
   delete[] ac.data;
   delete[] M.data;
   delete[] thetaprof.data;
+  delete[] wthetaprof.data;
+  delete[] wthetavprof.data;
+  delete[] wqprof.data;
   delete[] qprof.data;
   delete[] zprof.data;
   delete[] phi.data;
@@ -768,6 +795,9 @@ void modeloutput::reload(int tsteps, int nsc)
   ac.data                   = new double[tsteps];   // cloud core fraction [-]
   M.data                    = new double[tsteps];   // mass-flux (/rho) [m s-1]
   thetaprof.data            = new double[tsteps*4];
+  wthetaprof.data           = new double[tsteps*4];
+  wthetavprof.data          = new double[tsteps*4];
+  wqprof.data               = new double[tsteps*4];
   qprof.data                = new double[tsteps*4];   // mixed-layer specific humidity [kg kg-1]
   zprof.data                = new double[tsteps*4];
   phi.data                  = new double[tsteps];   // Net radiation [W m-2]

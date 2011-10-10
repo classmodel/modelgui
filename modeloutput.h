@@ -121,6 +121,10 @@ public:
   // vertical profiles
   outputvar zprof;
   outputvar thetaprof;
+  outputvar scaprof;
+  outputvar wthetaprof;
+  outputvar wthetavprof;
+  outputvar wqprof;
   outputvar qprof;
 
   //chemistry
