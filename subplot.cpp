@@ -276,12 +276,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         font.setPointSize(12);
       else
         font.setPointSize(9);
-
-
-
-              //("sans-serif", 13, QFont::Normal);
-
-
       paint.setFont(font);
     }
 
@@ -412,8 +406,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       if(plotinterval > 0)
         numpoints = (tsteps/plotinterval);
 
-
-
       QPointF points[numpoints];
       for (int m=0; m < numpoints; m++)
       {
@@ -447,6 +439,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         {
           paint.drawLine(transfx(xdata.data[m],xscale,graphminx,0),transfy(ydata.data[m],yscale,graphminy,0),transfx(xdata.data[m+1],xscale,graphminx,0),transfy(ydata.data[m+1],yscale,graphminy,0));
           paint.drawLine(transfx(xdata.data[m+1],xscale,graphminx,0),transfy(ydata.data[m+1],yscale,graphminy,0),transfx(xdata.data[m+2],xscale,graphminx,0),transfy(ydata.data[m+2],yscale,graphminy,0));
+          paint.drawLine(transfx(xdata.data[m+2],xscale,graphminx,0),transfy(ydata.data[m+2],yscale,graphminy,0),transfx(xdata.data[m+3],xscale,graphminx,0),transfy(ydata.data[m+3],yscale,graphminy,0));
         }
       }
 
