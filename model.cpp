@@ -1126,7 +1126,7 @@ void model::store()
   output->gammatheta.data[t] = gammatheta;
   output->advtheta.data[t]   = advtheta;
   output->wtheta.data[t]     = wtheta;
-  output->wthetae.data[t]    = wthetae;
+  output->wthetae.data[t]    = -wthetae;
   output->wthetav.data[t]    = wthetav;
   output->we.data[t]         = we;
   output->sigmatheta.data[t] = pow(sigmatheta2,0.5);
@@ -1142,7 +1142,7 @@ void model::store()
   output->gammaq.data[t]     = gammaq * 1000.;
   output->advq.data[t]       = advq * 1000.;
   output->wq.data[t]         = wq * 1000.;
-  output->wqe.data[t]        = wqe * 1000.;
+  output->wqe.data[t]        = -wqe * 1000.;
   output->sigmaq.data[t]     = pow(sigmaq2,0.5)*1000.;
   output->wqM.data[t]        = wqM * 1000.;
 
@@ -1223,9 +1223,9 @@ void model::store()
 
   output->thetaprof.data[startt + 1]     = output->theta.data[t];
   output->qprof.data[startt + 1]         = output->q.data[t];
-  output->wthetaprof.data[startt + 1]    = -output->wthetae.data[t];
+  output->wthetaprof.data[startt + 1]    = output->wthetae.data[t];
   output->wthetavprof.data[startt + 1]   = -output->we.data[t] * output->dthetav.data[t];
-  output->wqprof.data[startt + 1]        = -output->wqe.data[t];
+  output->wqprof.data[startt + 1]        = output->wqe.data[t];
   output->zprof.data[startt + 1]         = output->h.data[t];
 
   output->thetaprof.data[startt + 2]     = output->theta.data[t] + output->dtheta.data[t];
