@@ -164,7 +164,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.wtheta
       << modelout.wthetae
       << modelout.wthetav
-      << modelout.wthetaM
+      //<< modelout.wthetaM
       << modelout.sigmatheta;
 
   moisturevars
@@ -499,7 +499,6 @@ void plotwindow::changeplotvar()
     if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).count() > 0)
       ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Checked);
   }
-
 
   updateplotdata();
 

@@ -606,7 +606,7 @@ void model::runmlmodel()
 
   // Mass-flux kinematic fluxes
   wqM         = M * pow(sigmaq2,0.5);
-  wthetaM     = M * pow(sigmatheta2,0.5);
+  //wthetaM     = M * pow(sigmatheta2,0.5);  // BvS: sigmatheta != theta_up - thetaav!
   wscaM       = M * pow(sigmasca2,0.5);
   wCO2M       = M * pow(sigmaCO22,0.5);
 
@@ -1555,7 +1555,7 @@ void model::runchemmodel(double chemdt)
     cm->calc_k(P_ref,P_ref, \
                 Tcbl_ref, Tfc_ref, \
                 qcbl_ref, qfc_ref, \
-                sinlea );
+                sinlea, cc);
 
     cm->iter(1, chemdt, qcbl_ref, iterout, iterin, &phi, &k_r05);
 
@@ -1599,7 +1599,7 @@ void model::runchemmodel(double chemdt)
     cm->calc_k(Ps,   Ptop, \
                Tcbl, Tfc, \
                q,    qfc, \
-               sinlea );
+               sinlea, cc);
 
     cm->iter(1, chemdt, q, iterout, iterin, &phi, &k_r05);
 

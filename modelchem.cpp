@@ -537,7 +537,7 @@ void modelchem::inputchem(bool *sw_reactions, bool *sw_chemoutput, double stocoe
 void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
                         double temp_cbl ,double temp_ft, \
                         double q_bl, double q_ft, \
-                        double coszen)
+                        double coszen, double cc)
 {
   int i;
   double K,k1,k2,k3;
@@ -566,7 +566,6 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
   {
     lday = 0;
   }
-
 
   // adjust the Kreact depending on the func code
   for(i=0;i<rsize;i++)
@@ -608,6 +607,7 @@ void modelchem::calc_k( double pressure_cbl, double pressure_ft, \
              RC_ptr[i]->Keff_ft  = 1;
              break;
         }
+        RC_ptr[i]->Keff_cbl = (1. - 0.5 * cc) * RC_ptr[i]->Keff_cbl;
       }
     }
     else
