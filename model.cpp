@@ -578,12 +578,23 @@ void model::runmlmodel()
   wCO2e   = we * dCO2;
 
   // compute mixed-layer top variances and mass-fluxes
-  sigmaq2     = wqe     * dq     * h / (dz * wstar);
-  sigmatheta2 = wthetae * dtheta * h / (dz * wstar);
-  sigmasca2   = wscae   * dsca   * h / (dz * wstar);
-  sigmaCO22   = wCO2e   * dCO2   * h / (dz * wstar);
+  if (wthetav > 0.)
+  {
+    sigmaq2     = wqe     * dq     * h / (dz * wstar);
+    sigmatheta2 = wthetae * dtheta * h / (dz * wstar);
+    sigmasca2   = wscae   * dsca   * h / (dz * wstar);
+    sigmaCO22   = wCO2e   * dCO2   * h / (dz * wstar);
+  }
+  else
+  {
+    sigmaq2     = 0;
+    sigmatheta2 = 0;
+    sigmasca2   = 0;
+    sigmaCO22   = 0;
+  }
 
   // Check if variances < 0.
+  // BvS: still needed?
   if (sigmaq2 < 0.)
     sigmaq2 = 1e-5;
   if (sigmatheta2 < 0.)
@@ -636,12 +647,14 @@ void model::runmlmodel()
 
     wsce[i]        = we * dsc[i];
 
-    sigmasc2[i]    = wsce[i] * dsc[i] * h / (dz * wstar);
+    if (wthetav > 0.)
+      sigmasc2[i]    = wsce[i] * dsc[i] * h / (dz * wstar);
+    else
+      sigmasc2[i]    = 0.;
     if (sigmasc2[i] < 0.)
       sigmasc2[i] = 1e-5;
 
     wscM[i]        = M * pow(sigmasc2[i],0.5);
-
     sctend[i]      = (wsc[i] + wsce[i] - wscM[i]) / h + advsc[i];
     dsctend[i]     = gammasc[i] * (we + wf - M) - sctend[i];
   }
