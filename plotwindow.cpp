@@ -165,7 +165,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.wthetae
       << modelout.wthetav
       //<< modelout.wthetaM
-      << modelout.sigmatheta;
+      << modelout.sigmatheta
+      << modelout.wstar;
+
 
   moisturevars
       << modelout.q

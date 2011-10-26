@@ -1146,6 +1146,7 @@ void model::store()
   output->wthetaM.data[t]    = wthetaM;
   output->RH.data[t]         = RH;
   output->RHtop.data[t]      = RHtop;
+  output->wstar.data[t]      = wstar;
 
   output->q.data[t]          = q * 1000.;
   //output.qsat[t]       = qsat;

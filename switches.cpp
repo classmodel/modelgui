@@ -154,6 +154,8 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->sigmatheta;
   else if (plotvar == "wthetaM")
     *data = n.run->output->wthetaM;
+  else if (plotvar == "wstar")
+    *data = n.run->output->wstar;
 
   // moisture
   else if (plotvar == "q")
@@ -359,6 +361,8 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
   else if (label == "sigmatheta")
     *plotvar = label;
   else if (label == "wthetaM")
+    *plotvar = label;
+  else if (label == "wstar")
     *plotvar = label;
 
   // moisture

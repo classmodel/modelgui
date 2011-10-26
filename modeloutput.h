@@ -38,6 +38,7 @@ public:
   outputvar wthetae;   // entrainment kinematic heat flux [K m s-1]
   outputvar wthetav;   // surface kinematic virtual heat flux [K m s-1]
   outputvar wthetaM;   // mass-flux kinematic heat flux [K m s-1]
+  outputvar wstar;     // Deardorff vertical velocity scale [m s-1]
 
   // moisture
   outputvar q;         // mixed-layer specific humidity [kg kg-1]

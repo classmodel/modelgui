@@ -129,6 +129,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   wthetaM.description       = "Mass-flux kinematic heat flux";
   wthetaM.id                = "wthetaM";
 
+  wstar.data                = new double[tsteps];   // Deardorff vertical velocity scale [m s-1]
+  wstar.name                = "w*";
+  wstar.unit                = "m s-\u00B9";
+  wstar.description         = "Convective velocity scale";
+  wstar.id                  = "wstar";
+
   q.data                    = new double[tsteps];   // mixed-layer specific humidity [kg kg-1]
   q.name                    = "q";
   q.unit                    = "g kg-\u00B9";
