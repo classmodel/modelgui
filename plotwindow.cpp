@@ -238,7 +238,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.wthetaprof
       << modelout.wthetavprof
       << modelout.qprof
-      << modelout.wqprof;
+      << modelout.wqprof
+      << modelout.scaprof
+      << modelout.wscaprof;
 
   chemistry
       << modelout.phi
@@ -401,7 +403,7 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
       if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
         if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0) != olditem)
         {
-          if (plotvarx == "thetaprof" || plotvarx == "qprof"  || plotvarx == "wthetaprof"  || plotvarx == "wthetavprof"  || plotvarx == "wqprof")
+          if (plotvarx == "thetaprof" || plotvarx == "qprof"  || plotvarx == "wthetaprof"  || plotvarx == "wthetavprof"  || plotvarx == "wqprof" || plotvarx == "scaprof" || plotvarx == "wscaprof")
           {
             setplotvar("h", &plotvary);
             ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Checked);
@@ -411,7 +413,7 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
 
       setplotvar(olditem->text(4), &plotvarx);
 
-      if ((plotvarx == "thetaprof" || plotvarx == "qprof" || plotvarx == "wthetaprof" || plotvarx == "wthetavprof" || plotvarx == "wqprof") && plotvary != "zprof")
+      if ((plotvarx == "thetaprof" || plotvarx == "qprof" || plotvarx == "wthetaprof" || plotvarx == "wthetavprof" || plotvarx == "wqprof" || plotvarx == "scaprof" || plotvarx == "wscaprof") && plotvary != "zprof")
       {
         ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Unchecked);
         setplotvar("zprof", &plotvary);
@@ -424,7 +426,7 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
         if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0) != olditem)
           ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(column, Qt::Unchecked);
 
-      if (plotvarx == "thetaprof" || plotvarx == "qprof" || plotvarx == "wthetaprof" || plotvarx == "wthetavprof" || plotvarx == "wqprof")
+      if (plotvarx == "thetaprof" || plotvarx == "qprof" || plotvarx == "wthetaprof" || plotvarx == "wthetavprof" || plotvarx == "wqprof" || plotvarx == "scaprof" || plotvarx == "wscaprof")
       {
        setplotvar("t", &plotvarx);
        ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Checked);
@@ -433,6 +435,8 @@ void plotwindow::selectadvanceddata(QTreeWidgetItem *olditem, int column)
        ui->advancedplottree->findItems("wthetaprof", Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
        ui->advancedplottree->findItems("wthetavprof", Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
        ui->advancedplottree->findItems("wqprof", Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
+       ui->advancedplottree->findItems("scaprof", Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
+       ui->advancedplottree->findItems("wscaprof", Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
       }
       setplotvar(olditem->text(4), &plotvary);
     }

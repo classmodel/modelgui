@@ -293,6 +293,10 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
     *data = n.run->output->qprof;
   else if (plotvar == "wqprof")
     *data = n.run->output->wqprof;
+  else if (plotvar == "scaprof")
+    *data = n.run->output->scaprof;
+  else if (plotvar == "wscaprof")
+    *data = n.run->output->wscaprof;
 
   // chemistry
   else if (plotvar == "phi")
@@ -496,6 +500,10 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
   else if (label == "wthetavprof")
     *plotvar = label;
   else if (label == "wqprof")
+    *plotvar = label;
+  else if (label == "scaprof")
+    *plotvar = label;
+  else if (label == "wscaprof")
     *plotvar = label;
 
   // chemistry

@@ -531,6 +531,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   wqprof.description        = "Kinematic moisture flux";
   wqprof.id                 = "wqprof";
 
+  wscaprof.data             = new double[tsteps*4];   // Kinematic scalar flux [ppm m s-1]
+  wscaprof.name             = "w'sca'";
+  wscaprof.unit             = "ppm m s-\u00B9";
+  wscaprof.description      = "Kinematic scalar flux";
+  wscaprof.id               = "wscaprof";
+
   zprof.data                = new double[tsteps*4];
   zprof.name                = "z";
   zprof.unit                = "m";
@@ -699,6 +705,8 @@ void modeloutput::reset(int nsc)
   delete[] wthetaprof.data;
   delete[] wthetavprof.data;
   delete[] wqprof.data;
+  delete[] wscaprof.data;
+  delete[] scaprof.data;
   delete[] qprof.data;
   delete[] zprof.data;
   delete[] phi.data;
@@ -798,6 +806,8 @@ void modeloutput::reload(int tsteps, int nsc)
   wthetaprof.data           = new double[tsteps*4];
   wthetavprof.data          = new double[tsteps*4];
   wqprof.data               = new double[tsteps*4];
+  wscaprof.data             = new double[tsteps*4];
+  scaprof.data              = new double[tsteps*4];
   qprof.data                = new double[tsteps*4];   // mixed-layer specific humidity [kg kg-1]
   zprof.data                = new double[tsteps*4];
   phi.data                  = new double[tsteps];   // Net radiation [W m-2]

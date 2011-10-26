@@ -125,6 +125,7 @@ public:
   outputvar wthetaprof;
   outputvar wthetavprof;
   outputvar wqprof;
+  outputvar wscaprof;
   outputvar qprof;
 
   //chemistry

@@ -1232,6 +1232,8 @@ void model::store()
   output->wthetaprof.data[startt + 0]    = output->wtheta.data[t];
   output->wthetavprof.data[startt + 0]   = output->wthetav.data[t];
   output->wqprof.data[startt + 0]        = output->wq.data[t];
+  output->scaprof.data[startt + 0]       = output->sca.data[t];
+  output->wscaprof.data[startt + 0]      = output->wsca.data[t];
   output->zprof.data[startt + 0]         = 0;
 
   output->thetaprof.data[startt + 1]     = output->theta.data[t];
@@ -1239,6 +1241,8 @@ void model::store()
   output->wthetaprof.data[startt + 1]    = output->wthetae.data[t];
   output->wthetavprof.data[startt + 1]   = -output->we.data[t] * output->dthetav.data[t];
   output->wqprof.data[startt + 1]        = output->wqe.data[t];
+  output->scaprof.data[startt + 1]       = output->sca.data[t];
+  output->wscaprof.data[startt + 1]      = output->wscae.data[t];
   output->zprof.data[startt + 1]         = output->h.data[t];
 
   output->thetaprof.data[startt + 2]     = output->theta.data[t] + output->dtheta.data[t];
@@ -1246,6 +1250,8 @@ void model::store()
   output->wthetaprof.data[startt + 2]    = 0;
   output->wthetavprof.data[startt + 2]   = 0;
   output->wqprof.data[startt + 2]        = 0;
+  output->scaprof.data[startt + 2]       = output->sca.data[t] + output->dsca.data[t];
+  output->wscaprof.data[startt + 2]      = 0.;
   output->zprof.data[startt + 2]         = output->h.data[t];
 
   output->thetaprof.data[startt + 3]     = output->theta.data[t] + output->dtheta.data[t] + output->gammatheta.data[t] * 1.e6;
@@ -1253,6 +1259,8 @@ void model::store()
   output->wthetaprof.data[startt + 3]    = 0;
   output->wthetavprof.data[startt + 3]   = 0;
   output->wqprof.data[startt + 3]        = 0;
+  output->scaprof.data[startt + 3]       = output->sca.data[t] + output->dsca.data[t] + output->gammasca.data[t] * 1.e6;
+  output->wscaprof.data[startt + 3]      = 0.;
   output->zprof.data[startt + 3]         = output->h.data[t] + 1.e6;
 
   //chemistry
