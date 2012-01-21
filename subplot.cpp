@@ -232,17 +232,22 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     if (saveImageMode == 1)
     {
-      plotwidget_width = 1000;
-      plotwidget_height = 800;
-      PNGscale = 2;
-      PNGfontscale = 2.5;
+      plotwidget_width   = 1000;
+      plotwidget_height  = 800;
+      PNGscale           = 2;
+      PNGfontscale       = 2.5;
+      hscale_png         = double(plotwidget_width) / double(geometry().width());
+      vscale_png         = double(plotwidget_height) / double(geometry().height());
+      std::cout << hscale_png << std::endl;
     }
     else
     {
-      plotwidget_width = geometry().width();
-      plotwidget_height = geometry().height();
-      PNGscale = 1;
-      PNGfontscale = 1;
+      plotwidget_width   = geometry().width();
+      plotwidget_height  = geometry().height();
+      PNGscale           = 1;
+      PNGfontscale       = 1;
+      hscale_png         = 1.;
+      vscale_png         = 1.;
     }
 
     topmargin     = defaulttopmargin * PNGscale;
@@ -457,9 +462,16 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       if (legendlabel.length() > legend_width)
         legend_width = legendlabel.length();
 
+      int v_offset = i * 15 * PNGfontscale;
+      int line_xs  = legend_x + (PNGscale * 10);
+      int line_xe  = legend_x + (PNGscale * 25);
+      int line_y   = legend_y + v_offset + (PNGscale * 8);
+      int label_x  = legend_x + (PNGscale * 30);
+      int label_y  = legend_y + v_offset + (PNGscale * 8);
+
       // Draw the legend
-      paint.drawLine(legend_x+(10*PNGscale),i*15*PNGscale + legend_y + 8,legend_x+(25*PNGscale),i*15*PNGscale + legend_y+8);
-      paint.drawText(legend_x+(30*PNGscale),i*15*PNGscale + legend_y - 7,(legendlabel.length() * 10 * PNGfontscale),30, 0x0081, legendlabel);
+      paint.drawLine(line_xs,line_y,line_xe,line_y);
+      paint.drawText(label_x,label_y,(legendlabel.length() * 10 * PNGfontscale),30, 0x0081, legendlabel);
       // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
 

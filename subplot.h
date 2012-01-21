@@ -82,5 +82,8 @@ private:
   QPoint origin_rubberband;
   QRubberBand *rubberBand;
   bool drawrubberband;
+
+  double hscale_png,vscale_png;
+
 };
 #endif // SUBPLOT_H
