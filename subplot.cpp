@@ -236,18 +236,17 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       plotwidget_height  = 800;
       PNGscale           = 2;
       PNGfontscale       = 2.5;
-      hscale_png         = double(plotwidget_width) / double(geometry().width());
-      vscale_png         = double(plotwidget_height) / double(geometry().height());
-      std::cout << hscale_png << std::endl;
-    }
+      hscale_png         = plotwidget_width / geometry().width();
+      vscale_png         = plotwidget_height / geometry().height();
+   }
     else
     {
       plotwidget_width   = geometry().width();
       plotwidget_height  = geometry().height();
       PNGscale           = 1;
       PNGfontscale       = 1;
-      hscale_png         = 1.;
-      vscale_png         = 1.;
+      hscale_png         = 1;
+      vscale_png         = 1;
     }
 
     topmargin     = defaulttopmargin * PNGscale;
@@ -453,6 +452,10 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       // Create and draw legend entry
       paint.setRenderHint(QPainter::Antialiasing, false);
 
+      // DEBUG -> print geometries to screen
+      std::cout << "w=" << plotwidget_width << ",h=" << plotwidget_height << ",tm=" << topmargin << ",bm=" << bottommargin  << ",rm=" << rightmargin << ",lm=" << leftmargin << std::endl;
+      std::cout << "leg_x=" << legend_x << ",leg_y=" << legend_y << std::endl;
+
       // Create legend label text, add time interval for vertical profiles
       QString legendlabel = runlist->find(selectedruns->value(i)).value().runname;
       if (ydata.id == "zprof")
@@ -462,12 +465,12 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       if (legendlabel.length() > legend_width)
         legend_width = legendlabel.length();
 
-      int v_offset = i * 15 * PNGfontscale;
-      int line_xs  = legend_x + (PNGscale * 10);
-      int line_xe  = legend_x + (PNGscale * 25);
-      int line_y   = legend_y + v_offset + (PNGscale * 8);
-      int label_x  = legend_x + (PNGscale * 30);
-      int label_y  = legend_y + v_offset + (PNGscale * 8);
+      v_offset = i * 15 * PNGscale;
+      line_xs  = legend_x + (10 * PNGscale);
+      line_xe  = line_xs  + (15 * PNGscale);
+      line_y   = legend_y + v_offset + 8;
+      label_x  = legend_x + (30 * PNGscale);
+      label_y  = legend_y + v_offset - 7;
 
       // Draw the legend
       paint.drawLine(line_xs,line_y,line_xe,line_y);

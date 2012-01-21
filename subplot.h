@@ -37,6 +37,9 @@ public:
   int legend_x, legend_y;
   int legend_x_offset, legend_y_offset;
 
+  // Positions of legend elements
+  int v_offset, line_xs, line_xe, line_y, label_x, label_y;
+
   // Mouse functions:
   int x_press, x_release, y_press, y_release;
   double x_current, y_current;
