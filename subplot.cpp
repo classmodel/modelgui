@@ -236,8 +236,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       plotwidget_height  = 800;
       PNGscale           = 2;
       PNGfontscale       = 2.5;
-      hscale_png         = plotwidget_width / geometry().width();
-      vscale_png         = plotwidget_height / geometry().height();
    }
     else
     {
@@ -245,17 +243,15 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       plotwidget_height  = geometry().height();
       PNGscale           = 1;
       PNGfontscale       = 1;
-      hscale_png         = 1;
-      vscale_png         = 1;
     }
 
-    topmargin     = defaulttopmargin * PNGscale;
+    topmargin     = defaulttopmargin    * PNGscale;
     bottommargin  = defaultbottommargin * PNGscale;
-    leftmargin    = defaultleftmargin  * PNGscale;
-    rightmargin   = defaultrightmargin * PNGscale;
+    leftmargin    = defaultleftmargin   * PNGscale;
+    rightmargin   = defaultrightmargin  * PNGscale;
 
     // Size of plotable area within widget (pixels)
-    double plotwidth = plotwidget_width - leftmargin - rightmargin;
+    double plotwidth  = plotwidget_width - leftmargin - rightmargin;
     double plotheight = plotwidget_height - topmargin - bottommargin;
 
     // ------------------------------------
@@ -452,10 +448,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       // Create and draw legend entry
       paint.setRenderHint(QPainter::Antialiasing, false);
 
-      // DEBUG -> print geometries to screen
-      std::cout << "w=" << plotwidget_width << ",h=" << plotwidget_height << ",tm=" << topmargin << ",bm=" << bottommargin  << ",rm=" << rightmargin << ",lm=" << leftmargin << std::endl;
-      std::cout << "leg_x=" << legend_x << ",leg_y=" << legend_y << std::endl;
-
       // Create legend label text, add time interval for vertical profiles
       QString legendlabel = runlist->find(selectedruns->value(i)).value().runname;
       if (ydata.id == "zprof")
@@ -465,12 +457,26 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       if (legendlabel.length() > legend_width)
         legend_width = legendlabel.length();
 
+      // Find relative position with xy-axis
+      double leg_graph_x = double(legend_x - defaultleftmargin) / double(geometry().width() - defaultleftmargin - defaultrightmargin);
+      double leg_graph_y = double(legend_y - defaulttopmargin) / double(geometry().height() - defaulttopmargin - defaultbottommargin);
+
+      // Offset from top left corner of xy-axis
+      int offset_x = leg_graph_x * (plotwidget_width - leftmargin - rightmargin);
+      int offset_y = leg_graph_y * (plotwidget_height - topmargin - bottommargin);
+
+      // Offset from top left corner of window
+      int base_x = offset_x + leftmargin;
+      int base_y = offset_y + topmargin;
+
+      std::cout << leg_graph_x << ", " << leg_graph_y << ", " << offset_x << ", " << offset_y << ", " << base_x << ", " << base_y << std::endl;
+
       v_offset = i * 15 * PNGscale;
-      line_xs  = legend_x + (10 * PNGscale);
+      line_xs  = base_x   + (10 * PNGscale);
       line_xe  = line_xs  + (15 * PNGscale);
-      line_y   = legend_y + v_offset + 8;
-      label_x  = legend_x + (30 * PNGscale);
-      label_y  = legend_y + v_offset - 7;
+      line_y   = base_y   + v_offset + 8;
+      label_x  = base_x   + (30 * PNGscale);
+      label_y  = base_y   + v_offset - 7;
 
       // Draw the legend
       paint.drawLine(line_xs,line_y,line_xe,line_y);
