@@ -571,6 +571,9 @@ void model::runmlmodel()
       we  = (beta * wthetav) / dthetav;
   }
 
+  if (we < 0.)
+      we = 0;
+
   // compute entrainment fluxes
   wthetae = we * dtheta;
   wqe     = we * dq;
@@ -605,10 +608,17 @@ void model::runmlmodel()
     sigmaCO22 = 1e-5;
 
   // Mass-flux kinematic fluxes
+  // Only apply mass-flux if jump is negative
   wqM         = M * pow(sigmaq2,0.5);
-  //wthetaM     = M * pow(sigmatheta2,0.5);  // BvS: sigmatheta != theta_up - thetaav!
-  wscaM       = M * pow(sigmasca2,0.5);
-  wCO2M       = M * pow(sigmaCO22,0.5);
+  if (dsca < 0.)
+    wscaM     = M * pow(sigmasca2,0.5);
+  else
+    wscaM     = 0.;
+
+  if (dCO2 < 0.)
+    wCO2M     = M * pow(sigmaCO22,0.5);
+  else
+    wCO2M     = 0.;
 
   // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
   htend       = we + ws + wf - M;
@@ -618,19 +628,10 @@ void model::runmlmodel()
   scatend     = (wsca   + wscae   - wscaM)    / h + advsca;
   CO2tend     = (wCO2   + wCO2e   - wCO2M)    / h + advCO2;
 
-  // Set tendency dtheta & dq to zero when shallow-cumulus is present
-  //if(sw_cu && ac > 0.){
-  //  dthetatend  = 0.;
-  //  dqtend      = 0.;
-  //  dscatend    = 0.;
-  //  dCO2tend    = 0.;
-  //}
-  //else {
-    dthetatend  = gammatheta * (we + wf - M) - thetatend  + C_thetaft;
-    dqtend      = gammaq     * (we + wf - M) - qtend      + C_qft;
-    dscatend    = gammasca   * (we + wf - M) - scatend    + C_scaft;
-    dCO2tend    = gammaCO2   * (we + wf - M) - CO2tend    + C_CO2ft;
-  //}
+  dthetatend  = gammatheta * (we + wf - M) - thetatend  + C_thetaft;
+  dqtend      = gammaq     * (we + wf - M) - qtend      + C_qft;
+  dscatend    = gammasca   * (we + wf - M) - scatend    + C_scaft;
+  dCO2tend    = gammaCO2   * (we + wf - M) - CO2tend    + C_CO2ft;
 
   for(int i=0; i<nsc; i++)
   {
@@ -641,8 +642,8 @@ void model::runmlmodel()
       double sda       = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
       double sinleamax = sin(2. * pi * lat / 360.) * sin(sda) + cos(2. * pi * lat / 360.) * cos(sda);
       double sinlea    = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
-      sinlea  = max(sinlea, 0.);
-      wsc[i]  = wsc0[i] * sinlea / sinleamax;
+      sinlea           = max(sinlea, 0.);
+      wsc[i]           = wsc0[i] * sinlea / sinleamax;
     }
 
     wsce[i]        = we * dsc[i];
@@ -650,13 +651,16 @@ void model::runmlmodel()
     if (wthetav > 0.)
       sigmasc2[i]    = wsce[i] * dsc[i] * h / (dz * wstar);
     else
-      sigmasc2[i]    = 0.;
+      sigmasc2[i] = 0.;
     if (sigmasc2[i] < 0.)
       sigmasc2[i] = 1e-5;
 
-    wscM[i]        = M * pow(sigmasc2[i],0.5);
-    sctend[i]      = (wsc[i] + wsce[i] - wscM[i]) / h + advsc[i];
-    dsctend[i]     = gammasc[i] * (we + wf - M) - sctend[i];
+    if(dsc[i] < 0.)
+      wscM[i]     = M * pow(sigmasc2[i],0.5);
+    else
+      wscM[i]     = 0.;
+    sctend[i]     = (wsc[i] + wsce[i] - wscM[i]) / h + advsc[i];
+    dsctend[i]    = gammasc[i] * (we + wf - M) - sctend[i];
   }
 
   // assume u + du = ug, so ug - u = du
