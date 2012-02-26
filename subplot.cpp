@@ -353,8 +353,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     if (!legendmoved)
     {
-      legend_y = topmargin + 5;
-      legend_x = leftmargin;
+      legend_y = defaulttopmargin + 5;
+      legend_x = defaultleftmargin;
     }
 
     for(int i=0; i<selectedruns->count(); i++)
@@ -457,6 +457,28 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       if (legendlabel.length() > legend_width)
         legend_width = legendlabel.length();
 
+<<<<<<< HEAD
+=======
+      // Find relative position with xy-axis
+      double leg_graph_x = double(legend_x - defaultleftmargin) / double(geometry().width() - defaultleftmargin - defaultrightmargin);
+      double leg_graph_y = double(legend_y - defaulttopmargin) / double(geometry().height() - defaulttopmargin - defaultbottommargin);
+
+      // Offset from top left corner of xy-axis
+      int offset_x = leg_graph_x * (plotwidget_width - leftmargin - rightmargin);
+      int offset_y = leg_graph_y * (plotwidget_height - topmargin - bottommargin);
+
+      // Offset from top left corner of window
+      int base_x = offset_x + leftmargin;
+      int base_y = offset_y + topmargin;
+
+      v_offset = i * 15 * PNGscale;
+      line_xs  = base_x   + (10 * PNGscale);
+      line_xe  = line_xs  + (15 * PNGscale);
+      line_y   = base_y   + v_offset + 8;
+      label_x  = base_x   + (30 * PNGscale);
+      label_y  = base_y   + v_offset - 7;
+
+>>>>>>> cd690d6... Resolved legend position bug when saving as .PNG
       // Draw the legend
       paint.drawLine(legend_x+(10*PNGscale),i*15*PNGscale + legend_y + 8,legend_x+(25*PNGscale),i*15*PNGscale + legend_y+8);
       paint.drawText(legend_x+(30*PNGscale),i*15*PNGscale + legend_y - 7,(legendlabel.length() * 10 * PNGfontscale),30, 0x0081, legendlabel);
