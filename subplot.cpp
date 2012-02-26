@@ -353,8 +353,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
 
     if (!legendmoved)
     {
-      legend_y = topmargin + 5;
-      legend_x = leftmargin;
+      legend_y = defaulttopmargin + 5;
+      legend_x = defaultleftmargin;
     }
 
     for(int i=0; i<selectedruns->count(); i++)
@@ -468,8 +468,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       // Offset from top left corner of window
       int base_x = offset_x + leftmargin;
       int base_y = offset_y + topmargin;
-
-      std::cout << leg_graph_x << ", " << leg_graph_y << ", " << offset_x << ", " << offset_y << ", " << base_x << ", " << base_y << std::endl;
 
       v_offset = i * 15 * PNGscale;
       line_xs  = base_x   + (10 * PNGscale);
