@@ -648,6 +648,7 @@ void modeloutput::reset(int nsc)
   delete[] wthetae.data;
   delete[] wthetav.data;
   delete[] wthetaM.data;
+  delete[] wstar.data;
   delete[] q.data;
   delete[] dq.data;
   delete[] gammaq.data;
@@ -749,6 +750,7 @@ void modeloutput::reload(int tsteps, int nsc)
   wthetae.data              = new double[tsteps];   // surface kinematic heat flux [K m s-1]
   wthetav.data              = new double[tsteps];   // surface kinematic virtual heat flux [K m s-1]
   wthetaM.data              = new double[tsteps];   // mass-flux kinematic moisture flux [kg kg-1 m s-1]
+  wstar.data                = new double[tsteps];   // free convective velocity scale [m s-1]
   q.data                    = new double[tsteps];   // mixed-layer specific humidity [kg kg-1]
   dq.data                   = new double[tsteps];   // specific humidity jump at h [kg kg-1]
   gammaq.data               = new double[tsteps];   // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
