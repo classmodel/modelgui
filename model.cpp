@@ -351,7 +351,7 @@ void model::initmodel()
   T1Am[1]       =  286.;                   // reference temperature to calculate maximal primary profuctivity Ammax [K]
   T2Am[1]       =  311.;                   // reference temperature to calculate maximal primary profuctivity Ammax [K]
   f0[1]         =  0.85;                   // maximum value Cfrac [-]
-  ad[1]         =  0.015;                   // regression coefficient to calculate Cfrac [kPa-1]
+  ad[1]         =  0.15;                   // regression coefficient to calculate Cfrac [kPa-1]
   alpha0[1]     =  0.014;                  // initial low light conditions [mg J-1]
   Kx[1]         =  0.7;                    // extinction coefficient PAR [-]
   gmin[1]       =  0.25e-3;                // cuticular (minimum) conductance [mm s-1]
