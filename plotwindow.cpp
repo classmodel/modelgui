@@ -48,6 +48,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   connect(ui->yminInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
+  //connect(ui->modelruntree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
   connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
   //connect(ui->plotintervalInput, SIGNAL(editingFinished()), this, SLOT(changeplotinterval()));
   // Menu interface:
@@ -82,6 +83,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   ui->modelruntree->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
   // Iterate through QMap with modelruns; create entry in QtreeWidget when run.hasrun==true
+  //ui->modelruntree->blockSignals(true);
   QMap<int, modelrun>::const_iterator i = runlist->constBegin();
   while (i != runlist->constEnd()) {
     if (runlist->find(i.key()).value().hasrun)
@@ -100,6 +102,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
     }
   ++i;
   }
+  //ui->modelruntree->blockSignals(false);
 
   // Create dropdown menu with plotvariables for basic plotting
   QStringList varnames;
@@ -381,17 +384,36 @@ void plotwindow::togglemodelruns(bool checkstate)
 
 void plotwindow::updateselectedruns()  // create QList containing ID's of selected runs
 {
-  if(ui->modelruntree->topLevelItemCount() > 0)
+  int nruns;
+  nruns = ui->modelruntree->topLevelItemCount();
+  if(nruns > 0)
   {
-    int id = ui->modelruntree->currentItem()->text(0).toInt();
-    if (ui->modelruntree->currentItem()->checkState(1) == 2)
+    for (int i=0; i<nruns; i++)
     {
-      if (!selectedruns->contains(id))
-        selectedruns->append(id);
+      int id = ui->modelruntree->topLevelItem(i)->text(0).toInt();
+      if(ui->modelruntree->topLevelItem(i)->checkState(1) == 2)
+      {
+        if (!selectedruns->contains(id))
+          selectedruns->append(id);
+      }
+      else if(ui->modelruntree->topLevelItem(i)->checkState(1) == 0)
+        selectedruns->removeAt(selectedruns->indexOf(id));
     }
-    else if(ui->modelruntree->currentItem()->checkState(1) == 0)
-      selectedruns->removeAt(selectedruns->indexOf(id));
   }
+
+  // BvS - Fails with latest versions Qt; changing checkbox doesn't change
+  // selection (currentItem) in qtreewidget...
+  //if(ui->modelruntree->topLevelItemCount() > 0)
+  //{
+  //  int id = ui->modelruntree->currentItem()->text(0).toInt();
+  //  if (ui->modelruntree->currentItem()->checkState(1) == 2)
+  //  {
+  //    if (!selectedruns->contains(id))
+  //      selectedruns->append(id);
+  //  }
+  //  else if(ui->modelruntree->currentItem()->checkState(1) == 0)
+  //    selectedruns->removeAt(selectedruns->indexOf(id));
+  //}
 
   plotar->update();
 }
