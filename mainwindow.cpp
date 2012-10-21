@@ -1002,12 +1002,12 @@ void MainWindow::exportRuns()
       QString testfile = dirname + "/" + runname + ".csv";
 
       QString istr;
-      int i = 0;
+      int j = 0;
       while (QFile::exists(testfile))
       {
-        runname  = runname0 + "_" + istr.setNum(i);
+        runname  = runname0 + "_" + istr.setNum(j);
         testfile = dirname + "/" + runname + ".csv";
-        i++;
+        j++;
       }
 
       int n = ident.toInt(0,10);
