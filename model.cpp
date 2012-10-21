@@ -679,10 +679,28 @@ void model::runmlmodel()
 void model::statistics()
 {
   // LCL (Bolton (2008), The Computation of Equivalent Potential Temperature)
-  double e       = q * Ps / 0.622;
-  double Td      = 1. / ((1./273.15) - (Rv/Lv)*log(e/611.));
-  double Tlcl    = 1. / ( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
-  lcl            = 0. - (cp * (Tlcl - theta) / g);
+  //double e       = q * Ps / 0.622;
+  //double Td      = 1. / ((1./273.15) - (Rv/Lv)*log(e/611.));
+  //double Tlcl    = 1. / ( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
+  //lcl            = 0. - (cp * (Tlcl - theta) / g);
+
+  // Iterative solution for LCL
+  lcl            = h;     // first guess
+  double RHlcl   = 0.5;   // random guess
+
+  int i = 0;
+  while(((RHlcl <= 0.999) || (RHlcl >= 1.001)) && i < 30)    // Limit max iter to 30, in case of e.g. q=0
+  {
+    lcl           += (1.-RHlcl) * 1000.;
+    double Plcl    = Ps / exp((g * lcl)/(Rd * theta));
+    double Tlcl    = theta / pow(Ps / Plcl,Rd / cp);
+    double esatlcl = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Tlcl)));
+    double elcl    = q * Plcl / 0.622;
+    RHlcl          = elcl / esatlcl;
+    i++;
+  }
+
+  //std::cout << i << "," << lcl << "," << RHlcl << std::endl;
 
   // RH evaluated at T = theta
   double esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
@@ -787,7 +805,6 @@ void model::runslmodel()
 
   Cm   = pow(k,2.) / pow((log(zsl / z0m) - psim(zsl / L) + psim(z0m / L)),2.);
   Cs   = pow(k,2.) / (log(zsl / z0m) - psim(zsl / L) + psim(z0m / L)) / (log(zsl / z0h) - psih(zsl / L) + psih(z0h / L));
-
 
   //if(wthetav > 0.):
   //  wstar     = (g / thetav * h * wthetav) ** (1./3.)
