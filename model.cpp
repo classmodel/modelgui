@@ -684,12 +684,19 @@ void model::statistics()
   //double Tlcl    = 1. / ( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
   //lcl            = 0. - (cp * (Tlcl - theta) / g);
 
+  double RHlcl;
+
   // Iterative solution for LCL
-  lcl            = h;     // first guess
-  double RHlcl   = 0.5;   // random guess
+  if(t==0)           // Put random guess for lcl, RHlcl
+  {
+    lcl     = h;
+    RHlcl   = 0.5;
+  }
+  else               // Perturb RHlcl to start iteration
+    RHlcl   = 0.9998;
 
   int i = 0;
-  while(((RHlcl <= 0.999) || (RHlcl >= 1.001)) && i < 30)    // Limit max iter to 30, in case of e.g. q=0
+  while(((RHlcl <= 0.9999) || (RHlcl >= 1.0001)) && i < 30)    // Limit max iter to 30, in case of e.g. q=0
   {
     lcl           += (1.-RHlcl) * 1000.;
     double Plcl    = Ps / exp((g * lcl)/(Rd * theta));
@@ -699,8 +706,6 @@ void model::statistics()
     RHlcl          = elcl / esatlcl;
     i++;
   }
-
-  //std::cout << i << "," << lcl << "," << RHlcl << std::endl;
 
   // RH evaluated at T = theta
   double esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
