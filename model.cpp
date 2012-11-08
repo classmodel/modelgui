@@ -1056,7 +1056,7 @@ void model::runlsmodel()
 
       // 2.- calculate upscaling from leaf to canopy: CO2 conductance at canopy level
       a1           = 1. / (1. - f0[c]);
-      Dstar        = D0 / (a1 - 1.);
+      Dstar        = D0 / (a1 * (f0[c] - fmin));
 
       gcco2        = LAI * (gmin[c] / nuco2q + a1 * fstr * An / ((co2abs - CO2comp) * (1. + Ds / Dstar)));
 
@@ -1065,7 +1065,7 @@ void model::runlsmodel()
       rsCO2        = 1. / gcco2;
 
       // calculate net flux of CO2 into the plant (An)
-      An           = -(co2abs - ci) / (ra + rs);
+      An           = -(co2abs - ci) / (ra + rsCO2);
 
       // CO2 soil surface flux
       fw           = Cw * wmax / (wg + wmin);
