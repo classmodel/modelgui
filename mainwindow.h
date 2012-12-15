@@ -1,8 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtGui/QMainWindow>
+//#include <QtGui/QApplication> // No longer working as of Qt5
+#include <QtWidgets/QApplication>
+#include <QMainWindow>
 #include <QModelIndex>
+#include <QCloseEvent>
 #include "modelrun.h"
 #include "landsoil.h"
 

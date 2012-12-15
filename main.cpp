@@ -1,4 +1,5 @@
-#include <QtGui/QApplication>
+//#include <QtGui/QApplication> // No longer working as of Qt5
+#include <QtWidgets/QApplication>
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])

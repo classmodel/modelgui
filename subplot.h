@@ -1,7 +1,7 @@
 #ifndef SUBPLOT_H
 #define SUBPLOT_H
 
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 #include "mainwindow.h"
 #include <QWidget>
 #include "QPaintEvent"

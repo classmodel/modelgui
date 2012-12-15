@@ -1,13 +1,16 @@
 #ifndef PLOTWINDOW_H
 #define PLOTWINDOW_H
 
-#include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
+//#include <QtGui/QWidget> // No longer working as of Qt5
+//#include <QtGui/QTabWidget> // No longer working as of Qt5
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QTabWidget>
 #include "mainwindow.h"
 #include "subplot.h"
 #include "QPaintEvent"
 #include "QPainter"
-#include "QTreeWidget"
+//#include "QTreeWidget" // No longer working as of Qt5
+#include <QtWidgets/QTreeWidget>
 
 class modelrun;
 class subplot;
