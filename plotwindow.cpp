@@ -49,7 +49,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
   //connect(ui->modelruntree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
-  connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
+  //connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
   //connect(ui->plotintervalInput, SIGNAL(editingFinished()), this, SLOT(changeplotinterval()));
   // Menu interface:
   connect(ui->view_basicmode, SIGNAL(triggered()), this, SLOT(switchtobasicplotting()));
@@ -296,7 +296,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       treegroup->addChild(treeitem);
     }
   }
-  ui->plotvar->addItems(varnames);
+  //ui->plotvar->addItems(varnames);
 
   // BvS; Extra code to automatically detach and position docks for Mac OS (X)
   if(MacOS)
@@ -333,7 +333,7 @@ void plotwindow::closeEvent(QCloseEvent *event)
 // ++++++++++++++++++++++++++++++++++++++++++++++++++
 void plotwindow::viewmenutriggered()
 {
-  ui->view_basicplotsettings->setChecked(ui->PlotvarDock->isVisible());
+  //ui->view_basicplotsettings->setChecked(ui->PlotvarDock->isVisible());
   ui->view_advancedplotsettings->setChecked(ui->AdvancedDock->isVisible());
   ui->view_axissettings->setChecked(ui->PlotsettingsDock->isVisible());
   ui->view_modelruns->setChecked(ui->ModelruntreeDock->isVisible());
@@ -343,11 +343,11 @@ void plotwindow::switchtobasicplotting()
 {
   //ui->AdvancedDock->setShown(false);
   //ui->PlotvarDock->setShown(true);
-    ui->PlotvarDock->setFloating(false);
+  //  ui->PlotvarDock->setFloating(false);
   //ui->PlotsettingsDock->setShown(true);
-    ui->PlotsettingsDock->setFloating(false);
+  //  ui->PlotsettingsDock->setFloating(false);
   //ui->ModelruntreeDock->setShown(true);
-    ui->ModelruntreeDock->setFloating(false);
+  //  ui->ModelruntreeDock->setFloating(false);
 }
 
 void plotwindow::switchtoadvancedplotting()
@@ -361,10 +361,10 @@ void plotwindow::switchtoadvancedplotting()
     ui->ModelruntreeDock->setFloating(false);
 }
 
-void plotwindow::togglebasicsettings(bool checkstate)
-{
-  ui->PlotvarDock->setVisible(checkstate);
-}
+//void plotwindow::togglebasicsettings(bool checkstate)
+//{
+//  ui->PlotvarDock->setVisible(checkstate);
+//}
 
 void plotwindow::toggleadvancedsettings(bool checkstate)
 {
@@ -513,7 +513,7 @@ void plotwindow::changeplotvar()
 
   plotar->lines = runlist->count();
   plotvarx = "t";
-  plotvary = outputnames[ui->plotvar->currentIndex()];
+  //plotvary = outputnames[ui->plotvar->currentIndex()];
 
   // Check items in advanced mode
   if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)

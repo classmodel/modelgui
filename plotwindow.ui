@@ -27,53 +27,10 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QDockWidget" name="PlotvarDock">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>113</width>
-     <height>40</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>524287</width>
-     <height>40</height>
-    </size>
-   </property>
-   <property name="features">
-    <set>QDockWidget::DockWidgetFeatureMask</set>
-   </property>
-   <property name="allowedAreas">
-    <set>Qt::TopDockWidgetArea</set>
-   </property>
-   <property name="windowTitle">
-    <string>Basic plot settings</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>4</number>
-   </attribute>
-   <widget class="QWidget" name="PlotvarDockContent">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QComboBox" name="plotvar">
-       <property name="maximumSize">
-        <size>
-         <width>2000</width>
-         <height>2000</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
   <widget class="QDockWidget" name="AdvancedDock">
    <property name="minimumSize">
     <size>
-     <width>103</width>
+     <width>118</width>
      <height>136</height>
     </size>
    </property>
@@ -119,7 +76,7 @@
    <property name="minimumSize">
     <size>
      <width>170</width>
-     <height>103</height>
+     <height>116</height>
     </size>
    </property>
    <property name="maximumSize">
@@ -397,7 +354,7 @@
      <x>0</x>
      <y>0</y>
      <width>597</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
