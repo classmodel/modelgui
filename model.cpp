@@ -370,6 +370,7 @@ void model::initmodel()
 
   // shallow-cumulus
   sw_cu      = input.sw_cu;             // shallow-cumulus switch [-]
+  sw_curad   = input.sw_curad;          // Link ac -> cc -> radiation
   ac         =  0.;                     // cloud core fraction [-]
   M          =  0.;                     // mass-flux (/rho) [m s-1]
 
@@ -504,6 +505,8 @@ void model::runcumodel()
   ac               = 0.5 + (0.36 * atan(1.55 * ((q - qsattop) / pow(sigmaq2,0.5))));
   if (ac < 0.)
     ac = 0.;
+
+  cc = 2. * ac;
 
   M                = ac * wstar;
 }
@@ -923,13 +926,21 @@ void model::runradmodel()
   double  sinlea;   // sinus of local declination angle [-]
   double  Ta;       // absolute temperature at top of surface layer [K]
   double  Tr;       // atmospheric transmissivity [-]
+  double  cc_rad;   // Cloud fraction used in radiation [-]
 
   sda    = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
   sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
   sinlea = max(sinlea, 0.0001);
 
   Ta  = theta * pow(((Ps - 0.1 * h * rho * g) / Ps ), Rd / cp);
-  Tr  = (0.6 + 0.2 * sinlea) * (1. - 0.4 * cc);
+
+  // Set special cc_rad for cloud fraction radiation
+  if(sw_cu && !sw_curad)   // cumulus active, but no link cumulus->rad. Force clouds to zero
+     cc_rad = 0.;
+   else                    // all other combinations: cc_rad = cc
+     cc_rad = cc;
+
+  Tr  = (0.6 + 0.2 * sinlea) * (1. - 0.4 * cc_rad);
 
   Swin  = S0 * Tr * sinlea;
   Swout = alpha * S0 * Tr * sinlea;
@@ -1250,6 +1261,7 @@ void model::store()
 
   // shallow-cumulus
   output->ac.data[t]         = ac;
+  output->cc.data[t]         = cc;
   output->M.data[t]          = M;
 
   // vertical profiles
@@ -1381,6 +1393,7 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->G.name << " [" << output->G.unit << "],";
 
   runsave << output->ac.name << " [" << output->ac.unit << "],";
+  runsave << output->cc.name << " [" << output->cc.unit << "],";
   runsave << output->sigmaq.name << " [" << output->sigmaq.unit << "],";
   runsave << output->wqM.name << " [" << output->wqM.unit << "],";
   runsave << output->M.name << " [" << output->M.unit << "],";
@@ -1467,6 +1480,7 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->G.data[nt] << ",";
 
     runsave << output->ac.data[nt] << ",";
+    runsave << output->cc.data[nt] << ",";
     runsave << output->sigmaq.data[nt] << ",";
     runsave << output->wqM.data[nt] << ",";
     runsave << output->M.data[nt] << ",";

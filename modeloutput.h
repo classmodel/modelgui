@@ -118,6 +118,7 @@ public:
   // shallow-cumulus
   outputvar ac;        // cloud core fraction [-]
   outputvar M;         // mass-flux (/rho) [m s-1]
+  outputvar cc;        // total cloud fraction [-]
 
   // vertical profiles
   outputvar zprof;

@@ -279,6 +279,8 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   // clouds
   else if (plotvar == "ac")
     *data = n.run->output->ac;
+  else if (plotvar == "cc")
+    *data = n.run->output->cc;
   else if (plotvar == "M")
     *data = n.run->output->M;
 
@@ -488,6 +490,8 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
 
   // clouds
     else if (label == "ac")
+    *plotvar = label;
+    else if (label == "cc")
     *plotvar = label;
     else if (label == "M")
     *plotvar = label;

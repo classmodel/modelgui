@@ -125,6 +125,7 @@ public:
 
   // shallow-cumulus
   bool sw_cu;       // shallow-cumulus switch
+  bool sw_curad;    // link ac -> cc -> radiation
 
   double dFz;       // Cloud top radiative divergence (stratocumulus)
 

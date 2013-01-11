@@ -500,6 +500,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   M.description             = "Mass-flux";
   M.id                      = "M";
 
+  cc.data                   = new double[tsteps];   // total cloud fraction [-]
+  cc.name                   = "cc";
+  cc.unit                   = "-";
+  cc.description            = "Total cloud fraction";
+  cc.id                     = "cc";
+
   // vertical profiles
   thetaprof.data            = new double[tsteps*4];
   thetaprof.name            = "\u03B8";
@@ -708,6 +714,7 @@ void modeloutput::reset(int nsc)
   delete[] G.data;
   delete[] ac.data;
   delete[] M.data;
+  delete[] cc.data;
   delete[] thetaprof.data;
   delete[] wthetaprof.data;
   delete[] wthetavprof.data;
@@ -810,6 +817,7 @@ void modeloutput::reload(int tsteps, int nsc)
   G.data                    = new double[tsteps];   // Net radiation [W m-2]
   ac.data                   = new double[tsteps];   // cloud core fraction [-]
   M.data                    = new double[tsteps];   // mass-flux (/rho) [m s-1]
+  cc.data                   = new double[tsteps];   // total cloud fraction [-]
   thetaprof.data            = new double[tsteps*4];
   wthetaprof.data           = new double[tsteps*4];
   wthetavprof.data          = new double[tsteps*4];
