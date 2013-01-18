@@ -506,8 +506,7 @@ void model::runcumodel()
   if (ac < 0.)
     ac = 0.;
 
-  cc = 2. * ac;
-
+  cc               = 2. * ac;
   M                = ac * wstar;
 }
 
@@ -544,7 +543,7 @@ void model::runmlmodel()
   ws = -omegas * h;
 
   // Compensate free tropospheric warming due to subsidence
-  double C_thetaft, C_qft, C_scaft, C_CO2ft;
+  double C_thetaft(0.), C_qft(0.), C_scaft(0.), C_CO2ft(0.);
   if(sw_wsft)
   {
     C_thetaft = gammatheta    * ws;
@@ -552,16 +551,10 @@ void model::runmlmodel()
     C_scaft   = gammasca      * ws;
     C_CO2ft   = gammaCO2      * ws;
   }
-  else
-  {
-    C_thetaft = 0.;
-    C_qft     = 0.;
-    C_scaft   = 0.;
-    C_CO2ft   = 0.;
-  }
 
   // compute tendencies
-  if(beta == 0 && inputdthetav == 0){
+  if(beta == 0 && inputdthetav == 0)
+  {
     we    = 1 / gammatheta * wthetav / h;
     wf    = 1 / gammatheta * (dFz / rho * cp) / h;
   }
@@ -575,7 +568,7 @@ void model::runmlmodel()
   }
 
   if (we < 0.)
-      we = 0;
+    we = 0;
 
   // compute entrainment fluxes
   wthetae = we * dtheta;
@@ -662,8 +655,13 @@ void model::runmlmodel()
       wscM[i]     = M * pow(sigmasc2[i],0.5);
     else
       wscM[i]     = 0.;
+
+    double C_scft(0.);
+    if(sw_wsft)
+      C_scft      = gammasc[i] * ws;
+
     sctend[i]     = (wsc[i] + wsce[i] - wscM[i]) / h + advsc[i];
-    dsctend[i]    = gammasc[i] * (we + wf - M) - sctend[i];
+    dsctend[i]    = gammasc[i] * (we + wf - M) - sctend[i] + C_scft;
   }
 
   // assume u + du = ug, so ug - u = du
@@ -674,8 +672,15 @@ void model::runmlmodel()
     utend       = -fc * dv + (uw + uwe)  / h + advu;
     vtend       =  fc * du + (vw + vwe)  / h + advv;
 
-    dutend      = gammau * we - utend;
-    dvtend      = gammav * we - vtend;
+    double C_uft(0), C_vft(0);
+    if(sw_wsft)
+    {
+      C_uft     = gammau * ws;
+      C_vft     = gammav * ws;
+    }
+
+    dutend      = gammau * (we + wf - M) - utend + C_uft;
+    dvtend      = gammav * (we + wf - M) - vtend + C_vft;
   }
 }
 

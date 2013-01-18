@@ -211,7 +211,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         {
           xmin = xmin - 0.01 * (xmax - xmin);
           xmax = xmax + 0.01 * (xmax - xmin);
-          std::cout << xmin << xmax << std::endl;
         }
 
         xmin_auto = xmin;
