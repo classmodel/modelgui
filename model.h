@@ -181,7 +181,7 @@ private:
 
   double htend;
   double thetatend, qtend, utend, vtend, scatend, CO2tend;
-  double dthetatend, dqtend, dutend, dvtend, dscatend, dCO2tend;
+  double dthetatend, dqtend, dutend, dvtend, dscatend, dCO2tend, dztend;
 
   // surface layer variables
   bool   sw_sl;     // surface layer switch
@@ -306,6 +306,7 @@ private:
 
   // Shallow-cumulus parameters
   double dz;        // inversion-layer/transition-layer thickness [m]
+  double dz0;       // initial and lower boundary dz [m]
   bool sw_cu;       // shallow-cumulus switch [-]
   bool sw_curad;    // Link ac -> cc -> radiation
   double ac;        // cloud core fraction [-]

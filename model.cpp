@@ -27,9 +27,6 @@ model::model(modelinput *extinput)
   mair       =  28.9;                   // molecular weight air [g mol -1]
   nuco2q     =  1.6;                    // ratio molecular viscosity water to carbon dioxide
 
-  // Shallow-cumulus / variance calculations
-  dz         =  150.;                   // Transition layer thickness [m]
-
   //input      =  extinput;
   input = *extinput;
 
@@ -373,6 +370,9 @@ void model::initmodel()
   sw_curad   = input.sw_curad;          // Link ac -> cc -> radiation
   ac         =  0.;                     // cloud core fraction [-]
   M          =  0.;                     // mass-flux (/rho) [m s-1]
+  // Shallow-cumulus / variance calculations
+  dz0        =  50.;                    // Lower limit dz
+  dz         =  150;                    // (initial) transition layer thickness [m]
 
   // stratocumulus
   dFz        = input.dFz;               // cloud-top radiative divergence [W m-2]
@@ -420,6 +420,8 @@ void model::initmodel()
   if(sw_ls)
     runlsmodel();
 
+  statistics();   // BvS Jan2013: make sure we have lcl etc before entering runmlmodel()
+
   // BvS shallow-cumulus
   if(sw_cu){
    runmlmodel();
@@ -449,6 +451,7 @@ void model::initmodel()
   store();
   return;
 }
+
 
 
 void model::runmodel()
@@ -616,7 +619,6 @@ void model::runmlmodel()
   else
     wCO2M     = 0.;
 
-  // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
   htend       = we + ws + wf - M;
 
   thetatend   = (wtheta + wthetae - wthetaM)  / h + advtheta;
@@ -628,6 +630,12 @@ void model::runmlmodel()
   dqtend      = gammaq     * (we + wf - M) - qtend      + C_qft;
   dscatend    = gammasca   * (we + wf - M) - scatend    + C_scaft;
   dCO2tend    = gammaCO2   * (we + wf - M) - CO2tend    + C_CO2ft;
+
+  // Tendency transition layer thickness, lower limit at dz0, only variable when ac>0
+  if(ac > 0.)
+    dztend    = ((lcl-h)-dz) / 3600.;
+  else
+    dztend    = 0.;
 
   for(int i=0; i<nsc; i++)
   {
@@ -730,7 +738,7 @@ void model::statistics()
 void model::intmlmodel()
 {
   double h0;
-  double theta0, dtheta0, q0, dq0, sca0, dsca0, CO20, dCO20;
+  double theta0, dtheta0, q0, dq0, sca0, dsca0, CO20, dCO20, dz00;
   double u0, du0, v0, dv0;
   double *sc0, *dsc0;
 
@@ -752,6 +760,8 @@ void model::intmlmodel()
   CO20    = CO2;
   dCO20   = dCO2;
 
+  dz00    = dz;
+
   sc0  = new double[nsc];
   dsc0 = new double[nsc];
   for(int i=0; i<nsc; i++)
@@ -771,6 +781,10 @@ void model::intmlmodel()
   dsca     = dsca0   + dt * dscatend;
   CO2      = CO20    + dt * CO2tend;
   dCO2     = dCO20   + dt * dCO2tend;
+
+  dz       = dz00    + dt * dztend;
+  if(dz<dz0)  // fixed lower limit dz
+    dz = dz0;
 
   for(int i=0; i<nsc; i++)
   {
