@@ -1099,7 +1099,7 @@ void model::runlsmodel()
 
       // CO2 soil surface flux
       fw           = Cw * wmax / (wg + wmin);
-      Resp         = R10 * (1. - fw) * exp(E0 / (283.15 * 8.314) * (1. - 283.15 / (thetasurf)));
+      Resp         = R10 * (1. - fw) * exp(E0 / (283.15 * 8.314) * (1. - 283.15 / (Tsoil)));
 
       // CO2 flux
       awco2        = (An + Resp);                      // conversion mgCO2 m3 to mumol mol-1 (ppm)
