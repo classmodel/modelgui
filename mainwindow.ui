@@ -3046,7 +3046,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppm m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[mgC m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-2&lt;/span&gt;s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

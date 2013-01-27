@@ -309,7 +309,7 @@ void model::initmodel()
   fmin0      =  -1.;                    // function to calculate fmin [-]
   Ammax      =  -1.;                    // CO2 maximal primary productivity [mg m-2 s-1]
   Am         =  -1.;                    // CO2 primray productivity [mg m-2 s-1]
-  An         =  -1.;                    // net CO2 flow into the plant [mg m-2 s-1]
+  An         =  0.;                    // net CO2 flow into the plant [mg m-2 s-1]
   Rdark      =  -1.;                    // CO2 dark respiration [mg m-2 s-1]
   PAR        =  -1.;                    // Photosyntetically Active Radiation [W m-2]
   gcCo2      =  -1.;                    // CO2 conductance at canopy level [mm s-1]
@@ -363,7 +363,7 @@ void model::initmodel()
 
   // initialize soil  -1. ration model (coupled to A-gs)
   fw         =  -1.;                    // water stress correction function [-]
-  Resp       =  -1.;                    // soil surface carbon dioxide flux [mg m-2 s-1]
+  Resp       =  0.;                    // soil surface carbon dioxide flux [mg m-2 s-1]
 
   // shallow-cumulus
   sw_cu      = input.sw_cu;             // shallow-cumulus switch [-]
@@ -578,6 +578,8 @@ void model::runmlmodel()
   wqe     = we * dq;
   wscae   = we * dsca;
   wCO2e   = we * dCO2;
+
+  std::cout << wCO2 << std::endl;
 
   // compute mixed-layer top variances and mass-fluxes
   if (wthetav > 0.)
@@ -1102,8 +1104,11 @@ void model::runlsmodel()
       Resp         = R10 * (1. - fw) * exp(E0 / (283.15 * 8.314) * (1. - 283.15 / (Tsoil)));
 
       // CO2 flux
-      awco2        = (An + Resp);                      // conversion mgCO2 m3 to mumol mol-1 (ppm)
-      wCO2         = (An + Resp); // * (mair / mco2) * (1. / rho);   // conversion mgCO2 m3 to mumol mol-1 (ppm)
+      // BvS Jan2013: NOTE: all CO2-flux input and output and calculations in
+      // A-Gs are in mgC/m2s, but the model operates on ppm.
+      An           = An   * (mair / (rho * mco2));
+      Resp         = Resp * (mair / (rho * mco2));
+      wCO2         = An + Resp;
     }
 
     // recompute f2 using wg instead of w2
@@ -1244,13 +1249,13 @@ void model::store()
   output->dCO2.data[t]            = dCO2;
   output->gammaCO2.data[t]        = gammaCO2;
   output->advCO2.data[t]          = advCO2;
-  output->wCO2.data[t]            = awco2; //wCO2;
-  output->wCO2A.data[t]           = An; //   * (mair / mco2) * (1. / rho);
-  output->wCO2R.data[t]           = Resp; // * (mair / mco2) * (1. / rho);
-  output->wCO2e.data[t]           = wCO2e;
-  output->wCO2M.data[t]           = wCO2M;
+  // BvS Jan2013: All output CO2 fluxes in mgC/m2s instead of ppm ms-1
+  output->wCO2.data[t]            = wCO2   * ((rho*mco2)/mair);
+  output->wCO2A.data[t]           = An     * ((rho*mco2)/mair);
+  output->wCO2R.data[t]           = Resp   * ((rho*mco2)/mair);
+  output->wCO2e.data[t]           = wCO2e  * ((rho*mco2)/mair);
+  output->wCO2M.data[t]           = wCO2M  * ((rho*mco2)/mair);
   output->sigmaCO2.data[t]        = pow(sigmaCO22,0.5);
-
 
   // surface layer
   output->ustar.data[t]      = ustar;
@@ -1386,6 +1391,8 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->CO2.name << " [" << output->CO2.unit << "],";
   runsave << output->dCO2.name << " [" << output->dCO2.unit << "],";
   runsave << output->wCO2.name << " [" << output->wCO2.unit << "],";
+  runsave << output->wCO2A.name << " [" << output->wCO2A.unit << "],";
+  runsave << output->wCO2R.name << " [" << output->wCO2R.unit << "],";
   runsave << output->wCO2e.name << " [" << output->wCO2e.unit << "],";
   runsave << output->wCO2M.name << " [" << output->wCO2M.unit << "],";
 
@@ -1472,9 +1479,11 @@ void model::run2file(std::string filedir, std::string filename)
 
     runsave << output->CO2.data[nt] << ",";
     runsave << output->dCO2.data[nt] << ",";
-    runsave << output->wCO2.data[nt] << ",";
-    runsave << output->wCO2e.data[nt] << ",";
-    runsave << output->wCO2M.data[nt] << ",";
+    runsave << output->wCO2.data[nt]  * ((rho*mco2)/mair)  << ",";
+    runsave << output->wCO2A.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << output->wCO2R.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << output->wCO2e.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << output->wCO2M.data[nt] * ((rho*mco2)/mair) << ",";
 
     runsave << output->ustar.data[nt] << ",";
     runsave << output->L.data[nt] << ",";

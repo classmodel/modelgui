@@ -424,7 +424,7 @@ void MainWindow::storeFormData()
   formvalues.dCO2       = ui->input_CO2_dCO2->text().toDouble();
   formvalues.gammaCO2   = ui->input_CO2_gammaCO2->text().toDouble();
   formvalues.advCO2     = ui->input_CO2_CO2adv->text().toDouble();
-  formvalues.wCO2       = ui->input_CO2_wCO2->text().toDouble();
+  formvalues.wCO2       = ui->input_CO2_wCO2->text().toDouble() * (28.9/(1.2*46.));  // Conversion mgCO2 m-2 s-1 to ppm
 
   //if (activetab == 1)
   //{
@@ -713,7 +713,7 @@ void MainWindow::loadFormData()
     ui->input_CO2_dCO2->setText(QString::number(formvalues.dCO2));
     ui->input_CO2_gammaCO2->setText(QString::number(formvalues.gammaCO2));
     ui->input_CO2_CO2adv->setText(QString::number(formvalues.advCO2));
-    ui->input_CO2_wCO2->setText(QString::number(formvalues.wCO2));
+    ui->input_CO2_wCO2->setText(QString::number(formvalues.wCO2 / (28.9/(1.2*46.))));  // Conversion ppm to mgCO2 m-2 s-1
 
     // SOIL
     ui->input_soil_T2->setText(QString::number(formvalues.T2));
