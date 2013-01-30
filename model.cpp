@@ -453,7 +453,6 @@ void model::initmodel()
 }
 
 
-
 void model::runmodel()
 {
   initmodel();
@@ -469,7 +468,6 @@ void model::runmodel()
     if(sw_ls)
       runlsmodel();
 
-    // BvS shallow-cumulus
     if(sw_cu)
       runcumodel();
 
@@ -579,15 +577,13 @@ void model::runmlmodel()
   wscae   = we * dsca;
   wCO2e   = we * dCO2;
 
-  std::cout << wCO2 << std::endl;
-
   // compute mixed-layer top variances and mass-fluxes
   if (wthetav > 0.)
   {
-    sigmaq2     = wqe     * dq     * h / (dz * wstar);
-    sigmatheta2 = wthetae * dtheta * h / (dz * wstar);
-    sigmasca2   = wscae   * dsca   * h / (dz * wstar);
-    sigmaCO22   = wCO2e   * dCO2   * h / (dz * wstar);
+    sigmaq2     = (wqe-wqM)     * dq     * h / (dz * wstar);
+    sigmatheta2 = wthetae       * dtheta * h / (dz * wstar);
+    sigmasca2   = (wscae-wscaM) * dsca   * h / (dz * wstar);
+    sigmaCO22   = (wCO2e-wCO2M) * dCO2   * h / (dz * wstar);
   }
   else
   {
@@ -634,8 +630,8 @@ void model::runmlmodel()
   dCO2tend    = gammaCO2   * (we + wf - M) - CO2tend    + C_CO2ft;
 
   // Tendency transition layer thickness, lower limit at dz0, only variable when ac>0
-  if(ac > 0.)
-    dztend    = ((lcl-h)-dz) / 3600.;
+  if(ac > 0. || lcl-h<300)
+    dztend    = ((lcl-h)-dz) / 7200.;
   else
     dztend    = 0.;
 
@@ -655,7 +651,7 @@ void model::runmlmodel()
     wsce[i]        = we * dsc[i];
 
     if (wthetav > 0.)
-      sigmasc2[i]    = wsce[i] * dsc[i] * h / (dz * wstar);
+      sigmasc2[i]    = (wsce[i]-wscM[i]) * dsc[i] * h / (dz * wstar);
     else
       sigmasc2[i] = 0.;
     if (sigmasc2[i] < 0.)
