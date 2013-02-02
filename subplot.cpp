@@ -2,6 +2,7 @@
 #include "subplot.h"
 #include "ui_subplot.h"
 #include <QTextDocument>
+#include <QPointF>
 
 
 plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent)
@@ -406,7 +407,9 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       if(plotinterval > 0)
         numpoints = (tsteps/plotinterval);
 
-      QPointF points[numpoints];
+      QPointF *points = new QPointF[numpoints];
+
+      //QPointF points[numpoints];
       for (int m=0; m < numpoints; m++)
       {
         int n = m * plotinterval;
