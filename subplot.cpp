@@ -408,7 +408,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         numpoints = (tsteps/plotinterval);
 
       QPointF *points = new QPointF[numpoints];
-
       //QPointF points[numpoints];
       for (int m=0; m < numpoints; m++)
       {

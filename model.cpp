@@ -23,7 +23,7 @@ model::model(modelinput *extinput)
   pi         =  3.14159265359;          // Pi
 
   // Aditions for A-Gs scheme
-  mco2       =  46.;                    // molecular weight CO2 [g mol -1]
+  mco2       =  44.;                    // molecular weight CO2 [g mol -1]
   mair       =  28.9;                   // molecular weight air [g mol -1]
   nuco2q     =  1.6;                    // ratio molecular viscosity water to carbon dioxide
 
