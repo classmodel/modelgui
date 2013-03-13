@@ -722,6 +722,7 @@ void model::statistics()
   }
 
   // RH evaluated at T = theta
+  double e       = q * Ps / 0.622;
   double esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
   RH             = e / esat;
 
