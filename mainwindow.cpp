@@ -721,31 +721,26 @@ void MainWindow::loadFormData()
     ui->input_soil_W2->setText(QString::number(formvalues.w2));
     ui->input_soil_Wg->setText(QString::number(formvalues.wg));
 
+    ui->input_soil_wsat->setText(QString::number(formvalues.wsat));
+    ui->input_soil_wfc->setText(QString::number(formvalues.wfc));
+    ui->input_soil_wwilt->setText(QString::number(formvalues.wwilt));
+    ui->input_soil_c1sat->setText(QString::number(formvalues.C1sat));
+    ui->input_soil_c2ref->setText(QString::number(formvalues.C2ref));
+    ui->input_soil_a->setText(QString::number(formvalues.a));
+    ui->input_soil_b->setText(QString::number(formvalues.b));
+    ui->input_soil_p->setText(QString::number(formvalues.p));
+    ui->input_soil_CGsat->setText(QString::number(formvalues.CGsat));
+
     if(!modelrunlist->find(n).value().soiladvanced)
     {
       updateSoiltype(modelrunlist->find(n).value().soilstatus);
       ui->sw_soil_advanced->setCheckState(Qt::Unchecked);
-
-      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
       ui->soil_advanced_group->setEnabled(false);
       ui->input_soil_soiltypes->setEnabled(true);
     }
     else
     {
       ui->sw_soil_advanced->setCheckState(Qt::Checked);
-      ui->input_soil_wsat->setText(QString::number(formvalues.wsat));
-      ui->input_soil_wfc->setText(QString::number(formvalues.wfc));
-      ui->input_soil_wwilt->setText(QString::number(formvalues.wwilt));
-
-      ui->input_soil_c1sat->setText(QString::number(formvalues.C1sat));
-      ui->input_soil_c2ref->setText(QString::number(formvalues.C2ref));
-
-      ui->input_soil_a->setText(QString::number(formvalues.a));
-      ui->input_soil_b->setText(QString::number(formvalues.b));
-      ui->input_soil_p->setText(QString::number(formvalues.p));
-      ui->input_soil_CGsat->setText(QString::number(formvalues.CGsat));
-
-      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
       ui->soil_advanced_group->setEnabled(true);
       ui->input_soil_soiltypes->setEnabled(false);
     }
@@ -754,29 +749,22 @@ void MainWindow::loadFormData()
     ui->input_surface_Ts->setText(QString::number(formvalues.Ts));
     ui->input_surface_Wl->setText(QString::number(formvalues.Wl));
 
+    ui->input_surface_LAI->setText(QString::number(formvalues.LAI));
+    ui->input_surface_gD->setText(QString::number(formvalues.gD));
+    ui->input_surface_rsmin->setText(QString::number(formvalues.rsmin));
+    ui->input_surface_alpha->setText(QString::number(formvalues.alpha));
+    ui->input_surface_cveg->setText(QString::number(formvalues.cveg));
+    ui->input_surface_Lambda->setText(QString::number(formvalues.Lambda));
+
     if(!modelrunlist->find(n).value().surfaceadvanced)
     {
       ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
-      //updateSurfacetype(modelrunlist->find(n).value().surfacestatus);
-
-      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
       ui->surface_advanced_group->setEnabled(false);
       ui->input_surface_surfacetypes->setEnabled(true);
     }
     else
     {
       ui->sw_surface_advanced->setCheckState(Qt::Checked);
-      ui->input_surface_LAI->setText(QString::number(formvalues.LAI));
-      ui->input_surface_gD->setText(QString::number(formvalues.gD));
-      ui->input_surface_rsmin->setText(QString::number(formvalues.rsmin));
-      ui->input_surface_alpha->setText(QString::number(formvalues.alpha));
-      ui->input_surface_cveg->setText(QString::number(formvalues.cveg));
-
-      ui->input_surface_Lambda->setText(QString::number(formvalues.Lambda));
-      //ui->input_surface_z0m->setText(QString::number(formvalues.z0m));
-      //ui->input_surface_z0h->setText(QString::number(formvalues.z0h));
-
-      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
       ui->surface_advanced_group->setEnabled(true);
       ui->input_surface_surfacetypes->setEnabled(false);
     }
