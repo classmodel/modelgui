@@ -445,6 +445,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         }
       }
 
+      delete[] points;
+
       // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       // Create and draw legend entry
       paint.setRenderHint(QPainter::Antialiasing, false);
