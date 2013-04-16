@@ -1596,12 +1596,19 @@ void model::runchemmodel(double chemdt)
   iterout = new double[nsc];
   fsc     = new double[nsc];
 
+  double  cc_rad;          // Cloud fraction used in radiation [-]
+  if(sw_cu && !sw_curad)   // cumulus active, but no link cumulus->rad. Force clouds to zero
+     cc_rad = 0.;
+   else                    // all other combinations: cc_rad = cc
+     cc_rad = cc;
+
   for(int i=0; i<nsc; i++)
   {
     iterin[i]  = sc[i];
     iterout[i] = sc[i];
     fsc[i]     = sc[i] + dsc[i];
   }
+
 
   //cout << "Running chemmodel for timestep: " << t << endl;
 
@@ -1621,7 +1628,7 @@ void model::runchemmodel(double chemdt)
     cm->calc_k(P_ref,P_ref, \
                 Tcbl_ref, Tfc_ref, \
                 qcbl_ref, qfc_ref, \
-                sinlea, cc);
+                sinlea, cc_rad);
 
     cm->iter(1, chemdt, qcbl_ref, iterout, iterin, &phi, &k_r05);
 
@@ -1665,7 +1672,7 @@ void model::runchemmodel(double chemdt)
     cm->calc_k(Ps,   Ptop, \
                Tcbl, Tfc, \
                q,    qfc, \
-               sinlea, cc);
+               sinlea, cc_rad);
 
     cm->iter(1, chemdt, q, iterout, iterin, &phi, &k_r05);
 
