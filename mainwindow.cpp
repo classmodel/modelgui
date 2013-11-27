@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   connect(ui->sw_rad,                     SIGNAL(stateChanged(int)),        this, SLOT(switch_rad(int)));
   connect(ui->sw_ml,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_ml(int)));
   connect(ui->sw_cu,                      SIGNAL(stateChanged(int)),        this, SLOT(switch_cu(int)));
+  connect(ui->sw_cu_rad,                  SIGNAL(stateChanged(int)),        this, SLOT(switch_curad(int)));
   connect(ui->sw_chem,                    SIGNAL(stateChanged(int)),        this, SLOT(switch_chem(int)));
   connect(ui->sw_chem_constant,           SIGNAL(stateChanged(int)),        this, SLOT(switch_chem_constant(int)));
   connect(ui->sw_species_photolysis,      SIGNAL(stateChanged(int)),        this, SLOT(switch_photolysis(int)));
@@ -423,7 +424,7 @@ void MainWindow::storeFormData()
   formvalues.dCO2       = ui->input_CO2_dCO2->text().toDouble();
   formvalues.gammaCO2   = ui->input_CO2_gammaCO2->text().toDouble();
   formvalues.advCO2     = ui->input_CO2_CO2adv->text().toDouble();
-  formvalues.wCO2       = ui->input_CO2_wCO2->text().toDouble();
+  formvalues.wCO2       = ui->input_CO2_wCO2->text().toDouble() * (28.9/(1.2*46.));  // Conversion mgCO2 m-2 s-1 to ppm
 
   //if (activetab == 1)
   //{
@@ -493,6 +494,7 @@ void MainWindow::storeFormData()
   formvalues.cc         = ui->input_rad_clouds->text().toDouble();
 
   formvalues.sw_cu      = CheckState2bool(ui->sw_cu->checkState());
+  formvalues.sw_curad   = CheckState2bool(ui->sw_cu_rad->checkState());
 
   formvalues.dFz        = ui->input_rad_dFz->text().toDouble();
   // END TAB5
@@ -611,7 +613,10 @@ void MainWindow::loadFormData()
     ui->sw_ftcws->setCheckState(Bool2CheckState(formvalues.sw_ftcws));
     ui->sw_shearwe->setCheckState(Bool2CheckState(formvalues.sw_shearwe));
     ui->sw_cu->setCheckState(Bool2CheckState(formvalues.sw_cu));
+      switch_cu(Bool2Int(formvalues.sw_cu));
+    ui->sw_cu_rad->setCheckState(Bool2CheckState(formvalues.sw_curad));
     ui->sw_rad->setCheckState(Bool2CheckState(formvalues.sw_rad));
+      switch_rad(Bool2Int(formvalues.sw_rad));
     ui->sw_sl->setCheckState(Bool2CheckState(formvalues.sw_sl));
     ui->sw_ls->setCheckState(Bool2CheckState(formvalues.sw_ls));
     ui->sw_wtheta->setCheckState(Bool2CheckState(formvalues.sw_wtheta));
@@ -708,7 +713,7 @@ void MainWindow::loadFormData()
     ui->input_CO2_dCO2->setText(QString::number(formvalues.dCO2));
     ui->input_CO2_gammaCO2->setText(QString::number(formvalues.gammaCO2));
     ui->input_CO2_CO2adv->setText(QString::number(formvalues.advCO2));
-    ui->input_CO2_wCO2->setText(QString::number(formvalues.wCO2));
+    ui->input_CO2_wCO2->setText(QString::number(formvalues.wCO2 / (28.9/(1.2*46.))));  // Conversion ppm to mgCO2 m-2 s-1
 
     // SOIL
     ui->input_soil_T2->setText(QString::number(formvalues.T2));
@@ -716,31 +721,26 @@ void MainWindow::loadFormData()
     ui->input_soil_W2->setText(QString::number(formvalues.w2));
     ui->input_soil_Wg->setText(QString::number(formvalues.wg));
 
+    ui->input_soil_wsat->setText(QString::number(formvalues.wsat));
+    ui->input_soil_wfc->setText(QString::number(formvalues.wfc));
+    ui->input_soil_wwilt->setText(QString::number(formvalues.wwilt));
+    ui->input_soil_c1sat->setText(QString::number(formvalues.C1sat));
+    ui->input_soil_c2ref->setText(QString::number(formvalues.C2ref));
+    ui->input_soil_a->setText(QString::number(formvalues.a));
+    ui->input_soil_b->setText(QString::number(formvalues.b));
+    ui->input_soil_p->setText(QString::number(formvalues.p));
+    ui->input_soil_CGsat->setText(QString::number(formvalues.CGsat));
+
     if(!modelrunlist->find(n).value().soiladvanced)
     {
       updateSoiltype(modelrunlist->find(n).value().soilstatus);
       ui->sw_soil_advanced->setCheckState(Qt::Unchecked);
-
-      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
       ui->soil_advanced_group->setEnabled(false);
       ui->input_soil_soiltypes->setEnabled(true);
     }
     else
     {
       ui->sw_soil_advanced->setCheckState(Qt::Checked);
-      ui->input_soil_wsat->setText(QString::number(formvalues.wsat));
-      ui->input_soil_wfc->setText(QString::number(formvalues.wfc));
-      ui->input_soil_wwilt->setText(QString::number(formvalues.wwilt));
-
-      ui->input_soil_c1sat->setText(QString::number(formvalues.C1sat));
-      ui->input_soil_c2ref->setText(QString::number(formvalues.C2ref));
-
-      ui->input_soil_a->setText(QString::number(formvalues.a));
-      ui->input_soil_b->setText(QString::number(formvalues.b));
-      ui->input_soil_p->setText(QString::number(formvalues.p));
-      ui->input_soil_CGsat->setText(QString::number(formvalues.CGsat));
-
-      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
       ui->soil_advanced_group->setEnabled(true);
       ui->input_soil_soiltypes->setEnabled(false);
     }
@@ -749,29 +749,22 @@ void MainWindow::loadFormData()
     ui->input_surface_Ts->setText(QString::number(formvalues.Ts));
     ui->input_surface_Wl->setText(QString::number(formvalues.Wl));
 
+    ui->input_surface_LAI->setText(QString::number(formvalues.LAI));
+    ui->input_surface_gD->setText(QString::number(formvalues.gD));
+    ui->input_surface_rsmin->setText(QString::number(formvalues.rsmin));
+    ui->input_surface_alpha->setText(QString::number(formvalues.alpha));
+    ui->input_surface_cveg->setText(QString::number(formvalues.cveg));
+    ui->input_surface_Lambda->setText(QString::number(formvalues.Lambda));
+
     if(!modelrunlist->find(n).value().surfaceadvanced)
     {
       ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
-      //updateSurfacetype(modelrunlist->find(n).value().surfacestatus);
-
-      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
       ui->surface_advanced_group->setEnabled(false);
       ui->input_surface_surfacetypes->setEnabled(true);
     }
     else
     {
       ui->sw_surface_advanced->setCheckState(Qt::Checked);
-      ui->input_surface_LAI->setText(QString::number(formvalues.LAI));
-      ui->input_surface_gD->setText(QString::number(formvalues.gD));
-      ui->input_surface_rsmin->setText(QString::number(formvalues.rsmin));
-      ui->input_surface_alpha->setText(QString::number(formvalues.alpha));
-      ui->input_surface_cveg->setText(QString::number(formvalues.cveg));
-
-      ui->input_surface_Lambda->setText(QString::number(formvalues.Lambda));
-      //ui->input_surface_z0m->setText(QString::number(formvalues.z0m));
-      //ui->input_surface_z0h->setText(QString::number(formvalues.z0h));
-
-      // BvS -> enable/disable certain parts of form (test, 25 Jan 2011)
       ui->surface_advanced_group->setEnabled(true);
       ui->input_surface_surfacetypes->setEnabled(false);
     }
@@ -1168,6 +1161,7 @@ void MainWindow::saveRuns()
       out << temprun.run->input.cc         << endl;
 
       out << temprun.run->input.sw_cu      << endl;
+      out << temprun.run->input.sw_curad   << endl;
       out << temprun.run->input.dFz        << endl;
       // END TAB5
 
@@ -1440,6 +1434,8 @@ void MainWindow::loadRuns()
 
       line = in.readLine();
       tempinput.sw_cu      = line.toInt();
+      line = in.readLine();
+      tempinput.sw_curad   = line.toInt();
       line = in.readLine();
       tempinput.dFz        = line.toDouble();
 
@@ -1788,10 +1784,25 @@ void MainWindow::switch_sl(int state)
 void MainWindow::switch_rad(int state)
 {
   bool checkstate;
+  bool checkstateclouds;
   if (state == Qt::Checked)
     checkstate = true;
   else
     checkstate = false;
+
+  ui->label_rad_Qnet->setEnabled(!checkstate);
+  ui->input_rad_Qnet->setEnabled(!checkstate);
+  ui->unitlabel_rad_Qnet->setEnabled(!checkstate);
+
+  // Field clouds depends both on state radiation and cumulus switches
+  if(checkstate && ui->sw_cu->checkState() == Qt::Unchecked)
+    checkstateclouds = true;
+  else
+    checkstateclouds = false;
+
+  ui->label_rad_clouds->setEnabled(checkstateclouds);
+  ui->input_rad_clouds->setEnabled(checkstateclouds);
+  ui->unitlabel_rad_clouds->setEnabled(checkstateclouds);
 
   updateStatusBar();
 }
@@ -1810,12 +1821,35 @@ void MainWindow::switch_ml(int state)
 void MainWindow::switch_cu(int state)
 {
   bool checkstate;
+  bool checkstateclouds;
   if (state == Qt::Checked)
     checkstate = true;
   else
     checkstate = false;
 
+  ui->sw_cu_rad->setEnabled(checkstate);
+
+  // Field clouds depends both on state radiation and cumulus switches
+  if(!checkstate && ui->sw_rad->checkState() == Qt::Checked)
+    checkstateclouds = true;
+  else
+    checkstateclouds = false;
+
+  ui->label_rad_clouds->setEnabled(checkstateclouds);
+  ui->input_rad_clouds->setEnabled(checkstateclouds);
+  ui->unitlabel_rad_clouds->setEnabled(checkstateclouds);
+
+
   updateStatusBar();
+}
+
+void MainWindow::switch_curad(int state)
+{
+  bool checkstate;
+  if (state == Qt::Checked)
+    checkstate = true;
+  else
+    checkstate = false;
 }
 
 void MainWindow::switch_wtheta(int state)

@@ -171,7 +171,6 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.sigmatheta
       << modelout.wstar;
 
-
   moisturevars
       << modelout.q
       << modelout.dq
@@ -236,6 +235,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   cloudvars
       << modelout.ac
+      << modelout.cc
       << modelout.M;
 
   vertprof

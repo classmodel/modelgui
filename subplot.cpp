@@ -2,6 +2,7 @@
 #include "subplot.h"
 #include "ui_subplot.h"
 #include <QTextDocument>
+#include <QPointF>
 
 
 plotarea::plotarea(QMap<int, modelrun> *runs, QList<int> *selected, QWidget *parent) : QWidget(parent)
@@ -211,7 +212,6 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
         {
           xmin = xmin - 0.01 * (xmax - xmin);
           xmax = xmax + 0.01 * (xmax - xmin);
-          std::cout << xmin << xmax << std::endl;
         }
 
         xmin_auto = xmin;
@@ -407,7 +407,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
       if(plotinterval > 0)
         numpoints = (tsteps/plotinterval);
 
-      QPointF points[numpoints];
+      QPointF *points = new QPointF[numpoints];
+      //QPointF points[numpoints];
       for (int m=0; m < numpoints; m++)
       {
         int n = m * plotinterval;
@@ -443,6 +444,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
           paint.drawLine(transfx(xdata.data[m+2],xscale,graphminx,0),transfy(ydata.data[m+2],yscale,graphminy,0),transfx(xdata.data[m+3],xscale,graphminx,0),transfy(ydata.data[m+3],yscale,graphminy,0));
         }
       }
+
+      delete[] points;
 
       // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       // Create and draw legend entry

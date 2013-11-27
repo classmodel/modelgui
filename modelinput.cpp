@@ -125,8 +125,9 @@ modelinput::modelinput()
 
   // shallow-cumulus
   sw_cu      = true;
+  sw_curad   = false;
 
-  dFz        = false;
+  dFz        = -1;
 
   // chemistry
   sw_chem    = false;
@@ -271,6 +272,7 @@ modelinput::modelinput(const modelinput &ref)
 
   // shallow-cumulus
   sw_cu      = ref.sw_cu;
+  sw_curad   = ref.sw_curad;
 
   dFz        = ref.dFz;
 
@@ -502,6 +504,8 @@ bool modelinput::operator!=(const modelinput &ref)
   // shallow-!cumulus
   else if(sw_cu      != ref.sw_cu)
     return true;	  
+  else if(sw_curad   != ref.sw_curad)
+    return true;
   else if(dFz        != ref.dFz)
     return true;	  
 
@@ -675,6 +679,7 @@ modelinput &modelinput::operator=(const modelinput &ref)
 
     // shallow-cumulus
     sw_cu      = ref.sw_cu;
+    sw_curad   = ref.sw_curad;
 
     dFz        = ref.dFz;
 

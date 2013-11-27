@@ -109,6 +109,7 @@ void MainWindow::readdefaultinput()
 
   // shallow-cumulus
   defaultinput.sw_cu      = false;    // shallow-cumulus switch
+  defaultinput.sw_curad   = false;    // link ac -> cc -> radiation
 
   // stratocumulus
   defaultinput.dFz        = 0.;       // Cloud top radiative divergence (stratocumulus)

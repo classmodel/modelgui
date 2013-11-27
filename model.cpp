@@ -23,12 +23,9 @@ model::model(modelinput *extinput)
   pi         =  3.14159265359;          // Pi
 
   // Aditions for A-Gs scheme
-  mco2       =  46.;                    // molecular weight CO2 [g mol -1]
+  mco2       =  44.;                    // molecular weight CO2 [g mol -1]
   mair       =  28.9;                   // molecular weight air [g mol -1]
   nuco2q     =  1.6;                    // ratio molecular viscosity water to carbon dioxide
-
-  // Shallow-cumulus / variance calculations
-  dz         =  150.;                   // Transition layer thickness [m]
 
   //input      =  extinput;
   input = *extinput;
@@ -312,7 +309,7 @@ void model::initmodel()
   fmin0      =  -1.;                    // function to calculate fmin [-]
   Ammax      =  -1.;                    // CO2 maximal primary productivity [mg m-2 s-1]
   Am         =  -1.;                    // CO2 primray productivity [mg m-2 s-1]
-  An         =  -1.;                    // net CO2 flow into the plant [mg m-2 s-1]
+  An         =  0.;                    // net CO2 flow into the plant [mg m-2 s-1]
   Rdark      =  -1.;                    // CO2 dark respiration [mg m-2 s-1]
   PAR        =  -1.;                    // Photosyntetically Active Radiation [W m-2]
   gcCo2      =  -1.;                    // CO2 conductance at canopy level [mm s-1]
@@ -366,12 +363,16 @@ void model::initmodel()
 
   // initialize soil  -1. ration model (coupled to A-gs)
   fw         =  -1.;                    // water stress correction function [-]
-  Resp       =  -1.;                    // soil surface carbon dioxide flux [mg m-2 s-1]
+  Resp       =  0.;                    // soil surface carbon dioxide flux [mg m-2 s-1]
 
   // shallow-cumulus
   sw_cu      = input.sw_cu;             // shallow-cumulus switch [-]
+  sw_curad   = input.sw_curad;          // Link ac -> cc -> radiation
   ac         =  0.;                     // cloud core fraction [-]
   M          =  0.;                     // mass-flux (/rho) [m s-1]
+  // Shallow-cumulus / variance calculations
+  dz0        =  50.;                    // Lower limit dz
+  dz         =  150;                    // (initial) transition layer thickness [m]
 
   // stratocumulus
   dFz        = input.dFz;               // cloud-top radiative divergence [W m-2]
@@ -419,6 +420,8 @@ void model::initmodel()
   if(sw_ls)
     runlsmodel();
 
+  statistics();   // BvS Jan2013: make sure we have lcl etc before entering runmlmodel()
+
   // BvS shallow-cumulus
   if(sw_cu){
    runmlmodel();
@@ -465,7 +468,6 @@ void model::runmodel()
     if(sw_ls)
       runlsmodel();
 
-    // BvS shallow-cumulus
     if(sw_cu)
       runcumodel();
 
@@ -505,6 +507,7 @@ void model::runcumodel()
   if (ac < 0.)
     ac = 0.;
 
+  cc               = 2. * ac;
   M                = ac * wstar;
 }
 
@@ -541,7 +544,7 @@ void model::runmlmodel()
   ws = -omegas * h;
 
   // Compensate free tropospheric warming due to subsidence
-  double C_thetaft, C_qft, C_scaft, C_CO2ft;
+  double C_thetaft(0.), C_qft(0.), C_scaft(0.), C_CO2ft(0.);
   if(sw_wsft)
   {
     C_thetaft = gammatheta    * ws;
@@ -549,16 +552,10 @@ void model::runmlmodel()
     C_scaft   = gammasca      * ws;
     C_CO2ft   = gammaCO2      * ws;
   }
-  else
-  {
-    C_thetaft = 0.;
-    C_qft     = 0.;
-    C_scaft   = 0.;
-    C_CO2ft   = 0.;
-  }
 
   // compute tendencies
-  if(beta == 0 && inputdthetav == 0){
+  if(beta == 0 && inputdthetav == 0)
+  {
     we    = 1 / gammatheta * wthetav / h;
     wf    = 1 / gammatheta * (dFz / rho * cp) / h;
   }
@@ -572,7 +569,7 @@ void model::runmlmodel()
   }
 
   if (we < 0.)
-      we = 0;
+    we = 0;
 
   // compute entrainment fluxes
   wthetae = we * dtheta;
@@ -583,10 +580,10 @@ void model::runmlmodel()
   // compute mixed-layer top variances and mass-fluxes
   if (wthetav > 0.)
   {
-    sigmaq2     = wqe     * dq     * h / (dz * wstar);
-    sigmatheta2 = wthetae * dtheta * h / (dz * wstar);
-    sigmasca2   = wscae   * dsca   * h / (dz * wstar);
-    sigmaCO22   = wCO2e   * dCO2   * h / (dz * wstar);
+    sigmaq2     = (wqe-wqM)     * dq     * h / (dz * wstar);
+    sigmatheta2 = wthetae       * dtheta * h / (dz * wstar);
+    sigmasca2   = (wscae-wscaM) * dsca   * h / (dz * wstar);
+    sigmaCO22   = (wCO2e-wCO2M) * dCO2   * h / (dz * wstar);
   }
   else
   {
@@ -620,7 +617,6 @@ void model::runmlmodel()
   else
     wCO2M     = 0.;
 
-  // we     = (beta * wthetav + 5. * pow(ustar, 3.) * thetav / (g * h)) / dthetav;
   htend       = we + ws + wf - M;
 
   thetatend   = (wtheta + wthetae - wthetaM)  / h + advtheta;
@@ -632,6 +628,12 @@ void model::runmlmodel()
   dqtend      = gammaq     * (we + wf - M) - qtend      + C_qft;
   dscatend    = gammasca   * (we + wf - M) - scatend    + C_scaft;
   dCO2tend    = gammaCO2   * (we + wf - M) - CO2tend    + C_CO2ft;
+
+  // Tendency transition layer thickness, lower limit at dz0, only variable when ac>0
+  if(ac > 0. || lcl-h<300)
+    dztend    = ((lcl-h)-dz) / 7200.;
+  else
+    dztend    = 0.;
 
   for(int i=0; i<nsc; i++)
   {
@@ -649,7 +651,7 @@ void model::runmlmodel()
     wsce[i]        = we * dsc[i];
 
     if (wthetav > 0.)
-      sigmasc2[i]    = wsce[i] * dsc[i] * h / (dz * wstar);
+      sigmasc2[i]    = (wsce[i]-wscM[i]) * dsc[i] * h / (dz * wstar);
     else
       sigmasc2[i] = 0.;
     if (sigmasc2[i] < 0.)
@@ -659,8 +661,13 @@ void model::runmlmodel()
       wscM[i]     = M * pow(sigmasc2[i],0.5);
     else
       wscM[i]     = 0.;
+
+    double C_scft(0.);
+    if(sw_wsft)
+      C_scft      = gammasc[i] * ws;
+
     sctend[i]     = (wsc[i] + wsce[i] - wscM[i]) / h + advsc[i];
-    dsctend[i]    = gammasc[i] * (we + wf - M) - sctend[i];
+    dsctend[i]    = gammasc[i] * (we + wf - M) - sctend[i] + C_scft;
   }
 
   // assume u + du = ug, so ug - u = du
@@ -671,8 +678,15 @@ void model::runmlmodel()
     utend       = -fc * dv + (uw + uwe)  / h + advu;
     vtend       =  fc * du + (vw + vwe)  / h + advv;
 
-    dutend      = gammau * we - utend;
-    dvtend      = gammav * we - vtend;
+    double C_uft(0), C_vft(0);
+    if(sw_wsft)
+    {
+      C_uft     = gammau * ws;
+      C_vft     = gammav * ws;
+    }
+
+    dutend      = gammau * (we + wf - M) - utend + C_uft;
+    dvtend      = gammav * (we + wf - M) - vtend + C_vft;
   }
 }
 
@@ -708,6 +722,7 @@ void model::statistics()
   }
 
   // RH evaluated at T = theta
+  double e       = q * Ps / 0.622;
   double esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
   RH             = e / esat;
 
@@ -722,7 +737,7 @@ void model::statistics()
 void model::intmlmodel()
 {
   double h0;
-  double theta0, dtheta0, q0, dq0, sca0, dsca0, CO20, dCO20;
+  double theta0, dtheta0, q0, dq0, sca0, dsca0, CO20, dCO20, dz00;
   double u0, du0, v0, dv0;
   double *sc0, *dsc0;
 
@@ -744,6 +759,8 @@ void model::intmlmodel()
   CO20    = CO2;
   dCO20   = dCO2;
 
+  dz00    = dz;
+
   sc0  = new double[nsc];
   dsc0 = new double[nsc];
   for(int i=0; i<nsc; i++)
@@ -763,6 +780,10 @@ void model::intmlmodel()
   dsca     = dsca0   + dt * dscatend;
   CO2      = CO20    + dt * CO2tend;
   dCO2     = dCO20   + dt * dCO2tend;
+
+  dz       = dz00    + dt * dztend;
+  if(dz<dz0)  // fixed lower limit dz
+    dz = dz0;
 
   for(int i=0; i<nsc; i++)
   {
@@ -923,13 +944,21 @@ void model::runradmodel()
   double  sinlea;   // sinus of local declination angle [-]
   double  Ta;       // absolute temperature at top of surface layer [K]
   double  Tr;       // atmospheric transmissivity [-]
+  double  cc_rad;   // Cloud fraction used in radiation [-]
 
   sda    = 0.409 * cos(2. * pi * (doy - 173.) / 365.);
   sinlea = sin(2. * pi * lat / 360.) * sin(sda) - cos(2. * pi * lat / 360.) * cos(sda) * cos(2. * pi * (t * dt + tstart * 3600.) / 86400. - 2. * pi * lon / 360.);
   sinlea = max(sinlea, 0.0001);
 
   Ta  = theta * pow(((Ps - 0.1 * h * rho * g) / Ps ), Rd / cp);
-  Tr  = (0.6 + 0.2 * sinlea) * (1. - 0.4 * cc);
+
+  // Set special cc_rad for cloud fraction radiation
+  if(sw_cu && !sw_curad)   // cumulus active, but no link cumulus->rad. Force clouds to zero
+     cc_rad = 0.;
+   else                    // all other combinations: cc_rad = cc
+     cc_rad = cc;
+
+  Tr  = (0.6 + 0.2 * sinlea) * (1. - 0.4 * cc_rad);
 
   Swin  = S0 * Tr * sinlea;
   Swout = alpha * S0 * Tr * sinlea;
@@ -1069,11 +1098,14 @@ void model::runlsmodel()
 
       // CO2 soil surface flux
       fw           = Cw * wmax / (wg + wmin);
-      Resp         = R10 * (1. - fw) * exp(E0 / (283.15 * 8.314) * (1. - 283.15 / (thetasurf)));
+      Resp         = R10 * (1. - fw) * exp(E0 / (283.15 * 8.314) * (1. - 283.15 / (Tsoil)));
 
       // CO2 flux
-      awco2        = (An + Resp);                      // conversion mgCO2 m3 to mumol mol-1 (ppm)
-      wCO2         = (An + Resp); // * (mair / mco2) * (1. / rho);   // conversion mgCO2 m3 to mumol mol-1 (ppm)
+      // BvS Jan2013: NOTE: all CO2-flux input and output and calculations in
+      // A-Gs are in mgC/m2s, but the model operates on ppm.
+      An           = An   * (mair / (rho * mco2));
+      Resp         = Resp * (mair / (rho * mco2));
+      wCO2         = An + Resp;
     }
 
     // recompute f2 using wg instead of w2
@@ -1214,13 +1246,13 @@ void model::store()
   output->dCO2.data[t]            = dCO2;
   output->gammaCO2.data[t]        = gammaCO2;
   output->advCO2.data[t]          = advCO2;
-  output->wCO2.data[t]            = awco2; //wCO2;
-  output->wCO2A.data[t]           = An; //   * (mair / mco2) * (1. / rho);
-  output->wCO2R.data[t]           = Resp; // * (mair / mco2) * (1. / rho);
-  output->wCO2e.data[t]           = wCO2e;
-  output->wCO2M.data[t]           = wCO2M;
+  // BvS Jan2013: All output CO2 fluxes in mgC/m2s instead of ppm ms-1
+  output->wCO2.data[t]            = wCO2   * ((rho*mco2)/mair);
+  output->wCO2A.data[t]           = An     * ((rho*mco2)/mair);
+  output->wCO2R.data[t]           = Resp   * ((rho*mco2)/mair);
+  output->wCO2e.data[t]           = wCO2e  * ((rho*mco2)/mair);
+  output->wCO2M.data[t]           = wCO2M  * ((rho*mco2)/mair);
   output->sigmaCO2.data[t]        = pow(sigmaCO22,0.5);
-
 
   // surface layer
   output->ustar.data[t]      = ustar;
@@ -1250,6 +1282,7 @@ void model::store()
 
   // shallow-cumulus
   output->ac.data[t]         = ac;
+  output->cc.data[t]         = cc;
   output->M.data[t]          = M;
 
   // vertical profiles
@@ -1355,6 +1388,8 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->CO2.name << " [" << output->CO2.unit << "],";
   runsave << output->dCO2.name << " [" << output->dCO2.unit << "],";
   runsave << output->wCO2.name << " [" << output->wCO2.unit << "],";
+  runsave << output->wCO2A.name << " [" << output->wCO2A.unit << "],";
+  runsave << output->wCO2R.name << " [" << output->wCO2R.unit << "],";
   runsave << output->wCO2e.name << " [" << output->wCO2e.unit << "],";
   runsave << output->wCO2M.name << " [" << output->wCO2M.unit << "],";
 
@@ -1381,6 +1416,7 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->G.name << " [" << output->G.unit << "],";
 
   runsave << output->ac.name << " [" << output->ac.unit << "],";
+  runsave << output->cc.name << " [" << output->cc.unit << "],";
   runsave << output->sigmaq.name << " [" << output->sigmaq.unit << "],";
   runsave << output->wqM.name << " [" << output->wqM.unit << "],";
   runsave << output->M.name << " [" << output->M.unit << "],";
@@ -1440,9 +1476,11 @@ void model::run2file(std::string filedir, std::string filename)
 
     runsave << output->CO2.data[nt] << ",";
     runsave << output->dCO2.data[nt] << ",";
-    runsave << output->wCO2.data[nt] << ",";
-    runsave << output->wCO2e.data[nt] << ",";
-    runsave << output->wCO2M.data[nt] << ",";
+    runsave << output->wCO2.data[nt]  * ((rho*mco2)/mair)  << ",";
+    runsave << output->wCO2A.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << output->wCO2R.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << output->wCO2e.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << output->wCO2M.data[nt] * ((rho*mco2)/mair) << ",";
 
     runsave << output->ustar.data[nt] << ",";
     runsave << output->L.data[nt] << ",";
@@ -1467,6 +1505,7 @@ void model::run2file(std::string filedir, std::string filename)
     runsave << output->G.data[nt] << ",";
 
     runsave << output->ac.data[nt] << ",";
+    runsave << output->cc.data[nt] << ",";
     runsave << output->sigmaq.data[nt] << ",";
     runsave << output->wqM.data[nt] << ",";
     runsave << output->M.data[nt] << ",";
@@ -1557,12 +1596,19 @@ void model::runchemmodel(double chemdt)
   iterout = new double[nsc];
   fsc     = new double[nsc];
 
+  double  cc_rad;          // Cloud fraction used in radiation [-]
+  if(sw_cu && !sw_curad)   // cumulus active, but no link cumulus->rad. Force clouds to zero
+     cc_rad = 0.;
+   else                    // all other combinations: cc_rad = cc
+     cc_rad = cc;
+
   for(int i=0; i<nsc; i++)
   {
     iterin[i]  = sc[i];
     iterout[i] = sc[i];
     fsc[i]     = sc[i] + dsc[i];
   }
+
 
   //cout << "Running chemmodel for timestep: " << t << endl;
 
@@ -1582,7 +1628,7 @@ void model::runchemmodel(double chemdt)
     cm->calc_k(P_ref,P_ref, \
                 Tcbl_ref, Tfc_ref, \
                 qcbl_ref, qfc_ref, \
-                sinlea, cc);
+                sinlea, cc_rad);
 
     cm->iter(1, chemdt, qcbl_ref, iterout, iterin, &phi, &k_r05);
 
@@ -1626,7 +1672,7 @@ void model::runchemmodel(double chemdt)
     cm->calc_k(Ps,   Ptop, \
                Tcbl, Tfc, \
                q,    qfc, \
-               sinlea, cc);
+               sinlea, cc_rad);
 
     cm->iter(1, chemdt, q, iterout, iterin, &phi, &k_r05);
 

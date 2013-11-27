@@ -334,33 +334,33 @@ modeloutput::modeloutput(int tsteps, int nsc)
   advCO2.description        = "Large-scale CO2 advection";
   advCO2.id                 = "advCO2";
 
-  wCO2.data                 = new double[tsteps];  // surface kinematic CO2 flux [kg kg-1 m s-1]
+  wCO2.data                 = new double[tsteps];  // surface kinematic CO2 flux [mgC/m2s]
   wCO2.name                 = "wCO2";
-  wCO2.unit                 = "ppm m s-\u00B9";
+  wCO2.unit                 = "mgC m-2 s-1";
   wCO2.description          = "Surface kinematic CO2 flux";
   wCO2.id                   = "wCO2";
 
   wCO2A.data                 = new double[tsteps];  // Assimilation CO2 flux [kg kg-1 m s-1]
   wCO2A.name                 = "wCO2A";
-  wCO2A.unit                 = "ppm m s-\u00B9";
+  wCO2A.unit                 = "mgC m-2 s-1";
   wCO2A.description          = "Assimilation kinematic CO2 flux";
   wCO2A.id                   = "wCO2A";
 
   wCO2R.data                 = new double[tsteps];  // Respiration CO2 flux [kg kg-1 m s-1]
   wCO2R.name                 = "wCO2R";
-  wCO2R.unit                 = "ppm m s-\u00B9";
+  wCO2R.unit                 = "mgC m-2 s-1";
   wCO2R.description          = "Respiration kinematic CO2 flux";
   wCO2R.id                   = "wCO2R";
 
   wCO2e.data                = new double[tsteps];  // entrainment kinematic CO2 flux [kg kg-1 m s-1]
   wCO2e.name                = "wCO2e";
-  wCO2e.unit                = "ppm m s-\u00B9";
+  wCO2e.unit                = "mgC m-2 s-1";
   wCO2e.description         = "Entrainment kinematic CO2 flux";
   wCO2e.id                  = "wCO2e";
 
   wCO2M.data                = new double[tsteps];  // mass-flux kinematic CO2 flux [kg kg-1 m s-1]
   wCO2M.name                = "wCO2M";
-  wCO2M.unit                = "ppm m s-\u00B9";
+  wCO2M.unit                = "mgC m-2 s-1";
   wCO2M.description         = "Mass-flux kinematic CO2 flux";
   wCO2M.id                  = "wCO2M";
 
@@ -499,6 +499,12 @@ modeloutput::modeloutput(int tsteps, int nsc)
   M.unit                    = "m s-\u00B9";
   M.description             = "Mass-flux";
   M.id                      = "M";
+
+  cc.data                   = new double[tsteps];   // total cloud fraction [-]
+  cc.name                   = "cc";
+  cc.unit                   = "-";
+  cc.description            = "Total cloud fraction";
+  cc.id                     = "cc";
 
   // vertical profiles
   thetaprof.data            = new double[tsteps*4];
@@ -708,6 +714,7 @@ void modeloutput::reset(int nsc)
   delete[] G.data;
   delete[] ac.data;
   delete[] M.data;
+  delete[] cc.data;
   delete[] thetaprof.data;
   delete[] wthetaprof.data;
   delete[] wthetavprof.data;
@@ -810,6 +817,7 @@ void modeloutput::reload(int tsteps, int nsc)
   G.data                    = new double[tsteps];   // Net radiation [W m-2]
   ac.data                   = new double[tsteps];   // cloud core fraction [-]
   M.data                    = new double[tsteps];   // mass-flux (/rho) [m s-1]
+  cc.data                   = new double[tsteps];   // total cloud fraction [-]
   thetaprof.data            = new double[tsteps*4];
   wthetaprof.data           = new double[tsteps*4];
   wthetavprof.data          = new double[tsteps*4];

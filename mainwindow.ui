@@ -81,7 +81,7 @@
         <x>10</x>
         <y>10</y>
         <width>251</width>
-        <height>141</height>
+        <height>151</height>
        </rect>
       </property>
       <property name="title">
@@ -93,7 +93,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>121</height>
+         <height>123</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="modelsettings_grid" columnstretch="0,0,0" columnminimumwidth="0,0,0">
@@ -354,7 +354,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>190</y>
+        <y>260</y>
         <width>251</width>
         <height>231</height>
        </rect>
@@ -368,7 +368,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>211</height>
+         <height>214</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="heat_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -795,7 +795,7 @@
         <x>270</x>
         <y>10</y>
         <width>251</width>
-        <height>171</height>
+        <height>241</height>
        </rect>
       </property>
       <property name="title">
@@ -807,270 +807,14 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>151</height>
+         <height>221</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="ml_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_ml_h">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>55</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>55</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;h&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="input_ml_h">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>70</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>70</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>initial ABL height</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_ml_ps">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>55</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>55</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;p&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="input_ml_ps">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>70</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>70</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>surface pressure</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_ml_ws">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>55</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>55</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;div&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="input_ml_omegas">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>70</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>70</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>large scale divergence</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="unitlabel_ml_h">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[m]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLabel" name="unitlabel_ml_ps">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[hPa]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QLabel" name="unitlabel_ml_ws">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_ml_beta">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>55</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>55</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;β&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
          <widget class="QLineEdit" name="input_ml_beta">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
@@ -1101,7 +845,60 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_ml_beta">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;β&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="3">
+         <widget class="QLabel" name="label_boundarylayer">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Boundary layer</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
          <widget class="QLabel" name="unitlabel_ml_beta">
           <property name="toolTip">
            <string/>
@@ -1114,7 +911,232 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1" colspan="2">
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="input_ml_ps">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>surface pressure</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_ml_h">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;h&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="input_ml_h">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>initial ABL height</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_ml_ps">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;p&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_ml_ws">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>55</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;div&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="input_ml_omegas">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>large scale divergence</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="unitlabel_ml_h">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[m]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QLabel" name="unitlabel_ml_ps">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[hPa]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QLabel" name="unitlabel_ml_ws">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1" colspan="2">
          <widget class="QCheckBox" name="sw_ml">
           <property name="minimumSize">
            <size>
@@ -1139,6 +1161,31 @@
           </property>
          </widget>
         </item>
+        <item row="7" column="1" colspan="2">
+         <widget class="QCheckBox" name="sw_ftcws">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Compensate free atmospheric warming due to subsidence</string>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>Fix free atmosphere</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -1146,7 +1193,7 @@
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>190</y>
+        <y>260</y>
         <width>251</width>
         <height>231</height>
        </rect>
@@ -1160,7 +1207,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>211</height>
+         <height>214</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="moisture_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -1603,7 +1650,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>153</height>
+         <height>155</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="wind_U_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -1941,7 +1988,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>153</height>
+         <height>155</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="u_comp_grid_2" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -2279,7 +2326,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>185</height>
+         <height>187</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="scalar_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -2702,7 +2749,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>185</height>
+         <height>187</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="CO2_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -2999,7 +3046,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;[ppm m s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
+           <string>&lt;html&gt;[mgC m&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-2&lt;/span&gt;s&lt;span style=&quot;font-size: 14px; vertical-align:super;&quot;&gt;-1&lt;/span&gt;]&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3125,7 +3172,7 @@
          <x>10</x>
          <y>10</y>
          <width>247</width>
-         <height>61</height>
+         <height>62</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="wind_grid_1" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -3231,7 +3278,7 @@
          <x>270</x>
          <y>10</y>
          <width>247</width>
-         <height>61</height>
+         <height>62</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="wind_grid_2" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -3358,7 +3405,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>153</height>
+         <height>155</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="rad_grid1" columnminimumwidth="50,0,60">
@@ -3875,7 +3922,7 @@
         <x>270</x>
         <y>130</y>
         <width>251</width>
-        <height>51</height>
+        <height>111</height>
        </rect>
       </property>
       <property name="title">
@@ -3887,14 +3934,14 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>31</height>
+         <height>89</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="cu_grid" columnminimumwidth="0,95,0">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
-        <item row="0" column="1" colspan="2">
+        <item row="1" column="1" colspan="2">
          <widget class="QCheckBox" name="sw_cu">
           <property name="minimumSize">
            <size>
@@ -3903,11 +3950,11 @@
            </size>
           </property>
           <property name="text">
-           <string>Shallow-cumulus</string>
+           <string>Dynamics</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
+        <item row="1" column="0">
          <widget class="QLabel" name="cu_dummy_label">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -3938,6 +3985,47 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QLabel" name="label_shallowcumulus">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="baseSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Shallow cumulus</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1" colspan="2">
+         <widget class="QCheckBox" name="sw_cu_rad">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Dynamics + radiation</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -3945,9 +4033,9 @@
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>190</y>
+        <y>250</y>
         <width>251</width>
-        <height>111</height>
+        <height>81</height>
        </rect>
       </property>
       <property name="title">
@@ -3959,10 +4047,10 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>88</height>
+         <height>61</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="rad_stratocumulus_grid" columnminimumwidth="50,0,80">
+       <layout class="QGridLayout" name="rad_stratocumulus_grid">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
@@ -4063,31 +4151,6 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" colspan="2">
-         <widget class="QCheckBox" name="sw_ftcws">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Compensate free atmospheric warming due to subsidence</string>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="text">
-           <string>Fix free atmosphere</string>
           </property>
          </widget>
         </item>
@@ -4206,7 +4269,7 @@
          <x>10</x>
          <y>10</y>
          <width>491</width>
-         <height>121</height>
+         <height>125</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_moisture_grid_2" columnminimumwidth="180,85,0,80">
@@ -5058,7 +5121,7 @@
          <x>10</x>
          <y>10</y>
          <width>241</width>
-         <height>61</height>
+         <height>62</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="species_foto_grid" columnminimumwidth="0,0,0">
@@ -6257,7 +6320,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>476</width>
+          <width>475</width>
           <height>750</height>
          </rect>
         </property>
@@ -6273,7 +6336,7 @@
            <x>10</x>
            <y>10</y>
            <width>451</width>
-           <height>731</height>
+           <height>752</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="reactions_grid2" columnstretch="0,0,0,0,1" columnminimumwidth="0,40,0,30,0">
@@ -7789,7 +7852,7 @@
          <x>10</x>
          <y>40</y>
          <width>231</width>
-         <height>91</height>
+         <height>92</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_parameters_grid1" columnminimumwidth="50,0,60">
@@ -8020,7 +8083,7 @@
          <x>260</x>
          <y>40</y>
          <width>251</width>
-         <height>91</height>
+         <height>92</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_parameters_grid2" columnminimumwidth="50,0,80">
@@ -8280,7 +8343,7 @@
          <x>10</x>
          <y>40</y>
          <width>231</width>
-         <height>152</height>
+         <height>156</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_parameters_grid1" columnminimumwidth="50,0,60">
@@ -8655,7 +8718,7 @@
          <x>260</x>
          <y>40</y>
          <width>251</width>
-         <height>121</height>
+         <height>124</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="soil_parameters_grid2" columnminimumwidth="50,0,80">
@@ -9243,7 +9306,7 @@
      <x>0</x>
      <y>0</y>
      <width>725</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -9299,11 +9362,9 @@
   <tabstop>input_heat_advtheta</tabstop>
   <tabstop>input_heat_wtheta</tabstop>
   <tabstop>sw_wtheta</tabstop>
-  <tabstop>sw_ml</tabstop>
   <tabstop>input_ml_h</tabstop>
   <tabstop>input_ml_ps</tabstop>
   <tabstop>input_ml_omegas</tabstop>
-  <tabstop>input_ml_beta</tabstop>
   <tabstop>input_moisture_q</tabstop>
   <tabstop>input_moisture_dq</tabstop>
   <tabstop>input_moisture_gammaq</tabstop>

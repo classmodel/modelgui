@@ -64,9 +64,6 @@ private:
   double R10;       // respiration at 10 C [mg CO2 m-2 s-1]
   double E0;        // activation energy [53.3 kJ kmol-1]
 
-  // Shallow-cumulus / variance calculations
-  double dz;        // inversion-layer/transition-layer thickness [m]
-
   // time variables
   double runtime;   // duration of model run [s]
   double dt;        // time step [s]
@@ -184,7 +181,7 @@ private:
 
   double htend;
   double thetatend, qtend, utend, vtend, scatend, CO2tend;
-  double dthetatend, dqtend, dutend, dvtend, dscatend, dCO2tend;
+  double dthetatend, dqtend, dutend, dvtend, dscatend, dCO2tend, dztend;
 
   // surface layer variables
   bool   sw_sl;     // surface layer switch
@@ -308,7 +305,10 @@ private:
   double Resp;      // soil surface carbon dioxide flux [mg m-2 s-1]
 
   // Shallow-cumulus parameters
+  double dz;        // inversion-layer/transition-layer thickness [m]
+  double dz0;       // initial and lower boundary dz [m]
   bool sw_cu;       // shallow-cumulus switch [-]
+  bool sw_curad;    // Link ac -> cc -> radiation
   double ac;        // cloud core fraction [-]
   double M;         // mass-flux (/rho) [m s-1]
 
