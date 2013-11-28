@@ -49,3 +49,9 @@ HEADERS += mainwindow.h \
 FORMS += mainwindow.ui \
     plotwindow.ui \
     subplot.ui
+
+greaterThan(QT_MAJOR_VERSION, 4)
+{
+  QT += widgets
+  QT += printsupport
+}

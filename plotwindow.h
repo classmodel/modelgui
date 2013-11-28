@@ -25,8 +25,11 @@
 #ifndef PLOTWINDOW_H
 #define PLOTWINDOW_H
 
-#include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
+//#include <QtGui/QWidget> // QT4
+//#include <QtGui/QTabWidget> // QT4
+#include <QtWidgets/QWidget> // QT5
+#include <QtWidgets/QTabWidget> // QT5s
+
 #include "mainwindow.h"
 #include "subplot.h"
 #include "QPaintEvent"

@@ -48,8 +48,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Place left dockwidget in corner
   this->setCorner(Qt::TopLeftCorner,Qt::LeftDockWidgetArea);
-  ui->AdvancedDock->setShown(true);
-  ui->PlotvarDock->setShown(false);
+  //ui->AdvancedDock->setShown(true);
+  ui->PlotvarDock->setVisible(false);
 
   // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
@@ -365,24 +365,24 @@ void plotwindow::viewmenutriggered()
 
 void plotwindow::switchtobasicplotting()
 {
-  ui->AdvancedDock->setShown(false);
-  ui->PlotvarDock->setShown(true);
-    ui->PlotvarDock->setFloating(false);
-  ui->PlotsettingsDock->setShown(true);
-    ui->PlotsettingsDock->setFloating(false);
-  ui->ModelruntreeDock->setShown(true);
-    ui->ModelruntreeDock->setFloating(false);
+  //ui->AdvancedDock->setShown(false);
+  //ui->PlotvarDock->setShown(true);
+  //  ui->PlotvarDock->setFloating(false);
+  //ui->PlotsettingsDock->setShown(true);
+  //  ui->PlotsettingsDock->setFloating(false);
+  //ui->ModelruntreeDock->setShown(true);
+  //  ui->ModelruntreeDock->setFloating(false);
 }
 
 void plotwindow::switchtoadvancedplotting()
 {
-  ui->AdvancedDock->setShown(true);
-    ui->AdvancedDock->setFloating(false);
-  ui->PlotvarDock->setShown(false);
-  ui->PlotsettingsDock->setShown(true);
-    ui->PlotsettingsDock->setFloating(false);
-  ui->ModelruntreeDock->setShown(true);
-    ui->ModelruntreeDock->setFloating(false);
+  //ui->AdvancedDock->setShown(true);
+  //  ui->AdvancedDock->setFloating(false);
+  //ui->PlotvarDock->setShown(false);
+  //ui->PlotsettingsDock->setShown(true);
+  //  ui->PlotsettingsDock->setFloating(false);
+  //ui->ModelruntreeDock->setShown(true);
+  //  ui->ModelruntreeDock->setFloating(false);
 }
 
 void plotwindow::togglebasicsettings(bool checkstate)

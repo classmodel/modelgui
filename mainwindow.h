@@ -25,7 +25,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtGui/QMainWindow>
+//#include <QtGui/QMainWindow> //QT4
+#include <QtWidgets/QMainWindow> //QT5
+
 #include <QModelIndex>
 #include "modelrun.h"
 #include "landsoil.h"

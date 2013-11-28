@@ -25,12 +25,17 @@
 #ifndef SUBPLOT_H
 #define SUBPLOT_H
 
-#include <QtGui/QWidget>
+//#include <QtGui/QWidget> // QT4
+//#include "QPrinter" // QT4
+#include <QtWidgets/QWidget> // QT5ssss
+#include <QtPrintSupport/QPrinter> // QT5
+
 #include "mainwindow.h"
 #include <QWidget>
 #include "QPaintEvent"
 #include "QPainter"
-#include "QPrinter"
+
+
 #include "QGraphicsScene"
 #include <iostream>
 #include <cmath>

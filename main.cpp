@@ -22,7 +22,8 @@
  * along with CLASS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtGui/QApplication>
+// #include <QtGui/QApplication> //QT4
+#include <QtWidgets> //QT5
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
