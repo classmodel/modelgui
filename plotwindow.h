@@ -25,19 +25,19 @@
 #ifndef PLOTWINDOW_H
 #define PLOTWINDOW_H
 
-#if QT_VERSION < 0x050000
+#include "mainwindow.h"
+#include "subplot.h"
+#include "QPaintEvent"
+#include "QPainter"
+#include "QTreeWidget"
+
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
   #include <QtGui/QWidget>
   #include <QtGui/QTabWidget>
 #else
   #include <QtWidgets/QWidget>
   #include <QtWidgets/QTabWidget>
 #endif
-
-#include "mainwindow.h"
-#include "subplot.h"
-#include "QPaintEvent"
-#include "QPainter"
-#include "QTreeWidget"
 
 class modelrun;
 class subplot;

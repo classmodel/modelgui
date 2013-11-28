@@ -25,15 +25,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#if QT_VERSION < 0x050000
+#include <QModelIndex>
+#include "modelrun.h"
+#include "landsoil.h"
+
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
   #include <QtGui/QMainWindow>
 #else
   #include <QtWidgets/QMainWindow>
 #endif
-
-#include <QModelIndex>
-#include "modelrun.h"
-#include "landsoil.h"
 
 class plotwindow;
 

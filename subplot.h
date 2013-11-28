@@ -25,14 +25,6 @@
 #ifndef SUBPLOT_H
 #define SUBPLOT_H
 
-#if QT_VERSION < 0x050000
-  #include <QtGui/QWidget>
-  #include "QPrinter"
-#else
-  #include <QtWidgets/QWidget>
-  #include <QtPrintSupport/QPrinter>
-#endif
-
 #include "mainwindow.h"
 #include <QWidget>
 #include "QPaintEvent"
@@ -46,6 +38,14 @@
 #include <QPen>
 #include <QPointF>
 #include <QRubberBand>
+
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+  #include <QtGui/QWidget>
+  #include "QPrinter"
+#else
+  #include <QtWidgets/QWidget>
+  #include <QtPrintSupport/QPrinter>
+#endif
 
 class plotarea : public QWidget
 {

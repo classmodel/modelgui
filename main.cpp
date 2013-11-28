@@ -22,13 +22,13 @@
  * along with CLASS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if QT_VERSION < 0x050000
+#include "mainwindow.h"
+
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
   #include <QtGui/QApplication>
 #else
   #include <QtWidgets>
 #endif
-
-#include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
