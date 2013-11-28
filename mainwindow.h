@@ -25,8 +25,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-//#include <QtGui/QMainWindow> //QT4
-#include <QtWidgets/QMainWindow> //QT5
+#if QT_VERSION < 0x050000
+  #include <QtGui/QMainWindow>
+#else
+  #include <QtWidgets/QMainWindow>
+#endif
 
 #include <QModelIndex>
 #include "modelrun.h"

@@ -25,10 +25,13 @@
 #ifndef PLOTWINDOW_H
 #define PLOTWINDOW_H
 
-//#include <QtGui/QWidget> // QT4
-//#include <QtGui/QTabWidget> // QT4
-#include <QtWidgets/QWidget> // QT5
-#include <QtWidgets/QTabWidget> // QT5s
+#if QT_VERSION < 0x050000
+  #include <QtGui/QWidget>
+  #include <QtGui/QTabWidget>
+#else
+  #include <QtWidgets/QWidget>
+  #include <QtWidgets/QTabWidget>
+#endif
 
 #include "mainwindow.h"
 #include "subplot.h"
