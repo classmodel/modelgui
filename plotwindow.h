@@ -70,7 +70,6 @@ public slots:
   void zoomebymouse();
   void cursormoved();
   void viewmenutriggered();
-  void togglebasicsettings(bool);
   void toggleadvancedsettings(bool);
   void toggleaxissettings(bool);
   void togglemodelruns(bool);

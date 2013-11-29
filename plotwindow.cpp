@@ -63,7 +63,6 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   //connect(ui->modelruntree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
   // Menu interface:
   connect(ui->view_menu, SIGNAL(aboutToShow()), this, SLOT(viewmenutriggered()));
-  connect(ui->view_basicplotsettings, SIGNAL(toggled(bool)), this, SLOT(togglebasicsettings(bool)));
   connect(ui->view_advancedplotsettings, SIGNAL(toggled(bool)), this, SLOT(toggleadvancedsettings(bool)));
   connect(ui->view_axissettings, SIGNAL(toggled(bool)), this, SLOT(toggleaxissettings(bool)));
   connect(ui->view_modelruns, SIGNAL(toggled(bool)), this, SLOT(togglemodelruns(bool)));
@@ -317,11 +316,6 @@ void plotwindow::viewmenutriggered()
   ui->view_advancedplotsettings->setChecked(ui->AdvancedDock->isVisible());
   ui->view_axissettings->setChecked(ui->PlotsettingsDock->isVisible());
   ui->view_modelruns->setChecked(ui->ModelruntreeDock->isVisible());
-}
-
-void plotwindow::togglebasicsettings(bool checkstate)
-{
-  //ui->PlotvarDock->setVisible(checkstate);
 }
 
 void plotwindow::toggleadvancedsettings(bool checkstate)
