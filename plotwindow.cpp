@@ -33,14 +33,6 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 {
   ui->setupUi(this);
 
-  // Switch for Mac OS (X); changes:
-  // 1) Detaches and positions the docks (within the spirit of Mac OS)
-  // 2) Forces closing of docks
-  // 3) Changes font-size plots (in subplot.cpp)
-  MacOS = false;
-  if(MacOS)
-    this->setAttribute(Qt::WA_DeleteOnClose,true);
-
   selectedruns = new QList<int>;
   runlist = runs;
 
@@ -52,9 +44,6 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
-
-  // Set MacOS switch in plotarea
-  plotar->MacOS = MacOS;
 
   // Signal/slots -------------------------------------------------------------------------------------
   connect(plotar, SIGNAL(axischanged()), this, SLOT(changeaxis()));
@@ -72,11 +61,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
   //connect(ui->modelruntree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
-  //connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
-  //connect(ui->plotintervalInput, SIGNAL(editingFinished()), this, SLOT(changeplotinterval()));
   // Menu interface:
-  connect(ui->view_basicmode, SIGNAL(triggered()), this, SLOT(switchtobasicplotting()));
-  connect(ui->view_advancedmode, SIGNAL(triggered()), this, SLOT(switchtoadvancedplotting()));
   connect(ui->view_menu, SIGNAL(aboutToShow()), this, SLOT(viewmenutriggered()));
   connect(ui->view_basicplotsettings, SIGNAL(toggled(bool)), this, SLOT(togglebasicsettings(bool)));
   connect(ui->view_advancedplotsettings, SIGNAL(toggled(bool)), this, SLOT(toggleadvancedsettings(bool)));
@@ -127,17 +112,6 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   }
   //ui->modelruntree->blockSignals(false);
 
-  // Create dropdown menu with plotvariables for basic plotting
-  //QStringList varnames;
-  modeloutput modelout(0,22);
-
-  // BvS: old list with plot variables
-  //varnames << QString::fromStdString(modelout.h.description) << QString::fromStdString(modelout.theta.description) << QString::fromStdString(modelout.dtheta.description) << QString::fromStdString(modelout.wtheta.description)
-  //        << QString::fromStdString(modelout.q.description) << QString::fromStdString(modelout.dq.description) << QString::fromStdString(modelout.wq.description);
-  //outputnames << "h" << "theta" << "dtheta" << "wtheta" << "q" << "dq" << "wq";
-  //ui->plotvar->addItems(varnames);
-
-
   // Create the advanced plot QTreeWidget
   QStringList advancedtreeheader;
   advancedtreeheader << "Variables" << "X" << "Y" << "Description";
@@ -174,6 +148,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << "Clouds"
       << "Vertical profiles"
       << "Chemistry";
+
+  modeloutput modelout(0,22);
 
   mixedlayervars
       << modelout.t
@@ -320,28 +296,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
     }
   }
 
-  // Set initial plot variables to time-CBL height
-  setinitialplotvar();
-
-  // BvS; Extra code to automatically detach and position docks for Mac OS (X)
-  if(MacOS)
-  {
-    ui->AdvancedDock->setFloating(true);
-    ui->PlotsettingsDock->setFloating(true);
-    ui->ModelruntreeDock->setFloating(true);
-
-    this->resize(400,400);
-
-    ui->AdvancedDock->resize(350,425);
-    ui->AdvancedDock->move(this->pos().x()+420,this->pos().y());
-
-    ui->PlotsettingsDock->setMinimumWidth(200);
-    ui->PlotsettingsDock->move(this->pos().x()-220,this->pos().y()+225);
-
-    ui->ModelruntreeDock->setMinimumWidth(200);
-    ui->ModelruntreeDock->resize(200,200);
-    ui->ModelruntreeDock->move(this->pos().x()-220,this->pos().y());
-  }
+  setinitialplotvar(); // Set initial plot variables to time-CBL height
 }
 
 plotwindow::~plotwindow()
@@ -362,28 +317,6 @@ void plotwindow::viewmenutriggered()
   ui->view_advancedplotsettings->setChecked(ui->AdvancedDock->isVisible());
   ui->view_axissettings->setChecked(ui->PlotsettingsDock->isVisible());
   ui->view_modelruns->setChecked(ui->ModelruntreeDock->isVisible());
-}
-
-void plotwindow::switchtobasicplotting()
-{
-  //ui->AdvancedDock->setShown(false);
-  //ui->PlotvarDock->setShown(true);
-  //  ui->PlotvarDock->setFloating(false);
-  //ui->PlotsettingsDock->setShown(true);
-  //  ui->PlotsettingsDock->setFloating(false);
-  //ui->ModelruntreeDock->setShown(true);
-  //  ui->ModelruntreeDock->setFloating(false);
-}
-
-void plotwindow::switchtoadvancedplotting()
-{
-  //ui->AdvancedDock->setShown(true);
-  //  ui->AdvancedDock->setFloating(false);
-  //ui->PlotvarDock->setShown(false);
-  //ui->PlotsettingsDock->setShown(true);
-  //  ui->PlotsettingsDock->setFloating(false);
-  //ui->ModelruntreeDock->setShown(true);
-  //  ui->ModelruntreeDock->setFloating(false);
 }
 
 void plotwindow::togglebasicsettings(bool checkstate)
@@ -540,7 +473,6 @@ void plotwindow::setinitialplotvar()
   }
 
   updateplotdata();
-
   ui->autoscaleaxis->setChecked(true);
   plotar->autoaxis = true;
   plotar->update();
