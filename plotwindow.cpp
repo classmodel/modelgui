@@ -48,8 +48,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
 
   // Place left dockwidget in corner
   this->setCorner(Qt::TopLeftCorner,Qt::LeftDockWidgetArea);
-  //ui->AdvancedDock->setShown(true);
-  ui->PlotvarDock->setVisible(false);
+  ui->AdvancedDock->setVisible(true);
 
   // Create plotarea to draw in
   plotar = new plotarea(runlist,selectedruns,this);
@@ -73,7 +72,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   connect(ui->ymaxInput, SIGNAL(editingFinished()), this, SLOT(changeaxis()));
   connect(ui->modelruntree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
   //connect(ui->modelruntree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(updateselectedruns()));
-  connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
+  //connect(ui->plotvar, SIGNAL(currentIndexChanged(int)), this, SLOT(changeplotvar()));
   //connect(ui->plotintervalInput, SIGNAL(editingFinished()), this, SLOT(changeplotinterval()));
   // Menu interface:
   connect(ui->view_basicmode, SIGNAL(triggered()), this, SLOT(switchtobasicplotting()));
@@ -129,13 +128,13 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   //ui->modelruntree->blockSignals(false);
 
   // Create dropdown menu with plotvariables for basic plotting
-  QStringList varnames;
+  //QStringList varnames;
   modeloutput modelout(0,22);
 
-  varnames << QString::fromStdString(modelout.h.description) << QString::fromStdString(modelout.theta.description) << QString::fromStdString(modelout.dtheta.description) << QString::fromStdString(modelout.wtheta.description)
-          << QString::fromStdString(modelout.q.description) << QString::fromStdString(modelout.dq.description) << QString::fromStdString(modelout.wq.description);
-  outputnames << "h" << "theta" << "dtheta" << "wtheta" << "q" << "dq" << "wq";
-
+  // BvS: old list with plot variables
+  //varnames << QString::fromStdString(modelout.h.description) << QString::fromStdString(modelout.theta.description) << QString::fromStdString(modelout.dtheta.description) << QString::fromStdString(modelout.wtheta.description)
+  //        << QString::fromStdString(modelout.q.description) << QString::fromStdString(modelout.dq.description) << QString::fromStdString(modelout.wq.description);
+  //outputnames << "h" << "theta" << "dtheta" << "wtheta" << "q" << "dq" << "wq";
   //ui->plotvar->addItems(varnames);
 
 
@@ -320,7 +319,9 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       treegroup->addChild(treeitem);
     }
   }
-  ui->plotvar->addItems(varnames);
+
+  // Set initial plot variables to time-CBL height
+  setinitialplotvar();
 
   // BvS; Extra code to automatically detach and position docks for Mac OS (X)
   if(MacOS)
@@ -357,7 +358,7 @@ void plotwindow::closeEvent(QCloseEvent *event)
 // ++++++++++++++++++++++++++++++++++++++++++++++++++
 void plotwindow::viewmenutriggered()
 {
-  ui->view_basicplotsettings->setChecked(ui->PlotvarDock->isVisible());
+  //ui->view_basicplotsettings->setChecked(ui->PlotvarDock->isVisible());
   ui->view_advancedplotsettings->setChecked(ui->AdvancedDock->isVisible());
   ui->view_axissettings->setChecked(ui->PlotsettingsDock->isVisible());
   ui->view_modelruns->setChecked(ui->ModelruntreeDock->isVisible());
@@ -387,7 +388,7 @@ void plotwindow::switchtoadvancedplotting()
 
 void plotwindow::togglebasicsettings(bool checkstate)
 {
-  ui->PlotvarDock->setVisible(checkstate);
+  //ui->PlotvarDock->setVisible(checkstate);
 }
 
 void plotwindow::toggleadvancedsettings(bool checkstate)
@@ -524,20 +525,10 @@ void plotwindow::updateplotdata()
   }
 }
 
-void plotwindow::changeplotvar()
+void plotwindow::setinitialplotvar()
 {
-  // Uncheck items in advanced mode
-  if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
-  {
-    if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)
-      ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).value(0)->setCheckState(1, Qt::Unchecked);
-    if(ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).count() > 0)
-      ui->advancedplottree->findItems(plotvary, Qt::MatchRecursive, 4).value(0)->setCheckState(2, Qt::Unchecked);
-  }
-
-  plotar->lines = runlist->count();
   plotvarx = "t";
-  plotvary = outputnames[ui->plotvar->currentIndex()];
+  plotvary = "h";
 
   // Check items in advanced mode
   if(ui->advancedplottree->findItems(plotvarx, Qt::MatchRecursive, 4).count() > 0)

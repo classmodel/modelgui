@@ -65,7 +65,7 @@ public slots:
   void addrun(int num);
   void deleterun(int num);
   void updateselectedruns();
-  void changeplotvar();
+  void setinitialplotvar();
   void changeaxis();
   void zoomebymouse();
   void cursormoved();
