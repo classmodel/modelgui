@@ -72,6 +72,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   ui->autoscaleaxis->setChecked(true);
 
   // Layout and placement plotarea
+  ui->dummy_widget->setVisible(false);
   QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   sizePolicy.setHorizontalStretch(0);
   sizePolicy.setVerticalStretch(0);
@@ -314,8 +315,8 @@ void plotwindow::viewmenutriggered()
 {
   //ui->view_basicplotsettings->setChecked(ui->PlotvarDock->isVisible());
   ui->view_advancedplotsettings->setChecked(ui->AdvancedDock->isVisible());
-  ui->view_axissettings->setChecked(ui->PlotsettingsDock->isVisible());
-  ui->view_modelruns->setChecked(ui->ModelruntreeDock->isVisible());
+  //ui->view_axissettings->setChecked(ui->PlotsettingsDock->isVisible());
+  //ui->view_modelruns->setChecked(ui->ModelruntreeDock->isVisible());
 }
 
 void plotwindow::toggleadvancedsettings(bool checkstate)
@@ -325,12 +326,12 @@ void plotwindow::toggleadvancedsettings(bool checkstate)
 
 void plotwindow::toggleaxissettings(bool checkstate)
 {
-  ui->PlotsettingsDock->setVisible(checkstate);
+  //ui->PlotsettingsDock->setVisible(checkstate);
 }
 
 void plotwindow::togglemodelruns(bool checkstate)
 {
-  ui->ModelruntreeDock->setVisible(checkstate);
+  //ui->ModelruntreeDock->setVisible(checkstate);
 }
 // ++++++++++++++++++++++++++++++++++++++++++++++++++
 

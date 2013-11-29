@@ -297,6 +297,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     {
       paint.begin(this);
       QFont font;
+      // HACK BVS
+      MacOS = true;
       if(MacOS)
         font.setPointSize(12);
       else
