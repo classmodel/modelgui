@@ -306,6 +306,7 @@ plotwindow::~plotwindow()
 
 void plotwindow::closeEvent(QCloseEvent *event)
 {
+  ui->AdvancedDock->close();  // BvS: forced closing of dock for OS X
   emit graphclosed(this);
 }
 
