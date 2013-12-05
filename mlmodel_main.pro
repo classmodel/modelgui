@@ -55,3 +55,7 @@ greaterThan(QT_MAJOR_VERSION, 4)
   QT += widgets
   QT += printsupport
 }
+
+# For adding git hash to about window:
+REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe)
+DEFINES += GITHASH=\\\"$$REVISION\\\"
