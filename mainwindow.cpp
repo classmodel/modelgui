@@ -643,6 +643,7 @@ void MainWindow::loadFormData()
       switch_rad(Bool2Int(formvalues.sw_rad));
     ui->sw_sl->setCheckState(Bool2CheckState(formvalues.sw_sl));
     ui->sw_ls->setCheckState(Bool2CheckState(formvalues.sw_ls));
+      switch_ls(Bool2Int(formvalues.sw_ls));
     ui->sw_wtheta->setCheckState(Bool2CheckState(formvalues.sw_wtheta));
     ui->sw_wq->setCheckState(Bool2CheckState(formvalues.sw_wq));
     ui->sw_chem->setCheckState(Bool2CheckState(formvalues.sw_chem));
