@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>725</width>
-    <height>630</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,13 +19,13 @@
   <property name="minimumSize">
    <size>
     <width>725</width>
-    <height>630</height>
+    <height>650</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>725</width>
-    <height>630</height>
+    <height>650</height>
    </size>
   </property>
   <property name="baseSize">
@@ -44,7 +44,7 @@
       <x>10</x>
       <y>10</y>
       <width>541</width>
-      <height>531</height>
+      <height>541</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -356,7 +356,7 @@
         <x>10</x>
         <y>260</y>
         <width>251</width>
-        <height>231</height>
+        <height>241</height>
        </rect>
       </property>
       <property name="title">
@@ -367,13 +367,13 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>247</width>
-         <height>214</height>
+         <width>231</width>
+         <height>219</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="heat_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
         <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
+         <enum>QLayout::SetFixedSize</enum>
         </property>
         <item row="1" column="0">
          <widget class="QLabel" name="label_heat_theta">
@@ -788,6 +788,9 @@
         </item>
         <item row="5" column="0" colspan="3">
          <widget class="Line" name="line_2">
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -1202,7 +1205,7 @@
         <x>270</x>
         <y>260</y>
         <width>251</width>
-        <height>231</height>
+        <height>241</height>
        </rect>
       </property>
       <property name="title">
@@ -1214,7 +1217,7 @@
          <x>10</x>
          <y>10</y>
          <width>247</width>
-         <height>214</height>
+         <height>219</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="moisture_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -1633,6 +1636,9 @@
         </item>
         <item row="5" column="0" colspan="3">
          <widget class="Line" name="line_3">
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -3186,7 +3192,7 @@
          <x>10</x>
          <y>10</y>
          <width>247</width>
-         <height>62</height>
+         <height>61</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="wind_grid_1" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -3238,7 +3244,7 @@
           <property name="maximumSize">
            <size>
             <width>70</width>
-            <height>23</height>
+            <height>999</height>
            </size>
           </property>
           <property name="baseSize">
@@ -3344,7 +3350,7 @@
           <property name="maximumSize">
            <size>
             <width>70</width>
-            <height>23</height>
+            <height>999</height>
            </size>
           </property>
           <property name="toolTip">
@@ -5706,7 +5712,7 @@
          <x>10</x>
          <y>210</y>
          <width>231</width>
-         <height>191</height>
+         <height>195</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="species_species_grid" columnminimumwidth="50,0,80">
@@ -6344,7 +6350,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>477</width>
+          <width>476</width>
           <height>750</height>
          </rect>
         </property>
@@ -9106,7 +9112,7 @@
       <x>560</x>
       <y>20</y>
       <width>150</width>
-      <height>521</height>
+      <height>531</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -9271,7 +9277,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>545</y>
+      <y>560</y>
       <width>141</width>
       <height>30</height>
      </rect>
@@ -9299,7 +9305,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>545</y>
+      <y>560</y>
       <width>81</width>
       <height>30</height>
      </rect>
@@ -9330,7 +9336,7 @@
      <x>0</x>
      <y>0</y>
      <width>725</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
