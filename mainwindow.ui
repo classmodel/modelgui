@@ -92,7 +92,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>123</height>
         </rect>
        </property>
@@ -367,7 +367,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>214</height>
         </rect>
        </property>
@@ -806,7 +806,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>221</height>
         </rect>
        </property>
@@ -1206,7 +1206,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>214</height>
         </rect>
        </property>
@@ -1649,7 +1649,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>155</height>
         </rect>
        </property>
@@ -1705,7 +1705,7 @@
           <property name="maximumSize">
            <size>
             <width>70</width>
-            <height>16777215</height>
+            <height>23</height>
            </size>
           </property>
           <property name="toolTip">
@@ -1987,7 +1987,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>155</height>
         </rect>
        </property>
@@ -2314,7 +2314,7 @@
         <x>270</x>
         <y>280</y>
         <width>251</width>
-        <height>201</height>
+        <height>211</height>
        </rect>
       </property>
       <property name="title">
@@ -2325,7 +2325,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>187</height>
         </rect>
        </property>
@@ -2737,7 +2737,7 @@
         <x>10</x>
         <y>280</y>
         <width>251</width>
-        <height>201</height>
+        <height>211</height>
        </rect>
       </property>
       <property name="title">
@@ -2748,7 +2748,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>187</height>
         </rect>
        </property>
@@ -3171,7 +3171,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>247</width>
+         <width>241</width>
          <height>62</height>
         </rect>
        </property>
@@ -3224,7 +3224,7 @@
           <property name="maximumSize">
            <size>
             <width>70</width>
-            <height>16777215</height>
+            <height>23</height>
            </size>
           </property>
           <property name="baseSize">
@@ -3277,7 +3277,7 @@
         <rect>
          <x>270</x>
          <y>10</y>
-         <width>247</width>
+         <width>231</width>
          <height>62</height>
         </rect>
        </property>
@@ -3330,7 +3330,7 @@
           <property name="maximumSize">
            <size>
             <width>70</width>
-            <height>16777215</height>
+            <height>23</height>
            </size>
           </property>
           <property name="toolTip">
@@ -3404,7 +3404,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>155</height>
         </rect>
        </property>
@@ -3748,7 +3748,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>91</height>
         </rect>
        </property>
@@ -3804,7 +3804,7 @@
           <property name="maximumSize">
            <size>
             <width>70</width>
-            <height>16777215</height>
+            <height>23</height>
            </size>
           </property>
           <property name="toolTip">
@@ -3858,7 +3858,7 @@
           <property name="maximumSize">
            <size>
             <width>70</width>
-            <height>16777215</height>
+            <height>23</height>
            </size>
           </property>
           <property name="toolTip">
@@ -3933,7 +3933,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>89</height>
         </rect>
        </property>
@@ -4046,7 +4046,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>61</height>
         </rect>
        </property>
@@ -4071,7 +4071,7 @@
           <property name="maximumSize">
            <size>
             <width>70</width>
-            <height>16777215</height>
+            <height>23</height>
            </size>
           </property>
           <property name="toolTip">
@@ -4269,7 +4269,7 @@
          <x>10</x>
          <y>10</y>
          <width>491</width>
-         <height>125</height>
+         <height>128</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_moisture_grid_2" columnminimumwidth="180,85,0,80">
@@ -4518,7 +4518,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>91</height>
         </rect>
        </property>
@@ -4556,7 +4556,7 @@
           <property name="maximumSize">
            <size>
             <width>70</width>
-            <height>16777215</height>
+            <height>23</height>
            </size>
           </property>
           <property name="toolTip">
@@ -4644,7 +4644,7 @@
           <property name="maximumSize">
            <size>
             <width>70</width>
-            <height>16777215</height>
+            <height>23</height>
            </size>
           </property>
           <property name="toolTip">
@@ -5120,7 +5120,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>62</height>
         </rect>
        </property>
@@ -5248,7 +5248,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>191</height>
         </rect>
        </property>
@@ -6142,7 +6142,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>231</width>
          <height>31</height>
         </rect>
        </property>
@@ -6319,8 +6319,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>475</width>
+          <y>-339</y>
+          <width>476</width>
           <height>750</height>
          </rect>
         </property>
@@ -6336,7 +6336,7 @@
            <x>10</x>
            <y>10</y>
            <width>451</width>
-           <height>752</height>
+           <height>721</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="reactions_grid2" columnstretch="0,0,0,0,1" columnminimumwidth="0,40,0,30,0">
@@ -8082,7 +8082,7 @@
         <rect>
          <x>260</x>
          <y>40</y>
-         <width>251</width>
+         <width>241</width>
          <height>92</height>
         </rect>
        </property>
@@ -8717,7 +8717,7 @@
         <rect>
          <x>260</x>
          <y>40</y>
-         <width>251</width>
+         <width>241</width>
          <height>124</height>
         </rect>
        </property>
@@ -9306,7 +9306,7 @@
      <x>0</x>
      <y>0</y>
      <width>725</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
