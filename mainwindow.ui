@@ -69,7 +69,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="generalTab">
      <attribute name="title">
@@ -367,7 +367,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>247</width>
          <height>214</height>
         </rect>
        </property>
@@ -806,7 +806,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>247</width>
          <height>221</height>
         </rect>
        </property>
@@ -1206,7 +1206,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>247</width>
          <height>214</height>
         </rect>
        </property>
@@ -1649,7 +1649,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>237</width>
          <height>155</height>
         </rect>
        </property>
@@ -1987,7 +1987,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>237</width>
          <height>155</height>
         </rect>
        </property>
@@ -2325,7 +2325,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>237</width>
          <height>187</height>
         </rect>
        </property>
@@ -2444,7 +2444,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>initial mixed-layer potential temperature</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;initial mixed-layer scalar concentration&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string/>
@@ -2475,7 +2475,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>initial temperature jump at h</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;initial scalar jump at h&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string/>
@@ -2506,7 +2506,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>free atmosphere potential temperature lapse rate</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;free atmosphere scalar lapse rate&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string/>
@@ -2568,7 +2568,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>surface kinematic heat flux</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;surface kinematic scalar flux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string/>
@@ -2673,7 +2673,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>advection of heat</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;advection of scalar&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string/>
@@ -2748,7 +2748,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>237</width>
          <height>187</height>
         </rect>
        </property>
@@ -2867,7 +2867,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>initial mixed-layer potential temperature</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;initial mixed-layer CO2 concentration&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string/>
@@ -2898,7 +2898,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>initial temperature jump at h</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;initial CO2 jump at h&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string/>
@@ -2929,7 +2929,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>free atmosphere potential temperature lapse rate</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;free atmosphere CO2 lapse rate&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string/>
@@ -2991,7 +2991,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>surface kinematic heat flux</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;surface kinematic CO2 flux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string/>
@@ -3096,7 +3096,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>advection of heat</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;advection of CO2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string/>
@@ -3171,7 +3171,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>247</width>
          <height>62</height>
         </rect>
        </property>
@@ -3277,7 +3277,7 @@
         <rect>
          <x>270</x>
          <y>10</y>
-         <width>231</width>
+         <width>247</width>
          <height>62</height>
         </rect>
        </property>
@@ -3748,7 +3748,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>237</width>
          <height>91</height>
         </rect>
        </property>
@@ -4518,7 +4518,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
+         <width>237</width>
          <height>91</height>
         </rect>
        </property>
@@ -6319,7 +6319,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-339</y>
+          <y>0</y>
           <width>476</width>
           <height>750</height>
          </rect>
