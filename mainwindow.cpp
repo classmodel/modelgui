@@ -642,6 +642,7 @@ void MainWindow::loadFormData()
     ui->sw_rad->setCheckState(Bool2CheckState(formvalues.sw_rad));
       switch_rad(Bool2Int(formvalues.sw_rad));
     ui->sw_sl->setCheckState(Bool2CheckState(formvalues.sw_sl));
+      switch_sl(Bool2Int(formvalues.sw_sl));
     ui->sw_ls->setCheckState(Bool2CheckState(formvalues.sw_ls));
       switch_ls(Bool2Int(formvalues.sw_ls));
     ui->sw_wtheta->setCheckState(Bool2CheckState(formvalues.sw_wtheta));
@@ -1802,6 +1803,13 @@ void MainWindow::switch_sl(int state)
     checkstate = true;
   else
     checkstate = false;
+
+  ui->input_surfacelayer_z0h->setEnabled(checkstate);
+  ui->input_surfacelayer_z0m->setEnabled(checkstate);
+  ui->label_surfacelayer_z0h->setEnabled(checkstate);
+  ui->label_surfacelayer_z0m->setEnabled(checkstate);
+  ui->unitlabel_surfacelayer_z0h->setEnabled(checkstate);
+  ui->unitlabel_surfacelayer_z0m->setEnabled(checkstate);
 
   updateStatusBar();
 }
