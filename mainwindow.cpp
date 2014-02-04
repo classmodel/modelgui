@@ -34,6 +34,7 @@
 #include <QFont>
 #include <QTextStream>
 #include "QMessageBox"
+#include "QSysInfo"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -144,6 +145,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
   // if all fields are properly assigned, the next line can be removed
   formvalues            = defaultinput;
+
+  casename = "default.mxl";
+  this->setWindowTitle("CLASS main | " + casename);
 }
 
 MainWindow::~MainWindow()
@@ -1049,7 +1053,12 @@ void MainWindow::saveRuns()
   {
     storeFormData();
 
-    QString filename = QFileDialog::getSaveFileName(this, "CLASS - Save session", "session.mxl");
+    QString filename = QFileDialog::getSaveFileName(this, "CLASS - Save session", casename);
+
+    // Get file name from path, update current casename, set window title
+    QStringList splitname = filename.split("/");
+    casename = splitname.value(splitname.length()-1);  // BvS: WILL FAIL FOR WINDOWS
+    this->setWindowTitle("CLASS main | " + casename);
 
     QFile file(filename);
     if(!file.open(QFile::WriteOnly | QFile::Truncate))
@@ -1234,6 +1243,11 @@ void MainWindow::loadRuns()
   storeFormData();
 
   QString filename = QFileDialog::getOpenFileName(this, "Load session file", "~");
+  QStringList splitname = filename.split("/");
+
+  // BvS: WILL FAIL FOR WINDOWS
+  casename = splitname.value(splitname.length()-1);
+  this->setWindowTitle("CLASS main | " + casename);
 
   QFile file(filename);
   file.open(QFile::ReadOnly);

@@ -110,6 +110,7 @@ signals:
 
 private:
   Ui::MainWindow *ui;
+  QString casename;
   void readdefaultinput();
   void updateSelectedRuns();
   void storeFormData();
