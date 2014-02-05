@@ -805,7 +805,7 @@
         <x>270</x>
         <y>10</y>
         <width>251</width>
-        <height>241</height>
+        <height>231</height>
        </rect>
       </property>
       <property name="title">
@@ -1658,7 +1658,7 @@
         <x>10</x>
         <y>100</y>
         <width>251</width>
-        <height>171</height>
+        <height>181</height>
        </rect>
       </property>
       <property name="title">
@@ -1996,7 +1996,7 @@
         <x>270</x>
         <y>100</y>
         <width>251</width>
-        <height>171</height>
+        <height>181</height>
        </rect>
       </property>
       <property name="title">
@@ -2332,7 +2332,7 @@
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>280</y>
+        <y>290</y>
         <width>251</width>
         <height>211</height>
        </rect>
@@ -2755,7 +2755,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>280</y>
+        <y>290</y>
         <width>251</width>
         <height>211</height>
        </rect>
@@ -3413,7 +3413,7 @@
         <x>10</x>
         <y>10</y>
         <width>251</width>
-        <height>171</height>
+        <height>181</height>
        </rect>
       </property>
       <property name="title">
@@ -4188,7 +4188,7 @@
         <x>10</x>
         <y>10</y>
         <width>251</width>
-        <height>91</height>
+        <height>81</height>
        </rect>
       </property>
       <property name="title">
@@ -4277,27 +4277,27 @@
         <x>10</x>
         <y>130</y>
         <width>511</width>
-        <height>141</height>
+        <height>131</height>
        </rect>
       </property>
       <property name="title">
        <string/>
       </property>
-      <widget class="QWidget" name="gridLayoutWidget_21">
+      <widget class="QWidget" name="gridLayoutWidget_29">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>491</width>
-         <height>121</height>
+         <width>221</width>
+         <height>111</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="surface_moisture_grid_2" columnminimumwidth="180,85,0,80">
+       <layout class="QGridLayout" name="surface_properties_grid_l" columnminimumwidth="50,0,60">
         <property name="sizeConstraint">
          <enum>QLayout::SetMinimumSize</enum>
         </property>
-        <item row="0" column="0" colspan="4">
-         <widget class="QLabel" name="label_surface_variables_2">
+        <item row="0" column="0" colspan="3">
+         <widget class="QLabel" name="label_soil_heat_3">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -4311,46 +4311,14 @@
            </size>
           </property>
           <property name="text">
-           <string>Surface properties</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QComboBox" name="input_soil_soiltypes">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>180</width>
-            <height>0</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QComboBox" name="input_surface_surfacetypes">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>180</width>
-            <height>0</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
+        <item row="1" column="0" colspan="3">
          <widget class="QComboBox" name="sw_jarvis">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -4379,8 +4347,8 @@
           </item>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_surface_Ts">
+        <item row="2" column="0" colspan="3">
+         <widget class="QComboBox" name="input_surface_surfacetypes">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -4389,22 +4357,94 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>180</width>
             <height>0</height>
            </size>
           </property>
-          <property name="toolTip">
-           <string/>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="3">
+         <widget class="QComboBox" name="input_soil_soiltypes">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="text">
-           <string>&lt;html&gt;T&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>0</height>
+           </size>
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
+       </layout>
+      </widget>
+      <widget class="QLabel" name="label_surface_variables_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>10</y>
+         <width>478</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Surface properties</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QWidget" name="gridLayoutWidget_31">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>10</y>
+         <width>231</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="surface_properties_grid_r" columnminimumwidth="50,0,80">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <item row="0" column="0" colspan="3">
+         <widget class="QLabel" name="label_soil_heat_4">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
          <widget class="QLineEdit" name="input_surface_Ts">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
@@ -4432,33 +4472,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="3">
-         <widget class="QLabel" name="unitlabel_surface_Ts">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;[K]&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
-         <widget class="QLabel" name="label_surface_Wl">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;W&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;l&lt;/span&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
          <widget class="QLineEdit" name="input_surface_Wl">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
@@ -4486,7 +4500,45 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="3">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_surface_Wl">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;W&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;l&lt;/span&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="unitlabel_surface_Ts">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;[K]&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
          <widget class="QLabel" name="unitlabel_surface_Wl">
           <property name="toolTip">
            <string/>
@@ -4499,13 +4551,25 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="label_surface_Wl_2">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_surface_Ts">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;T&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;s&lt;/span&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4514,6 +4578,10 @@
         </item>
        </layout>
       </widget>
+      <zorder>gridLayoutWidget_29</zorder>
+      <zorder>label_surface_variables_2</zorder>
+      <zorder>gridLayoutWidget_31</zorder>
+      <zorder>label_surface_Ts</zorder>
      </widget>
      <widget class="QGroupBox" name="surfacelayer_group">
       <property name="geometry">
@@ -5111,6 +5179,10 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <zorder>gridLayoutWidget_9</zorder>
+      <zorder>gridLayoutWidget_10</zorder>
+      <zorder>label_soil_heat_2</zorder>
+      <zorder>gridLayoutWidget_31</zorder>
      </widget>
     </widget>
     <widget class="QWidget" name="chemspeciesTab">
@@ -6344,7 +6416,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
+          <width>477</width>
           <height>750</height>
          </rect>
         </property>
@@ -9419,7 +9491,6 @@
   <tabstop>input_rad_clouds</tabstop>
   <tabstop>sw_ls</tabstop>
   <tabstop>sw_sea</tabstop>
-  <tabstop>input_surface_surfacetypes</tabstop>
   <tabstop>sw_chem</tabstop>
   <tabstop>sw_species_photolysis</tabstop>
   <tabstop>input_species_photolysis_tref</tabstop>
