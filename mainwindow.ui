@@ -6344,7 +6344,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>477</width>
+          <width>98</width>
           <height>750</height>
          </rect>
         </property>
@@ -9339,6 +9339,8 @@
     </property>
     <addaction name="actionSave"/>
     <addaction name="actionLoad"/>
+    <addaction name="actionReset"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -9372,6 +9374,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionReset">
+   <property name="text">
+    <string>Reset</string>
    </property>
   </action>
  </widget>

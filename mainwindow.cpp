@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   connect(ui->actionExit,     SIGNAL(triggered()),              this, SLOT(close()));
   connect(ui->actionSave,     SIGNAL(triggered()),              this, SLOT(saveRuns()));
   connect(ui->actionLoad,     SIGNAL(triggered()),              this, SLOT(loadRuns()));
+  connect(ui->actionReset,    SIGNAL(triggered()),              this, SLOT(resetInterface()));
 
   connect(ui->startButton,    SIGNAL(clicked()),                this, SLOT(startrun()));
   connect(ui->cancelButton,   SIGNAL(clicked()),                this, SLOT(canceledit()));
@@ -1578,6 +1579,54 @@ void MainWindow::loadRuns()
     }
   }
   file.close();
+}
+
+void MainWindow::resetInterface()
+{
+  QMessageBox msgBox;
+  msgBox.setWindowTitle("CLASS - Reset session?");
+  msgBox.setText("Are you sure you want to reset the interface?");
+  msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
+  msgBox.setDefaultButton(QMessageBox::Cancel);
+  int ret = msgBox.exec();
+
+  switch (ret)
+  {
+    case QMessageBox::Yes:
+
+      blockInput(true);
+
+      for (int i=0; i<ui->modelRunTree->topLevelItemCount(); i++)
+      {
+        QString ident = ui->modelRunTree->topLevelItem(i)->text(0);
+        int n = ident.toInt(0,10);
+
+        // CvH This is an extremely ugly hack to solve the memory leak that occurs during run deletion
+        if(modelrunlist->find(n).value().hasrun)
+          if(modelrunlist->find(n).value().run->hasoutput)
+          {
+          modelrunlist->find(n).value().run->output->reset(22);
+          modelrunlist->find(n).value().run->output->reload(1,22);
+          }
+       // end of ugly hack
+
+       modelrunlist->remove(n);
+       emit rundeleted(n);
+      }
+
+      ui->modelRunTree->clear();
+      runTreeChanged();
+
+      newrun();
+      casename = "default.mxl";
+      this->setWindowTitle("CLASS main | " + casename);
+
+      blockInput(false);
+
+      break;
+    default:
+      break;
+    }
 }
 
 void MainWindow::setLandSoil(int i)

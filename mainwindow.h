@@ -75,6 +75,7 @@ public slots:
   void saveRuns();
   void loadRuns();
   void exportRuns();
+  void resetInterface();
   void updateSurfacetype(int);
   void updateSoiltype(int);
   void tabChanged(int);
