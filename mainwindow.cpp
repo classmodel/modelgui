@@ -147,7 +147,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   // if all fields are properly assigned, the next line can be removed
   formvalues            = defaultinput;
 
-  casename = "default.mxl";
+  defaultname = "default.mxl";
+  casename = defaultname;
   this->setWindowTitle("CLASS main | " + casename);
 }
 
@@ -1586,6 +1587,8 @@ void MainWindow::resetInterface()
   QMessageBox msgBox;
   msgBox.setWindowTitle("CLASS - Reset session?");
   msgBox.setText("Are you sure you want to reset the interface?");
+  msgBox.setInformativeText("This will delete all of your current experiments");
+
   msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
   msgBox.setDefaultButton(QMessageBox::Cancel);
   int ret = msgBox.exec();
@@ -1618,7 +1621,7 @@ void MainWindow::resetInterface()
       runTreeChanged();
 
       newrun();
-      casename = "default.mxl";
+      casename = defaultname;
       this->setWindowTitle("CLASS main | " + casename);
 
       blockInput(false);

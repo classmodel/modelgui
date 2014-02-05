@@ -112,6 +112,7 @@ signals:
 private:
   Ui::MainWindow *ui;
   QString casename;
+  QString defaultname;
   void readdefaultinput();
   void updateSelectedRuns();
   void storeFormData();
