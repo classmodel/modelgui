@@ -1651,7 +1651,7 @@ void MainWindow::setLandSoil(int i)
   }
 
   // Read soil types into pull down menu
-  for(int i=0;i<1;i++)
+  for(int i=0;i<3;i++)
     ui->input_soil_soiltypes->addItem(soiltypes[i].name, i);
   }
 

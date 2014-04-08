@@ -27,7 +27,7 @@
 void MainWindow::initLandSoil()
 {
   // Define soil types
-  soiltypes[0].name  = "Loamy";
+  soiltypes[0].name  = "Sandy loam";
   soiltypes[0].wsat  = 0.472;
   soiltypes[0].wfc   = 0.323;
   soiltypes[0].wwilt = 0.171;
@@ -37,6 +37,28 @@ void MainWindow::initLandSoil()
   soiltypes[0].CGsat = 3.56e-6;
   soiltypes[0].C1sat = 0.132;
   soiltypes[0].C2ref = 1.8;
+
+  soiltypes[1].name  = "Sand";
+  soiltypes[1].wsat  = 0.403;
+  soiltypes[1].wfc   = 0.244;
+  soiltypes[1].wwilt = 0.059;
+  soiltypes[1].a     = 0.387;
+  soiltypes[1].b     = 4.05;
+  soiltypes[1].p     = 4.;
+  soiltypes[1].CGsat = 3.222e-6;
+  soiltypes[1].C1sat = 0.082;
+  soiltypes[1].C2ref = 3.9;
+
+  soiltypes[2].name  = "Clay";
+  soiltypes[2].wsat  = 0.614;
+  soiltypes[2].wfc   = 0.541;
+  soiltypes[2].wwilt = 0.335;
+  soiltypes[2].a     = 0.083;
+  soiltypes[2].b     = 11.4;
+  soiltypes[2].p     = 12.;
+  soiltypes[2].CGsat = 3.6e-6;
+  soiltypes[2].C1sat = 0.342;
+  soiltypes[2].C2ref = 0.3;
 
   // Define surface types
   // SHORT GRASS

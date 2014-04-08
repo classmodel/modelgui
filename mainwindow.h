@@ -130,7 +130,7 @@ private:
   void blockInput(bool);
 
   surfacetype surfacetypes[4];
-  soiltype    soiltypes[1];
+  soiltype    soiltypes[3];
 
   int activerun;
   int activetab;
