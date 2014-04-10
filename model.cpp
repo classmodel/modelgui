@@ -1160,6 +1160,7 @@ void model::runlsmodel()
     Wltend = - LEliq / (rhow * Lv);
 
     LE     = LEsoil + LEveg + LEliq;
+
     H      = rho * cp / ra * (Ts - theta);
     G      = Lambda * (Ts - Tsoil);
     LEpot  = (dqsatdT * (Q - G) + rho * cp / ra * (qsat - q)) / (dqsatdT + cp / Lv);
