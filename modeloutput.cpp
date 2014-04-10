@@ -464,13 +464,13 @@ modeloutput::modeloutput(int tsteps, int nsc)
 
   // land and soil
   wg.data                   = new double[tsteps];   // Soil moisture top layer [m3 m-3]
-  wg.name                   = "Wsoil";
+  wg.name                   = "Wsoil1";
   wg.unit                   = "m3 m-3";
   wg.description            = "Volumetric water content top soil layer";
   wg.id                     = "wg";
 
   Tsoil.data                = new double[tsteps];   //  Soil temperature [K]
-  Tsoil.name                = "Tsoil";
+  Tsoil.name                = "Tsoil1";
   Tsoil.unit                = "K";
   Tsoil.description         = "Temperature top soil layer";
   Tsoil.id                  = "Tsoil";
