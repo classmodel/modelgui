@@ -35,6 +35,7 @@
 #include <QTextStream>
 #include "QMessageBox"
 #include "QSysInfo"
+#include "QString"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -150,6 +151,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   defaultname = "default.mxl";
   casename = defaultname;
   this->setWindowTitle("CLASS main | " + casename);
+
+  //std::cout << "githash=" << GITHASH << std::endl;
 }
 
 MainWindow::~MainWindow()
@@ -2078,7 +2081,8 @@ void MainWindow::showAbout()
   msgBox.setWindowTitle("CLASS - About");
   QSpacerItem* horizontalSpacer = new QSpacerItem(400, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
   msgBox.setText("About the CLASS model");
-  msgBox.setInformativeText("<html><b>Chemistry Land-surface Atmosphere Soil Slab model</b><br/><br/><b>Meteorology and Air Quality section<br/>Wageningen University and Research centre</b><br/></br><br/><br/>Authors:<br/>Chiel van Heerwaarden<br/>Bart van Stratum<br/>Kees van den Dries<br/>Jordi Vil&#224;-Guerau de Arellano<br/><br/>Contact: jordi.vila@wur.nl<br/><br/>&copy; 2010-2013, GPLv3 licence<br/><br/>Source code available at https://github.com/classmodel/modelgui</html>");
+  QString informativeText = "<html><b>Chemistry Land-surface Atmosphere Soil Slab model</b><br/><br/><b>Meteorology and Air Quality section<br/>Wageningen University and Research centre</b><br/></br><br/><br/>Authors:<br/>Chiel van Heerwaarden<br/>Bart van Stratum<br/>Kees van den Dries<br/>Jordi Vil&#224;-Guerau de Arellano<br/><br/>Contact: jordi.vila@wur.nl<br/><br/>&copy; 2010-2014, GPLv3 licence<br/><br/>Source code available at https://github.com/classmodel/modelgui<br/><br/>git-hash: " + QString::fromStdString(GITHASH) + "</html>";
+  msgBox.setInformativeText(informativeText);
   QGridLayout* layout = (QGridLayout*)msgBox.layout();
   layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
   msgBox.exec();

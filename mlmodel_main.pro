@@ -57,5 +57,6 @@ greaterThan(QT_MAJOR_VERSION, 4)
 }
 
 # For adding git hash to about window:
-REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe)
+REVISION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --tags)
+#REVISION = $$system(git describe --tags)
 DEFINES += GITHASH=\\\"$$REVISION\\\"
