@@ -15,7 +15,6 @@ Tested on a clean default installation of Ubuntu 10.04.2 LTS / OpenSUSE 11.4 (KD
   Or for OpenSUSE (11.4):
    "sudo zypper in libqt4-devel make" 
 + Compile CLASS:
-   "qmake -project"
    "qmake"
    "make"
 + This should provide an executable "modelgui".
