@@ -1634,26 +1634,46 @@ void MainWindow::resetInterface()
 
 void MainWindow::setLandSoil(int i)
 {
-  // First clear list
+  // Check if/which surface and soil type is selected to restore settings
+  // Index -1 == no selection.
+  int selectedSurfaceType = ui->input_surface_surfacetypes->currentIndex();
+  int selectedSoilType = ui->input_soil_soiltypes->currentIndex();
+
+  // Clear list
   ui->input_surface_surfacetypes->clear();
   ui->input_soil_soiltypes->clear();
 
   // Read surface types into pull down menu
-  if(i == 0)
+  if(i == 0) // Jarvis-stewart vegetation types
   {
     for (int j = 0;j<4;j++)
       ui->input_surface_surfacetypes->addItem(surfacetypes[j].name, j);
+    if(selectedSurfaceType != -1)
+    {
+      ui->input_surface_surfacetypes->setCurrentIndex(selectedSurfaceType);
+      ui->input_surface_surfacetypes->show();
+    }
   }
-  else
+  else // A-Gs vegetation types:
   {
     for (int j = 0;j<2;j++)
       ui->input_surface_surfacetypes->addItem(surfacetypes[j].name, j);
+    if(selectedSurfaceType != -1 && selectedSurfaceType < 2) // Prevent selecting non-A-Gs vegetations..
+    {
+      ui->input_surface_surfacetypes->setCurrentIndex(selectedSurfaceType);
+      ui->input_surface_surfacetypes->show();
+    }
   }
 
   // Read soil types into pull down menu
   for(int i=0;i<3;i++)
     ui->input_soil_soiltypes->addItem(soiltypes[i].name, i);
+  if(selectedSoilType != -1)
+  {
+    ui->input_soil_soiltypes->setCurrentIndex(selectedSoilType);
+    ui->input_surface_surfacetypes->show();
   }
+}
 
 void MainWindow::updateSurfacetype(int i)
 {
