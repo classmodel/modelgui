@@ -1004,7 +1004,7 @@ void model::runlsmodel()
   double CG,d1,C1,C2;       // force-restore parameters
 
   // compute ra
-  U       = pow(pow(u,2.) + pow(v,2.) + pow(wstar,2.),1./3.);
+  U       = pow(pow(u,2.) + pow(v,2.) + pow(wstar,2.),1./2.);
 
   if(sw_sl)
     ra    = 1. / (Cm * U);
