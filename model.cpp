@@ -1004,7 +1004,7 @@ void model::runlsmodel()
   double CG,d1,C1,C2;       // force-restore parameters
 
   // compute ra
-  U       = sqrt(pow(u,2.) + pow(v,2.));
+  U       = pow(pow(u,2.) + pow(v,2.) + pow(wstar,2.),1./3.);
 
   if(sw_sl)
     ra    = 1. / (Cm * U);
@@ -1040,7 +1040,7 @@ void model::runlsmodel()
     if(sw_jarvis)       // calculate surface resistances using Jarvis-Stewart model
     {
       if(sw_rad)
-        f1   = 1. / ((0.004 * Swin + 0.05) / (0.81 * (0.004 * Swin + 1.)));
+        f1   = 1. / min(1.,((0.004 * Swin + 0.05) / (0.81 * (0.004 * Swin + 1.))));
       else
         f1   = 1.;
 
