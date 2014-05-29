@@ -51,6 +51,8 @@ model::model(modelinput *extinput)
   mair       =  28.9;                   // molecular weight air [g mol -1]
   nuco2q     =  1.6;                    // ratio molecular viscosity water to carbon dioxide
 
+  Umin       = 0.01;                      // BvS: limiter on wind speed [m s-1]
+
   //input      =  extinput;
   input = *extinput;
 
@@ -835,7 +837,8 @@ void model::runslmodel()
   double    qsatsurf; // saturated specific humidity inside vegetation [kg kg-1]
   double    cq;       // fraction of surface that is wet
 
-  U         = sqrt(pow(u,2.) + pow(v,2.));
+  U       = max(Umin,pow(pow(u,2.) + pow(v,2.) + pow(wstar,2.),1./2.));
+
   thetasurf = theta + wtheta / (Cs * U);
   esatsurf  = 0.611e3 * exp(17.2694 * (thetasurf - 273.16) / (thetasurf - 35.86));
   qsatsurf  = 0.622 * esatsurf / Ps;
@@ -848,7 +851,7 @@ void model::runslmodel()
 
   zsl  = 0.1 * h;
 
-  Rib  = g / thetav * zsl * (thetav - thetavsurf) / (pow(u,2.) + pow(v,2.));
+  Rib  = g / thetav * zsl * (thetav - thetavsurf) / pow(U,2.);
   Rib  = min(Rib, 0.2);
 
   L    = ribtol(Rib, zsl, z0m, z0h);
@@ -937,6 +940,9 @@ double model::ribtol(double Rib, double zsl, double z0m, double z0h)
     Lend    = L + 0.001 * L;
     fxdif   = ( (- zsl / Lstart * (log(zsl / z0h) - psih(zsl / Lstart) + psih(z0h / Lstart)) / pow(log(zsl / z0m) - psim(zsl / Lstart) + psim(z0m / Lstart), 2.)) - (-zsl / Lend * (log(zsl / z0h) - psih(zsl / Lend) + psih(z0h / Lend)) / pow(log(zsl / z0m) - psim(zsl / Lend) + psim(z0m / Lend), 2.)) ) / (Lstart - Lend);
     L       = L - fx / fxdif;
+
+    if(abs(L)>1e15)
+      break;
   }
 
   return L;
@@ -1004,10 +1010,10 @@ void model::runlsmodel()
   double CG,d1,C1,C2;       // force-restore parameters
 
   // compute ra
-  U       = pow(pow(u,2.) + pow(v,2.) + pow(wstar,2.),1./2.);
+  U       = max(Umin,pow(pow(u,2.) + pow(v,2.) + pow(wstar,2.),1./2.));
 
   if(sw_sl)
-    ra    = 1. / (Cm * U);
+    ra    = 1. / (Cs * U);
   else
     ra    = U / pow(ustar,2.);
 
