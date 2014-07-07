@@ -703,7 +703,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Heat</string>
+           <string>Potential temperature</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -6408,7 +6408,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>477</width>
+          <width>98</width>
           <height>750</height>
          </rect>
         </property>
