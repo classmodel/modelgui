@@ -703,7 +703,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Heat</string>
+           <string>Potential temperature</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -1069,7 +1069,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;div&lt;/html&gt;</string>
+           <string>&lt;html&gt;div(U&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;h&lt;/span&gt;)&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1097,7 +1097,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>large scale divergence</string>
+           <string>horizontal large scale divergence of wind</string>
           </property>
           <property name="text">
            <string/>
@@ -4289,7 +4289,7 @@
          <x>10</x>
          <y>10</y>
          <width>221</width>
-         <height>111</height>
+         <height>114</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="surface_properties_grid_l" columnminimumwidth="50,0,60">
@@ -4578,10 +4578,6 @@
         </item>
        </layout>
       </widget>
-      <zorder>gridLayoutWidget_29</zorder>
-      <zorder>label_surface_variables_2</zorder>
-      <zorder>gridLayoutWidget_31</zorder>
-      <zorder>label_surface_Ts</zorder>
      </widget>
      <widget class="QGroupBox" name="surfacelayer_group">
       <property name="geometry">
@@ -5179,10 +5175,6 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <zorder>gridLayoutWidget_9</zorder>
-      <zorder>gridLayoutWidget_10</zorder>
-      <zorder>label_soil_heat_2</zorder>
-      <zorder>gridLayoutWidget_31</zorder>
      </widget>
     </widget>
     <widget class="QWidget" name="chemspeciesTab">
@@ -6416,7 +6408,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>477</width>
+          <width>98</width>
           <height>750</height>
          </rect>
         </property>
@@ -9402,7 +9394,7 @@
      <x>0</x>
      <y>0</y>
      <width>725</width>
-     <height>19</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

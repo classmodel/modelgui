@@ -169,6 +169,8 @@ private:
   double vw;        // surface momentum flux in v-direction [m2 s-2]
   double vwe;       // Entrainment momentum flux in v-direction [m2 s-2]
 
+  double Umin;      // BvS: limiter on wind speed [m s-1]
+
   // BvS; a scalar, without the need for the chemistry scheme :)
   double sca;       // initial mixed-layer scalar [kg kg-1]
   double dsca;      // initial scalar jump at h [kg kg-1]
