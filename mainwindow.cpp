@@ -1058,6 +1058,7 @@ void MainWindow::saveRuns()
   {
     storeFormData();
 
+    QString casename_in = casename; // Save case name, in case user aborts the save
     QString filename = QFileDialog::getSaveFileName(this, "CLASS - Save session", casename);
 
     // Get file name from path, update current casename, set window title
@@ -1069,6 +1070,8 @@ void MainWindow::saveRuns()
     if(!file.open(QFile::WriteOnly | QFile::Truncate))
     {
       std::cout << "Error! Cannot open file! Abort saving..." << std::endl;
+      casename = casename_in; // Restore case name
+      this->setWindowTitle("CLASS main | " + casename_in); // set window title
       return;
     }
     QTextStream out(&file);   // we will serialize the data into the file
