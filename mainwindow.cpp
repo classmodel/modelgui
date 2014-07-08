@@ -150,7 +150,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
   defaultname = "default.mxl";
   casename = defaultname;
-  this->setWindowTitle("CLASS main | " + casename);
+  this->setWindowTitle("LASS, Chemistry is stupid main | " + casename);
 
   //std::cout << "githash=" << GITHASH << std::endl;
 }
