@@ -97,7 +97,7 @@
               <widget class="QLabel" name="xminLabel">
                <property name="minimumSize">
                 <size>
-                 <width>45</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
@@ -116,7 +116,7 @@
               <widget class="QLineEdit" name="xminInput">
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
@@ -136,7 +136,7 @@
               <widget class="QLabel" name="xmaxLabel">
                <property name="minimumSize">
                 <size>
-                 <width>45</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
@@ -155,7 +155,7 @@
               <widget class="QLineEdit" name="xmaxInput">
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
@@ -178,7 +178,7 @@
               <widget class="QLabel" name="yminLabel">
                <property name="minimumSize">
                 <size>
-                 <width>45</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
@@ -197,7 +197,7 @@
               <widget class="QLineEdit" name="yminInput">
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
@@ -217,7 +217,7 @@
               <widget class="QLabel" name="ymaxLabel">
                <property name="minimumSize">
                 <size>
-                 <width>45</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
@@ -236,7 +236,7 @@
               <widget class="QLineEdit" name="ymaxInput">
                <property name="minimumSize">
                 <size>
-                 <width>60</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
@@ -348,7 +348,7 @@
      <x>0</x>
      <y>0</y>
      <width>624</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="file_menu">
