@@ -8,9 +8,13 @@ CLASS is part of a book (soon to be) published at Cambridge University Press: "A
 
 ### Obtaining the CLASS software
 
-CLASS can be downloaded as precompiled binaries for [Windows and OS X](https://github.com/classmodel/modelgui/releases)
+CLASS can be downloaded as precompiled binaries for [Windows and OS X](https://github.com/classmodel/modelgui/releases). 
 
 For information on compiling CLASS on Linux / OS X, see the notes below.
+
+### Note for OS X users
+
+On recent versions of OS X, opening CLASS for the first time will result in a warning: *"CLASS can’t be opened because it is from an unidentified developer"*. To circumvent this problem, right click the application and select "open" and again "open" in the dialog instead of double clicking the application. This step is only needed once.
 
 ### Bugs
 
