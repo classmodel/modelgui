@@ -1058,6 +1058,7 @@ void MainWindow::saveRuns()
   {
     storeFormData();
 
+    QString casename_in = casename; // Save case name, in case user aborts the save
     QString filename = QFileDialog::getSaveFileName(this, "CLASS - Save session", casename);
 
     // Get file name from path, update current casename, set window title
@@ -1069,6 +1070,8 @@ void MainWindow::saveRuns()
     if(!file.open(QFile::WriteOnly | QFile::Truncate))
     {
       std::cout << "Error! Cannot open file! Abort saving..." << std::endl;
+      casename = casename_in; // Restore case name
+      this->setWindowTitle("CLASS main | " + casename_in); // set window title
       return;
     }
     QTextStream out(&file);   // we will serialize the data into the file
@@ -1861,21 +1864,13 @@ void MainWindow::switch_ls(int state)
   ui->soil_properties_group->setEnabled(checkstate);
   ui->advanced_surface_switches_group->setEnabled(checkstate);
 
-  //ui->input_surfacelayer_z0m->setEnabled(!checkstate);
-  //ui->label_surfacelayer_z0m->setEnabled(!checkstate);
-  //ui->unitlabel_surfacelayer_z0m->setEnabled(!checkstate);
-  //if(checkstate)
-  //  ui->input_surfacelayer_z0m->setToolTip("If SURFACE is enabled, z0m is set in SURFACE tab");
-  //else
-  //  ui->input_surfacelayer_z0m->setToolTip("roughness length for momentum");
+  if(checkstate == false)
+  {
+    ui->sw_surface_advanced->setCheckState(Qt::Unchecked);
+    ui->sw_soil_advanced->setCheckState(Qt::Unchecked);
+  }
 
-  //ui->input_surfacelayer_z0h->setEnabled(!checkstate);
-  //ui->label_surfacelayer_z0h->setEnabled(!checkstate);
-  //ui->unitlabel_surfacelayer_z0h->setEnabled(!checkstate);
-  //if(checkstate)
-  //  ui->input_surfacelayer_z0h->setToolTip("If SURFACE is enabled, z0h is set in SURFACE tab");
-  //else
-    ui->input_surfacelayer_z0h->setToolTip("roughness length for scalars");
+  ui->input_surfacelayer_z0h->setToolTip("roughness length for scalars");
 
   updateStatusBar();
 }
