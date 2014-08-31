@@ -603,6 +603,8 @@ void model::runmlmodel()
   wscae   = we * dsca;
   wCO2e   = we * dCO2;
 
+  //printf("wco2e=%f, dco2=%f\n",wCO2e,dCO2);
+
   // compute mixed-layer top variances and mass-fluxes
   if (wthetav > 0.)
   {
@@ -1254,14 +1256,14 @@ void model::store()
   output->gammau.data[t]     = gammau;
   output->advu.data[t]       = advu;
   output->uw.data[t]         = uw;
-  output->uwe.data[t]        = uwe;
+  output->uwe.data[t]        = -uwe;
 
   output->v.data[t]          = v;
   output->dv.data[t]         = dv;
   output->gammav.data[t]     = gammav;
   output->advv.data[t]       = advv;
   output->vw.data[t]         = vw;
-  output->vwe.data[t]        = vwe;
+  output->vwe.data[t]        = -vwe;
 
   // BvS; a scalar...
   output->sca.data[t]             = sca;
@@ -1269,7 +1271,7 @@ void model::store()
   output->gammasca.data[t]        = gammasca;
   output->advsca.data[t]          = advsca;
   output->wsca.data[t]            = wsca;
-  output->wscae.data[t]           = wscae;
+  output->wscae.data[t]           = -wscae;
   output->wscaM.data[t]           = wscaM;
   output->sigmasca.data[t]        = pow(sigmasca2,0.5);
 
@@ -1281,7 +1283,7 @@ void model::store()
   output->wCO2.data[t]            = wCO2   * ((rho*mco2)/mair);
   output->wCO2A.data[t]           = An     * ((rho*mco2)/mair);
   output->wCO2R.data[t]           = Resp   * ((rho*mco2)/mair);
-  output->wCO2e.data[t]           = wCO2e  * ((rho*mco2)/mair);
+  output->wCO2e.data[t]           = -wCO2e  * ((rho*mco2)/mair);
   output->wCO2M.data[t]           = wCO2M  * ((rho*mco2)/mair);
   output->sigmaCO2.data[t]        = pow(sigmaCO22,0.5);
 
