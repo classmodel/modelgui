@@ -839,7 +839,7 @@ void model::runslmodel()
   double    qsatsurf; // saturated specific humidity inside vegetation [kg kg-1]
   double    cq;       // fraction of surface that is wet
 
-  U       = max(Umin,pow(pow(u,2.) + pow(v,2.) + pow(wstar,2.),1./2.));
+  U = max( Umin, pow( pow(u,2) + pow(v,2) + pow(wstar,2), 1./2. ) );
 
   thetasurf = theta + wtheta / (Cs * U);
   esatsurf  = 0.611e3 * exp(17.2694 * (thetasurf - 273.16) / (thetasurf - 35.86));
@@ -858,8 +858,8 @@ void model::runslmodel()
 
   L    = ribtol(Rib, zsl, z0m, z0h);
 
-  Cm   = pow(k,2.) / pow((log(zsl / z0m) - psim(zsl / L) + psim(z0m / L)),2.);
-  Cs   = pow(k,2.) / (log(zsl / z0m) - psim(zsl / L) + psim(z0m / L)) / (log(zsl / z0h) - psih(zsl / L) + psih(z0h / L));
+  Cm = pow(k,2.) / pow((log(zsl / z0m) - psim(zsl / L) + psim(z0m / L)),2.);
+  Cs = pow(k,2.) / (log(zsl / z0m) - psim(zsl / L) + psim(z0m / L)) / (log(zsl / z0h) - psih(zsl / L) + psih(z0h / L));
 
   //if(wthetav > 0.):
   //  wstar     = (g / thetav * h * wthetav) ** (1./3.)
@@ -886,10 +886,11 @@ inline double model::psim(double zeta)
   double x;
   if(zeta <= 0.)
   {
-    //x     = (1. - 16. * zeta) ** (0.25)
-    //psim  = 3.14159265 / 2. - 2. * arctan(x) + log( (1.+x) ** 2. * (1. + x ** 2.) / 8.)
-    x    = pow(1. + pow(3.6 * abs(zeta),2./3.), -0.5);
-    psim = 3. * log( (1. + 1. / x) / 2.);
+    x     = pow(1. - 16. * zeta, 0.25);
+    psim  = 3.14159265 / 2. - 2. * atan(x) + log( pow(1.+x, 2) * (1. + x*x) / 8.);
+    // Stability functions according to Wilson, 2001
+    // x    = pow(1. + pow(3.6 * abs(zeta),2./3.), -0.5);
+    // psim = 3. * log( (1. + 1. / x) / 2.);
   }
   else
   {
@@ -904,10 +905,11 @@ inline double model::psih(double zeta)
   double x;
   if(zeta <= 0.)
   {
-    // x     = (1. - 16. * zeta) ** (0.25)
-    // psih  = 2. * log( (1. + x ** 2.) / 2. )
-    x     = pow(1. + pow(7.9 * abs(zeta), (2./3.)), -0.5);
-    psih  = 3. * log( (1. + 1. / x) / 2.);
+    x     = pow(1. - 16. * zeta, 0.25);
+    psih  = 2. * log( (1. + x*x) / 2.);
+    // Stability functions according to Wilson, 2001
+    // x     = pow(1. + pow(7.9 * abs(zeta), (2./3.)), -0.5);
+    // psih  = 3. * log( (1. + 1. / x) / 2.);
   }
   else
   {
@@ -925,8 +927,8 @@ double model::ribtol(double Rib, double zsl, double z0m, double z0h)
 
   if(Rib > 0.)
   {
-    L    = 1.;
-    L0   = 2.;
+    L  = 1.;
+    L0 = 2.;
   }
   else
   {
@@ -1012,7 +1014,7 @@ void model::runlsmodel()
   double CG,d1,C1,C2;       // force-restore parameters
 
   // compute ra
-  U       = max(Umin,pow(pow(u,2.) + pow(v,2.) + pow(wstar,2.),1./2.));
+  U = max( Umin, pow( pow(u,2) + pow(v,2) + pow(wstar,2), 1./2. ) );
 
   if(sw_sl)
     ra    = 1. / (Cs * U);
