@@ -583,7 +583,7 @@ void model::runmlmodel()
   if(beta == 0 && inputdthetav == 0)
   {
     we    = 1 / gammatheta * wthetav / h;
-    wf    = 1 / gammatheta * (dFz / rho * cp) / h;
+    wf    = 1 / gammatheta * (dFz / (rho * cp)) / h;
   }
   else
   {
