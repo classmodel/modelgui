@@ -1017,9 +1017,13 @@ void model::runlsmodel()
   U = max( Umin, pow( pow(u,2) + pow(v,2) + pow(wstar,2), 1./2. ) );
 
   if(sw_sl)
-    ra    = 1. / (Cs * U);
+    ra = 1. / (Cs * U);
   else
-    ra    = U / pow(ustar,2.);
+  {
+    // avoid zero division
+    double ustartmp = max(ustar, 1.e-3);
+    ra = U / pow(ustartmp,2);
+  }
 
   if(sw_sea)
   {
