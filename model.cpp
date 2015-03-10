@@ -1187,7 +1187,7 @@ void model::runlsmodel()
     d1         = 0.1;
 
     C1         = C1sat * pow(wsat / wg, b/2. + 1.);
-    const double wsmall = 1e-6;
+    const double wsmall = 1e-3;
     C2         = C2ref * (w2 / (wsat - w2 + wsmall));
 
     wgeq       = w2 - wsat * a * ( pow(w2 / wsat, p) * (1. - pow(w2 / wsat,8.*p)) );
