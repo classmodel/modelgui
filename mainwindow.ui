@@ -8230,7 +8230,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>thermal diffusivity skin layer</string>
+           <string>skin conductivity</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
