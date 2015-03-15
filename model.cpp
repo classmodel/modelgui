@@ -1180,13 +1180,16 @@ void model::runlsmodel()
     LEpot  = (dqsatdT * (Q - G) + rho * cp / ra * (qsat - q)) / (dqsatdT + cp / Lv);
     LEref  = (dqsatdT * (Q - G) + rho * cp / ra * (qsat - q)) / (dqsatdT + cp / Lv * (1. + rsmin / LAI / ra));
 
-    CG         = pow(CGsat * (wsat / w2), b / (2. * log(10.)));
+    CG         = CGsat * pow(wsat / w2, b / (2. * log(10.)));
 
     Tsoiltend  = CG * G - 2. * pi / 86400. * (Tsoil - T2);
 
     d1         = 0.1;
-    C1         = pow(C1sat * (wsat / wg), b / 2. + 1.);
-    C2         = C2ref * (w2 / (wsat - w2));
+
+    C1         = C1sat * pow(wsat / wg, b/2. + 1.);
+    const double wsmall = 1e-3;
+    C2         = C2ref * (w2 / (wsat - w2 + wsmall));
+
     wgeq       = w2 - wsat * a * ( pow(w2 / wsat, p) * (1. - pow(w2 / wsat,8.*p)) );
     wgtend     = - C1 / (rhow * d1) * LEsoil / Lv - C2 / 86400. * (wg - wgeq);
   }
