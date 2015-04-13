@@ -1063,6 +1063,9 @@ void model::runlsmodel()
       else
         f2   = 1.e8;
 
+      // Limit f2 in case w2 > wfc, where f2 < 1
+      f2 = max(f2, 1.);
+
       //f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
       //f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
       f3     = 1. / exp(- gD * (esat - e) / 100.);
