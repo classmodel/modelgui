@@ -817,7 +817,7 @@
          <x>10</x>
          <y>10</y>
          <width>231</width>
-         <height>211</height>
+         <height>213</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="ml_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -4997,7 +4997,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;W&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;soil 1&lt;/span&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;w&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;soil 1&lt;/span&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -5056,7 +5056,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;html&gt;W&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;soil 2&lt;/span&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;w&lt;span style=&quot; font-size:14px; vertical-align:sub;&quot;&gt;soil 2&lt;/span&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -6408,7 +6408,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
+          <width>478</width>
           <height>750</height>
          </rect>
         </property>
@@ -6424,7 +6424,7 @@
            <x>10</x>
            <y>10</y>
            <width>451</width>
-           <height>721</height>
+           <height>724</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="reactions_grid2" columnstretch="0,0,0,0,1" columnminimumwidth="0,40,0,30,0">
@@ -9394,7 +9394,7 @@
      <x>0</x>
      <y>0</y>
      <width>725</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
