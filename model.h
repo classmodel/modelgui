@@ -209,6 +209,15 @@ private:
   double thetatend, qtend, utend, vtend, scatend, CO2tend;
   double dthetatend, dqtend, dutend, dvtend, dscatend, dCO2tend, dztend;
 
+  // Mixed-layer top budget RH
+  double RHtend_wqs;  // surface moistening
+  double RHtend_wqe;  // entrainment drying
+  double RHtend_wqM;  // mass-flux drying
+  double RHtend_wths; // surface heating
+  double RHtend_wthe; // entrainment heating
+  double RHtend_we;   // mixed-layer growth entrainment
+  double RHtend_M;    // mixed-layer "shrinking" mass-flux
+
   // surface layer variables
   bool   sw_sl;     // surface layer switch
   bool   sw_sea;    // land / sea switch

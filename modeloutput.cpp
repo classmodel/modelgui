@@ -229,7 +229,6 @@ modeloutput::modeloutput(int tsteps, int nsc)
   gammau.description        = "u-wind lapse rate";
   gammau.id                 = "gammau";
 
-
   advu.data                 = new double[tsteps];   // advection of u-wind [m s-2]
   advu.name                 = "adv-u";
   advu.unit                 = "m s-\u00B9 s-\u00B9";

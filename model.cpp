@@ -720,12 +720,6 @@ void model::runmlmodel()
 
 void model::statistics()
 {
-  // LCL (Bolton (2008), The Computation of Equivalent Potential Temperature)
-  //double e       = q * Ps / 0.622;
-  //double Td      = 1. / ((1./273.15) - (Rv/Lv)*log(e/611.));
-  //double Tlcl    = 1. / ( (1./(Td - 56.0)) + (log(theta/Td)/800.)) + 56.;
-  //lcl            = 0. - (cp * (Tlcl - theta) / g);
-
   double RHlcl;
 
   // Iterative solution for LCL
@@ -760,6 +754,25 @@ void model::statistics()
   double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
   double etop    = q * Ptop / 0.622;
   RHtop          = etop / esattop;
+
+  // RH budget at mixed-layer top
+  double qstop   = 0.622 * esattop / Ptop;
+  double desatdT = esattop * (17.2694 / (theta - 35.86) - 17.2694 * (theta - 273.16) / pow(theta - 35.86,2.));
+  double dqsatdT = 0.622 * desatdT / Ps;
+
+  double c0 = 1. / (h * qstop);
+  double f1 = 1. + pow(Lv / (Ttop * Rv)-1, -1);
+  double f2 = 1. - ((cp/Rd)-1.) * pow((Lv / (Ttop * Rv))-1, -1.);
+  double c1 = f1 * c0 * RHtop * dqsatdT * (pow(Ptop / Ps, Rd/cp));
+  double c2 = f2 * c0 * RHtop * dqsatdT * (g/cp);
+
+  RHtend_wqs  =  c0 * wq;      // surface moistening
+  RHtend_wqe  =  c0 * wqe;     // entrainment drying
+  RHtend_wqM  = -c0 * wqM;     // mass-flux drying
+  RHtend_wths = -c1 * wtheta;  // surface heating
+  RHtend_wthe = -c1 * wthetae; // entrainment heating
+  RHtend_we   =  c2 * h * we;  // mixed-layer growth entrainment
+  RHtend_M    = -c2 * h * M;   // mixed-layer "shrinking" mass-flux
 }
 
 void model::intmlmodel()
