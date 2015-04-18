@@ -50,6 +50,15 @@ public:
   outputvar RH;        // Relative humidity at T=theta [-]
   outputvar RHtop;     // Relative humidity at mixed-layer top [-]
 
+  // mixed-layer top relative humidity tendency & budget
+  outputvar RHtend_wqs;  // surface moistening
+  outputvar RHtend_wqe;  // entrainment drying
+  outputvar RHtend_wqM;  // mass-flux drying
+  outputvar RHtend_wth;  // ABL heating
+  outputvar RHtend_we;   // mixed-layer growth entrainment
+  outputvar RHtend_M;    // mixed-layer "shrinking" mass-flux
+  outputvar RHtend_net;  // net tendency
+
   // temperature
   outputvar theta;     // initial mixed-layer potential temperature [K]
   outputvar thetav;    // initial mixed-layer virtual potential temperature [K]

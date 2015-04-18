@@ -81,6 +81,50 @@ modeloutput::modeloutput(int tsteps, int nsc)
   RHtop.description         = "Relative humidity at mixed-layer top";
   RHtop.id                  = "RHtop";
 
+  // RH budget
+  RHtend_wqs.data           = new double[tsteps];
+  RHtend_wqs.name           = "dRH/dt - wqs";
+  RHtend_wqs.unit           = "% h-1";
+  RHtend_wqs.description    = "Tendency RH at h - surface moisture flux";
+  RHtend_wqs.id             = "RHtend_wqs";
+
+  RHtend_wqe.data           = new double[tsteps];
+  RHtend_wqe.name           = "dRH/dt - wqe";
+  RHtend_wqe.unit           = "% h-1";
+  RHtend_wqe.description    = "Tendency RH at h - entrainment moisture flux";
+  RHtend_wqe.id             = "RHtend_wqe";
+
+  RHtend_wqM.data           = new double[tsteps];
+  RHtend_wqM.name           = "dRH/dt - wqM";
+  RHtend_wqM.unit           = "% h-1";
+  RHtend_wqM.description    = "Tendency RH at h - cumulus moisture flux";
+  RHtend_wqM.id             = "RHtend_wqM";
+
+  RHtend_wth.data           = new double[tsteps];
+  RHtend_wth.name           = "dRH/dt - wtheta";
+  RHtend_wth.unit           = "% h-1";
+  RHtend_wth.description    = "Tendency RH at h - mixed-layer heating";
+  RHtend_wth.id             = "RHtend_wth";
+
+  RHtend_we.data            = new double[tsteps];
+  RHtend_we.name            = "dRH/dt - we";
+  RHtend_we.unit            = "% h-1";
+  RHtend_we.description     = "Tendency RH at h - mixed-layer growth entrainment";
+  RHtend_we.id              = "RHtend_we";
+
+  RHtend_M.data             = new double[tsteps];
+  RHtend_M.name             = "dRH/dt - M";
+  RHtend_M.unit             = "% h-1";
+  RHtend_M.description      = "Tendency RH at h - mixed-layer ventilation mass-flux";
+  RHtend_M.id               = "RHtend_we";
+
+  RHtend_net.data           = new double[tsteps];
+  RHtend_net.name           = "dRH/dt";
+  RHtend_net.unit           = "% h-1";
+  RHtend_net.description    = "Tendency RH at h";
+  RHtend_net.id             = "RHtend_net";
+
+  // Temperature
   theta.data                = new double[tsteps];   //  mixed-layer potential temperature [K]
   theta.name                = "\u03B8";
   theta.unit                = "K";
@@ -665,6 +709,15 @@ void modeloutput::reset(int nsc)
   delete[] we.data;
   delete[] RH.data;
   delete[] RHtop.data;
+
+  delete[] RHtend_wqs.data;
+  delete[] RHtend_wqe.data;
+  delete[] RHtend_wqM.data;
+  delete[] RHtend_wth.data;
+  delete[] RHtend_we.data;
+  delete[] RHtend_M.data;
+  delete[] RHtend_net.data;
+
   delete[] theta.data;
   delete[] thetav.data;
   delete[] dtheta.data;
@@ -768,9 +821,18 @@ void modeloutput::reload(int tsteps, int nsc)
   we.data                   = new double[tsteps];   // surface kinematic heat flux [K m s-1]
   RH.data                   = new double[tsteps];   // Relative humidity at ..? [-]
   RHtop.data                = new double[tsteps];   // Relative humidity at mixed-layer top [-]
-  theta.data                = new double[tsteps];   //  mixed-layer potential temperature [K]
-  thetav.data               = new double[tsteps];   //  mixed-layer virtual potential temperature [K]
-  dtheta.data               = new double[tsteps];   //  potential temperature jump at h [K]
+
+  RHtend_wqs.data           = new double[tsteps];
+  RHtend_wqe.data           = new double[tsteps];
+  RHtend_wqM.data           = new double[tsteps];
+  RHtend_wth.data           = new double[tsteps];
+  RHtend_we.data            = new double[tsteps];
+  RHtend_M.data             = new double[tsteps];
+  RHtend_net.data           = new double[tsteps];
+
+  theta.data                = new double[tsteps];   // mixed-layer potential temperature [K]
+  thetav.data               = new double[tsteps];   // mixed-layer virtual potential temperature [K]
+  dtheta.data               = new double[tsteps];   // potential temperature jump at h [K]
   dthetav.data              = new double[tsteps];   // virtual potential temperature jump at h [K]
   gammatheta.data           = new double[tsteps];   // free atmosphere potential temperature lapse rate [K m-1]
   sigmatheta.data           = new double[tsteps];   // mixed-layer top potential temperature std dev [K]

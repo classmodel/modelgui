@@ -155,6 +155,21 @@ void plotwindow::getdata(outputvar *data, modelrun n, QString plotvar)
   else if (plotvar == "RHtop")
     *data = n.run->output->RHtop;
 
+  else if (plotvar == "RHtend_wqs")
+    *data = n.run->output->RHtend_wqs;
+  else if (plotvar == "RHtend_wqe")
+    *data = n.run->output->RHtend_wqe;
+  else if (plotvar == "RHtend_wqM")
+    *data = n.run->output->RHtend_wqM;
+  else if (plotvar == "RHtend_wth")
+    *data = n.run->output->RHtend_wth;
+  else if (plotvar == "RHtend_we")
+    *data = n.run->output->RHtend_we;
+  else if (plotvar == "RHtend_M")
+    *data = n.run->output->RHtend_M;
+  else if (plotvar == "RHtend_net")
+    *data = n.run->output->RHtend_net;
+
   // temperature
   else if (plotvar == "theta")
     *data = n.run->output->theta;
@@ -364,6 +379,23 @@ void plotwindow::setplotvar(const QString label, QString *plotvar)
     *plotvar = label;
   else if (label == "RHtop")
     *plotvar = label;
+
+  // Mixed-layer top relative humidity
+  else if (label == "RHtend_wqs")
+    *plotvar = label;
+  else if (label == "RHtend_wqe")
+    *plotvar = label;
+  else if (label == "RHtend_wqM")
+    *plotvar = label;
+  else if (label == "RHtend_wth")
+    *plotvar = label;
+  else if (label == "RHtend_we")
+    *plotvar = label;
+  else if (label == "RHtend_M")
+    *plotvar = label;
+  else if (label == "RHtend_net")
+    *plotvar = label;
+
 
   // temperature
   else if (label == "theta")

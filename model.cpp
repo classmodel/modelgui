@@ -769,10 +769,10 @@ void model::statistics()
   RHtend_wqs  =  c0 * wq;      // surface moistening
   RHtend_wqe  =  c0 * wqe;     // entrainment drying
   RHtend_wqM  = -c0 * wqM;     // mass-flux drying
-  RHtend_wths = -c1 * wtheta;  // surface heating
-  RHtend_wthe = -c1 * wthetae; // entrainment heating
+  RHtend_wth  = -c1 * (wtheta + wthetae);  // mixed-layer heating
   RHtend_we   =  c2 * h * we;  // mixed-layer growth entrainment
   RHtend_M    = -c2 * h * M;   // mixed-layer "shrinking" mass-flux
+  RHtend_net  = RHtend_wqs + RHtend_wqe + RHtend_wqM + RHtend_wth + RHtend_we + RHtend_M;
 }
 
 void model::intmlmodel()
@@ -1246,6 +1246,15 @@ void model::store()
   output->lcl.data[t]        = lcl;
   output->RH.data[t]         = RH;
   output->RHtop.data[t]      = RHtop;
+
+  double fac = 3600 * 100;  // [-]/s to %/h
+  output->RHtend_wqs.data[t] = RHtend_wqs * fac;
+  output->RHtend_wqe.data[t] = RHtend_wqe * fac;
+  output->RHtend_wqM.data[t] = RHtend_wqM * fac;
+  output->RHtend_wth.data[t] = RHtend_wth * fac;
+  output->RHtend_we.data[t]  = RHtend_we  * fac;
+  output->RHtend_M.data[t]   = RHtend_M   * fac;
+  output->RHtend_net.data[t] = RHtend_net * fac;
 
   // mixed-layer
   output->theta.data[t]      = theta;

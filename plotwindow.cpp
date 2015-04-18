@@ -179,7 +179,14 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.sigmaq
       << modelout.lcl
       << modelout.RH
-      << modelout.RHtop;
+      << modelout.RHtop
+      << modelout.RHtend_wqs
+      << modelout.RHtend_wqe
+      << modelout.RHtend_wqM
+      << modelout.RHtend_wth
+      << modelout.RHtend_we
+      << modelout.RHtend_M
+      << modelout.RHtend_net;
 
   windvars
       << modelout.u
