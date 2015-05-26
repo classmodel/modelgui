@@ -1112,7 +1112,7 @@ void model::runlsmodel()
 
       Rdark        = (1. / 9.) * Am;
 
-      PAR          = 0.5 * max(1e-1,Swin * cveg);
+      PAR          = 0.5 * max(1e-1,Swin);
 
       // calculate  light use efficiency
       alphac       = alpha0[c] * (co2abs - CO2comp) / (co2abs + 2. * CO2comp);
