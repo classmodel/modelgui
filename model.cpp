@@ -26,6 +26,7 @@
 #include <iostream>
 #include <fstream>
 #include "model.h"
+#include <iomanip>      // std::setprecision
 
 using namespace std;
 
@@ -748,31 +749,71 @@ void model::statistics()
   double esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
   RH             = e / esat;
 
-  // RH at mixed-layer top
-  double Ptop    = Ps / exp((g * h)/(Rd * theta));
-  double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
+  // RH and its budget at mixed-layer top
+  double Ptop    = Ps - rho * g * h;
+  double Ttop    = theta - g/cp * h;
   double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
-  double etop    = q * Ptop / 0.622;
-  RHtop          = etop / esattop;
+  double qsattop = 0.622 * esattop / Ptop;
+
+  RHtop = q / qsattop;
+
+  // RH budget
+  double desatdT = esattop * Lv / (Rv * pow(Ttop,2));
+
+  double c0 = 1./(h * qsattop); // Moisture pre-factor
+  double c1 = -RHtop / h / esattop * desatdT; // Temperature pre-factor
+  double c2 = (RHtop/esattop * desatdT * g/cp - RHtop/Ptop * rho * g); // ABL-growth pre-factor
+
+  RHtend_wqs   = +c0 * wq;
+  RHtend_wqe   = +c0 * wqe;
+  RHtend_wqM   = -c0 * wqM;
+  RHtend_wth   = +c1 * wtheta;
+  RHtend_wthe  = +c1 * wthetae;
+  RHtend_we    = +c2 * we;
+  RHtend_ws    = +c2 * ws;
+  RHtend_wf    = +c2 * wf;
+  RHtend_M     = -c2 * M;
+  RHtend_advth = c1 * advtheta * h;
+  RHtend_advq  = c0 * advq * h;
+
+  //printf("%e %e %e %e\n",advtheta, advq, RHtend_advth, RHtend_advq);
+  //double fac = 100*3600;
+  //printf("wqs=%e, wqs=%e, wqM=%e, wth=%e, wthe=%e, we=%e, ws=%e, wf=%e, M=%e, advth=%e, advq=%e\n",
+  //        fac*RHtend_wqs,   fac*RHtend_wqe, fac*RHtend_wqM,
+  //        fac*RHtend_wth,   fac*RHtend_wthe,
+  //        fac*RHtend_we,    fac*RHtend_ws, fac*RHtend_wf, fac*RHtend_M,
+  //        fac*RHtend_advth, fac*RHtend_advq);
+
+  RHtend_net = RHtend_wqs   + RHtend_wqe  + RHtend_wqM +
+               RHtend_wth   + RHtend_wthe +
+               RHtend_we    + RHtend_ws   + RHtend_wf  + RHtend_M +
+               RHtend_advth + RHtend_advq;
+
+  //double Ptop    = Ps / exp((g * h)/(Rd * theta));
+  //double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
+  //double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
+  //double etop    = q * Ptop / 0.622;
+  //RHtop          = etop / esattop;
 
   // RH budget at mixed-layer top
-  double qstop   = 0.622 * esattop / Ptop;
-  double desatdT = esattop * (17.2694 / (theta - 35.86) - 17.2694 * (theta - 273.16) / pow(theta - 35.86,2.));
-  double dqsatdT = 0.622 * desatdT / Ps;
+  //double qstop   = 0.622 * esattop / Ptop;
+  //double desatdT = esattop * (17.2694 / (Ttop - 35.86) - 17.2694 * (Ttop - 273.16) / pow(Ttop - 35.86,2.));
+  //double dqsatdT = 0.622 * desatdT / Ptop;
 
-  double c0 = 1. / (h * qstop);
-  double f1 = 1. + pow(Lv / (Ttop * Rv)-1, -1);
-  double f2 = 1. - ((cp/Rd)-1.) * pow((Lv / (Ttop * Rv))-1, -1.);
-  double c1 = f1 * c0 * RHtop * dqsatdT * (pow(Ptop / Ps, Rd/cp));
-  double c2 = f2 * c0 * RHtop * dqsatdT * (g/cp);
+  //double c0 = 1. / (h * qstop);
+  //double f1 = 1. + pow(Lv / (Ttop * Rv)-1, -1);
+  //double f2 = 1. - ((cp/Rd)-1.) * pow((Lv / (Ttop * Rv))-1, -1.);
+  //double c1 = f1 * c0 * RHtop * dqsatdT * (pow(Ptop / Ps, Rd/cp));
+  //double c2 = f2 * c0 * RHtop * dqsatdT * (g/cp);
 
-  RHtend_wqs  =  c0 * wq;      // surface moistening
-  RHtend_wqe  =  c0 * wqe;     // entrainment drying
-  RHtend_wqM  = -c0 * wqM;     // mass-flux drying
-  RHtend_wth  = -c1 * (wtheta + wthetae);  // mixed-layer heating
-  RHtend_we   =  c2 * h * we;  // mixed-layer growth entrainment
-  RHtend_M    = -c2 * h * M;   // mixed-layer "shrinking" mass-flux
-  RHtend_net  = RHtend_wqs + RHtend_wqe + RHtend_wqM + RHtend_wth + RHtend_we + RHtend_M;
+  //RHtend_wqs  =  c0 * wq;      // surface moistening
+  //RHtend_wqe  =  c0 * wqe;     // entrainment drying
+  //RHtend_wqM  = -c0 * wqM;     // mass-flux drying
+  //RHtend_wth  = -c1 * (wtheta + wthetae);  // mixed-layer heating
+  //RHtend_we   =  c2 * h * we;  // mixed-layer growth entrainment
+  //RHtend_ws   =  c2 * h * ws;  // mixed-layer "shrinking" subsidence
+  //RHtend_M    = -c2 * h * M;   // mixed-layer "shrinking" mass-flux
+  //RHtend_net  = RHtend_wqs + RHtend_wqe + RHtend_wqM + RHtend_wth + RHtend_we + RHtend_ws + RHtend_M;
 }
 
 void model::intmlmodel()
@@ -1248,13 +1289,12 @@ void model::store()
   output->RHtop.data[t]      = RHtop;
 
   double fac = 3600 * 100;  // [-]/s to %/h
-  output->RHtend_wqs.data[t] = RHtend_wqs * fac;
-  output->RHtend_wqe.data[t] = RHtend_wqe * fac;
-  output->RHtend_wqM.data[t] = RHtend_wqM * fac;
-  output->RHtend_wth.data[t] = RHtend_wth * fac;
-  output->RHtend_we.data[t]  = RHtend_we  * fac;
-  output->RHtend_M.data[t]   = RHtend_M   * fac;
-  output->RHtend_net.data[t] = RHtend_net * fac;
+  output->RHtend_wqs.data[t]  = fac * RHtend_wqs;
+  output->RHtend_wqh.data[t]  = fac * (RHtend_wqe + RHtend_wqM);
+  output->RHtend_wth.data[t]  = fac * (RHtend_wth + RHtend_wthe);
+  output->RHtend_dhdt.data[t] = fac * (RHtend_we + RHtend_ws + RHtend_wf + RHtend_M);
+  output->RHtend_ls.data[t]   = fac * (RHtend_advth + RHtend_advq);
+  output->RHtend_net.data[t]  = fac * RHtend_net;
 
   // mixed-layer
   output->theta.data[t]      = theta;
@@ -1274,9 +1314,6 @@ void model::store()
   output->wstar.data[t]      = wstar;
 
   output->q.data[t]          = q * 1000.;
-  //output.qsat[t]       = qsat;
-  //output.e[t]          = e;
-  //output.esat[t]       = esat;
   output->dq.data[t]         = dq * 1000.;
   output->gammaq.data[t]     = gammaq * 1000.;
   output->advq.data[t]       = advq * 1000.;
@@ -1488,6 +1525,14 @@ void model::run2file(std::string filedir, std::string filename)
   runsave << output->wqM.name << " [" << output->wqM.unit << "],";
   runsave << output->M.name << " [" << output->M.unit << "],";
 
+  // Mixed-layer top RH budget
+  runsave << output->RHtend_wqs.name << " [" << output->RHtend_wqs.unit << "],";
+  runsave << output->RHtend_wqh.name << " [" << output->RHtend_wqh.unit << "],";
+  runsave << output->RHtend_wth.name << " [" << output->RHtend_wth.unit << "],";
+  runsave << output->RHtend_dhdt.name << " [" << output->RHtend_dhdt.unit << "],";
+  runsave << output->RHtend_ls.name << " [" << output->RHtend_ls.unit << "],";
+  runsave << output->RHtend_net.name << " [" << output->RHtend_net.unit << "],";
+
   int n;
 
   for(n=0; n<nsc; n++)
@@ -1503,79 +1548,87 @@ void model::run2file(std::string filedir, std::string filename)
 
   for(int nt=0; nt < tsteps; nt++)
   {
-    runsave << output->t.data[nt] << ",";
-    runsave << output->tutc.data[nt] << ",";
-    runsave << output->h.data[nt] << ",";
-    runsave << output->we.data[nt] << ",";
-    runsave << output->lcl.data[nt] << ",";
-    runsave << output->RH.data[nt] << ",";
-    runsave << output->RHtop.data[nt] << ",";
+    runsave << std::setprecision(12) << output->t.data[nt] << ",";
+    runsave << std::setprecision(12) << output->tutc.data[nt] << ",";
+    runsave << std::setprecision(12) << output->h.data[nt] << ",";
+    runsave << std::setprecision(12) << output->we.data[nt] << ",";
+    runsave << std::setprecision(12) << output->lcl.data[nt] << ",";
+    runsave << std::setprecision(12) << output->RH.data[nt] << ",";
+    runsave << std::setprecision(12) << output->RHtop.data[nt] << ",";
 
-    runsave << output->theta.data[nt] << ",";
-    runsave << output->thetav.data[nt] << ",";
-    runsave << output->dtheta.data[nt] << ",";
-    runsave << output->dthetav.data[nt] << ",";
-    runsave << output->wtheta.data[nt] << ",";
-    runsave << output->wthetae.data[nt] << ",";
-    runsave << output->wthetav.data[nt] << ",";
-    runsave << output->wthetaM.data[nt] << ",";
+    runsave << std::setprecision(12) << output->theta.data[nt] << ",";
+    runsave << std::setprecision(12) << output->thetav.data[nt] << ",";
+    runsave << std::setprecision(12) << output->dtheta.data[nt] << ",";
+    runsave << std::setprecision(12) << output->dthetav.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wtheta.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wthetae.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wthetav.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wthetaM.data[nt] << ",";
 
-    runsave << output->q.data[nt] << ",";
-    runsave << output->dq.data[nt] << ",";
-    runsave << output->wq.data[nt] << ",";
-    runsave << output->wqe.data[nt] << ",";
-    runsave << output->wqM.data[nt] << ",";
+    runsave << std::setprecision(12) << output->q.data[nt] << ",";
+    runsave << std::setprecision(12) << output->dq.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wq.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wqe.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wqM.data[nt] << ",";
 
-    runsave << output->u.data[nt] << ",";
-    runsave << output->du.data[nt] << ",";
-    runsave << output->v.data[nt] << ",";
-    runsave << output->dv.data[nt] << ",";
-    runsave << output->uw.data[nt] << ",";
-    runsave << output->vw.data[nt] << ",";
-    runsave << output->uwe.data[nt] << ",";
-    runsave << output->vwe.data[nt] << ",";
+    runsave << std::setprecision(12) << output->u.data[nt] << ",";
+    runsave << std::setprecision(12) << output->du.data[nt] << ",";
+    runsave << std::setprecision(12) << output->v.data[nt] << ",";
+    runsave << std::setprecision(12) << output->dv.data[nt] << ",";
+    runsave << std::setprecision(12) << output->uw.data[nt] << ",";
+    runsave << std::setprecision(12) << output->vw.data[nt] << ",";
+    runsave << std::setprecision(12) << output->uwe.data[nt] << ",";
+    runsave << std::setprecision(12) << output->vwe.data[nt] << ",";
 
-    runsave << output->sca.data[nt] << ",";
-    runsave << output->dsca.data[nt] << ",";
-    runsave << output->wsca.data[nt] << ",";
-    runsave << output->wscae.data[nt] << ",";
-    runsave << output->wscaM.data[nt] << ",";
+    runsave << std::setprecision(12) << output->sca.data[nt] << ",";
+    runsave << std::setprecision(12) << output->dsca.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wsca.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wscae.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wscaM.data[nt] << ",";
 
-    runsave << output->CO2.data[nt] << ",";
-    runsave << output->dCO2.data[nt] << ",";
-    runsave << output->wCO2.data[nt]  * ((rho*mco2)/mair)  << ",";
-    runsave << output->wCO2A.data[nt] * ((rho*mco2)/mair) << ",";
-    runsave << output->wCO2R.data[nt] * ((rho*mco2)/mair) << ",";
-    runsave << output->wCO2e.data[nt] * ((rho*mco2)/mair) << ",";
-    runsave << output->wCO2M.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << std::setprecision(12) << output->CO2.data[nt] << ",";
+    runsave << std::setprecision(12) << output->dCO2.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wCO2.data[nt]  * ((rho*mco2)/mair)  << ",";
+    runsave << std::setprecision(12) << output->wCO2A.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << std::setprecision(12) << output->wCO2R.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << std::setprecision(12) << output->wCO2e.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << std::setprecision(12) << output->wCO2M.data[nt] * ((rho*mco2)/mair) << ",";
 
-    runsave << output->ustar.data[nt] << ",";
-    runsave << output->L.data[nt] << ",";
-    runsave << output->Rib.data[nt] << ",";
-    runsave << output->ra.data[nt] << ",";
-    runsave << output->Cm.data[nt] << ",";
-    runsave << output->Cs.data[nt] << ",";
+    runsave << std::setprecision(12) << output->ustar.data[nt] << ",";
+    runsave << std::setprecision(12) << output->L.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Rib.data[nt] << ",";
+    runsave << std::setprecision(12) << output->ra.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Cm.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Cs.data[nt] << ",";
 
-    runsave << output->Swin.data[nt] << ",";
-    runsave << output->Swout.data[nt] << ",";
-    runsave << output->Lwin.data[nt] << ",";
-    runsave << output->Lwout.data[nt] << ",";
-    runsave << output->Q.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Swin.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Swout.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Lwin.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Lwout.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Q.data[nt] << ",";
 
-    runsave << output->wg.data[nt] << ",";
-    runsave << output->Tsoil.data[nt] << ",";
-    runsave << output->Ts.data[nt] << ",";
-    runsave << output->Wl.data[nt] << ",";
-    runsave << output->rs.data[nt] << ",";
-    runsave << output->H.data[nt] << ",";
-    runsave << output->LE.data[nt] << ",";
-    runsave << output->G.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wg.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Tsoil.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Ts.data[nt] << ",";
+    runsave << std::setprecision(12) << output->Wl.data[nt] << ",";
+    runsave << std::setprecision(12) << output->rs.data[nt] << ",";
+    runsave << std::setprecision(12) << output->H.data[nt] << ",";
+    runsave << std::setprecision(12) << output->LE.data[nt] << ",";
+    runsave << std::setprecision(12) << output->G.data[nt] << ",";
 
-    runsave << output->ac.data[nt] << ",";
-    runsave << output->cc.data[nt] << ",";
-    runsave << output->sigmaq.data[nt] << ",";
-    runsave << output->wqM.data[nt] << ",";
-    runsave << output->M.data[nt] << ",";
+    runsave << std::setprecision(12) << output->ac.data[nt] << ",";
+    runsave << std::setprecision(12) << output->cc.data[nt] << ",";
+    runsave << std::setprecision(12) << output->sigmaq.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wqM.data[nt] << ",";
+    runsave << std::setprecision(12) << output->M.data[nt] << ",";
+
+    // Mixed-lastd::setprecision(12) << yer top RH budget
+    runsave << std::setprecision(12) << output->RHtend_wqs.data[nt] << ",";
+    runsave << std::setprecision(12) << output->RHtend_wqh.data[nt] << ",";
+    runsave << std::setprecision(12) << output->RHtend_wth.data[nt] << ",";
+    runsave << std::setprecision(12) << output->RHtend_dhdt.data[nt] << ",";
+    runsave << std::setprecision(12) << output->RHtend_ls.data[nt] << ",";
+    runsave << std::setprecision(12) << output->RHtend_net.data[nt] << ",";
 
     for(n=0; n<nsc; n++)
     {

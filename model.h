@@ -112,13 +112,27 @@ private:
   double RHtop;     // Relative humidity at mixed-layer top [-]
 
   // Mixed-layer top budget RH
-  double RHtend_wqs;  // surface moistening
-  double RHtend_wqe;  // entrainment drying
-  double RHtend_wqM;  // mass-flux drying
-  double RHtend_wth;  // mixed-layer heating
-  double RHtend_we;   // mixed-layer growth entrainment
-  double RHtend_M;    // mixed-layer "shrinking" mass-flux
-  double RHtend_net;  // net budget
+  double RHtend_wqs;   // Surface moistening
+  double RHtend_wqe;   // Entrainment drying
+  double RHtend_wqM;   // Mass-flux drying
+  double RHtend_wth;   // Mixed-layer surface heating
+  double RHtend_wthe;  // Mixed-layer entrainment heating
+  double RHtend_we;    // Mixed-layer growth entrainment
+  double RHtend_ws;    // Mixed-layer growth subsidence
+  double RHtend_wf;    // Mixed-layer growth dFz
+  double RHtend_M;     // Mixed-layer growth mass-flux
+  double RHtend_advth; // Mixed-layer temperature advection
+  double RHtend_advq;  // Mixed-layer moisture advection
+  double RHtend_net;   // Net RH tendency
+
+  //double RHtend_wqs;  // surface moistening
+  //double RHtend_wqe;  // entrainment drying
+  //double RHtend_wqM;  // mass-flux drying
+  //double RHtend_wth;  // mixed-layer heating
+  //double RHtend_we;   // mixed-layer growth entrainment
+  //double RHtend_ws;   // mixed-layer "shrinking" subsidence
+  //double RHtend_M;    // mixed-layer "shrinking" mass-flux
+  //double RHtend_net;  // net budget
 
   double theta;     // initial mixed-layer potential temperature [K]
   double dtheta;    // initial temperature jump at h [K]

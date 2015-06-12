@@ -50,13 +50,12 @@ public:
   outputvar RH;        // Relative humidity at T=theta [-]
   outputvar RHtop;     // Relative humidity at mixed-layer top [-]
 
-  // mixed-layer top relative humidity tendency & budget
+  // mixed-layer top relative humidity tendency / budget
   outputvar RHtend_wqs;  // surface moistening
-  outputvar RHtend_wqe;  // entrainment drying
-  outputvar RHtend_wqM;  // mass-flux drying
+  outputvar RHtend_wqh;  // entrainment drying
   outputvar RHtend_wth;  // ABL heating
-  outputvar RHtend_we;   // mixed-layer growth entrainment
-  outputvar RHtend_M;    // mixed-layer "shrinking" mass-flux
+  outputvar RHtend_dhdt; // mixed-layer growth
+  outputvar RHtend_ls;   // large-scale tendencies
   outputvar RHtend_net;  // net tendency
 
   // temperature
@@ -75,9 +74,6 @@ public:
 
   // moisture
   outputvar q;         // mixed-layer specific humidity [kg kg-1]
-  //double *qsat;      // mixed-layer saturated specific humidity [kg kg-1]
-  //double *e;         // mixed-layer vapor pressure [Pa]
-  //double *esat;      // mixed-layer saturated vapor pressure [Pa]
   outputvar dq;        // initial specific humidity jump at h [kg kg-1]
   outputvar gammaq;    // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
   outputvar sigmaq;    // mixed-layer top specific humidity std dev [kg kg-1]

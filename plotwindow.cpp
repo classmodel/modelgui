@@ -126,6 +126,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   QList<outputvar> mixedlayervars;
   QList<outputvar> temperaturevars;
   QList<outputvar> moisturevars;
+  QList<outputvar> RHvars;
   QList<outputvar> windvars;
   QList<outputvar> scalarvars;
   QList<outputvar> surfacelayervars;
@@ -147,7 +148,8 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << "Surface"
       << "Clouds"
       << "Vertical profiles"
-      << "Chemistry";
+      << "Chemistry"
+      << "RH budget";
 
   modeloutput modelout(0,22);
 
@@ -179,13 +181,14 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
       << modelout.sigmaq
       << modelout.lcl
       << modelout.RH
-      << modelout.RHtop
+      << modelout.RHtop;
+
+  RHvars
       << modelout.RHtend_wqs
-      << modelout.RHtend_wqe
-      << modelout.RHtend_wqM
+      << modelout.RHtend_wqh
       << modelout.RHtend_wth
-      << modelout.RHtend_we
-      << modelout.RHtend_M
+      << modelout.RHtend_dhdt
+      << modelout.RHtend_ls
       << modelout.RHtend_net;
 
   windvars
@@ -274,6 +277,7 @@ plotwindow::plotwindow(QMap<int, modelrun> *runs, QList<int> *initialselected, Q
   allvariables.insert(8,cloudvars);
   allvariables.insert(9,vertprof);
   allvariables.insert(10,chemistry);
+  allvariables.insert(11,RHvars);
 
   for (int n=0; n<advancedtreegroups.size(); n++)
   {

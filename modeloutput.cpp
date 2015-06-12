@@ -83,45 +83,39 @@ modeloutput::modeloutput(int tsteps, int nsc)
 
   // RH budget
   RHtend_wqs.data           = new double[tsteps];
-  RHtend_wqs.name           = "dRH/dt - wqs";
+  RHtend_wqs.name           = "dRH(h)/dt - surface moistening";
   RHtend_wqs.unit           = "% h-1";
-  RHtend_wqs.description    = "Tendency RH at h - surface moisture flux";
+  RHtend_wqs.description    = "RH(h) tendency - Surface moistening";
   RHtend_wqs.id             = "RHtend_wqs";
 
-  RHtend_wqe.data           = new double[tsteps];
-  RHtend_wqe.name           = "dRH/dt - wqe";
-  RHtend_wqe.unit           = "% h-1";
-  RHtend_wqe.description    = "Tendency RH at h - entrainment moisture flux";
-  RHtend_wqe.id             = "RHtend_wqe";
-
-  RHtend_wqM.data           = new double[tsteps];
-  RHtend_wqM.name           = "dRH/dt - wqM";
-  RHtend_wqM.unit           = "% h-1";
-  RHtend_wqM.description    = "Tendency RH at h - cumulus moisture flux";
-  RHtend_wqM.id             = "RHtend_wqM";
+  RHtend_wqh.data           = new double[tsteps];
+  RHtend_wqh.name           = "dRH(h)/dt - mixed-layer top drying";
+  RHtend_wqh.unit           = "% h-1";
+  RHtend_wqh.description    = "RH(h) tendency - Mixed-layer top drying";
+  RHtend_wqh.id             = "RHtend_wqh";
 
   RHtend_wth.data           = new double[tsteps];
-  RHtend_wth.name           = "dRH/dt - wtheta";
+  RHtend_wth.name           = "dRH(h)/dt - mixed-layer heating";
   RHtend_wth.unit           = "% h-1";
-  RHtend_wth.description    = "Tendency RH at h - mixed-layer heating";
+  RHtend_wth.description    = "RH(h) tendency - Mixed-layer heating";
   RHtend_wth.id             = "RHtend_wth";
 
-  RHtend_we.data            = new double[tsteps];
-  RHtend_we.name            = "dRH/dt - we";
-  RHtend_we.unit            = "% h-1";
-  RHtend_we.description     = "Tendency RH at h - mixed-layer growth entrainment";
-  RHtend_we.id              = "RHtend_we";
+  RHtend_dhdt.data          = new double[tsteps];
+  RHtend_dhdt.name          = "dRH(h)/dt - mixed-layer growth";
+  RHtend_dhdt.unit          = "% h-1";
+  RHtend_dhdt.description   = "RH(h) tendency - Mixed-layer growth";
+  RHtend_dhdt.id            = "RHtend_dhdt";
 
-  RHtend_M.data             = new double[tsteps];
-  RHtend_M.name             = "dRH/dt - M";
-  RHtend_M.unit             = "% h-1";
-  RHtend_M.description      = "Tendency RH at h - mixed-layer ventilation mass-flux";
-  RHtend_M.id               = "RHtend_we";
+  RHtend_ls.data            = new double[tsteps];
+  RHtend_ls.name            = "dRH(h)/dt - advection";
+  RHtend_ls.unit            = "% h-1";
+  RHtend_ls.description     = "RH(h) tendency - Advection";
+  RHtend_ls.id              = "RHtend_ls";
 
   RHtend_net.data           = new double[tsteps];
-  RHtend_net.name           = "dRH/dt";
+  RHtend_net.name           = "dRH(h)/dt";
   RHtend_net.unit           = "% h-1";
-  RHtend_net.description    = "Tendency RH at h";
+  RHtend_net.description    = "Net RH(h) tendency";
   RHtend_net.id             = "RHtend_net";
 
   // Temperature
@@ -711,11 +705,10 @@ void modeloutput::reset(int nsc)
   delete[] RHtop.data;
 
   delete[] RHtend_wqs.data;
-  delete[] RHtend_wqe.data;
-  delete[] RHtend_wqM.data;
+  delete[] RHtend_wqh.data;
   delete[] RHtend_wth.data;
-  delete[] RHtend_we.data;
-  delete[] RHtend_M.data;
+  delete[] RHtend_dhdt.data;
+  delete[] RHtend_ls.data;
   delete[] RHtend_net.data;
 
   delete[] theta.data;
@@ -823,11 +816,10 @@ void modeloutput::reload(int tsteps, int nsc)
   RHtop.data                = new double[tsteps];   // Relative humidity at mixed-layer top [-]
 
   RHtend_wqs.data           = new double[tsteps];
-  RHtend_wqe.data           = new double[tsteps];
-  RHtend_wqM.data           = new double[tsteps];
+  RHtend_wqh.data           = new double[tsteps];
   RHtend_wth.data           = new double[tsteps];
-  RHtend_we.data            = new double[tsteps];
-  RHtend_M.data             = new double[tsteps];
+  RHtend_dhdt.data          = new double[tsteps];
+  RHtend_ls.data            = new double[tsteps];
   RHtend_net.data           = new double[tsteps];
 
   theta.data                = new double[tsteps];   // mixed-layer potential temperature [K]
