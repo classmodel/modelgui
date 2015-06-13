@@ -87,7 +87,7 @@ double plotarea::transfx(double x, double xscale, double xmin, int mode)
 
 double plotarea::transfy(double y, double yscale, double ymin, int mode)
 {
-  if (mode == 0) // Mode 0 = xreal to xwidget, mode 1 = xwidget to xreal
+  if (mode == 0) // Mode 0 = yreal to ywidget, mode 1 = ywidget to yreal
   {
     double ywidget = plotwidget_height - bottommargin  - ((y-ymin)*yscale);
     return (ywidget);
@@ -323,8 +323,8 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     */
 
     // Draw X and Y axis
-    paint.drawLine(leftmargin,plotwidget_height - bottommargin,plotwidget_width-rightmargin,plotwidget_height-bottommargin);
-    paint.drawLine(leftmargin,plotwidget_height - bottommargin,leftmargin,topmargin);
+    paint.drawLine(leftmargin, plotwidget_height-bottommargin, plotwidget_width-rightmargin, plotwidget_height-bottommargin); // x
+    paint.drawLine(leftmargin, plotwidget_height-bottommargin, leftmargin, topmargin); // y
 
     int nticks = 8;
     int nfrac;
@@ -373,6 +373,25 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     // Hereafter; clip data plot .
     paint.setClipping(true);
     paint.setClipRect(leftmargin,topmargin,plotwidth,plotheight);
+
+    // If y-axis crosses y=0, add zero line
+    if(graphminy < 0 and graphmaxy > 0)
+    {
+        QPen pen(Qt::gray, std::ceil(PNGscale), Qt::DotLine);
+        paint.setPen(pen);
+        double yzero = transfy(0, plotheight/(graphmaxy-graphminy), graphminy, 0);
+        paint.drawLine(leftmargin, yzero, plotwidget_width-rightmargin, yzero);
+    }
+
+    // If x-axis crosses x=0, add zero line
+    if(graphminx < 0 and graphmaxx > 0)
+    {
+        QPen pen(Qt::gray, std::ceil(PNGscale), Qt::DotLine);
+        paint.setPen(pen);
+        double xzero = transfx(0, plotwidth  / (graphmaxx-graphminx), graphminx, 0);
+        paint.drawLine(xzero, plotwidget_height-bottommargin, xzero, topmargin);
+    }
+
 
     legend_width = 0;
     legend_height = selectedruns->count() * 15;
