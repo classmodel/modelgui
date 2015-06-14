@@ -373,7 +373,7 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     }
 
     // Axis labels
-    paint.drawText((plotwidth / 2) + leftmargin - 150,plotwidget_height - bottommargin + (28 * PNGscale),300,(30*PNGscale),Qt::AlignHCenter, xlabel);
+    paint.drawText((plotwidth / 2) + leftmargin - 350,plotwidget_height - bottommargin + (28 * PNGscale),700,(30*PNGscale),Qt::AlignHCenter, xlabel);
     paint.rotate(270);
     paint.drawText(-((plotheight / 2) + topmargin + 350),(5 * PNGscale),700,(25*PNGscale),Qt::AlignCenter, ylabel);
     paint.rotate(90);
