@@ -335,8 +335,16 @@ void plotarea::paintEvent(QPaintEvent * /* event */)
     // In case of constant values, draw line in center
     if(std::abs(ymax - ymin) < 1e-10)
     {
-      ymax = ymax + 0.1 * ymax;
-      ymin = ymin - 0.1 * ymin;
+      if(ymax == 0)
+      {
+        ymax = 1;
+        ymin = -1;
+      }
+      else
+      {
+        ymax = ymax + 0.1 * ymax;
+        ymin = ymin - 0.1 * ymin;
+      }
     }
 
     range     = nicenumber(ymax - ymin, false);
