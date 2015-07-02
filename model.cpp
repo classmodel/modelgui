@@ -1354,7 +1354,7 @@ void model::store()
   output->wCO2.data[t]            = wCO2   * ((rho*mco2)/mair);
   output->wCO2A.data[t]           = An     * ((rho*mco2)/mair);
   output->wCO2R.data[t]           = Resp   * ((rho*mco2)/mair);
-  output->wCO2e.data[t]           = -wCO2e  * ((rho*mco2)/mair);
+  output->wCO2e.data[t]           = -wCO2e * ((rho*mco2)/mair);
   output->wCO2M.data[t]           = wCO2M  * ((rho*mco2)/mair);
   output->sigmaCO2.data[t]        = pow(sigmaCO22,0.5);
 
@@ -1588,11 +1588,11 @@ void model::run2file(std::string filedir, std::string filename)
 
     runsave << std::setprecision(12) << output->CO2.data[nt] << ",";
     runsave << std::setprecision(12) << output->dCO2.data[nt] << ",";
-    runsave << std::setprecision(12) << output->wCO2.data[nt]  * ((rho*mco2)/mair)  << ",";
-    runsave << std::setprecision(12) << output->wCO2A.data[nt] * ((rho*mco2)/mair) << ",";
-    runsave << std::setprecision(12) << output->wCO2R.data[nt] * ((rho*mco2)/mair) << ",";
-    runsave << std::setprecision(12) << output->wCO2e.data[nt] * ((rho*mco2)/mair) << ",";
-    runsave << std::setprecision(12) << output->wCO2M.data[nt] * ((rho*mco2)/mair) << ",";
+    runsave << std::setprecision(12) << output->wCO2.data[nt]  << ",";
+    runsave << std::setprecision(12) << output->wCO2A.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wCO2R.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wCO2e.data[nt] << ",";
+    runsave << std::setprecision(12) << output->wCO2M.data[nt] << ",";
 
     runsave << std::setprecision(12) << output->ustar.data[nt] << ",";
     runsave << std::setprecision(12) << output->L.data[nt] << ",";

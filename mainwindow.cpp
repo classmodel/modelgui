@@ -457,7 +457,7 @@ void MainWindow::storeFormData()
   formvalues.dCO2       = ui->input_CO2_dCO2->text().toDouble();
   formvalues.gammaCO2   = ui->input_CO2_gammaCO2->text().toDouble();
   formvalues.advCO2     = ui->input_CO2_CO2adv->text().toDouble();
-  formvalues.wCO2       = ui->input_CO2_wCO2->text().toDouble() * (28.9/(1.2*46.));  // Conversion mgCO2 m-2 s-1 to ppm
+  formvalues.wCO2       = ui->input_CO2_wCO2->text().toDouble() * (28.9/(1.2*44.));  // Conversion mgCO2 m-2 s-1 to ppm
 
   //if (activetab == 1)
   //{
