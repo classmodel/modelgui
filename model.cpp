@@ -57,89 +57,6 @@ model::model(modelinput *extinput)
   //input      =  extinput;
   input = *extinput;
 
-  //input.reactions  =  new Reaction[input.rsize];
-  //for(int i=0; i<input.rsize; i++)
-  //  input.reactions[i] = extinput.reactions[i]; // CvH check is assignment operator needs to be overloaded
-//
-//  // mixed-layer
-//  input.sw_ml      =  extinput.sw_ml;
-//  input.h          =  extinput.h;                // initial ABL height [m]
-//  input.Ps         =  extinput.Ps;               // surface pressure [Pa]
-//  input.ws         =  extinput.ws;               // large scale vertical velocity [m s-1]
-//  input.fc         =  extinput.fc;               // coriolis parameter [s-1]
-//
-//  input.theta      =  extinput.theta;            // initial mixed-layer potential temperature [K]
-//  input.dtheta     =  extinput.dtheta;           // initial temperature jump at h [K]
-//  input.gammatheta =  extinput.gammatheta;       // free atmosphere potential temperature lapse rate [K m-1]
-//  input.advtheta   =  extinput.advtheta;         // advection of heat [K s-1]
-//  input.beta       =  extinput.beta;             // entrainment ratio for virtual heat [-]
-//  input.wtheta     =  extinput.wtheta;           // surface kinematic heat flux [K m s-1]
-//
-//  input.q          =  extinput.q;                // initial mixed-layer specific humidity [kg kg-1]
-//  input.dq         =  extinput.dq;               // initial specific humidity jump at h [kg kg-1]
-//  input.gammaq     =  extinput.gammaq;           // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
-//  input.advq       =  extinput.advq;             // advection of moisture [kg kg-1 s-1]
-//  input.wq         =  extinput.wq;               // surface kinematic moisture flux [kg kg-1 m s-1]
-//
-//  input.sw_wind    =  extinput.sw_wind;          // prognostic wind switch
-//  input.u          =  extinput.u;                // initial mixed-layer u-wind speed [m s-1]
-//  input.du         =  extinput.du;               // initial u-wind jump at h [m s-1]
-//  input.gammau     =  extinput.gammau;           // free atmosphere u-wind speed lapse rate [s-1]
-//  input.advu       =  extinput.advu;             // advection of u-wind [m s-2]
-//
-//  input.v          =  extinput.v;                // initial mixed-layer u-wind speed [m s-1]
-//  input.dv         =  extinput.dv;               // initial u-wind jump at h [m s-1]
-//  input.gammav     =  extinput.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
-//  input.advv       =  extinput.advv;             // advection of v-wind [m s-2]
-//
-//  // surface-layer
-//  input.sw_sl      =  extinput.sw_sl;      // surface layer switch
-//  input.ustar      =  extinput.ustar;      // surface friction velocity [m s-1]
-//  input.z0m        =  extinput.z0m;        // roughness length for momentum [m]
-//  input.z0h        =  extinput.z0h;        // roughness length for scalars [m]
-//
-//  // radiation
-//  input.sw_rad     =  extinput.sw_rad;     // radiation switch
-//  input.lat        =  extinput.lat;        // latitude [deg]
-//  input.lon        =  extinput.lon;        // longitude [deg]
-//  input.doy        =  extinput.doy;        // day of the year [-]
-//  input.tstart     =  extinput.tstart;     // time of the day [h UTC]
-//  input.cc         =  extinput.cc;         // cloud cover fraction [-]
-//  input.Q          =  extinput.Q;          // net radiation [-]
-//
-//  // land surface
-//  input.sw_ls      =  extinput.sw_ls;      // land surface switch
-//  input.wg         =  extinput.wg;         // volumetric water content top soil layer [m3 m-3]
-//  input.w2         =  extinput.w2;         // volumetric water content deeper soil layer [m3 m-3]
-//  input.Tsoil      =  extinput.Tsoil;      // temperature top soil layer [K]
-//  input.T2         =  extinput.T2;         // temperature deeper soil layer [K]
-//
-//  input.a          =  extinput.a;          // Clapp and Hornberger retention curve parameter a
-//  input.b          =  extinput.b;          // Clapp and Hornberger retention curve parameter b
-//  input.p          =  extinput.p;          // Clapp and Hornberger retention curve parameter p
-//  input.CGsat      =  extinput.CGsat;      // saturated soil conductivity for heat
-//
-//  input.wsat       =  extinput.wsat;       // saturated volumetric water content ECMWF config [-]
-//  input.wfc        =  extinput.wfc;        // volumetric water content field capacity [-]
-//  input.wwilt      =  extinput.wwilt;      // volumetric water content wilting point [-]
-//
-//  input.C1sat      =  extinput.C1sat;
-//  input.C2ref      =  extinput.C2ref;
-//
-//  input.LAI        =  extinput.LAI;        // leaf area index [-]
-//  input.gD         =  extinput.gD;         // correction factor transpiration for VPD [-]
-//  input.rsmin      =  extinput.rsmin;      // minimum resistance transpiration [s m-1]
-//  input.rssoilmin  =  extinput.rssoilmin;  // minimum resistance soil evaporation [s m-1]
-//  input.alpha      =  extinput.alpha;      // surface albedo [-]
-//
-//  input.Ts         =  extinput.Ts;         // initial surface temperature [K]
-//
-//  input.cveg       =  extinput.cveg;       // vegetation fraction [-]
-//  input.Wmax       =  extinput.Wmax;       // thickness of water layer on wet vegetation [m]
-//  input.Wl         =  extinput.Wl;         // equivalent water layer depth for wet vegetation [m]
-//
-//  input.Lambda     =  extinput.Lambda;     // thermal diffusivity skin layer [-]
-
   // set output flag to false;
   hasoutput = false;
 
@@ -479,7 +396,6 @@ void model::initmodel()
   return;
 }
 
-
 void model::runmodel()
 {
   initmodel();
@@ -527,8 +443,7 @@ void model::runcumodel()
   // Mixed-layer top properties
   double Ptop    = Ps / exp((g * h)/(Rd * theta));
   double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
-  double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
-  double qsattop  = 0.622 * esattop / Ptop;
+  double qsattop  = calc_qsat(Ttop, Ptop);
 
   ac               = 0.5 + (0.36 * atan(1.55 * ((q - qsattop) / pow(sigmaq2,0.5))));
   if (ac < 0.)
@@ -603,8 +518,6 @@ void model::runmlmodel()
   wqe     = we * dq;
   wscae   = we * dsca;
   wCO2e   = we * dCO2;
-
-  //printf("wco2e=%f, dco2=%f\n",wCO2e,dCO2);
 
   // compute mixed-layer top variances and mass-fluxes
   if (wthetav > 0.)
@@ -736,28 +649,24 @@ void model::statistics()
   while(((RHlcl <= 0.9999) || (RHlcl >= 1.0001)) && i < 30)    // Limit max iter to 30, in case of e.g. q=0
   {
     lcl           += (1.-RHlcl) * 1000.;
-    double Plcl    = Ps / exp((g * lcl)/(Rd * theta));
-    double Tlcl    = theta / pow(Ps / Plcl,Rd / cp);
-    double esatlcl = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Tlcl)));
-    double elcl    = q * Plcl / 0.622;
-    RHlcl          = elcl / esatlcl;
+    double Plcl    = Ps - rho * g * lcl;
+    double Tlcl    = theta - g/cp * lcl;
+    RHlcl          = q / calc_qsat(Tlcl, Plcl);
     i++;
   }
 
   // RH evaluated at T = theta
-  double e       = q * Ps / 0.622;
-  double esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
-  RH             = e / esat;
+  RH               = q / calc_qsat(theta, Ps);
 
   // RH and its budget at mixed-layer top
   double Ptop    = Ps - rho * g * h;
   double Ttop    = theta - g/cp * h;
-  double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
-  double qsattop = 0.622 * esattop / Ptop;
+  double qsattop = calc_qsat(Ttop, Ptop);
 
   RHtop = q / qsattop;
 
   // RH budget
+  double esattop = calc_esat(Ttop);
   double desatdT = esattop * Lv / (Rv * pow(Ttop,2));
 
   double c0 = 1./(h * qsattop); // Moisture pre-factor
@@ -776,44 +685,10 @@ void model::statistics()
   RHtend_advth = c1 * advtheta * h;
   RHtend_advq  = c0 * advq * h;
 
-  //printf("%e %e %e %e\n",advtheta, advq, RHtend_advth, RHtend_advq);
-  //double fac = 100*3600;
-  //printf("wqs=%e, wqs=%e, wqM=%e, wth=%e, wthe=%e, we=%e, ws=%e, wf=%e, M=%e, advth=%e, advq=%e\n",
-  //        fac*RHtend_wqs,   fac*RHtend_wqe, fac*RHtend_wqM,
-  //        fac*RHtend_wth,   fac*RHtend_wthe,
-  //        fac*RHtend_we,    fac*RHtend_ws, fac*RHtend_wf, fac*RHtend_M,
-  //        fac*RHtend_advth, fac*RHtend_advq);
-
   RHtend_net = RHtend_wqs   + RHtend_wqe  + RHtend_wqM +
                RHtend_wth   + RHtend_wthe +
                RHtend_we    + RHtend_ws   + RHtend_wf  + RHtend_M +
                RHtend_advth + RHtend_advq;
-
-  //double Ptop    = Ps / exp((g * h)/(Rd * theta));
-  //double Ttop    = theta / pow(Ps / Ptop,Rd / cp);
-  //double esattop = 0.611e3 * exp((Lv / Rv) * ((1. / 273.15)-(1. / Ttop)));
-  //double etop    = q * Ptop / 0.622;
-  //RHtop          = etop / esattop;
-
-  // RH budget at mixed-layer top
-  //double qstop   = 0.622 * esattop / Ptop;
-  //double desatdT = esattop * (17.2694 / (Ttop - 35.86) - 17.2694 * (Ttop - 273.16) / pow(Ttop - 35.86,2.));
-  //double dqsatdT = 0.622 * desatdT / Ptop;
-
-  //double c0 = 1. / (h * qstop);
-  //double f1 = 1. + pow(Lv / (Ttop * Rv)-1, -1);
-  //double f2 = 1. - ((cp/Rd)-1.) * pow((Lv / (Ttop * Rv))-1, -1.);
-  //double c1 = f1 * c0 * RHtop * dqsatdT * (pow(Ptop / Ps, Rd/cp));
-  //double c2 = f2 * c0 * RHtop * dqsatdT * (g/cp);
-
-  //RHtend_wqs  =  c0 * wq;      // surface moistening
-  //RHtend_wqe  =  c0 * wqe;     // entrainment drying
-  //RHtend_wqM  = -c0 * wqM;     // mass-flux drying
-  //RHtend_wth  = -c1 * (wtheta + wthetae);  // mixed-layer heating
-  //RHtend_we   =  c2 * h * we;  // mixed-layer growth entrainment
-  //RHtend_ws   =  c2 * h * ws;  // mixed-layer "shrinking" subsidence
-  //RHtend_M    = -c2 * h * M;   // mixed-layer "shrinking" mass-flux
-  //RHtend_net  = RHtend_wqs + RHtend_wqe + RHtend_wqM + RHtend_wth + RHtend_we + RHtend_ws + RHtend_M;
 }
 
 void model::intmlmodel()
@@ -896,8 +771,7 @@ void model::runslmodel()
   U = max( Umin, pow( pow(u,2) + pow(v,2) + pow(wstar,2), 1./2. ) );
 
   thetasurf = theta + wtheta / (Cs * U);
-  esatsurf  = 0.611e3 * exp(17.2694 * (thetasurf - 273.16) / (thetasurf - 35.86));
-  qsatsurf  = 0.622 * esatsurf / Ps;
+  qsatsurf  = calc_qsat(thetasurf, Ps);
   cq        = 1. / (1. + Cs * U * rs);
   qsurf     = (1. - cq) * q + cq * qsatsurf;
 
@@ -914,12 +788,6 @@ void model::runslmodel()
 
   Cm = pow(k,2.) / pow((log(zsl / z0m) - psim(zsl / L) + psim(z0m / L)),2.);
   Cs = pow(k,2.) / (log(zsl / z0m) - psim(zsl / L) + psim(z0m / L)) / (log(zsl / z0h) - psih(zsl / L) + psih(z0h / L));
-
-  //if(wthetav > 0.):
-  //  wstar     = (g / thetav * h * wthetav) ** (1./3.)
-  //else:
-  //  wstar     = 0.0001
-  //ueff      = numpy.sqrt(u ** 2. + wstar ** 2.)
 
   ustar = sqrt(Cm) * U;
   uw    = - Cm * U * u;
@@ -1083,10 +951,8 @@ void model::runlsmodel()
   {
     rs = 0.;
 
-    esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
-    qsat    = 0.622 * esat / Ps;
-    esatsurf  = 0.611e3 * exp(17.2694 * (Ts - 273.16) / (Ts - 35.86));
-    qsatsurf  = 0.622 * esatsurf / Ps;
+    qsat      = calc_qsat(theta, Ps);
+    qsatsurf  = calc_qsat(Ts, Ps);
 
     LEveg  = 0.;
     LEliq  = rho * Lv / ra * (qsatsurf - q);
@@ -1099,8 +965,8 @@ void model::runlsmodel()
   else
   {
     // first calculate essential thermodynamic variables
-    esat    = 0.611e3 * exp(17.2694 * (theta - 273.16) / (theta - 35.86));
-    qsat    = 0.622 * esat / Ps;
+    esat    = calc_esat(theta);
+    qsat    = calc_qsat(theta, Ps);
     desatdT = esat * (17.2694 / (theta - 35.86) - 17.2694 * (theta - 273.16) / pow(theta - 35.86,2.));
     dqsatdT = 0.622 * desatdT / Ps;
     e       = q * Ps / 0.622;
@@ -1120,8 +986,6 @@ void model::runlsmodel()
       // Limit f2 in case w2 > wfc, where f2 < 1
       f2 = max(f2, 1.);
 
-      //f3     = 1. / exp(- gD * (esat2m - e2m) / 100.);
-      //f4     = 1./ (1. - 0.0016 * pow(298.0 - T2m, 2.));
       f3     = 1. / exp(- gD * (esat - e) / 100.);
       f4     = 1./ (1. - 0.0016 * pow(298.0 - theta, 2.));
 
@@ -1144,7 +1008,7 @@ void model::runlsmodel()
       fmin0         = gmin[c] / nuco2q - 1. / 9. * gm;
       fmin          = -fmin0 + pow((pow(fmin0,2.) + 4 * gmin[c]/nuco2q * gm ),0.5) / (2. * gm);
 
-      esatsurf      = 0.611e3 * exp(17.2694 * (Ts - 273.16) / (Ts - 35.86));
+      esatsurf      = calc_esat(Ts);
       Ds            = (esatsurf - e)   / 1000.;    // in kPa
       D0            = (f0[c] - fmin) / ad[c];
 
@@ -1221,8 +1085,8 @@ void model::runlsmodel()
         + cveg * cliq * rho * Lv / ra * (dqsatdT * theta - qsat + q) + Lambda * Tsoil)   // liquid water evaporation
       / (rho * cp / ra + cveg * (1. - cliq) * rho * Lv / (ra + rs) * dqsatdT + (1. - cveg) * rho * Lv / (ra + rssoil) * dqsatdT + cveg * cliq * rho * Lv / ra * dqsatdT + Lambda);
 
-    esatsurf  = 0.611e3 * exp(17.2694 * (Ts - 273.16) / (Ts - 35.86));
-    qsatsurf  = 0.622 * esatsurf / Ps;
+    esatsurf  = calc_esat(Ts);
+    qsatsurf  = calc_qsat(Ts, Ps);
 
     LEveg  = (1. - cliq) * cveg * rho * Lv / (ra + rs) * (dqsatdT * (Ts - theta) + qsat - q);
     LEliq  = cliq * cveg * rho * Lv / ra * (dqsatdT * (Ts - theta) + qsat - q);
@@ -1271,6 +1135,16 @@ void model::intlsmodel()
     wg       = wg0     + dt * wgtend;
     Wl       = Wl0     + dt * Wltend;
   }
+}
+
+double model::calc_esat(double T)
+{
+    return 0.611e3 * exp(17.2694 * (T - 273.16) / (T - 35.86));
+}
+
+double model::calc_qsat(double T, double p)
+{
+    return 0.622 * calc_esat(T) / p;
 }
 
 void model::store()

@@ -64,6 +64,8 @@ private:
   double E1(double);
   inline double psim(double);
   inline double psih(double);
+  inline double calc_esat(double);
+  inline double calc_qsat(double, double);
 
   // model constants
   double Lv;        // heat of vaporization [J kg-1]
