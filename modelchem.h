@@ -50,28 +50,28 @@
 
 class modelchem
 {
-  public:
-    modelchem(Reaction*[], Name_Number*[], const int, const int);
-    //int inputchem(Reaction *RC[],Name_Number *PL_ptr[],int tnor);
-    void inputchem(bool*, bool*, double);
+    public:
+        modelchem(Reaction*[], Name_Number*[], const int, const int);
+        //int inputchem(Reaction *RC[],Name_Number *PL_ptr[],int tnor);
+        void inputchem(bool*, bool*, double);
 
-    void calc_k( double pressure_cbl, double pressure_ft, \
-                 double temp_cbl ,double temp_ft, \
-                 double Q_bl, double Q_ft, \
-                 double zenith, double cc);
+        void calc_k( double pressure_cbl, double pressure_ft, \
+                double temp_cbl ,double temp_ft, \
+                double Q_bl, double Q_ft, \
+                double zenith, double cc);
 
-    void iter(int cf_switch, double dt, double q, double ynew[],double ycurrent[], double*, double*);
+        void iter(int cf_switch, double dt, double q, double ynew[],double ycurrent[], double*, double*);
 
-    int nr_chemicals;
-    char chem_name[25][10];
+        int nr_chemicals;
+        char chem_name[25][10];
 
-    int rsize;
-    int csize;
-    //double c_cbl[CSIZE];
-    //double c_ft[CSIZE];
+        int rsize;
+        int csize;
+        //double c_cbl[CSIZE];
+        //double c_ft[CSIZE];
 
-  private:
-    Reaction **RC_ptr;
-    Name_Number **PL_ptr;
+    private:
+        Reaction **RC_ptr;
+        Name_Number **PL_ptr;
 };
 #endif

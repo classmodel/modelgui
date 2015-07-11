@@ -25,15 +25,15 @@
 #include "mainwindow.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-  #include <QtGui/QApplication>
+#include <QtGui/QApplication>
 #else
-  #include <QtWidgets>
+#include <QtWidgets>
 #endif
 
 int main(int argc, char *argv[])
 {
-  QApplication a(argc, argv);
-  MainWindow main;
-  main.show();
-  return a.exec();
+    QApplication a(argc, argv);
+    MainWindow main;
+    main.show();
+    return a.exec();
 }

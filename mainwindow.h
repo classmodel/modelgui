@@ -30,112 +30,112 @@
 #include "landsoil.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-  #include <QtGui/QMainWindow>
+#include <QtGui/QMainWindow>
 #else
-  #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMainWindow>
 #endif
 
 class plotwindow;
 
 namespace Ui
 {
-  class MainWindow;
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 
-public:
-  MainWindow(QWidget *parent = 0);
-  ~MainWindow();
-  QMap<int, modelrun> *modelrunlist;           // List containing objects with model output
-  QList<int> *selectedruns;
-  QList<plotwindow*> plotwindowList;
-  //void updateRunList();
-  void createrun();
-  void showGraph(QMap<int, modelrun> *, QList<int> *);
-  plotwindow *graph;
-  modelinput defaultinput;                     // Store default model input settings
-  modelinput formvalues;
-  Reaction defaultreactions[28];
-  void loadfieldslots();
-  //int numgraphs;
+    public:
+        MainWindow(QWidget *parent = 0);
+        ~MainWindow();
+        QMap<int, modelrun> *modelrunlist;           // List containing objects with model output
+        QList<int> *selectedruns;
+        QList<plotwindow*> plotwindowList;
+        //void updateRunList();
+        void createrun();
+        void showGraph(QMap<int, modelrun> *, QList<int> *);
+        plotwindow *graph;
+        modelinput defaultinput;                     // Store default model input settings
+        modelinput formvalues;
+        Reaction defaultreactions[28];
+        void loadfieldslots();
+        //int numgraphs;
 
-public slots:
-  void newrun();
-  void clonerun();
-  void deleteRun();
-  void runTreeChanged();                       // Disable input field when selection runs > 1
-  void runTreePressed(QModelIndex);
-  void updateRunName(QString);
-  void startrun();
-  void canceledit();
-  void startGraph();
-  void saveRuns();
-  void loadRuns();
-  void exportRuns();
-  void resetInterface();
-  void updateSurfacetype(int);
-  void updateSoiltype(int);
-  void tabChanged(int);
-  void speciesselectionchanged();
-  void setNoReactions();
-  void setSimpleReactions();
-  void setComplexReactions();
-  void graphClosed(plotwindow*);
-  void showAbout();
-  void closeWarning();
-  void setLandSoil(int);
+        public slots:
+            void newrun();
+        void clonerun();
+        void deleteRun();
+        void runTreeChanged();                       // Disable input field when selection runs > 1
+        void runTreePressed(QModelIndex);
+        void updateRunName(QString);
+        void startrun();
+        void canceledit();
+        void startGraph();
+        void saveRuns();
+        void loadRuns();
+        void exportRuns();
+        void resetInterface();
+        void updateSurfacetype(int);
+        void updateSoiltype(int);
+        void tabChanged(int);
+        void speciesselectionchanged();
+        void setNoReactions();
+        void setSimpleReactions();
+        void setComplexReactions();
+        void graphClosed(plotwindow*);
+        void showAbout();
+        void closeWarning();
+        void setLandSoil(int);
 
-  // Switches
-  void switch_wind(int);
-  void switch_sl(int);
-  void switch_ls(int);
-  void switch_sea(int);
-  void switch_rad(int);
-  void switch_ml(int);
-  void switch_cu(int);
-  void switch_curad(int);
-  void switch_wtheta(int);
-  void switch_wq(int);
-  void switch_soil_advanced(int);
-  void switch_surface_advanced(int);
-  void switch_chem(int);
-  void switch_chem_constant(int);
-  void switch_photolysis(int);
+        // Switches
+        void switch_wind(int);
+        void switch_sl(int);
+        void switch_ls(int);
+        void switch_sea(int);
+        void switch_rad(int);
+        void switch_ml(int);
+        void switch_cu(int);
+        void switch_curad(int);
+        void switch_wtheta(int);
+        void switch_wq(int);
+        void switch_soil_advanced(int);
+        void switch_surface_advanced(int);
+        void switch_chem(int);
+        void switch_chem_constant(int);
+        void switch_photolysis(int);
 
 signals:
-  void rundeleted(int);
-  void runadded(int);
+        void rundeleted(int);
+        void runadded(int);
 
-private:
-  Ui::MainWindow *ui;
-  QString casename;
-  QString defaultname;
-  void readdefaultinput();
-  void updateSelectedRuns();
-  void storeFormData();
-  void loadFormData();
-  QString bool2string(const bool);
-  void updateStatusBar();
-  bool CheckState2bool(Qt::CheckState);
-  Qt::CheckState Bool2CheckState(bool);
-  int Bool2Int(bool);
-  void setReactions(int);
-  bool closeCheck;
+    private:
+        Ui::MainWindow *ui;
+        QString casename;
+        QString defaultname;
+        void readdefaultinput();
+        void updateSelectedRuns();
+        void storeFormData();
+        void loadFormData();
+        QString bool2string(const bool);
+        void updateStatusBar();
+        bool CheckState2bool(Qt::CheckState);
+        Qt::CheckState Bool2CheckState(bool);
+        int Bool2Int(bool);
+        void setReactions(int);
+        bool closeCheck;
 
-  void initLandSoil();
-  void closeEvent(QCloseEvent *event);
-  void blockInput(bool);
+        void initLandSoil();
+        void closeEvent(QCloseEvent *event);
+        void blockInput(bool);
 
-  surfacetype surfacetypes[4];
-  soiltype    soiltypes[3];
+        surfacetype surfacetypes[4];
+        soiltype    soiltypes[3];
 
-  int activerun;
-  int activetab;
+        int activerun;
+        int activetab;
 
-  int activespecies;
+        int activespecies;
 };
 
 #endif // MAINWINDOW_H
