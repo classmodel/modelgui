@@ -489,6 +489,8 @@ void MainWindow::storeFormData()
   formvalues.alpha      = ui->input_surface_alpha->text().toDouble();
   formvalues.cveg       = ui->input_surface_cveg->text().toDouble();
   formvalues.Lambda     = ui->input_surface_Lambda->text().toDouble();
+  formvalues.c_beta     = ui->input_surface_cbeta->text().toDouble();
+
 
   //if (activetab == 3)
   //{
@@ -790,6 +792,8 @@ void MainWindow::loadFormData()
     ui->input_surface_alpha->setText(QString::number(formvalues.alpha));
     ui->input_surface_cveg->setText(QString::number(formvalues.cveg));
     ui->input_surface_Lambda->setText(QString::number(formvalues.Lambda));
+    ui->input_surface_cbeta->setText(QString::number(formvalues.c_beta));
+
 
     if(!modelrunlist->find(n).value().surfaceadvanced)
     {
@@ -1170,6 +1174,7 @@ void MainWindow::saveRuns()
       out << temprun.run->input.alpha      << endl;
       out << temprun.run->input.cveg       << endl;
       out << temprun.run->input.Lambda     << endl;
+      out << temprun.run->input.c_beta     << endl;
       out << temprun.run->input.z0m        << endl;
       out << temprun.run->input.z0h        << endl;
       // END TAB3
@@ -1424,6 +1429,8 @@ void MainWindow::loadRuns()
       tempinput.cveg       = line.toDouble();
       line = in.readLine();
       tempinput.Lambda     = line.toDouble();
+      line = in.readLine();
+      tempinput.c_beta     = line.toDouble();
       line = in.readLine();
       tempinput.z0m        = line.toDouble();
       line = in.readLine();
@@ -1701,6 +1708,8 @@ void MainWindow::updateSurfacetype(int i)
 
   ui->input_surface_cveg->setText(QString::number(surfacetypes[i].cveg));
   ui->input_surface_Lambda->setText(QString::number(surfacetypes[i].Lambda));
+  ui->input_surface_cbeta->setText(QString::number(surfacetypes[i].c_beta));
+
   ui->input_surfacelayer_z0m->setText(QString::number(surfacetypes[i].z0m));
   ui->input_surfacelayer_z0h->setText(QString::number(surfacetypes[i].z0h));
 

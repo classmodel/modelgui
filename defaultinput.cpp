@@ -131,7 +131,7 @@ void MainWindow::readdefaultinput()
   
   defaultinput.Lambda     = 5.9;      // thermal diffusivity skin layer [-]
 
-  defaultinput.c_beta     = 1.0;      // Curvature plant water stress factor [-]
+  defaultinput.c_beta     = 0.0;      // Curvature plant water stress factor [-]
 
   // shallow-cumulus
   defaultinput.sw_cu      = false;    // shallow-cumulus switch
