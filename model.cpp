@@ -29,7 +29,14 @@
 
 using namespace std;
 
-inline double sign(double n) { return n > 0 ? 1 : (n < 0 ? -1 : 0);}
+namespace
+{
+  inline double sign(double n) { return n > 0 ? 1 : (n < 0 ? -1 : 0);}
+
+  // Exponential response water stress, from Combe et al. (2016)
+  double P(const double c_beta) {
+    return c_beta < 0.25 ? 6.4*c_beta : (c_beta < 0.50 ? 7.6*c_beta-0.3 : pow(2,(3.66*c_beta+0.34))-1);}
+}
 
 model::model(modelinput *extinput)
 {
@@ -51,93 +58,9 @@ model::model(modelinput *extinput)
   mair       =  28.9;                   // molecular weight air [g mol -1]
   nuco2q     =  1.6;                    // ratio molecular viscosity water to carbon dioxide
 
-  Umin       = 0.01;                      // BvS: limiter on wind speed [m s-1]
+  Umin       = 0.01;                    // BvS: limiter on wind speed [m s-1]
 
-  //input      =  extinput;
-  input = *extinput;
-
-  //input.reactions  =  new Reaction[input.rsize];
-  //for(int i=0; i<input.rsize; i++)
-  //  input.reactions[i] = extinput.reactions[i]; // CvH check is assignment operator needs to be overloaded
-//
-//  // mixed-layer
-//  input.sw_ml      =  extinput.sw_ml;
-//  input.h          =  extinput.h;                // initial ABL height [m]
-//  input.Ps         =  extinput.Ps;               // surface pressure [Pa]
-//  input.ws         =  extinput.ws;               // large scale vertical velocity [m s-1]
-//  input.fc         =  extinput.fc;               // coriolis parameter [s-1]
-//
-//  input.theta      =  extinput.theta;            // initial mixed-layer potential temperature [K]
-//  input.dtheta     =  extinput.dtheta;           // initial temperature jump at h [K]
-//  input.gammatheta =  extinput.gammatheta;       // free atmosphere potential temperature lapse rate [K m-1]
-//  input.advtheta   =  extinput.advtheta;         // advection of heat [K s-1]
-//  input.beta       =  extinput.beta;             // entrainment ratio for virtual heat [-]
-//  input.wtheta     =  extinput.wtheta;           // surface kinematic heat flux [K m s-1]
-//
-//  input.q          =  extinput.q;                // initial mixed-layer specific humidity [kg kg-1]
-//  input.dq         =  extinput.dq;               // initial specific humidity jump at h [kg kg-1]
-//  input.gammaq     =  extinput.gammaq;           // free atmosphere specific humidity lapse rate [kg kg-1 m-1]
-//  input.advq       =  extinput.advq;             // advection of moisture [kg kg-1 s-1]
-//  input.wq         =  extinput.wq;               // surface kinematic moisture flux [kg kg-1 m s-1]
-//
-//  input.sw_wind    =  extinput.sw_wind;          // prognostic wind switch
-//  input.u          =  extinput.u;                // initial mixed-layer u-wind speed [m s-1]
-//  input.du         =  extinput.du;               // initial u-wind jump at h [m s-1]
-//  input.gammau     =  extinput.gammau;           // free atmosphere u-wind speed lapse rate [s-1]
-//  input.advu       =  extinput.advu;             // advection of u-wind [m s-2]
-//
-//  input.v          =  extinput.v;                // initial mixed-layer u-wind speed [m s-1]
-//  input.dv         =  extinput.dv;               // initial u-wind jump at h [m s-1]
-//  input.gammav     =  extinput.gammav;           // free atmosphere v-wind speed lapse rate [s-1]
-//  input.advv       =  extinput.advv;             // advection of v-wind [m s-2]
-//
-//  // surface-layer
-//  input.sw_sl      =  extinput.sw_sl;      // surface layer switch
-//  input.ustar      =  extinput.ustar;      // surface friction velocity [m s-1]
-//  input.z0m        =  extinput.z0m;        // roughness length for momentum [m]
-//  input.z0h        =  extinput.z0h;        // roughness length for scalars [m]
-//
-//  // radiation
-//  input.sw_rad     =  extinput.sw_rad;     // radiation switch
-//  input.lat        =  extinput.lat;        // latitude [deg]
-//  input.lon        =  extinput.lon;        // longitude [deg]
-//  input.doy        =  extinput.doy;        // day of the year [-]
-//  input.tstart     =  extinput.tstart;     // time of the day [h UTC]
-//  input.cc         =  extinput.cc;         // cloud cover fraction [-]
-//  input.Q          =  extinput.Q;          // net radiation [-]
-//
-//  // land surface
-//  input.sw_ls      =  extinput.sw_ls;      // land surface switch
-//  input.wg         =  extinput.wg;         // volumetric water content top soil layer [m3 m-3]
-//  input.w2         =  extinput.w2;         // volumetric water content deeper soil layer [m3 m-3]
-//  input.Tsoil      =  extinput.Tsoil;      // temperature top soil layer [K]
-//  input.T2         =  extinput.T2;         // temperature deeper soil layer [K]
-//
-//  input.a          =  extinput.a;          // Clapp and Hornberger retention curve parameter a
-//  input.b          =  extinput.b;          // Clapp and Hornberger retention curve parameter b
-//  input.p          =  extinput.p;          // Clapp and Hornberger retention curve parameter p
-//  input.CGsat      =  extinput.CGsat;      // saturated soil conductivity for heat
-//
-//  input.wsat       =  extinput.wsat;       // saturated volumetric water content ECMWF config [-]
-//  input.wfc        =  extinput.wfc;        // volumetric water content field capacity [-]
-//  input.wwilt      =  extinput.wwilt;      // volumetric water content wilting point [-]
-//
-//  input.C1sat      =  extinput.C1sat;
-//  input.C2ref      =  extinput.C2ref;
-//
-//  input.LAI        =  extinput.LAI;        // leaf area index [-]
-//  input.gD         =  extinput.gD;         // correction factor transpiration for VPD [-]
-//  input.rsmin      =  extinput.rsmin;      // minimum resistance transpiration [s m-1]
-//  input.rssoilmin  =  extinput.rssoilmin;  // minimum resistance soil evaporation [s m-1]
-//  input.alpha      =  extinput.alpha;      // surface albedo [-]
-//
-//  input.Ts         =  extinput.Ts;         // initial surface temperature [K]
-//
-//  input.cveg       =  extinput.cveg;       // vegetation fraction [-]
-//  input.Wmax       =  extinput.Wmax;       // thickness of water layer on wet vegetation [m]
-//  input.Wl         =  extinput.Wl;         // equivalent water layer depth for wet vegetation [m]
-//
-//  input.Lambda     =  extinput.Lambda;     // thermal diffusivity skin layer [-]
+  input      = *extinput;
 
   // set output flag to false;
   hasoutput = false;
@@ -172,7 +95,7 @@ void model::initmodel()
   wtheta     =  input.wtheta;           // surface kinematic heat flux [K m s-1]
   wtheta0    =  input.wtheta;           // maximum surface kinematic heat flux [K m s-1]
   wthetaM    =  0.;                     // mass-flux kinematic heat flux [K m s-1]
-  sigmatheta2 =  0.;                    // mixed-layer top potential temperature variance [kg2 kg-2]
+  sigmatheta2 = 0.;                     // mixed-layer top potential temperature variance [kg2 kg-2]
   sw_wtheta  =  input.sw_wtheta;
 
   thetasurf  =  input.theta;            // surface potential temperature [K]
@@ -245,7 +168,6 @@ void model::initmodel()
     sigmasc2[i] =  0.;
 
     sw_wsc[i]   =  input.sw_wsc[i];
-    //cout << i << ", " << sc[i] << ", " << dsc[i] << ", " << wsc0[i] << endl;
   }
 
   // surface-layer
@@ -311,6 +233,8 @@ void model::initmodel()
   cliq       =  -1;                     // wet fraction [-]
 
   Lambda     =  input.Lambda;           // thermal diffusivity skin layer [-]
+
+  c_beta     = input.c_beta;            // Curvature plant water stress function [-]
 
   Tsoiltend  =  -1.;                    // soil temperature tendency [K s-1]
   wgtend     =  -1.;                    // soil moisture tendency [m3 m-3 s-1]
@@ -1073,7 +997,6 @@ void model::runlsmodel()
 
       rs     = rsmin / LAI * f1 * f2 * f3 * f4;
     }
-
     else    // calculate surface resistances using plant physiological (A-gs) model
     {
       int c = C3C4;                 // Picks C3 of C4 constants from array
@@ -1102,10 +1025,13 @@ void model::runlsmodel()
       Ammax         = Ammax298[c] *  pow(Q10Am[c],(0.1 * (thetasurf - 298.))) / ( (1. + exp(0.3 * (T1Am[c] - thetasurf))) * (1. + exp(0.3 * (thetasurf - T2Am[c]))));
 
       // calculate effect of soil moisture stress on gross assimilation rate
-      betaw         = max(1e-3, min(1.,(wg - wwilt)/(wfc - wwilt)));
+      betaw         = max(1e-3, min(1.,(w2 - wwilt)/(wfc - wwilt)));
 
       // calculate stress function
-      fstr          = betaw;
+      if (c_beta == 0)
+        fstr = betaw;
+      else
+        fstr = (1. - std::exp(-P(c_beta) * betaw)) / (1 - std::exp(-P(c_beta)));
 
       // calculate gross assimilation rate (Am)
       Am           = Ammax * (1. - exp(-(gm * (ci - CO2comp) / Ammax)));

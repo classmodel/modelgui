@@ -147,6 +147,8 @@ modelinput::modelinput()
   
   Lambda     = -1.;
 
+  c_beta     = -1.;
+
   // shallow-cumulus
   sw_cu      = true;
   sw_curad   = false;
@@ -293,6 +295,8 @@ modelinput::modelinput(const modelinput &ref)
   Wl         = ref.Wl;
 
   Lambda     = ref.Lambda;
+
+  c_beta     = ref.c_beta;
 
   // shallow-cumulus
   sw_cu      = ref.sw_cu;
@@ -525,6 +529,9 @@ bool modelinput::operator!=(const modelinput &ref)
   else if(Lambda     != ref.Lambda)
     return true;	  
 
+  else if(c_beta     != ref.c_beta)
+    return true;
+
   // shallow-!cumulus
   else if(sw_cu      != ref.sw_cu)
     return true;	  
@@ -700,6 +707,8 @@ modelinput &modelinput::operator=(const modelinput &ref)
     Wl         = ref.Wl;
 
     Lambda     = ref.Lambda;
+
+    c_beta     = ref.c_beta;
 
     // shallow-cumulus
     sw_cu      = ref.sw_cu;
