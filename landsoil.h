@@ -59,7 +59,6 @@ public:
   double z0m;       // roughness length for momentum [m]
   double z0h;       // roughness length for scalars [m]
   int C3C4;         // 0 = no C3C4, 1=C3, 2=C4
-  double c_beta;    // Curvature plant water stress factor [-]
 };
 
 #endif // LANDSOIL_H

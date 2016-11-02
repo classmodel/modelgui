@@ -147,8 +147,6 @@ public:
   
   double Lambda;    // thermal diffusivity skin layer [-]
 
-  double c_beta;    // Curvature plant water stress factor [-]
-
   // shallow-cumulus
   bool sw_cu;       // shallow-cumulus switch
   bool sw_curad;    // link ac -> cc -> radiation

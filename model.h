@@ -275,8 +275,6 @@ private:
 
   double Lambda;    // thermal diffusivity skin layer [-]
 
-  double c_beta;    // Curvature plant water stress factor [-]
-
   double H;         // sensible heat flux [W m-2]
   double LE;        // evapotranspiration [W m-2]
   double LEliq;     // open water evaporation [W m-2]
