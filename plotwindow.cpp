@@ -340,34 +340,25 @@ void plotwindow::updateselectedruns()  // create QList containing ID's of select
 {
   int nruns;
   nruns = ui->modelruntree->topLevelItemCount();
+
   if(nruns > 0)
   {
     for (int i=0; i<nruns; i++)
     {
       int id = ui->modelruntree->topLevelItem(i)->text(0).toInt();
+
       if(ui->modelruntree->topLevelItem(i)->checkState(1) == 2)
       {
         if (!selectedruns->contains(id))
           selectedruns->append(id);
       }
       else if(ui->modelruntree->topLevelItem(i)->checkState(1) == 0)
-        selectedruns->removeAt(selectedruns->indexOf(id));
+      {
+        if (selectedruns->contains(id))
+          selectedruns->removeAt(selectedruns->indexOf(id));
+      }
     }
   }
-
-  // BvS - Fails with latest versions Qt; changing checkbox doesn't change
-  // selection (currentItem) in qtreewidget...
-  //if(ui->modelruntree->topLevelItemCount() > 0)
-  //{
-  //  int id = ui->modelruntree->currentItem()->text(0).toInt();
-  //  if (ui->modelruntree->currentItem()->checkState(1) == 2)
-  //  {
-  //    if (!selectedruns->contains(id))
-  //      selectedruns->append(id);
-  //  }
-  //  else if(ui->modelruntree->currentItem()->checkState(1) == 0)
-  //    selectedruns->removeAt(selectedruns->indexOf(id));
-  //}
 
   plotar->update();
 }
