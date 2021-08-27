@@ -248,8 +248,8 @@ void MainWindow::newrun()
   font = point->font(1);
   font.setItalic(true);
   point->setFont(1, font);
-  QBrush brush(Qt::lightGray);
-  point->setForeground(0, brush);
+  QBrush brush(Qt::gray);
+  point->setForeground(1, brush);
 
   ui->modelRunTree->setCurrentItem(point);
 
@@ -304,8 +304,8 @@ void MainWindow::clonerun()
     font = point->font(1);
     font.setItalic(true);
     point->setFont(1,font);
-    QBrush brush(Qt::lightGray);
-    point->setForeground(0, brush);
+    QBrush brush(Qt::gray);
+    point->setForeground(1, brush);
 
     if(n == (ui->modelRunTree->selectedItems().count() - 1))
       ui->modelRunTree->setCurrentItem(point);
@@ -364,8 +364,8 @@ void MainWindow::runTreeChanged()
       font = ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->font(1);
       font.setItalic(true);
       ui->modelRunTree->findItems(id, Qt::MatchExactly)[0]->setFont(1,font);
-      QBrush brush(Qt::lightGray);
-      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setForeground(0, brush);
+      QBrush brush(Qt::gray);
+      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setForeground(1, brush);
     }
     else
     {
@@ -373,9 +373,9 @@ void MainWindow::runTreeChanged()
       QString id = QString::number(activerun);
       font = ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->font(1);
       font.setItalic(false);
-      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setFont(1,font);
+      ui->modelRunTree->findItems(id, Qt::MatchExactly)[0]->setFont(1,font);
       QBrush brush(Qt::black);
-      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setForeground(0, brush);
+      ui->modelRunTree->findItems(id, Qt::MatchExactly)[0]->setForeground(1, brush);
     }
   }
 
@@ -981,8 +981,8 @@ void MainWindow::startrun()
       font = ui->modelRunTree->selectedItems()[i]->font(1);
       font.setItalic(false);
       ui->modelRunTree->selectedItems()[i]->setFont(1,font);
-      QBrush brush(Qt::lightGray);
-      ui->modelRunTree->selectedItems()[i]->setForeground(0, brush);
+      QBrush brush(Qt::black);
+      ui->modelRunTree->selectedItems()[i]->setForeground(1, brush);
       updateSelectedRuns();
       emit runadded(id);
     }
@@ -1574,8 +1574,8 @@ void MainWindow::loadRuns()
         font = point->font(1);
         font.setItalic(true);
         point->setFont(1,font);
-        QBrush brush(Qt::red);
-        point->setForeground(0, brush);
+        QBrush brush(Qt::gray);
+        point->setForeground(1, brush);
 
         ui->modelRunTree->setCurrentItem(point);
 
