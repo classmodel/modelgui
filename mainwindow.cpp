@@ -247,8 +247,9 @@ void MainWindow::newrun()
   QFont font;
   font = point->font(1);
   font.setItalic(true);
-  point->setFont(1,font);
-  point->setTextColor(1,Qt::gray);
+  point->setFont(1, font);
+  QBrush brush(Qt::lightGray);
+  point->setForeground(0, brush);
 
   ui->modelRunTree->setCurrentItem(point);
 
@@ -303,7 +304,8 @@ void MainWindow::clonerun()
     font = point->font(1);
     font.setItalic(true);
     point->setFont(1,font);
-    point->setTextColor(1,Qt::gray);
+    QBrush brush(Qt::lightGray);
+    point->setForeground(0, brush);
 
     if(n == (ui->modelRunTree->selectedItems().count() - 1))
       ui->modelRunTree->setCurrentItem(point);
@@ -361,9 +363,9 @@ void MainWindow::runTreeChanged()
       QString id = QString::number(activerun);
       font = ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->font(1);
       font.setItalic(true);
-      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setFont(1,font);
-      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setTextColor(1,Qt::gray);
-      //std::cout << "not equal!" << std::endl;
+      ui->modelRunTree->findItems(id, Qt::MatchExactly)[0]->setFont(1,font);
+      QBrush brush(Qt::lightGray);
+      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setForeground(0, brush);
     }
     else
     {
@@ -372,8 +374,8 @@ void MainWindow::runTreeChanged()
       font = ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->font(1);
       font.setItalic(false);
       ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setFont(1,font);
-      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setTextColor(1,Qt::black);
-      //std::cout << "not equal!" << std::endl;
+      QBrush brush(Qt::black);
+      ui->modelRunTree->findItems(id,Qt::MatchExactly)[0]->setForeground(0, brush);
     }
   }
 
@@ -979,7 +981,8 @@ void MainWindow::startrun()
       font = ui->modelRunTree->selectedItems()[i]->font(1);
       font.setItalic(false);
       ui->modelRunTree->selectedItems()[i]->setFont(1,font);
-      ui->modelRunTree->selectedItems()[i]->setTextColor(1,Qt::black);
+      QBrush brush(Qt::lightGray);
+      ui->modelRunTree->selectedItems()[i]->setForeground(0, brush);
       updateSelectedRuns();
       emit runadded(id);
     }
@@ -1084,162 +1087,162 @@ void MainWindow::saveRuns()
       std::cout << "Saving MXL run..." << std::endl;
       temprun = i.value();
       // NON-INPUT CLASS ELEMENTS
-      out << "#MXL# NEWRUN"                << endl;
-      out << temprun.runname               << endl;
-      out << temprun.surfacestatus         << endl;
-      out << temprun.soilstatus            << endl;
+      out << "#MXL# NEWRUN"                << Qt::endl;
+      out << temprun.runname               << Qt::endl;
+      out << temprun.surfacestatus         << Qt::endl;
+      out << temprun.soilstatus            << Qt::endl;
 
-      out << temprun.surfaceadvanced       << endl;
-      out << temprun.soiladvanced          << endl;
+      out << temprun.surfaceadvanced       << Qt::endl;
+      out << temprun.soiladvanced          << Qt::endl;
 
       // TAB 1
-      out << temprun.run->input.dt         << endl;
-      out << temprun.run->input.runtime    << endl;
-      out << temprun.run->input.sinperiod  << endl;
+      out << temprun.run->input.dt         << Qt::endl;
+      out << temprun.run->input.runtime    << Qt::endl;
+      out << temprun.run->input.sinperiod  << Qt::endl;
 
       // MIXED-LAYER
-      out << temprun.run->input.sw_ml      << endl;
-      out << temprun.run->input.sw_ftcws   << endl;
-      out << temprun.run->input.sw_shearwe << endl;
-      out << temprun.run->input.h          << endl;
-      out << temprun.run->input.Ps         << endl;
-      out << temprun.run->input.omegas     << endl;
-      out << temprun.run->input.beta       << endl;
+      out << temprun.run->input.sw_ml      << Qt::endl;
+      out << temprun.run->input.sw_ftcws   << Qt::endl;
+      out << temprun.run->input.sw_shearwe << Qt::endl;
+      out << temprun.run->input.h          << Qt::endl;
+      out << temprun.run->input.Ps         << Qt::endl;
+      out << temprun.run->input.omegas     << Qt::endl;
+      out << temprun.run->input.beta       << Qt::endl;
 
       // HEAT
-      out << temprun.run->input.theta      << endl;
-      out << temprun.run->input.dtheta     << endl;
-      out << temprun.run->input.gammatheta << endl;
-      out << temprun.run->input.advtheta   << endl;
-      out << temprun.run->input.wtheta     << endl;
-      out << temprun.run->input.sw_wtheta  << endl;
+      out << temprun.run->input.theta      << Qt::endl;
+      out << temprun.run->input.dtheta     << Qt::endl;
+      out << temprun.run->input.gammatheta << Qt::endl;
+      out << temprun.run->input.advtheta   << Qt::endl;
+      out << temprun.run->input.wtheta     << Qt::endl;
+      out << temprun.run->input.sw_wtheta  << Qt::endl;
 
       // MOISTURE
-      out << temprun.run->input.q          << endl;
-      out << temprun.run->input.dq         << endl;
-      out << temprun.run->input.gammaq     << endl;
-      out << temprun.run->input.advq       << endl;
-      out << temprun.run->input.wq         << endl;
-      out << temprun.run->input.sw_wq      << endl;
+      out << temprun.run->input.q          << Qt::endl;
+      out << temprun.run->input.dq         << Qt::endl;
+      out << temprun.run->input.gammaq     << Qt::endl;
+      out << temprun.run->input.advq       << Qt::endl;
+      out << temprun.run->input.wq         << Qt::endl;
+      out << temprun.run->input.sw_wq      << Qt::endl;
       // END TAB1
 
       // TAB2
       // WIND
-      out << temprun.run->input.sw_wind    << endl;
-      out << temprun.run->input.u          << endl;
-      out << temprun.run->input.du         << endl;
-      out << temprun.run->input.gammau     << endl;
-      out << temprun.run->input.advu       << endl;
-      out << temprun.run->input.v          << endl;
-      out << temprun.run->input.dv         << endl;
-      out << temprun.run->input.gammav     << endl;
-      out << temprun.run->input.advv       << endl;
+      out << temprun.run->input.sw_wind    << Qt::endl;
+      out << temprun.run->input.u          << Qt::endl;
+      out << temprun.run->input.du         << Qt::endl;
+      out << temprun.run->input.gammau     << Qt::endl;
+      out << temprun.run->input.advu       << Qt::endl;
+      out << temprun.run->input.v          << Qt::endl;
+      out << temprun.run->input.dv         << Qt::endl;
+      out << temprun.run->input.gammav     << Qt::endl;
+      out << temprun.run->input.advv       << Qt::endl;
 
-      out << temprun.run->input.ustar      << endl;
-      out << temprun.run->input.fc         << endl;
+      out << temprun.run->input.ustar      << Qt::endl;
+      out << temprun.run->input.fc         << Qt::endl;
 
-      out << temprun.run->input.sw_sl      << endl;
-      out << temprun.run->input.z0m        << endl;
-      out << temprun.run->input.z0h        << endl;
+      out << temprun.run->input.sw_sl      << Qt::endl;
+      out << temprun.run->input.z0m        << Qt::endl;
+      out << temprun.run->input.z0h        << Qt::endl;
 
       // SCALAR / CO2
-      out << temprun.run->input.sca        << endl;
-      out << temprun.run->input.dsca       << endl;
-      out << temprun.run->input.gammasca   << endl;
-      out << temprun.run->input.advsca     << endl;
-      out << temprun.run->input.wsca       << endl;
+      out << temprun.run->input.sca        << Qt::endl;
+      out << temprun.run->input.dsca       << Qt::endl;
+      out << temprun.run->input.gammasca   << Qt::endl;
+      out << temprun.run->input.advsca     << Qt::endl;
+      out << temprun.run->input.wsca       << Qt::endl;
 
-      out << temprun.run->input.CO2        << endl;
-      out << temprun.run->input.dCO2       << endl;
-      out << temprun.run->input.gammaCO2   << endl;
-      out << temprun.run->input.advCO2     << endl;
-      out << temprun.run->input.wCO2       << endl;
+      out << temprun.run->input.CO2        << Qt::endl;
+      out << temprun.run->input.dCO2       << Qt::endl;
+      out << temprun.run->input.gammaCO2   << Qt::endl;
+      out << temprun.run->input.advCO2     << Qt::endl;
+      out << temprun.run->input.wCO2       << Qt::endl;
       // END TAB2
 
       // TAB3
-      out << temprun.run->input.sw_ls      << endl;
-      out << temprun.run->input.sw_sea     << endl;
-      out << temprun.run->input.sw_jarvis  << endl;
+      out << temprun.run->input.sw_ls      << Qt::endl;
+      out << temprun.run->input.sw_sea     << Qt::endl;
+      out << temprun.run->input.sw_jarvis  << Qt::endl;
 
       // SURFACE
-      out << temprun.run->input.Ts         << endl;
-      out << temprun.run->input.Wl         << endl;
-      out << temprun.run->input.LAI        << endl;
-      out << temprun.run->input.gD         << endl;
-      out << temprun.run->input.rsmin      << endl;
-      out << temprun.run->input.alpha      << endl;
-      out << temprun.run->input.cveg       << endl;
-      out << temprun.run->input.Lambda     << endl;
-      out << temprun.run->input.z0m        << endl;
-      out << temprun.run->input.z0h        << endl;
+      out << temprun.run->input.Ts         << Qt::endl;
+      out << temprun.run->input.Wl         << Qt::endl;
+      out << temprun.run->input.LAI        << Qt::endl;
+      out << temprun.run->input.gD         << Qt::endl;
+      out << temprun.run->input.rsmin      << Qt::endl;
+      out << temprun.run->input.alpha      << Qt::endl;
+      out << temprun.run->input.cveg       << Qt::endl;
+      out << temprun.run->input.Lambda     << Qt::endl;
+      out << temprun.run->input.z0m        << Qt::endl;
+      out << temprun.run->input.z0h        << Qt::endl;
       // END TAB3
 
       // TAB4
       // SOIL
-      out << temprun.run->input.T2         << endl;
-      out << temprun.run->input.Tsoil      << endl;
-      out << temprun.run->input.w2         << endl;
-      out << temprun.run->input.wg         << endl;
-      out << temprun.run->input.wsat       << endl;
-      out << temprun.run->input.wfc        << endl;
-      out << temprun.run->input.wwilt      << endl;
-      out << temprun.run->input.T2         << endl;
-      out << temprun.run->input.C1sat      << endl;
-      out << temprun.run->input.C2ref      << endl;
-      out << temprun.run->input.a          << endl;
-      out << temprun.run->input.b          << endl;
-      out << temprun.run->input.p          << endl;
-      out << temprun.run->input.CGsat      << endl;
+      out << temprun.run->input.T2         << Qt::endl;
+      out << temprun.run->input.Tsoil      << Qt::endl;
+      out << temprun.run->input.w2         << Qt::endl;
+      out << temprun.run->input.wg         << Qt::endl;
+      out << temprun.run->input.wsat       << Qt::endl;
+      out << temprun.run->input.wfc        << Qt::endl;
+      out << temprun.run->input.wwilt      << Qt::endl;
+      out << temprun.run->input.T2         << Qt::endl;
+      out << temprun.run->input.C1sat      << Qt::endl;
+      out << temprun.run->input.C2ref      << Qt::endl;
+      out << temprun.run->input.a          << Qt::endl;
+      out << temprun.run->input.b          << Qt::endl;
+      out << temprun.run->input.p          << Qt::endl;
+      out << temprun.run->input.CGsat      << Qt::endl;
       // END TAB4
 
       // TAB5
       // RADIATION
-      out << temprun.run->input.sw_rad     << endl;
-      out << temprun.run->input.doy        << endl;
-      out << temprun.run->input.lat        << endl;
-      out << temprun.run->input.lon        << endl;
-      out << temprun.run->input.tstart     << endl;
+      out << temprun.run->input.sw_rad     << Qt::endl;
+      out << temprun.run->input.doy        << Qt::endl;
+      out << temprun.run->input.lat        << Qt::endl;
+      out << temprun.run->input.lon        << Qt::endl;
+      out << temprun.run->input.tstart     << Qt::endl;
 
-      out << temprun.run->input.Q          << endl;
-      out << temprun.run->input.cc         << endl;
+      out << temprun.run->input.Q          << Qt::endl;
+      out << temprun.run->input.cc         << Qt::endl;
 
-      out << temprun.run->input.sw_cu      << endl;
-      out << temprun.run->input.sw_curad   << endl;
-      out << temprun.run->input.dFz        << endl;
+      out << temprun.run->input.sw_cu      << Qt::endl;
+      out << temprun.run->input.sw_curad   << Qt::endl;
+      out << temprun.run->input.dFz        << Qt::endl;
       // END TAB5
 
       // TAB 6 and 7
       // CHEMISTRY
-      out << temprun.run->input.sw_chem           << endl;
-      out << temprun.run->input.sw_chem_constant  << endl;
-      out << temprun.run->input.sw_photo_constant << endl;
-      out << temprun.run->input.csize             << endl;
-      out << temprun.run->input.rsize             << endl;
+      out << temprun.run->input.sw_chem           << Qt::endl;
+      out << temprun.run->input.sw_chem_constant  << Qt::endl;
+      out << temprun.run->input.sw_photo_constant << Qt::endl;
+      out << temprun.run->input.csize             << Qt::endl;
+      out << temprun.run->input.rsize             << Qt::endl;
 
       // store scalars
       for(int n=0; n<temprun.run->input.csize; n++)
       {
-        out << temprun.run->input.sc[n]      << endl;
-        out << temprun.run->input.dsc[n]     << endl;
-        out << temprun.run->input.gammasc[n] << endl;
-        out << temprun.run->input.advsc[n]   << endl;
-        out << temprun.run->input.wsc[n]     << endl;
-        out << temprun.run->input.sw_wsc[n]  << endl;
+        out << temprun.run->input.sc[n]      << Qt::endl;
+        out << temprun.run->input.dsc[n]     << Qt::endl;
+        out << temprun.run->input.gammasc[n] << Qt::endl;
+        out << temprun.run->input.advsc[n]   << Qt::endl;
+        out << temprun.run->input.wsc[n]     << Qt::endl;
+        out << temprun.run->input.sw_wsc[n]  << Qt::endl;
       }
 
       for(int n=0; n<temprun.run->input.rsize; n++)
-        out << temprun.run->input.sw_reactions[n] << endl;
+        out << temprun.run->input.sw_reactions[n] << Qt::endl;
 
-      out << temprun.run->input.P_ref             << endl;
-      out << temprun.run->input.Tcbl_ref          << endl;
-      out << temprun.run->input.Tfc_ref           << endl;
-      out << temprun.run->input.qcbl_ref          << endl;
-      out << temprun.run->input.qfc_ref           << endl;
-      out << temprun.run->input.tod_ref           << endl;
+      out << temprun.run->input.P_ref             << Qt::endl;
+      out << temprun.run->input.Tcbl_ref          << Qt::endl;
+      out << temprun.run->input.Tfc_ref           << Qt::endl;
+      out << temprun.run->input.qcbl_ref          << Qt::endl;
+      out << temprun.run->input.qfc_ref           << Qt::endl;
+      out << temprun.run->input.tod_ref           << Qt::endl;
 
-      out << temprun.run->input.stocoef           << endl;
+      out << temprun.run->input.stocoef           << Qt::endl;
     }
-    out << "#MXL# EOF" << endl;
+    out << "#MXL# EOF" << Qt::endl;
     std::cout << "Saving MXL session COMPLETE!" << std::endl;
 
     file.close();
@@ -1571,7 +1574,8 @@ void MainWindow::loadRuns()
         font = point->font(1);
         font.setItalic(true);
         point->setFont(1,font);
-        point->setTextColor(1,Qt::gray);
+        QBrush brush(Qt::red);
+        point->setForeground(0, brush);
 
         ui->modelRunTree->setCurrentItem(point);
 
