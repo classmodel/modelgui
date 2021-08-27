@@ -470,7 +470,8 @@ void plotwindow::deleterun(int num)
   QString id = QString::number(num,10);
   QTreeWidgetItem *del = ui->modelruntree->findItems(id,Qt::MatchExactly,0).value(0);
   delete del;
-  selectedruns->removeAt(selectedruns->indexOf(num));
+  if (selectedruns->contains(num))
+    selectedruns->removeAt(selectedruns->indexOf(num));
   plotar->update();
 }
 
