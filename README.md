@@ -50,6 +50,9 @@ After installing the required packages, calling:
 
 from the source directory of CLASS should compile the model.
 
+If you are working with Ubuntu for Windows, there are problems with connection to a display, try:
+https://techcommunity.microsoft.com/t5/modern-work-app-consult-blog/running-wsl-gui-apps-on-windows-10/ba-p/1493242
+
 In order to build the code on OS X without creating an Xcode project, call:
 
     qmake -spec macx-g++
