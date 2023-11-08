@@ -40,8 +40,7 @@ After installing QtCreator, open the CLASS project file (mlmodel_main.pro) in Qt
 #### Command line
 
 Without QtCreator installed, some additional packages are needed, e.g.
-* Ubuntu (10.04.2 LTS): g++ qt4-qmake libqt4-dev
-* OpenSUSE (11.4): libqt4-devel make
+* Ubuntu (20.04 LTS) or Mint (21): g++ qt5-qmake qtbase5-dev
 
 After installing the required packages, calling:
 
