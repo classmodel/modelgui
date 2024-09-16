@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>725</width>
-    <height>650</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,13 +25,13 @@
   <property name="maximumSize">
    <size>
     <width>725</width>
-    <height>650</height>
+    <height>750</height>
    </size>
   </property>
   <property name="baseSize">
    <size>
     <width>720</width>
-    <height>630</height>
+    <height>591</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -44,7 +44,7 @@
       <x>10</x>
       <y>10</y>
       <width>541</width>
-      <height>541</height>
+      <height>591</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -56,7 +56,7 @@
     <property name="minimumSize">
      <size>
       <width>70</width>
-      <height>410</height>
+      <height>510</height>
      </size>
     </property>
     <property name="maximumSize">
@@ -356,7 +356,7 @@
         <x>10</x>
         <y>260</y>
         <width>251</width>
-        <height>241</height>
+        <height>261</height>
        </rect>
       </property>
       <property name="title">
@@ -368,7 +368,7 @@
          <x>10</x>
          <y>10</y>
          <width>231</width>
-         <height>221</height>
+         <height>241</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="heat_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -805,7 +805,7 @@
         <x>270</x>
         <y>10</y>
         <width>251</width>
-        <height>231</height>
+        <height>251</height>
        </rect>
       </property>
       <property name="title">
@@ -817,7 +817,7 @@
          <x>10</x>
          <y>10</y>
          <width>231</width>
-         <height>213</height>
+         <height>233</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="ml_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
@@ -1205,7 +1205,7 @@
         <x>270</x>
         <y>260</y>
         <width>251</width>
-        <height>241</height>
+        <height>261</height>
        </rect>
       </property>
       <property name="title">
@@ -1217,7 +1217,7 @@
          <x>10</x>
          <y>10</y>
          <width>231</width>
-         <height>221</height>
+         <height>241</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="moisture_grid" columnstretch="1,0,1" columnminimumwidth="50,0,90">
